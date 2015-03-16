@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.acreat:viteloge/frontend"
+    "url": "https://github.com/donaldinou/frontend.git"
   },
   "keywords": [
     "viteloge"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "git@gitlab.acreat:viteloge/frontend"
+    "url": "https://github.com/donaldinou/frontend.git/issues"
   },
   "dependencies": {
     "grunt": "~0.4.5",
