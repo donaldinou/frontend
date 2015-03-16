@@ -1,0 +1,87 @@
+# Old compatibilities
+def_assets.php
+_def_assets.scss
+
+# Bootstrap
+/app/bootstrap.php/cache
+
+# Cache and logs (Old)
+/logs/*.txt
+/dump/*
+!dump/.gitkeep
+
+# Cache and logs (Symfony2)
+/app/cache/*
+/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+
+# Cache and logs (Symfony3)
+/var/cache/*
+/var/logs/*
+!var/cache/.gitkeep
+!var/logs/.gitkeep
+
+# Parameters
+/app/config/parameters.yml
+/app/config/parameters.ini
+
+# Managed by Composer
+/app/bootstrap.php.cache
+/var/bootstrap.php.cache
+/build/*
+/bin/*
+!bin/console
+!bin/symfony_requirements
+/vendor/
+
+# Assets and user uploads
+/web/bundles/
+/web/uploads/
+
+# PHPUnit
+/app/phpunit.xml
+/phpunit.xml
+
+# Composer PHAR
+/composer.phar
+/composer.lock
+
+# npm & Bower
+/node_modules
+/bower_components
+/npm-debug.log
+/app/components
+
+# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Sass & Compass
+.sass-cache
+*.css.map
+
+# Sublime project
+*.tmplanguage.cache
+*.tmpPreferences.cache
+*.stTheme.cache
+*.sublime-project
+*.sublime-workspace
+
+# Swap & temp files
+*~
+*.tmp
+*.bak
+*.swp
+.*.kate-swp
+.swp.*
+.metadata
+.directory
+.project
+local.properties
+.settings/
+.loadpath
+*.kdev4
+.kdev4/
+.vagrant/
+/test
+/tests

@@ -1,0 +1,41 @@
+{
+  "name": "Viteloge",
+  "version": "2.0.0",
+  "authors": [
+    "Adrien Loyant <loyant@acreat.com>"
+  ],
+  "description": "Housing search engine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error no test specified\" && exit1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.acreat:viteloge/frontend"
+  },
+  "keywords": [
+    "viteloge"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "git@gitlab.acreat:viteloge/frontend"
+  },
+  "dependencies": {
+    "grunt": "~0.4.5",
+    "grunt-symlink": "~0.4.0",
+    "grunt-bowercopy": "~1.2.0",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-concat": "~0.5.1",
+    "grunt-contrib-compass": "~1.0.1",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-cssmin": "~0.12.2",
+    "grunt-contrib-copy": "~0.8.0",
+    "grunt-contrib-uglify": "~0.8.0",
+    "grunt-contrib-jshint": "~0.11.0",
+    "load-grunt-tasks": "~3.1.0",
+    "grunt-s3": "~0.2.0-alpha.3"
+  },
+  "devDependencies": {
+    "grunt-dart2js": "0.0.5"
+  }
+}

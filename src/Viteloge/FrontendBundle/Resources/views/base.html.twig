@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="{{ app.request.getLocale() }}"><!--manifest="viteloge.appcache"-->
+
+    <!-- block head -->
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}{{ 'Fast Housing' | trans }}{% endblock %}</title>
+
+        {% block head_meta %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="MobileOptimized" content="320">
+        <meta name="HandheldFriendly" content="True">
+        {% endblock %}
+
+        {% block head_icon %}
+        <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {% endblock %}
+
+        {% block head_stylesheets %}
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/viteloge.css">
+        {% endblock %}
+
+        {% block head_javascripts %}
+        <script src="js/modernizr.min.js"></script>
+        {% endblock %}
+    </head>
+
+    <body class="body">
+    {% block body %}
+        <header class="header banner" role="banner">
+        {% block header %}
+        {% endblock %}
+        </header>
+        <main class="main" role="main">
+        {% block main %}
+
+        {% endblock %}
+        </main>
+        <footer data-role="footer">
+        {% block footer %}
+        {% endblock %}
+        </footer>
+    {% endblock %}
+    {% block javascripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="js/carousel.bootstrap.js"></script>
+        <script src="js/viteloge.js"></script>
+        <script src="js/viteloge.jquery.js"></script>
+    {% endblock %}
+    </body>
+
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Viteloge\CoreBundle\Entity\Account" table="accounts" repository-class="Viteloge\CoreBundle\Repository\AccountRepository">
+    <unique-constraints>
+      <unique-constraint name="UNIQ_CAC89EAC92FC23A8" columns="username_canonical"/>
+      <unique-constraint name="UNIQ_CAC89EACA0D96FBF" columns="email_canonical"/>
+      <unique-constraint name="email_unique" columns="email"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="username" type="string" column="username" length="255" nullable="false"/>
+    <field name="usernameCanonical" type="string" column="username_canonical" length="255" nullable="false"/>
+    <field name="email" type="string" column="email" length="255" nullable="false"/>
+    <field name="emailCanonical" type="string" column="email_canonical" length="255" nullable="false"/>
+    <field name="enabled" type="boolean" column="enabled" nullable="false"/>
+    <field name="salt" type="string" column="salt" length="255" nullable="false"/>
+    <field name="password" type="string" column="password" length="255" nullable="false"/>
+    <field name="lastLogin" type="datetime" column="last_login" nullable="true"/>
+    <field name="locked" type="boolean" column="locked" nullable="false"/>
+    <field name="expired" type="boolean" column="expired" nullable="false"/>
+    <field name="expiresAt" type="datetime" column="expires_at" nullable="true"/>
+    <field name="confirmationToken" type="string" column="confirmation_token" length="255" nullable="true"/>
+    <field name="passwordRequestedAt" type="datetime" column="password_requested_at" nullable="true"/>
+    <field name="roles" type="array" column="roles" nullable="false"/>
+    <field name="credentialsExpired" type="boolean" column="credentials_expired" nullable="false"/>
+    <field name="credentialsExpireAt" type="datetime" column="credentials_expire_at" nullable="true"/>
+    <field name="civility" type="string" column="civilite" length="5" nullable="true"/>
+    <field name="firstname" type="string" column="firstName" length="255" nullable="true"/>
+    <field name="lastname" type="string" column="lastName" length="255" nullable="true"/>
+    <field name="phone" type="string" column="phone" length="25" nullable="true"/>
+    <field name="createdAt" type="datetime" column="created_at" nullable="false"/>
+    <field name="isPartner" type="boolean" column="partenaires" nullable="false"/>
+    <field name="isInternalMailDisabled" type="boolean" column="disable_internal_emails" nullable="false"/>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,3 @@
+acreat_insee_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: AcreatInseeBundle:Default:index }

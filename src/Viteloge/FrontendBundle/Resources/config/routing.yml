@@ -1,0 +1,91 @@
+viteloge_frontend_homepage:
+    path: /
+    defaults: { _controller: VitelogeFrontendBundle:Default:index }
+
+viteloge_frontend_about:
+    path: /about
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'VitelogeFrontendBundle:Static:about.html.twig'
+        maxAge: 86400
+        sharedAge: 86400
+
+viteloge_frontend_why:
+    path: /why
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'VitelogeFrontendBundle:Static:why.html.twig'
+        maxAge: 86400
+        sharedAge: 86400
+
+viteloge_frontend_ad:
+    path: /ad
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'VitelogeFrontendBundle:Static:ad.html.twig'
+        maxAge: 86400
+        sharedAge: 86400
+
+viteloge_frontend_contactus:
+    path: /contact-us
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'VitelogeFrontendBundle:Static:contact-us.html.twig'
+        maxAge: 86400
+        sharedAge: 86400
+
+viteloge_frontend_recommand:
+    path: /recommand
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'VitelogeFrontendBundle:Static:recommand.html.twig'
+        maxAge: 86400
+        sharedAge: 86400
+
+viteloge_frontend_subscribe:
+    path: /subscribe
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'VitelogeFrontendBundle:Static:subscribe.html.twig'
+        maxAge: 86400
+        sharedAge: 86400
+
+viteloge_frontend_register:
+    path: /register
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'VitelogeFrontendBundle:Static:register.html.twig'
+        maxAge: 86400
+        sharedAge: 86400
+
+viteloge_frontend_apiform:
+    path: /apiform
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'VitelogeFrontendBundle:Static:apiform.html.twig'
+        maxAge: 86400
+        sharedAge: 86400
+
+viteloge_frontend_gtc:
+    path: /gtc
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'VitelogeFrontendBundle:Static:gtc.html.twig'
+        maxAge: 86400
+        sharedAge: 86400
+
+viteloge_frontend_privacy:
+    path: /privacy
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'VitelogeFrontendBundle:Static:privacy.html.twig'
+        maxAge: 86400
+        sharedAge: 86400
+
+viteloge_frontend_sitemap:
+    path: /sitemap
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'VitelogeFrontendBundle:Static:privacy.html.twig'
+        maxAge: 86400
+        sharedAge: 86400

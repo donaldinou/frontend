@@ -1,0 +1,4 @@
+services:
+#    acreat_core.example:
+#        class: Acreat\CoreBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

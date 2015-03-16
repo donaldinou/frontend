@@ -1,0 +1,24 @@
+{
+    "name": "Viteloge",
+    "version": "2.0.0",
+    "homepage": "http://www.viteloge.com",
+    "authors": [
+        "Adrien Loyant <loyant@acreat.com>"
+    ],
+    "description": "Housing search engine",
+    "keywords": [
+        "viteloge"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "app/components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "jquery": "~2.1.1"
+    }
+}

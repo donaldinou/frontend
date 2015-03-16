@@ -1,0 +1,3 @@
+viteloge_glossary_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: VitelogeGlossaryBundle:Default:index }
