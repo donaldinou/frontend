@@ -609,4 +609,3 @@ namespace Viteloge\CoreBundle\Entity {
 
 
 }
-

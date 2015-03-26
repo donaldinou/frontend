@@ -249,5 +249,3 @@ namespace Viteloge\CoreBundle\Entity {
 
 
 }
-
-

@@ -402,5 +402,3 @@ namespace Viteloge\CoreBundle\Entity {
 
 
 }
-
-
