@@ -1,0 +1,72 @@
+{% form_theme form with ['VitelogeFrontendBundle:Form:fields.html.twig'] %}
+
+
+{{ form_start(form, {'attr': {'enctype': 'application/x-www-form-urlencoded','class': 'search', 'role': 'search', 'novalidate': 'novalidate'}}) }}
+    {{ form_errors(form) }}
+    {{ form_widget(form.transaction) }}
+    <fieldset class="bg-darken text-left" role="tabpanel">
+        {{ form_row(form.price) }}
+        {{ form_widget(form.search) }}
+    </fieldset>
+{{ form_end(form) }}
+
+
+<form name="search" action="/" method="post" enctype="application/x-www-form-urlencoded" class="search" role="search">
+            <fieldset class="tablist bg-transparent" role="tablist">
+                <div class="tab" data-role="tab">
+                    <input class="hidden" type="radio" id="form-type-rent" name="type" value="0" checked="checked">
+                    <label class="text-upper" for="form-type-rent">{% trans %}Rent{% endtrans %}</label>
+                </div>
+                <div class="tab" data-role="tab">
+                    <input class="hidden" type="radio" id="form-type-sale" name="type" value="1">
+                    <label class="text-upper" for="form-type-sale">{% trans %}Sale{% endtrans %}</label>
+                </div>
+                <div class="tab" data-role="tab">
+                    <input class="hidden" type="radio" id="form-type-new" name="type" value="2">
+                    <label class="text-upper" for="form-type-new">{% trans %}New{% endtrans %}</label>
+                </div>
+                <div class="clearfix"></div>
+            </fieldset>
+            <fieldset class="bg-darken text-left" role="tabpanel">
+                <div class="row">
+                    <div class="col-md-4">
+                        <input class="" type="text" list="where" placeholder="{% trans %}Where{% endtrans %} ?" autocomplete="off" spellcheck="off" maxlength="100">
+                        <datalist id="where">
+                            <option value="Paris">Paris</option>
+                            <option value="Rennes">Rennes</option>
+                            <option value="Laval">Laval</option>
+                            <option value="Lorient">Lorient</option>
+                            <option value="Macao">Macao</option>
+                        </datalist>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="">
+                            <option value="" selected="selected">{% trans %}What{% endtrans %} ?</option>
+                            <option value="A">Appartement</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="">
+                            <option value="" selected="selected">{% trans %}Rooms number{% endtrans %} ?</option>
+                            <option>1</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input class="" type="text" value="" placeholder="{% trans %}Rental{% endtrans %} {% trans %}minimum{% endtrans %}" maxlength="10">
+                    </div>
+                    <div class="col-md-4">
+                        <input class="" type="text" value="" placeholder="{% trans %}Rental{% endtrans %} {% trans %}maximum{% endtrans %}" maxlength="10">
+                    </div>
+                    <div class="col-md-4">
+                        <input class="" type="submit" value="{% trans %}Search{% endtrans %}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <a id="see-more" href="#search-more">{% trans %}Advanced search{% endtrans %}</a>
+                    </div>
+                </div>
+            </fieldset>
+        </form>

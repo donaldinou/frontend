@@ -1,6 +1,10 @@
-viteloge_frontend_homepage:
-    path: /
-    defaults: { _controller: VitelogeFrontendBundle:Default:index }
+viteloge_frontend_ad:
+    resource: "@VitelogeFrontendBundle/Controller/AdController.php"
+    type: annotation
+
+viteloge_frontend_default:
+    resource: "@VitelogeFrontendBundle/Controller/DefaultController.php"
+    type: annotation
 
 viteloge_frontend_about:
     path: /about
@@ -9,6 +13,8 @@ viteloge_frontend_about:
         template: 'VitelogeFrontendBundle:Static:about.html.twig'
         maxAge: 86400
         sharedAge: 86400
+    requirements:
+        _method: GET
 
 viteloge_frontend_why:
     path: /why
@@ -17,6 +23,8 @@ viteloge_frontend_why:
         template: 'VitelogeFrontendBundle:Static:why.html.twig'
         maxAge: 86400
         sharedAge: 86400
+    requirements:
+        _method: GET
 
 viteloge_frontend_ad:
     path: /ad
@@ -25,6 +33,8 @@ viteloge_frontend_ad:
         template: 'VitelogeFrontendBundle:Static:ad.html.twig'
         maxAge: 86400
         sharedAge: 86400
+    requirements:
+        _method: GET
 
 viteloge_frontend_contactus:
     path: /contact-us
@@ -33,6 +43,8 @@ viteloge_frontend_contactus:
         template: 'VitelogeFrontendBundle:Static:contact-us.html.twig'
         maxAge: 86400
         sharedAge: 86400
+    requirements:
+        _method: GET
 
 viteloge_frontend_recommand:
     path: /recommand
@@ -41,6 +53,8 @@ viteloge_frontend_recommand:
         template: 'VitelogeFrontendBundle:Static:recommand.html.twig'
         maxAge: 86400
         sharedAge: 86400
+    requirements:
+        _method: GET
 
 viteloge_frontend_subscribe:
     path: /subscribe
@@ -49,6 +63,8 @@ viteloge_frontend_subscribe:
         template: 'VitelogeFrontendBundle:Static:subscribe.html.twig'
         maxAge: 86400
         sharedAge: 86400
+    requirements:
+        _method: GET
 
 viteloge_frontend_register:
     path: /register
@@ -57,6 +73,8 @@ viteloge_frontend_register:
         template: 'VitelogeFrontendBundle:Static:register.html.twig'
         maxAge: 86400
         sharedAge: 86400
+    requirements:
+        _method: GET
 
 viteloge_frontend_apiform:
     path: /apiform
@@ -65,6 +83,8 @@ viteloge_frontend_apiform:
         template: 'VitelogeFrontendBundle:Static:apiform.html.twig'
         maxAge: 86400
         sharedAge: 86400
+    requirements:
+        _method: GET
 
 viteloge_frontend_gtc:
     path: /gtc
@@ -73,6 +93,8 @@ viteloge_frontend_gtc:
         template: 'VitelogeFrontendBundle:Static:gtc.html.twig'
         maxAge: 86400
         sharedAge: 86400
+    requirements:
+        _method: GET
 
 viteloge_frontend_privacy:
     path: /privacy
@@ -81,6 +103,8 @@ viteloge_frontend_privacy:
         template: 'VitelogeFrontendBundle:Static:privacy.html.twig'
         maxAge: 86400
         sharedAge: 86400
+    requirements:
+        _method: GET
 
 viteloge_frontend_sitemap:
     path: /sitemap
@@ -89,3 +113,5 @@ viteloge_frontend_sitemap:
         template: 'VitelogeFrontendBundle:Static:privacy.html.twig'
         maxAge: 86400
         sharedAge: 86400
+    requirements:
+        _method: GET

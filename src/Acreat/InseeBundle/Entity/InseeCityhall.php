@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * InseeCityhall
  *
  * @ORM\Table(name="insee_mairies", indexes={@ORM\Index(name="population", columns={"population"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Acreat\InseeBundle\Repository\InseeCityhallRepository")
  */
 class InseeCityhall
 {
@@ -102,7 +102,7 @@ class InseeCityhall
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -125,7 +125,7 @@ class InseeCityhall
     /**
      * Get postalcode
      *
-     * @return string 
+     * @return string
      */
     public function getPostalcode()
     {
@@ -148,7 +148,7 @@ class InseeCityhall
     /**
      * Get city
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
@@ -171,7 +171,7 @@ class InseeCityhall
     /**
      * Get phone
      *
-     * @return string 
+     * @return string
      */
     public function getPhone()
     {
@@ -194,7 +194,7 @@ class InseeCityhall
     /**
      * Get fax
      *
-     * @return string 
+     * @return string
      */
     public function getFax()
     {
@@ -217,7 +217,7 @@ class InseeCityhall
     /**
      * Get mail
      *
-     * @return string 
+     * @return string
      */
     public function getMail()
     {
@@ -240,7 +240,7 @@ class InseeCityhall
     /**
      * Get url
      *
-     * @return string 
+     * @return string
      */
     public function getUrl()
     {
@@ -263,7 +263,7 @@ class InseeCityhall
     /**
      * Get mayor
      *
-     * @return string 
+     * @return string
      */
     public function getMayor()
     {
@@ -286,7 +286,7 @@ class InseeCityhall
     /**
      * Get population
      *
-     * @return integer 
+     * @return integer
      */
     public function getPopulation()
     {
@@ -296,7 +296,7 @@ class InseeCityhall
     /**
      * Get cityId
      *
-     * @return string 
+     * @return string
      */
     public function getCityId()
     {

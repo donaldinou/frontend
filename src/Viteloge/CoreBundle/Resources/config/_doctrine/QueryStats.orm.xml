@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Viteloge\CoreBundle\Entity\QueryStats" table="query_stats" repository-class="Viteloge\CoreBundle\Repository\QueryStatsRepository">
+    <indexes>
+      <index name="keywords" columns="keywords"/>
+      <index name="transaction" columns="transaction"/>
+      <index name="type" columns="type"/>
+      <index name="rooms" columns="pieces"/>
+      <index name="cityId" columns="insee"/>
+      <index name="dpt" columns="dpt"/>
+      <index name="stateId" columns="region"/>
+      <index name="count" columns="count"/>
+      <index name="urlrewrite" columns="urlrewrite"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="md5" columns="md5"/>
+    </unique-constraints>
+    <id name="idquery" type="integer" column="idQuery">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="md5" type="string" column="md5" length="255" nullable="false"/>
+    <field name="keywords" type="string" column="keywords" length="255" nullable="false"/>
+    <field name="urlrewrite" type="string" column="urlrewrite" length="255" nullable="false"/>
+    <field name="transaction" type="string" column="transaction" length="1" nullable="true"/>
+    <field name="type" type="string" column="type" length="50" nullable="true"/>
+    <field name="pieces" type="integer" column="pieces" nullable="true"/>
+    <!--<field name="cityId" type="string" column="insee" length="5" nullable="false"/>-->
+    <many-to-one field="inseeCity" target-entity="Acreat\InseeBundle\Entity\InseeCity">
+      <join-columns>
+        <join-column name="insee" referenced-column-name="codeInsee"/>
+      </join-columns>
+    </many-to-one>
+    <!--<field name="departmentId" type="smallint" column="dpt" nullable="true"/>-->
+    <many-to-one field="inseeDepartment" target-entity="Acreat\InseeBundle\Entity\inseeDepartment">
+      <join-columns>
+        <join-column name="dpt" referenced-column-name="DEP"/>
+      </join-columns>
+    </many-to-one>
+    <field name="stateId" type="smallint" column="region" nullable="true"/>
+    <field name="count" type="integer" column="count" nullable="false"/>
+    <field name="timestamp" type="integer" column="timestamp" nullable="false"/>
+    <field name="realSearch" type="string" column="real_search" length="255" nullable="true"/>
+  </entity>
+</doctrine-mapping>

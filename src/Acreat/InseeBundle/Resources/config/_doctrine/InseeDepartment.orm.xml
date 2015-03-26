@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Acreat\InseeBundle\Entity\InseeDepartment" table="insee_departements" repository-class="Acreat\InseeBundle\Repository\InseeDepartmentRepository">
+    <indexes>
+      <index name="stateId" columns="REGION"/>
+      <index name="cityId" columns="CHEFLIEU"/>
+    </indexes>
+    <id name="id" type="string" column="DEP" length="3">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <!--<field name="stateId" type="string" column="REGION" length="2" nullable="true"/>-->
+    <many-to-one field="inseeState" target-entity="InseeState">
+      <join-columns>
+        <join-column name="REGION" referenced-column-name="REGION"/>
+      </join-columns>
+    </many-to-one>
+    <!--<field name="inseeCapitalId" type="string" column="CHEFLIEU" length="5" nullable="true"/>-->
+    <many-to-one field="inseeCapital" target-entity="InseeCity">
+      <join-columns>
+        <join-column name="CHEFLIEU" referenced-column-name="codeInsee"/>
+      </join-columns>
+    </many-to-one>
+    <field name="prefix" type="string" column="TNCC" length="1" nullable="true"/>
+    <field name="uname" type="string" column="NCC" length="70" nullable="true"/>
+    <field name="name" type="string" column="NCCENR" length="70" nullable="true"/>
+  </entity>
+</doctrine-mapping>

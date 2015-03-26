@@ -1,0 +1,14 @@
+<li class="item" data-role="item">
+    <p class="pull-left">
+        <strong>{{ websearch.search.firstname }}</strong> {% trans %}search{% endtrans %}
+        <a href="search.html">
+            <span>{{ websearch.search.transaction }}</span>
+            <span>{{ websearch.search.type }}</span>
+            <span>{% transchoice websearch.search.rooms with {'%count%': websearch.search.rooms} %}count.rooms{% endtranschoice %}</span>
+            {% trans %}from{% endtrans %} <span>200 000</span> {% trans %}to{% endtrans %} <span>250 000</span> €
+        </a>
+        {% trans %}in {% endtrans %}<span>{{ websearch.search.postalcode }}</span>
+    </p>
+    <span class="button pull-right">{{ websearch.updatedAt|time_diff|trans }}</span>
+    <span class="clearfix"></span>
+</li>

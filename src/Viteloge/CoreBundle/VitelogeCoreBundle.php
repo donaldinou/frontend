@@ -1,9 +1,11 @@
 <?php
 
-namespace Viteloge\CoreBundle;
+namespace Viteloge\CoreBundle {
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+    use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class VitelogeCoreBundle extends Bundle
-{
+    class VitelogeCoreBundle extends Bundle
+    {
+    }
+
 }

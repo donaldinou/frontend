@@ -1,0 +1,8 @@
+<section class="highlighting text-center">
+    <div class="container">
+        <h3 class="text-upper">{% trans %}Properties for rent near you{% endtrans %}</h3>
+        {% for ad in ads %}
+            {{ include('VitelogeFrontendBundle:Ad:ad.html.twig', { 'ad': ad }) }}
+        {% endfor %}
+    </div>
+</section>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Viteloge\CoreBundle\Entity\InseeVitelogeStats" table="insee_viteloge_stats" repository-class="Viteloge\CoreBundle\Repository\InseeVitelogeStatsRepository">
+    <indexes>
+      <index name="count" columns="count"/>
+      <index name="count_priv" columns="count_priv"/>
+      <index name="codeDepartement" columns="departement"/>
+      <index name="codeRegion" columns="region"/>
+    </indexes>
+    <!--<id name="cityId" type="string" column="insee" length="5"/>-->
+    <many-to-one field="inseeCity" target-entity="Acreat\InseeBundle\Entity\InseeCity">
+      <join-columns>
+        <join-column name="insee" referenced-column-name="codeInsee"/>
+      </join-columns>
+    </many-to-one>
+    <id name="transaction" type="string" column="transaction" length="1"/>
+    <id name="type" type="string" column="type" length="1"/>
+    <!--<field name="departementId" type="string" column="departement" length="3" nullable="false"/>-->
+    <many-to-one field="inseeDepartement" target-entity="Acreat\InseeBundle\Entity\InseeDepartement">
+      <join-columns>
+        <join-column name="departement" referenced-column-name="DEP"/>
+      </join-columns>
+    </many-to-one>
+    <!--<field name="stateId" type="string" column="region" length="2" nullable="false"/>-->
+    <many-to-one field="inseeState" target-entity="Acreat\InseeBundle\Entity\InseeState">
+      <join-columns>
+        <join-column name="region" referenced-column-name="REGION"/>
+      </join-columns>
+    </many-to-one>
+    <field name="count" type="integer" column="count" nullable="false"/>
+    <field name="countPriv" type="integer" column="count_priv" nullable="false"/>
+  </entity>
+</doctrine-mapping>

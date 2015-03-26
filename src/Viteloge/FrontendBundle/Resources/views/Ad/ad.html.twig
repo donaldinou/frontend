@@ -1,0 +1,13 @@
+<figure class="estate">
+    <div class="estate-images center-block">
+        <img src="{{ 'http://img.viteloge.com/' ~ ad.photo }}" class="estate-preview" alt="image">
+        <img src="{{ 'http://img.viteloge.com/logos/agence.' ~ ad.agencyId ~ '.gif' }}" class="agency-logo" alt="logo">
+    </div>
+    <figcaption class="estate-legend">
+        <h4 class="title"><span>{{ ad.type | trans }}</span><br> à <span>{{ ad.cityName }}</span> (<span>{{ ad.postalcode }}</span>)</h4>
+        <p class="description" data-role="description">
+            <span>{{ ad.rooms }} {% trans %}rooms{% endtrans %}</span><span class="vr"></span><span>{{ ad.rooms }} {% trans %}bedrooms{% endtrans %}</span><span class="vr"></span><span>{{ ad.surface }} m²</span>
+        </p>
+        <span class="price">{{ ad.price | localizedcurrency('EUR') }}</span>
+    </figcaption>
+</figure>

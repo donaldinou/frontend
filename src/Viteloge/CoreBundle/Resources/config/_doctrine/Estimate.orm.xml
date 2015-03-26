@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Viteloge\CoreBundle\Entity\Estimate" table="estimations" repository-class="Viteloge\CoreBundle\Repository\EstimateRepository">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="data" type="jsonarray" column="data" nullable="true"/>
+    <field name="lastname" type="string" column="nom" length="255" nullable="true"/>
+    <field name="firstname" type="string" column="prenom" length="255" nullable="true"/>
+    <field name="mail" type="string" column="mail" length="255" nullable="true"/>
+    <field name="phone" type="string" column="tel" length="255" nullable="true"/>
+    <field name="type" type="string" column="type" length="1" nullable="false"/>
+    <field name="isAgencyRequest" type="boolean" column="demande_agence" nullable="false"/>
+    <!--<field name="CityId" type="string" column="code_insee" length="5" nullable="false"/>-->
+    <many-to-one field="inseeCity" target-entity="Acreat\InseeBundle\Entity\InseeCity">
+      <join-columns>
+        <join-column name="code_insee" referenced-column-name="codeInsee"/>
+      </join-columns>
+    </many-to-one>
+    <field name="createdAt" type="datetime" column="created_at" nullable="false"/>
+  </entity>
+</doctrine-mapping>

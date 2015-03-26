@@ -1,321 +1,44 @@
 {% extends 'VitelogeFrontendBundle::base.html.twig' %}
 
+{% block title %}
+    {% trans %}Fast Housing{% endtrans %}
+{% endblock %}
+
+{% block head_javascript_requirejs %}
+    {{ include('VitelogeFrontendBundle:misc:requirejs.html.twig', { 'module': 'app/homepage.js' }) }}
+{% endblock %}
+
 {% block header %}
 <div class="container">
     <a class="" href="./">
-        <img src="img/viteloge_logo.png" class="logo" alt="viteloge" data-role="logo">
+        <img src="{{ asset('bundles/frontendbundle/images/common/logo.png') }}" class="logo" alt="viteloge" data-role="logo">
     </a>
     <nav class="navigation pull-right" role="navigation">
         <ul>
-            <li><a href="inscription.html" class="">Inscription</a></li>
-            <li><a href="connexion.html">Connexion</a></li>
+            <li><a href="user/login{#{{ path('viteloge_user_homepage') }}#}" class="">{% trans %}Registration{% endtrans %}</a></li>
+            <li><a href="connexion.html">{% trans %}Connection{% endtrans %}</a></li>
         </ul>
     </nav>
     <div class="cleafix"></div>
     <div class="forward text-center">
         <h1 class="text-upper">Nam nec tellus a odio tincidunt</h1>
-        <h2 class="text-upper">Aujourd'hui, <strong>603 081 biens</strong> à jour !</h2>
-        <form name="search" action="/" method="post" enctype="application/x-www-form-urlencoded" class="search" role="search">
-            <fieldset class="tablist bg-transparent" role="tablist">
-                <div class="tab" data-role="tab">
-                    <input class="hidden" type="radio" id="form-type-rent" name="type" value="0" checked="checked">
-                    <label class="text-upper" for="form-type-rent">Location</label>
-                </div>
-                <div class="tab" data-role="tab">
-                    <input class="hidden" type="radio" id="form-type-sale" name="type" value="1">
-                    <label class="text-upper" for="form-type-sale">Vente</label>
-                </div>
-                <div class="tab" data-role="tab">
-                    <input class="hidden" type="radio" id="form-type-new" name="type" value="2">
-                    <label class="text-upper" for="form-type-new">Neuf</label>
-                </div>
-                <div class="clearfix"></div>
-            </fieldset>
-            <fieldset class="bg-darken text-left" role="tabpanel">
-                <div class="row">
-                    <div class="col-md-4">
-                        <input class="" type="text" list="where" placeholder="Où ?" autocomplete="off" spellcheck="off" maxlength="100">
-                        <datalist id="where">
-                            <option value="Paris">Paris</option>
-                            <option value="Rennes">Rennes</option>
-                            <option value="Laval">Laval</option>
-                            <option value="Lorient">Lorient</option>
-                            <option value="Macao">Macao</option>
-                        </datalist>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="">
-                            <option value="" selected="selected">Quoi ?</option>
-                            <option value="A">Appartement</option>
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <select class="">
-                            <option value="" selected="selected">Nombre de pièces ?</option>
-                            <option>1</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <input class="" type="text" value="" placeholder="Loyer minimum" maxlength="10">
-                    </div>
-                    <div class="col-md-4">
-                        <input class="" type="text" value="" placeholder="Loyer maximum" maxlength="10">
-                    </div>
-                    <div class="col-md-4">
-                        <input class="" type="submit" value="Rechercher">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <a id="see-more" href="#search-more">Recherche avancée</a>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
+        <h2 class="text-upper">
+            {% set count = '603 081' %}
+            {% transchoice count with {'%count%': count} %}
+                today.properties.update.count
+            {% endtranschoice %} !
+        </h2>
+        {{ include('VitelogeFrontendBundle:Form:ad.html.twig') }}
     </div>
 </div>
 {% endblock %}
 
 {% block main %}
-<section class="highlighting text-center">
-    <div class="container">
-        <h3 class="text-upper">Biens à la location pres de chez vous</h3>
-        <div id="carousel-home" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner estates" role="listbox">
-                <div class="item clearfix active">
-                    <figure class="estate">
-                        <div class="estate-images center-block">
-                            <img src="img/slide.jpg" class="estate-preview" alt="image">
-                            <img src="img/giboire_logo.png" class="agency-logo" alt="logo">
-                        </div>
-                        <figcaption class="estate-legend">
-                            <h4 class="title"><span>Appartement</span><br> à <span>Rennes</span> (<span>35000</span>)</h4>
-                            <p class="description" data-role="description">
-                                <span>5 pièces</span><span class="vr"></span><span>3 chambres</span><span class="vr"></span><span>120m²</span>
-                            </p>
-                            <span class="price">600,00 €</span>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="item clearfix">
-                    <figure class="estate">
-                        <div class="estate-images center-block">
-                            <img src="img/slide.jpg" class="estate-preview" alt="image">
-                            <img src="img/giboire_logo.png" class="agency-logo" alt="logo">
-                        </div>
-                        <figcaption class="estate-legend">
-                            <h4 class="title"><span>Appartement</span><br> à <span>Rennes</span> (<span>35000</span>)</h4>
-                            <p class="description" data-role="description">
-                                <span>5 pièces</span><span class="vr"></span><span>3 chambres</span><span class="vr"></span><span>120m²</span>
-                            </p>
-                            <span class="price">601,00 €</span>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="item clearfix">
-                    <figure class="estate">
-                        <div class="estate-images center-block">
-                            <img src="img/slide.jpg" class="estate-preview" alt="image">
-                            <img src="img/giboire_logo.png" class="agency-logo" alt="logo">
-                        </div>
-                        <figcaption class="estate-legend">
-                            <h4 class="title"><span>Appartement</span><br> à <span>Rennes</span> (<span>35000</span>)</h4>
-                            <p class="description" data-role="description">
-                                <span>5 pièces</span><span class="vr"></span><span>3 chambres</span><span class="vr"></span><span>120m²</span>
-                            </p>
-                            <span class="price">602,00 €</span>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="item clearfix">
-                    <figure class="estate">
-                        <div class="estate-images center-block">
-                            <img src="img/slide.jpg" class="estate-preview" alt="image">
-                            <img src="img/giboire_logo.png" class="agency-logo" alt="logo">
-                        </div>
-                        <figcaption class="estate-legend">
-                            <h4 class="title"><span>Appartement</span><br> à <span>Rennes</span> (<span>35000</span>)</h4>
-                            <p class="description" data-role="description">
-                                <span>5 pièces</span><span class="vr"></span><span>3 chambres</span><span class="vr"></span><span>120m²</span>
-                            </p>
-                            <span class="price">603,00 €</span>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="item clearfix">
-                    <figure class="estate">
-                        <div class="estate-images center-block">
-                            <img src="img/slide.jpg" class="estate-preview" alt="image">
-                            <img src="img/giboire_logo.png" class="agency-logo" alt="logo">
-                        </div>
-                        <figcaption class="estate-legend">
-                            <h4 class="title"><span>Appartement</span><br> à <span>Rennes</span> (<span>35000</span>)</h4>
-                            <p class="description" data-role="description">
-                                <span>5 pièces</span><span class="vr"></span><span>3 chambres</span><span class="vr"></span><span>120m²</span>
-                            </p>
-                            <span class="price">604,00 €</span>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="item clearfix">
-                    <figure class="estate">
-                        <div class="estate-images center-block">
-                            <img src="img/slide.jpg" class="estate-preview" alt="image">
-                            <img src="img/giboire_logo.png" class="agency-logo" alt="logo">
-                        </div>
-                        <figcaption class="estate-legend">
-                            <h4 class="title"><span>Appartement</span><br> à <span>Rennes</span> (<span>35000</span>)</h4>
-                            <p class="description" data-role="description">
-                                <span>5 pièces</span><span class="vr"></span><span>3 chambres</span><span class="vr"></span><span>120m²</span>
-                            </p>
-                            <span class="price">605,00 €</span>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="item clearfix">
-                    <figure class="estate">
-                        <div class="estate-images center-block">
-                            <img src="img/slide.jpg" class="estate-preview" alt="image">
-                            <img src="img/giboire_logo.png" class="agency-logo" alt="logo">
-                        </div>
-                        <figcaption class="estate-legend">
-                            <h4 class="title"><span>Appartement</span><br> à <span>Rennes</span> (<span>35000</span>)</h4>
-                            <p class="description" data-role="description">
-                                <span>5 pièces</span><span class="vr"></span><span>3 chambres</span><span class="vr"></span><span>120m²</span>
-                            </p>
-                            <span class="price">606,00 €</span>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="item clearfix">
-                    <figure class="estate">
-                        <div class="estate-images center-block">
-                            <img src="img/slide.jpg" class="estate-preview" alt="image">
-                            <img src="img/giboire_logo.png" class="agency-logo" alt="logo">
-                        </div>
-                        <figcaption class="estate-legend">
-                            <h4 class="title"><span>Appartement</span><br> à <span>Rennes</span> (<span>35000</span>)</h4>
-                            <p class="description" data-role="description">
-                                <span>5 pièces</span><span class="vr"></span><span>3 chambres</span><span class="vr"></span><span>120m²</span>
-                            </p>
-                            <span class="price">607,00 €</span>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="item clearfix">
-                    <figure class="estate">
-                        <div class="estate-images center-block">
-                            <img src="img/slide.jpg" class="estate-preview" alt="image">
-                            <img src="img/giboire_logo.png" class="agency-logo" alt="logo">
-                        </div>
-                        <figcaption class="estate-legend">
-                            <h4 class="title"><span>Appartement</span><br> à <span>Rennes</span> (<span>35000</span>)</h4>
-                            <p class="description" data-role="description">
-                                <span>5 pièces</span><span class="vr"></span><span>3 chambres</span><span class="vr"></span><span>120m²</span>
-                            </p>
-                            <span class="price">608,00 €</span>
-                        </figcaption>
-                    </figure>
-                </div>
-            </div>
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#carousel-home" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-home" data-slide-to="1"></li>
-                <li data-target="#carousel-home" data-slide-to="2"></li>
-                <li data-target="#carousel-home" data-slide-to="3"></li>
-                <li data-target="#carousel-home" data-slide-to="4"></li>
-                <li data-target="#carousel-home" data-slide-to="5"></li>
-                <li data-target="#carousel-home" data-slide-to="6"></li>
-                <li data-target="#carousel-home" data-slide-to="7"></li>
-                <li data-target="#carousel-home" data-slide-to="8"></li>
-            </ol>
-            <!-- Controls -->
-            <a class="left carousel-control" href="#carousel-home" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#carousel-home" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-    </div>
-</section>
-<section class="services text-center">
-    <div class="container">
-        <h3 class="text-upper">Services proposés par Vitelogé</h3>
-        <div class="row" role="listbox">
-            <figure class="service col-xs-12 col-md-4">
-                <img src="img/estimate.jpg" alt="image">
-                <div class="rounded-icon center-block"></div>
-                <figcaption class="service-legend">
-                    <h4 class="title">Estimer mon bien</h4>
-                    <p class="description" data-role="description">
-                        Aenean sollicitudin, lorem quis bibendum auctor
-                    </p>
-                </figcaption>
-            </figure>
-            <figure class="service col-xs-12 col-md-4">
-                <img src="img/publish.jpg" alt="image">
-                <div class="rounded-icon center-block"></div>
-                <figcaption class="service-legend">
-                    <h4 class="title">Publier mes annonces</h4>
-                    <p class="description" data-role="description">
-                        Aenean sollicitudin, lorem quis bibendum auctor
-                    </p>
-                </figcaption>
-            </figure>
-            <figure class="service col-xs-12 col-md-4">
-                <img src="img/mail.jpg" alt="image">
-                <div class="rounded-icon center-block"></div>
-                <figcaption class="service-legend">
-                    <h4 class="title">Créer mon alerte mail</h4>
-                    <p class="description" data-role="description">
-                        Aenean sollicitudin, lorem quis bibendum auctor
-                    </p>
-                </figcaption>
-            </figure>
-        </div>
-    </div>
-</section>
-<section class="last-search">
-    <div class="container">
-        <div class="row">
-            <div class="searches col-md-8">
-                <h3 class="text-upper">Dernières recherches immobilières</h3>
-                <ul class="listitem" data-role="listitem">
-                    <li class="item" data-role="item">
-                        <p class="pull-left">
-                            <strong>Eva</strong> recherche <a href="search.html"><span>achat</span> <span>appartement</span> <span>3 pièces</span> de <span>200 000</span> à <span>250 000</span> €</a> à <span>Rennes</span>
-                        </p>
-                        <span class="button pull-right">Il y a 15 minutes</span>
-                        <span class="clearfix"></span>
-                    </li>
-                    <li class="item" data-role="item">
-                        <p class="pull-left">
-                            <strong>Eva</strong> recherche <a href="search.html"><span>achat</span> <span>appartement</span> <span>3 pièces</span> de <span>200 000</span> à <span>250 000</span> €</a> à <span>Rennes</span>
-                        </p>
-                        <span class="button pull-right">Il y a 15 minutes</span>
-                        <span class="clearfix"></span>
-                    </li>
-                    <li class="item" data-role="item">
-                        <p class="pull-left">
-                            <strong>Eva</strong> recherche <a href="search.html"><span>achat</span> <span>appartement</span> <span>3 pièces</span> de <span>200 000</span> à <span>250 000</span> €</a> à <span>Rennes</span>
-                        </p>
-                        <span class="button pull-right">Il y a 15 minutes</span>
-                        <span class="clearfix"></span>
-                    </li>
-                </ul>
-            </div>
-            <aside class="col-md-4" data-role="secondary">
-                publicité
-            </aside>
-        </div>
-    </div>
-</section>
+
+{{ render(controller('VitelogeFrontendBundle:Ad:latest', { 'type': type, 'limit': 9 })) }}
+{{ render_hinclude(controller('VitelogeFrontendBundle:Service:list', {'default': 'Loading...'})) }}
+{{ render_hinclude(controller('VitelogeFrontendBundle:WebSearch:latest', {'default': 'Loading...'})) }}
+
 {% endblock %}
 
 
@@ -324,12 +47,7 @@
         {{ include('VitelogeFrontendBundle:menu:footer.html.twig', {}) }}
         {{ include('VitelogeFrontendBundle:misc:social.html.twig', {}) }}
         {{ include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) }}
-        <div class="glossary" data-role="glossary">
-            <ul class="clearfix">
-                <li><a href="page-immo.html">Page immo</a></li>
-                <li><a href="page-immo.html">Page immo</a></li>
-                <li><a href="page-immo.html">Page immo</a></li>
-            </ul>
-        </div>
+        {{ render(controller('VitelogeFrontendBundle:Glossary:mostSearched', { limit: 15 })) }}
+        {#{{ render_hinclude(controller('VitelogeFrontendBundle:Glossary:mostSearched', {'default': 'Loading...'})) }}#}
     </div>
 {% endblock %}

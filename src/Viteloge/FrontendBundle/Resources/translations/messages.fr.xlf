@@ -3,8 +3,232 @@
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
             <trans-unit id="1">
-                <source>Symfony2 is great</source>
-                <target>J'aime Symfony2</target>
+                <source>Fast Housing</source>
+                <target>ViteLogé</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>Fasthousing</source>
+                <target>Vitelogé</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>Register</source>
+                <target>S'enregistrer</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>Registration</source>
+                <target>Inscription</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>Subscribe</source>
+                <target>S'abonner</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>Login</source>
+                <target>S'identifier</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>Connection</source>
+                <target>Connexion</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>Logout</source>
+                <target>Déconnexion</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>Search</source>
+                <target>Rechercher</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>Advanced search</source>
+                <target>Recherche avancée</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>Previous</source>
+                <target>Précédent</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>Next</source>
+                <target>Suivant</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>Begin</source>
+                <target>Début</target>
+            </trans-unit>
+            <trans-unit id="14">
+                <source>End</source>
+                <target>Fin</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>First</source>
+                <target>Premier</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>Last</source>
+                <target>Dernier</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>Rent</source>
+                <target>Location</target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>Sale</source>
+                <target>Vente</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>New</source>
+                <target>Neuf</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>Home</source>
+                <target>Accueil</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>About us</source>
+                <target>A propos</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>About Fasthousing</source>
+                <target>A propos de Vitelogé</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>Informations on Fasthousing</source>
+                <target>Informations sur Vitelogé</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>Your ad on Fasthousing</source>
+                <target>Votre publicité sur Vitelogé</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>Fasthousing API</source>
+                <target>Vitelogé</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>General Terms and Conditions</source>
+                <target>Conditions générale d'utilisation</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>GTC</source>
+                <target>CGU</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>Privacy</source>
+                <target>Informations privée</target>
+            </trans-unit>
+            <trans-unit id="29">
+                <source>Recommand</source>
+                <target>Recommander</target>
+            </trans-unit>
+            <trans-unit id="49">
+                <source>Sitemap</source>
+                <target>Plan du site</target>
+            </trans-unit>
+            <trans-unit id="30">
+                <source>What</source>
+                <target>Quoi</target>
+            </trans-unit>
+            <trans-unit id="31">
+                <source>Why</source>
+                <target>Pourquoi</target>
+            </trans-unit>
+            <trans-unit id="32">
+                <source>Where</source>
+                <target>Où</target>
+            </trans-unit>
+            <trans-unit id="33">
+                <source>Rooms number</source>
+                <target>Nombre de pièces</target>
+            </trans-unit>
+            <trans-unit id="34">
+                <source>minimum</source>
+                <target>minimum</target>
+            </trans-unit>
+            <trans-unit id="35">
+                <source>maximum</source>
+                <target>maximum</target>
+            </trans-unit>
+            <trans-unit id="36">
+                <source>Rental</source>
+                <target>Loyer</target>
+            </trans-unit>
+            <trans-unit id="37">
+                <source>Budget</source>
+                <target>Budget</target>
+            </trans-unit>
+            <trans-unit id="38">
+                <source>Properties for rent near you</source>
+                <target>Biens à la location près de chez vous</target>
+            </trans-unit>
+            <trans-unit id="39">
+                <source>Services offered by Fasthousing</source>
+                <target>Services proposés par Vitelogé</target>
+            </trans-unit>
+            <trans-unit id="40">
+                <source>Estimate my property</source>
+                <target>Estimer mon bien</target>
+            </trans-unit>
+            <trans-unit id="41">
+                <source>Publish my ads</source>
+                <target>Publier mes annonces</target>
+            </trans-unit>
+            <trans-unit id="42">
+                <source>Create my mail alert</source>
+                <target>Créer mon alerte mail</target>
+            </trans-unit>
+            <trans-unit id="43">
+                <source>Latest properties searches</source>
+                <target>Dernières recherches immobilière</target>
+            </trans-unit>
+            <trans-unit id="45">
+                <source>today.properties.update.count</source>
+                <target>{0} Aujourd'hui, aucun bien mis à jour|{1} Aujourd'hui, un seul bien mis à jour|]1,Inf]Aujourd'hui, %count% biens à jour</target>
+            </trans-unit>
+            <trans-unit id="47">
+                <source>If you like fasthousing dot com click on</source>
+                <target>Si vous aimez viteloge.com cliquez sur</target>
+            </trans-unit>
+            <trans-unit id="48">
+                <source>Follow all Fasthousing news on</source>
+                <target>Suivez toutes l'actualité de Vitelogé sur</target>
+            </trans-unit>
+            <trans-unit id="50">
+                <source>count.rooms</source>
+                <target>{0} |{1} %count% room|]1,Inf] %count% rooms</target>
+            </trans-unit>
+            <trans-unit id="9980">
+                <source>diff.ago.second</source>
+                <target>test</target>
+            </trans-unit>
+            <trans-unit id="9981">
+                <source>diff.ago.minute</source>
+                <target>minu</target>
+            </trans-unit>
+            <trans-unit id="9982">
+                <source>diff.ago.hour</source>
+                <target>testh</target>
+            </trans-unit>
+            <trans-unit id="9983">
+                <source>diff.ago.day</source>
+                <target>il y a 1 an|il y a %count% ans</target>
+            </trans-unit>
+            <trans-unit id="9984">
+                <source>diff.ago.month</source>
+                <target>testm</target>
+            </trans-unit>
+            <trans-unit id="9985">
+                <source>diff.ago.year</source>
+                <target>testy</target>
+            </trans-unit>
+            <trans-unit id="9997">
+                <source>All rights reserved</source>
+                <target>Tous droits reservés</target>
+            </trans-unit>
+            <trans-unit id="9998">
+                <source>Acreat</source>
+                <target>Acreat</target>
+            </trans-unit>
+            <trans-unit id="9999">
+                <source>Acreat Web Technologies</source>
+                <target>Acreat Web Technologies</target>
             </trans-unit>
         </body>
     </file>

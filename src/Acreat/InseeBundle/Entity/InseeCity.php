@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * InseeCity
  *
  * @ORM\Table(name="insee_communes", indexes={@ORM\Index(name="postalcode", columns={"cp"}), @ORM\Index(name="lat", columns={"lat"}), @ORM\Index(name="lng", columns={"lon"}), @ORM\Index(name="geolevel", columns={"niveauGeo"}), @ORM\Index(name="isCapital", columns={"chefLieu"}), @ORM\Index(name="stateId", columns={"codeRegion"}), @ORM\Index(name="departmentId", columns={"codeDepartement"}), @ORM\Index(name="code", columns={"codeCommune"}), @ORM\Index(name="distictId", columns={"codeArrondissment"}), @ORM\Index(name="cantonId", columns={"codeCanton"}), @ORM\Index(name="population", columns={"population"}), @ORM\Index(name="basin", columns={"bassinVie"}), @ORM\Index(name="uname", columns={"search_nom"}), @ORM\Index(name="name", columns={"nom"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Acreat\InseeBundle\Repository\InseeCityRepository")
  */
 class InseeCity
 {
@@ -131,7 +131,7 @@ class InseeCity
      *
      * @ORM\ManyToOne(targetEntity="Acreat\InseeBundle\Entity\InseeState")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="codeRegion", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="codeRegion", referencedColumnName="REGION")
      * })
      */
     private $inseeState;
@@ -141,7 +141,7 @@ class InseeCity
      *
      * @ORM\ManyToOne(targetEntity="Acreat\InseeBundle\Entity\InseeDepartment")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="codeDepartement", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="codeDepartement", referencedColumnName="DEP")
      * })
      */
     private $inseeDepartment;
@@ -164,7 +164,7 @@ class InseeCity
     /**
      * Get geolevel
      *
-     * @return string 
+     * @return string
      */
     public function getGeolevel()
     {
@@ -187,7 +187,7 @@ class InseeCity
     /**
      * Get isCantonDivided
      *
-     * @return integer 
+     * @return integer
      */
     public function getIsCantonDivided()
     {
@@ -210,7 +210,7 @@ class InseeCity
     /**
      * Get isCapital
      *
-     * @return integer 
+     * @return integer
      */
     public function getIsCapital()
     {
@@ -233,7 +233,7 @@ class InseeCity
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
@@ -256,7 +256,7 @@ class InseeCity
     /**
      * Get districtId
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getDistrictId()
     {
@@ -279,7 +279,7 @@ class InseeCity
     /**
      * Get cantonId
      *
-     * @return string 
+     * @return string
      */
     public function getCantonId()
     {
@@ -302,7 +302,7 @@ class InseeCity
     /**
      * Get prefixId
      *
-     * @return integer 
+     * @return integer
      */
     public function getPrefixId()
     {
@@ -325,7 +325,7 @@ class InseeCity
     /**
      * Get prefix
      *
-     * @return string 
+     * @return string
      */
     public function getPrefix()
     {
@@ -348,7 +348,7 @@ class InseeCity
     /**
      * Get uname
      *
-     * @return string 
+     * @return string
      */
     public function getUname()
     {
@@ -371,7 +371,7 @@ class InseeCity
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -394,7 +394,7 @@ class InseeCity
     /**
      * Get lat
      *
-     * @return float 
+     * @return float
      */
     public function getLat()
     {
@@ -417,7 +417,7 @@ class InseeCity
     /**
      * Get lng
      *
-     * @return float 
+     * @return float
      */
     public function getLng()
     {
@@ -440,7 +440,7 @@ class InseeCity
     /**
      * Get postalcode
      *
-     * @return string 
+     * @return string
      */
     public function getPostalcode()
     {
@@ -463,7 +463,7 @@ class InseeCity
     /**
      * Get basin
      *
-     * @return string 
+     * @return string
      */
     public function getBasin()
     {
@@ -486,7 +486,7 @@ class InseeCity
     /**
      * Get population
      *
-     * @return integer 
+     * @return integer
      */
     public function getPopulation()
     {
@@ -496,7 +496,7 @@ class InseeCity
     /**
      * Get id
      *
-     * @return string 
+     * @return string
      */
     public function getId()
     {
@@ -519,7 +519,7 @@ class InseeCity
     /**
      * Get inseeState
      *
-     * @return \Acreat\InseeBundle\Entity\InseeState 
+     * @return \Acreat\InseeBundle\Entity\InseeState
      */
     public function getInseeState()
     {
@@ -542,7 +542,7 @@ class InseeCity
     /**
      * Get inseeDepartment
      *
-     * @return \Acreat\InseeBundle\Entity\InseeDepartment 
+     * @return \Acreat\InseeBundle\Entity\InseeDepartment
      */
     public function getInseeDepartment()
     {

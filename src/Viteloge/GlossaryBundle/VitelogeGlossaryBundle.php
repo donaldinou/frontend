@@ -1,9 +1,11 @@
 <?php
 
-namespace Viteloge\GlossaryBundle;
+namespace Viteloge\GlossaryBundle {
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+    use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class VitelogeGlossaryBundle extends Bundle
-{
+    class VitelogeGlossaryBundle extends Bundle
+    {
+    }
+
 }

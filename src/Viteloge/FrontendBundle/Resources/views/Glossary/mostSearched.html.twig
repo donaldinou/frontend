@@ -1,0 +1,7 @@
+<div class="glossary" data-role="glossary">
+    <ul class="clearfix">
+        {% for item in glossary %}
+            {{ include('VitelogeFrontendBundle:Glossary:glossary.html.twig', { 'glossary': item }) }}
+        {% endfor %}
+    </ul>
+</div>

@@ -1,13 +1,15 @@
 <?php
 
-namespace Viteloge\CoreBundle\Controller;
+namespace Viteloge\CoreBundle\Controller {
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
-{
-    public function indexAction($name)
+    class DefaultController extends Controller
     {
-        return $this->render('VitelogeCoreBundle:Default:index.html.twig', array('name' => $name));
+        public function indexAction($name)
+        {
+            return $this->render('VitelogeCoreBundle:Default:index.html.twig', array('name' => $name));
+        }
     }
+
 }

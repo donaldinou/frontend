@@ -1,0 +1,10 @@
+<section class="services text-center">
+    <div class="container">
+        <h3 class="text-upper">{% trans %}Services offered by Fasthousing{% endtrans %}</h3>
+        <div class="row" role="listbox">
+        {% for service in services %}
+            {{ include('VitelogeFrontendBundle:Service:service.html.twig', { 'service': service }) }}
+        {% endfor %}
+        </div>
+    </div>
+</section>

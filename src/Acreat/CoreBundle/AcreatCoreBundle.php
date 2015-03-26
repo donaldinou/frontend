@@ -1,9 +1,11 @@
 <?php
 
-namespace Acreat\CoreBundle;
+namespace Acreat\CoreBundle {
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+    use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class AcreatCoreBundle extends Bundle
-{
+    class AcreatCoreBundle extends Bundle
+    {
+    }
+
 }

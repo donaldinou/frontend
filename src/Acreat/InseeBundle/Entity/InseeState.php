@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * InseeState
  *
  * @ORM\Table(name="insee_regions", indexes={@ORM\Index(name="cityId", columns={"CHEFLIEU"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Acreat\InseeBundle\Repository\InseeStateRepository")
  */
 class InseeState
 {
@@ -47,7 +47,7 @@ class InseeState
      *
      * @ORM\ManyToOne(targetEntity="Acreat\InseeBundle\Entity\InseeCity")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="CHEFLIEU", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="CHEFLIEU", referencedColumnName="codeInsee")
      * })
      */
     private $inseeCapital;
@@ -70,7 +70,7 @@ class InseeState
     /**
      * Get prefix
      *
-     * @return string 
+     * @return string
      */
     public function getPrefix()
     {
@@ -93,7 +93,7 @@ class InseeState
     /**
      * Get uname
      *
-     * @return string 
+     * @return string
      */
     public function getUname()
     {
@@ -116,7 +116,7 @@ class InseeState
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -126,7 +126,7 @@ class InseeState
     /**
      * Get id
      *
-     * @return string 
+     * @return string
      */
     public function getId()
     {
@@ -149,7 +149,7 @@ class InseeState
     /**
      * Get inseeCapital
      *
-     * @return \Acreat\InseeBundle\Entity\InseeCity 
+     * @return \Acreat\InseeBundle\Entity\InseeCity
      */
     public function getInseeCapital()
     {

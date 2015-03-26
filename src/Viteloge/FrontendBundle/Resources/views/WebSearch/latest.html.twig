@@ -1,0 +1,17 @@
+<section class="last-search">
+    <div class="container">
+        <div class="row">
+            <div class="searches col-md-8">
+                <h3 class="text-upper">{% trans %}Latest properties searches{% endtrans %}</h3>
+                <ul class="listitem" data-role="listitem">
+                    {% for websearch in websearches %}
+                        {{ include('VitelogeFrontendBundle:WebSearch:websearch.html.twig', { 'websearch': websearch }) }}
+                    {% endfor %}
+                </ul>
+            </div>
+            <aside class="col-md-4" data-role="secondary">
+                publicité
+            </aside>
+        </div>
+    </div>
+</section>

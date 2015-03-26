@@ -2,3 +2,7 @@ services:
 #    viteloge_frontend.example:
 #        class: Viteloge\FrontendBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+    viteloge_frontend.form.type.ad:
+        class: Viteloge\FrontendBundle\Form\Type\AdType
+        tags:
+            - { name: form.type, alias: viteloge_frontend_ad }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Viteloge\CoreBundle\Entity\Search" table="utilisateur" repository-class="Viteloge\CoreBundle\Repository\SearchRepository">
+    <indexes>
+      <index name="isHelp" columns="help"/>
+      <index name="isPartner" columns="partenaires"/>
+      <index name="mail" columns="mail,dateResiliation"/>
+    </indexes>
+    <id name="id" type="integer" column="idUtilisateur">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="civility" type="string" column="civilite" length="50" nullable="false"/>
+    <field name="lastname" type="string" column="nom" length="50" nullable="false"/>
+    <field name="firstname" type="string" column="prenom" length="50" nullable="false"/>
+    <field name="postalcode" type="string" column="codepostal" length="5" nullable="false"/>
+    <field name="mail" type="string" column="mail" length="100" nullable="false"/>
+    <field name="transaction" type="enumtransaction" column="transaction" nullable="false"/>
+    <field name="type" type="string" column="type" length="50" nullable="false"/>
+    <field name="rooms" type="string" column="pieces" length="50" nullable="false"/>
+    <!--<field name="cityId" type="string" column="insee" length="5" nullable="false"/>-->
+    <many-to-one field="inseeCity" target-entity="Acreat\InseeBundle\Entity\InseeCity">
+      <join-columns>
+        <join-column name="insee" referenced-column-name="codeInsee"/>
+      </join-columns>
+    </many-to-one>
+    <field name="disctrictId" type="smallint" column="arrond" nullable="false"/>
+    <field name="radius" type="smallint" column="rayon" nullable="false"/>
+    <field name="budgetMin" type="float" column="budget_min" precision="10" scale="0" nullable="false"/>
+    <field name="budgetMax" type="float" column="budget_max" precision="10" scale="0" nullable="false"/>
+    <field name="keywords" type="string" column="keywords" length="255" nullable="false"/>
+    <field name="isHelp" type="boolean" column="help" nullable="false"/>
+    <field name="isPartner" type="boolean" column="partenaires" nullable="false"/>
+    <field name="createdAt" type="datetime" column="dateInscription" nullable="false"/>
+    <field name="deletedAt" type="datetime" column="dateResiliation" nullable="true"/>
+    <field name="source" type="string" column="source" length="12" nullable="true"/>
+  </entity>
+</doctrine-mapping>

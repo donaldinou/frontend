@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * InseeArea
  *
  * @ORM\Table(name="insee_quartiers", indexes={@ORM\Index(name="cityId", columns={"insee"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Acreat\InseeBundle\Repository\InseeAreaRepository")
  */
 class InseeArea
 {
@@ -54,7 +54,7 @@ class InseeArea
      *
      * @ORM\ManyToOne(targetEntity="Acreat\InseeBundle\Entity\InseeCity")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="insee", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="insee", referencedColumnName="codeInsee")
      * })
      */
     private $inseeCity;
@@ -77,7 +77,7 @@ class InseeArea
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -100,7 +100,7 @@ class InseeArea
     /**
      * Get keywords
      *
-     * @return string 
+     * @return string
      */
     public function getKeywords()
     {
@@ -123,7 +123,7 @@ class InseeArea
     /**
      * Get polyline
      *
-     * @return string 
+     * @return string
      */
     public function getPolyline()
     {
@@ -146,7 +146,7 @@ class InseeArea
     /**
      * Get levels
      *
-     * @return string 
+     * @return string
      */
     public function getLevels()
     {
@@ -156,7 +156,7 @@ class InseeArea
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -179,7 +179,7 @@ class InseeArea
     /**
      * Get inseeCity
      *
-     * @return \Acreat\InseeBundle\Entity\InseeCity 
+     * @return \Acreat\InseeBundle\Entity\InseeCity
      */
     public function getInseeCity()
     {

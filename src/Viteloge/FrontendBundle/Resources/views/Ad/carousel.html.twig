@@ -1,0 +1,33 @@
+<section class="highlighting text-center">
+    <div class="container">
+        <h3 class="text-upper">{% trans %}Properties for rent near you{% endtrans %}</h3>
+        {% if ads|length %}
+        <div id="carousel-home" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner estates" role="listbox">
+                {% for ad in ads %}
+                <div class="item clearfix{% if loop.first %} active{% endif %}">
+                    {{ include('VitelogeFrontendBundle:Ad:ad.html.twig', { 'ad': ad }) }}
+                </div>
+                {% endfor %}
+            </div>
+            <!-- Indicators -->
+            <ol class="carousel-indicators hidden">
+                {% for ad in ads %}
+                    <li data-target="#carousel-home" data-slide-to="{{ loop.index0 }}" class="{% if loop.first %}active{% endif %}"></li>
+                {% endfor %}
+            </ol>
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-home" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">{% trans %}Previous{% endtrans %}</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-home" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">{% trans %}Next{% endtrans %}</span>
+            </a>
+        </div>
+        {% else %}
+            <span>{% trans %}None{% endtrans %}</span>
+        {% endif %}
+    </div>
+</section>

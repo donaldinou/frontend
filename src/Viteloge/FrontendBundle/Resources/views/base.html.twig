@@ -4,26 +4,40 @@
     <!-- block head -->
     <head>
         <meta charset="utf-8">
-        <title>{% block title %}{{ 'Fast Housing' | trans }}{% endblock %}</title>
+        <title>{% block title %}{% trans %}Fast Housing{% endtrans %}{% endblock %}</title>
 
         {% block head_meta %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="MobileOptimized" content="320">
         <meta name="HandheldFriendly" content="True">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
         {% endblock %}
 
         {% block head_icon %}
-        <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="apple-touch-icon" href="{{ asset('bundles/frontendbundle/public/images/apple/touch-icon-iphone.png') }}">
+        <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('bundles/frontendbundle/public/images/apple/touch-icon-ipad.png') }}">
+        <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('bundles/frontendbundle/public/images/apple/touch-icon-iphone-retina.png') }}">
+        <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('bundles/frontendbundle/public/images/apple/touch-icon-ipad-retina.png') }}">
+        <link rel="apple-touch-startup-image" href="{{ asset('bundles/frontendbundle/public/images/common/logo.png') }}">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+        <meta name="msapplication-TileColor" content="#000">
+        <meta name="msapplication-TileImage" content="{{ asset('bundles/frontendbundle/public/images/common/icon.png') }}">
         {% endblock %}
 
         {% block head_stylesheets %}
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/viteloge.css">
+            <link rel="stylesheet" href="{{ asset('built/min.css') }}">
         {% endblock %}
 
         {% block head_javascripts %}
-        <script src="js/modernizr.min.js"></script>
+            <script src="{{ asset('assets/js/require.js') }}"></script>
+            <script src="{{ asset('assets/js/hinclude.js') }}"></script>
+            <script src="{{ asset('assets/js/jquery.js') }}"></script>
+
+            <script src="{{ asset('bundles/frontendbundle/js/modernizr.min.js') }}"></script>
+            <script src="{{ asset('bundles/frontendbundle/js/carousel.bootstrap.js') }}"></script>
+            <script src="{{ asset('bundles/frontendbundle/js/viteloge.jquery.js') }}"></script>
+            {% block head_javascripts_requirejs %}{% endblock %}
         {% endblock %}
     </head>
 
@@ -44,10 +58,6 @@
         </footer>
     {% endblock %}
     {% block javascripts %}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script src="js/carousel.bootstrap.js"></script>
-        <script src="js/viteloge.js"></script>
-        <script src="js/viteloge.jquery.js"></script>
     {% endblock %}
     </body>
 

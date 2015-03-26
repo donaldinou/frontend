@@ -1,0 +1,28 @@
+{% block _viteloge_frontend_ad_transaction_widget %}
+    <fieldset class="tablist bg-transparent" role="tablist">
+        <div class="tab" data-role="tab">
+            <input class="hidden" type="radio" id="form-type-rent" name="type" value="0" checked="checked">
+            <label class="text-upper" for="form-type-rent">{% trans %}Rent{% endtrans %}</label>
+        </div>
+        <div class="tab" data-role="tab">
+            <input class="hidden" type="radio" id="form-type-sale" name="type" value="1">
+            <label class="text-upper" for="form-type-sale">{% trans %}Sale{% endtrans %}</label>
+        </div>
+        <div class="tab" data-role="tab">
+            <input class="hidden" type="radio" id="form-type-new" name="type" value="2">
+            <label class="text-upper" for="form-type-new">{% trans %}New{% endtrans %}</label>
+        </div>
+        <div class="clearfix"></div>
+    </fieldset>
+{% endblock %}
+
+{% block  %}
+    <input class="" type="text" list="where" placeholder="{% trans %}Where{% endtrans %} ?" autocomplete="off" spellcheck="off" maxlength="100">
+    <datalist id="where">
+        <option value="Paris">Paris</option>
+        <option value="Rennes">Rennes</option>
+        <option value="Laval">Laval</option>
+        <option value="Lorient">Lorient</option>
+        <option value="Macao">Macao</option>
+    </datalist>
+{% endblock %}

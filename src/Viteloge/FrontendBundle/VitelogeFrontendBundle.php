@@ -1,9 +1,12 @@
 <?php
 
-namespace Viteloge\FrontendBundle;
+namespace Viteloge\FrontendBundle {
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+    use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class VitelogeFrontendBundle extends Bundle
-{
+    class VitelogeFrontendBundle extends Bundle
+    {
+    }
+
 }
+
