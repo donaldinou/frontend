@@ -9,7 +9,7 @@ namespace Viteloge\CoreBundle\Entity {
      * User
      *
      * @ORM\Table(name="accounts", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_CAC89EAC92FC23A8", columns={"username_canonical"}), @ORM\UniqueConstraint(name="UNIQ_CAC89EACA0D96FBF", columns={"email_canonical"}), @ORM\UniqueConstraint(name="email_unique", columns={"email"})})
-     * @ORM\Entity(repositoryClass="Viteloge\CoreBundle\Repository\AccountRepository")
+     * @ORM\Entity(repositoryClass="Viteloge\CoreBundle\Repository\UserRepository")
      */
     class User extends BaseUser {
 
@@ -18,147 +18,147 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @ORM\Column(name="username", type="string", length=255, nullable=false)
          */
-        private $username;
+        protected $username;
 
         /**
          * @var string
          *
          * @ORM\Column(name="usernamername_canonical", type="string", length=255, nullable=false)
          */
-        private $usernameCanonical;
+        protected $usernameCanonical;
 
         /**
          * @var string
          *
          * @ORM\Column(name="email", type="string", length=255, nullable=false)
          */
-        private $email;
+        protected $email;
 
         /**
          * @var string
          *
          * @ORM\Column(name="email_canonical", type="string", length=255, nullable=false)
          */
-        private $emailCanonical;
+        protected $emailCanonical;
 
         /**
          * @var boolean
          *
          * @ORM\Column(name="enabled", type="boolean", nullable=false)
          */
-        private $enabled;
+        protected $enabled;
 
         /**
          * @var string
          *
          * @ORM\Column(name="salt", type="string", length=255, nullable=false)
          */
-        private $salt;
+        protected $salt;
 
         /**
          * @var string
          *
          * @ORM\Column(name="password", type="string", length=255, nullable=false)
          */
-        private $password;
+        protected $password;
 
         /**
          * @var \DateTime
          *
          * @ORM\Column(name="last_login", type="datetime", nullable=true)
          */
-        private $lastLogin;
+        protected $lastLogin;
 
         /**
          * @var boolean
          *
          * @ORM\Column(name="locked", type="boolean", nullable=false)
          */
-        private $locked;
+        protected $locked;
 
         /**
          * @var boolean
          *
          * @ORM\Column(name="expired", type="boolean", nullable=false)
          */
-        private $expired;
+        protected $expired;
 
         /**
          * @var \DateTime
          *
          * @ORM\Column(name="expires_at", type="datetime", nullable=true)
          */
-        private $expiresAt;
+        protected $expiresAt;
 
         /**
          * @var string
          *
          * @ORM\Column(name="confirmation_token", type="string", length=255, nullable=true)
          */
-        private $confirmationToken;
+        protected $confirmationToken;
 
         /**
          * @var \DateTime
          *
          * @ORM\Column(name="password_requested_at", type="datetime", nullable=true)
          */
-        private $passwordRequestedAt;
+        protected $passwordRequestedAt;
 
         /**
          * @var array
          *
          * @ORM\Column(name="roles", type="array", nullable=false)
          */
-        private $roles;
+        protected $roles;
 
         /**
          * @var boolean
          *
          * @ORM\Column(name="credentials_expired", type="boolean", nullable=false)
          */
-        private $credentialsExpired;
+        protected $credentialsExpired;
 
         /**
          * @var \DateTime
          *
          * @ORM\Column(name="credentials_expire_at", type="datetime", nullable=true)
          */
-        private $credentialsExpireAt;
+        protected $credentialsExpireAt;
 
         /**
          * @var string
          *
          * @ORM\Column(name="civilite", type="string", length=5, nullable=true)
          */
-        private $civility;
+        protected $civility;
 
         /**
          * @var string
          *
          * @ORM\Column(name="firstName", type="string", length=255, nullable=true)
          */
-        private $firstname;
+        protected $firstname;
 
         /**
          * @var string
          *
          * @ORM\Column(name="lastName", type="string", length=255, nullable=true)
          */
-        private $lastname;
+        protected $lastname;
 
         /**
          * @var string
          *
          * @ORM\Column(name="phone", type="string", length=25, nullable=true)
          */
-        private $phone;
+        protected $phone;
 
         /**
          * @var \DateTime
          *
          * @ORM\Column(name="created_at", type="datetime", nullable=false)
          */
-        private $createdAt;
+        protected $createdAt;
 
         /**
          * Allow commercial contact
@@ -166,14 +166,14 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @ORM\Column(name="partenaires", type="boolean", nullable=false)
          */
-        private $isPartnerContactEnabled;
+        protected $isPartnerContactEnabled;
 
         /**
          * @var boolean
          *
          * @ORM\Column(name="disable_internal_emails", type="boolean", nullable=false)
          */
-        private $isInternalMailDisabled;
+        protected $isInternalMailDisabled;
 
         /**
          * @var integer
@@ -182,7 +182,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Id
          * @ORM\GeneratedValue(strategy="IDENTITY")
          */
-        private $id;
+        protected $id;
 
         /**
          *
@@ -361,7 +361,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @param \DateTime $lastLogin
          * @return Account
          */
-        public function setLastLogin($lastLogin)
+        public function setLastLogin(\DateTime $lastLogin = null)
         {
             $this->lastLogin = $lastLogin;
 
@@ -430,7 +430,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @param \DateTime $expiresAt
          * @return Account
          */
-        public function setExpiresAt($expiresAt)
+        public function setExpiresAt(\DateTime $expiresAt = null)
         {
             $this->expiresAt = $expiresAt;
 
@@ -476,7 +476,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @param \DateTime $passwordRequestedAt
          * @return Account
          */
-        public function setPasswordRequestedAt($passwordRequestedAt)
+        public function setPasswordRequestedAt(\DateTime $passwordRequestedAt = null)
         {
             $this->passwordRequestedAt = $passwordRequestedAt;
 
@@ -499,11 +499,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @param array $roles
          * @return Account
          */
-        public function setRoles($roles)
+        public function setRoles(array $roles)
         {
-            $this->roles = $roles;
-
-            return $this;
+            return parent::setRoles($roles);
         }
 
         /**
@@ -513,7 +511,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function getRoles()
         {
-            return $this->roles;
+            return parent::getRoles();
         }
 
         /**
@@ -545,9 +543,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @param \DateTime $credentialsExpireAt
          * @return Account
          */
-        public function setCredentialsExpireAt($credentialsExpireAt)
+        public function setCredentialsExpireAt(\DateTime $credentialsExpireAt = null)
         {
-            $this->credentialsExpireAt = $credentialsExpireAt;
+            $this->credentialsExpireAt = $date;
 
             return $this;
         }

@@ -64,9 +64,9 @@ namespace Viteloge\CoreBundle\Entity {
         private $id;
 
         /**
-         * @var \Viteloge\CoreBundle\Entity\Account
+         * @var \Viteloge\CoreBundle\Entity\User
          *
-         * @ORM\ManyToOne(targetEntity="Viteloge\CoreBundle\Entity\Account")
+         * @ORM\ManyToOne(targetEntity="Viteloge\CoreBundle\Entity\User")
          * @ORM\JoinColumns({
          *   @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
          * })
@@ -279,6 +279,5 @@ namespace Viteloge\CoreBundle\Entity {
             return $this->userSearch;
         }
     }
-
 
 }

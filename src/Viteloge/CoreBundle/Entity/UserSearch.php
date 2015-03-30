@@ -9,7 +9,7 @@ namespace Viteloge\CoreBundle\Entity {
      * Search
      *
      * @ORM\Table(name="utilisateur", indexes={@ORM\Index(name="isHelp", columns={"help"}), @ORM\Index(name="isPartner", columns={"partenaires"}), @ORM\Index(name="mail", columns={"mail", "dateResiliation"})})
-     * @ORM\Entity(repositoryClass="Viteloge\CoreBundle\Repository\SearchRepository")
+     * @ORM\Entity(repositoryClass="Viteloge\CoreBundle\Repository\UserSearchRepository")
      */
     class UserSearch
     {
@@ -620,4 +620,37 @@ namespace Viteloge\CoreBundle\Entity {
     }
 
 
+
+    /**
+     * Add webSearches
+     *
+     * @param \Viteloge\CoreBundle\Entity\WebSearch $webSearches
+     * @return UserSearch
+     */
+    public function addWebSearch(\Viteloge\CoreBundle\Entity\WebSearch $webSearches)
+    {
+        $this->webSearches[] = $webSearches;
+
+        return $this;
+    }
+
+    /**
+     * Remove webSearches
+     *
+     * @param \Viteloge\CoreBundle\Entity\WebSearch $webSearches
+     */
+    public function removeWebSearch(\Viteloge\CoreBundle\Entity\WebSearch $webSearches)
+    {
+        $this->webSearches->removeElement($webSearches);
+    }
+
+    /**
+     * Get webSearches
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getWebSearches()
+    {
+        return $this->webSearches;
+    }
 }
