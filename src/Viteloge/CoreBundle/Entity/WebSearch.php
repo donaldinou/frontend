@@ -71,7 +71,7 @@ namespace Viteloge\CoreBundle\Entity {
          *   @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
          * })
          */
-        private $account;
+        private $user;
 
         /**
          * @var \Viteloge\CoreBundle\Entity\UserSearch
