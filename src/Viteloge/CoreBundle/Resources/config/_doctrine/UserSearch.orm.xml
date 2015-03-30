@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-  <entity name="Viteloge\CoreBundle\Entity\Search" table="utilisateur" repository-class="Viteloge\CoreBundle\Repository\SearchRepository">
+  <entity name="Viteloge\CoreBundle\Entity\UserSearch" table="utilisateur" repository-class="Viteloge\CoreBundle\Repository\UserSearchRepository">
     <indexes>
-      <index name="isHelp" columns="help"/>
-      <index name="isPartner" columns="partenaires"/>
+      <index name="isHelpEnabled" columns="help"/>
+      <index name="isPartnerContactEnabled" columns="partenaires"/>
       <index name="mail" columns="mail,dateResiliation"/>
     </indexes>
     <id name="id" type="integer" column="idUtilisateur">
@@ -28,8 +28,8 @@
     <field name="budgetMin" type="float" column="budget_min" precision="10" scale="0" nullable="false"/>
     <field name="budgetMax" type="float" column="budget_max" precision="10" scale="0" nullable="false"/>
     <field name="keywords" type="string" column="keywords" length="255" nullable="false"/>
-    <field name="isHelp" type="boolean" column="help" nullable="false"/>
-    <field name="isPartner" type="boolean" column="partenaires" nullable="false"/>
+    <field name="isHelpEnabled" type="boolean" column="help" nullable="false"/>
+    <field name="isPartnerContactEnabled" type="boolean" column="partenaires" nullable="false"/>
     <field name="createdAt" type="datetime" column="dateInscription" nullable="false"/>
     <field name="deletedAt" type="datetime" column="dateResiliation" nullable="true"/>
     <field name="source" type="string" column="source" length="12" nullable="true"/>

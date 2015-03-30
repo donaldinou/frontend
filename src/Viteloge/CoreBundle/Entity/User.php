@@ -3,15 +3,16 @@
 namespace Viteloge\CoreBundle\Entity {
 
     use Doctrine\ORM\Mapping as ORM;
+    use FOS\UserBundle\Model\User as BaseUser;
 
     /**
-     * Account
+     * User
      *
      * @ORM\Table(name="accounts", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_CAC89EAC92FC23A8", columns={"username_canonical"}), @ORM\UniqueConstraint(name="UNIQ_CAC89EACA0D96FBF", columns={"email_canonical"}), @ORM\UniqueConstraint(name="email_unique", columns={"email"})})
      * @ORM\Entity(repositoryClass="Viteloge\CoreBundle\Repository\AccountRepository")
      */
-    class Account
-    {
+    class User extends BaseUser {
+
         /**
          * @var string
          *
@@ -22,7 +23,7 @@ namespace Viteloge\CoreBundle\Entity {
         /**
          * @var string
          *
-         * @ORM\Column(name="username_canonical", type="string", length=255, nullable=false)
+         * @ORM\Column(name="usernamername_canonical", type="string", length=255, nullable=false)
          */
         private $usernameCanonical;
 
@@ -160,11 +161,12 @@ namespace Viteloge\CoreBundle\Entity {
         private $createdAt;
 
         /**
+         * Allow commercial contact
          * @var boolean
          *
          * @ORM\Column(name="partenaires", type="boolean", nullable=false)
          */
-        private $isPartner;
+        private $isPartnerContactEnabled;
 
         /**
          * @var boolean
@@ -182,7 +184,15 @@ namespace Viteloge\CoreBundle\Entity {
          */
         private $id;
 
-
+        /**
+         *
+         */
+        public function __construct() {
+            parent::__construct();
+            $this->createdAt = new DateTime('now');
+            $this->isPartnerContactEnabled = true;
+            $this->isInternalMailDisabled = false;
+        }
 
         /**
          * Set username
@@ -668,12 +678,12 @@ namespace Viteloge\CoreBundle\Entity {
         }
 
         /**
-         * Set isPartner
+         * Set isPartnerContactEnabled
          *
          * @param boolean $isPartner
          * @return Account
          */
-        public function setIsPartner($isPartner)
+        public function setIsPartnerContactEnabled($isPartner)
         {
             $this->isPartner = $isPartner;
 
@@ -681,11 +691,11 @@ namespace Viteloge\CoreBundle\Entity {
         }
 
         /**
-         * Get isPartner
+         * Get isPartnerContactEnabled
          *
          * @return boolean
          */
-        public function getIsPartner()
+        public function getIsPartnerContactEnabled()
         {
             return $this->isPartner;
         }

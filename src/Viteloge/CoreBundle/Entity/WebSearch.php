@@ -74,14 +74,14 @@ namespace Viteloge\CoreBundle\Entity {
         private $account;
 
         /**
-         * @var \Viteloge\CoreBundle\Entity\Search
+         * @var \Viteloge\CoreBundle\Entity\UserSearch
          *
-         * @ORM\ManyToOne(targetEntity="Viteloge\CoreBundle\Entity\Search")
+         * @ORM\ManyToOne(targetEntity="Viteloge\CoreBundle\Entity\UserSearch")
          * @ORM\JoinColumns({
          *   @ORM\JoinColumn(name="idUtilisateur", referencedColumnName="idUtilisateur")
          * })
          */
-        private $search;
+        private $userSearch;
 
 
 
@@ -234,14 +234,14 @@ namespace Viteloge\CoreBundle\Entity {
         }
 
         /**
-         * Set account
+         * Set user
          *
-         * @param \Viteloge\CoreBundle\Entity\Account $account
+         * @param \Viteloge\CoreBundle\Entity\User $user
          * @return WebSearches
          */
-        public function setAccount(\Viteloge\CoreBundle\Entity\Account $account = null)
+        public function setUser(\Viteloge\CoreBundle\Entity\User $user = null)
         {
-            $this->account = $account;
+            $this->user = $user;
 
             return $this;
         }
@@ -249,22 +249,22 @@ namespace Viteloge\CoreBundle\Entity {
         /**
          * Get account
          *
-         * @return \Viteloge\CoreBundle\Entity\Account
+         * @return \Viteloge\CoreBundle\Entity\User
          */
-        public function getAccount()
+        public function getUser()
         {
-            return $this->account;
+            return $this->user;
         }
 
         /**
-         * Set search
+         * Set userSearch
          *
-         * @param \Viteloge\CoreBundle\Entity\Search $search
+         * @param \Viteloge\CoreBundle\Entity\UserSearch $userSearch
          * @return WebSearches
          */
-        public function setSearch(\Viteloge\CoreBundle\Entity\Search $search = null)
+        public function setUserSearch(\Viteloge\CoreBundle\Entity\UserSearch $userSearch = null)
         {
-            $this->search = $search;
+            $this->userSearch = $userSearch;
 
             return $this;
         }
@@ -274,9 +274,9 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return \Viteloge\CoreBundle\Entity\Search
          */
-        public function getSearch()
+        public function getUserSearch()
         {
-            return $this->search;
+            return $this->userSearch;
         }
     }
 

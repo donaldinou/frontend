@@ -3,6 +3,7 @@
 namespace Viteloge\CoreBundle\Entity {
 
     use Doctrine\ORM\Mapping as ORM;
+    use Doctrine\Common\Collections\ArrayCollection;
 
     /**
      * Search
@@ -10,7 +11,7 @@ namespace Viteloge\CoreBundle\Entity {
      * @ORM\Table(name="utilisateur", indexes={@ORM\Index(name="isHelp", columns={"help"}), @ORM\Index(name="isPartner", columns={"partenaires"}), @ORM\Index(name="mail", columns={"mail", "dateResiliation"})})
      * @ORM\Entity(repositoryClass="Viteloge\CoreBundle\Repository\SearchRepository")
      */
-    class Search
+    class UserSearch
     {
         /**
          * @var string
@@ -108,14 +109,14 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @ORM\Column(name="help", type="boolean", nullable=false)
          */
-        private $isHelp;
+        private $isHelpEnabled;
 
         /**
          * @var boolean
          *
          * @ORM\Column(name="partenaires", type="boolean", nullable=false)
          */
-        private $isPartner;
+        private $isPartnerContactEnabled;
 
         /**
          * @var \DateTime
@@ -157,7 +158,17 @@ namespace Viteloge\CoreBundle\Entity {
          */
         private $inseeCity;
 
+        /**
+         * @ORM\OneToMany(targetEntity="WebSearch", mappedBy="userSearch")
+         */
+        private $webSearches;
 
+        /**
+         *
+         */
+        public function __construct() {
+            $this->webSearches = new ArrayCollection();
+        }
 
         /**
          * Set civility
@@ -464,7 +475,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @param boolean $isHelp
          * @return Search
          */
-        public function setIsHelp($isHelp)
+        public function setIsHelpEnabled($isHelp)
         {
             $this->isHelp = $isHelp;
 
@@ -476,7 +487,7 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return boolean
          */
-        public function getIsHelp()
+        public function getIsHelpEnabled()
         {
             return $this->isHelp;
         }
@@ -487,7 +498,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @param boolean $isPartner
          * @return Search
          */
-        public function setIsPartner($isPartner)
+        public function setIsPartnerContactEnabled($isPartner)
         {
             $this->isPartner = $isPartner;
 
@@ -499,7 +510,7 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return boolean
          */
-        public function getIsPartner()
+        public function getIsPartnerContactEnabled()
         {
             return $this->isPartner;
         }
@@ -605,6 +616,7 @@ namespace Viteloge\CoreBundle\Entity {
         {
             return $this->inseeCity;
         }
+
     }
 
 
