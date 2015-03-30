@@ -1,0 +1,110 @@
+{% if total_pages > 1%}
+    {% set range = 2 %}
+    {% if start is not defined %}
+        {% if current > range %}
+            {% set start = current-range %}
+        {% else %}
+            {% set start = 1 %}
+        {% endif %}
+    {% endif %}
+    {% if end is not defined %}
+        {% if current < total_pages-range %}
+            {% set end = current+range %}
+        {% else %}
+            {% set end = current %}
+        {% endif %}
+    {% endif %}
+    <nav>
+        <ul class="pagination ajax">
+            {% if current < 2 %}
+                <li class="disabled">
+                    <span aria-hidden="true">&laquo;</span>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{{ path(route.name, route.parameters|merge({ 'page': 1 })) }}" aria-label="{{ 'First' | trans }}">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% if current < 2 %}
+                <li class="disabled">
+                    <span aria-hidden="true">&lt;</span>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{{ path(route.name, route.parameters|merge({ 'page': current-1})) }}" aria-label="{{ 'Previous' | trans }}">
+                        <span aria-hidden="true">&lt;</span>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% if start > 1 %}
+                <li>
+                    <a href="{{ path(route.name, route.parameters|merge({ 'page': 1 })) }}">1</a>
+                </li>
+                {% if start == 3 %}
+                    <li>
+                        <a href="{{ path(route.name, route.parameters|merge({'page': 2})) }}">2</a>
+                    </li>
+                {% elseif start != 2 %}
+                    <li class="disabled">
+                        <span>&hellip;</span>
+                    </li>
+                {% endif %}
+            {% endif %}
+
+            {% for i in start..end %}
+                {% if i == current %}
+                    <li class="active">
+                        <span>{{ i }}</span>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ path(route.name, route.parameters|merge({ 'page': i })) }}">{{ i }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if end < total_pages %}
+                {% if end < total_pages-2 %}
+                    <li class="disabled">
+                        <span>&hellip;</span>
+                    </li>
+                {% elseif end < total_pages-1 %}
+                    <li>
+                        <a href="{{ path(route.name, route.parameters|merge({ 'page': total_pages-1 })) }}">{{ total_pages-1 }}</a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{{ path(route.name, route.parameters|merge({ 'page': total_pages })) }}">{{ total_pages }}</a>
+                </li>
+            {% endif %}
+
+            {% if current >= total_pages %}
+                <li class="disabled">
+                    <span aria-hidden="true">&gt;</span>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{{ path(route.name, route.parameters|merge({ 'page': current+1 })) }}" aria-label="Next">
+                        <span aria-hidden="true">&gt;</span>
+                    </a>
+                </li>
+            {% endif %}
+
+            {% if current >= total_pages %}
+                <li class="disabled">
+                    <span aria-hidden="true">&raquo;</span>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{{ path(route.name, route.parameters|merge({ 'page': total_pages })) }}" aria-label="Last">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}

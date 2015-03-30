@@ -11,7 +11,7 @@ namespace Viteloge\FrontendBundle\Controller {
         /**
          * @Cache(expires="tomorrow", public=true)
          */
-        public function mostSearchedAction(Request $request, $type=null, $limit=5) {
+        public function mostSearchedAction(Request $request, $transaction=null, $limit=5) {
             $repository = $this->getDoctrine()
                 ->getRepository('VitelogeCoreBundle:Search');
             $glossary = $repository->findAllInseeCityOrderedByCount();

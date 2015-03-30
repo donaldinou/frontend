@@ -31,12 +31,31 @@ jQuery(document).ready(function() {
         placeholderize(jQuery(this));
     });
 
+    jQuery(document).on('click', '.pagination.ajax li > a', displayNextPage);
+
     function placeholderize(element) {
         var selected = jQuery(element).children(':selected');
         var optionStyle = selected.css(['color']);
         jQuery.each(optionStyle, function( prop, value ) {
             jQuery(element).css(prop, value);
         });
+    }
+
+    function displayNextPage(event) {
+        event.preventDefault();
+        var id = jQuery(event.currentTarget).parents('.ajax-pager-container').attr('id');
+        var url = jQuery(event.currentTarget).attr('href');
+        paginate(id, url);
+        event.stopPropagation();
+    }
+    function paginate(id, url) {
+        jQuery.ajax({
+            url: url,
+            method: 'POST',
+            success: function(content) {
+                jQuery('#'+id).replaceWith(jQuery(content).find('#'+id));
+            }
+        })
     }
 
 });

@@ -1,22 +1,22 @@
-{% block _viteloge_frontend_ad_transaction_widget %}
+{#{% block _viteloge_frontend_ad_transaction_widget %}
     <fieldset class="tablist bg-transparent" role="tablist">
         <div class="tab" data-role="tab">
-            <input class="hidden" type="radio" id="form-type-rent" name="type" value="0" checked="checked">
-            <label class="text-upper" for="form-type-rent">{% trans %}Rent{% endtrans %}</label>
+            <input class="" type="radio" id="viteloge_frontend_ad_transaction_0" name="viteloge_frontend_ad[transaction]" value="0" checked="checked">
+            <label class="text-upper" for="viteloge_frontend_ad_transaction_0">{% trans %}Rent{% endtrans %}</label>
         </div>
         <div class="tab" data-role="tab">
-            <input class="hidden" type="radio" id="form-type-sale" name="type" value="1">
-            <label class="text-upper" for="form-type-sale">{% trans %}Sale{% endtrans %}</label>
+            <input class="" type="radio" id="viteloge_frontend_ad_transaction_1" name="viteloge_frontend_ad[transaction]" value="1">
+            <label class="text-upper" for="viteloge_frontend_ad_transaction_1">{% trans %}Sale{% endtrans %}</label>
         </div>
         <div class="tab" data-role="tab">
-            <input class="hidden" type="radio" id="form-type-new" name="type" value="2">
-            <label class="text-upper" for="form-type-new">{% trans %}New{% endtrans %}</label>
+            <input class="" type="radio" id="viteloge_frontend_ad_transaction_2" name="viteloge_frontend_ad[transaction]" value="2">
+            <label class="text-upper" for="viteloge_frontend_ad_transaction_2">{% trans %}New{% endtrans %}</label>
         </div>
         <div class="clearfix"></div>
     </fieldset>
-{% endblock %}
+{% endblock %}#}
 
-{% block  %}
+{% block test %}
     <input class="" type="text" list="where" placeholder="{% trans %}Where{% endtrans %} ?" autocomplete="off" spellcheck="off" maxlength="100">
     <datalist id="where">
         <option value="Paris">Paris</option>

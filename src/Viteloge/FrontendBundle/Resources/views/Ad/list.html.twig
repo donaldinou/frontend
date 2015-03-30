@@ -1,8 +1,13 @@
-<section class="highlighting text-center">
-    <div class="container">
-        <h3 class="text-upper">{% trans %}Properties for rent near you{% endtrans %}</h3>
-        {% for ad in ads %}
-            {{ include('VitelogeFrontendBundle:Ad:ad.html.twig', { 'ad': ad }) }}
-        {% endfor %}
-    </div>
-</section>
+{% extends 'VitelogeFrontendBundle::base.html.twig' %}
+
+{% block title %}
+    {% trans %}Fast Housing{% endtrans %}
+{% endblock %}
+
+{% block head_javascript_requirejs %}
+    {{ include('VitelogeFrontendBundle:misc:requirejs.html.twig', { 'module': 'app/homepage.js' }) }}
+{% endblock %}
+
+{% block main %}
+    {{ include('VitelogeFrontendBundle:Ad:paginated.html.twig') }}
+{% endblock %}

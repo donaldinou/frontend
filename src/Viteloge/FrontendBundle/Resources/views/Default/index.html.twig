@@ -8,9 +8,21 @@
     {{ include('VitelogeFrontendBundle:misc:requirejs.html.twig', { 'module': 'app/homepage.js' }) }}
 {% endblock %}
 
+{% block body %}
+    <header class="header banner" role="banner">
+        {{ block('header') }}
+    </header>
+    <main class="main" role="main">
+        {{ block('main') }}
+    </main>
+    <footer data-role="footer">
+        {{ block('footer') }}
+    </footer>
+{% endblock %}
+
 {% block header %}
 <div class="container">
-    <a class="" href="./">
+    <a class="" href="{{ path('viteloge_frontend_homepage') }}">
         <img src="{{ asset('bundles/frontendbundle/images/common/logo.png') }}" class="logo" alt="viteloge" data-role="logo">
     </a>
     <nav class="navigation pull-right" role="navigation">
@@ -23,8 +35,7 @@
     <div class="forward text-center">
         <h1 class="text-upper">Nam nec tellus a odio tincidunt</h1>
         <h2 class="text-upper">
-            {% set count = '603 081' %}
-            {% transchoice count with {'%count%': count} %}
+            {% transchoice count with {'%count%': count|number_format(0, null, ' ')} %}
                 today.properties.update.count
             {% endtranschoice %} !
         </h2>
@@ -34,20 +45,18 @@
 {% endblock %}
 
 {% block main %}
-
-{{ render(controller('VitelogeFrontendBundle:Ad:latest', { 'type': type, 'limit': 9 })) }}
+{{ render(controller('VitelogeFrontendBundle:Ad:latest', { 'transaction': form.transaction, 'limit': 9 })) }}
 {{ render_hinclude(controller('VitelogeFrontendBundle:Service:list', {'default': 'Loading...'})) }}
 {{ render_hinclude(controller('VitelogeFrontendBundle:WebSearch:latest', {'default': 'Loading...'})) }}
-
 {% endblock %}
 
 
 {% block footer %}
-    <div class="container text-center">
-        {{ include('VitelogeFrontendBundle:menu:footer.html.twig', {}) }}
-        {{ include('VitelogeFrontendBundle:misc:social.html.twig', {}) }}
-        {{ include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) }}
-        {{ render(controller('VitelogeFrontendBundle:Glossary:mostSearched', { limit: 15 })) }}
-        {#{{ render_hinclude(controller('VitelogeFrontendBundle:Glossary:mostSearched', {'default': 'Loading...'})) }}#}
-    </div>
+<div class="container text-center">
+    {{ include('VitelogeFrontendBundle:menu:footer.html.twig', {}) }}
+    {{ include('VitelogeFrontendBundle:misc:social.html.twig', {}) }}
+    {{ include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) }}
+    {{ render(controller('VitelogeFrontendBundle:Glossary:mostSearched', { limit: 15 })) }}
+    {#{{ render_hinclude(controller('VitelogeFrontendBundle:Glossary:mostSearched', {'default': 'Loading...'})) }}#}
+</div>
 {% endblock %}

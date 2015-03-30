@@ -11,7 +11,7 @@ namespace Viteloge\FrontendBundle\Controller {
         /**
          * @Cache(expires="tomorrow", public=true)
          */
-        public function latestAction(Request $request, $type=null, $limit=5) {
+        public function latestAction(Request $request, $transaction=null, $limit=5) {
             $repository = $this->getDoctrine()
                 ->getRepository('VitelogeCoreBundle:WebSearch');
             $websearches = $repository->findBy(

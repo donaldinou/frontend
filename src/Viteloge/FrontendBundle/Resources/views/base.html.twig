@@ -43,8 +43,9 @@
 
     <body class="body">
     {% block body %}
-        <header class="header banner" role="banner">
+        <header class="header" data-role="header">
         {% block header %}
+            {{ include('VitelogeFrontendBundle:base:header.html.twig') }}
         {% endblock %}
         </header>
         <main class="main" role="main">
