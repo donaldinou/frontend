@@ -617,40 +617,38 @@ namespace Viteloge\CoreBundle\Entity {
             return $this->inseeCity;
         }
 
-    }
+        /**
+         * Add webSearches
+         *
+         * @param \Viteloge\CoreBundle\Entity\WebSearch $webSearches
+         * @return UserSearch
+         */
+        public function addWebSearch(\Viteloge\CoreBundle\Entity\WebSearch $webSearches)
+        {
+            $this->webSearches[] = $webSearches;
 
+            return $this;
+        }
 
+        /**
+         * Remove webSearches
+         *
+         * @param \Viteloge\CoreBundle\Entity\WebSearch $webSearches
+         */
+        public function removeWebSearch(\Viteloge\CoreBundle\Entity\WebSearch $webSearches)
+        {
+            $this->webSearches->removeElement($webSearches);
+        }
 
-    /**
-     * Add webSearches
-     *
-     * @param \Viteloge\CoreBundle\Entity\WebSearch $webSearches
-     * @return UserSearch
-     */
-    public function addWebSearch(\Viteloge\CoreBundle\Entity\WebSearch $webSearches)
-    {
-        $this->webSearches[] = $webSearches;
+        /**
+         * Get webSearches
+         *
+         * @return \Doctrine\Common\Collections\Collection
+         */
+        public function getWebSearches()
+        {
+            return $this->webSearches;
+        }
 
-        return $this;
-    }
-
-    /**
-     * Remove webSearches
-     *
-     * @param \Viteloge\CoreBundle\Entity\WebSearch $webSearches
-     */
-    public function removeWebSearch(\Viteloge\CoreBundle\Entity\WebSearch $webSearches)
-    {
-        $this->webSearches->removeElement($webSearches);
-    }
-
-    /**
-     * Get webSearches
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getWebSearches()
-    {
-        return $this->webSearches;
     }
 }
