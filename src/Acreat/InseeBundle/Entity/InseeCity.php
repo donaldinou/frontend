@@ -548,4 +548,8 @@ class InseeCity
     {
         return $this->inseeDepartment;
     }
+
+    public function __toString() {
+        return (!empty($this->prefix)) ? $this->prefix.' '.$this->name : $this->name;
+    }
 }

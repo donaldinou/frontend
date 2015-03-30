@@ -15,6 +15,9 @@ class EnumTransactionType extends EnumType {
     );
 
     public static function getValues() {
+        if (!\Doctrine\DBAL\Types\Type::hasType('enumtransaction')) {
+            \Doctrine\DBAL\Types\Type::addType('enumtransaction', 'Acreat\CoreBundle\Component\DBAL\EnumTransactionType');
+        }
         return self::getType('enumtransaction')->values;
     }
 }
