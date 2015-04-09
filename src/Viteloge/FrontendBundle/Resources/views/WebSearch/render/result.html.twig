@@ -1,0 +1,14 @@
+<div class="">
+    <div class="row">
+        <span>{{ webSearch.userSearch.inseeCity.name }}</span><br>
+        <span>{{ webSearch.totalMatches }}</span>
+    </div>
+    <div class="row">
+        {% for ad in webSearch.cachedProperties %}
+            {{ include('VitelogeFrontendBundle:WebSearch:cachedProperties/ad.html.twig', { 'ad': ad }) }}
+            {% if loop.index is divisible by(4) %}
+                <div class="clearfix"></div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

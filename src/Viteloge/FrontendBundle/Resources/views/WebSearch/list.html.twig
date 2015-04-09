@@ -1,0 +1,10 @@
+{% extends 'VitelogeFrontendBundle::base.html.twig' %}
+
+{% block main %}
+{{ include('VitelogeFrontendBundle:WebSearch:fragment/resume.html.twig', { 'webSearches': webSearches }) }}
+<ul>
+    {% for webSearch in webSearches %}
+        {{ include('VitelogeFrontendBundle:WebSearch:render/result.html.twig', { 'webSearch': webSearch }) }}
+    {% endfor %}
+</ul>
+{% endblock %}

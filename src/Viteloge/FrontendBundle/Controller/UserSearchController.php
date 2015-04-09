@@ -11,51 +11,65 @@ namespace Viteloge\FrontendBundle\Controller {
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\Request;
     use Viteloge\CoreBundle\Entity\WebSearch;
+    use Viteloge\CoreBundle\Entity\UserSearch;
 
     /**
-     * @Route("/user/websearch")
+     * @Route("/user/search")
      */
-    class WebSearchController extends Controller {
-
-        /**
-         * @Cache(expires="tomorrow", public=true)
-         * @Method({"GET"})
-         * @Template("VitelogeFrontendBundle:WebSearch:latest.html.twig")
-         */
-        public function latestAction(Request $request, $transaction=null, $limit=5) {
-            $repository = $this->getDoctrine()
-                ->getRepository('VitelogeCoreBundle:WebSearch');
-            $webSearches = $repository->findBy(
-                array(),
-                array( 'updatedAt' => 'DESC' ),
-                $limit
-            );
-            return array(
-                'webSearches' => $webSearches
-            );
-        }
+    class UserSearchController extends Controller {
 
         /**
          * @Route("/list/")
          * @Method({"GET"})
          * @Security("has_role('ROLE_USER')")
-         * @Template("VitelogeFrontendBundle:WebSearch:list.html.twig")
+         * @Template("VitelogeFrontendBundle:UserSearch:list.html.twig")
          */
         public function listAction(Request $request) {
-            $webSearches = $this->getUser()->getWebSearches();
+            $userSearches = $this->getDoctrine()
+                ->getRepository('VitelogeCoreBundle:UserSearch')
+                ->findByMail($this->getUser()->getEmail());
+
             return array(
-                'webSearches' => $webSearches
+                'userSearches' => $userSearches
             );
         }
 
         /**
          * @Route("/add/")
          * @Method({"GET"})
-         * @Template("VitelogeFrontendBundle:WebSearch:create.html.twig")
+         * @Security("has_role('ROLE_USER')")
+         * @Template("VitelogeFrontendBundle:UserSearch:create.html.twig")
          */
         public function createAction(Request $request) {
-            $webSearch = new WebSearch();
-            $form = $this->createForm('viteloge_frontend_websearch', $webSearch);
+            $userSearch = new UserSearch();
+            $form = $this->createForm('viteloge_frontend_usersearch', $userSearch);
+
+            $form->handleRequest($request);
+            if( $form->isValid() ) {
+                $this->addFlash(
+                    'notice',
+                    'Your changes were saved!'
+                );
+                return $this->redirectToRoute('viteloge_frontend_user', $args);
+            }
+
+            return array(
+                'form' => $form->createView()
+            );
+        }
+
+        /**
+         * @Route(
+         *     "/edit/{id}",
+         *     requirements={
+         *         "id"="\d+"
+         *     }
+         * )
+         * @ParamConverter("userSearch", class="VitelogeCoreBundle:UserSearch", options={"id" = "id"})
+         * @Template("VitelogeFrontendBundle:UserSearch:edit.html.twig")
+         */
+        public function editAction(Request $request, $userSearch) {
+            $form = $this->createForm('viteloge_frontend_usersearch', $userSearch);
 
             $form->handleRequest($request);
             if( $form->isValid() ) {
@@ -74,29 +88,15 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * @Route(
-         *     "/edit/{id}",
-         *     requirements={
-         *         "id"="\d+"
-         *     }
-         * )
-         * @ParamConverter("webSearch", class="VitelogeCoreBundle:WebSearch", options={"id" = "id"})
-         * @Template("VitelogeFrontendBundle:WebSearch:edit.html.twig")
-         */
-        public function editAction(Request $request, $webSearch) {
-
-        }
-
-        /**
-         * @Route(
          *     "/delete/{id}",
          *     requirements={
          *         "id"="\d+"
          *     }
          * )
-         * @ParamConverter("webSearch", class="VitelogeCoreBundle:WebSearch", options={"id" = "id"})
-         * @Template("VitelogeFrontendBundle:WebSearch:delete.html.twig")
+         * @ParamConverter("userSearch", class="VitelogeCoreBundle:UserSearch", options={"id" = "id"})
+         * @Template("VitelogeFrontendBundle:UserSearch:delete.html.twig")
          */
-        public function deleteAction(Request $request, $webSearch) {
+        public function deleteAction(Request $request, $userSearch) {
             return array(
                 'count' => $count,
                 'form' => $form->createView()

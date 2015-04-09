@@ -1,10 +1,18 @@
 {% block menu_footer %}
 <nav class="navigation" role="navigation">
-    <ul class="clearfix">
-        <li><a href="{{ path('viteloge_frontend_homepage') }}">{% trans %}Home{% endtrans %}</a></li>
-        <li><a href="{{ path('viteloge_frontend_about') }}">{% trans %}About Fasthousing{% endtrans %}</a></li>
-        <li><a href="{{ path('viteloge_frontend_gtc') }}">{% trans %}GTC{% endtrans %}</a></li>
-        <li><a href="{{ path('viteloge_frontend_sitemap') }}">{% trans %}Sitemap{% endtrans %}</a></li>
+    <ul class="clearfix list-inline">
+        <li>
+            <a href="{{ path('viteloge_frontend_homepage') }}">{% trans %}Home{% endtrans %}</a>
+        </li>
+        <li>
+            <a href="{{ path('viteloge_frontend_static_about') }}">{% trans %}About Fasthousing{% endtrans %}</a>
+        </li>
+        <li>
+            <a href="{{ path('viteloge_frontend_static_gtc') }}">{% trans %}GTC{% endtrans %}</a>
+        </li>
+        <li>
+            <a href="{{ path('viteloge_frontend_static_sitemap') }}">{% trans %}Sitemap{% endtrans %}</a>
+        </li>
     </ul>
 </nav>
 {% endblock %}

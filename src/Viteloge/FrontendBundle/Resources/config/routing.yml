@@ -6,7 +6,19 @@ viteloge_frontend_default:
     resource: "@VitelogeFrontendBundle/Controller/DefaultController.php"
     type: annotation
 
-viteloge_frontend_about:
+viteloge_frontend_user:
+    resource: "@VitelogeFrontendBundle/Controller/UserController.php"
+    type: annotation
+
+viteloge_frontend_websearch:
+    resource: "@VitelogeFrontendBundle/Controller/WebSearchController.php"
+    type: annotation
+
+viteloge_frontend_usersearch:
+    resource: "@VitelogeFrontendBundle/Controller/UserSearchController.php"
+    type: annotation
+
+viteloge_frontend_static_about:
     path: /about
     defaults:
         _controller: FrameworkBundle:Template:template
@@ -16,7 +28,7 @@ viteloge_frontend_about:
     requirements:
         _method: GET
 
-viteloge_frontend_why:
+viteloge_frontend_static_why:
     path: /why
     defaults:
         _controller: FrameworkBundle:Template:template
@@ -26,7 +38,7 @@ viteloge_frontend_why:
     requirements:
         _method: GET
 
-viteloge_frontend_ad:
+viteloge_frontend_static_ad:
     path: /ad
     defaults:
         _controller: FrameworkBundle:Template:template
@@ -36,7 +48,7 @@ viteloge_frontend_ad:
     requirements:
         _method: GET
 
-viteloge_frontend_contactus:
+viteloge_frontend_static_contactus:
     path: /contact-us
     defaults:
         _controller: FrameworkBundle:Template:template
@@ -46,7 +58,7 @@ viteloge_frontend_contactus:
     requirements:
         _method: GET
 
-viteloge_frontend_recommand:
+viteloge_frontend_static_recommand:
     path: /recommand
     defaults:
         _controller: FrameworkBundle:Template:template
@@ -56,7 +68,7 @@ viteloge_frontend_recommand:
     requirements:
         _method: GET
 
-viteloge_frontend_subscribe:
+viteloge_frontend_static_subscribe:
     path: /subscribe
     defaults:
         _controller: FrameworkBundle:Template:template
@@ -66,7 +78,7 @@ viteloge_frontend_subscribe:
     requirements:
         _method: GET
 
-viteloge_frontend_register:
+viteloge_frontend_static_register:
     path: /register
     defaults:
         _controller: FrameworkBundle:Template:template
@@ -76,7 +88,7 @@ viteloge_frontend_register:
     requirements:
         _method: GET
 
-viteloge_frontend_apiform:
+viteloge_frontend_static_apiform:
     path: /apiform
     defaults:
         _controller: FrameworkBundle:Template:template
@@ -86,7 +98,7 @@ viteloge_frontend_apiform:
     requirements:
         _method: GET
 
-viteloge_frontend_gtc:
+viteloge_frontend_static_gtc:
     path: /gtc
     defaults:
         _controller: FrameworkBundle:Template:template
@@ -96,7 +108,7 @@ viteloge_frontend_gtc:
     requirements:
         _method: GET
 
-viteloge_frontend_privacy:
+viteloge_frontend_static_privacy:
     path: /privacy
     defaults:
         _controller: FrameworkBundle:Template:template
@@ -106,7 +118,7 @@ viteloge_frontend_privacy:
     requirements:
         _method: GET
 
-viteloge_frontend_sitemap:
+viteloge_frontend_static_sitemap:
     path: /sitemap
     defaults:
         _controller: FrameworkBundle:Template:template

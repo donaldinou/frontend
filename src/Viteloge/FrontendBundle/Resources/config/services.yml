@@ -1,8 +1,13 @@
 services:
-#    viteloge_frontend.example:
-#        class: Viteloge\FrontendBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
     viteloge_frontend.form.type.ad:
         class: Viteloge\FrontendBundle\Form\Type\AdType
         tags:
             - { name: form.type, alias: viteloge_frontend_ad }
+    viteloge_frontend.form.type.usersearch:
+        class: Viteloge\FrontendBundle\Form\Type\UserSearchType
+        tags:
+            - { name: form.type, alias: viteloge_frontend_usersearch }
+    viteloge_frontend.form.type.websearch:
+        class: Viteloge\FrontendBundle\Form\Type\WebSearchType
+        tags:
+            - { name: form.type, alias: viteloge_frontend_websearch }

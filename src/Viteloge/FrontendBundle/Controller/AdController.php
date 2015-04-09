@@ -2,14 +2,17 @@
 
 namespace Viteloge\FrontendBundle\Controller {
 
-    use Symfony\Component\HttpFoundation\Request;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
-    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+    use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use GeoIp2\Database\Reader;
     use Acreat\InseeBundle\Entity\InseeCity;
+    use Viteloge\CoreBundle\Entity\Ad;
 
     /**
      * @Route("/search/ad")
@@ -17,13 +20,33 @@ namespace Viteloge\FrontendBundle\Controller {
     class AdController extends Controller {
 
         /**
-         * @Route("/latest/{transaction}/{limit}", requirements={"transaction" = "V|L|N", "limit" = "\d+"}, defaults={"transaction" = "V", "limit" = "9"})
-         * @Route("/latest/", requirements={"transaction" = "V|L|N", "limit" = "\d+"}, defaults={"transaction" = "V", "limit" = "9"})
+         * @Route(
+         *     "/latest/{transaction}/{limit}",
+         *     requirements={
+         *         "transaction"="V|L|N",
+         *         "limit"="\d+"
+         *     },
+         *     defaults={
+         *         "transaction" = "V",
+         *         "limit" = "9"
+         *     }
+         * )
+         * @Route(
+         *     "/latest/",
+         *     requirements={
+         *         "transaction"="V|L|N",
+         *         "limit" = "\d+"
+         *     },
+         *     defaults={
+         *         "transaction" = "V",
+         *         "limit" = "9"
+         *     }
+         * )
          * @Cache(expires="tomorrow", public=true)
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:Ad:carousel.html.twig")
          */
-        public function latestAction(Request $request) {
+        public function latestAction(Request $request, $transaction, $limit) {
             $repository = $this->getDoctrine()
                 ->getRepository('VitelogeCoreBundle:Ad');
             $cityRepository = $this->getDoctrine()
@@ -41,7 +64,6 @@ namespace Viteloge\FrontendBundle\Controller {
                 $lng = 2.35;
             }
 
-            $limit = $request->get('limit');
             $criteria = array();
             $orderBy = array( 'privilegeRank' => 'DESC', 'order' => 'DESC', 'updatedAt' => 'DESC' );
             $city = $cityRepository->findOneByLatLng($lat, $lng);
@@ -59,15 +81,39 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
-         * @Route("/list/{transaction}/{page}/{limit}", requirements={"transaction" = "V|L|N", "page" = "\d+", "limit" = "\d+"}, defaults={"transaction" = "V", "page" = 1, "limit" = "25"})
-         * @Route("/list/", requirements={"transaction" = "V|L|N", "page" = "\d+", "limit" = "\d+"}, defaults={"transaction" = "V", "page" = 1, "limit" = "25"})
+         * @Route(
+         *     "/list/{transaction}/{page}/{limit}",
+         *     requirements={
+         *         "transaction"="V|L|N",
+         *         "page"="\d+",
+         *         "limit"="\d+"
+         *     },
+         *     defaults={
+         *         "transaction"="V",
+         *         "page"=1,
+         *         "limit"="25"
+         *     }
+         * )
+         * @Route(
+         *     "/list/",
+         *     requirements={
+         *         "transaction"="V|L|N",
+         *         "page"="\d+",
+         *         "limit"="\d+"
+         *     },
+         *     defaults={
+         *         "transaction"="V",
+         *         "page"=1,
+         *         "limit"="25"
+         *     }
+         * )
          * @Method({"GET", "POST"})
          * @Template("VitelogeFrontendBundle:Ad:list.html.twig")
          */
-        public function listAction(Request $request) {
+        public function listAction(Request $request, $transaction, $page, $limit) {
             $repository = $this->getDoctrine()->getRepository('VitelogeCoreBundle:Ad');
             $criteria = array_merge(
-                array('transaction' => $request->get('transaction')),
+                array('transaction' => $transaction),
                 $request->query->all(),
                 $request->request->all()
             );
@@ -80,9 +126,8 @@ namespace Viteloge\FrontendBundle\Controller {
             );
             $count = $repository->countByFiltered($criteria, $orderBy);
 
-            $limit = $request->get('limit');
             $totalPages = ceil($count/$limit);
-            $page = ($request->get('page')<$totalPages) ? $request->get('page') : $totalPages;
+            $page = ($page<$totalPages) ? $page : $totalPages;
             $offset = ($page-1)*$limit;
 
             $ads = $repository->findByFiltered(
@@ -101,6 +146,10 @@ namespace Viteloge\FrontendBundle\Controller {
                 )
             );
 
+            $breadcrumbs = $this->get('white_october_breadcrumbs');
+            $breadcrumbs->addItem('Home', $this->get('router')->generate('viteloge_frontend_homepage'));
+            $breadcrumbs->addItem('Result');
+
             return array(
                 'ads' => $ads,
                 'pagination' => $pagination,
@@ -109,8 +158,21 @@ namespace Viteloge\FrontendBundle\Controller {
             );
         }
 
-        public function paginatedAction(Request $request) {
-            return $this->listAction($request);
+        /**
+         * @Route(
+         *     "/redirect/{id}",
+         *     requirements={
+         *         "id"="\d+"
+         *     }
+         * )
+         * @Method({"GET"})
+         * @ParamConverter("ad", class="VitelogeCoreBundle:Ad", options={"id" = "id"})
+         * @Template("VitelogeFrontendBundle:Ad:redirect.html.twig")
+         */
+        public function redirectAction(Request $request, Ad $ad) {
+            return array(
+                'ad' => $ad
+            );
         }
 
     }

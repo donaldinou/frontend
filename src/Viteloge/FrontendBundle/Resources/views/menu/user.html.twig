@@ -1,0 +1,15 @@
+{% spaceless %}
+<nav>
+    <ul>
+        <li>
+            <a href="{{ path('viteloge_frontend_user_index') }}">{% trans %}Espace Personnel{% endtrans %}</a>
+        </li>
+        <li>
+            <a href="{{ path('fos_user_profile_show') }}">{% trans %}Profile show{% endtrans %}</a>
+        </li>
+        <li>
+            <a href="{{ path('fos_user_security_logout') }}">{% trans %}Deconnexion{% endtrans %}</a>
+        </li>
+    </ul>
+</nav>
+{% endspaceless %}

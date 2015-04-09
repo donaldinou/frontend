@@ -1,7 +1,16 @@
 {% form_theme form with ['VitelogeFrontendBundle:Form:fields.html.twig'] %}
 
 {{ form_start(form, {'attr': {'enctype': 'application/x-www-form-urlencoded','class': 'search', 'role': 'search', 'novalidate': 'novalidate'}}) }}
-    {{ form_errors(form) }}
+    {% embed "VitelogeFrontendBundle:misc:blockerror.html.twig" with { 'form': form} %}
+        {% block form_errors %}
+            {{ form_errors(form) }}
+            {{ form_errors(form.inseeCity) }}
+            {{ form_errors(form.type) }}
+            {{ form_errors(form.rooms) }}
+            {{ form_errors(form.price) }}
+            {{ form_errors(form.search) }}
+        {% endblock %}
+    {% endembed %}
     {{ form_widget(form.transaction) }}
     <fieldset class="bg-darken text-left" role="tabpanel">
         <div class="row">

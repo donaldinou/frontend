@@ -1,0 +1,50 @@
+{% extends 'VitelogeFrontendBundle::base.html.twig' %}
+
+{% block header %}
+    <div class="row" style="padding-top: 5%;">
+        <div id="logo_wrapper">
+            <a href="{{ VITELOGE_BASE_URL }}">
+                {{ "ViteLogé, moteur de recherche d'annonce immobilière" | trans }}
+            </a>
+            <p>
+                {{ 'slogan' | trans }}
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="row text-center" style="padding-top:30px;padding-bottom: 52px;">
+        <img src="http://www.viteloge.com/img/redirect/loading.gif" alt="{{ 'Merci de patienter' | trans }}" width="100" height="100">
+    </div>
+    <div id="MSG-IMPORTANT" class="panel text-center" style="border:none;background: #f7f3e7;">
+        <p style="color: #3f454f;font-size: 18px;font-weight: bold;margin-bottom: 0.8em;">
+            {{ "Vous allez être redirigé vers la fiche de l'agence." | trans }}<br/>
+            {{ "Si cela ne fonctionne pas, veuillez cliquer sur le lien ci-dessous" | trans }}<br>
+        </p>
+        <a href="{{ ad.url }}" style="color: #f46923;font-size: 16px;">{{ ad.url }}</a>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <div class="row" style="padding-top: 5%;">
+        <div id="logo_wrapper">
+            <a href="{{ VITELOGE_BASE_URL }}">
+                {{ "ViteLogé, moteur de recherche d'annonce immobilière" | trans }}
+            </a>
+            <p>
+                {{ 'slogan' | trans }}
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        jQuery(document).ready(
+            function() {
+                window.location.href = '{{ ad.url }}';
+            }
+        );
+    </script>
+{% endblock %}

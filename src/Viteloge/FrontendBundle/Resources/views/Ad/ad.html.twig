@@ -1,6 +1,8 @@
 <figure class="estate">
     <div class="estate-images center-block">
-        <img src="{{ 'http://img.viteloge.com/' ~ ad.photo }}" class="estate-preview" alt="image">
+        <a href="{{ path('viteloge_frontend_ad_redirect', { 'id': ad.id }) }}">
+            <img src="{{ 'http://img.viteloge.com/' ~ ad.photo }}" class="estate-preview" alt="image">
+        </a>
         <img src="{{ 'http://img.viteloge.com/logos/agence.' ~ ad.agencyId ~ '.gif' }}" class="agency-logo" alt="logo">
     </div>
     <figcaption class="estate-legend">

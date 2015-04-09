@@ -4,8 +4,8 @@
             <div class="searches col-md-8">
                 <h3 class="text-upper">{% trans %}Latest properties searches{% endtrans %}</h3>
                 <ul class="listitem" data-role="listitem">
-                    {% for websearch in websearches %}
-                        {{ include('VitelogeFrontendBundle:WebSearch:websearch.html.twig', { 'websearch': websearch }) }}
+                    {% for webSearch in webSearches %}
+                        {{ include('VitelogeFrontendBundle:WebSearch:render/list.html.twig', { 'webSearch': webSearch }) }}
                     {% endfor %}
                 </ul>
             </div>

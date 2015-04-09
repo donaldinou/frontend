@@ -21,28 +21,21 @@
 {% endblock %}
 
 {% block header %}
-<div class="container">
-    <a class="" href="{{ path('viteloge_frontend_homepage') }}">
-        <img src="{{ asset('bundles/frontendbundle/images/common/logo.png') }}" class="logo" alt="viteloge" data-role="logo">
-    </a>
-    <nav class="navigation pull-right" role="navigation">
-        <ul>
-            <li><a href="user/login{#{{ path('viteloge_user_homepage') }}#}" class="">{% trans %}Registration{% endtrans %}</a></li>
-            <li><a href="connexion.html">{% trans %}Connection{% endtrans %}</a></li>
-        </ul>
-    </nav>
-    <div class="cleafix"></div>
-    <div class="forward text-center">
-        <h1 class="text-upper">Nam nec tellus a odio tincidunt</h1>
-        <h2 class="text-upper">
-            {% transchoice count with {'%count%': count|number_format(0, null, ' ')} %}
-                today.properties.update.count
-            {% endtranschoice %} !
-        </h2>
-        {{ include('VitelogeFrontendBundle:Form:ad.html.twig') }}
-    </div>
-</div>
+    {% embed "VitelogeUserBundle:base:header.html.twig" %}
+        {% block header_navigation %}
+            <div class="forward text-center">
+                <h1 class="text-upper">Nam nec tellus a odio tincidunt</h1>
+                <h2 class="text-upper">
+                    {% transchoice count with {'%count%': count|number_format(0, null, ' ')} %}
+                        today.properties.update.count
+                    {% endtranschoice %} !
+                </h2>
+                {{ include('VitelogeFrontendBundle:Form:ad.html.twig') }}
+            </div>
+        {% endblock %}
+    {% endembed %}
 {% endblock %}
+
 
 {% block main %}
 {{ render(controller('VitelogeFrontendBundle:Ad:latest', { 'transaction': form.transaction, 'limit': 9 })) }}

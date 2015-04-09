@@ -1,0 +1,22 @@
+{% extends 'VitelogeFrontendBundle::base.html.twig' %}
+
+{% block main %}
+    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } %}
+        {% block left %}
+            {{ include('VitelogeFrontendBundle:WebSearch:fragment/resume.html.twig', { 'webSearches': app.user.webSearches }) }}
+            <ol class="list-unstyled">
+                {% for webSearch in app.user.webSearches %}
+                    <li>{{ include('VitelogeFrontendBundle:WebSearch:render/result.html.twig', { 'webSearch': webSearch }) }}</li>
+                {% endfor %}
+            </ol>
+        {% endblock %}
+        {% block right %}
+            <aside>
+                <div class="">
+                    {{ include('VitelogeFrontendBundle:menu:user.html.twig', { }) }}
+                </div>
+                publicité
+            </aside>
+        {% endblock %}
+    {% endembed %}
+{% endblock main %}

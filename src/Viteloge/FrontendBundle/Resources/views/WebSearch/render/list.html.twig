@@ -1,0 +1,7 @@
+<li class="item" data-role="item">
+    <p class="pull-left">
+        {{ include('VitelogeFrontendBundle:UserSearch:render/element.html.twig', { 'userSearch': webSearch.userSearch }) }}
+    </p>
+    <span class="button pull-right">{{ webSearch.updatedAt|time_diff|trans }}</span>
+    <span class="clearfix"></span>
+</li>

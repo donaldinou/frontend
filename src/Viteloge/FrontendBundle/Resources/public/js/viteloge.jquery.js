@@ -3,6 +3,15 @@ if (typeof jQuery === 'undefined') {
 }
 jQuery(document).ready(function() {
 
+    jQuery('.btn-navbar').sidr({
+        name: 'respNav',
+        source: '.nav-collapse',
+    });
+
+    jQuery(document).on('click', function() {
+        jQuery().sidr('close', 'respNav');
+    });
+
     jQuery('#carousel-home').carousel(/*{
         interval: 10000
     }*/);

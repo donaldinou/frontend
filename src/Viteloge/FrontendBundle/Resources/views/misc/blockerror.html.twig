@@ -1,0 +1,9 @@
+{% if form.vars.errors|length > 1 or not form.vars.valid %}
+    <div class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">{% trans %}Error{% endtrans %}:</span>
+        {% block form_errors %}
+
+        {% endblock %}
+    </div>
+{% endif %}

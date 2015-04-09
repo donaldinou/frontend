@@ -2,17 +2,17 @@
 
 namespace Viteloge\FrontendBundle\Controller {
 
-    use Symfony\Component\HttpFoundation\Request;
-    use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
-    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-    use Acreat\CoreBundle\Component\DBAL\EnumTransactionType;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+    use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+    use Viteloge\CoreBundle\Component\DBAL\EnumTransactionType;
     use Viteloge\CoreBundle\Entity\Ad;
     use Viteloge\FrontendBundle\Form\Type\AdType;
-    use GeoIp2\Database\Reader;
 
     /**
      * @Route("/")
