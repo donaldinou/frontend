@@ -15,11 +15,17 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+            new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
+            new JMS\TranslationBundle\JMSTranslationBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
             new Viteloge\CoreBundle\VitelogeCoreBundle(),
             new Acreat\CoreBundle\AcreatCoreBundle(),
             new Acreat\InseeBundle\AcreatInseeBundle(),
             new Viteloge\FrontendBundle\VitelogeFrontendBundle(),
             new Viteloge\GlossaryBundle\VitelogeGlossaryBundle(),
+            new Viteloge\UserBundle\VitelogeUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

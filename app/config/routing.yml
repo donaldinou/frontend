@@ -1,3 +1,7 @@
+viteloge_user:
+    resource: "@VitelogeUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
 viteloge_glossary:
     resource: "@VitelogeGlossaryBundle/Resources/config/routing.yml"
     prefix:   /
@@ -8,12 +12,4 @@ viteloge_frontend:
 
 acreat_insee:
     resource: "@AcreatInseeBundle/Resources/config/routing.yml"
-    prefix:   /
-
-acreat_core:
-    resource: "@AcreatCoreBundle/Resources/config/routing.yml"
-    prefix:   /
-
-viteloge_core:
-    resource: "@VitelogeCoreBundle/Resources/config/routing.yml"
     prefix:   /
