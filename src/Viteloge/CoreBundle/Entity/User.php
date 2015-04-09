@@ -3,6 +3,7 @@
 namespace Viteloge\CoreBundle\Entity {
 
     use Doctrine\ORM\Mapping as ORM;
+    use Doctrine\Common\Collections\ArrayCollection;
     use FOS\UserBundle\Model\User as BaseUser;
 
     /**
@@ -12,118 +13,6 @@ namespace Viteloge\CoreBundle\Entity {
      * @ORM\Entity(repositoryClass="Viteloge\CoreBundle\Repository\UserRepository")
      */
     class User extends BaseUser {
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="username", type="string", length=255, nullable=false)
-         */
-        protected $username;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="usernamername_canonical", type="string", length=255, nullable=false)
-         */
-        protected $usernameCanonical;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="email", type="string", length=255, nullable=false)
-         */
-        protected $email;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="email_canonical", type="string", length=255, nullable=false)
-         */
-        protected $emailCanonical;
-
-        /**
-         * @var boolean
-         *
-         * @ORM\Column(name="enabled", type="boolean", nullable=false)
-         */
-        protected $enabled;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="salt", type="string", length=255, nullable=false)
-         */
-        protected $salt;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="password", type="string", length=255, nullable=false)
-         */
-        protected $password;
-
-        /**
-         * @var \DateTime
-         *
-         * @ORM\Column(name="last_login", type="datetime", nullable=true)
-         */
-        protected $lastLogin;
-
-        /**
-         * @var boolean
-         *
-         * @ORM\Column(name="locked", type="boolean", nullable=false)
-         */
-        protected $locked;
-
-        /**
-         * @var boolean
-         *
-         * @ORM\Column(name="expired", type="boolean", nullable=false)
-         */
-        protected $expired;
-
-        /**
-         * @var \DateTime
-         *
-         * @ORM\Column(name="expires_at", type="datetime", nullable=true)
-         */
-        protected $expiresAt;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="confirmation_token", type="string", length=255, nullable=true)
-         */
-        protected $confirmationToken;
-
-        /**
-         * @var \DateTime
-         *
-         * @ORM\Column(name="password_requested_at", type="datetime", nullable=true)
-         */
-        protected $passwordRequestedAt;
-
-        /**
-         * @var array
-         *
-         * @ORM\Column(name="roles", type="array", nullable=false)
-         */
-        protected $roles;
-
-        /**
-         * @var boolean
-         *
-         * @ORM\Column(name="credentials_expired", type="boolean", nullable=false)
-         */
-        protected $credentialsExpired;
-
-        /**
-         * @var \DateTime
-         *
-         * @ORM\Column(name="credentials_expire_at", type="datetime", nullable=true)
-         */
-        protected $credentialsExpireAt;
 
         /**
          * @var string
@@ -166,14 +55,14 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @ORM\Column(name="partenaires", type="boolean", nullable=false)
          */
-        protected $isPartnerContactEnabled;
+        protected $partnerContactEnabled;
 
         /**
          * @var boolean
          *
          * @ORM\Column(name="disable_internal_emails", type="boolean", nullable=false)
          */
-        protected $isInternalMailDisabled;
+        protected $internalMailDisabled;
 
         /**
          * @var integer
@@ -185,13 +74,19 @@ namespace Viteloge\CoreBundle\Entity {
         protected $id;
 
         /**
+         * @ORM\OneToMany(targetEntity="Viteloge\CoreBundle\Entity\WebSearch", mappedBy="user")
+         */
+        private $webSearches;
+
+        /**
          *
          */
         public function __construct() {
             parent::__construct();
-            $this->createdAt = new DateTime('now');
-            $this->isPartnerContactEnabled = true;
-            $this->isInternalMailDisabled = false;
+            $this->createdAt = new \DateTime('now');
+            $this->partnerContactEnabled = true;
+            $this->internalMailDisabled = false;
+            $this->webSearches = new ArrayCollection();
         }
 
         /**
@@ -202,7 +97,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function setUsername($username)
         {
-            $this->username = $username;
+            parent::setUsername($username);
 
             return $this;
         }
@@ -214,7 +109,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function getUsername()
         {
-            return $this->username;
+            return parent::getUsername();
         }
 
         /**
@@ -225,7 +120,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function setUsernameCanonical($usernameCanonical)
         {
-            $this->usernameCanonical = $usernameCanonical;
+            parent::setUsernameCanonical($usernameCanonical);
 
             return $this;
         }
@@ -237,7 +132,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function getUsernameCanonical()
         {
-            return $this->usernameCanonical;
+            return parent::getUsernameCanonical();
         }
 
         /**
@@ -248,7 +143,8 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function setEmail($email)
         {
-            $this->email = $email;
+            parent::setEmail($email);
+            $this->setUsername($email);
 
             return $this;
         }
@@ -260,7 +156,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function getEmail()
         {
-            return $this->email;
+            return parent::getEmail();
         }
 
         /**
@@ -271,7 +167,8 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function setEmailCanonical($emailCanonical)
         {
-            $this->emailCanonical = $emailCanonical;
+            parent::setEmailCanonical($emailCanonical);
+            $this->setUsernameCanonical($emailCanonical);
 
             return $this;
         }
@@ -283,7 +180,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function getEmailCanonical()
         {
-            return $this->emailCanonical;
+            return parent::getEmailCanonical();
         }
 
         /**
@@ -294,7 +191,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function setEnabled($enabled)
         {
-            $this->enabled = $enabled;
+            parent::setEnabled($enabled);
 
             return $this;
         }
@@ -304,22 +201,9 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return boolean
          */
-        public function getEnabled()
+        public function isEnabled()
         {
-            return $this->enabled;
-        }
-
-        /**
-         * Set salt
-         *
-         * @param string $salt
-         * @return Account
-         */
-        public function setSalt($salt)
-        {
-            $this->salt = $salt;
-
-            return $this;
+            return parent::isEnabled();
         }
 
         /**
@@ -329,7 +213,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function getSalt()
         {
-            return $this->salt;
+            return parent::getSalt();
         }
 
         /**
@@ -340,7 +224,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function setPassword($password)
         {
-            $this->password = $password;
+            parent::setPassword($password);
 
             return $this;
         }
@@ -352,7 +236,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function getPassword()
         {
-            return $this->password;
+            return parent::getPassword();
         }
 
         /**
@@ -363,7 +247,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function setLastLogin(\DateTime $lastLogin = null)
         {
-            $this->lastLogin = $lastLogin;
+            parent::setLastLogin($lastLogin);
 
             return $this;
         }
@@ -375,7 +259,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function getLastLogin()
         {
-            return $this->lastLogin;
+            return parent::getLastLogin();
         }
 
         /**
@@ -386,7 +270,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function setLocked($locked)
         {
-            $this->locked = $locked;
+            parent::setLocked($locked);
 
             return $this;
         }
@@ -396,9 +280,9 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return boolean
          */
-        public function getLocked()
+        public function isLocked()
         {
-            return $this->locked;
+            return parent::isLocked();
         }
 
         /**
@@ -409,7 +293,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function setExpired($expired)
         {
-            $this->expired = $expired;
+            parent::setExpired($expired);
 
             return $this;
         }
@@ -419,9 +303,9 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return boolean
          */
-        public function getExpired()
+        public function isExpired()
         {
-            return $this->expired;
+            return parent::isExpired();
         }
 
         /**
@@ -432,7 +316,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function setExpiresAt(\DateTime $expiresAt = null)
         {
-            $this->expiresAt = $expiresAt;
+            parent:setExpiresAt($expiresAt);
 
             return $this;
         }
@@ -455,7 +339,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function setConfirmationToken($confirmationToken)
         {
-            $this->confirmationToken = $confirmationToken;
+            parent::setConfirmationToken($confirmationToken);
 
             return $this;
         }
@@ -467,7 +351,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function getConfirmationToken()
         {
-            return $this->confirmationToken;
+            return parent::getConfirmationToken();
         }
 
         /**
@@ -478,7 +362,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function setPasswordRequestedAt(\DateTime $passwordRequestedAt = null)
         {
-            $this->passwordRequestedAt = $passwordRequestedAt;
+            parent::setPasswordRequestedAt($passwordRequestedAt);
 
             return $this;
         }
@@ -490,7 +374,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function getPasswordRequestedAt()
         {
-            return $this->passwordRequestedAt;
+            return parent::getPasswordRequestedAt();
         }
 
         /**
@@ -522,7 +406,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function setCredentialsExpired($credentialsExpired)
         {
-            $this->credentialsExpired = $credentialsExpired;
+            parent::setCredentialsExpired($credentialsExpired);
 
             return $this;
         }
@@ -532,9 +416,9 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return boolean
          */
-        public function getCredentialsExpired()
+        public function isCredentialsExpired()
         {
-            return $this->credentialsExpired;
+            return parent::isCredentialsExpired();
         }
 
         /**
@@ -545,7 +429,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function setCredentialsExpireAt(\DateTime $credentialsExpireAt = null)
         {
-            $this->credentialsExpireAt = $date;
+            parent::setCredentialsExpireAt($credentialsExpireAt);
 
             return $this;
         }
@@ -558,6 +442,19 @@ namespace Viteloge\CoreBundle\Entity {
         public function getCredentialsExpireAt()
         {
             return $this->credentialsExpireAt;
+        }
+
+        /**
+         * Return firstname and lastname
+         *
+         * @return string
+         */
+        public function getFullname() {
+            $fullname = preg_replace('/\s+/', ' ', $this->getCivility().' '.$this->getFirstname().' '.$this->getLastname());
+            if (empty($fullname)) {
+                $fullname = $this->getEmail();
+            }
+            return $fullname;
         }
 
         /**
@@ -658,7 +555,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @param \DateTime $createdAt
          * @return Account
          */
-        public function setCreatedAt($createdAt)
+        public function setCreatedAt(\DateTime $createdAt = null)
         {
             $this->createdAt = $createdAt;
 
@@ -676,26 +573,26 @@ namespace Viteloge\CoreBundle\Entity {
         }
 
         /**
-         * Set isPartnerContactEnabled
+         * Set partnerContactEnabled
          *
-         * @param boolean $isPartner
+         * @param boolean $partnerContactEnabled
          * @return Account
          */
-        public function setIsPartnerContactEnabled($isPartner)
+        public function setPartnerContactEnabled($partnerContactEnabled)
         {
-            $this->isPartner = $isPartner;
+            $this->partnerContactEnabled = (boolean)$partnerContactEnabled;
 
             return $this;
         }
 
         /**
-         * Get isPartnerContactEnabled
+         * is partnerContactEnabled
          *
          * @return boolean
          */
-        public function getIsPartnerContactEnabled()
+        public function isPartnerContactEnabled()
         {
-            return $this->isPartner;
+            return (boolean)$this->partnerContactEnabled;
         }
 
         /**
@@ -704,9 +601,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @param boolean $isInternalMailDisabled
          * @return Account
          */
-        public function setIsInternalMailDisabled($isInternalMailDisabled)
+        public function setInternalMailDisabled($isInternalMailDisabled)
         {
-            $this->isInternalMailDisabled = $isInternalMailDisabled;
+            $this->isInternalMailDisabled = (boolean)$isInternalMailDisabled;
 
             return $this;
         }
@@ -716,9 +613,9 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return boolean
          */
-        public function getIsInternalMailDisabled()
+        public function isInternalMailDisabled()
         {
-            return $this->isInternalMailDisabled;
+            return (boolean)$this->isInternalMailDisabled;
         }
 
         /**
@@ -730,6 +627,40 @@ namespace Viteloge\CoreBundle\Entity {
         {
             return $this->id;
         }
+
+        /**
+         * Add webSearches
+         *
+         * @param \Viteloge\CoreBundle\Entity\WebSearch $webSearches
+         * @return UserSearch
+         */
+        public function addWebSearch(\Viteloge\CoreBundle\Entity\WebSearch $webSearches)
+        {
+            $this->webSearches[] = $webSearches;
+
+            return $this;
+        }
+
+        /**
+         * Remove webSearches
+         *
+         * @param \Viteloge\CoreBundle\Entity\WebSearch $webSearches
+         */
+        public function removeWebSearch(\Viteloge\CoreBundle\Entity\WebSearch $webSearches)
+        {
+            $this->webSearches->removeElement($webSearches);
+        }
+
+        /**
+         * Get webSearches
+         *
+         * @return \Doctrine\Common\Collections\Collection
+         */
+        public function getWebSearches()
+        {
+            return $this->webSearches;
+        }
+
     }
 
 

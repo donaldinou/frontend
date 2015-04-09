@@ -66,7 +66,7 @@ namespace Viteloge\CoreBundle\Entity {
         /**
          * @var \Viteloge\CoreBundle\Entity\User
          *
-         * @ORM\ManyToOne(targetEntity="Viteloge\CoreBundle\Entity\User")
+         * @ORM\ManyToOne(targetEntity="Viteloge\CoreBundle\Entity\User", inversedBy="webSearches")
          * @ORM\JoinColumns({
          *   @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
          * })
@@ -76,14 +76,21 @@ namespace Viteloge\CoreBundle\Entity {
         /**
          * @var \Viteloge\CoreBundle\Entity\UserSearch
          *
-         * @ORM\ManyToOne(targetEntity="Viteloge\CoreBundle\Entity\UserSearch")
+         * @ORM\OneToOne(targetEntity="Viteloge\CoreBundle\Entity\UserSearch")
          * @ORM\JoinColumns({
          *   @ORM\JoinColumn(name="idUtilisateur", referencedColumnName="idUtilisateur")
          * })
          */
         private $userSearch;
 
-
+        /**
+         * Constructor
+         * @return void
+         */
+        public function __construct() {
+            $this->newmatches = 0;
+            $this->totalmatches = 0;
+        }
 
         /**
          * Set title
