@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-{{ lsize|default(2) }}">
+            {% block left %}
+
+            {% endblock %}
+        </div>
+        <div class="col-md-{{ msize|default(8) }}">
+            {% block middle %}
+
+            {% endblock %}
+        </div>
+        <div class="col-md-{{ rsize|default(2) }}">
+            {% block right %}
+
+            {% endblock %}
+        </div>
+    </div>
+</div>

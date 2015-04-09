@@ -1,0 +1,26 @@
+{% if breadcrumbs is defined and breadcrumbs|length %}
+{% spaceless %}
+<div class="container">
+    <div class="subheader">
+        <nav{% if listId is defined %} id="{{ listId }}"{% endif %}>
+            <ol{% if listClass is defined %} class="{{ listClass }}"{% endif %} itemscope itemtype="http://schema.org/BreadcrumbList">
+                {% if breadcrumbs is defined and breadcrumbs|length %}
+                    {% for breadcrumb in breadcrumbs %}
+                        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" {% if itemClass is defined and itemClass|length %} class="{{ itemClass }}"{% endif %}>
+                            {% if breadcrumb.url %}
+                            <a href="{{ breadcrumb.url }}{# path(breadcrumb.route) #}" itemprop="item">
+                                <span itemprop="name">{{ breadcrumb.text | trans }}</span>
+                            </a>
+                            {% else %}
+                                <span itemprop="name">{{ breadcrumb.text | trans }}</span>
+                            {% endif %}
+                            <meta itemprop="position" content="{{ loop.index }}">
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ol>
+        </nav>
+    </div>
+</div>
+{% endspaceless %}
+{% endif %}

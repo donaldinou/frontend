@@ -1,0 +1,14 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block main %}
+    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } %}
+        {% block left %}
+            {{ include('FOSUserBundle:Registration:fragment/form.html.twig') }}
+        {% endblock %}
+        {% block right %}
+            <aside>
+                publicité
+            </aside>
+        {% endblock %}
+    {% endembed %}
+{% endblock main %}

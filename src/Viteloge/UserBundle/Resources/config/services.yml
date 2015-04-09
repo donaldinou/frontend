@@ -1,0 +1,14 @@
+services:
+    viteloge_user.form.type.registration:
+        class: Viteloge\UserBundle\Form\Type\RegistrationFormType
+        tags:
+            - { name: form.type, alias: viteloge_user_registration }
+    viteloge_user.form.type.profile:
+        class: Viteloge\UserBundle\Form\Type\ProfileFormType
+        tags:
+            - { name: form.type, alias: viteloge_user_profile }
+    viteloge_user.event_subscriber:
+        class: Viteloge\UserBundle\EventListener\UserListener
+        arguments: [@white_october_breadcrumbs, @router]
+        tags:
+            - { name: kernel.event_subscriber }

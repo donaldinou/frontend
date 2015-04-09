@@ -1,0 +1,13 @@
+{% embed "VitelogeUserBundle:base:box.html.twig" %}
+    {% block box_title %}
+        {% trans %}You do not have any account{% endtrans %}
+    {% endblock %}
+    {% block box_content %}
+        <ul>
+            <li>...</li>
+            <li>...</li>
+            <li>...</li>
+        </ul>
+        <a href="{{ path('fos_user_registration_register') }}" class="btn btn-default form-control">{% trans %}Register{% endtrans %}</a>
+    {% endblock %}
+{% endembed %}

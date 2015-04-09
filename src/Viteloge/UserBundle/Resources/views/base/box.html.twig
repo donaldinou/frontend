@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{% block box_title %}{% endblock box_title %}</h3>
+    </div>
+    <div class="panel-body">
+        {% block box_content %}
+
+        {% endblock box_content %}
+    </div>
+    {% if footer is defined and footer %}
+        <div class="panel-footer">
+            {% block box_footer %}
+
+            {% endblock %}
+        </div>
+    {% endif %}
+</div>

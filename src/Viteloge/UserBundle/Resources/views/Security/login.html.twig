@@ -1,0 +1,19 @@
+{% extends "VitelogeUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block main %}
+    {% embed "VitelogeUserBundle:grid:three-columns.html.twig" with {'lsize': 5, 'msize': 5, 'rsize': 2} %}
+        {% block left %}
+            {{ include('VitelogeUserBundle:Security:fragment/form.html.twig') }}
+        {% endblock %}
+        {% block middle %}
+            {{ include('VitelogeUserBundle:Registration:fragment/subscribe_block.html.twig') }}
+        {% endblock %}
+        {% block right %}
+            <aside>
+                publicité
+            </aside>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block main %}
+    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } %}
+        {% trans_default_domain 'FOSUserBundle' %}
+        {% block left %}
+            <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
+            {% if app.session is not empty %}
+                {% set targetUrl = app.session.get('_security.' ~ app.security.token.providerKey ~ '.target_path') %}
+                {% if targetUrl is not empty %}
+                    <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+                {% endif %}
+            {% endif %}
+        {% endblock %}
+        {% block right %}
+            <aside>
+                publicité
+            </aside>
+        {% endblock %}
+    {% endembed %}
+{% endblock main %}
