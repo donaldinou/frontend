@@ -1,79 +1,92 @@
 {% spaceless %}
 <div class="container">
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                {% block header_button %}
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+    <nav class="navbar navbar-default" role="navigation">
+        {% block header_navbar %}
+            <div class="container-fluid">
+                {% block header_navbarheader %}
+                    <div class="navbar-header" id="navbar-button-logo">
+                        {% block header_button %}
+                            <button type="button" class="pull-left navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-navigation" aria-expanded="false" aria-controls="navbar-navigation">
+                                <span class="sr-only">{% trans %}Toggle navigation{% endtrans %}</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        {% endblock %}
+                        {% block header_logo %}
+                            <a class="navbar-branded" href="{{ path('viteloge_frontend_homepage') }}">
+                                <img src="{{ asset('bundles/vitelogecore/images/logo-viteloge.svg') }}" class="logo" alt="{% trans %}viteloge.brand{% endtrans %}" data-role="logo">
+                            </a>
+                        {% endblock %}
+                    </div>
                 {% endblock %}
-                {% block header_logo %}
-                    <a class="" href="{{ path('viteloge_frontend_homepage') }}">
-                        <img src="{{ asset('bundles/frontendbundle/images/common/logo.png') }}" class="logo" alt="viteloge" data-role="logo">
-                    </a>
+                {% block header_navbarmenu %}
+                    <div class="collapse navbar-collapse" id="navbar-navigation">
+                        {% block header_identification %}
+                            <ul id="identification" class="nav navbar-nav navbar-right">
+                                {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") or not app.user %}
+                                    <li>
+                                        <a href="{{ path('fos_user_registration_register') }}" class="">
+                                            <span class="icon-icon-subscribe"></span>&nbsp;{% trans %}Registration{% endtrans %}
+                                        </a>
+                                    </li>
+                                    <li class="hidden-xs">
+                                        <span class="navbar-text vr">&nbsp;</span>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('fos_user_security_login') }}" class="">
+                                            <span class="icon-icon-connect"></span>&nbsp;{% trans %}Connection{% endtrans %}
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                            <span class="icon-icon-connect" aria-hidden="true"></span>&nbsp;
+                                            <span>{{ app.user.fullname }}</span>&nbsp;
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <span class="navbar-text">{{ 'Welcome' | trans }}</span>
+                                            <li>
+                                                <a href="{{ path('viteloge_frontend_user_index') }}">{% trans %}Espace Personnel{% endtrans %}</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('viteloge_frontend_websearch_list') }}">{% trans %}My research{% endtrans %}</a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ path('fos_user_profile_show') }}">{% trans %}Profile show{% endtrans %} <span class="badge">14</span></a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="{{ path('fos_user_security_logout') }}">{% trans %}Logout{% endtrans %}</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        {% endblock %}
+                        <div class="clearfix"></div>
+                        {% block header_navigation %}
+                            {% set transaction = app.request.get('transaction') %}
+                            <ul id="navigation" class="nav nav-tabs">
+                                <li class="tab{% if transaction == 'V' %} active{% endif %} text-upper" role="presentation">
+                                    <a href="{{ path('viteloge_frontend_ad_list', { transaction: 'V' }) }}" data-theme-hover="theme-sale">{% trans %}Vente{% endtrans %}</a>
+                                </li>
+                                <li class="tab{% if transaction == 'L' %} active{% endif %} text-upper" role="presentation">
+                                    <a href="{{ path('viteloge_frontend_ad_list', { transaction: 'L' }) }}" data-theme-hover="theme-rent">{% trans %}Location{% endtrans %}</a>
+                                </li>
+                                <li class="tab{% if transaction == 'N' %} active{% endif %} text-upper" role="presentation">
+                                    <a href="{{ path('viteloge_frontend_ad_list', { transaction: 'N' }) }}" data-theme-hover="theme-new">{% trans %}Neuf{% endtrans %}</a>
+                                </li>
+                                <li class="tab{% if transaction == 'P' %} active{% endif %} text-upper hidden" role="presentation">
+                                    <a href="{{ path('viteloge_frontend_ad_list', { transaction: 'V' }) }}" data-theme-hover="theme-default">{% trans %}Plus{% endtrans %}</a>
+                                </li>
+                            </ul>
+                        {% endblock %}
+                    </div>
                 {% endblock %}
             </div>
-            <div class="collapse navbar-collapse">
-                {% block header_identification %}
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") or not app.user %}
-                            <li><a href="{{ path('fos_user_registration_register') }}" class="">{% trans %}Registration{% endtrans %}</a></li>
-                            <li><a href="{{ path('fos_user_security_login') }}">{% trans %}Connection{% endtrans %}</a></li>
-                        {% else %}
-                            <li><span>{{ 'Welcome' | trans }} {{ app.user.username }}</span></li>
-                            <li><a href="{{ path('fos_user_security_logout') }}">{% trans %}Logout{% endtrans %}</a></li>
-                        {% endif %}
-                    </ul>
-                {% endblock %}
-            </div>
-        </div>
+        {% endblock %}
     </nav>
 </div>
 {% endspaceless %}
-
-{#<div class="container">
-    {% block header_logo %}
-        <a class="" href="{{ path('viteloge_frontend_homepage') }}">
-            <img src="{{ asset('bundles/frontendbundle/images/common/logo.png') }}" class="logo" alt="viteloge" data-role="logo">
-        </a>
-    {% endblock %}
-    {% block header_identification %}
-        <nav class="navigation pull-right" role="navigation">
-            <ul class="list-inline">
-                {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") or not app.user %}
-                    <li><a href="{{ path('fos_user_registration_register') }}" class="">{% trans %}Registration{% endtrans %}</a></li>
-                    <li><a href="{{ path('fos_user_security_login') }}">{% trans %}Connection{% endtrans %}</a></li>
-                {% else %}
-                    <li><span>{{ 'Welcome' | trans }} {{ app.user.username }}</span></li>
-                    <li><a href="{{ path('fos_user_security_logout') }}">{% trans %}Logout{% endtrans %}</a></li>
-                {% endif %}
-            </ul>
-        </nav>
-    {% endblock %}
-    <div class="clearfix"></div>
-    {% block header_navigation %}
-        {% set transaction = app.request.get('transaction') %}
-        <nav class="navigation" role="navigation">
-            <ul class="nav nav-tabs nav-justified">
-                <li class="tab{% if transaction == 'V' %} active{% endif %}" role="presentation">
-                    <a href="{{ path('viteloge_frontend_ad_list', { transaction: 'V' }) }}">{% trans %}Vente{% endtrans %}</a>
-                </li>
-                <li class="tab{% if transaction == 'L' %} active{% endif %}" role="presentation">
-                    <a href="{{ path('viteloge_frontend_ad_list', { transaction: 'L' }) }}">{% trans %}Location{% endtrans %}</a>
-                </li>
-                <li class="tab{% if transaction == 'N' %} active{% endif %}" role="presentation">
-                    <a href="{{ path('viteloge_frontend_ad_list', { transaction: 'N' }) }}">{% trans %}Neuf{% endtrans %}</a>
-                </li>
-                <li class="tab{% if transaction == 'P' %} active{% endif %}" role="presentation">
-                    <a href="{{ path('viteloge_frontend_ad_list', { transaction: 'V' }) }}">{% trans %}Plus{% endtrans %}</a>
-                </li>
-            </ul>
-        </nav>
-    {% endblock %}
-    <div class="cleafix"></div>
-</div>
-#}

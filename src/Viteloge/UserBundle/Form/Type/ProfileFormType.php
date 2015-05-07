@@ -4,12 +4,21 @@ namespace Viteloge\UserBundle\Form\Type {
 
     use Symfony\Component\Form\AbstractType;
     use Symfony\Component\Form\FormBuilderInterface;
+    use Viteloge\CoreBundle\Component\Enum\CivilityEnum;
 
     class ProfileFormType extends AbstractType {
 
         public function buildForm(FormBuilderInterface $builder, array $options) {
+            $civility = new CivilityEnum();
             $builder
-                ->add('civility')
+                ->add('civility', 'choice',
+                    array(
+                        'choices' => $civility->choices(),
+                        'expanded' => false,
+                        'multiple' => false,
+                        'placeholder' => 'Choose an option',
+                    )
+                )
                 ->add('firstname')
                 ->add('lastname')
                 ->add('phone')

@@ -1,26 +1,29 @@
 {% if breadcrumbs is defined and breadcrumbs|length %}
 {% spaceless %}
-<div class="container">
-    <div class="subheader">
-        <nav{% if listId is defined %} id="{{ listId }}"{% endif %}>
-            <ol{% if listClass is defined %} class="{{ listClass }}"{% endif %} itemscope itemtype="http://schema.org/BreadcrumbList">
-                {% if breadcrumbs is defined and breadcrumbs|length %}
-                    {% for breadcrumb in breadcrumbs %}
-                        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" {% if itemClass is defined and itemClass|length %} class="{{ itemClass }}"{% endif %}>
-                            {% if breadcrumb.url %}
+    <nav{% if listId %} id="{{ listId }}"{% endif %} class="container">
+        <ol{% if listClass is defined %} class="{{ listClass }}"{% endif %} itemscope itemtype="http://schema.org/BreadcrumbList">
+            {% if breadcrumbs is defined and breadcrumbs|length %}
+                {% for breadcrumb in breadcrumbs %}
+                    <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" {% if itemClass is defined and itemClass|length %} class="{{ itemClass }}"{% endif %}>
+                        {% if breadcrumb.url %}
+                            {% if breadcrumb.url == path('viteloge_frontend_homepage') %}
+                            <a href="{{ breadcrumb.url }}{# path(breadcrumb.route) #}" itemprop="item" aria-label="{{ breadcrumb.text | trans }}">
+                                <span class="fa fa-home" aria-hidden="true"></span>
+                                <span itemprop="name" class="sr-only">{{ breadcrumb.text | trans }}</span>
+                            </a>
+                            {% else %}
                             <a href="{{ breadcrumb.url }}{# path(breadcrumb.route) #}" itemprop="item">
                                 <span itemprop="name">{{ breadcrumb.text | trans }}</span>
                             </a>
-                            {% else %}
-                                <span itemprop="name">{{ breadcrumb.text | trans }}</span>
                             {% endif %}
-                            <meta itemprop="position" content="{{ loop.index }}">
-                        </li>
-                    {% endfor %}
-                {% endif %}
-            </ol>
-        </nav>
-    </div>
-</div>
+                        {% else %}
+                            <span itemprop="name">{{ breadcrumb.text | trans }}</span>
+                        {% endif %}
+                        <meta itemprop="position" content="{{ loop.index }}">
+                    </li>
+                {% endfor %}
+            {% endif %}
+        </ol>
+    </nav>
 {% endspaceless %}
 {% endif %}

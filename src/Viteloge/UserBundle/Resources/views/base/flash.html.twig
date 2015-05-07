@@ -1,7 +1,13 @@
-{% for type, messages in app.session.flashbag.all() %}
-    {% for message in messages %}
-        <div class="flash-{{ type }}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endfor %}
+{%- if app.session.flashbag.all() %}
+    <div class="container">
+        {% for type, messages in app.session.flashbag.all() %}
+            {% for message in messages %}
+                {%- embed 'VitelogeCoreBundle:Global:alert.html.twig' with { alerts: messages, type: type, dismissible: true } -%}
+                    {%- block alert_title -%}
+
+                    {%- endblock -%}
+                {%- endembed -%}
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endif -%}

@@ -1,0 +1,22 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request form-horizontal" role="form">
+    <div>
+        {% if invalid_username is defined %}
+            {{ include("VitelogeCoreBundle:Global:alert.html.twig", { alerts: ['resetting.request.invalid_username'|trans({'%username%': invalid_username})], type: 'warning' }) }}
+        {% endif %}
+        <div class="form-group">
+            {#<label for="username" class="col-sm-2 control-label">{{ 'resetting.request.username'|trans }}</label>#}
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <span class="input-group-addon">@</span>
+                    <input type="email" class="form-control" id="username" name="username" required="required" placeholder="{{ 'resetting.request.username'|trans }}">
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ include('VitelogeCoreBundle:Form:submit.html.twig', {
+        back_uri: path('fos_user_security_login'),
+        submit_label: 'resetting.request.submit'|trans()
+    }) }}
+</form>

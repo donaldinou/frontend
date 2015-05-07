@@ -1,9 +1,23 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
-{% trans_default_domain 'FOSUserBundle' %}
-
 {% block main %}
-<p>
-{{ 'resetting.check_email'|trans({'%email%': email}) }}
-</p>
-{% endblock %}
+    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } %}
+        {% block left %}
+            {% trans_default_domain 'FOSUserBundle' %}
+            {{ 'resetting.check_email'|trans({'%email%': email}) }}
+            <div class="row">
+                <div class="col-xs-2">
+                    <a href="{{ path('fos_user_security_login') }}" class="btn btn-default form-control">{% trans %}Back{% endtrans %}</a>
+                </div>
+                <div class="col-xs-10">
+                    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-default form-control">{% trans %}Subscribe{% endtrans %}</a>
+                </div>
+            </div>
+        {% endblock %}
+        {% block right %}
+            <aside>
+                publicité
+            </aside>
+        {% endblock %}
+    {% endembed %}
+{% endblock main %}

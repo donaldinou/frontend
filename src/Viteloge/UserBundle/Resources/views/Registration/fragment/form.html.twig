@@ -1,41 +1,15 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {{ form_start(form, {'attr': {'enctype': 'application/x-www-form-urlencoded','class': 'register form-horizontal', 'role': 'form', 'novalidate': 'novalidate'}}) }}
-    {% if form.vars.errors|length > 1 or not form.vars.valid %}
-        <div class="alert alert-danger" role="alert">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <span class="sr-only">{% trans %}Error{% endtrans %}:</span>
-            {{ form_errors(form) }}
-            {{ form_errors(form.email) }}
-            {{ form_errors(form.plainPassword.first) }}
-            {{ form_errors(form.plainPassword.second) }}
-        </div>
-    {% endif %}
+    {{ form_errors(form) }}
     <div class="hidden">
         {{ form_row(form._token) }}
     </div>
-    <div class="form-group">
-        {{ form_label(form.email, null, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-        <div class="col-sm-10">
-            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.plainPassword.first, null, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-        <div class="col-sm-10">
-            {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control'}}) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.plainPassword.second, null, {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
-        <div class="col-sm-10">
-            {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control'}}) }}
-        </div>
-    </div>
-    {#
-    <div class="form-group">
-        {{ form_widget(form) }}
-    </div>
-    #}
-    <button type="submit" class="btn btn-default form-control">{{ 'registration.submit'|trans }}</button>
+    {{ form_row(form.email) }}
+    {{ form_row(form.plainPassword.first) }}
+    {{ form_row(form.plainPassword.second) }}
+    {{ include('VitelogeCoreBundle:Form:submit.html.twig', {
+        back_uri: path('fos_user_security_login'),
+        submit_label: 'registration.submit'|trans()
+    }) }}
 {{ form_end(form, {'render_rest': false}) }}

@@ -1,0 +1,41 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% block subject %}
+{% autoescape false %}
+{{ 'registration.email.subject'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
+{% endautoescape %}
+{% endblock %}
+{% block body_text %}
+{% autoescape false %}
+{{ 'registration.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
+{% endautoescape %}
+{% endblock %}
+{% block body_html %}{% endblock %}
+
+
+{#
+{% block subject %}{{ 'security.emails.confirmation.subject'| trans }}{% endblock %}
+
+{% block body_text %}
+{% autoescape false %}
+{{ 'security.emails.confirmation.greet'| trans }}  {{ user.username }} !
+
+{{ 'security.emails.confirmation.greet'| trans }}
+   {{ confirmationUrl }}
+
+{{ 'security.emails.confirmation.greet'| trans }}
+{{ 'security.emails.confirmation.greet'| trans }}
+{% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+  <p>{{ 'security.emails.confirmation.greet'| trans }} {{ user.username }} !</p>
+
+  <p>{{ 'security.emails.confirmation.info_html'| trans }} <a href="{{ confirmationUrl }}">{{ 'security.emails.confirmation.info_link'| trans }}</a> {{ 'security.emails.confirmation.info_copypaste'| trans }}</p>
+
+  <p>{{ confirmationUrl }}</p>
+
+  <p>{{ 'security.emails.confirmation.regards'| trans }}<br/>
+    {{ 'security.emails.confirmation.signature'| trans }}
+  </p>
+{% endblock %}
+#}
