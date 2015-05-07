@@ -3,6 +3,7 @@
 namespace Viteloge\CoreBundle\Entity {
 
     use Doctrine\ORM\Mapping as ORM;
+    use Symfony\Component\Validator\Constraints as Assert;
 
     /**
      * Ad
@@ -185,6 +186,11 @@ namespace Viteloge\CoreBundle\Entity {
          */
         private $inseeCity;
 
+        /**
+         * @var \Viteloge\CoreBundle\Entity\Privilege
+         */
+        protected $privilege;
+
 
 
         /**
@@ -254,6 +260,19 @@ namespace Viteloge\CoreBundle\Entity {
         public function getAgencySpecial()
         {
             return $this->agencySpecial;
+        }
+
+        /**
+         * Get agencyDomainName
+         *
+         * @return string
+         */
+        public function getAgencyDomainName() {
+            $result = null;
+            if (!empty($this->url)) {
+                $result = parse_url($this->url, PHP_URL_HOST);
+            }
+            return $result;
         }
 
         /**
@@ -724,6 +743,16 @@ namespace Viteloge\CoreBundle\Entity {
         public function getInseeCity()
         {
             return $this->inseeCity;
+        }
+
+        /**
+         *
+         */
+        public function getPrivilege() {
+            if (!$this->privilege instanceof Privilege) {
+                $this->privilege = new Privilege($this->privilegeCode);
+            }
+            return $this->privilege;
         }
     }
 

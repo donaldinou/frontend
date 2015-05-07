@@ -3,6 +3,7 @@
 namespace Viteloge\CoreBundle\Entity {
 
     use Doctrine\ORM\Mapping as ORM;
+    use Symfony\Component\Validator\Constraints as Assert;
 
     /**
      * Search
@@ -64,7 +65,7 @@ namespace Viteloge\CoreBundle\Entity {
         /**
          * @var string
          *
-         * @ORM\Column(name="pieces", type="string", length=50, nullable=false)
+         * @ORM\Column(name="pieces", type="stringy_simple_array", length=50, nullable=false)
          */
         private $rooms;
 
@@ -108,14 +109,14 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @ORM\Column(name="help", type="boolean", nullable=false)
          */
-        private $isHelpEnabled;
+        private $helpEnabled;
 
         /**
          * @var boolean
          *
          * @ORM\Column(name="partenaires", type="boolean", nullable=false)
          */
-        private $isPartnerContactEnabled;
+        private $partnerContactEnabled;
 
         /**
          * @var \DateTime
@@ -469,9 +470,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @param boolean $isHelp
          * @return Search
          */
-        public function setIsHelpEnabled($isHelp)
+        public function setHelpEnabled($isHelp)
         {
-            $this->isHelp = $isHelp;
+            $this->isHelp = (boolean)$isHelp;
 
             return $this;
         }
@@ -481,9 +482,9 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return boolean
          */
-        public function getIsHelpEnabled()
+        public function isHelpEnabled()
         {
-            return $this->isHelp;
+            return $this->helpEnabled;
         }
 
         /**
@@ -492,9 +493,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @param boolean $isPartner
          * @return Search
          */
-        public function setIsPartnerContactEnabled($isPartner)
+        public function setPartnerContactEnabled($isPartner)
         {
-            $this->isPartner = $isPartner;
+            $this->partnerContactEnabled = (boolean)$isPartner;
 
             return $this;
         }
@@ -504,9 +505,9 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return boolean
          */
-        public function getIsPartnerContactEnabled()
+        public function getPartnerContactEnabled()
         {
-            return $this->isPartner;
+            return $this->partnerContactEnabled;
         }
 
         /**

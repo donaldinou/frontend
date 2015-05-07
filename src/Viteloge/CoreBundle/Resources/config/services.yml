@@ -1,15 +1,14 @@
-services:
-#    viteloge_core.example:
-#        class: Viteloge\CoreBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+parameters:
+    twig.extension.intl.class: Twig_Extensions_Extension_Intl
+    twig.extension.date.class: Twig_Extensions_Extension_Date
 
 services:
     twig.extension.intl:
-        class: Twig_Extensions_Extension_Intl
+        class: %twig.extension.intl.class%
         tags:
             - { name: twig.extension }
     twig.extension.date:
-        class: Twig_Extensions_Extension_Date
+        class: %twig.extension.date.class%
         arguments: [@translator]
         tags:
             - { name: twig.extension }

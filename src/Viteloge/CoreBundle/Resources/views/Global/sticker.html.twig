@@ -1,0 +1,8 @@
+{%- block sticker -%}
+    {% set title = title|default('exclu') %}
+    <div class="sticker-wrapper left">
+        <div class="sticker">
+            <span class="">{% block sticker_title %}{{ title|trans() }}{% endblock %}</span>
+        </div>
+    </div>
+{%- endblock -%}

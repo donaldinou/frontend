@@ -3,12 +3,14 @@
 namespace Viteloge\CoreBundle\Entity {
 
     use Doctrine\ORM\Mapping as ORM;
+    use Symfony\Component\Validator\Constraints as Assert;
 
     /**
      * WebSearch
      *
      * @ORM\Table(name="web_searches", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_774729F45D419CCB", columns={"idUtilisateur"})}, indexes={@ORM\Index(name="IDX_774729F47E3C61F9", columns={"owner_id"})})
      * @ORM\Entity(repositoryClass="Viteloge\CoreBundle\Repository\WebSearchRepository")
+     * @ORM\HasLifecycleCallbacks
      */
     class WebSearch
     {
@@ -16,6 +18,8 @@ namespace Viteloge\CoreBundle\Entity {
          * @var string
          *
          * @ORM\Column(name="title", type="string", length=255, nullable=true)
+         *
+         * @Assert\NotBlank()
          */
         private $title;
 
@@ -80,6 +84,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\JoinColumns({
          *   @ORM\JoinColumn(name="idUtilisateur", referencedColumnName="idUtilisateur")
          * })
+         *
+         * Assert\Type(type="VitelogeCoreBundle\Entity\UserSearch")
+         * Assert\Valid()
          */
         private $userSearch;
 
@@ -284,6 +291,13 @@ namespace Viteloge\CoreBundle\Entity {
         public function getUserSearch()
         {
             return $this->userSearch;
+        }
+
+        /**
+         * @ORM\PreUpdate
+         */
+        public function setUpdatedAtValue() {
+            $this->updatedAt = new \DateTime();
         }
     }
 

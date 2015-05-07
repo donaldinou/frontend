@@ -2,7 +2,7 @@
 
 namespace Viteloge\CoreBundle\Repository {
 
-    use Doctrine\ORM\EntityRepository;
+    use Acreat\CoreBundle\Component\ORM\EntityRepository;
 
     /**
      * AdRepository
@@ -11,9 +11,6 @@ namespace Viteloge\CoreBundle\Repository {
      * repository methods below.
      */
     class AdRepository extends EntityRepository {
-
-        //
-        //public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
 
         public function countByFiltered(array $criteria=null, array $orderBy = null) {
             $first = true;
@@ -40,20 +37,6 @@ namespace Viteloge\CoreBundle\Repository {
                 }
             }
             return $query->getQuery()->getSingleScalarResult();
-        }
-
-        public function findByFiltered(array $criteria, array $orderBy = null, $limit = null, $offset = null) {
-            foreach ($criteria as $key => $value) {
-                if (!$this->getClassMetadata()->hasField($key)) {
-                    unset($criteria[$key]);
-                }
-            }
-            foreach ($orderBy as $key => $value) {
-                if (!$this->getClassMetadata()->hasField($key)) {
-                    unset($orderBy[$key]);
-                }
-            }
-            return $this->findBy($criteria, $orderBy, $limit, $offset);
         }
 
     }

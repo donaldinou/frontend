@@ -2,7 +2,7 @@
 
 namespace Viteloge\CoreBundle\Repository {
 
-    use Doctrine\ORM\EntityRepository;
+    use Acreat\CoreBundle\Component\ORM\EntityRepository;
 
     /**
      * SponsorRepository

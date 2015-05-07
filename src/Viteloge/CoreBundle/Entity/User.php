@@ -4,7 +4,9 @@ namespace Viteloge\CoreBundle\Entity {
 
     use Doctrine\ORM\Mapping as ORM;
     use Doctrine\Common\Collections\ArrayCollection;
+    use Symfony\Component\Validator\Constraints as Assert;
     use FOS\UserBundle\Model\User as BaseUser;
+    use Viteloge\Corebundle\Component\Enum\CivilityEnum;
 
     /**
      * User
@@ -451,7 +453,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function getFullname() {
             $fullname = preg_replace('/\s+/', ' ', $this->getCivility().' '.$this->getFirstname().' '.$this->getLastname());
-            if (empty($fullname)) {
+            if (empty(trim($fullname))) {
                 $fullname = $this->getEmail();
             }
             return $fullname;
@@ -463,9 +465,15 @@ namespace Viteloge\CoreBundle\Entity {
          * @param string $civility
          * @return Account
          */
-        public function setCivility($civility)
-        {
-            $this->civility = $civility;
+        public function setCivility($civility) {
+            if (!$civility instanceof CivilityEnum) {
+                $object = new CivilityEnum();
+                if (in_array($civility, $object->getConstList())) {
+                    $this->civility = $civility;
+                }
+            } else {
+                $this->civility = (string)$civility;
+            }
 
             return $this;
         }

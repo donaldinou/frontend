@@ -1,0 +1,39 @@
+{%- block alert -%}
+    {% set type = type|default('danger') %}
+    {% set dismissible = dismissible|default(true) %}
+    {% set valid = valid|default(true) %}
+    {%- if type == 'success' -%}
+        {% set class = 'glyphicon-ok-sign' %}
+    {%- elseif type == 'info' -%}
+        {% set class = 'glyphicon-info-sign' %}
+    {%- elseif type == 'warning' -%}
+        {% set class = 'glyphicon-warning-sign' %}
+    {%- elseif type == 'danger' or type == 'error' -%}
+        {% set class = 'glyphicon-exclamation-sign' %}
+    {%- else -%}
+        {% set class = '' -%}
+    {%- endif -%}
+    {%- if alerts|length > 0 or not valid -%}
+        <div class="alert alert-{{ type }}{% if dismissible %} alert-dismissible"{% endif %} role="alert">
+            <strong data-class="sr-only">
+                {%- block alert_title -%}
+
+                {%- endblock -%}
+            </strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {%- block alert_messages -%}
+                <ul class="list-unstyled">
+                {%- for alert in alerts -%}
+                    {% set message = alert.message|default(alert) %}
+                    <li>
+                        {%- if class -%}
+                            <span class="glyphicon {{ class }}" aria-hidden="true"></span>&nbsp;
+                        {%- endif -%}
+                        {{ message }}
+                    </li>
+                {%- endfor -%}
+                </ul>
+            {%- endblock -%}
+        </div>
+    {%- endif -%}
+{%- endblock -%}

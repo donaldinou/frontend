@@ -6,15 +6,21 @@ namespace Viteloge\CoreBundle\Entity {
 
     class Service {
 
-        private $name;
+        protected $name;
 
-        private $image;
+        protected $image;
 
-        private $icon;
+        protected $icon;
 
-        private $title;
+        protected $title;
 
-        private $description;
+        protected $url;
+
+        protected $description;
+
+        public function __construct() {
+
+        }
 
         public function getName() {
             return $this->name;
@@ -50,6 +56,15 @@ namespace Viteloge\CoreBundle\Entity {
         public function setTitle($title) {
             $this->title = $title;
             return $this;
+        }
+
+        public function getUrl() {
+            return $this->url;
+        }
+
+        public function setUrl($url) {
+            $this->url = $url;
+            return $this->url;
         }
 
         public function getDescription() {
