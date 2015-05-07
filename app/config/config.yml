@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: sonata_seo.yml }
 
 framework:
     #esi:             ~
@@ -30,6 +31,15 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form:
+        resources: ['VitelogeCoreBundle:Form:fields.html.twig']
+    globals:
+        ga_tracking: %ga_tracking%
+        adsense_publisher_id: %adsense_publisher_id%
+        adsense_slots: %adsense_slots%
+        adsense_slot_spec: %adsense_slot_spec%
+        facebook_account: %facebook_account%
+        twitter_account: %twitter_account%
 
 # Doctrine Configuration
 doctrine:
@@ -43,6 +53,7 @@ doctrine:
         charset:  UTF8
         types:
             enumtransaction: Viteloge\CoreBundle\Component\DBAL\EnumTransactionType
+            stringy_simple_array: Acreat\CoreBundle\Component\DBAL\StringifySimpleArrayType
         mapping_types:
             enum: string
         # if using pdo_sqlite as your database driver:
@@ -65,11 +76,56 @@ fos_user:
     firewall_name: main
     user_class: Viteloge\CoreBundle\Entity\User
     registration:
+        confirmation:
+            enabled: false
+            template: VitelogeUserBundle:Registration:email.html.twig
         form:
             type: viteloge_user_registration
     profile:
         form:
             type: viteloge_user_profile
+    resetting:
+        email:
+            template: VitelogeFrontendBundle:Resetting:email.html.twig
+    from_email:
+        address: no-reply@viteloge.com
+        sender_name: Vitelogé
+
+# FosElastica
+fos_elastica:
+    clients:
+        default: { host: %elastic_host%, port: %elastic_port% }
+    serializer:
+        callback_class: FOS\ElasticaBundle\Serializer\Callback
+        serializer: serializer
+    indexes:
+        viteloge:
+            index_name: viteloge_%kernel.environment%
+            client: default
+            types:
+                ad:
+                    mappings:
+                        id:
+                            type: integer
+                    persistence:
+                        driver: orm
+                        model: \Viteloge\CoreBundle\Entity\Ad
+                        provider: ~
+                        listener:
+                            immediate: ~
+                        finder: ~
+
+# Knp Paginator
+knp_paginator:
+    page_range: 25
+    default_options:
+        page_name: page
+        sort_field_name: sort
+        sort_direction_name: direction
+        distinct: true
+    template:
+        pagination: KnpPaginatorBundle:Pagination:sliding.html.twig
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig
 
 # Swiftmailer Configuration
 swiftmailer:

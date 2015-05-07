@@ -10,6 +10,10 @@ viteloge_frontend:
     resource: "@VitelogeFrontendBundle/Resources/config/routing.yml"
     prefix:   /
 
+viteloge_estimation:
+    resource: "@VitelogeEstimationBundle/Resources/config/routing.yml"
+    prefix:   /
+
 acreat_insee:
     resource: "@AcreatInseeBundle/Resources/config/routing.yml"
     prefix:   /

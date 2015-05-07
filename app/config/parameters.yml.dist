@@ -9,6 +9,9 @@ parameters:
     # You should uncomment this if you want use pdo_sqlite
     # database_path: "%kernel.root_dir%/data.db3"
 
+    elastic_host : localhost
+    elastic_port : 9200
+
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
     mailer_user:       ~
@@ -18,3 +21,20 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    # google analytics
+    ga_tracking:        UA-xxxxx-x
+
+    # google adsense
+    adsense_publisher_id: null
+    adsense_slots:
+        - ''
+        - ''
+        - ''
+    adsense_slot_spec: ''
+
+    # facebook
+    facebook_account:   viteloge
+
+    # twitter
+    twitter_account:    viteloge

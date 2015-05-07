@@ -3,37 +3,82 @@ module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
 
     // plugins configuration
-    grunt.initConfig({
+    var config = {
+        cmp: grunt.file.readJSON('composer.json'),
+        bwr: grunt.file.readJSON('.bowerrc'),
         pkg: grunt.file.readJSON('package.json'),
+        aws: grunt.file.readJSON('aws-credentials.json'),
+        //hub: {
+        //    all: {
+        //        files: {
+        //            src: [
+        //                'src/*/Gruntfile.js',
+        //                'vendor/*/Gruntfile.js'
+        //            ]
+        //        }
+        //    }
+        //},
+        shell: {
+            clearCache: {
+                options: {
+                    stdout: true
+                },
+                command: 'php app/console cache:clear'
+            }
+        },
         bowercopy: { // download with bower and copy necessary files to web/assets/*
             options: {
-                srcPrefix: 'bower_components',
-                destPrefix: 'web/assets'
+                srcPrefix: '<%= bwr.directory %>',
+                destPrefix: '<%= cmp.extra["symfony-assets-dir"] %>'
             },
             scripts: {
                 files: {
                     'js/jquery.js': 'jquery/dist/jquery.js',
-                    //'js/bootstrap.js': 'bootstrap/dist/js/bootstrap.js'
+                    'js/typeahead.js': 'typeahead.js/dist/typeahead.bundle.js',
+                    'js/bootstrap-tagsinput.js': 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js',
+                    'js/require.js': 'requirejs/require.js',
+                    'js/domReady.js': 'requirejs-domready/domReady.js',
+                    'js/hinclude.js': 'hinclude/hinclude.js',
+                    'js/background-check.js': 'background-check/background-check.js'
                 }
             },
             stylesheets: {
                 files: {
-                    //'css/bootstrap.css': 'bootstrap/dist/css/bootstrap.css',
-                    //'css/font-awesome.css': 'font-awesome/css/font-awesome.css'
+                    'css/normalize.css': 'normalize.css/normalize.css',
+                    'css/bootstrap-tagsinput.css': 'bootstrap-tagsinput/dist/bootstrap-tagsinput.css',
+                    'css/font-awesome.css': 'fontawesome/css/font-awesome.min.css'
                 }
-            },
-            fonts: {
+            }//,
+            /*fonts: {
                 files: {
-                    //'fonts': 'font-awesome/fonts'
+                    'fonts': 'font-awesome/fonts'
+                }
+            }*/
+        }, //end bowercopy
+        requirejs: {
+            main: {
+                options: {
+                    mainConfigFile: '<%= cmp.extra["symfony-assets-dir"] %>/js/common.js',
+                    appDir: '<%= cmp.extra["symfony-assets-dir"] %>',
+                    baseUrl: '<%= cmp.extra["symfony-assets-dir"] %>/js',
+                    dir: '<%= cmp.extra["symfony-assets-dir"] %>',
+                    optimizeCss: "none", // it will use sass/compass instead
+                    optimize: "none", // it will use uglify instead
+                    modules: [
+                        {
+                            name: 'common',
+                            include: ['jquery', 'domReady']
+                        }
+                    ]
                 }
             }
-        }, //end bowercopy
+        },
         compass: { // compass compilation
             sass: {
                 options: {
                     sassDir: 'src/Viteloge/FrontendBundle/Resources/scss',
                     cssDir: '.tmp/css',
-                    importPath: 'app/components',
+                    importPath: '<%= bwr.directory %>',
                     outputStyle: 'expanded',
                     noLineComments: true
                 }
@@ -46,8 +91,9 @@ module.exports = function(grunt) {
                     keepSpecialComments: 0
                 },
                 files: {
-                    'web/built/min.css': [
-                        '.tmp/css/**/*.css'
+                    '<%= cmp.extra["symfony-web-dir"] %>/built/min.css': [
+                        '.tmp/css/**/*.css',
+                        'web/assets/**/*.css'
                     ]
                 }
             }
@@ -60,43 +106,57 @@ module.exports = function(grunt) {
               // Target-specific file lists and/or options go here.
             },
         }, // end dart
-        uglify: { // uglugy files
+        uglify: { // uglufy files
             options: {
                 mangle: false,
                 sourceMap: true,
-                sourceMapName: 'web/built/app.map'
+                sourceMapName: '<%= cmp.extra["symfony-web-dir"] %>/built/app.map',
+                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
-            dist: {
-                files: {
-                  'web/built/app.min.js':[
-                    'app/components/jquery/jquery.js',
-                    'app/components/bootstrap-sass-official/asset/javascripts/bootstrap.js'
-                    //'.tmp/js/**/*.js'
-                  ]
-                }
+            build: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= cmp.extra["symfony-assets-dir"] %>/js/',
+                    src: ['**/*.js'],
+                    dest: '<%= cmp.extra["symfony-assets-dir"] %>/js/'
+                }]
             }
         }, // end uglify
         watch: {
             css: {
-                files: ['src/Ddms/*/Resources/scss/**/*.scss'],
+                files: ['src/Viteloge/FrontendBundle/Resources/scss/**'],
                 tasks: ['css']
             },
             javascript: {
-                files: ['src/Ddms/*/Resources/public/js/*.js'],
+                files: ['src/Viteloge/FrontendBundle/Resources/public/js/*.js'],
                 tasks: ['javascript']
+            },
+            xliff: {
+                files: [
+                    'src/**/*.xliff',
+                    'src/**/*.xlf'
+                ],
+                tasks: ['shell:clearCache']
             }
         }, // end watch
-        copy: {
+        copy: { // copy files
             dist: {
                 files: [{
                     expand: true,
-                    cwd: 'app/components/font-awesome/fonts',
-                    dest: 'web/fonts',
-                    src: ['**']
+                    cwd: 'src/Viteloge/FrontendBundle/Resources/public/',
+                    src: ['**'],
+                    dest: '<%= cmp.extra["symfony-web-dir"] %>/bundles/frontendbundle/'
                 }]
             }
+        }, // end copy
+        clean: {
+            build: {
+                src: ['<%= cmp.extra["symfony-assets-dir"] %>/**']
+            },
+            sass: {
+                src: ['<%= cmp.extra["symfony-assets-dir"] %>/sass']
+            }
         },
-        aws: grunt.file.readJSON('aws-credentials.json'),
         s3: {
             options: {
                 key: '<%= aws.key %>',
@@ -106,31 +166,34 @@ module.exports = function(grunt) {
             cdn: {
                 upload: [
                     {
-                        src: 'web/assets/css/*',
+                        src: 'cmp.extra["symfony-assets-dir"]/css/*',
                         dest: 'css/'
                     },
 
                     {
-                        src: 'web/assets/fonts/*',
+                        src: 'cmp.extra["symfony-assets-dir"]/fonts/*',
                         dest: 'fonts/'
                     },
                     {
-                        src: 'web/assets/images/*',
+                        src: 'cmp.extra["symfony-assets-dir"]/images/*',
                         dest: 'images/'
                     },
                     {
-                        src: 'web/assets/js/*',
+                        src: 'cmp.extra["symfony-assets-dir"]/js/*',
                         dest: 'js/'
                     }
                 ]
             }
         }
-    });
+    };
 
-    // Déclaration des différentes tâches
-    grunt.registerTask('default', ['bowercopy']);
+    // init grunt config
+    grunt.initConfig(config);
+
+    // All tasks
     //grunt.registerTask('default', ['css','javascript']);
-    //grunt.registerTask('css', ['compass','cssmin']);
-    //grunt.registerTask('javascript', ['dart2js', 'uglify']);
-    //grunt.registerTask('cp', ['copy']);
+    grunt.registerTask('css', ['compass','cssmin']);
+    grunt.registerTask('javascript', [/*'dart2js', */'uglify']);
+    grunt.registerTask('copy:assets', ['clean:build', 'copy', 'clean:sass']);
+    grunt.registerTask('default', ['bowercopy']);
 };

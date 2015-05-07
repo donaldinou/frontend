@@ -23,6 +23,12 @@
     "normalize.css": "~3.0.2",
     "requirejs": "~2.1.16",
     "requirejs-domready": "~2.0.1",
-    "hinclude": "~0.9.5"
+    "hinclude": "~0.9.5",
+    "typeahead.js": "~0.10.5",
+    "fontawesome": "~4.3.0",
+    "bootstrap-sass": "~3.3.4",
+    "bootstrap-tagsinput": "~0.4.2",
+    "background-check": "~1.2.2",
+    "hover": "~2.0.2"
   }
 }
