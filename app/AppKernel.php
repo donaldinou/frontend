@@ -8,6 +8,8 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         $bundles = array(
+            new Sonata\SeoBundle\SonataSeoBundle(),
+            //new Symfony\Cmf\Bundle\SeoBundle\CmfSeoBundle(),
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
@@ -20,11 +22,14 @@ class AppKernel extends Kernel
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
             new JMS\TranslationBundle\JMSTranslationBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new Viteloge\CoreBundle\VitelogeCoreBundle(),
+            new FOS\ElasticaBundle\FOSElasticaBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Acreat\CoreBundle\AcreatCoreBundle(),
             new Acreat\InseeBundle\AcreatInseeBundle(),
+            new Viteloge\CoreBundle\VitelogeCoreBundle(),
             new Viteloge\FrontendBundle\VitelogeFrontendBundle(),
             new Viteloge\GlossaryBundle\VitelogeGlossaryBundle(),
+            new Viteloge\EstimationBundle\VitelogeEstimationBundle(),
             new Viteloge\UserBundle\VitelogeUserBundle(),
         );
 
