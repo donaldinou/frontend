@@ -1,0 +1,7 @@
+viteloge_estimation:
+    resource: "@VitelogeEstimationBundle/Controller/DefaultController.php"
+    type: annotation
+
+viteloge_estimation_city:
+    resource: "@VitelogeEstimationBundle/Controller/CityStatsController.php"
+    type: annotation

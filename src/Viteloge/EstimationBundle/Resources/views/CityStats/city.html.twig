@@ -1,0 +1,87 @@
+{% set page_class = "estimation city" %}
+{% extends 'VitelogeEstimationBundle::layout.html.twig' %}
+
+{% form_theme form 'VitelogeEstimationBundle:Default:form.html.twig' %}
+{% form_theme form.type 'VitelogeEstimationBundle:Default:form_label.html.twig' %}
+
+{% block listing_body %}
+  <h2>{{ 'city_eval.map.title' | trans({'%name%': city.getname(true), '%cp%': city.cp, '%charniere%': city.charniere }) }}</h2>
+  <div class="map" data-loc="{{ { lat: city.lat, lon: city.lon } | json_encode }}" data-type-m="{{ barometres.m | last | json_encode }}" data-type-a="{{ barometres.a | last | json_encode }}">
+  </div>
+  <div class="show-for-small">
+    {% for type in [ 'a', 'm' ] if barometres[type]|length > 0 %}
+      <div id="overlay_price_{{ type }}" class="price_overlay">
+        <h3>{% set title = 'estimation.type.' ~ (type|upper) %}{{ title|trans }}</h3>
+        <p>{{ 'city_eval.map.price_info' | trans({"%formatted_date%": (barometres[type]|last).date | vl_format_barodate }) }}</p>
+        <p class="price">{{ (barometres[type]|last).value| number_format( 0, ',', ' ') }} €</p>
+      </div>
+    {% endfor %}
+  </div>
+  
+  {% if barometres.a|length > 0 or barometres.m|length > 0 %}
+    <p> {{ 'city_eval.description.intro' | trans({ '%name%': city.getName(true), '%charniere%': city.charniere })}}<br>
+      {% if barometres.a|length > 0 and barometres.m|length > 0 %}
+        {{ 'city_eval.description.houses_and_flats'| trans({ '%flats_price%': (barometres.a | last).value | number_format( 0, ',', ' '), '%houses_price%': (barometres.m | last).value | number_format( 0, ',', ' '), '%name%': city.getName(true), '%charniere%': city.charniere }) }}
+      {% elseif barometres.a|length > 0 %}
+        {{ 'city_eval.description.flats'| trans({ '%flats_price%': (barometres.a | last).value | number_format( 0, ',', ' '), '%name%': city.getName(true), '%charniere%': city.charniere }) }}
+      {% elseif barometres.m|length > 0 %}      
+        {{ 'city_eval.description.houses'| trans({ '%houses_price%': (barometres.m | last).value | number_format( 0, ',', ' '), '%name%': city.getName(true), '%charniere%': city.charniere }) }}
+      {% endif %}
+    </p>
+    
+    <p>{{ 'city_eval.description.source' | trans({ '%count%': ((barometres.a|length > 0 ? (barometres.a|last).nb : 0) + (barometres.m|length > 0 ? (barometres.m|last).nb : 0)) | number_format( 0, ',', ' '), '%name%': city.Name }) }}</p>
+  {% endif %}
+
+  
+  <fieldset class="dark contact nolegend">
+    <div class="row">
+      <div class="form_with_large_title">
+        <h2>{{ 'city_eval.form.title' | trans }}</h2>
+        {{ form_start(form) }}
+        {{ form_row(form.type) }}
+        {{ form_row(form.nb_pieces) }}
+        {{ form_row(form.surface_habitable) }}
+        <div class="field">
+          <div class="label_wrapper">&nbsp;</div>
+          <div class="input_wrapper">
+            {{ form_widget(form.save,{attr:{class:"widen submit"} } ) }}
+          </div>
+        </div>
+        {{ form_end(form) }}
+      </div>
+      <div class="large-1 columns">
+        <!-- decoration spacer -->
+      </div>
+    </div>
+    <div class="banner"></div>
+  </fieldset>
+
+  <h2 class="pre_framed">{{ 'city_eval.graph.title' | trans({ '%name%': city.getname(true), '%cp%': city.cp, '%charniere%': city.charniere }) }}</h2>
+  {% if barometres.m|length > 0 or barometres.a|length > 0 %}
+    <div class="graph" 
+         data-type-m="{{ barometres.m | json_encode }}" 
+         data-legend-type-m="{{ 'estimation.type.M' | trans }}"
+         data-type-a="{{ barometres.a | json_encode }}"
+         data-legend-type-a="{{ 'estimation.type.A' | trans }}">
+    </div>
+  {% else %}
+    <div class="panel">
+      <p>{{ 'city_eval.graph.nodata' | trans( { '%name%': city.getname(true), '%charniere%': city.charniere }) }}</p>
+    </div>
+  {% endif %}
+
+  <p></p>
+
+  {% if surrounding_cities|length > 0 %}
+    <h2 class="pre_framed">{{ 'city_eval.links.title' | trans({ '%name%': city.name, '%cp%': city.cp }) }}</h2>
+    
+    <ul class="framed city_links">
+      {% for distance in surrounding_cities %}
+        <li><a href="{{ path( 'viteloge_estimation_citystats_city', { slug: distance.cityto.slug, id: distance.cityto.codeInsee }) }}">{{ 'city_eval.links.txt' | trans({ '%name%': distance.cityto.getname(true), '%charniere%': distance.cityto.charniere}) }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  
+
+{% endblock listing_body %}

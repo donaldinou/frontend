@@ -1,0 +1,214 @@
+{% set page_class = "estimation" %}
+{% extends 'VitelogeEstimationBundle::layout.html.twig' %}
+
+{% form_theme form 'VitelogeEstimationBundle:Default:form.html.twig' %}
+{% form_theme form.type 'VitelogeEstimationBundle:Default:form_label.html.twig' %}
+{% form_theme form.nb_pieces 'VitelogeEstimationBundle:Default:form_small.html.twig' %}
+{% form_theme form.surface_habitable 'VitelogeEstimationBundle:Default:form_small.html.twig' %}
+{% form_theme form.nb_sdb 'VitelogeEstimationBundle:Default:form_small.html.twig' %}
+{% form_theme form.exposition 'VitelogeEstimationBundle:Default:form_small.html.twig' %}
+{% form_theme form.surface_terrain 'VitelogeEstimationBundle:Default:form_small.html.twig' %}
+{% form_theme form.nb_niveaux 'VitelogeEstimationBundle:Default:form_small.html.twig' %}
+{% form_theme form.annee_construction 'VitelogeEstimationBundle:Default:form_small.html.twig' %}
+{% form_theme form.parking 'VitelogeEstimationBundle:Default:form_small.html.twig' %}
+{% form_theme form.garage 'VitelogeEstimationBundle:Default:form_small.html.twig' %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  {{ form_stylesheet(form) }}
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  {{ form_javascript(form) }}
+{% endblock javascripts %}
+
+{% block listing_body %}
+  <div class="dark invitation">
+    <div class="row">
+      <div class="large-6 columns">
+        <h2>{{ 'estimation.form_page.title' | trans }}</h2>
+        <p><b>{{ 'estimation.form_page.bold_call' | trans }}</b> {{ 'estimation.form_page.call' | trans }}</p>
+      </div>
+      <div class="large-6 columns">
+        <!-- decoration -->
+      </div>
+    </div>
+    <div class="banner"></div>
+  </div>
+  <p></p>
+  <p>Merci de remplir le plus précisément possible le formulaire si dessous. Nous comparerons vos informations au 12 Millions de biens que nous avons en base de données afin d'estimer au plus juste le prix de votre logement. En cliquant sur <i>Estimer mon bien</i> vous aurez une réponse immédiate. Vous pourrez, si vous le souhaitez, compléter notre évaluation par une estimation faite par une de nos agences partenaires locale. Ceci est complètement gratuit et sans engagement. 
+  </p>
+  {{ form_start(form,{attr:{'novalidate':'novalidate'} } ) }}
+  <h2>{{ 'votre_bien' | trans }}</h2>
+  <fieldset>
+    <legend>{{ 'Localisation' | trans }}</legend>
+    <div class="row">
+      <div class="large-2 columns">
+        {{ form_widget( form.numero ) }}
+      </div>
+      <div class="large-3 columns">
+        {{ form_widget( form.type_voie ) }}
+      </div>
+      <div class="large-7 columns{% if form.voie.vars.errors|length > 0 %} error" title="{{ form.voie.vars.errors[0].message }}{% endif %}">
+        {{ form_widget( form.voie ) }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-4 columns{% if form.codepostal.vars.errors|length > 0 %} error" title="{{ form.codepostal.vars.errors[0].message }}{% endif %}">
+      {{ form_widget( form.codepostal ) }}
+      </div>
+      <div class="large-8 columns{% if form.ville.vars.errors|length > 0 %} error" title="{{ form.ville.vars.errors[0].message }}{% endif %}">
+        {{ form_widget( form.ville ) }}
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>{{ 'Caractéristiques' | trans }}</legend>
+    <div class="row">
+      <div class="large-12 columns">
+        {{ form_row( form.type) }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-6 columns">
+        {{ form_row( form.nb_pieces) }}
+      </div>
+      <div class="large-6 columns">
+        {{ form_row( form.surface_habitable) }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-6 columns">
+        {{ form_row( form.nb_sdb) }}
+      </div>
+      <div class="large-6 columns only type_M last">
+        {{ form_row( form.surface_terrain) }}
+      </div>
+      <div class="large-3 columns only type_A">
+        {{ form_row( form.etage) }}
+      </div>
+      <div class="large-3 columns only type_A">
+        {{ form_row( form.nb_etages) }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-6 columns">
+        {{ form_row( form.exposition) }}
+      </div>
+      <div class="large-6 columns">
+        {{ form_row( form.nb_niveaux) }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-6 columns">
+        {{ form_row( form.annee_construction) }}
+      </div>
+      <div class="large-6 columns"></div>
+    </div>
+  </fieldset>
+  <fieldset class="nolegend">
+    <div class="row">
+      <div class="large-6 columns">
+        {{ form_row( form.ascenseur ) }}
+      </div>
+      <div class="large-6 columns">
+        {{ form_row( form.parking ) }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-6 columns">
+        {{ form_row( form.balcon ) }}
+      </div>
+      <div class="large-6 columns">
+        {{ form_row( form.garage ) }}
+      </div>
+    </div>
+    <div class="row only type_M">
+      <div class="large-6 columns">
+        {{ form_row( form.terrasse ) }}
+      </div>
+      <div class="large-6 columns"></div>
+    </div>
+    <div class="row">
+      <div class="large-5 columns">
+        {{ form_row( form.vue ) }}
+      </div>
+      <div class="large-7 columns"></div>
+    </div>
+    <div class="row only vue">
+      <div class="large-12 columns">
+        {{ form_row( form.vue_detail ) }}
+      </div>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>{{ 'Situation du logement' | trans }}</legend>
+    <div class="row">
+      <div class="large-12 columns">
+        {{ form_row( form.etat ) }}
+    </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        {{ form_row( form.usage ) }}
+      </div>
+    </div>
+  </fieldset>
+
+  <h2>{{ 'votre_profil' | trans }}</h2>
+
+  <fieldset>
+    <legend>{{ 'Votre situation' }}</legend>
+    <div class="row">
+      <div class="large-12 columns">
+          {{ form_row( form.mail ) }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        {{ form_row( form.proprietaire ) }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+    {{ form_row( form.delai ) }}    
+    </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        {{ form_row( form.demande_agence ) }}
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="contact_wrapper">
+    <fieldset>
+      <legend>{{ 'Coordonnées' | trans }}</legend>
+      <div class="row">
+        <div class="large-12 columns">
+          {{ form_row( form.nom ) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-12 columns">
+          {{ form_row( form.prenom ) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-12 columns">
+          {{ form_row( form.tel ) }}    
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <p>
+    <span class="required_explain">{{ 'required_field' | trans }}</span>
+  </p>
+
+  <div class="text-center">
+    {{ form_row(form.save,{attr:{class:"submit" } } ) }}
+  </div>
+  {{ form_end(form) }}
+{% endblock %}

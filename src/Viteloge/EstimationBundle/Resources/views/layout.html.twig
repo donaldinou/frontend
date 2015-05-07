@@ -1,0 +1,29 @@
+{% extends 'VitelogeFrontendBundle::multicol_layout.html.twig' %}
+
+{% block stylesheets %}
+  {{ parent() }}
+    {% stylesheets 
+        '@VitelogeEstimationBundle/Resources/public/css/*.css' 
+        '@VitelogeEstimationBundle/Resources/public/scss/*.scss' 
+        filter='scss,?yui_css' output='assets/viteloge_estimation.css'  %}
+      <link rel="stylesheet" media="all" href="{{ VITELOGE_BASE_ASSET }}{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  {% javascripts 
+     '@VitelogeEstimationBundle/Resources/public/js/*.js' 
+     '@VitelogeEstimationBundle/Resources/public/js/*.coffee' 
+     filter="?yui_js" output='assets/viteloge_estimation.js'
+  %}
+  <script type="text/javascript" src="{{ asset_url }}"></script>
+  {% endjavascripts %}  
+{% endblock %}
+
+{% block body %}
+  <div class="title">
+    <h1>{{ main_title is defined ? main_title : 'estimation.home' | trans }}</h1>
+  </div>
+  {{ parent() }}
+{% endblock %}

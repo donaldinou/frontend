@@ -1,0 +1,118 @@
+
+estimation:
+  label:
+    numero: "Numéro"
+    type_voie: "Type de voie"
+    voie: "Nom de la voie"
+    codepostal: "Code postal"
+    ville: "Commune"
+    type: "Type de bien"
+    nb_pieces: "Nombre de pièces"
+    nb_sdb: "Nombre de salles de bain"
+    surface_habitable: "Surface habitable"
+    surface_terrain: "Surface de terrain"
+    exposition: "Exposition principale"
+    etage: "Étage"
+    nb_etages: "sur"
+    nb_niveaux: "Nombre de niveaux"
+    annee_construction: "Année de construction"
+    ascenseur: "Ascenseur"
+    balcon: "Balcon"
+    terrasse: "Terrasse"
+    parking: "Places de parking"
+    garage: "Places de garage"
+    vue: "Vue exceptionnelle"
+    vue_detail: "Détail de la vue exceptionnelle"
+    proprio: "Vous êtes"
+    etat: "État général"
+    usage: "Situation du logement"
+    delai: "Vous souhaitez"
+    
+    nom: "Nom"
+    prenom: "Prénom"
+    mail: "Adresse e-mail"
+    tel: "Téléphone"
+    demande_agence: "Souhaitez-vous faire affiner cette estimation par un professionnel (gratuitement)"
+
+    save: "Estimer mon bien"
+    contact_save: "Valider"
+    
+  type:
+    M: "Maison"
+    A: "Appartement"
+  exposition:
+    N: "Nord"
+    O: "Ouest"
+    S: "Sud"
+    E: "Est"
+  etat:
+    N: "Neuf"
+    B: 'Bon'
+    T: "Travaux à prévoir"
+    R: "À refaire"
+  usage:
+    H: "Habité"
+    L: "Loué"
+    V: "Vide"
+  type_proprio:
+    P: "Propriétaire"
+    L: "Locataire"
+    A: "Acquéreur"
+    I: "Agent immobilier"
+  delai:
+    _0: "Vendre ce bien au plus vite"
+    _1: "Mettre ce bien en vente dans 1 mois"
+    _2: "Mettre ce bien en vente dans 2 mois"
+    _6: "Mettre ce bien en vente dans 6 mois"
+    _pv: "Je ne suis pas vendeur"
+
+  value:
+    proprio: "Sélectionner votre statut"
+  bool:
+    oui: "Oui"
+    non: "Non"
+
+  result:
+    title: "Notre estimation de votre bien"
+    range: "Entre <b>low</b> et <b>high</b> €"
+    demande_call: "Faites évaluer votre logement par un professionnel partenaire de ViteLogé"
+    failed: "Nous n'avons malheusement pas suffisament de données pour mener à bien l'estimation de votre bien."
+
+  form_page:
+    title: "Estimation immobilière"
+    bold_call: "Cette évaluation est basée sur les 12 millions d'annonces immobilières"
+    call: "que ViteLogé a indexé depuis 2006"
+  home: "Estimation immobilière"
+  contact:
+    title: "Vos coordonnées pour votre estimation"
+    pris: "Merci de votre confiance. Nous allons transmettre vos coordonnées à un professionnel de l'immobilier afin que celui-ci vous aide à estimer votre bien."
+
+
+Caractéristiques: "Caractéristiques du logement"
+Coordonnées: "Vos coordonnées détaillées"
+
+votre_bien: "Votre bien immobilier"
+votre_profil: "Votre profil"
+
+required_field: "Champs obligatoires"
+
+city_eval:
+  main_title: "Prix de l'immobilier %charniere%%name% (%cp%)"
+  title: "Prix de l'immobilier %charniere%%name% (%cp%) par ViteLogé"
+  map:
+    title: Prix du m² %charniere%%name% (%cp%)
+    price_info: "prix moyen du m² au %formatted_date%"
+  description:
+    intro: Retrouvez chaque mois le prix moyen du m² pour les appartements et les maisons %charniere%%name%.
+    houses_and_flats: Il est actuellement de %flats_price% Euros par m² pour les appartements %charniere%%name% et de %houses_price% Euros pour les maisons.
+    houses: Il est actuellement de %houses_price% Euros par m² pour les maisons %charniere%%name%.
+    flats: Il est actuellement de %flats_price% Euros par m² pour les appartements %charniere%%name%.
+    source: Ce calcul est basé sur les %count% biens actuellement en vente sur la ville de %name% et référencés sur ViteLogé.
+  form:
+    title: Vous souhaitez connaître la valeur de votre bien immobilier ?
+  graph:
+    title: "Évolution du prix du m² %charniere%%name% (%cp%)"
+    nodata: "Nous ne disposons malheureusement pas de suffisamment de données pour vous donner une indication de l'évolution du prix du m² %charniere%%name% pour le moment."
+  links:
+    title: "Prix au m² des villes proches de %name% (%cp%)"
+    txt: "Prix de l'immobilier %charniere%%name%"
