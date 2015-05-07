@@ -3,14 +3,19 @@ if (typeof jQuery === 'undefined') {
 }
 jQuery(document).ready(function() {
 
-    jQuery('.btn-navbar').sidr({
-        name: 'respNav',
-        source: '.nav-collapse',
+    BackgroundCheck.init({
+        targets: 'header.header .navbar-default .navbar-nav > li > a, header.header .navbar-default .navbar-nav > li .navbar-text',
+        images: 'header.header'
     });
 
-    jQuery(document).on('click', function() {
-        jQuery().sidr('close', 'respNav');
-    });
+    /*$.ajaxSetup({ cache: true });
+    $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+        FB.init({
+            version: 'v2.3' // or v2.0, v2.1, v2.0
+        });
+        $('#loginbutton,#feedbutton').removeAttr('disabled');
+        //FB.getLoginStatus(updateStatusCallback);
+    });*/
 
     jQuery('#carousel-home').carousel(/*{
         interval: 10000
@@ -40,14 +45,32 @@ jQuery(document).ready(function() {
         placeholderize(jQuery(this));
     });
 
+    jQuery(document).on('click', '[data-theme]', changeTheme);
     jQuery(document).on('click', '.pagination.ajax li > a', displayNextPage);
+    jQuery(document).on('click', 'form > .nav li > a', checkCurrentTab);
+
+    function changeTheme(event) {
+        event.preventDefault();
+        var theme = jQuery(event.currentTarget).data('theme');
+        var parent = 'body';
+        if (jQuery(jQuery(event.currentTarget).data('theme-parent')).length) {
+            parent = jQuery(event.currentTarget).data('theme-parent');
+        }
+        jQuery(parent)
+            .removeClass(function(index, className) {
+                return (className.match(/(^|\s)theme-\S+/g) || []).join(' ');
+            })
+            .addClass(theme);
+    }
 
     function placeholderize(element) {
         var selected = jQuery(element).children(':selected');
         var optionStyle = selected.css(['color']);
-        jQuery.each(optionStyle, function( prop, value ) {
-            jQuery(element).css(prop, value);
-        });
+        if (optionStyle) {
+            jQuery.each(optionStyle, function( prop, value ) {
+                jQuery(element).css(prop, value);
+            });
+        }
     }
 
     function displayNextPage(event) {
@@ -65,6 +88,19 @@ jQuery(document).ready(function() {
                 jQuery('#'+id).replaceWith(jQuery(content).find('#'+id));
             }
         })
+    }
+
+    function checkCurrentTab(event) {
+        event.preventDefault();
+        var li = jQuery(event.currentTarget).parent();
+        var radio = jQuery(event.currentTarget).find('input[type="radio"]').first();
+        if (radio) {
+            li.siblings().removeClass('active');
+            li.siblings().find('input[type="radio"]').prop('checked', false);
+            li.addClass('active');
+            jQuery(radio).prop('checked', true);
+        }
+        event.stopPropagation();
     }
 
 });

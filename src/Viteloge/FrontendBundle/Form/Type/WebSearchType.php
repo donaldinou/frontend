@@ -11,12 +11,14 @@ namespace Viteloge\FrontendBundle\Form\Type {
     class WebSearchType extends AbstractType {
 
         public function buildForm(FormBuilderInterface $builder, array $options) {
-
+            $builder->add('title');
+            $builder->add('userSearch', new UserSearchType());
         }
 
         public function setDefaultOptions(OptionsResolverInterface $resolver){
             $resolver->setDefaults(array(
                 'data_class' => 'Viteloge\CoreBundle\Entity\WebSearch',
+                'cascade_validation' => true
             ));
         }
 

@@ -1,0 +1,38 @@
+{% form_theme form with ['VitelogeFrontendBundle:Form:fields.html.twig'] %}
+
+{{ form_start(form, {'attr': {'enctype': 'application/x-www-form-urlencoded','class': 'search', 'role': 'search', 'novalidate': 'novalidate'}}) }}
+    {{ form_errors(form) }}
+    <div class="hidden">
+        {{ form_row(form._token) }}
+    </div>
+    {{ form_widget(form.transaction, { label_attr: { 'class': 'radio-inline' } }) }}
+    <fieldset class="bg-darken text-left" role="tabpanel">
+        <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.inseeCity, { 'attr': { 'class': '',  'placeholder': 'Where', autocomplete: 'off', spellcheck: 'off', 'maxlength': 100 } }) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.type, { 'attr': { 'class': '' } }) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.rooms, { 'attr': { 'class': '', 'placeholder': 'Rooms number' } }) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                {{ form_widget(form.budgetMin, { 'attr': { 'class': '',  'placeholder': 'Minimum Price', 'maxlength': 10 } }) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.budgetMax, { 'attr': { 'class': '', 'placeholder': 'Maximum Price', 'maxlength': 10 } }) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_widget(form.save, { 'label': 'Search', 'span_class': 'fa fa-search', 'attr': { 'class': 'btn btn-primary btn-block text-upper', 'role': 'button' } }) }}
+            </div>
+        </div>
+        <div class="row hidden">
+            <div class="col-md-12">
+                <a id="see-more" href="#search-more">{% trans %}Advanced search{% endtrans %}</a>
+            </div>
+        </div>
+    </fieldset>
+{{ form_end(form, {'render_rest': false}) }}

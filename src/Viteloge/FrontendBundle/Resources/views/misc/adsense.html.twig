@@ -1,0 +1,4 @@
+{% set ad_slot = ad_slot|default(adsense_slots[0]) %}
+<div class="ad_container">
+    <ins class="adsbygoogle" data-ad-client="{{ adsense_publisher_id }}" data-ad-slot="{{ ad_slot }}"></ins>
+</div>

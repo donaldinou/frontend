@@ -11,6 +11,9 @@ namespace Viteloge\FrontendBundle\Controller {
     use Symfony\Component\HttpFoundation\Request;
     use Viteloge\CoreBundle\Entity\Service;
 
+    /**
+     *
+     */
     class ServiceController extends Controller {
 
         private $services;
@@ -19,9 +22,10 @@ namespace Viteloge\FrontendBundle\Controller {
             if (!isset($this->services['estimate'])) {
                 $service = new Service();
                 $service->setName('estimate');
-                $service->setImage('bundles/frontendbundle/images/home/estimate.jpg');
-                $service->setIcon('');
+                $service->setImage('bundles/frontendbundle/images/service/estimate.jpg');
+                $service->setIcon('icon-icon-calculator');
                 $service->setTitle('Estimate my property');
+                $service->setUrl($this->generateUrl('viteloge_estimation_default_index'));
                 $service->setDescription('Aenean sollicitudin, lorem quis bibendum auctor');
                 $this->services['estimate'] = $service;
             }
@@ -32,9 +36,10 @@ namespace Viteloge\FrontendBundle\Controller {
             if (!isset($this->services['publish'])) {
                 $service = new Service();
                 $service->setName('publish');
-                $service->setImage('bundles/frontendbundle/images/home/publish.jpg');
-                $service->setIcon('');
+                $service->setImage('bundles/frontendbundle/images/service/publish.jpg');
+                $service->setIcon('icon-icon-publish');
                 $service->setTitle('Publish my ads');
+                $service->setUrl($this->generateUrl('viteloge_frontend_static_register'));
                 $service->setDescription('Aenean sollicitudin, lorem quis bibendum auctor');
                 $this->services['publish'] = $service;
             }
@@ -45,9 +50,10 @@ namespace Viteloge\FrontendBundle\Controller {
             if (!isset($this->services['mail'])) {
                 $service = new Service();
                 $service->setName('mail');
-                $service->setImage('bundles/frontendbundle/images/home/mail.jpg');
-                $service->setIcon('');
+                $service->setImage('bundles/frontendbundle/images/service/mail.jpg');
+                $service->setIcon('icon-icon-alert');
                 $service->setTitle('Create my mail alert');
+                $service->setUrl($this->generateUrl('viteloge_frontend_static_subscribe'));
                 $service->setDescription('Aenean sollicitudin, lorem quis bibendum auctor');
                 $this->services['mail'] = $service;
             }

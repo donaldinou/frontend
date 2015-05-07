@@ -1,0 +1,40 @@
+{% extends 'VitelogeFrontendBundle::base.html.twig' %}
+
+{%- block head_javascripts -%}
+    {{ parent() }}
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+{%- endblock -%}
+
+{%- block body_start -%}
+    {%- embed "VitelogeFrontendBundle:misc:googlemap.html.twig" -%}
+        {%- block over -%}
+            {{ include('VitelogeFrontendBundle:Default:form/userSearch.html.twig', { form: form }) }}
+        {%- endblock -%}
+    {%- endembed -%}
+{%- endblock -%}
+
+{%- block main -%}
+    {%- embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } -%}
+        {%- block left -%}
+            {{ render(controller('VitelogeFrontendBundle:Glossary:areas', { 'id': inseeCity.id })) }}
+            <section class="theme-rent static">
+                {{ render_hinclude(controller('VitelogeFrontendBundle:Ad:search', { 'limit': 3, 'criteria': {'transaction': 'L', 'inseeCity': inseeCity.id} })) }}
+                {{ render_hinclude(controller('VitelogeFrontendBundle:QueryStats:latest', { 'limit': 10, 'criteria': {'transaction': 'L', 'inseeCity': inseeCity.id} })) }}
+                <div class="text-center">
+                    <a href="{{ path('viteloge_frontend_ad_list', { transaction: 'L', 'inseeCity': inseeCity.id}) }}" class="btn btn-default text-upper" role="button">{% trans %}All Rents{% endtrans %}</a>
+                </div>
+            </section>
+            <section class="theme-sale static">
+                {{ render_hinclude(controller('VitelogeFrontendBundle:Ad:search', { 'limit': 3, 'criteria': {'transaction': 'V', 'inseeCity': inseeCity.id} })) }}
+                {{ render_hinclude(controller('VitelogeFrontendBundle:QueryStats:latest', { 'limit': 10, 'criteria': {'transaction': 'V', 'inseeCity': inseeCity.id} })) }}
+                <div class="text-center">
+                    <a href="{{ path('viteloge_frontend_ad_list', { transaction: 'V', 'inseeCity': inseeCity.id}) }}" class="btn btn-default text-upper" role="button">{% trans %}All Sales{% endtrans %}</a>
+                </div>
+            </section>
+            <section class="clearfix"></section>
+        {%- endblock -%}
+        {%- block right -%}
+            {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
+        {%- endblock -%}
+    {% endembed %}
+{%- endblock main -%}

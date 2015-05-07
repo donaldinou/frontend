@@ -1,4 +1,5 @@
 {% if total_pages > 1%}
+{% spaceless %}
     {% set range = 2 %}
     {% if start is not defined %}
         {% if current > range %}
@@ -17,11 +18,11 @@
     <nav>
         <ul class="pagination ajax">
             {% if current < 2 %}
-                <li class="disabled">
+                <li class="disabled first">
                     <span aria-hidden="true">&laquo;</span>
                 </li>
             {% else %}
-                <li>
+                <li class="first">
                     <a href="{{ path(route.name, route.parameters|merge({ 'page': 1 })) }}" aria-label="{{ 'First' | trans }}">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
@@ -29,11 +30,11 @@
             {% endif %}
 
             {% if current < 2 %}
-                <li class="disabled">
+                <li class="disabled previous">
                     <span aria-hidden="true">&lt;</span>
                 </li>
             {% else %}
-                <li>
+                <li class="previous">
                     <a href="{{ path(route.name, route.parameters|merge({ 'page': current-1})) }}" aria-label="{{ 'Previous' | trans }}">
                         <span aria-hidden="true">&lt;</span>
                     </a>
@@ -58,7 +59,7 @@
             {% for i in start..end %}
                 {% if i == current %}
                     <li class="active">
-                        <span>{{ i }}</span>
+                        <span>{{ i }}&nbsp;<span class="sr-only">(current)</span></span>
                     </li>
                 {% else %}
                     <li>
@@ -73,7 +74,7 @@
                         <span>&hellip;</span>
                     </li>
                 {% elseif end < total_pages-1 %}
-                    <li>
+                    <li class="">
                         <a href="{{ path(route.name, route.parameters|merge({ 'page': total_pages-1 })) }}">{{ total_pages-1 }}</a>
                     </li>
                 {% endif %}
@@ -83,28 +84,29 @@
             {% endif %}
 
             {% if current >= total_pages %}
-                <li class="disabled">
-                    <span aria-hidden="true">&gt;</span>
-                </li>
-            {% else %}
-                <li>
-                    <a href="{{ path(route.name, route.parameters|merge({ 'page': current+1 })) }}" aria-label="Next">
-                        <span aria-hidden="true">&gt;</span>
-                    </a>
-                </li>
-            {% endif %}
-
-            {% if current >= total_pages %}
-                <li class="disabled">
+                <li class="disabled last">
                     <span aria-hidden="true">&raquo;</span>
                 </li>
             {% else %}
-                <li>
+                <li class="last">
                     <a href="{{ path(route.name, route.parameters|merge({ 'page': total_pages })) }}" aria-label="Last">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
             {% endif %}
+
+            {% if current >= total_pages %}
+                <li class="disabled next">
+                    <span aria-hidden="true">&gt;</span>
+                </li>
+            {% else %}
+                <li class="next">
+                    <a href="{{ path(route.name, route.parameters|merge({ 'page': current+1 })) }}" aria-label="Next">
+                        <span aria-hidden="true">&gt;</span>
+                    </a>
+                </li>
+            {% endif %}
         </ul>
     </nav>
+{% endspaceless %}
 {% endif %}

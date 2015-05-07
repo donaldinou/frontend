@@ -1,0 +1,47 @@
+$btn-new-color: #fff !default;
+$btn-new-bg: $new-color !default;
+$btn-new-border: darken($btn-new-bg, 5%) !default;
+
+.theme-N, .theme-new {
+    &.static {
+        @include theming($new-color, $btn-new-bg, $btn-new-border, $btn-new-color);
+    }
+    @include theming($new-color, $btn-new-bg, $btn-new-border, $btn-new-color);
+}
+
+body {
+    .nav-tabs {
+        > li {
+            > a[data-theme-hover="theme-N"], a[data-theme-hover="theme-new"] {
+                &:hover,
+                &:focus {
+                    background-color: $new-color;
+                    color: #fff;
+                    border-color: $new-color $new-color transparent;
+                }
+            }
+        }
+    }
+
+    form.search {
+        .nav {
+            li {
+                & > a[data-theme-hover="theme-N"], & > a[data-theme-hover="theme-new"] {
+                    &:hover,
+                    &:focus {
+                        background-color: $new-color;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.color-new {
+    color: $new-color;
+}
+
+.bg-color-new {
+    background-color: $new-color;
+}

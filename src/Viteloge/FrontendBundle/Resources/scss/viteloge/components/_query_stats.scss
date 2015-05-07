@@ -1,0 +1,16 @@
+.suggestions {
+    margin-top: 20px;
+    ul {
+        > li {
+            padding-top: 4px;
+            padding-bottom: 4px;
+            > .fa-caret-right {
+                color: $brand-primary;
+                margin-right: 10px;
+            }
+            > a {
+                text-decoration: underline;
+            }
+        }
+    }
+}

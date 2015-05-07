@@ -1,20 +1,38 @@
-{#{% block _viteloge_frontend_ad_transaction_widget %}
-    <fieldset class="tablist bg-transparent" role="tablist">
-        <div class="tab" data-role="tab">
-            <input class="" type="radio" id="viteloge_frontend_ad_transaction_0" name="viteloge_frontend_ad[transaction]" value="0" checked="checked">
-            <label class="text-upper" for="viteloge_frontend_ad_transaction_0">{% trans %}Rent{% endtrans %}</label>
-        </div>
-        <div class="tab" data-role="tab">
-            <input class="" type="radio" id="viteloge_frontend_ad_transaction_1" name="viteloge_frontend_ad[transaction]" value="1">
-            <label class="text-upper" for="viteloge_frontend_ad_transaction_1">{% trans %}Sale{% endtrans %}</label>
-        </div>
-        <div class="tab" data-role="tab">
-            <input class="" type="radio" id="viteloge_frontend_ad_transaction_2" name="viteloge_frontend_ad[transaction]" value="2">
-            <label class="text-upper" for="viteloge_frontend_ad_transaction_2">{% trans %}New{% endtrans %}</label>
-        </div>
-        <div class="clearfix"></div>
-    </fieldset>
-{% endblock %}#}
+{% extends 'VitelogeCoreBundle:Form:fields.html.twig' %}
+
+{%- block _viteloge_frontend_usersearch_transaction_widget %}
+    <ul class="nav nav-pills nav-justified" role="tablist">
+        {% for child in form.children %}
+            <li class="{% if child.vars.checked %}active{% endif %}" role="presentation">
+                <a class="text-upper" data-theme="theme-{{ child.vars.value }}" data-theme-hover="theme-{{ child.vars.value }}" data-theme-parent="#map-container">
+                    {{ form_widget(child, { attr: { 'class': 'hidden' }, parent_label_class: 'radio-inline' }) }}
+                    {{ form_label(child, { label_attr: { 'class': 'radio-inline' } }) }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    {{ form_errors(form) }}
+{% endblock -%}
+
+{%- block button_widget %}
+    {% set attr = attr|merge({class: (attr.class|default('btn-default') ~ ' btn')|trim}) %}
+    {% if label is empty %}
+        {% if label_format is not empty %}
+            {% set label = label_format|replace({
+                '%name%': name,
+                '%id%': id,
+            }) %}
+        {% else %}
+            {% set label = name|humanize %}
+        {% endif %}
+    {% endif %}
+    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>
+        {% if span_class is defined %}
+            <span class="{{ span_class }}"></span>
+        {% endif %}
+        {{ label|trans({}, translation_domain) }}
+    </button>
+{% endblock -%}
 
 {% block test %}
     <input class="" type="text" list="where" placeholder="{% trans %}Where{% endtrans %} ?" autocomplete="off" spellcheck="off" maxlength="100">

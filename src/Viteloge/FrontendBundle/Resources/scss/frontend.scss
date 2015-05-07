@@ -1,0 +1,147 @@
+@import "_bootstrap.scss";
+@import "_font-awesome.scss";
+@import "_viteloge.scss";
+@import "_hover.scss";
+
+/**
+*
+*/
+.clear:before,
+.clear:after
+.clearfix:before,
+.clearfix:after,
+.container:before,
+.container:after,
+.row:before,
+.row:after {
+    content: " ";
+    display: table;
+}
+.clearfix:after,
+.container:after,
+.row:after {
+    clear: both;
+}
+
+.vr {
+    display: inline;
+    border-style: solid;
+    border-width: 0px;
+    border-left: 1px solid;
+    margin: .5em 10px;
+}
+
+.hide {
+    display: none !important;
+}
+.show {
+    display: block !important;
+}
+.invisible {
+    visibility: hidden;
+}
+.text-hide {
+    font: 0px/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+}
+.hidden {
+    display: none !important;
+    visibility: hidden !important;
+}
+.affix {
+    position: fixed;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+.text-center {
+  text-align: center;
+}
+.text-justify {
+  text-align: justify;
+}
+.text-nowrap {
+  white-space: nowrap;
+}
+.text-upper {
+    text-transform: uppercase;
+}
+.text-captitalize {
+    text-transform: capitalize;
+}
+
+/**
+* Grid
+*/
+.row-no-padding {
+    [class*='col-'] {
+        padding-right:0;
+        padding-left:0;
+    }
+}
+
+.row-padding-5 {
+    [class*='col-'] {
+        padding-right:5px;
+        padding-left:5px;
+    }
+}
+
+.row-padding-10 {
+    [class*='col-'] {
+        padding-right:10px;
+        padding-left:10px;
+    }
+}
+
+[class*='col-'] {
+    &.no-padding {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    &.padding-5 {
+        padding-right:5px;
+        padding-left:5px;
+    }
+    &.padding-10 {
+        padding-right:10px;
+        padding-left:10px;
+    }
+}
+
+/**
+* Background generic
+*/
+.bg-transparent {
+    background-color: transparent;
+}
+
+.bg-darken {
+    background-color: rgba(0, 0, 0, .5);
+}
+/** * */
+
+#navbar-navigation {
+    font-weight: 700;
+}
+
+/** * */
+
+/**
+* highlighting
+*/
+.highlighting {
+    background-color: $rent-color;
+    color: #fff;
+}
+
+#carousel-home .carousel-control {
+    width: 50px;
+}
+/** * */

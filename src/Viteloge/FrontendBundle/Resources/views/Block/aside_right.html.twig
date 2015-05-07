@@ -1,0 +1,19 @@
+<aside>
+    <div class="">
+        {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', {}) }}
+    </div>
+    <div class="clearfix">
+        <div class="services row-no-padding" role="listbox">
+            {{ render_hinclude(controller('VitelogeFrontendBundle:Service:list', {'default': 'Loading...'})) }}
+        </div>
+    </div>
+    <div class="clearfix">
+        {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', {}) }}
+    </div>
+     <div class="clearfix">
+        block neuf
+    </div>
+     <div class="clearfix">
+        {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', {}) }}
+    </div>
+</aside>

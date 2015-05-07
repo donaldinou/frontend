@@ -1,0 +1,230 @@
+.estate {
+    background-color: #fff;
+    &:focus,
+    &:hover {
+        .description {
+            > a {
+                color: $brand-primary;
+            }
+        }
+        .preview {
+            &:before {
+                color: #fff;
+                width: 100%;
+                width: calc(100% - 10px);
+                height: 190px;
+                line-height: 190px;
+                position: absolute;
+                background-color: transparentize($text-color, .8);
+                font-size: $font-size-h1;
+                left: 5px;
+                opacity: 1;
+                transition: opacity 2s linear;
+                @extend .fa;
+                @extend .fa-search !optional;
+                @extend .text-center;
+            }
+        }
+    }
+    &:first-child {
+        margin-top: 10px;
+    }
+    + .estate {
+        margin-top: 20px;
+    }
+    .preview {
+        padding: 5px;
+        display: block;
+        overflow: hidden;
+        > img {
+            background-image: url('../bundles/vitelogecore/images/logo-viteloge.svg');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-color: #ddd;
+            height: 190px;
+            @extend .img-responsive;
+        }
+        &:focus,
+        &:hover {
+            &:before {
+                color: #fff;
+                width: 100%;
+                width: calc(100% - 10px);
+                height: 190px;
+                line-height: 190px;
+                position: absolute;
+                background-color: transparentize($text-color, .8);
+                font-size: $font-size-h1;
+                left: 5px;
+                opacity: 1;
+                transition: opacity 2s linear;
+                @extend .fa;
+                @extend .fa-search !optional;
+                @extend .text-center;
+            }
+        }
+    }
+    .agency-logo {
+        display: block;
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        width: 50px;
+        height: 50px;
+    }
+    .title {
+        margin-top: 9px;
+        margin-bottom: 0px;
+        padding-left: 5px;
+        font-weight: 700;
+    }
+    .subtitle {
+        padding-left: 5px;
+        color: $brand-primary;
+        font-weight: 700;
+    }
+    .description {
+        padding-left: 5px;
+        text-align: justify;
+        margin-top: 10px;
+        a {
+            text-decoration: underline;
+        }
+        > a {
+            color: $gray-light;
+            &:hover,
+            &:focus {
+                color: $brand-primary;
+            }
+        }
+        > p {
+            padding-right: 8px;
+            a {
+                color: $brand-primary;
+                &:hover,
+                &:focus {
+                    color: $text-color;
+                }
+            }
+        }
+    }
+    .price {
+        color: $brand-primary;
+        font-size: $font-size-xlarge;
+        margin-top: -30px;
+        margin-right: 10px;
+    }
+    .footer {
+        background-color: #27303d;
+        color: #fff;
+        > .nav {
+            > li {
+                &.active,
+                &:hover,
+                &:focus {
+                    background-color: $brand-primary;
+                    border-color: $brand-primary;
+                    color: #fff;
+                }
+                > a, > span {
+                    padding: 4px 20px;
+                    &:hover,
+                    &:focus {
+                        background-color: $brand-primary;
+                        border-color: $brand-primary;
+                        color: #fff;
+                        padding: 4px 20px;
+                    }
+                }
+            }
+            li+li {
+                margin-left: 0px;
+            }
+        }
+    }
+}
+
+
+.carousel {
+    .estate {
+        padding: 5px;
+        color: #000;
+        background-color: #fff;
+    }
+
+    .estate + .estate {
+        margin-left: 30px;
+        margin-right: 0px;
+    }
+
+    .estate .estate-legend {
+        text-align: left;
+    }
+
+    .estate .title {
+        margin: 10px 0px;
+        padding: 0;
+    }
+
+    .estate .description {
+        padding: 0;
+        margin: 0px 0px 10px 0px;
+        color: $brand-primary;
+    }
+
+    .estate .price {
+        margin: 10px 0px;
+        color: $brand-primary;
+    }
+
+    .estate .estate-images {
+        width: 250px;
+        height: 190px;
+    }
+
+    .estate .estate-image, .estate .estate-preview {
+        width: 250px;
+        height: 190px;
+    }
+
+    .estate .agency-logo {
+        display: block;
+        position: absolute;
+        margin-top: -60px;
+        margin-left: 5px;
+        width: 50px;
+        height: 50px;
+    }
+}
+
+
+/** * */
+.item .estate {
+    width: 260px;
+    height: 295px;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+}
+
+@media (min-width: 768px) {
+    .item .estate {
+        margin-left: auto;
+        margin-right: auto;
+        float: none;
+    }
+}
+@media (min-width: 992px) {
+    .item .estate {
+        margin-left: 50px;
+        margin-right: 0px;
+        float: left;
+    }
+}
+@media (min-width: 1200px) {
+    .item .estate {
+        margin-left: 50px;
+        margin-right: 0px;
+        float: left;
+    }
+}

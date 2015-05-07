@@ -10,6 +10,9 @@ namespace Viteloge\FrontendBundle\Controller {
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+    use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+    use Symfony\Component\Security\Acl\Permission\MaskBuilder;
     use Viteloge\CoreBundle\Entity\WebSearch;
 
     /**
@@ -22,7 +25,7 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:WebSearch:latest.html.twig")
          */
-        public function latestAction(Request $request, $transaction=null, $limit=5) {
+        public function latestAction(Request $request, $limit=5, array $criteria=array()) {
             $repository = $this->getDoctrine()
                 ->getRepository('VitelogeCoreBundle:WebSearch');
             $webSearches = $repository->findBy(
@@ -50,7 +53,8 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * @Route("/add/")
-         * @Method({"GET"})
+         * @Method({"GET", "POST"})
+         * @Security("has_role('ROLE_USER')")
          * @Template("VitelogeFrontendBundle:WebSearch:create.html.twig")
          */
         public function createAction(Request $request) {
@@ -59,15 +63,17 @@ namespace Viteloge\FrontendBundle\Controller {
 
             $form->handleRequest($request);
             if( $form->isValid() ) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($webSearch);
+                $em->flush();
                 $this->addFlash(
                     'notice',
                     'Your changes were saved!'
                 );
-                return $this->redirectToRoute('viteloge_frontend_user', $args);
+                return $this->redirectToRoute('viteloge_frontend_websearch_list');
             }
 
             return array(
-                'count' => $count,
                 'form' => $form->createView()
             );
         }
@@ -79,11 +85,29 @@ namespace Viteloge\FrontendBundle\Controller {
          *         "id"="\d+"
          *     }
          * )
+         * @Method({"GET", "POST"})
+         * @Security("has_role('ROLE_USER')")
          * @ParamConverter("webSearch", class="VitelogeCoreBundle:WebSearch", options={"id" = "id"})
          * @Template("VitelogeFrontendBundle:WebSearch:edit.html.twig")
          */
         public function editAction(Request $request, $webSearch) {
+            $form = $this->createForm('viteloge_frontend_websearch', $webSearch);
 
+            $form->handleRequest($request);
+            if( $form->isValid() ) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($webSearch);
+                $em->flush();
+                $this->addFlash(
+                    'notice',
+                    'Your changes were saved!'
+                );
+                return $this->redirectToRoute('viteloge_frontend_websearch_list');
+            }
+
+            return array(
+                'form' => $form->createView()
+            );
         }
 
         /**
@@ -93,6 +117,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *         "id"="\d+"
          *     }
          * )
+         * @Security("has_role('ROLE_USER')")
          * @ParamConverter("webSearch", class="VitelogeCoreBundle:WebSearch", options={"id" = "id"})
          * @Template("VitelogeFrontendBundle:WebSearch:delete.html.twig")
          */

@@ -1,10 +1,8 @@
-<section class="services text-center">
-    <div class="container">
-        <h3 class="text-upper">{% trans %}Services offered by Fasthousing{% endtrans %}</h3>
-        <div class="row" role="listbox">
+{% block services %}
+    <div class="services text-center" role="listbox">
         {% for service in services %}
-            {{ include('VitelogeFrontendBundle:Service:service.html.twig', { 'service': service }) }}
+            {{ include('VitelogeFrontendBundle:Service:render/figure.html.twig', { 'service': service }) }}
+            <div class="divider visible-xs-block visible-sm-block visible-md-inline visible-lg-inline"></div>
         {% endfor %}
-        </div>
     </div>
-</section>
+{% endblock %}

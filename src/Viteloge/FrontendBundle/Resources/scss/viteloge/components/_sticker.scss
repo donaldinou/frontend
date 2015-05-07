@@ -1,0 +1,51 @@
+.sticker-wrapper {
+    width: 150px;
+    height: 70px;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    z-index: 9999;
+    pointer-events: none;
+    display: block;
+    &.left {
+        left: 0;
+        .sticker {
+            top: 15px;
+            left: -45px;
+        }
+    }
+    &.right {
+        right: 0;
+        .sticker {
+            top: 15px;
+            right: -45px;
+        }
+    }
+    &.bottom {
+        bottom: 0;
+    }
+    &.top {
+        top: 0;
+    }
+    .sticker {
+        position: absolute;
+        display: block;
+        @include rotate(330deg);
+        background-color: $brand-primary;
+        z-index: 9999;
+        pointer-events: auto;
+        a, span {
+            &,
+            &:hover {
+                color: #fff;
+                text-decoration: none;
+                text-align: center;
+                width: 170px;
+                line-height: 20px;
+                display: inline-block;
+                padding: 2px 0;
+                border: none;
+            }
+        }
+    }
+}

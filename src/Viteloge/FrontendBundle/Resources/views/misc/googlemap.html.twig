@@ -1,0 +1,27 @@
+<div id="map-container" class="map-container">
+    <div class="map-over container">
+        {%- block over -%}
+
+        {%- endblock -%}
+    </div>
+    <div id="map-canvas" class="map-canvas">
+        {%- block map -%}
+
+        {%- endblock -%}
+    </div>
+</div>
+    <script>
+var map;
+function initialize() {
+  var mapOptions = {
+    zoom: 8,
+    center: new google.maps.LatLng(-34.397, 150.644),
+    disableDefaultUI: true,
+    scrollwheel: false
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+    </script>

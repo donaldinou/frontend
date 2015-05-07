@@ -1,0 +1,65 @@
+.header {
+    background-color: #fff;
+    background-image: url('../bundles/vitelogecore/images/pixels/white.png');
+    .vr {
+        margin: 16px 10px;
+    }
+    a {
+        color: inherit;
+        text-decoration: none;
+        &:active {
+            color: inherit;
+        }
+    }
+    .logo {
+        width: 300px;
+    }
+    .subheader {
+        margin-top: -1px;
+    }
+    #identification {
+        > li {
+            > a {
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 10px;
+            }
+        }
+        .vr {
+            margin: 5px 10px;
+        }
+    }
+    @media (min-width: $screen-sm-min) {
+        #navigation {
+            position: absolute;
+            right: 15px;
+            bottom: 0;
+        }
+    }
+}
+
+.subheader {
+    background-color: $text-color;
+    color: #fff;
+}
+
+.banner {
+    height: 100%;
+    min-height: 800px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center center;
+    .forward {
+        margin-top: 150px;
+    }
+}
+
+.forward {
+    color: #fff;
+    h1 {
+        font-weight: 800;
+    }
+    h2 {
+        font-size: 20px;
+    }
+}

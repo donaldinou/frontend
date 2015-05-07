@@ -1,0 +1,28 @@
+<section id="viteloge-frontend-ad-paginated" class="ajax-pager-container">
+    <div class="container-unfluid">
+        {% if pagination is defined %}
+            {{ include('VitelogeFrontendBundle:misc:pager.html.twig', pagination) }}
+        {% endif %}
+        <div class="clearfix">
+            <a href="{{ path('viteloge_frontend_websearch_create') }}" role="button" class="btn btn-primary pull-left">
+                <span class="fa fa-bell"></span>&nbsp;
+                {% trans %}Créer une alerte mail{% endtrans %}
+            </a>
+            <div class="pull-right">
+                <span>{% trans %}Tri{% endtrans %}:</span>
+                <select>
+                    <option>Par défaut</option>
+                    <option></option>
+                </select>
+            </div>
+        </div>
+        <div class="clearfix">
+        {% for ad in ads %}
+            {{ include('VitelogeFrontendBundle:Ad:render/list.html.twig', { 'ad': ad }) }}
+        {% endfor %}
+        </div>
+        {% if pagination is defined %}
+            {{ include('VitelogeFrontendBundle:misc:pager.html.twig', pagination) }}
+        {% endif %}
+    </div>
+</section>

@@ -1,0 +1,22 @@
+
+.main {
+    background-color: #ddd;
+    padding-bottom: 25px;
+    > section {
+        &:first-child {
+            padding-top: 0;
+        }
+        + section {
+            padding-bottom: 25px;
+        }
+        &:last-child {
+            padding-bottom: 0;
+        }
+    }
+    .main-section {
+        background-color: #fff;
+    }
+    .container {
+        padding-top: 18px;
+    }
+}

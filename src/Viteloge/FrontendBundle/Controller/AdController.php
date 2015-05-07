@@ -15,9 +15,56 @@ namespace Viteloge\FrontendBundle\Controller {
     use Viteloge\CoreBundle\Entity\Ad;
 
     /**
-     * @Route("/search/ad")
+     * @Route("/ad")
      */
     class AdController extends Controller {
+
+        /**
+         * @Route(
+         *     "/search/{limit}",
+         *     requirements={
+         *         "limit"="\d+"
+         *     },
+         *     defaults={
+         *         "limit" = "9"
+         *     }
+         * )
+         * @Route(
+         *     "/search/",
+         *     requirements={
+         *         "limit"="\d+"
+         *     },
+         *     defaults={
+         *         "limit" = "9"
+         *     }
+         * )
+         * Cache(expires="tomorrow", public=true)
+         * @Method({"GET"})
+         * @Template("VitelogeFrontendBundle:Ad:search.html.twig")
+         */
+        public function searchAction(Request $request, $limit, array $criteria=array(), array $orderBy=array()) {
+            $repository = $this->getDoctrine()->getRepository('VitelogeCoreBundle:Ad');
+            $criteria = array_merge(
+                $criteria,
+                $request->query->all(),
+                $request->request->all()
+            );
+            $orderBy = array_merge(
+                array(
+                    'privilegeRank' => 'DESC',
+                    'order' => 'DESC'
+                ),
+                $orderBy
+            );
+            $ads = $repository->findByFiltered(
+                $criteria,
+                $orderBy,
+                $limit
+            );
+            return array(
+                'ads' => $ads
+            );
+        }
 
         /**
          * @Route(
@@ -126,9 +173,12 @@ namespace Viteloge\FrontendBundle\Controller {
             );
             $count = $repository->countByFiltered($criteria, $orderBy);
 
+            $offset = 0;
             $totalPages = ceil($count/$limit);
-            $page = ($page<$totalPages) ? $page : $totalPages;
-            $offset = ($page-1)*$limit;
+            if ($totalPages) {
+                $page = ($page<$totalPages) ? $page : $totalPages;
+                $offset = ($page-1)*$limit;
+            }
 
             $ads = $repository->findByFiltered(
                 $criteria,
@@ -146,9 +196,15 @@ namespace Viteloge\FrontendBundle\Controller {
                 )
             );
 
+            $lastBreadcrumbTitle = $transaction;
+            $lastBreadcrumbTitle .= (!empty($criteria['type'])) ? ' '.$criteria['type'] : '';
+            $lastBreadcrumbTitle .= (!empty($criteria['inseeCity'])) ? ' in '.$criteria['inseeCity'] : '';
             $breadcrumbs = $this->get('white_october_breadcrumbs');
             $breadcrumbs->addItem('Home', $this->get('router')->generate('viteloge_frontend_homepage'));
-            $breadcrumbs->addItem('Result');
+            if (!empty($criteria['inseeCity'])) {
+                $breadcrumbs->addItem('City', $this->get('router')->generate('viteloge_frontend_ad_list', array('transaction' => $transaction)));
+            }
+            $breadcrumbs->addItem($lastBreadcrumbTitle);
 
             return array(
                 'ads' => $ads,

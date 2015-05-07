@@ -10,7 +10,9 @@ namespace Viteloge\FrontendBundle\Controller {
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\Request;
-    use Viteloge\CoreBundle\Entity\WebSearch;
+    use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+    use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+    use Symfony\Component\Security\Acl\Permission\MaskBuilder;
     use Viteloge\CoreBundle\Entity\UserSearch;
 
     /**
@@ -79,6 +81,8 @@ namespace Viteloge\FrontendBundle\Controller {
                 );
                 return $this->redirectToRoute('viteloge_frontend_user', $args);
             }
+
+            $count = 1;
 
             return array(
                 'count' => $count,

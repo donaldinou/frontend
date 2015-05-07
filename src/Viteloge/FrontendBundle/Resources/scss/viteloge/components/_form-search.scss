@@ -1,0 +1,57 @@
+form.search {
+    background-color: transparent;
+    margin-bottom: 10px;
+    a {
+        text-decoration: underline;
+        > label {
+            color: #fff;
+        }
+    }
+    > fieldset {
+        border: none;
+        .row {
+            padding-left: 15px;
+            padding-right: 15px;
+            > [class*='col-'] {
+                padding-left: 5px;
+                padding-right: 5px;
+                margin-top: 10px;
+            }
+        }
+    }
+    input, select, .btn {
+        height: 44px;
+        border: none;
+    }
+    .nav {
+        &.nav-justified {
+            @media (min-width: $screen-sm-min) {
+                & {
+                    margin-bottom: 25px;
+                    padding-left: 15%;
+                    padding-right: 15%;
+                    > li {
+                        + li {
+                            padding-left: 5px;
+                        }
+                    }
+                }
+            }
+        }
+        > li {
+            > a {
+                background-color: $text-color;
+                label {
+                    padding-left: 0px;
+                }
+            }
+            &.active > a {
+                &,
+                &:hover,
+                &:focus {
+                    background-color: $rent-color;
+                }
+            }
+        }
+    }
+}

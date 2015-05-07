@@ -1,0 +1,47 @@
+$btn-rent-color: #fff !default;
+$btn-rent-bg: $rent-color !default;
+$btn-rent-border: darken($btn-rent-bg, 5%) !default;
+
+.theme-L, .theme-rent {
+    &.static {
+        @include theming($rent-color, $btn-rent-bg, $btn-rent-border, $btn-rent-color);
+    }
+    @include theming($rent-color, $btn-rent-bg, $btn-rent-border, $btn-rent-color);
+}
+
+body {
+    .nav-tabs {
+        > li {
+            > a[data-theme-hover="theme-L"], a[data-theme-hover="theme-rent"] {
+                &:hover,
+                &:focus {
+                    background-color: $rent-color;
+                    color: #fff;
+                    border-color: $rent-color $rent-color transparent;
+                }
+            }
+        }
+    }
+
+    form.search {
+        .nav {
+            li {
+                & > a[data-theme-hover="theme-L"], & > a[data-theme-hover="theme-rent"] {
+                    &:hover,
+                    &:focus {
+                        background-color: $rent-color;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.color-rent {
+    color: $rent-color;
+}
+
+.bg-color-rent {
+    background-color: $rent-color;
+}

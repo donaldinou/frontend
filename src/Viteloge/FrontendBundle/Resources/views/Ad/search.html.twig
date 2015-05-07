@@ -1,0 +1,4 @@
+<h3 class="text-center">{% trans %}Title{% endtrans %}</h3>
+{% for ad in ads %}
+    {{ include('VitelogeFrontendBundle:Ad:render/list.html.twig', {}) }}
+{% endfor %}

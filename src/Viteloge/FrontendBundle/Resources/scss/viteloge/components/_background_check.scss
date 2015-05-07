@@ -1,0 +1,19 @@
+.navbar-default .navbar-nav > li > a.background--light, .navbar-default .navbar-nav > li .navbar-text.background--light {
+    color: $text-color;
+    border-color: $text-color;
+    &:hover,
+    &:focus {
+        color: $gray-dark;
+        border-color: $gray-dark;
+    }
+}
+
+.navbar-default .navbar-nav > li > a.background--dark, .navbar-default .navbar-nav > li .navbar-text.background--dark {
+    color: #fff;
+    border-color: #fff;
+    &:hover,
+    &:focus {
+        color: $gray-light;
+        border-color: $gray-light;
+    }
+}

@@ -1,13 +1,33 @@
 {% extends 'VitelogeFrontendBundle::base.html.twig' %}
 
-{% block title %}
-    {% trans %}Fast Housing{% endtrans %}
-{% endblock %}
-
 {% block head_javascript_requirejs %}
     {{ include('VitelogeFrontendBundle:misc:requirejs.html.twig', { 'module': 'app/homepage.js' }) }}
 {% endblock %}
 
-{% block main %}
-    {{ include('VitelogeFrontendBundle:Ad:paginated.html.twig') }}
+{% block header_end %}
+    {% if pagination is defined %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10">
+                    <h2 class="">{{ pagination.total }} {% trans %}annonces...{% endtrans %}</h2>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        {% trans %}Change my research{% endtrans %}&nbsp;<span class="caret"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
+
+{% block main %}
+    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
+        {% block left %}
+            {{ include('VitelogeFrontendBundle:Ad:fragment/paginated.html.twig', {}) }}
+        {% endblock %}
+        {% block right %}
+            {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock main %}

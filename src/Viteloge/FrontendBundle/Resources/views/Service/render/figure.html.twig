@@ -1,0 +1,22 @@
+{%- block service -%}
+    <figure class="hvr-fade service">
+        <a href="{{ service.getUrl() }}">
+            {%- block service_image -%}
+                <img src="{{ asset( service.getImage() ) }}" class="" alt="image">
+                <div class="rounded-icon large center-block">
+                    <span class="{{ service.getIcon() }}"></span>
+                </div>
+            {%- endblock -%}
+        </a>
+        <figcaption class="service-legend">
+            <a href="{{ service.getUrl() }}">
+                {% block service_legend %}
+                    <h4 class="title text-upper"><strong>{{ service.getTitle() | trans }}</strong></h4>
+                    <p class="description" data-role="description">
+                        {{ service.getDescription() | trans }}
+                    </p>
+                {%- endblock -%}
+            </a>
+        </figcaption>
+    </figure>
+{%- endblock -%}

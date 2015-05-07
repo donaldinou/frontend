@@ -1,0 +1,47 @@
+$btn-sale-color: #fff !default;
+$btn-sale-bg: $sale-color !default;
+$btn-sale-border: darken($btn-sale-bg, 5%) !default;
+
+.theme-V, .theme-sale {
+    &.static {
+        @include theming($sale-color, $btn-sale-bg, $btn-sale-border, $btn-sale-color);
+    }
+    @include theming($sale-color, $btn-sale-bg, $btn-sale-border, $btn-sale-color);
+}
+
+body {
+    .nav-tabs {
+        > li {
+            > a[data-theme-hover="theme-V"], a[data-theme-hover="theme-sale"] {
+                &:hover,
+                &:focus {
+                    background-color: $sale-color;
+                    color: #fff;
+                    border-color: $sale-color $sale-color transparent;
+                }
+            }
+        }
+    }
+
+    form.search {
+        .nav {
+            li {
+                & > a[data-theme-hover="theme-V"], & > a[data-theme-hover="theme-sale"] {
+                    &:hover,
+                    &:focus {
+                        background-color: $sale-color;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.color-sale {
+    color: $sale-color;
+}
+
+.bg-color-sale {
+    background-color: $sale-color;
+}

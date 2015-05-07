@@ -1,0 +1,20 @@
+<div class="row-no-padding suggestions clearfix">
+    <div class="col-md-5">
+        <ul class="queries list-unstyled">
+            {%- for queryStats in queries|slice(0, (queries|length)/2) %}
+                {{ include('VitelogeFrontendBundle:QueryStats:render/li.html.twig', {}) }}
+            {% else %}
+                <li>{% trans %}No more suggestions{% endtrans %}</li>
+            {% endfor -%}
+        </ul>
+    </div>
+    <div class="col-md-5">
+        <ul class="queries list-unstyled">
+            {%- for queryStats in queries|slice((queries|length)/2, queries|length) %}
+                {{ include('VitelogeFrontendBundle:QueryStats:render/li.html.twig', {}) }}
+            {% else %}
+                <li>{% trans %}No more suggestions{% endtrans %}</li>
+            {% endfor -%}
+        </ul>
+    </div>
+</div>

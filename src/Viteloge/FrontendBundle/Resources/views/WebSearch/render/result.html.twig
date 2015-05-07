@@ -3,6 +3,12 @@
         <span>{{ webSearch.userSearch.inseeCity.name }}</span><br>
         <span>{{ webSearch.totalMatches }}</span>
     </div>
+    <div class="">
+        <div class="btn-group btn-group-xs" role="group" aria-label="Extra-small button group">
+            <a href="{{ path('viteloge_frontend_ad_list', { 'transaction': webSearch.userSearch.transaction, 'type': webSearch.userSearch.type, 'rooms': webSearch.userSearch.rooms }) }}" class="btn btn-default" role="button">{% trans %}See{% endtrans %}</a>
+            <a href="{{ path('viteloge_frontend_websearch_edit', {id: webSearch.id}) }}" class="btn btn-default" role="button">{% trans %}Edit{% endtrans %}</a>
+        </div>
+    </div>
     <div class="row">
         {% for ad in webSearch.cachedProperties %}
             {{ include('VitelogeFrontendBundle:WebSearch:cachedProperties/ad.html.twig', { 'ad': ad }) }}

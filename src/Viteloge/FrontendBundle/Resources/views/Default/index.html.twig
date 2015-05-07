@@ -1,15 +1,15 @@
 {% extends 'VitelogeFrontendBundle::base.html.twig' %}
 
-{% block title %}
-    {% trans %}Fast Housing{% endtrans %}
-{% endblock %}
-
 {% block head_javascript_requirejs %}
     {{ include('VitelogeFrontendBundle:misc:requirejs.html.twig', { 'module': 'app/homepage.js' }) }}
 {% endblock %}
 
+{%- block theme -%}
+    {{parent()}} home
+{%- endblock -%}
+
 {% block body %}
-    <header class="header banner" role="banner">
+    <header class="header banner" role="banner" data-target="#search-container">
         {{ block('header') }}
     </header>
     <main class="main" role="main">
@@ -22,26 +22,31 @@
 
 {% block header %}
     {% embed "VitelogeUserBundle:base:header.html.twig" %}
-        {% block header_navigation %}
-            <div class="forward text-center">
-                <h1 class="text-upper">Nam nec tellus a odio tincidunt</h1>
-                <h2 class="text-upper">
-                    {% transchoice count with {'%count%': count|number_format(0, null, ' ')} %}
-                        today.properties.update.count
-                    {% endtranschoice %} !
-                </h2>
-                {{ include('VitelogeFrontendBundle:Form:ad.html.twig') }}
+        {% block header_navbarmenu %}
+            <div class="collapse navbar-collapse" id="navbar-navigation">
+                {{ block('header_identification') }}
             </div>
+            {% block header_navigation %}
+                <div id="search-container" class="forward text-center">
+                    <h1 class="text-upper">Nam nec tellus a odio tincidunt</h1>
+                    <h2 class="text-upper">
+                        {% transchoice count with {'%count%': count|number_format(0, null, ' ')} %}
+                            today.properties.update.count
+                        {% endtranschoice %} !
+                    </h2>
+                    {{ include('VitelogeFrontendBundle:Default:form/userSearch.html.twig', { form: form }) }}
+                </div>
+            {% endblock %}
         {% endblock %}
     {% endembed %}
 {% endblock %}
 
 
-{% block main %}
-{{ render(controller('VitelogeFrontendBundle:Ad:latest', { 'transaction': form.transaction, 'limit': 9 })) }}
-{{ render_hinclude(controller('VitelogeFrontendBundle:Service:list', {'default': 'Loading...'})) }}
-{{ render_hinclude(controller('VitelogeFrontendBundle:WebSearch:latest', {'default': 'Loading...'})) }}
-{% endblock %}
+{%- block main -%}
+    {{ render(controller('VitelogeFrontendBundle:Ad:latest', { 'transaction': form.transaction, 'limit': 9 })) }}
+    {{ include('VitelogeFrontendBundle:Default:fragment/services.html.twig', {}) }}
+    {{ render(controller('VitelogeFrontendBundle:WebSearch:latest', { })) }}
+{%- endblock -%}
 
 
 {% block footer %}

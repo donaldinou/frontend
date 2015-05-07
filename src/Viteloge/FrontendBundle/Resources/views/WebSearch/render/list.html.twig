@@ -2,6 +2,8 @@
     <p class="pull-left">
         {{ include('VitelogeFrontendBundle:UserSearch:render/element.html.twig', { 'userSearch': webSearch.userSearch }) }}
     </p>
-    <span class="button pull-right">{{ webSearch.updatedAt|time_diff|trans }}</span>
+    <span class="btn btn-default pull-right">
+        <span class="fa fa-clock-o"></span>&nbsp;{{ webSearch.updatedAt|time_diff|trans }}
+    </span>
     <span class="clearfix"></span>
 </li>

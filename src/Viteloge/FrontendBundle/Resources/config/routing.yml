@@ -6,6 +6,14 @@ viteloge_frontend_default:
     resource: "@VitelogeFrontendBundle/Controller/DefaultController.php"
     type: annotation
 
+viteloge_frontend_query_stats:
+    resource: "@VitelogeFrontendBundle/Controller/QueryStatsController.php"
+    type: annotation
+
+viteloge_frontend_glossary:
+    resource: "@VitelogeFrontendBundle/Controller/GlossaryController.php"
+    type: annotation
+
 viteloge_frontend_user:
     resource: "@VitelogeFrontendBundle/Controller/UserController.php"
     type: annotation

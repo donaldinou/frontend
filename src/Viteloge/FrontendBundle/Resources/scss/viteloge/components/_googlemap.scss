@@ -1,0 +1,18 @@
+.map-container {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    position: relative;
+    height: 100%;
+    .map-over {
+        position: relative;
+        z-index: 1;
+    }
+    .map-canvas {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 0;
+    }
+}

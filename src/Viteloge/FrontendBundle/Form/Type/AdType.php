@@ -17,17 +17,8 @@ namespace Viteloge\FrontendBundle\Form\Type {
                 ->add('transaction', 'choice', array(
                     'choices' => $transactionChoices,
                     'expanded' => true,
-                    'multiple' => false,
-                    //'preferred_choices' => array($transactionDefault),
-                    //'data' => $transactionDefault
+                    'multiple' => false
                 ))
-                /*->add('inseeCity', 'entity', array(
-                    'class' => 'AcreatInseeBundle:InseeCity',
-                    'property' => 'name',
-                    'expanded' => true,
-                    'multiple' => true,
-                    //'choices' => $group->getUsers(),
-                ))*/
                 ->add('inseeCity', 'search', array())
                 ->add('type', 'choice', array(
                     'choices' => array( 'Appartement', 'Maison' ),

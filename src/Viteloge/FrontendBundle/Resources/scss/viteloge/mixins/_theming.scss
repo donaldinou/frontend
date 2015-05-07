@@ -1,0 +1,207 @@
+@mixin theming($color, $background-color, $border-color, $text-color) {
+    [class*=hvr-] {
+        &:hover,
+        &:focus {
+            background-color: $color;
+        }
+    }
+    .glossary, .queries {
+        a {
+            &:hover,
+            &:focus {
+                color: $color;
+            }
+        }
+    }
+    .highlighting {
+        background-color: $color;
+    }
+    .btn-primary {
+        @include button-variant($text-color, $background-color, $border-color);
+    }
+    .btn-default {
+        &:hover,
+        &:focus
+        &:active {
+            background-color: $color;
+            color: #fff;
+            border-color: $border-color;
+        }
+    }
+    .nav-tabs {
+        > li {
+            > a {
+                &:hover,
+                &:focus {
+                    background-color: $color;
+                }
+            }
+            &.active {
+                > a {
+                    &,
+                    &:focus,
+                    &:hover {
+                        background-color: $color;
+                        border-color: $color;
+                    }
+                }
+            }
+        }
+    }
+    form.search {
+        .nav {
+            li {
+                &.active > a {
+                    &,
+                    &:hover,
+                    &:focus {
+                        color: #fff;
+                        background-color: $color;
+                    }
+                }
+            }
+        }
+    }
+    .subheader {
+        background-color: $color;
+    }
+    .pagination {
+        > li {
+            > a,
+            > span {
+                color: #27303d;
+                &:hover,
+                &:focus {
+                    color: $pagination-hover-color;
+                    background-color: $color;
+                }
+            }
+        }
+        > .active > a,
+        > .active > span {
+            &,
+            &:hover,
+            &:focus {
+                color: $pagination-active-color;
+                background-color: $color;
+            }
+        }
+        > .next, > .last, > .previous, > .first {
+            &,
+            > span,
+            > a {
+                color: #fff;
+                background-color: #000;
+            }
+            > span, > a {
+                &:hover,
+                &:focus {
+                    color: #fff;
+                    background-color: $color;
+                }
+            }
+            &.disabled {
+                > span, > a {
+                    &,
+                    &:hover,
+                    &:focus {
+                        color: #fff;
+                        background-color: #000;
+                    }
+                }
+            }
+        }
+        > .disabled {
+            > span, > a {
+                &,
+                &:hover,
+                &:focus {
+                    color: $pagination-disabled-color;
+                    background-color: $pagination-disabled-bg;
+                    border-color: $pagination-disabled-border;
+                }
+            }
+        }
+    }
+    .estate {
+        &:focus,
+        &:hover {
+            .description {
+                > a {
+                    color: $color;
+                }
+            }
+        }
+        .preview {
+            &:focus,
+            &:hover {
+                &:before {
+                    background-color: transparentize($color, .6);
+                }
+            }
+        }
+        .subtitle {
+            color: $color;
+        }
+        .price {
+            color: $color;
+        }
+        .description {
+            > p {
+                a {
+                    color: $color;
+                    &:hover,
+                    &:focus {
+                        color: #27303d;
+                    }
+                }
+            }
+            > a {
+                &:hover,
+                &:focus {
+                    color: $color;
+                }
+            }
+        }
+        .footer {
+            > .nav {
+                > li {
+                    &.active,
+                    &:hover,
+                    &:focus {
+                        background-color: $color;
+                        border-color: $color;
+                        color: #fff;
+                        > a, > span {
+                            background-color: $color;
+                            border-color: $color;
+                            color: #fff;
+                        }
+                    }
+                    > a, > span {
+                        &:hover,
+                        &:focus {
+                            background-color: $color;
+                            border-color: $color;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+        }
+        .sticker-wrapper {
+            .sticker {
+                background-color: $color;
+            }
+        }
+    }
+    .suggestions {
+        ul {
+            > li {
+                > .fa-caret-right {
+                    color: $color;
+                }
+            }
+        }
+    }
+}

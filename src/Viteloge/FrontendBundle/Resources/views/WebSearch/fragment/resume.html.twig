@@ -1,4 +1,29 @@
-<div class="">
-    {{ app.user.firstname }} {{ app.user.lastname }}
-    {{ webSearches|length }}
+{# TODO twig function in order to calculate profil percent ratio #}
+{% set percent = 40 %}
+{% if app.user.civility %}{% set percent = percent+10 %}{% endif %}
+{% if app.user.firstname %}{% set percent = percent+10 %}{% endif %}
+{% if app.user.lastname %}{% set percent = percent+10 %}{% endif %}
+{% if app.user.email %}{% set percent = percent+10 %}{% endif %}
+{% if app.user.phone %}{% set percent = percent+10 %}{% endif %}
+{% if webSearches|length %}{% set percent = percent+10 %}{% endif %}
+{% set percent = 60 %}
+{# end #}
+<div class="panel panel-default alert alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <div class="panel-body">
+        {% trans %}Welcome{% endtrans %}&nbsp;{{ app.user.fullname }}<br>
+        {% trans %}Your account has been created at: {% endtrans %}{{ app.user.createdAt|localizeddate('short', 'none', null) }}<br>
+        {% trans %}You actually have{% endtrans %}
+        {{ webSearches|length }}
+        {% trans %}research{% endtrans %}<br>
+        {% if percent != 100 %}
+            <span>{% trans %}Profile completed at{% endtrans %}</span>
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percent }}%">
+                    <span class="">{{ percent }}% Complete (success)</span>
+              </div>
+            </div>
+            <a href="{{ path('fos_user_profile_edit') }}" class="">{% trans %}Edit profile{% endtrans %}</a>
+        {% endif %}
+    </div>
 </div>
