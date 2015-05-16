@@ -1,0 +1,87 @@
+fos_elastica:
+    clients:
+        default: { host: %elastic_host%, port: %elastic_port% }
+    #serializer:
+    #    callback_class: FOS\ElasticaBundle\Serializer\Callback
+    #    serializer: serializer
+    indexes:
+        viteloge:
+            index_name: viteloge_%kernel.environment%
+            client: default
+            settings:
+                index:
+                    analysis:
+                        analyzer:
+                            custom_french_analyzer:
+                                type: custom
+                                tokenizer: letter
+                                filter: ["asciifolding", "lowercase", "french_stem", "stop_fr"]
+                        filter:
+                            stop_fr:
+                                type: "stop"
+                                stopwords: ["l", "m", "t", "qu", "n", "s", "j", "d"]
+            types:
+                ad:
+                    mappings:
+                        transaction:
+                            type: "string"
+                            boost: 5
+                        type:
+                            type: "string"
+                            boost: 4
+                            index: "not_analyzed"
+                        cityName:
+                            type: "string"
+                            boost: 3
+                            analyzer: custom_french_analyzer
+                        postalCode:
+                            type: "string"
+                            boost: 2
+                        price:
+                            type: "float"
+                            boost: 2
+                        createdAt :
+                            type : "date"
+                            boost: 1
+                        inseeCity:
+                            type: "object"
+                            properties :
+                                uname : ~
+                                name: ~
+                                id :
+                                    type: "string"
+                                lat:
+                                    type: "integer"
+                                lng:
+                                    type: "integer"
+                                population:
+                                    type: "integer"
+                            boost: 4
+                        rooms:
+                            type: "integer"
+                            boost: 2
+                        surface:
+                            type: "integer"
+                            boost: 2
+                        description:
+                            type: "string"
+                            boost: 1
+                        descriptionMku:
+                            type: "string"
+                            boost: 1
+                        privilegeRank:
+                            type: "integer"
+                            boost: 9
+                        order:
+                            type: "float"
+                            boost: 8
+                    persistence:
+                        driver: orm
+                        model: Viteloge\CoreBundle\Entity\Ad
+                        provider:
+                            batch_size: 100
+                        listener:
+                            immediate: ~
+                        finder: ~
+                        elastica_to_model_transformer:
+                            ignore_missing: true

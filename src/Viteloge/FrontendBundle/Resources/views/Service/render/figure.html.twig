@@ -11,7 +11,7 @@
         <figcaption class="service-legend">
             <a href="{{ service.getUrl() }}">
                 {% block service_legend %}
-                    <h4 class="title text-upper"><strong>{{ service.getTitle() | trans }}</strong></h4>
+                    <h4 class="title text-uppercase"><strong>{{ service.getTitle() | trans }}</strong></h4>
                     <p class="description" data-role="description">
                         {{ service.getDescription() | trans }}
                     </p>

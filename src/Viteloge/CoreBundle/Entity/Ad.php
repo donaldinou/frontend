@@ -4,168 +4,79 @@ namespace Viteloge\CoreBundle\Entity {
 
     use Doctrine\ORM\Mapping as ORM;
     use Symfony\Component\Validator\Constraints as Assert;
+    use FOS\ElasticaBundle\Configuration\Search;
 
     /**
      * Ad
      *
-     * @ORM\Table(name="export_annonce", indexes={@ORM\Index(name="cityId", columns={"codeInsee"}), @ORM\Index(name="agencyId", columns={"idAgence"}), @ORM\Index(name="transaction", columns={"transaction"}), @ORM\Index(name="rooms", columns={"nbpiece"}), @ORM\Index(name="price", columns={"prix"}), @ORM\Index(name="districtId", columns={"arrondissement"}), @ORM\Index(name="agencySpecial", columns={"specifAgence"}), @ORM\Index(name="privilegeId", columns={"idPrivilege"}), @ORM\Index(name="privilegeCode", columns={"codePrivilege"}), @ORM\Index(name="privilegeRank", columns={"rankPrivilege"}), @ORM\Index(name="description", columns={"description"}), @ORM\Index(name="order", columns={"ordre"}), @ORM\Index(name="createdAt", columns={"dateInsert"}), @ORM\Index(name="updatedAt", columns={"dateUpdate"})})
+     * @Search(repositoryClass="Viteloge\CoreBundle\SearchRepository\AdRepository")
+     * @ORM\Table(name="export_annonce", indexes={
+     *     @ORM\Index(
+     *         name="cityId",
+     *         columns={"codeInsee"}
+     *     ),
+     *     @ORM\Index(
+     *         name="agencyId",
+     *         columns={"idAgence"}
+     *     ),
+     *     @ORM\Index(
+     *         name="transaction",
+     *         columns={"transaction"}
+     *     ),
+     *     @ORM\Index(
+     *         name="rooms",
+     *         columns={"nbpiece"}
+     *     ),
+     *     @ORM\Index(
+     *         name="price",
+     *         columns={"prix"}
+     *     ),
+     *     @ORM\Index(
+     *         name="districtId",
+     *         columns={"arrondissement"}
+     *     ),
+     *     @ORM\Index(
+     *         name="agencySpecial",
+     *         columns={"specifAgence"}
+     *     ),
+     *     @ORM\Index(
+     *         name="privilegeId",
+     *         columns={"idPrivilege"}
+     *     ),
+     *     @ORM\Index(
+     *         name="privilegeCode",
+     *         columns={"codePrivilege"}
+     *     ),
+     *     @ORM\Index(
+     *         name="privilegeRank",
+     *         columns={"rankPrivilege"}
+     *     ),
+     *     @ORM\Index(
+     *         name="description",
+     *         columns={"description"}),
+     *     @ORM\Index(
+     *         name="order",
+     *         columns={"ordre"}
+     *     ),
+     *     @ORM\Index(
+     *         name="createdAt",
+     *         columns={"dateInsert"}
+     *      ),
+     *     @ORM\Index(
+     *         name="updatedAt",
+     *         columns={"dateUpdate"}
+     *     )
+     * })
      * @ORM\Entity(repositoryClass="Viteloge\CoreBundle\Repository\AdRepository")
+     * @ORM\HasLifecycleCallbacks
      */
     class Ad
     {
-        /**
-         * @var integer
-         *
-         * @ORM\Column(name="idAgence", type="integer", nullable=false)
-         */
-        private $agencyId;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="agence", type="string", length=255, nullable=false)
-         */
-        private $agencyName;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="specifAgence", type="string", length=255, nullable=false)
-         */
-        private $agencySpecial;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="url", type="string", length=255, nullable=false)
-         */
-        private $url;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="transaction", type="string", length=1, nullable=false)
-         */
-        private $transaction;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="type", type="string", length=50, nullable=false)
-         */
-        private $type;
 
         /**
          * @var integer
-         *
-         * @ORM\Column(name="nbpiece", type="integer", nullable=false)
          */
-        private $rooms;
-
-        /**
-         * @var integer
-         *
-         * @ORM\Column(name="Surface", type="integer", nullable=true)
-         */
-        private $surface;
-
-        /**
-         * @var float
-         *
-         * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
-         */
-        private $price;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="commune", type="string", length=150, nullable=false)
-         */
-        private $cityName;
-
-        /**
-         * @var integer
-         *
-         * @ORM\Column(name="arrondissement", type="smallint", nullable=false)
-         */
-        private $districtId;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="codepostal", type="string", length=8, nullable=false)
-         */
-        private $postalCode;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="description", type="text", nullable=false)
-         */
-        private $description;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="description_mku", type="text", nullable=true)
-         */
-        private $descriptionMku;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="photo", type="string", length=200, nullable=false)
-         */
-        private $photo;
-
-        /**
-         * @var float
-         *
-         * @ORM\Column(name="ordre", type="float", precision=10, scale=0, nullable=false)
-         */
-        private $order;
-
-        /**
-         * @var \DateTime
-         *
-         * @ORM\Column(name="dateInsert", type="datetime", nullable=false)
-         */
-        private $createdAt;
-
-        /**
-         * @var \DateTime
-         *
-         * @ORM\Column(name="dateUpdate", type="datetime", nullable=false)
-         */
-        private $updatedAt;
-
-        /**
-         * @var integer
-         *
-         * @ORM\Column(name="limitPublication", type="smallint", nullable=false)
-         */
-        private $publicationLimit;
-
-        /**
-         * @var integer
-         *
-         * @ORM\Column(name="idPrivilege", type="integer", nullable=false)
-         */
-        private $privilegeId;
-
-        /**
-         * @var string
-         *
-         * @ORM\Column(name="codePrivilege", type="string", length=10, nullable=false)
-         */
-        private $privilegeCode;
-
-        /**
-         * @var integer
-         *
-         * @ORM\Column(name="rankPrivilege", type="smallint", nullable=false)
-         */
-        private $privilegeRank;
+        const AGENCY_ID_NEW = 6725;
 
         /**
          * @var integer
@@ -174,7 +85,168 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Id
          * @ORM\GeneratedValue(strategy="IDENTITY")
          */
-        private $id;
+        protected $id;
+
+        /**
+         * @var integer
+         *
+         * @ORM\Column(name="idAgence", type="integer", nullable=false)
+         */
+        protected $agencyId;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="agence", type="string", length=255, nullable=false)
+         */
+        protected $agencyName;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="specifAgence", type="string", length=255, nullable=false)
+         */
+        protected $agencySpecial;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="url", type="string", length=255, nullable=false)
+         */
+        protected $url;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="transaction", type="string", length=1, nullable=false)
+         */
+        protected $transaction;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="type", type="string", length=50, nullable=false)
+         */
+        protected $type;
+
+        /**
+         * @var integer
+         *
+         * @ORM\Column(name="nbpiece", type="integer", nullable=false)
+         */
+        protected $rooms;
+
+        /**
+         * @var integer
+         *
+         * ORM\Column(name="bedrooms", type="integer", nullable=false)
+         */
+        protected $bedrooms;
+
+        /**
+         * @var integer
+         *
+         * @ORM\Column(name="Surface", type="integer", nullable=true)
+         */
+        protected $surface;
+
+        /**
+         * @var float
+         *
+         * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
+         */
+        protected $price;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="commune", type="string", length=150, nullable=false)
+         */
+        protected $cityName;
+
+        /**
+         * @var integer
+         *
+         * @ORM\Column(name="arrondissement", type="smallint", nullable=false)
+         */
+        protected $districtId;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="codepostal", type="string", length=8, nullable=false)
+         */
+        protected $postalCode;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="description", type="text", nullable=false)
+         */
+        protected $description;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="description_mku", type="text", nullable=true)
+         */
+        protected $descriptionMku;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="photo", type="string", length=200, nullable=false)
+         */
+        protected $photo;
+
+        /**
+         * @var float
+         *
+         * @ORM\Column(name="ordre", type="float", precision=10, scale=0, nullable=false)
+         */
+        protected $order;
+
+        /**
+         * @var \DateTime
+         *
+         * @ORM\Column(name="dateInsert", type="datetime", nullable=false)
+         */
+        protected $createdAt;
+
+        /**
+         * @var \DateTime
+         *
+         * @ORM\Column(name="dateUpdate", type="datetime", nullable=false)
+         */
+        protected $updatedAt;
+
+        /**
+         * @var integer
+         *
+         * @ORM\Column(name="limitPublication", type="smallint", nullable=false)
+         */
+        protected $publicationLimit;
+
+        /**
+         * @var integer
+         *
+         * @ORM\Column(name="idPrivilege", type="integer", nullable=false)
+         */
+        protected $privilegeId;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="codePrivilege", type="string", length=10, nullable=false)
+         */
+        protected $privilegeCode;
+
+        /**
+         * @var integer
+         *
+         * @ORM\Column(name="rankPrivilege", type="smallint", nullable=false)
+         */
+        protected $privilegeRank;
 
         /**
          * @var \Acreat\InseeBundle\Entity\InseeCity
@@ -184,14 +256,37 @@ namespace Viteloge\CoreBundle\Entity {
          *   @ORM\JoinColumn(name="codeInsee", referencedColumnName="codeInsee")
          * })
          */
-        private $inseeCity;
+        protected $inseeCity;
 
         /**
          * @var \Viteloge\CoreBundle\Entity\Privilege
          */
         protected $privilege;
 
+        /**
+         * @var boolean
+         */
+        protected $isVitelogeNewAgency;
 
+        /**
+         * @var string
+         */
+        protected $program;
+
+        /**
+         * @var string
+         */
+        protected $programCount;
+
+        /**
+         * Constructor
+         *
+         * @return void
+         */
+        public function __construct() {
+            $this->createdAt = new \DateTime('now');
+            $this->isVitelogeNewAgency = false;
+        }
 
         /**
          * Set agencyId
@@ -350,8 +445,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @param integer $rooms
          * @return Ad
          */
-        public function setRooms($rooms)
-        {
+        public function setRooms($rooms) {
             $this->rooms = $rooms;
 
             return $this;
@@ -362,9 +456,29 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return integer
          */
-        public function getRooms()
-        {
+        public function getRooms() {
             return $this->rooms;
+        }
+
+        /**
+         * Set bedrooms
+         *
+         * @param integer $bedrooms
+         * @return Ad
+         */
+        public function setBedrooms($bedrooms) {
+            $this->bedrooms = $bedrooms;
+
+            return $this;
+        }
+
+        /**
+         * Get bedrooms
+         *
+         * @return integer
+         */
+        public function getBedrooms() {
+            return $this->bedrooms;
         }
 
         /**
@@ -483,14 +597,48 @@ namespace Viteloge\CoreBundle\Entity {
         }
 
         /**
+         *
+         */
+        protected function keywordify($text) {
+            // MOTS CLES
+            if(!empty($_GET["keywords"])) {
+                $keywords   = trim( preg_replace( array( "#/#", "/(\S)(\s+)(\S)/" ),array( "", "$1|$3" ), $_GET["keywords"] ) );
+                $keywords_array = explode("|", $keywords);
+                $kw_place = array();
+
+                // Rep?age des mots cl? en dehors de la coupe
+                foreach($keywords_array as $keyword)
+                {
+                    $pos = stripos($descriptif, $keyword);
+                    while($pos !== false)
+                    {
+                        if($pos > $new_strlen)
+                        {
+                            $kw_place[$pos] = substr($descriptif, $pos, strlen($keyword));
+                            break;
+                        }
+                        $pos = stripos($descriptif, $keyword, $pos+1);
+                    }
+                }
+
+                ksort ( $kw_place );
+                foreach( $kw_place as $keyword )
+                    $new_descriptif .= " ".$keyword." ...";
+
+                // Application du regex
+                $new_descriptif = preg_replace("/{".preg_quote($keywords)."}/i","<span class='keyword'>\\0</span>",$new_descriptif);
+            }
+            return $new_descriptif;
+        }
+
+        /**
          * Set description
          *
          * @param string $description
          * @return Ad
          */
-        public function setDescription($description)
-        {
-            $this->description = $description;
+        public function setDescription($description) {
+            $this->description = trim(ucfirst(strtolower(utf8_encode($description))));
 
             return $this;
         }
@@ -500,9 +648,21 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return string
          */
-        public function getDescription()
-        {
-            return $this->description;
+        public function getDescription() {
+            /*$test_utf8_regex = "^([\\x00-\\x7f]|[\\xc2-\\xdf][\\x80-\\xbf]|\\xe0[\\xa0-\\xbf][\\x80-\\xbf]|[\\xe1-\\xec][\\x80-\\xbf]{2}|\\xed[\\x80-\\x9f][\\x80-\\xbf]|\\xef[\\x80-\\xbf][\\x80-\\xbc]|\\xee[\\x80-\\xbf]{2}|\\xf0[\\x90-\\xbf][\\x80-\\xbf]{2}|[\\xf1-\\xf3][\\x80-\\xbf]{3}|\\xf4[\\x80-\\x8f][\\x80-\\xbf]{2})*$";
+            if(preg_match("/$test_utf8_regex/si", strtolower($this->description))) {
+                $this->description = utf8_decode($this->description);
+            }*/
+            return trim(ucfirst(strtolower($this->description)));
+        }
+
+        /**
+         * Get description with advanced links
+         *
+         * @return strig
+         */
+        public function getAdvancedDescription() {
+            return (!empty($this->getDescriptionMku())) ? $this->getDescriptionMku() : $this->getDescription();
         }
 
         /**
@@ -511,9 +671,8 @@ namespace Viteloge\CoreBundle\Entity {
          * @param string $descriptionMku
          * @return Ad
          */
-        public function setDescriptionMku($descriptionMku)
-        {
-            $this->descriptionMku = $descriptionMku;
+        public function setDescriptionMku($descriptionMku) {
+            $this->descriptionMku = trim(ucfirst(strtolower($descriptionMku)));
 
             return $this;
         }
@@ -523,9 +682,8 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return string
          */
-        public function getDescriptionMku()
-        {
-            return $this->descriptionMku;
+        public function getDescriptionMku() {
+            return trim(ucfirst(strtolower($this->descriptionMku)));
         }
 
         /**
@@ -746,7 +904,9 @@ namespace Viteloge\CoreBundle\Entity {
         }
 
         /**
+         * Get the privilege object from the privilege code
          *
+         * @return string
          */
         public function getPrivilege() {
             if (!$this->privilege instanceof Privilege) {
@@ -754,6 +914,76 @@ namespace Viteloge\CoreBundle\Entity {
             }
             return $this->privilege;
         }
+
+        /**
+         * Init program with matches array
+         *
+         * @param array $matches
+         * @return Ad
+         */
+        private function initProgram(array $matches) {
+            $this->program = $matches[1];
+            $this->programCount = $matches[2];
+            return $this;
+        }
+
+        /**
+         * Is agency is from neuf.viteloge.com
+         *
+         * @return boolean
+         */
+        public function isVitelogeNewAgency() {
+            $result = preg_match( '/^NEUF\[([^\]]*)\|(\d+)\]$/si', $this->getAgencyName(), $matches );
+            if ($result && !$this->isVitelogeNewAgency) {
+                $this->isVitelogeNewAgency = $result;
+                $this->initProgram($matches);
+            }
+            return $result;
+        }
+
+        /**
+         * Return the program
+         *
+         * @return string
+         */
+        public function getProgram() {
+            return ($this->isVitelogeNewAgency()) ? $this->program : '';
+        }
+
+        /**
+         * Set the program
+         *
+         * @param string $program
+         * @return Ad
+         */
+        public function setProgram( $program ) {
+            $this->program = $program;
+        }
+
+        /**
+         * @return string
+         */
+        public function getProgramCount() {
+            return ($this->isVitelogeNewAgency()) ? $this->programCount : '';
+        }
+
+        /**
+         * Set The program count
+         *
+         * @param string $programCount
+         * @return Ad
+         */
+        public function setProgramCount($programCount) {
+            $this->programCount = $programcount;
+        }
+
+        /**
+         * @ORM\PreUpdate
+         */
+        public function setUpdatedAtValue() {
+            $this->updatedAt = new \DateTime();
+        }
+
     }
 
 

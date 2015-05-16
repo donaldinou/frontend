@@ -42,7 +42,7 @@
         {% endblock head_javascripts %}
     </head>
 
-    <body class="body{% block theme %} {{vl_theme()}}{% endblock theme %}" itemscope itemtype="http://schema.org/WebPage">
+    <body class="body{% block theme %} {{vl_theme()}}{% endblock theme %}" {% block schema %}itemscope itemtype="http://schema.org/WebPage"{% endblock schema %}>
     {% block init_javascripts %}
         <script>
           window.fbAsyncInit = function() {

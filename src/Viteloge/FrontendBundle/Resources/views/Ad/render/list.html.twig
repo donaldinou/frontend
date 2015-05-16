@@ -1,43 +1,29 @@
-<article class="estate clearfix row-no-padding">
+<article class="estate clearfix row-no-padding" itemscope itemtype="http://schema.org/Product">
     <figure class="col-md-4">
         {%- block estate_figure -%}
-            {% if not ad.privilege.isExclu %}
-                {{ include('VitelogeCoreBundle:Global:sticker.html.twig', { title: 'Exclusivité' }) }}
-            {% endif %}
-            <a href="{{ path('viteloge_frontend_ad_redirect', { 'id': ad.id }) }}" class="preview">
-                <img src="{{ 'http://img.viteloge.com/' ~ ad.photo }}" class="img-responsive" alt="">
-            </a>
-            {% if ad.privilege.hasLogo %}
-                <img src="{{ 'http://img.viteloge.com/logos/agence.' ~ ad.agencyId ~ '.gif' }}" class="agency-logo img-responsive" alt="logo">
-            {% endif %}
+            {{ include('VitelogeFrontendBundle:Ad:fragment/image.html.twig', { 'ad': ad }) }}
         {%- endblock -%}
     </figure>
     <header class="col-md-8">
-        <h4 class="title">
+        <h4 class="title" itemprop="name">
             {%- block estate_title -%}
                 <span>{{ ad.type | trans }}</span><br> à <span>{{ ad.cityName }}</span> (<span>{{ ad.postalcode }}</span>)
             {%- endblock -%}
         </h4>
         <sub class="subtitle">
             {%- block estate_sub_title -%}
-                <span>{{ ad.rooms }} {% trans %}rooms{% endtrans %}</span>
-                <span class="vr"></span>
-                <span>{{ ad.rooms }} {% trans %}bedrooms{% endtrans %}</span>
-                {%- if ad.surface -%}
-                    <span class="vr"></span>
-                    <span>{{ ad.surface }} m²</span>
-                {%- endif -%}
+                {{ include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface.html.twig', { 'ad': ad }) }}
             {%- endblock -%}
         </sub>
-        <strong class="price pull-right">
+        <strong class="price pull-right" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
             {%- block estate_price -%}
-                {{ ad.price | localizedcurrency('EUR') }}
+                {{ ad.price | schematizedcurrency('EUR') | raw }}
             {%- endblock -%}
         </strong>
     </header>
-    <div class="col-md-8 clearfix description" role="presentation">
+    <div class="col-md-8 clearfix description" role="presentation" itemprop="description">
         {%- block estate_content -%}
-            <p>{{ ad.description|raw }}</p>
+            <p>{{ ad.advancedDescription|raw }}</p>
             <a href="{{ ad.url }}" class="link">
                 {% trans with {'%agency%': ad.agencyDomainName} %}Annonce immobilière sur %agency%{% endtrans %}
             </a>
@@ -46,9 +32,9 @@
     <footer id="estate-{{ ad.id }}-tab" class="col-md-12 footer clearfix">
         <ul class="nav nav-pills pull-right" role="tablist" aria-multiselectable="true">
             {% if ad.privilege.isAgency %}
-            <li role="presentation" class="active">
-                <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="collapse">
-                    <span class="fa fa-envelope"></span>&nbsp;{{ ad.agencyName }}
+            <li role="presentation" class="active" itemscope itemtype="https://schema.org/RealEstateAgent">
+                <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="collapse" itemprop="url">
+                    <span class="fa fa-envelope" itemprop="legalName"></span>&nbsp;{{ ad.agencyName }}
                 </a>
             </li>
             {% endif %}

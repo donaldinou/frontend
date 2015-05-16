@@ -1,5 +1,5 @@
 {%- block area %}
 <li class="list-group-item">
-    <a href="{{ path('viteloge_frontend_ad_list', {}) }}">{{ area.Name }}</a>
+    <a href="{{ path('viteloge_frontend_ad_search', { where: area.Name }) }}">{{ area.Name }}</a>
 </li>
 {% endblock -%}

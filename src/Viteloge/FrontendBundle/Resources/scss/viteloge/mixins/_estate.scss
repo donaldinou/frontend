@@ -1,0 +1,16 @@
+@mixin estate_hover($color) {
+    color: #fff;
+    width: 100%;
+    width: calc(100% - 10px);
+    height: 190px;
+    line-height: 190px;
+    position: absolute;
+    background-color: transparentize($color, .8);
+    left: 5px;
+    opacity: 1;
+    transition: opacity 2s linear;
+    @extend .fa;
+    @extend .fa-3x !optional;
+    @extend .fa-search !optional;
+    @extend .text-center;
+}

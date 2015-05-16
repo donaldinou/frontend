@@ -1,17 +1,6 @@
-<section class="last-search">
-    <div class="container">
-        <div class="row">
-            <div class="searches col-md-8">
-                <h3 class="list-title text-upper">{% trans %}Latest properties searches{% endtrans %}</h3>
-                <ul class="list-unstyled" data-role="listitem">
-                    {% for webSearch in webSearches %}
-                        {{ include('VitelogeFrontendBundle:WebSearch:render/list.html.twig', { 'webSearch': webSearch }) }}
-                    {% endfor %}
-                </ul>
-            </div>
-            <aside class="col-md-4" data-role="secondary">
-                {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', {}) }}
-            </aside>
-        </div>
-    </div>
-</section>
+<h3 class="list-title text-uppercase">{% trans %}Latest properties searches{% endtrans %}</h3>
+<ul class="list-unstyled" data-role="listitem">
+    {%- for webSearch in webSearches -%}
+        {{ include('VitelogeFrontendBundle:WebSearch:render/list.html.twig', { 'webSearch': webSearch }) }}
+    {%- endfor -%}
+</ul>

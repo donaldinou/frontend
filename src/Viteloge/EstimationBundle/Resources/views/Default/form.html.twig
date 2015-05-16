@@ -1,4 +1,4 @@
-{% extends 'VitelogeFrontendBundle::form.html.twig' %}
+{% extends 'VitelogeCoreBundle:Form:fields.html.twig' %}
 
 {% block _estimation_ville_javascript %}
   <script type="text/javascript">
@@ -11,7 +11,7 @@
      width: "100%",
      minimumInputLength: 3,
      ajax: {
-       url: "{{ VITELOGE_BASE_URL }}",
+       url: "/", {#"{{ VITELOGE_BASE_URL }}",#}
        dataType: 'jsonp',
        data: function(term,page) {
          return {
@@ -35,7 +35,8 @@
      initSelection: function(element,callback) {
        var id=$(element).val();
        if ( id !== "" ) {
-         $.ajax( "{{ VITELOGE_BASE_URL }}", {
+         $.ajax(  "/", {#"{{ VITELOGE_BASE_URL }}",#}
+         {
            dataType: "jsonp",
            data: {
              controller: "ajax",

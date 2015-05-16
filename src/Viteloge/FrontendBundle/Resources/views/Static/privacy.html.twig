@@ -1,12 +1,16 @@
 {% extends 'VitelogeFrontendBundle::base.html.twig' %}
 
+{%- block schema -%}
+    itemscope itemtype="http://schema.org/WebPage"
+{%- endblock schema -%}
+
 {% block main %}
 <aside>
     {{ include('VitelogeFrontendBundle:menu:static.html.twig', {}) }}
 </aside>
 <section class="highlighting text-center">
     <article class="container">
-        <h3 class="text-upper">{% trans %}Privacy{% endtrans %}</h3>
+        <h3 class="text-uppercase">{% trans %}Privacy{% endtrans %}</h3>
         <p>
             Loremp ipsum
         </p>

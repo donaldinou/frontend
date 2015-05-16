@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Genemu\Bundle\FormBundle\GenemuFormBundle(),
             new Acreat\CoreBundle\AcreatCoreBundle(),
             new Acreat\InseeBundle\AcreatInseeBundle(),
             new Viteloge\CoreBundle\VitelogeCoreBundle(),

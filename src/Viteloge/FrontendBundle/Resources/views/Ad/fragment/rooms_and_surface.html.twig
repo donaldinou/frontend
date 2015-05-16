@@ -1,0 +1,15 @@
+{%- if ad.rooms -%}
+    <span>{{ ad.rooms }} {% trans %}rooms{% endtrans %}</span>
+{%- endif -%}
+{%- if ad.bedrooms -%}
+    {%- if ad.rooms -%}
+        <span class="vr"></span>
+    {%- endif -%}
+    <span>{{ ad.rooms }} {% trans %}bedrooms{% endtrans %}</span>
+{%- endif -%}
+{%- if ad.surface -%}
+    {%- if ad.rooms or ad.bedrooms -%}
+        <span class="vr"></span>
+    {%- endif -%}
+    <span>{{ ad.surface }} m²</span>
+{%- endif -%}

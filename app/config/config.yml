@@ -3,6 +3,10 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: sonata_seo.yml }
+    - { resource: fos_elastica.yml }
+    - { resource: fos_user.yml }
+    - { resource: knp_paginator.yml }
+    - { resource: genemu_form.yml }
 
 framework:
     #esi:             ~
@@ -69,63 +73,6 @@ doctrine:
         dql:
             numeric_functions:
                 round: Acreat\CoreBundle\Component\ORM\Query\Functions\Round
-
-# FosUserBundle
-fos_user:
-    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
-    firewall_name: main
-    user_class: Viteloge\CoreBundle\Entity\User
-    registration:
-        confirmation:
-            enabled: false
-            template: VitelogeUserBundle:Registration:email.html.twig
-        form:
-            type: viteloge_user_registration
-    profile:
-        form:
-            type: viteloge_user_profile
-    resetting:
-        email:
-            template: VitelogeFrontendBundle:Resetting:email.html.twig
-    from_email:
-        address: no-reply@viteloge.com
-        sender_name: Vitelogé
-
-# FosElastica
-fos_elastica:
-    clients:
-        default: { host: %elastic_host%, port: %elastic_port% }
-    serializer:
-        callback_class: FOS\ElasticaBundle\Serializer\Callback
-        serializer: serializer
-    indexes:
-        viteloge:
-            index_name: viteloge_%kernel.environment%
-            client: default
-            types:
-                ad:
-                    mappings:
-                        id:
-                            type: integer
-                    persistence:
-                        driver: orm
-                        model: \Viteloge\CoreBundle\Entity\Ad
-                        provider: ~
-                        listener:
-                            immediate: ~
-                        finder: ~
-
-# Knp Paginator
-knp_paginator:
-    page_range: 25
-    default_options:
-        page_name: page
-        sort_field_name: sort
-        sort_direction_name: direction
-        distinct: true
-    template:
-        pagination: KnpPaginatorBundle:Pagination:sliding.html.twig
-        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig
 
 # Swiftmailer Configuration
 swiftmailer:

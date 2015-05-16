@@ -1,0 +1,19 @@
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: Viteloge\CoreBundle\Entity\User
+    registration:
+        confirmation:
+            enabled: false
+            template: VitelogeUserBundle:Registration:email.html.twig
+        form:
+            type: viteloge_user_registration
+    profile:
+        form:
+            type: viteloge_user_profile
+    resetting:
+        email:
+            template: VitelogeFrontendBundle:Resetting:email.html.twig
+    from_email:
+        address: no-reply@viteloge.com
+        sender_name: Vitelogé

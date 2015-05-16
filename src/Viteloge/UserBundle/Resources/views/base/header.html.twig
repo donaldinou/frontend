@@ -14,8 +14,8 @@
                             </button>
                         {% endblock %}
                         {% block header_logo %}
-                            <a class="navbar-branded" href="{{ path('viteloge_frontend_homepage') }}">
-                                <img src="{{ asset('bundles/vitelogecore/images/logo-viteloge.svg') }}" class="logo" alt="{% trans %}viteloge.brand{% endtrans %}" data-role="logo">
+                            <a class="navbar-branded" href="{{ path('viteloge_frontend_homepage') }}" itemscope itemtype="http://schema.org/Brand">
+                                <img src="{{ asset('bundles/vitelogecore/images/logo-viteloge.svg') }}" class="logo img-responsive" alt="{% trans %}viteloge.brand{% endtrans %}" itemprop="logo" data-role="logo">
                             </a>
                         {% endblock %}
                     </div>
@@ -69,17 +69,17 @@
                         {% block header_navigation %}
                             {% set transaction = app.request.get('transaction') %}
                             <ul id="navigation" class="nav nav-tabs">
-                                <li class="tab{% if transaction == 'V' %} active{% endif %} text-upper" role="presentation">
-                                    <a href="{{ path('viteloge_frontend_ad_list', { transaction: 'V' }) }}" data-theme-hover="theme-sale">{% trans %}Vente{% endtrans %}</a>
+                                <li class="tab{% if transaction == 'V' %} active{% endif %} text-uppercase" role="presentation">
+                                    <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'V' }) }}" data-theme-hover="theme-sale">{% trans %}Vente{% endtrans %}</a>
                                 </li>
-                                <li class="tab{% if transaction == 'L' %} active{% endif %} text-upper" role="presentation">
-                                    <a href="{{ path('viteloge_frontend_ad_list', { transaction: 'L' }) }}" data-theme-hover="theme-rent">{% trans %}Location{% endtrans %}</a>
+                                <li class="tab{% if transaction == 'L' %} active{% endif %} text-uppercase" role="presentation">
+                                    <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'L' }) }}" data-theme-hover="theme-rent">{% trans %}Location{% endtrans %}</a>
                                 </li>
-                                <li class="tab{% if transaction == 'N' %} active{% endif %} text-upper" role="presentation">
-                                    <a href="{{ path('viteloge_frontend_ad_list', { transaction: 'N' }) }}" data-theme-hover="theme-new">{% trans %}Neuf{% endtrans %}</a>
+                                <li class="tab{% if transaction == 'N' %} active{% endif %} text-uppercase" role="presentation">
+                                    <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'N' }) }}" data-theme-hover="theme-new">{% trans %}Neuf{% endtrans %}</a>
                                 </li>
-                                <li class="tab{% if transaction == 'P' %} active{% endif %} text-upper hidden" role="presentation">
-                                    <a href="{{ path('viteloge_frontend_ad_list', { transaction: 'V' }) }}" data-theme-hover="theme-default">{% trans %}Plus{% endtrans %}</a>
+                                <li class="tab{% if transaction == 'P' %} active{% endif %} text-uppercase hidden" role="presentation">
+                                    <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'V' }) }}" data-theme-hover="theme-default">{% trans %}Plus{% endtrans %}</a>
                                 </li>
                             </ul>
                         {% endblock %}

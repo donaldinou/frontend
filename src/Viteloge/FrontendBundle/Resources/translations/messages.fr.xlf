@@ -1,235 +1,319 @@
-<?xml version="1.0"?>
-<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" datatype="plaintext" original="file.ext">
-        <body>
-            <trans-unit id="1">
-                <source>Fast Housing</source>
-                <target>ViteLogé</target>
-            </trans-unit>
-            <trans-unit id="2">
-                <source>Fasthousing</source>
-                <target>Vitelogé</target>
-            </trans-unit>
-            <trans-unit id="3">
-                <source>Register</source>
-                <target>S'enregistrer</target>
-            </trans-unit>
-            <trans-unit id="4">
-                <source>Registration</source>
-                <target>Inscription</target>
-            </trans-unit>
-            <trans-unit id="5">
-                <source>Subscribe</source>
-                <target>S'abonner</target>
-            </trans-unit>
-            <trans-unit id="6">
-                <source>Login</source>
-                <target>S'identifier</target>
-            </trans-unit>
-            <trans-unit id="7">
-                <source>Connection</source>
-                <target>Connexion</target>
-            </trans-unit>
-            <trans-unit id="8">
-                <source>Logout</source>
-                <target>Déconnexion</target>
-            </trans-unit>
-            <trans-unit id="9">
-                <source>Search</source>
-                <target>Rechercher</target>
-            </trans-unit>
-            <trans-unit id="10">
-                <source>Advanced search</source>
-                <target>Recherche avancée</target>
-            </trans-unit>
-            <trans-unit id="11">
-                <source>Previous</source>
-                <target>Précédent</target>
-            </trans-unit>
-            <trans-unit id="12">
-                <source>Next</source>
-                <target>Suivant</target>
-            </trans-unit>
-            <trans-unit id="13">
-                <source>Begin</source>
-                <target>Début</target>
-            </trans-unit>
-            <trans-unit id="14">
-                <source>End</source>
-                <target>Fin</target>
-            </trans-unit>
-            <trans-unit id="15">
-                <source>First</source>
-                <target>Premier</target>
-            </trans-unit>
-            <trans-unit id="16">
-                <source>Last</source>
-                <target>Dernier</target>
-            </trans-unit>
-            <trans-unit id="17">
-                <source>Rent</source>
-                <target>Location</target>
-            </trans-unit>
-            <trans-unit id="18">
-                <source>Sale</source>
-                <target>Vente</target>
-            </trans-unit>
-            <trans-unit id="19">
-                <source>New</source>
-                <target>Neuf</target>
-            </trans-unit>
-            <trans-unit id="20">
-                <source>Home</source>
-                <target>Accueil</target>
-            </trans-unit>
-            <trans-unit id="21">
-                <source>About us</source>
-                <target>A propos</target>
-            </trans-unit>
-            <trans-unit id="22">
-                <source>About Fasthousing</source>
-                <target>A propos de Vitelogé</target>
-            </trans-unit>
-            <trans-unit id="23">
-                <source>Informations on Fasthousing</source>
-                <target>Informations sur Vitelogé</target>
-            </trans-unit>
-            <trans-unit id="24">
-                <source>Your ad on Fasthousing</source>
-                <target>Votre publicité sur Vitelogé</target>
-            </trans-unit>
-            <trans-unit id="25">
-                <source>Fasthousing API</source>
-                <target>Vitelogé</target>
-            </trans-unit>
-            <trans-unit id="26">
-                <source>General Terms and Conditions</source>
-                <target>Conditions générale d'utilisation</target>
-            </trans-unit>
-            <trans-unit id="27">
-                <source>GTC</source>
-                <target>CGU</target>
-            </trans-unit>
-            <trans-unit id="28">
-                <source>Privacy</source>
-                <target>Informations privée</target>
-            </trans-unit>
-            <trans-unit id="29">
-                <source>Recommand</source>
-                <target>Recommander</target>
-            </trans-unit>
-            <trans-unit id="49">
-                <source>Sitemap</source>
-                <target>Plan du site</target>
-            </trans-unit>
-            <trans-unit id="30">
-                <source>What</source>
-                <target>Quoi</target>
-            </trans-unit>
-            <trans-unit id="31">
-                <source>Why</source>
-                <target>Pourquoi</target>
-            </trans-unit>
-            <trans-unit id="32">
-                <source>Where</source>
-                <target>Où</target>
-            </trans-unit>
-            <trans-unit id="33">
-                <source>Rooms number</source>
-                <target>Nombre de pièces</target>
-            </trans-unit>
-            <trans-unit id="34">
-                <source>minimum</source>
-                <target>minimum</target>
-            </trans-unit>
-            <trans-unit id="35">
-                <source>maximum</source>
-                <target>maximum</target>
-            </trans-unit>
-            <trans-unit id="36">
-                <source>Rental</source>
-                <target>Loyer</target>
-            </trans-unit>
-            <trans-unit id="37">
-                <source>Budget</source>
-                <target>Budget</target>
-            </trans-unit>
-            <trans-unit id="38">
-                <source>Properties for rent near you</source>
-                <target>Biens à la location près de chez vous</target>
-            </trans-unit>
-            <trans-unit id="39">
-                <source>Services offered by Fasthousing</source>
-                <target>Services proposés par Vitelogé</target>
-            </trans-unit>
-            <trans-unit id="40">
-                <source>Estimate my property</source>
-                <target>Estimer mon bien</target>
-            </trans-unit>
-            <trans-unit id="41">
-                <source>Publish my ads</source>
-                <target>Publier mes annonces</target>
-            </trans-unit>
-            <trans-unit id="42">
-                <source>Create my mail alert</source>
-                <target>Créer mon alerte mail</target>
-            </trans-unit>
-            <trans-unit id="43">
-                <source>Latest properties searches</source>
-                <target>Dernières recherches immobilière</target>
-            </trans-unit>
-            <trans-unit id="45">
-                <source>today.properties.update.count</source>
-                <target>{0} Aujourd'hui, aucun bien mis à jour|{1} Aujourd'hui, un seul bien mis à jour|]1,Inf]Aujourd'hui, %count% biens à jour</target>
-            </trans-unit>
-            <trans-unit id="47">
-                <source>If you like fasthousing dot com click on</source>
-                <target>Si vous aimez viteloge.com cliquez sur</target>
-            </trans-unit>
-            <trans-unit id="48">
-                <source>Follow all Fasthousing news on</source>
-                <target>Suivez toutes l'actualité de Vitelogé sur</target>
-            </trans-unit>
-            <trans-unit id="50">
-                <source>count.rooms</source>
-                <target>{0} |{1} %count% room|]1,Inf] %count% rooms</target>
-            </trans-unit>
-            <trans-unit id="9980">
-                <source>diff.ago.second</source>
-                <target>test</target>
-            </trans-unit>
-            <trans-unit id="9981">
-                <source>diff.ago.minute</source>
-                <target>minu</target>
-            </trans-unit>
-            <trans-unit id="9982">
-                <source>diff.ago.hour</source>
-                <target>testh</target>
-            </trans-unit>
-            <trans-unit id="9983">
-                <source>diff.ago.day</source>
-                <target>il y a 1 an|il y a %count% ans</target>
-            </trans-unit>
-            <trans-unit id="9984">
-                <source>diff.ago.month</source>
-                <target>testm</target>
-            </trans-unit>
-            <trans-unit id="9985">
-                <source>diff.ago.year</source>
-                <target>testy</target>
-            </trans-unit>
-            <trans-unit id="9997">
-                <source>All rights reserved</source>
-                <target>Tous droits reservés</target>
-            </trans-unit>
-            <trans-unit id="9998">
-                <source>Acreat</source>
-                <target>Acreat</target>
-            </trans-unit>
-            <trans-unit id="9999">
-                <source>Acreat Web Technologies</source>
-                <target>Acreat Web Technologies</target>
-            </trans-unit>
-        </body>
-    </file>
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr-FR" target-language="fr" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="63ced2ec9311e2e4c6817b83a08f806d" resname="oday.properties.update.count">
+        <source>today.properties.update.count</source>
+        <target>today.properties.update.count</target>
+      </trans-unit>
+      <trans-unit id="336d5ebc5436534e61d16e63ddfca327" resname="-">
+        <source>-</source>
+        <target>-</target>
+      </trans-unit>
+      <trans-unit id="269dd1e9cf66596864d5456b8ef7318b" resname="10 km">
+        <source>10 km</source>
+        <target>10 km</target>
+      </trans-unit>
+      <trans-unit id="1a07fb6525881bc2a8241518188c8d2a" resname="20 km">
+        <source>20 km</source>
+        <target>20 km</target>
+      </trans-unit>
+      <trans-unit id="383d01f1d1e05ff46f3d1fa03c67916b" resname="30 km">
+        <source>30 km</source>
+        <target>30 km</target>
+      </trans-unit>
+      <trans-unit id="8d7ba83d2837f9486ef9cd2b3211cb2b" resname="5 km">
+        <source>5 km</source>
+        <target>5 km</target>
+      </trans-unit>
+      <trans-unit id="11cecbe63766678155d03041e3b6eaff" resname="About Fasthousing">
+        <source>About Fasthousing</source>
+        <target>A propos de Vitelogé</target>
+      </trans-unit>
+      <trans-unit id="199d87505bd151ed08d16cddf98fa860" resname="Acreat">
+        <source>Acreat</source>
+        <target>Acreat</target>
+      </trans-unit>
+      <trans-unit id="bcf72389e00b42ab0f8c85b40f0c86ba" resname="Acreat Web Technologies">
+        <source>Acreat Web Technologies</source>
+        <target>Acreat Web Technologies</target>
+      </trans-unit>
+      <trans-unit id="ec211f7c20af43e742bf2570c3cb84f9" resname="Add">
+        <source>Add</source>
+        <target>Add</target>
+      </trans-unit>
+      <trans-unit id="7cb8ad465602a887dd56378d51dd85a2" resname="Advanced search">
+        <source>Advanced search</source>
+        <target>Recherche avancée</target>
+      </trans-unit>
+      <trans-unit id="8051fe0c32445dc50d6207fd88abdc5f" resname="All Rents">
+        <source>All Rents</source>
+        <target>All Rents</target>
+      </trans-unit>
+      <trans-unit id="16e61702d5764d737bd57aeeda505f12" resname="All Sales">
+        <source>All Sales</source>
+        <target>All Sales</target>
+      </trans-unit>
+      <trans-unit id="5db707f74d87bd123c565cfe06c13522" resname="All rights reserved">
+        <source>All rights reserved</source>
+        <target>Tous droits reservés</target>
+      </trans-unit>
+      <trans-unit id="7d264b9525f2836c21408b446101332e" resname="Annonce immobilière sur %agency%">
+        <source>Annonce immobilière sur %agency%</source>
+        <target>Annonce immobilière sur %agency%</target>
+      </trans-unit>
+      <trans-unit id="1a97a1e63d9bdc2e3c3763ea69dc831f" resname="Appartement">
+        <source>Appartement</source>
+        <target>Appartement</target>
+      </trans-unit>
+      <trans-unit id="986e95231f4b569e1dbf38032fbe48de" resname="Area's from ">
+        <source>Area's from </source>
+        <target>Area's from </target>
+      </trans-unit>
+      <trans-unit id="e4a58fa7ae560ca2323da786710002b7" resname="Change my research">
+        <source>Change my research</source>
+        <target>Change my research</target>
+      </trans-unit>
+      <trans-unit id="b417ab732d1da66b1de7e14d1a0ea66d" resname="Créer une alerte mail">
+        <source>Créer une alerte mail</source>
+        <target>Créer une alerte mail</target>
+      </trans-unit>
+      <trans-unit id="cb461104bf26e1dd067a6ea9021f545d" resname="Deconnexion">
+        <source>Deconnexion</source>
+        <target>Deconnexion</target>
+      </trans-unit>
+      <trans-unit id="7dce122004969d56ae2e0245cb754d35" resname="Edit">
+        <source>Edit</source>
+        <target>Edit</target>
+      </trans-unit>
+      <trans-unit id="dfd87bd34b4599aaaef6d0f2c8b6e3d7" resname="Edit profile">
+        <source>Edit profile</source>
+        <target>Edit profile</target>
+      </trans-unit>
+      <trans-unit id="25051f6838598e0f424c7b1f5588e428" resname="Espace Personnel">
+        <source>Espace Personnel</source>
+        <target>Espace Personnel</target>
+      </trans-unit>
+      <trans-unit id="3bc026b815790a05493fa56fc4b8d8bd" resname="Extend">
+        <source>Extend</source>
+        <target>Extend</target>
+      </trans-unit>
+      <trans-unit id="acffe308092452bc1045549c7bf3719a" resname="Fasthousing">
+        <source>Fasthousing</source>
+        <target>Vitelogé</target>
+      </trans-unit>
+      <trans-unit id="c3d734d2df56fe614ff0b1569775ac66" resname="Fasthousing API">
+        <source>Fasthousing API</source>
+        <target>Vitelogé</target>
+      </trans-unit>
+      <trans-unit id="7fb55ed0b7a30342ba6da306428cae04" resname="First">
+        <source>First</source>
+        <target>Premier</target>
+      </trans-unit>
+      <trans-unit id="8526f2eb312c96a21762144de983b8c9" resname="Follow all Fasthousing news on">
+        <source>Follow all Fasthousing news on</source>
+        <target>Suivez toutes l'actualité de Vitelogé sur</target>
+      </trans-unit>
+      <trans-unit id="87b20a4d7f9fae0a5b12c2b9c680584b" resname="GTC">
+        <source>GTC</source>
+        <target>CGU</target>
+      </trans-unit>
+      <trans-unit id="9e0053a5078a7797a28b0e380543c320" resname="General Terms and Conditions">
+        <source>General Terms and Conditions</source>
+        <target>Conditions générale d'utilisation</target>
+      </trans-unit>
+      <trans-unit id="8cf04a9734132302f96da8e113e80ce5" resname="Home">
+        <source>Home</source>
+        <target>Accueil</target>
+      </trans-unit>
+      <trans-unit id="1d5d03051130d02cfc76784d8f5d4914" resname="If you like fasthousing dot com click on">
+        <source>If you like fasthousing dot com click on</source>
+        <target>Si vous aimez viteloge.com cliquez sur</target>
+      </trans-unit>
+      <trans-unit id="767e21dce6e255e6f6a29a2745e5121b" resname="Immobilier">
+        <source>Immobilier</source>
+        <target>Immobilier</target>
+      </trans-unit>
+      <trans-unit id="364390583a0e29bd2c9839ab7dc22d7f" resname="Informations on Fasthousing">
+        <source>Informations on Fasthousing</source>
+        <target>Informations sur Vitelogé</target>
+      </trans-unit>
+      <trans-unit id="0d3bc207b553eeb6e55799867ec9687c" resname="Latest properties searches">
+        <source>Latest properties searches</source>
+        <target>Dernières recherches immobilière</target>
+      </trans-unit>
+      <trans-unit id="df1165a65ea0521ced1bb492c973017f" resname="Maison">
+        <source>Maison</source>
+        <target>Maison</target>
+      </trans-unit>
+      <trans-unit id="688d08069cea0a21dd610c76f30d3705" resname="Merci de patienter">
+        <source>Merci de patienter</source>
+        <target>Merci de patienter</target>
+      </trans-unit>
+      <trans-unit id="10ac3d04253ef7e1ddc73e6091c0cd55" resname="Next">
+        <source>Next</source>
+        <target>Suivant</target>
+      </trans-unit>
+      <trans-unit id="aba31c167f54eca5402dc92cfef0a9ad" resname="No more suggestions">
+        <source>No more suggestions</source>
+        <target>No more suggestions</target>
+      </trans-unit>
+      <trans-unit id="6adf97f83acf6453d4a6a4b1070f3754" resname="None">
+        <source>None</source>
+        <target>None</target>
+      </trans-unit>
+      <trans-unit id="dd1f775e443ff3b9a89270713580a51b" resname="Previous">
+        <source>Previous</source>
+        <target>Précédent</target>
+      </trans-unit>
+      <trans-unit id="c5f29bb36f9158d2e00f5d4dc213a0ff" resname="Privacy">
+        <source>Privacy</source>
+        <target>Informations privée</target>
+      </trans-unit>
+      <trans-unit id="45d0dbe36871d9e897af95f02187acb9" resname="Profile completed at">
+        <source>Profile completed at</source>
+        <target>Profile completed at</target>
+      </trans-unit>
+      <trans-unit id="1c8e41388b1f513c4002141e4f960a27" resname="Profile show">
+        <source>Profile show</source>
+        <target>Profile show</target>
+      </trans-unit>
+      <trans-unit id="18bddf2d55e1e5c3cc6bb44ceb09454b" resname="Properties for rent near you">
+        <source>Properties for rent near you</source>
+        <target>Biens à la location près de chez vous</target>
+      </trans-unit>
+      <trans-unit id="108f09008b0f1b98bd6ba2de71a8e28a" resname="Recommand">
+        <source>Recommand</source>
+        <target>Recommander</target>
+      </trans-unit>
+      <trans-unit id="0ba7583639a274c434bbe6ef797115a4" resname="Register">
+        <source>Register</source>
+        <target>S'enregistrer</target>
+      </trans-unit>
+      <trans-unit id="4ff2e716a7d06ce5274b4090b39abad3" resname="See">
+        <source>See</source>
+        <target>See</target>
+      </trans-unit>
+      <trans-unit id="9e11ff8a96161971044db3529cd07381" resname="Services offered by Fasthousing">
+        <source>Services offered by Fasthousing</source>
+        <target>Services proposés par Vitelogé</target>
+      </trans-unit>
+      <trans-unit id="d72cccf51e7858b0e0dad3d645ee4cae" resname="Si cela ne fonctionne pas, veuillez cliquer sur le lien ci-dessous">
+        <source>Si cela ne fonctionne pas, veuillez cliquer sur le lien ci-dessous</source>
+        <target>Si cela ne fonctionne pas, veuillez cliquer sur le lien ci-dessous</target>
+      </trans-unit>
+      <trans-unit id="5813ce0ec7196c492c97596718f71969" resname="Sitemap">
+        <source>Sitemap</source>
+        <target>Plan du site</target>
+      </trans-unit>
+      <trans-unit id="b26917587d98330d93f87808fc9d7267" resname="Subscribe">
+        <source>Subscribe</source>
+        <target>S'abonner</target>
+      </trans-unit>
+      <trans-unit id="b78a3223503896721cca1303f776159b" resname="Title">
+        <source>Title</source>
+        <target>Title</target>
+      </trans-unit>
+      <trans-unit id="b8c4c2cd6e0f11e2fbb894caeaeccef3" resname="Tri">
+        <source>Tri</source>
+        <target>Tri</target>
+      </trans-unit>
+      <trans-unit id="59a3e984c9569a66fe6fcff3a090dcf6" resname="ViteLogé, moteur de recherche d'annonce immobilière">
+        <source>ViteLogé, moteur de recherche d'annonce immobilière</source>
+        <target>ViteLogé, moteur de recherche d'annonce immobilière</target>
+      </trans-unit>
+      <trans-unit id="7b018c68cfe8eb5a7bd1d88954b3bdc5" resname="Vous allez être redirigé vers la fiche de l'agence.">
+        <source>Vous allez être redirigé vers la fiche de l'agence.</source>
+        <target>Vous allez être redirigé vers la fiche de l'agence.</target>
+      </trans-unit>
+      <trans-unit id="83218ac34c1834c26781fe4bde918ee4" resname="Welcome">
+        <source>Welcome</source>
+        <target>Welcome</target>
+      </trans-unit>
+      <trans-unit id="b3c5b21d2cb47cc950fd4667edaf404c" resname="Where">
+        <source>Where</source>
+        <target>Où</target>
+      </trans-unit>
+      <trans-unit id="91164770fc34b877cc56ccaf61d6eee8" resname="Why">
+        <source>Why</source>
+        <target>Pourquoi</target>
+      </trans-unit>
+      <trans-unit id="0245dca9933479189379630d40f48175" resname="You actually have">
+        <source>You actually have</source>
+        <target>You actually have</target>
+      </trans-unit>
+      <trans-unit id="494692b92c38c2ca62c3579a7b046a73" resname="Your account has been created at: ">
+        <source>Your account has been created at: </source>
+        <target>Your account has been created at: </target>
+      </trans-unit>
+      <trans-unit id="849ce272733e63b06e262e9803702310" resname="Your ad on Fasthousing">
+        <source>Your ad on Fasthousing</source>
+        <target>Votre publicité sur Vitelogé</target>
+      </trans-unit>
+      <trans-unit id="18297ef96dd572703d08678955152603" resname="annonces...">
+        <source>annonces...</source>
+        <target>annonces...</target>
+      </trans-unit>
+      <trans-unit id="8fb3ca522f8baf76c97c804f75c8481a" resname="bedrooms">
+        <source>bedrooms</source>
+        <target>bedrooms</target>
+      </trans-unit>
+      <trans-unit id="e2942a04780e223b215eb8b663cf5353" resname="count">
+        <source>count</source>
+        <target>count</target>
+      </trans-unit>
+      <trans-unit id="d98a07f84921b24ee30f86fd8cd85c3c" resname="from">
+        <source>from</source>
+        <target>from</target>
+      </trans-unit>
+      <trans-unit id="13b5bfe96f3e2fe411c9f66f4a582adf" resname="in">
+        <source>in</source>
+        <target>in</target>
+      </trans-unit>
+      <trans-unit id="7412df2b1db8cd2a5d4aafdb6c2090d3" resname="research">
+        <source>research</source>
+        <target>research</target>
+      </trans-unit>
+      <trans-unit id="cc9831b8239971fb17683afd5a92e373" resname="rooms">
+        <source>rooms</source>
+        <target>rooms</target>
+      </trans-unit>
+      <trans-unit id="06a943c59f33a34bb5924aaf72cd2995" resname="search">
+        <source>search</source>
+        <target>search</target>
+      </trans-unit>
+      <trans-unit id="1dd28a3064c2bbc76eb4312aa45ed5c8" resname="search.help">
+        <source>search.help</source>
+        <target>search.help</target>
+      </trans-unit>
+      <trans-unit id="b9d9e382c46a6db5c033f7162889b0e3" resname="search.keywords">
+        <source>search.keywords</source>
+        <target>search.keywords</target>
+      </trans-unit>
+      <trans-unit id="bbf9bd5da41826b6e11b8835c9201a3a" resname="search.price_max">
+        <source>search.price_max</source>
+        <target>search.price_max</target>
+      </trans-unit>
+      <trans-unit id="48d69df8abc49dc867699c72a9d928a9" resname="search.price_min">
+        <source>search.price_min</source>
+        <target>search.price_min</target>
+      </trans-unit>
+      <trans-unit id="17e59a27fa10b34efe192e3b95b0d4dd" resname="search.rayon">
+        <source>search.rayon</source>
+        <target>search.rayon</target>
+      </trans-unit>
+      <trans-unit id="fac5e6f41f8c32399f1f006afc08247b" resname="slogan">
+        <source>slogan</source>
+        <target>slogan</target>
+      </trans-unit>
+      <trans-unit id="01b6e20344b68835c5ed1ddedf20d531" resname="to">
+        <source>to</source>
+        <target>to</target>
+      </trans-unit>
+      <trans-unit id="ad.program.count" resname="ad.program.count">
+        <source>ad.program.count</source>
+        <target>{0} programme disponible|{1} programme disponible|]1,Inf] %count% programmes disponibles</target>
+      </trans-unit>
+    </body>
+  </file>
 </xliff>

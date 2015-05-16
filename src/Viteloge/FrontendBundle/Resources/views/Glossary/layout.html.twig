@@ -1,0 +1,14 @@
+{% extends 'VitelogeFrontendBundle::base.html.twig' %}
+
+{%- block head_javascripts -%}
+    {{ parent() }}
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+{%- endblock -%}
+
+{%- block body_start -%}
+    {%- embed "VitelogeFrontendBundle:misc:googlemap.html.twig" -%}
+        {%- block over -%}
+            {{ include('VitelogeFrontendBundle:Default:form/userSearch.html.twig', { form: form }) }}
+        {%- endblock -%}
+    {%- endembed -%}
+{%- endblock -%}

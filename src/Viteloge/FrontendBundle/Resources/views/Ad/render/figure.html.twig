@@ -1,0 +1,24 @@
+<figure class="estate" itemscope itemtype="http://schema.org/Product">
+    <div class="estate-images center-block">
+        {%- block estate_images -%}
+            {{ include('VitelogeFrontendBundle:Ad:fragment/image.html.twig', { 'ad': ad }) }}
+        {%- endblock estate_images -%}
+    </div>
+    <figcaption class="estate-legend">
+        <h4 class="title" itemprop="name">
+            {%- block estate_title  -%}
+                <span>{{ ad.type | trans }}</span><br> à <span>{{ ad.cityName }}</span> (<span>{{ ad.postalcode }}</span>)
+            {%- endblock estate_title -%}
+        </h4>
+        <p class="subtitle" data-role="description">
+            {%- block estate_description -%}
+                {{ include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface.html.twig', { 'ad': ad }) }}
+            {%- endblock estate_description -%}
+        </p>
+        <span class="price">
+            {%- block estate_price -%}
+                {{ ad.price|schematizedcurrency('EUR')|raw }}
+            {%- endblock estate_price -%}
+        </span>
+    </figcaption>
+</figure>

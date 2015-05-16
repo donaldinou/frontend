@@ -1,3 +1,7 @@
-{% block misc_copy %}
-<p data-role="copyright">&copy; 2006-{{ 'now'|date('Y') }} {% trans %}Acreat{% endtrans %}. {% trans %}All rights reserved{% endtrans %}.</p>
-{% endblock %}
+{%- block misc_copy -%}
+    <p data-role="copyright">
+        &copy; 2006-{{ 'now'|date('Y') }}&nbps;
+        <a itemprop="publisher" href="http://www.acreat.com" rel="auhtor">{% trans %}Acreat{% endtrans %}</a>.&nbps;
+        <a itemprop="license" href="http://www.acreat.com" rel="license">{% trans %}All rights reserved{% endtrans %}</a>.
+    </p>
+{%- endblock -%}

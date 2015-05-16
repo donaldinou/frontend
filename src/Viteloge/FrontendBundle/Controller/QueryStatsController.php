@@ -42,14 +42,29 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:QueryStats:latest.html.twig")
          */
-        public function latestAction(Request $request, $limit, array $criteria=array()) {
+        public function latestAction(Request $request, $limit) {
+            // SEO
+            $canonicalLink = $this->get('router')->generate($request->get('_route'), array(), true);
+            $seoPage = $this->container->get('sonata.seo.page');
+            $seoPage
+                ->setTitle('viteloge.frontend.default.index.title')
+                ->addMeta('name', 'description', 'viteloge.frontend.default.index.description')
+                ->addMeta('name', 'robots', 'noindex, nofollow')
+                ->addMeta('property', 'og:title', "viteloge.frontend.default.index.title")
+                ->addMeta('property', 'og:type', 'website')
+                ->addMeta('property', 'og:url',  $canonicalLink)
+                ->addMeta('property', 'og:description', 'viteloge.frontend.default.index.description')
+                ->setLinkCanonical($canonicalLink)
+            ;
+            // --
+
+            // Breadcrumb
+            // --
+
             $repository = $this->getDoctrine()
                 ->getRepository('VitelogeCoreBundle:QueryStats');
-            if (isset($criteria['_hash'])) {
-                unset($criteria['hash']);
-            }
             $queries = $repository->findByFiltered(
-                $criteria,
+                $request->query->all(),
                 array( 'timestamp' => 'DESC' ),
                 $limit
             );

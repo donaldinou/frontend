@@ -16,8 +16,14 @@ namespace Viteloge\FrontendBundle\Controller {
      */
     class ServiceController extends Controller {
 
+        /**
+         *
+         */
         private $services;
 
+        /**
+         *
+         */
         protected function initEstimateService() {
             if (!isset($this->services['estimate'])) {
                 $service = new Service();
@@ -32,6 +38,9 @@ namespace Viteloge\FrontendBundle\Controller {
             return $this;
         }
 
+        /**
+         *
+         */
         protected function initPublishService() {
             if (!isset($this->services['publish'])) {
                 $service = new Service();
@@ -46,6 +55,9 @@ namespace Viteloge\FrontendBundle\Controller {
             return $this;
         }
 
+        /**
+         *
+         */
         protected function initMailService() {
             if (!isset($this->services['mail'])) {
                 $service = new Service();
@@ -60,6 +72,9 @@ namespace Viteloge\FrontendBundle\Controller {
             return $this;
         }
 
+        /**
+         *
+         */
         protected function initServices() {
             $this->initEstimateService()
                 ->initPublishService()

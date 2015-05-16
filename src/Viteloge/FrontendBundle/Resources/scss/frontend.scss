@@ -31,49 +31,23 @@
     margin: .5em 10px;
 }
 
-.hide {
-    display: none !important;
+/**
+ * Position
+ */
+.pos-relative {
+    position: relative !important;
 }
-.show {
-    display: block !important;
+
+.pos-absolute {
+    position: absolute !important;
 }
-.invisible {
-    visibility: hidden;
+
+.pos-static {
+    position: static !important;
 }
-.text-hide {
-    font: 0px/0 a;
-    color: transparent;
-    text-shadow: none;
-    background-color: transparent;
-    border: 0;
-}
-.hidden {
-    display: none !important;
-    visibility: hidden !important;
-}
-.affix {
-    position: fixed;
-}
-.text-left {
-  text-align: left;
-}
-.text-right {
-  text-align: right;
-}
-.text-center {
-  text-align: center;
-}
-.text-justify {
-  text-align: justify;
-}
-.text-nowrap {
-  white-space: nowrap;
-}
-.text-upper {
-    text-transform: uppercase;
-}
-.text-captitalize {
-    text-transform: capitalize;
+
+.position-fixed {
+    position: fixed !important;
 }
 
 /**
@@ -141,7 +115,7 @@
     color: #fff;
 }
 
-#carousel-home .carousel-control {
+[id*='carousel-home-'] .carousel-control {
     width: 50px;
 }
 /** * */

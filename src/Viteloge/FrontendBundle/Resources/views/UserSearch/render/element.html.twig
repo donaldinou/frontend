@@ -1,8 +1,11 @@
-<strong>{{ userSearch.firstname }}</strong> {% trans %}search{% endtrans %}
-<a href="{{ path('viteloge_frontend_ad_list', { 'transaction': userSearch.transaction, 'type': userSearch.type, 'rooms': userSearch.rooms }) }}">
-    <span>{{ userSearch.transaction }}</span>
+<strong>{{ userSearch.firstname|default('viteloge.usersearch.unknown'|trans) }}</strong> {% trans %}search{% endtrans %}
+<a href="{{ path('viteloge_frontend_ad_searchfromusersearch', { 'id': userSearch.id }) }}">
+    <span>{{ 'viteloge.usersearch.transaction.' ~ userSearch.transaction|trans }}</span>
     <span>{{ userSearch.type }}</span>
     <span>{% transchoice userSearch.rooms with {'%count%': userSearch.rooms} %}count{% endtranschoice %}</span>
     {% trans %}from{% endtrans %} <span>{{ userSearch.budgetMin | localizedcurrency('EUR') }}</span> {% trans %}to{% endtrans %} <span>{{ userSearch.budgetMax | localizedcurrency('EUR') }}</span>
 </a>
-{% trans %}in{% endtrans %} <span>{{ userSearch.inseeCity }}</span>
+{% trans %}in{% endtrans %}
+<a href="{{ path( 'viteloge_frontend_glossary_showcity', { name: userSearch.inseeCity, id: userSearch.inseeCity.id }) }}">
+    {{ userSearch.inseeCity }}
+</a>

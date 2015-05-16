@@ -1,7 +1,7 @@
 {% if breadcrumbs is defined and breadcrumbs|length %}
 {% spaceless %}
     <nav{% if listId %} id="{{ listId }}"{% endif %} class="container">
-        <ol{% if listClass is defined %} class="{{ listClass }}"{% endif %} itemscope itemtype="http://schema.org/BreadcrumbList">
+        <ol{% if listClass is defined %} class="{{ listClass }}"{% endif %} itemprop="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
             {% if breadcrumbs is defined and breadcrumbs|length %}
                 {% for breadcrumb in breadcrumbs %}
                     <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" {% if itemClass is defined and itemClass|length %} class="{{ itemClass }}"{% endif %}>

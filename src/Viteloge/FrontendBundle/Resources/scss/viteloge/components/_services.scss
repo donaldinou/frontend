@@ -1,6 +1,7 @@
 .services {
     overflow: hidden;
     .service {
+        position: relative;
         background-color: #fff;
         @media (min-width: $screen-sm-min) {
             /*margin-bottom: 10px;*/
@@ -39,6 +40,9 @@
     .divider {
         @media (max-width: $screen-sm-max) {
             margin-top: 10px;
+        }
+        &:before {
+            content: "\00a0";
         }
         margin-left: 10px;
     }

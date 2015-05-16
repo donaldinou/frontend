@@ -379,6 +379,15 @@ class InseeCity
     }
 
     /**
+     * Return the entire name
+     *
+     * @return string
+     */
+    public function getFullname() {
+        return (!empty($this->prefix)) ? $this->prefix.' '.$this->name : $this->name;
+    }
+
+    /**
      * Set lat
      *
      * @param float $lat
@@ -549,7 +558,10 @@ class InseeCity
         return $this->inseeDepartment;
     }
 
+    /**
+     *
+     */
     public function __toString() {
-        return (!empty($this->prefix)) ? $this->prefix.' '.$this->name : $this->name;
+        return $this->getFullname();
     }
 }

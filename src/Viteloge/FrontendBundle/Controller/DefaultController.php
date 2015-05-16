@@ -13,9 +13,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
     use Symfony\Component\Serializer\Encoder\JsonEncoder;
     use Viteloge\CoreBundle\Component\DBAL\EnumTransactionType;
-    use Viteloge\CoreBundle\Entity\Ad;
-    use Viteloge\CoreBundle\Entity\UserSearch;
-    use Viteloge\FrontendBundle\Form\Type\AdType;
+    use Viteloge\CoreBundle\SearchEntity\Ad;
 
     /**
      * @Route("/")
@@ -33,33 +31,44 @@ namespace Viteloge\FrontendBundle\Controller {
          *     },
          *     name="viteloge_frontend_homepage",
          *     options = {
-         *         "i18n" = false
+         *         "i18n" = true
          *     }
          * )
-         * @Method({"GET", "POST"})
+         * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:Default:index.html.twig")
          */
         public function indexAction( Request $request, $transaction ) {
+            // SEO
+            $canonicalLink = $this->get('router')->generate($request->get('_route'), array(), true);
+            $seoPage = $this->container->get('sonata.seo.page');
+            $seoPage
+                ->setTitle('viteloge.frontend.default.index.title')
+                ->addMeta('name', 'description', 'viteloge.frontend.default.index.description')
+                ->addMeta('property', 'og:title', "viteloge.frontend.default.index.title")
+                ->addMeta('property', 'og:type', 'website')
+                ->addMeta('property', 'og:url',  $canonicalLink)
+                ->addMeta('property', 'og:description', 'viteloge.frontend.default.index.description')
+                ->setLinkCanonical($canonicalLink)
+            ;
+            // --
+
+            // Breadcrumb
+            // --
+
             $transactionEnum = EnumTransactionType::getValues();
 
             $repository = $this->getDoctrine()
                 ->getRepository('VitelogeCoreBundle:Ad');
             $count = $repository->countByFiltered();
 
-            $userSearch = new UserSearch();
-            $userSearch->setTransaction(array_search($transaction, $transactionEnum));
-            $form = $this->createForm('viteloge_frontend_usersearch', $userSearch);
-
-            $form->handleRequest($request);
-            if( $form->isValid() ) {
-                $encoders = array(new JsonEncoder());
-                $normalizers = array(new GetSetMethodNormalizer());
-                $serializer = new Serializer($normalizers, $encoders);
-                $args = json_decode($serializer->serialize($userSearch, 'json'), true);
-                return $this->redirectToRoute('viteloge_frontend_ad_list', $args);
-            }
+            // Form
+            $entity = new Ad();
+            $entity->setTransaction(array_search($transaction, $transactionEnum));
+            $form = $this->createForm('viteloge_core_adsearch', $entity);
+            // --
 
             return array(
+                'transaction' => $transaction,
                 'count' => $count,
                 'form' => $form->createView()
             );

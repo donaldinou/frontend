@@ -1,9 +1,12 @@
 <li class="item" data-role="item">
-    <p class="pull-left">
-        {{ include('VitelogeFrontendBundle:UserSearch:render/element.html.twig', { 'userSearch': webSearch.userSearch }) }}
-    </p>
-    <span class="btn btn-default pull-right">
-        <span class="fa fa-clock-o"></span>&nbsp;{{ webSearch.updatedAt|time_diff|trans }}
-    </span>
-    <span class="clearfix"></span>
+    <div class="row-padding-5">
+        <div class="col-xs-9">
+            {{ include('VitelogeFrontendBundle:UserSearch:render/element.html.twig', { 'userSearch': webSearch.userSearch }) }}
+        </div>
+        <div class="col-xs-3">
+            <a href="{{ path('viteloge_frontend_ad_searchfromusersearch', { id: webSearch.userSearch.id }) }}" class="btn btn-default btn-block">
+                <span class="fa fa-clock-o"></span>&nbsp;{{ webSearch.updatedAt|time_diff|trans }}
+            </a>
+        </div>
+    </div>
 </li>

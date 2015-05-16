@@ -4,7 +4,7 @@
     position: absolute;
     overflow: hidden;
     top: 0;
-    z-index: 9999;
+    z-index: 9;
     pointer-events: none;
     display: block;
     &.left {
@@ -32,7 +32,7 @@
         display: block;
         @include rotate(330deg);
         background-color: $brand-primary;
-        z-index: 9999;
+        z-index: 9;
         pointer-events: auto;
         a, span {
             &,

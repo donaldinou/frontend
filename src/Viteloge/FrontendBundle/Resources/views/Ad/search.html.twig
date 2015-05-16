@@ -1,4 +1,37 @@
-<h3 class="text-center">{% trans %}Title{% endtrans %}</h3>
-{% for ad in ads %}
-    {{ include('VitelogeFrontendBundle:Ad:render/list.html.twig', {}) }}
-{% endfor %}
+{% extends 'VitelogeFrontendBundle::base.html.twig' %}
+
+{%- block schema -%}
+    itemscope itemtype="http://schema.org/WebPage"
+{%- endblock schema -%}
+
+{% block head_javascript_requirejs %}
+    {{ include('VitelogeFrontendBundle:misc:requirejs.html.twig', { 'module': 'app/homepage.js' }) }}
+{% endblock %}
+
+{% block header_end %}
+    {% if pagination is defined %}
+        <div class="container">
+            <div class="row clearfix">
+                <div class="col-md-10">
+                    <h2 class="">{{ pagination.getTotalItemCount }} {% trans %}annonces...{% endtrans %}</h2>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        {% trans %}Change my research{% endtrans %}&nbsp;<span class="caret"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block main %}
+    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
+        {% block left %}
+            {{ include('VitelogeFrontendBundle:Ad:fragment/paginated.html.twig', {}) }}
+        {% endblock %}
+        {% block right %}
+            {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock main %}

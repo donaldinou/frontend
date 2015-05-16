@@ -1,7 +1,8 @@
 <section id="viteloge-frontend-ad-paginated" class="ajax-pager-container">
     <div class="container-unfluid">
         {% if pagination is defined %}
-            {{ include('VitelogeFrontendBundle:misc:pager.html.twig', pagination) }}
+            {#{{ include('VitelogeFrontendBundle:misc:pager.html.twig', pagination) }}#}
+            {{ knp_pagination_render(pagination) }}
         {% endif %}
         <div class="clearfix">
             <a href="{{ path('viteloge_frontend_websearch_create') }}" role="button" class="btn btn-primary pull-left">
@@ -18,11 +19,12 @@
         </div>
         <div class="clearfix">
         {% for ad in ads %}
-            {{ include('VitelogeFrontendBundle:Ad:render/list.html.twig', { 'ad': ad }) }}
+            <div class="theme-{{ad.transaction}}">{{ include('VitelogeFrontendBundle:Ad:render/list.html.twig', { 'ad': ad }) }}</div>
         {% endfor %}
         </div>
         {% if pagination is defined %}
-            {{ include('VitelogeFrontendBundle:misc:pager.html.twig', pagination) }}
+            {#{{ include('VitelogeFrontendBundle:misc:pager.html.twig', pagination) }}#}
+            {{ knp_pagination_render(pagination) }}
         {% endif %}
     </div>
 </section>

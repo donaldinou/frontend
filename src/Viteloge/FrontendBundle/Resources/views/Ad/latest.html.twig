@@ -1,8 +1,15 @@
-<section class="highlighting text-center">
-    <div class="container">
-        <h3 class="text-upper">{% trans %}Properties for rent near you{% endtrans %}</h3>
-        {% for ad in ads %}
-            {{ include('VitelogeFrontendBundle:Ad:ad.html.twig', { 'ad': ad }) }}
-        {% endfor %}
-    </div>
-</section>
+<h3 class="text-uppercase text-center">{% spaceless %}
+    {%- block ad_latest_title -%}
+        {% set transaction = transaction|default('you') %}
+        {%- trans with { '%transaction%': 'ad.transaction.'~transaction|trans, '%name%': cityName|default('from you'|trans) } -%}
+            Properties for %transaction% near %name%
+        {% endtrans %}
+    {%- endblock ad_latest_title -%}
+{% endspaceless %}</h3>
+{%- block ad_latest_content -%}
+    {% for ad in ads %}
+        {{ include('VitelogeFrontendBundle:Ad:render/list.html.twig', { 'ad': ad }) }}
+    {% else %}
+        {% trans %}search.noresult{% endtrans %}
+    {% endfor %}
+{%- endblock ad_latest_content -%}

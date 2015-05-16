@@ -56,6 +56,8 @@ jQuery(document).ready(function() {
         if (jQuery(jQuery(event.currentTarget).data('theme-parent')).length) {
             parent = jQuery(event.currentTarget).data('theme-parent');
         }
+        jQuery('[data-theme-showon]').removeClass('show').addClass('hidden');
+        jQuery('[data-theme-showon*="'+theme+'"]').removeClass('hidden').addClass('show');
         jQuery(parent)
             .removeClass(function(index, className) {
                 return (className.match(/(^|\s)theme-\S+/g) || []).join(' ');

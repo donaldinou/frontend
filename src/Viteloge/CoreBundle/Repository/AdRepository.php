@@ -39,6 +39,20 @@ namespace Viteloge\CoreBundle\Repository {
             return $query->getQuery()->getSingleScalarResult();
         }
 
+        /**
+         * Finds entities by the agencyId "new".
+         *
+         * @param array|null $orderBy
+         * @param int|null   $limit
+         * @param int|null   $offset
+         *
+         * @return array The objects.
+         */
+        public function findByAgencyIdNew(array $orderBy = null, $limit = null, $offset = null) {
+            $criteria['agencyId'] = constant($this->_entityName.'::AGENCY_ID_NEW');
+            return $this->findBy($criteria, $orderBy, $limit, $offset);
+        }
+
     }
 
 

@@ -7,18 +7,39 @@ namespace Viteloge\CoreBundle\Entity {
      */
     class Privilege  {
 
+        /**
+         *
+         */
         protected $rank;
 
+        /**
+         *
+         */
         protected $agency;
 
+        /**
+         *
+         */
         protected $logo;
 
+        /**
+         *
+         */
         protected $photo;
 
+        /**
+         *
+         */
         protected $bold;
 
+        /**
+         *
+         */
         protected $bgColor;
 
+        /**
+         *
+         */
         protected $exclu;
 
         /**

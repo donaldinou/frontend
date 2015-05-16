@@ -13,6 +13,14 @@ namespace Viteloge\FrontendBundle\Controller {
     use GeoIp2\Database\Reader;
     use Acreat\InseeBundle\Entity\InseeCity;
     use Viteloge\CoreBundle\Entity\Ad;
+    use Viteloge\CoreBundle\Entity\UserSearch;
+
+    use Symfony\Component\Serializer\Serializer;
+    use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+    use Symfony\Component\Serializer\Encoder\JsonEncoder;
+
+    use Viteloge\CoreBundle\Component\DBAL\EnumTransactionType;
+    use Viteloge\CoreBundle\SearchEntity\Ad as AdSearch;
 
     /**
      * @Route("/ad")
@@ -20,80 +28,163 @@ namespace Viteloge\FrontendBundle\Controller {
     class AdController extends Controller {
 
         /**
+         *
+         */
+        protected $form;
+
+        /**
+         *
+         */
+        protected function findFromRequest(Request $request, $limit=null) {
+            if ($limit === null) {
+                $limit = 1000000;
+            }
+            $elasticaManager = $this->container->get('fos_elastica.manager');
+            $repository = $elasticaManager->getRepository('VitelogeCoreBundle:Ad');
+            $ads = $repository->search($this->form->getData(), $limit);
+            return $ads;
+        }
+
+        /**
          * @Route(
-         *     "/search/{limit}",
+         *     "/search/{page}/{limit}",
          *     requirements={
+         *         "page"="\d+",
          *         "limit"="\d+"
          *     },
          *     defaults={
-         *         "limit" = "9"
+         *         "page"=1,
+         *         "limit"="25"
          *     }
          * )
          * @Route(
          *     "/search/",
          *     requirements={
+         *         "page"="\d+",
          *         "limit"="\d+"
          *     },
          *     defaults={
-         *         "limit" = "9"
+         *         "page"=1,
+         *         "limit"="25"
          *     }
          * )
          * Cache(expires="tomorrow", public=true)
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:Ad:search.html.twig")
          */
-        public function searchAction(Request $request, $limit, array $criteria=array(), array $orderBy=array()) {
-            $repository = $this->getDoctrine()->getRepository('VitelogeCoreBundle:Ad');
-            $criteria = array_merge(
-                $criteria,
-                $request->query->all(),
-                $request->request->all()
-            );
-            $orderBy = array_merge(
-                array(
-                    'privilegeRank' => 'DESC',
-                    'order' => 'DESC'
-                ),
-                $orderBy
-            );
-            $ads = $repository->findByFiltered(
-                $criteria,
-                $orderBy,
-                $limit
-            );
+        public function searchAction(Request $request, $page, $limit) {
+            $adSearch = new AdSearch();
+            $adSearch->handleRequest($request);
+            $this->form = $this->createForm('viteloge_core_adsearch', $adSearch);
+            $ads = $this->findFromRequest($request);
+            $paginator = $this->get('knp_paginator');
+            $pagination = $paginator->paginate($ads, $page, $limit);
             return array(
-                'ads' => $ads
+                'form' => $this->form,
+                'ads' => $pagination,
+                'pagination' => $pagination
             );
         }
 
         /**
          * @Route(
-         *     "/latest/{transaction}/{limit}",
+         *     "/search/from/form/",
+         *     name="viteloge_frontend_ad_searchfromform"
+         * )
+         * Cache(expires="tomorrow", public=true)
+         * @Method({"POST"})
+         */
+        public function searchFromForm(Request $request) {
+            $adSearch = new AdSearch();
+            $form = $this->createForm('viteloge_core_adsearch', $adSearch);
+            $form->handleRequest($request);
+
+            // transform object to array in order to through it to url
+            $encoders = array(new JsonEncoder());
+            $normalizers = array(new GetSetMethodNormalizer());
+            $serializer = new Serializer($normalizers, $encoders);
+            $options = json_decode($serializer->serialize($form->getData(), 'json'), true);
+
+            return $this->redirectToRoute(
+                'viteloge_frontend_ad_search',
+                $options,
+                301
+            );
+        }
+
+        /**
+         * @Route(
+         *     "/search/from/usersearch/{id}",
          *     requirements={
-         *         "transaction"="V|L|N",
+         *         "id"="\d+"
+         *     },
+         *     name="viteloge_frontend_ad_searchfromusersearch"
+         * )
+         * Cache(expires="tomorrow", public=true)
+         * @ParamConverter("userSearch", class="VitelogeCoreBundle:UserSearch", options={"id" = "id"})
+         * @Method({"GET"})
+         */
+        public function searchFromUserSearchAction(Request $request, UserSearch $userSearch) {
+            $adSearch = new AdSearch();
+            $adSearch->setTransaction($userSearch->getTransaction());
+            $adSearch->setwhere($userSearch->getInseeCity()->getId());
+            $adSearch->setwhat($userSearch->getType());
+            $adSearch->setrooms($userSearch->getRooms());
+            $adSearch->setminPrice($userSearch->getBudgetMin());
+            $adSearch->setmaxPrice($userSearch->getBudgetMax());
+            $adSearch->setradius($userSearch->getRadius());
+            $adSearch->setkeywords($userSearch->getKeywords());
+
+            // transform object to array in order to through it to url
+            $encoders = array(new JsonEncoder());
+            $normalizers = array(new GetSetMethodNormalizer());
+            $serializer = new Serializer($normalizers, $encoders);
+            $options = json_decode($serializer->serialize($adSearch, 'json'), true);
+
+            return $this->redirectToRoute(
+                'viteloge_frontend_ad_search',
+                $options,
+                301
+            );
+        }
+
+        /**
+         * @Route(
+         *     "/carousel/{limit}",
+         *     requirements={
          *         "limit"="\d+"
          *     },
          *     defaults={
-         *         "transaction" = "V",
          *         "limit" = "9"
-         *     }
+         *     },
+         *     name="viteloge_frontend_ad_carousel"
          * )
          * @Route(
-         *     "/latest/",
+         *     "/carousel/",
          *     requirements={
-         *         "transaction"="V|L|N",
          *         "limit" = "\d+"
          *     },
          *     defaults={
-         *         "transaction" = "V",
          *         "limit" = "9"
-         *     }
+         *     },
+         *     name="viteloge_frontend_ad_carousel"
          * )
          * @Cache(expires="tomorrow", public=true)
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:Ad:carousel.html.twig")
          */
-        public function latestAction(Request $request, $transaction, $limit) {
+        public function carouselAction(Request $request, $limit) {
+            $adSearch = new AdSearch();
+            $adSearch->handleRequest($request);
+            $elasticaManager = $this->container->get('fos_elastica.manager');
+            $repository = $elasticaManager->getRepository('VitelogeCoreBundle:Ad');
+            $transaction = (!empty($adSearch->getTransaction())) ? $adSearch->getTransaction() : 'default';
+            $ads = $repository->search($adSearch, $limit);
+            return array(
+                'transaction' => $adSearch->getTransaction(),
+                'ads' => $ads
+            );
+            /*
             $repository = $this->getDoctrine()
                 ->getRepository('VitelogeCoreBundle:Ad');
             $cityRepository = $this->getDoctrine()
@@ -111,7 +202,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 $lng = 2.35;
             }
 
-            $criteria = array();
+            $criteria = array('transaction' => $transaction);
             $orderBy = array( 'privilegeRank' => 'DESC', 'order' => 'DESC', 'updatedAt' => 'DESC' );
             $city = $cityRepository->findOneByLatLng($lat, $lng);
             if ($city instanceof InseeCity) {
@@ -123,94 +214,72 @@ namespace Viteloge\FrontendBundle\Controller {
                 $limit
             );
             return array(
+                'transaction' => $transaction,
+                'ads' => $ads
+            );*/
+        }
+
+        /**
+         * @Route(
+         *     "/latest/{limit}",
+         *     requirements={
+         *         "limit"="\d+"
+         *     },
+         *     defaults={
+         *         "limit" = "9"
+         *     },
+         *     name="viteloge_frontend_ad_latest"
+         * )
+         * @Route(
+         *     "/latest/",
+         *     defaults={
+         *         "limit" = "9"
+         *     },
+         *     name="viteloge_frontend_ad_latest"
+         * )
+         * @Cache(expires="tomorrow", public=true)
+         * @Method({"GET"})
+         * @Template("VitelogeFrontendBundle:Ad:latest.html.twig")
+         */
+        public function latestAction(Request $request, $limit) {
+            $adSearch = new AdSearch();
+            $adSearch->handleRequest($request);
+            $elasticaManager = $this->container->get('fos_elastica.manager');
+            $repository = $elasticaManager->getRepository('VitelogeCoreBundle:Ad');
+            $ads = $repository->search($adSearch, $limit);
+            return array(
+                'transaction' => $adSearch->getTransaction(),
+                'cityName' => $request->query->get('cityName'),
                 'ads' => $ads
             );
         }
 
         /**
          * @Route(
-         *     "/list/{transaction}/{page}/{limit}",
+         *     "/suggest/new/{limit}",
          *     requirements={
-         *         "transaction"="V|L|N",
-         *         "page"="\d+",
          *         "limit"="\d+"
          *     },
          *     defaults={
-         *         "transaction"="V",
-         *         "page"=1,
-         *         "limit"="25"
+         *         "limit" = "3"
          *     }
          * )
          * @Route(
-         *     "/list/",
-         *     requirements={
-         *         "transaction"="V|L|N",
-         *         "page"="\d+",
-         *         "limit"="\d+"
-         *     },
+         *     "/suggest/new/",
          *     defaults={
-         *         "transaction"="V",
-         *         "page"=1,
-         *         "limit"="25"
+         *         "limit" = "3"
          *     }
          * )
-         * @Method({"GET", "POST"})
-         * @Template("VitelogeFrontendBundle:Ad:list.html.twig")
+         * @Cache(expires="tomorrow", public=true)
+         * @Method({"GET"})
+         * @Template("VitelogeFrontendBundle:Ad:suggestNew.html.twig")
          */
-        public function listAction(Request $request, $transaction, $page, $limit) {
-            $repository = $this->getDoctrine()->getRepository('VitelogeCoreBundle:Ad');
-            $criteria = array_merge(
-                array('transaction' => $transaction),
-                $request->query->all(),
-                $request->request->all()
-            );
-            $orderBy = array_merge(
-                array(
-                    'privilegeRank' => 'DESC',
-                    'order' => 'DESC'
-                ),
-                array()
-            );
-            $count = $repository->countByFiltered($criteria, $orderBy);
-
-            $offset = 0;
-            $totalPages = ceil($count/$limit);
-            if ($totalPages) {
-                $page = ($page<$totalPages) ? $page : $totalPages;
-                $offset = ($page-1)*$limit;
-            }
-
-            $ads = $repository->findByFiltered(
-                $criteria,
-                $orderBy,
-                $limit,
-                $offset
-            );
-            $pagination = array(
-                'total' => $count,
-                'total_pages' => ceil($count/$limit),
-                'current' => $page,
-                'route' => array(
-                    'name' => 'viteloge_frontend_ad_list',
-                    'parameters' => $criteria
-                )
-            );
-
-            $lastBreadcrumbTitle = $transaction;
-            $lastBreadcrumbTitle .= (!empty($criteria['type'])) ? ' '.$criteria['type'] : '';
-            $lastBreadcrumbTitle .= (!empty($criteria['inseeCity'])) ? ' in '.$criteria['inseeCity'] : '';
-            $breadcrumbs = $this->get('white_october_breadcrumbs');
-            $breadcrumbs->addItem('Home', $this->get('router')->generate('viteloge_frontend_homepage'));
-            if (!empty($criteria['inseeCity'])) {
-                $breadcrumbs->addItem('City', $this->get('router')->generate('viteloge_frontend_ad_list', array('transaction' => $transaction)));
-            }
-            $breadcrumbs->addItem($lastBreadcrumbTitle);
-
+        public function suggestNewAction(Request $request, $limit) {
+            $repository = $this->getDoctrine()
+                ->getRepository('VitelogeCoreBundle:Ad');
+            $ads = $repository->findByAgencyIdNew(array('createdAt' => 'DESC'), $limit);
             return array(
-                'ads' => $ads,
-                'pagination' => $pagination,
-                'criteria' => $criteria,
-                'orderBy' => $orderBy
+                'ads' => $ads
             );
         }
 

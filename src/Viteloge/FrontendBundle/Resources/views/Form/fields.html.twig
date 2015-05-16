@@ -1,10 +1,10 @@
 {% extends 'VitelogeCoreBundle:Form:fields.html.twig' %}
 
-{%- block _viteloge_frontend_usersearch_transaction_widget %}
+{%- block radiotab_widget -%}
     <ul class="nav nav-pills nav-justified" role="tablist">
         {% for child in form.children %}
             <li class="{% if child.vars.checked %}active{% endif %}" role="presentation">
-                <a class="text-upper" data-theme="theme-{{ child.vars.value }}" data-theme-hover="theme-{{ child.vars.value }}" data-theme-parent="#map-container">
+                <a class="text-uppercase" data-theme="theme-{{ child.vars.value }}" data-theme-hover="theme-{{ child.vars.value }}" data-theme-parent="#map-container">
                     {{ form_widget(child, { attr: { 'class': 'hidden' }, parent_label_class: 'radio-inline' }) }}
                     {{ form_label(child, { label_attr: { 'class': 'radio-inline' } }) }}
                 </a>
@@ -12,7 +12,15 @@
         {% endfor %}
     </ul>
     {{ form_errors(form) }}
-{% endblock -%}
+{%- endblock radiotab_widget -%}
+
+{%- block _viteloge_frontend_usersearch_transaction_widget %}
+    {{ block('radiotab_widget') }}
+{% endblock _viteloge_frontend_usersearch_transaction_widget -%}
+
+{%- block _viteloge_core_adsearch_transaction_widget %}
+    {{ block('radiotab_widget') }}
+{% endblock _viteloge_core_adsearch_transaction_widget -%}
 
 {%- block button_widget %}
     {% set attr = attr|merge({class: (attr.class|default('btn-default') ~ ' btn')|trim}) %}
@@ -32,7 +40,7 @@
         {% endif %}
         {{ label|trans({}, translation_domain) }}
     </button>
-{% endblock -%}
+{% endblock button_widget -%}
 
 {% block test %}
     <input class="" type="text" list="where" placeholder="{% trans %}Where{% endtrans %} ?" autocomplete="off" spellcheck="off" maxlength="100">

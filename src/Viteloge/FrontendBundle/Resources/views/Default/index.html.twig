@@ -28,13 +28,13 @@
             </div>
             {% block header_navigation %}
                 <div id="search-container" class="forward text-center">
-                    <h1 class="text-upper">Nam nec tellus a odio tincidunt</h1>
-                    <h2 class="text-upper">
+                    <h1 class="text-uppercase">Nam nec tellus a odio tincidunt</h1>
+                    <h2 class="text-uppercase">
                         {% transchoice count with {'%count%': count|number_format(0, null, ' ')} %}
                             today.properties.update.count
                         {% endtranschoice %} !
                     </h2>
-                    {{ include('VitelogeFrontendBundle:Default:form/userSearch.html.twig', { form: form }) }}
+                    {{ include('VitelogeFrontendBundle:Form:adSearch.html.twig', { form: form }) }}
                 </div>
             {% endblock %}
         {% endblock %}
@@ -43,9 +43,17 @@
 
 
 {%- block main -%}
-    {{ render(controller('VitelogeFrontendBundle:Ad:latest', { 'transaction': form.transaction, 'limit': 9 })) }}
-    {{ include('VitelogeFrontendBundle:Default:fragment/services.html.twig', {}) }}
-    {{ render(controller('VitelogeFrontendBundle:WebSearch:latest', { })) }}
+    <div class="{% if transaction != 'L' %}hidden{% endif %}" data-theme-showon="theme-rent theme-L">
+        {{ include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', { 'transaction': 'L' }) }}
+    </div>
+    <div class="{% if transaction != 'V' %}hidden{% endif %}" data-theme-showon="theme-sale theme-V">
+        {{ include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', { 'transaction': 'V' }) }}
+    </div>
+    <div class="{% if transaction != 'N' %}hidden{% endif %}" data-theme-showon="theme-new theme-N">
+        {{ include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', { 'transaction': 'N' }) }}
+    </div>
+    {{ include('VitelogeFrontendBundle:Default:fragment/services.html.twig', { }) }}
+    {{ include('VitelogeFrontendBundle:Default:fragment/websearch.html.twig', { }) }}
 {%- endblock -%}
 
 

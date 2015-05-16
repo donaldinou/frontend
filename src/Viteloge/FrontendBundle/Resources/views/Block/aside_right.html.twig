@@ -11,7 +11,7 @@
         {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', {}) }}
     </div>
      <div class="clearfix">
-        block neuf
+        {{ render_hinclude(controller('VitelogeFrontendBundle:Ad:suggestNew', { 'limit': 3, 'default': 'Loading...' })) }}
     </div>
      <div class="clearfix">
         {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', {}) }}

@@ -29,7 +29,8 @@
         "friendsofsymfony/elastica-bundle": "~3.1",
         "knplabs/knp-paginator-bundle": "~2.4",
         "whiteoctober/breadcrumbs-bundle": "dev-master",
-        "ruflin/Elastica": "~1.4"
+        "ruflin/Elastica": "~1.4",
+        "genemu/form-bundle": "~2.2"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

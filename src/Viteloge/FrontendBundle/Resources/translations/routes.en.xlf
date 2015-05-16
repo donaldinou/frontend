@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr-FR" target-language="en" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="e6dc44f597cb6840a4f0a2d72c9c5b7b" resname="fos_user_change_password">
+        <source>fos_user_change_password</source>
+        <target>/user/profile/change-password</target>
+      </trans-unit>
+      <trans-unit id="0cb30a592a4b65ebe8e7784cfcc93393" resname="fos_user_profile_edit">
+        <source>fos_user_profile_edit</source>
+        <target>/user/profile/edit</target>
+      </trans-unit>
+      <trans-unit id="7e461acb2aa955d0f1b4b826b1bf4da8" resname="fos_user_profile_show">
+        <source>fos_user_profile_show</source>
+        <target>/user/profile/</target>
+      </trans-unit>
+      <trans-unit id="8f8a45208224f02035b8fbb1f9f8cccf" resname="fos_user_registration_check_email">
+        <source>fos_user_registration_check_email</source>
+        <target>/user/register/check-email</target>
+      </trans-unit>
+      <trans-unit id="8b01e452c0659f7e4c1a8c08b474a360" resname="fos_user_registration_confirm">
+        <source>fos_user_registration_confirm</source>
+        <target>/user/register/confirm/{token}</target>
+      </trans-unit>
+      <trans-unit id="7e7c7abb985a6bcd77c36d37ca158813" resname="fos_user_registration_confirmed">
+        <source>fos_user_registration_confirmed</source>
+        <target>/user/register/confirmed</target>
+      </trans-unit>
+      <trans-unit id="f12c0235b5259e65efbf82c067d0ac07" resname="fos_user_registration_register">
+        <source>fos_user_registration_register</source>
+        <target>/user/register/</target>
+      </trans-unit>
+      <trans-unit id="85b0ffb30e53e086f29d20a3a619be6d" resname="fos_user_resetting_check_email">
+        <source>fos_user_resetting_check_email</source>
+        <target>/user/resetting/check-email</target>
+      </trans-unit>
+      <trans-unit id="04c0d749d14f6a38876b0b3144c8fc9a" resname="fos_user_resetting_request">
+        <source>fos_user_resetting_request</source>
+        <target>/user/resetting/request</target>
+      </trans-unit>
+      <trans-unit id="8213277017b4ebc45beb1877a8b5c4c8" resname="fos_user_resetting_reset">
+        <source>fos_user_resetting_reset</source>
+        <target>/user/resetting/reset/{token}</target>
+      </trans-unit>
+      <trans-unit id="739f06a9c1d724320d9ea035572e2537" resname="fos_user_resetting_send_email">
+        <source>fos_user_resetting_send_email</source>
+        <target>/user/resetting/send-email</target>
+      </trans-unit>
+      <trans-unit id="cd2c4abbc4e250614d72f2e7e928c5b7" resname="fos_user_security_check">
+        <source>fos_user_security_check</source>
+        <target>/user/login_check</target>
+      </trans-unit>
+      <trans-unit id="f35b96ae8498bfea6e4f916b40f3ef3e" resname="fos_user_security_login">
+        <source>fos_user_security_login</source>
+        <target>/user/login</target>
+      </trans-unit>
+      <trans-unit id="267c312d8f9065349208190843a42a06" resname="fos_user_security_logout">
+        <source>fos_user_security_logout</source>
+        <target>/user/logout</target>
+      </trans-unit>
+      <trans-unit id="d0c379abcde6f7e97f29b46d8c1d789e" resname="viteloge_estimation_citystats_city">
+        <source>viteloge_estimation_citystats_city</source>
+        <target>/{slug}/{id}</target>
+      </trans-unit>
+      <trans-unit id="ceab495dcabca14582824822d8846d6b" resname="viteloge_estimation_default_contact">
+        <source>viteloge_estimation_default_contact</source>
+        <target>/prix-immobilier/votre-estimation/contact</target>
+      </trans-unit>
+      <trans-unit id="e90cf81a008f9ca73239ed5d21d96a89" resname="viteloge_estimation_default_index">
+        <source>viteloge_estimation_default_index</source>
+        <target>/prix-immobilier/votre-estimation/</target>
+      </trans-unit>
+      <trans-unit id="a518cf438cc8c7c3a99e24d127904601" resname="viteloge_estimation_default_indexpost">
+        <source>viteloge_estimation_default_indexpost</source>
+        <target>/prix-immobilier/votre-estimation/</target>
+      </trans-unit>
+      <trans-unit id="d06aafeda44edd90fb91c7fcdc6c0728" resname="viteloge_estimation_default_resultat">
+        <source>viteloge_estimation_default_resultat</source>
+        <target>/prix-immobilier/votre-estimation/resultat/{id}</target>
+      </trans-unit>
+      <trans-unit id="e4dd6f27b984fc6f589c867204a9416f" resname="viteloge_estimation_default_resultatcontact">
+        <source>viteloge_estimation_default_resultatcontact</source>
+        <target>/prix-immobilier/votre-estimation/resultat/{id}</target>
+      </trans-unit>
+      <trans-unit id="74b85a3c66592173c1c3218aab00d7d2" resname="viteloge_frontend_ad_latest">
+        <source>viteloge_frontend_ad_latest</source>
+        <target>/ad/latest/{transaction}/{limit}</target>
+      </trans-unit>
+      <trans-unit id="2a305b54bd0b38ac8feb449ec6a3cc85" resname="viteloge_frontend_ad_latest_1">
+        <source>viteloge_frontend_ad_latest_1</source>
+        <target>/ad/latest/</target>
+      </trans-unit>
+      <trans-unit id="fda34731895876bffc3c120b073ea48d" resname="viteloge_frontend_ad_list">
+        <source>viteloge_frontend_ad_list</source>
+        <target>/ad/list/{transaction}/{page}/{limit}</target>
+      </trans-unit>
+      <trans-unit id="f5b565c0e46d7aa4356900d14c38ed11" resname="viteloge_frontend_ad_list_1">
+        <source>viteloge_frontend_ad_list_1</source>
+        <target>/ad/list/</target>
+      </trans-unit>
+      <trans-unit id="077162a103b9c7484f2d03dae2ce14ab" resname="viteloge_frontend_ad_redirect">
+        <source>viteloge_frontend_ad_redirect</source>
+        <target>/ad/redirect/{id}</target>
+      </trans-unit>
+      <trans-unit id="a9d5ddab093d91f2edbba752a1dccdcb" resname="viteloge_frontend_ad_search">
+        <source>viteloge_frontend_ad_search</source>
+        <target>/ad/search/{limit}</target>
+      </trans-unit>
+      <trans-unit id="ca446031dcb25e4e6dd0377d1cd2cd45" resname="viteloge_frontend_ad_search_1">
+        <source>viteloge_frontend_ad_search_1</source>
+        <target>/ad/search/</target>
+      </trans-unit>
+      <trans-unit id="690d7e4c2438d4a965c685b5b62ace9d" resname="viteloge_frontend_glossary_areas">
+        <source>viteloge_frontend_glossary_areas</source>
+        <target>/glossary/areas/{id}/</target>
+      </trans-unit>
+      <trans-unit id="2dc276eaa0591b2d0e8b07c610a49df2" resname="viteloge_frontend_glossary_cities">
+        <source>viteloge_frontend_glossary_cities</source>
+        <target>/glossary/cities/{id}/</target>
+      </trans-unit>
+      <trans-unit id="6629d63a186cda548c6ae0021fe49d32" resname="viteloge_frontend_glossary_departments">
+        <source>viteloge_frontend_glossary_departments</source>
+        <target>/glossary/departments/{id}/</target>
+      </trans-unit>
+      <trans-unit id="2e3ab861307f3dad16ea66501fa69df0" resname="viteloge_frontend_glossary_mostsearched">
+        <source>viteloge_frontend_glossary_mostsearched</source>
+        <target>/glossary/mostSearched/{limit}</target>
+      </trans-unit>
+      <trans-unit id="c9a193a141cfc9a3c8ae2b00101a189d" resname="viteloge_frontend_glossary_mostsearched_1">
+        <source>viteloge_frontend_glossary_mostsearched_1</source>
+        <target>/glossary/mostSearched/</target>
+      </trans-unit>
+      <trans-unit id="2b040961a023f28c7fefb837d3af0d19" resname="viteloge_frontend_glossary_showcity">
+        <source>viteloge_frontend_glossary_showcity</source>
+        <target>/glossary/city/{name}/{id}</target>
+      </trans-unit>
+      <trans-unit id="529a1a748777e4d400f035df65e78526" resname="viteloge_frontend_homepage">
+        <source>viteloge_frontend_homepage</source>
+        <target>/</target>
+      </trans-unit>
+      <trans-unit id="84062a504e63601c5898452e6afdd91e" resname="viteloge_frontend_querystats_latest">
+        <source>viteloge_frontend_querystats_latest</source>
+        <target>/query/latest/{limit}</target>
+      </trans-unit>
+      <trans-unit id="983849431bd7496b0dcaa922c9599185" resname="viteloge_frontend_querystats_latest_1">
+        <source>viteloge_frontend_querystats_latest_1</source>
+        <target>/query/latest/</target>
+      </trans-unit>
+      <trans-unit id="d8bcd97dc378c966c16f7f2dad85603f" resname="viteloge_frontend_static_about">
+        <source>viteloge_frontend_static_about</source>
+        <target>/about</target>
+      </trans-unit>
+      <trans-unit id="744abfba20fb0fa180b85fb07a4eaaea" resname="viteloge_frontend_static_ad">
+        <source>viteloge_frontend_static_ad</source>
+        <target>/ad</target>
+      </trans-unit>
+      <trans-unit id="cfe5e96f7762f1d607e98b5d1c7cc997" resname="viteloge_frontend_static_apiform">
+        <source>viteloge_frontend_static_apiform</source>
+        <target>/apiform</target>
+      </trans-unit>
+      <trans-unit id="6d998f9d73b76d67ea6755582731640d" resname="viteloge_frontend_static_contactus">
+        <source>viteloge_frontend_static_contactus</source>
+        <target>/contact-us</target>
+      </trans-unit>
+      <trans-unit id="614b11f3c75f2f323ed1e9876db26f3e" resname="viteloge_frontend_static_gtc">
+        <source>viteloge_frontend_static_gtc</source>
+        <target>/gtc</target>
+      </trans-unit>
+      <trans-unit id="271000011cce809c1b50361cbd379b00" resname="viteloge_frontend_static_privacy">
+        <source>viteloge_frontend_static_privacy</source>
+        <target>/privacy</target>
+      </trans-unit>
+      <trans-unit id="b320205a74ebf6b01be61bf8891ec073" resname="viteloge_frontend_static_recommand">
+        <source>viteloge_frontend_static_recommand</source>
+        <target>/recommand</target>
+      </trans-unit>
+      <trans-unit id="cef61351965d532941a67f183c80aa84" resname="viteloge_frontend_static_register">
+        <source>viteloge_frontend_static_register</source>
+        <target>/register</target>
+      </trans-unit>
+      <trans-unit id="31bfc83153d1c2a0712e8f3c766d9196" resname="viteloge_frontend_static_sitemap">
+        <source>viteloge_frontend_static_sitemap</source>
+        <target>/sitemap</target>
+      </trans-unit>
+      <trans-unit id="461281821790fac839a9e44067a8d1ac" resname="viteloge_frontend_static_subscribe">
+        <source>viteloge_frontend_static_subscribe</source>
+        <target>/subscribe</target>
+      </trans-unit>
+      <trans-unit id="866d1931c396db5bb31c966213ddb3b0" resname="viteloge_frontend_static_why">
+        <source>viteloge_frontend_static_why</source>
+        <target>/why</target>
+      </trans-unit>
+      <trans-unit id="ce375e0c8860150cf4b0185a0d9ae349" resname="viteloge_frontend_user_index">
+        <source>viteloge_frontend_user_index</source>
+        <target>/user/</target>
+      </trans-unit>
+      <trans-unit id="f568c5294d4d752b29f0d7c8f33b2558" resname="viteloge_frontend_usersearch_create">
+        <source>viteloge_frontend_usersearch_create</source>
+        <target>/user/search/add/</target>
+      </trans-unit>
+      <trans-unit id="132083c3ca087ca7942604dce0649c70" resname="viteloge_frontend_usersearch_delete">
+        <source>viteloge_frontend_usersearch_delete</source>
+        <target>/user/search/delete/{id}</target>
+      </trans-unit>
+      <trans-unit id="7322bd9cc0a2c584b486148411f4342c" resname="viteloge_frontend_usersearch_edit">
+        <source>viteloge_frontend_usersearch_edit</source>
+        <target>/user/search/edit/{id}</target>
+      </trans-unit>
+      <trans-unit id="d45e6ca25decf1dffada09abcb5e99f9" resname="viteloge_frontend_usersearch_list">
+        <source>viteloge_frontend_usersearch_list</source>
+        <target>/user/search/list/</target>
+      </trans-unit>
+      <trans-unit id="587c14c944dec9e5eb945c2ae76f396d" resname="viteloge_frontend_websearch_create">
+        <source>viteloge_frontend_websearch_create</source>
+        <target>/user/websearch/add/</target>
+      </trans-unit>
+      <trans-unit id="fb5bb6c400f43d2f23558ed73a87737e" resname="viteloge_frontend_websearch_delete">
+        <source>viteloge_frontend_websearch_delete</source>
+        <target>/user/websearch/delete/{id}</target>
+      </trans-unit>
+      <trans-unit id="9735287831cb7b678d5f42d33ed1bcca" resname="viteloge_frontend_websearch_edit">
+        <source>viteloge_frontend_websearch_edit</source>
+        <target>/user/websearch/edit/{id}</target>
+      </trans-unit>
+      <trans-unit id="9740647eb8dbfd1e58c734d8dd9c624c" resname="viteloge_frontend_websearch_list">
+        <source>viteloge_frontend_websearch_list</source>
+        <target>/user/websearch/list/</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
