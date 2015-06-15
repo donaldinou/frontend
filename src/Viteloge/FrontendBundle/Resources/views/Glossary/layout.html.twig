@@ -6,9 +6,10 @@
 {%- endblock -%}
 
 {%- block body_start -%}
-    {%- embed "VitelogeFrontendBundle:misc:googlemap.html.twig" -%}
+    {% set mapOptions = mapOptions|default(false) %}
+    {%- embed "VitelogeFrontendBundle:misc:googlemap.html.twig" with { mapOptions: mapOptions } -%}
         {%- block over -%}
-            {{ include('VitelogeFrontendBundle:Default:form/userSearch.html.twig', { form: form }) }}
+            {{ include('VitelogeFrontendBundle:Form:adSearch.html.twig', { form: form, theme_container: 'map-container' }) }}
         {%- endblock -%}
     {%- endembed -%}
 {%- endblock -%}

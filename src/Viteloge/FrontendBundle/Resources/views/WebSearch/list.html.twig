@@ -1,24 +1,27 @@
 {% extends 'VitelogeFrontendBundle::base.html.twig' %}
 
 {% block main %}
-    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } %}
+    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
         {% block left %}
-            <div class="">
-                <a href="{{ path('viteloge_frontend_websearch_create', { }) }}" class="btn btn-default" role="button">{% trans %}Add{% endtrans %}</a>
-            </div>
-            <ul>
-                {% for webSearch in webSearches %}
-                    {{ include('VitelogeFrontendBundle:WebSearch:render/result.html.twig', { 'webSearch': webSearch }) }}
-                {% endfor %}
-            </ul>
+            <section>
+                <h2>{% trans %}websearch.title{% endtrans %}</h2>
+                <div class="">
+                    <a href="{{ path('viteloge_frontend_websearch_new', { }) }}" class="btn btn-default" role="button">{% trans %}websearch.action.add{% endtrans %}</a>
+                </div>
+                <div class="panel-group" id="websearch-panel" role="tablist" aria-multiselectable="true">
+                    {% for websearch in webSearches %}
+                        {{ include('VitelogeFrontendBundle:WebSearch:render/panel.html.twig', { id: websearch.id, parent: 'websearch-panel', show: (not loop.index0), websearch: websearch }) }}
+                    {% endfor %}
+                </div>
+            </section>
         {% endblock %}
         {% block right %}
             <aside>
                 <div class="">
                     {{ include('VitelogeFrontendBundle:menu:user.html.twig', { }) }}
                 </div>
-                publicité
             </aside>
+            {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
         {% endblock %}
     {% endembed %}
 {% endblock main %}

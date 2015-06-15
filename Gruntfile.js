@@ -35,18 +35,19 @@ module.exports = function(grunt) {
                 files: {
                     'js/jquery.js': 'jquery/dist/jquery.js',
                     'js/typeahead.js': 'typeahead.js/dist/typeahead.bundle.js',
-                    'js/bootstrap-tagsinput.js': 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js',
                     'js/require.js': 'requirejs/require.js',
                     'js/domReady.js': 'requirejs-domready/domReady.js',
                     'js/hinclude.js': 'hinclude/hinclude.js',
-                    'js/background-check.js': 'background-check/background-check.js'
+                    'js/background-check.js': 'background-check/background-check.js',
+                    'js/select2.js': 'select2/dist/js/select2.full.js',
+                    'js/placeholders.js': 'placeholders/dist/placeholders.jquery.js'
                 }
             },
             stylesheets: {
                 files: {
                     'css/normalize.css': 'normalize.css/normalize.css',
-                    'css/bootstrap-tagsinput.css': 'bootstrap-tagsinput/dist/bootstrap-tagsinput.css',
-                    'css/font-awesome.css': 'fontawesome/css/font-awesome.min.css'
+                    'css/font-awesome.css': 'fontawesome/css/font-awesome.min.css',
+                    'css/select2.css': 'select2/dist/css/select2.min.css',
                 }
             }//,
             /*fonts: {

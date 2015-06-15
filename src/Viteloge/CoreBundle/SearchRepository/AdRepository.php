@@ -4,6 +4,7 @@ namespace Viteloge\CoreBundle\SearchRepository {
 
     use FOS\ElasticaBundle\Repository as EntityRepository;
     use Viteloge\CoreBundle\SearchEntity\Ad;
+    use Acreat\InseeBundle\Entity\InseeArea;
 
     /**
      * AdRepository
@@ -13,88 +14,156 @@ namespace Viteloge\CoreBundle\SearchRepository {
      */
     class AdRepository extends EntityRepository {
 
+        protected $entityManager;
+        public function setEntityManager(\Doctrine\ORM\EntityManagerInterface $em) {
+            $this->entityManager = $em;
+            return $this;
+
+        }
+        public function getEntityManager() {
+            return $this->entityManager;
+        }
+
         /**
          *
          */
         public function getQueryForSearch(Ad $ad) {
-            $boolQuery = new \Elastica\Query\Bool();
+            $boolQuery = new \Elastica\Filter\Bool();
+            $fieldQuery = new \Elastica\Query\MatchAll();
 
-            if (!empty($ad->getTransaction())) {
-                $fieldQuery = new \Elastica\Query\QueryString($ad->getTransaction());
-                $fieldQuery->setDefaultField('transaction');
-                $boolQuery->addMust($fieldQuery);
+            $adTransaction = strtolower($ad->getTransaction());
+            if (!empty($adTransaction)) {
+                $transactionTermQuery = new \Elastica\Filter\Terms();
+                $transactionTermQuery->setTerms('transaction', array($adTransaction));
+                $boolQuery->addMust($transactionTermQuery);
             }
 
-            if (!empty($ad->getWhere())) {
-                $cityQuery = new \Elastica\Query\Terms();
-                $cityQuery->setTerms('inseeCity', $ad->getWhere());
-                $boolQuery->addMust($cityQuery);
+            $em = $this->getEntityManager();
+            $adWhereArea = $ad->getWhereArea();
+            if (!empty($adWhereArea) && !empty($em)) {
+                $terms = array();
+                foreach ($ad->getWhereArea() as $key => $id) {
+                    $area = $em->getRepository('AcreatInseeBundle:InseeArea')->find($id);
+                    if ($area instanceof InseeArea) {
+                        $keywords = explode(',', strtolower($area->getKeywords()));
+                        $terms = array_merge($terms, array_map('trim', $keywords));
+                    }
+                }
+                if (!empty($terms)) {
+                    $areaTermQuery = new \Elastica\Filter\Terms();
+                    $areaTermQuery->setTerms('description', $terms);
+                    $boolQuery->addMust($areaTermQuery);
+                }
             }
 
-            if (!empty($ad->getWhat())) {
-                $cityQuery = new \Elastica\Query\Terms();
-                $cityQuery->setTerms('type', $ad->getWhat());
-                $boolQuery->addMust($cityQuery);
+            $adWhere = $ad->getWhere();
+            if (!empty($adWhere)) {
+                $cityTermsQuery = new \Elastica\Filter\Terms();
+                $cityTermsQuery->setTerms('id', $adWhere);
+                $cityQuery = new \Elastica\Filter\Bool();
+                $cityQuery->addMust($cityTermsQuery);
+                $cityHasParent = new \Elastica\Filter\HasParent($cityQuery, 'inseeCity');
+                $boolQuery->addMust($cityHasParent);
             }
 
-            if (!empty($ad->getRooms())) {
-                $fieldQuery = new \Elastica\Query\Terms();
-                $fieldQuery->setTerms('rooms', $ad->getRooms());
-                $fieldQuery->setMinimumMatch(1);
-                $boolQuery->addMust($fieldQuery);
+            $adWhereDepartment = $ad->getWhereDepartment();
+            if (!empty($adWhereDepartment)) {
+                $departmentTermsQuery = new \Elastica\Filter\Terms();
+                $departmentTermsQuery->setTerms('inseeDepartment.id', $adWhereDepartment);
+                $departmentBoolQuery = new \Elastica\Filter\Bool();
+                $departmentBoolQuery->addMust($departmentTermsQuery);
+                $departmentQuery = new \Elastica\Filter\Nested();
+                $departmentQuery->setPath('inseeDepartment');
+                $departmentQuery->setFilter($departmentBoolQuery);
+                $cityHasParent = new \Elastica\Filter\HasParent($departmentQuery, 'inseeCity');
+                $boolQuery->addMust($cityHasParent);
             }
 
-            // rayon
-            // new filter GeoDistance Elastica_Filter_GeoDistance
+            $adWhereState = $ad->getWhereState();
+            if (!empty($adWhereState)) {
+                $stateTermsQuery = new \Elastica\Filter\Terms();
+                $stateTermsQuery->setTerms('inseeState.id', $adWhereState);
+                $stateBoolQuery = new \Elastica\Filter\Bool();
+                $stateBoolQuery->addMust($stateTermsQuery);
+                $stateQuery = new \Elastica\Filter\Nested();
+                $stateQuery->setPath('inseeState');
+                $stateQuery->setFilter($stateBoolQuery);
+                $cityHasParent = new \Elastica\Filter\HasParent($stateQuery, 'inseeCity');
+                $boolQuery->addMust($cityHasParent);
+            }
 
-            if (!empty($ad->getMinPrice()) && !empty($ad->getMaxPrice())) {
+            $adWhat = $ad->getWhat();
+            if (!empty($adWhat)) {
+                $whatQuery = new \Elastica\Filter\Terms();
+                $whatQuery->setTerms('type', $adWhat);
+                $boolQuery->addMust($whatQuery);
+            }
+
+            $adRooms = $ad->getRooms();
+            if (!empty($adRooms)) {
+                $roomQuery = new \Elastica\Filter\Terms();
+                $roomQuery->setTerms('rooms', $adRooms);
+                $boolQuery->addMust($roomQuery);
+            }
+
+            $adRadius = $ad->getRadius();
+            $adLocation = $ad->getLocation();
+            if (!empty($adRadius) && !empty($adLocation)) {
+                $radiusDistanceQuery = new \Elastica\Filter\GeoDistance('location', $adLocation, $adRadius.'km');
+                $radiusQuery = new \Elastica\Filter\Bool();
+                $radiusQuery->addMust($radiusDistanceQuery);
+                $cityHasParent = new \Elastica\Filter\HasParent($radiusQuery, 'inseeCity');
+                $boolQuery->addMust($cityHasParent);
+            }
+
+            $adMinPrice = $ad->getMinPrice();
+            $adMaxPrice = $ad->getMaxPrice();
+            if (!empty($adMinPrice) && !empty($adMaxPrice)) {
                 $boolQuery->addMust(
-                    new \Elastica\Query\Range(
+                    new \Elastica\Filter\Range(
                         'price',
                         array(
-                            'gte' => $ad->getMinPrice(),
-                            'lte' => $ad->getMaxPrice()
+                            'gte' => $adMinPrice,
+                            'lte' => $adMaxPrice
                         )
                     )
                 );
             }
-            elseif(!empty($ad->getMinPrice())) {
+            elseif(!empty($adMinPrice)) {
                 $boolQuery->addMust(
-                    new \Elastica\Query\Range(
+                    new \Elastica\Filter\Range(
                         'price',
                         array(
-                            'gte' => $ad->getMinPrice()
+                            'gte' => $adMinPrice
                         )
                     )
                 );
             }
-            elseif(!empty($ad->getMaxPrice())) {
+            elseif(!empty($adMaxPrice)) {
                 $boolQuery->addMust(
-                    new \Elastica\Query\Range(
+                    new \Elastica\Filter\Range(
                         'price',
                         array(
-                            'lte' => $ad->getMaxPrice()
+                            'lte' => $adMaxPrice
                         )
                     )
                 );
             }
 
-            if (!$boolQuery->hasParam('should') && !$boolQuery->hasParam('must') && !$boolQuery->hasParam('must_not')) {
-                $fieldQuery = new \Elastica\Query\MatchAll();
-                $boolQuery->addMust($fieldQuery);
+            $sort = array();
+            $adSort = $ad->getSort();
+            if (!empty($adSort) && $adSort != 'default') {
+                $sort[$ad->getSort()] = array( 'order' => $ad->getDirection() );
             }
+            $sort['privilegeRank'] = array( 'order' => 'desc' );
+            $sort['order'] = array( 'order' => 'asc' );
 
-            $query = new \Elastica\Query($boolQuery);
-            $query->setSort(
-                array(
-                    'privilegeRank' => array(
-                        'order' => 'DESC'
-                    ),
-                    'order' => array(
-                        'order' => 'ASC'
-                    )
-                )
-            );
+            $filtered = new \Elastica\Query\Filtered();
+            $filtered->setQuery($fieldQuery);
+            $filtered->setFilter($boolQuery);
+
+            $query = new \Elastica\Query($filtered);
+            $query->setSort($sort);
 
             return $query;
         }
@@ -105,6 +174,14 @@ namespace Viteloge\CoreBundle\SearchRepository {
         public function search(Ad $ad, $limit=1000000) {
             $query = $this->getQueryForSearch($ad);
             return $this->find($query, $limit);
+        }
+
+        /**
+         *
+         */
+        public function searchPaginated(Ad $ad) {
+            $query = $this->getQueryForSearch($ad);
+            return $this->findPaginated($query);
         }
 
     }

@@ -17,37 +17,106 @@ jQuery(document).ready(function() {
         //FB.getLoginStatus(updateStatusCallback);
     });*/
 
-    jQuery('#carousel-home').carousel(/*{
-        interval: 10000
-    }*/);
-    jQuery('#carousel-home .item').each(function(){
-        /*var active = jQuery(this).parent().find('.item.active:first-child');
-        var width = parseInt(active.width());
-        var childWidth = parseInt(active.children(':first-child').outerWidth(true));
-        var childrenCount = Math.floor(width/childWidth);*/
-        var childrenCount = Math.floor(1000/290);
-        var next = jQuery(this).next();
-        var clone = null;
-        for (var i = childrenCount - 1; i > 0; i--) {
-            if (next.length>0) {
-                next.children(':first-child').clone().addClass('hidden-xs hidden-sm').appendTo(jQuery(this));
-            } else {
-                jQuery(this).siblings(':lt('+i+')').children(':first-child').clone().addClass('hidden-xs hidden-sm').appendTo(jQuery(this));
-                break;
-            }
-            next = next.next();
-        };
-    });
+    jQuery('.carousel').carousel();
+    jQuery('.select-tag-input').select2();
 
-    jQuery('select').each(function() {
-        placeholderize(jQuery(this));
-    }).on('change', function(event) {
-        placeholderize(jQuery(this));
-    });
-
+    jQuery(document).on('click', '[data-submit]', submitForm);
     jQuery(document).on('click', '[data-theme]', changeTheme);
     jQuery(document).on('click', '.pagination.ajax li > a', displayNextPage);
     jQuery(document).on('click', 'form > .nav li > a', checkCurrentTab);
+    jQuery(document).on('change', 'select.sortable', processToSort);
+
+    /**
+     * update rel="quartier" with new tooltip
+     */
+    jQuery('body').popover({
+        html: true,
+        container: 'body',
+        selector: 'span[rel="quartier"]',
+        template: '<div class="popover estate" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
+        trigger: 'click'
+    });
+    if (jQuery('span[rel="quartier"]')) {
+        jQuery('span[rel="quartier"]').each(function() {
+            jQuery(this)
+                .attr('tabindex', 10)
+                .attr('data-toggle', 'popover')
+                .attr('data-trigger', 'focus')
+                .attr('data-content', 'Loading...')
+                .attr('data-placement', 'bottom')
+                .attr('title', 'show map');
+        });
+    }
+    //jQuery(document).on('click', 'span[rel="quartier"]', togglePopover);
+    //jQuery(document).on('hidden.bs.popover', 'span[rel="quartier"]', showAreaInMap);
+    var popover = jQuery('span[rel="quartier"]').on('show.bs.popover', showAreaInMap);
+
+    function togglePopover(event) {
+        jQuery(event.currentTarget).popover('toggle');
+    }
+    function decodeLevels(levels) {
+        var c, i, len, results;
+          results = [];
+          for (i = 0, len = levels.length; i < len; i++) {
+            c = levels[i];
+            results.push(c.charCodeAt(0) - 63);
+          }
+          return results;
+    }
+    function showAreaInMap() {
+        var areaId = jQuery(this).attr('id');
+        var color = jQuery(this).css('color');
+        jQuery.ajax({
+            url: Routing.generate('acreat_insee_area_show', {id: areaId, _format: 'json'}, true),
+            context: jQuery(this),
+            method: 'GET',
+            success: function(inseeArea) {
+                var optMap = {
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    center: new google.maps.LatLng(inseeArea.insee_city.lat, inseeArea.insee_city.lng),
+                    zoom: 12
+                }
+
+                var popoverId = jQuery(this).attr('aria-describedby');
+                var popoverContent = jQuery('#'+popoverId).find('.popover-content');
+                jQuery(popoverContent).attr('id', popoverId+'-content');
+
+                var areaMap = new google.maps.Map(document.getElementById(popoverId+'-content'),optMap);
+                //google.maps.event.trigger(areaMap, 'resize');
+
+                // draw polyline
+                var bounds = new google.maps.LatLngBounds();
+                var paths = google.maps.geometry.encoding.decodePath(inseeArea.polyline);
+                var levels = decodeLevels(inseeArea.levels);
+                for (i = 0, len = paths.length; i < len; i++) {
+                    path = paths[i];
+                    bounds.extend(path);
+                }
+                var areaPoly = new google.maps.Polygon({
+                    paths: paths,
+                    levels: levels,
+                    strokeColor: color,
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: color,
+                    fillOpacity: 0.35
+                });
+                areaPoly.setMap(areaMap);
+                // --
+
+                google.maps.event.trigger(areaMap, "resize");
+            }
+        });
+    }
+
+    function submitForm(event) {
+        event.preventDefault();
+        var submit = jQuery(event.currentTarget).data('submit');
+        var form = jQuery(submit);
+        if (form) {
+            jQuery(form).submit();
+        }
+    }
 
     function changeTheme(event) {
         event.preventDefault();
@@ -65,16 +134,14 @@ jQuery(document).ready(function() {
             .addClass(theme);
     }
 
-    function placeholderize(element) {
-        var selected = jQuery(element).children(':selected');
-        var optionStyle = selected.css(['color']);
-        if (optionStyle) {
-            jQuery.each(optionStyle, function( prop, value ) {
-                jQuery(element).css(prop, value);
-            });
-        }
+    function processToSort(event) {
+        event.preventDefault();
+        var select = jQuery(event.currentTarget);
+        var id = jQuery(event.currentTarget).parents('.ajax-pager-container').attr('id');
+        var url = jQuery(select).find('option:selected').data('url');
+        paginate(id, url);
+        event.stopPropagation();
     }
-
     function displayNextPage(event) {
         event.preventDefault();
         var id = jQuery(event.currentTarget).parents('.ajax-pager-container').attr('id');
@@ -85,7 +152,7 @@ jQuery(document).ready(function() {
     function paginate(id, url) {
         jQuery.ajax({
             url: url,
-            method: 'POST',
+            method: 'GET',
             success: function(content) {
                 jQuery('#'+id).replaceWith(jQuery(content).find('#'+id));
             }

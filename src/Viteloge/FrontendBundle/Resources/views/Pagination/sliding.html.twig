@@ -2,25 +2,25 @@
     <nav>
         <ul class="pagination ajax">
             {% if first is defined and current != first %}
-                <li class="first">
+                <li class="hidden-xs first">
                     <a href="{{ path(route, query|merge({(pageParameterName): first})) }}" aria-label="{{ 'First' | trans }}">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
             {% else %}
-                <li class="disabled first">
+                <li class="hidden-xs disabled first">
                     <span aria-hidden="true">&laquo;</span>
                 </li>
             {% endif %}
 
             {% if previous is defined %}
-                <li class="previous">
+                <li class="hidden-xs previous">
                     <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}" aria-label="{{ 'Previous' | trans }}">
                         <span aria-hidden="true">&lt;</span>
                     </a>
                 </li>
             {% else %}
-                <li class="disabled previous">
+                <li class="hidden-xs disabled previous">
                     <span aria-hidden="true">&lt;</span>
                 </li>
             {% endif %}
@@ -68,25 +68,25 @@
             {% endif %}
 
             {% if last is defined and current != last %}
-                <li class="last">
+                <li class="hidden-xs last">
                     <a href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}" aria-label="Last">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
             {% else %}
-                <li class="disabled last">
+                <li class="hidden-xs disabled last">
                     <span aria-hidden="true">&raquo;</span>
                 </li>
             {% endif %}
 
             {% if next is defined %}
-                <li class="next">
+                <li class="hidden-xs next">
                     <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}" aria-label="Next">
                         <span aria-hidden="true">&gt;</span>
                     </a>
                 </li>
             {% else %}
-                <li class="disabled next">
+                <li class="hidden-xs disabled next">
                     <span aria-hidden="true">&gt;</span>
                 </li>
             {% endif %}

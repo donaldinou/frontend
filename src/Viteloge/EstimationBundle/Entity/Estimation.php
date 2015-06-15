@@ -13,7 +13,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Entity()
  */
 class Estimation{
-    
+
     public static $TYPES_VOIE = array(
         "ALL" => "Allée",
         "AV" => "Avenue",
@@ -109,14 +109,14 @@ class Estimation{
         6 => 'estimation.delai._6',
         -1 => 'estimation.delai._pv'
     );
-    
-    
+
+
     private $fields = array(
         'numero',
         'type_voie',
         'voie',
         'codepostal',
-        
+
         'nb_pieces',
         'nb_sdb',
         'surface_habitable',
@@ -152,7 +152,7 @@ class Estimation{
     public function getId() {
         return $this->id;
     }
-    
+
     /**
      * @ORM\Column(type="json_array",nullable=true)
      */
@@ -193,7 +193,7 @@ class Estimation{
      * @Assert\NotBlank()
      */
     private $type;
-    
+
     /**
      * @ORM\Column(name="demande_agence",type="boolean")
      */
@@ -228,18 +228,19 @@ class Estimation{
     private $createdAt;
 
     public function __construct() {
+        $this->createdAt = new \DateTime('now');
         $this->demandeAgence = false;
     }
-    
+
     public function __get( $name ) {
 
         if ( in_array( $name, $this->fields ) ) {
             if ( array_key_exists( $name, $this->data ) ) {
-                return $this->data[$name];                
+                return $this->data[$name];
             }
             return null;
         }
-        
+
         $trace = debug_backtrace();
         trigger_error(
             'Undefined property via __get(): ' . $name .
@@ -255,7 +256,7 @@ class Estimation{
             $this->data[$name] = $value;
             return;
         }
-        
+
         $trace = debug_backtrace();
         trigger_error(
             'Undefined property via __get(): ' . $name .
@@ -283,7 +284,7 @@ class Estimation{
     /**
      * Get data
      *
-     * @return array 
+     * @return array
      */
     public function getData()
     {
@@ -358,7 +359,7 @@ class Estimation{
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -381,7 +382,7 @@ class Estimation{
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {

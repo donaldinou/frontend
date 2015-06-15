@@ -14,7 +14,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use Acreat\InseeBundle\Entity\InseeDepartment;
     use Acreat\InseeBundle\Entity\InseeCity;
     use Acreat\InseeBundle\Entity\InseeArea;
-    use Viteloge\CoreBundle\Entity\UserSearch;
+    use Viteloge\CoreBundle\SearchEntity\Ad as AdSearch;
 
     /**
      * @Route("/glossary")
@@ -30,8 +30,8 @@ namespace Viteloge\FrontendBundle\Controller {
          *
          */
         protected function initForm() {
-            $userSearch = new UserSearch();
-            $this->form = $this->createForm('viteloge_frontend_usersearch', $userSearch);
+            $adSearch = new AdSearch();
+            $this->form = $this->createForm('viteloge_core_adsearch', $adSearch);
             return $this;
         }
 
@@ -90,15 +90,16 @@ namespace Viteloge\FrontendBundle\Controller {
          *     }
          * )
          * @Cache(expires="tomorrow", public=true)
-         * @Template("VitelogeFrontendBundle:Glossary:showState.html.twig")
          */
         public function showStateAction(Request $request, InseeState $inseeState) {
-            $repository = $this->getDoctrine()
+            /*$repository = $this->getDoctrine()
                 ->getRepository('AcreatInseeBundle:InseeCity');
             $cities = $repository->findByInseeState($inseeState);
-            //var_dump($cities);die;
+            $ids = array_map(function($city) {
+                return $city->getId();
+            }, $cities);*/
             $options = array(
-                'inseeCity' => array(886,887)
+                'whereState' => array( $inseeState->getId() )
             );
             return $this->redirectToRoute('viteloge_frontend_ad_search', $options, 301);
         }
@@ -123,16 +124,18 @@ namespace Viteloge\FrontendBundle\Controller {
          *     }
          * )
          * @Cache(expires="tomorrow", public=true)
-         * @Template("VitelogeFrontendBundle:Glossary:showState.html.twig")
          */
         public function showDepartmentAction(Request $request, InseeDepartment $inseeDepartment) {
-            $repository = $this->getDoctrine()
+            /*$repository = $this->getDoctrine()
                 ->getRepository('AcreatInseeBundle:InseeCity');
             $cities = $repository->findByInseeDepartment($inseeDepartment);
+            $ids = array_map(function($city) {
+                return $city->getId();
+            }, $cities);*/
             $options = array(
-                'inseeCity' => $cities
+                'whereDepartment' => array( $inseeDepartment->getId() )
             );
-            $this->redirectToRoute('viteloge_frontend_ad_search', $options, 301);
+            return $this->redirectToRoute('viteloge_frontend_ad_search', $options, 301);
         }
 
         /**
@@ -185,7 +188,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 'Home', $this->get('router')->generate('viteloge_frontend_homepage')
             );
             $breadcrumbs->addItem(
-                $inseeCity->getInseeState()->getName(),
+                $inseeCity->getInseeState()->getFullname(),
                 $this->get('router')->generate('viteloge_frontend_glossary_showstate',
                     array(
                         'name' => $inseeCity->getInseeState()->getName(),
@@ -194,7 +197,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 )
             );
             $breadcrumbs->addItem(
-                $inseeCity->getInseeDepartment()->getName(),
+                $inseeCity->getInseeDepartment()->getFullname(),
                 $this->get('router')->generate('viteloge_frontend_glossary_showdepartment',
                     array(
                         'name' => $inseeCity->getInseeDepartment()->getName(),
@@ -202,13 +205,51 @@ namespace Viteloge\FrontendBundle\Controller {
                     )
                 )
             );
-            $breadcrumbs->addItem('Immobilier '.$inseeCity->getFullName());
+            $breadcrumbs->addItem('Immobilier '.$inseeCity->getFullname());
+            // --
+
+            // Google map api
+            $mapOptions = new \StdClass();
+            $mapOptions->zoom = 12;
+            $mapOptions->lat = $inseeCity->getLat();
+            $mapOptions->lng = $inseeCity->getLng();
+            $mapOptions->disableDefaultUI = true;
+            $mapOptions->scrollwheel = false;
             // --
 
             return array(
                 'city' => $inseeCity,
+                'mapOptions' => $mapOptions,
                 'form' => $this->initForm()->form->createView()
             );
+        }
+
+        /**
+         * @Route(
+         *     "/area/{name}/{id}",
+         *     requirements={
+         *         "id"="\d+"
+         *     }
+         * )
+         * @Method({"GET", "POST"})
+         * @ParamConverter(
+         *     "inseeArea",
+         *     class="AcreatInseeBundle:InseeArea",
+         *     options={
+         *         "id" = "id",
+         *         "name" = "name",
+         *         "exclude": {
+         *             "name"
+         *         }
+         *     }
+         * )
+         * @Cache(expires="tomorrow", public=true)
+         */
+        public function showAreaAction(Request $request, InseeArea $inseeArea) {
+            $options = array(
+                'whereArea' => array( $inseeArea->getId() )
+            );
+            return $this->redirectToRoute('viteloge_frontend_ad_search', $options, 301);
         }
 
         /**

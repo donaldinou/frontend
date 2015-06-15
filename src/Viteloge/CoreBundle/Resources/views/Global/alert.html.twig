@@ -2,14 +2,17 @@
     {% set type = type|default('danger') %}
     {% set dismissible = dismissible|default(true) %}
     {% set valid = valid|default(true) %}
+    {%- if type == 'notice' -%}
+        {% set type = 'info' %}
+    {%- endif -%}
     {%- if type == 'success' -%}
-        {% set class = 'glyphicon-ok-sign' %}
+        {% set class = 'fa-check-sign' %}
     {%- elseif type == 'info' -%}
-        {% set class = 'glyphicon-info-sign' %}
+        {% set class = 'fa-info-circle' %}
     {%- elseif type == 'warning' -%}
-        {% set class = 'glyphicon-warning-sign' %}
+        {% set class = 'fa-warning' %}
     {%- elseif type == 'danger' or type == 'error' -%}
-        {% set class = 'glyphicon-exclamation-sign' %}
+        {% set class = 'fa-exclamation-circle' %}
     {%- else -%}
         {% set class = '' -%}
     {%- endif -%}
@@ -27,7 +30,7 @@
                     {% set message = alert.message|default(alert) %}
                     <li>
                         {%- if class -%}
-                            <span class="glyphicon {{ class }}" aria-hidden="true"></span>&nbsp;
+                            <span class="fa {{ class }}" aria-hidden="true"></span>&nbsp;
                         {%- endif -%}
                         {{ message }}
                     </li>

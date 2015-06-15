@@ -10,18 +10,28 @@
         {%- endblock -%}
     </div>
 </div>
-    <script>
-var map;
-function initialize() {
-  var mapOptions = {
-    zoom: 8,
-    center: new google.maps.LatLng(-34.397, 150.644),
-    disableDefaultUI: true,
-    scrollwheel: false
-  };
-  map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
-}
 
-google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
+<script>
+    {%- block script -%}
+        var map;
+        function initialize() {
+            {%- if mapOptions -%}
+                var mapOptions = {
+                    zoom: {{ mapOptions.zoom|default(12) }},
+                    center: new google.maps.LatLng({{ mapOptions.lat|default(48.111737) }}, {{ mapOptions.lng|default(-1.68023) }}),
+                    disableDefaultUI: {{ mapOptions.disableDefaultUI|json_encode|default(true) }},
+                    scrollwheel: {{ mapOptions.scrollwheel|json_encode|default(false) }}
+                };
+            {%- else -%}
+                var mapOptions = {
+                    zoom: 12,
+                    center: new google.maps.LatLng(48.111737, -1.68023)),
+                    disableDefaultUI: true,
+                    scrollwheel: false
+                };
+            {%- endif -%}
+            map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    {%- endblock script -%}
+</script>

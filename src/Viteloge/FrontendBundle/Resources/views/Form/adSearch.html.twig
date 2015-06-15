@@ -5,28 +5,57 @@
     <div class="hidden">
         {{ form_row(form._token) }}
     </div>
-    {{ form_widget(form.transaction, { label_attr: { 'class': 'radio-inline' } }) }}
+    {{ form_widget(form.transaction, { label_attr: { 'class': 'radio-inline' }, theme_container: theme_container|default('search-container') }) }}
     <fieldset class="bg-darken text-left" role="tabpanel">
         <div class="row">
             <div class="col-md-4">
-                {{ form_widget(form.where, { 'attr': { 'class': '',  'placeholder': 'Where', autocomplete: 'off', spellcheck: 'off', 'maxlength': 100 } }) }}
+                {{ form_widget(form.where, {
+                    'attr': {
+                        'class': 'select-tag-input',
+                        'placeholder': 'ad.where',
+                        'data-placeholder' : 'ad.where'|trans(),
+                        'data-allow-clear' : 'true',
+                        'data-ajax--url' : path('viteloge_suggest_cities'),
+                        'data-ajax--cache' : 'true',
+                        'data-ajax--data-type' : 'json',
+                        'autocomplete': 'off',
+                        'spellcheck': 'off',
+                        'maxlength': 100
+                    }
+                }) }}
             </div>
             <div class="col-md-4">
-                {{ form_widget(form.what, { 'attr': { 'class': '' } }) }}
+                {{ form_widget(form.what, {
+                    'attr': {
+                        'class': 'select-tag-input',
+                        'placeholder': 'ad.what',
+                        'data-placeholder' : 'ad.what'|trans(),
+                        'autocomplete': 'off',
+                        'spellcheck': 'off',
+                    }
+                }) }}
             </div>
             <div class="col-md-4">
-                {{ form_widget(form.rooms, { 'attr': { 'class': '', 'placeholder': 'Rooms number' } }) }}
+                {{ form_widget(form.rooms, {
+                    'attr': {
+                        'class': 'select-tag-input',
+                        'placeholder': 'ad.rooms.number',
+                        'data-placeholder' : 'ad.rooms.number'|trans(),
+                        'autocomplete': 'off',
+                        'spellcheck': 'off',
+                    }
+                }) }}
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
-                {{ form_widget(form.minPrice, { 'attr': { 'class': '',  'placeholder': 'Minimum Price', 'maxlength': 10 } }) }}
+                {{ form_widget(form.minPrice, { 'attr': { 'class': '',  'placeholder': 'ad.price.min', 'maxlength': 10 } }) }}
             </div>
             <div class="col-md-4">
-                {{ form_widget(form.maxPrice, { 'attr': { 'class': '', 'placeholder': 'Maximum Price', 'maxlength': 10 } }) }}
+                {{ form_widget(form.maxPrice, { 'attr': { 'class': '', 'placeholder': 'ad.price.max', 'maxlength': 10 } }) }}
             </div>
             <div class="col-md-4">
-                {{ form_widget(form.search, { 'label': 'Search', 'span_class': 'fa fa-search', 'attr': { 'class': 'btn btn-primary btn-block text-uppercase', 'role': 'button' } }) }}
+                {{ form_widget(form.search, { 'label': 'ad.search', 'span_class': 'fa fa-search', 'attr': { 'class': 'btn btn-primary btn-block text-uppercase', 'role': 'button' } }) }}
             </div>
         </div>
         <div class="row hidden">

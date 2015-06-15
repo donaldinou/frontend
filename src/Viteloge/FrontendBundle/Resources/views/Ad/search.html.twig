@@ -4,28 +4,41 @@
     itemscope itemtype="http://schema.org/WebPage"
 {%- endblock schema -%}
 
-{% block head_javascript_requirejs %}
-    {{ include('VitelogeFrontendBundle:misc:requirejs.html.twig', { 'module': 'app/homepage.js' }) }}
-{% endblock %}
+{%- block head_javascripts -%}
+    {{ parent() }}
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;libraries=geometry"></script>
+{%- endblock -%}
 
-{% block header_end %}
-    {% if pagination is defined %}
-        <div class="container">
-            <div class="row clearfix">
-                <div class="col-md-10">
-                    <h2 class="">{{ pagination.getTotalItemCount }} {% trans %}annonces...{% endtrans %}</h2>
-                </div>
-                <div class="col-md-2">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        {% trans %}Change my research{% endtrans %}&nbsp;<span class="caret"></span>
+{%- block head_javascript_requirejs -%}
+    {{ include('VitelogeFrontendBundle:misc:requirejs.html.twig', { 'module': 'app/homepage.js' }) }}
+{%- endblock -%}
+
+{%- block header_end -%}
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-10">
+                {% set count = pagination.nbResults|default(ads|length) %}
+                <h2 class="">{% transchoice count with { '%count%' : count } %}ads.count.research{% endtranschoice %}</h2>
+            </div>
+            <div class="col-md-2">
+                {%- if form is defined -%}
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="collapse" aria-expanded="false" data-target="#search-container" aria-controls="search-container">
+                        {% trans %}ad.change.research{% endtrans %}&nbsp;<span class="caret"></span>
                     </button>
-                </div>
+                {%- endif -%}
             </div>
         </div>
-    {% endif %}
-{% endblock %}
+        {%- if form is defined -%}
+            <div id="search-container" class="collapse row clearfix">
+                <div class="col-md-12">
+                    {{ include('VitelogeFrontendBundle:Ad:form/adSearch.html.twig', { form: form, theme_container: 'search-container' }) }}
+                </div>
+            </div>
+        {%- endif -%}
+    </div>
+{%- endblock -%}
 
-{% block main %}
+{%- block main -%}
     {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
         {% block left %}
             {{ include('VitelogeFrontendBundle:Ad:fragment/paginated.html.twig', {}) }}
@@ -34,4 +47,4 @@
             {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
         {% endblock %}
     {% endembed %}
-{% endblock main %}
+{%- endblock main -%}

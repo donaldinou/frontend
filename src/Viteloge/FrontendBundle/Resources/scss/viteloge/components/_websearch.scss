@@ -2,4 +2,18 @@
     + aside {
         margin-top: 18px;
     }
+    ul {
+        > li {
+            margin-top: 10px;
+            .btn {
+                font-size: $font-size-xsmall;
+                padding: 2px;
+            }
+        }
+    }
+    .usersearch {
+        a {
+            text-decoration: underline;
+        }
+    }
 }

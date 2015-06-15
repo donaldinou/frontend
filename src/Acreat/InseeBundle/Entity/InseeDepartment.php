@@ -10,28 +10,28 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="insee_departements", indexes={@ORM\Index(name="stateId", columns={"REGION"}), @ORM\Index(name="cityId", columns={"CHEFLIEU"})})
  * @ORM\Entity(repositoryClass="Acreat\InseeBundle\Repository\InseeDepartmentRepository")
  */
-class InseeDepartment
+class InseeDepartment extends InseeEntity
 {
     /**
      * @var string
      *
      * @ORM\Column(name="TNCC", type="string", length=1, nullable=true)
      */
-    private $prefix;
+    protected $prefix;
 
     /**
      * @var string
      *
      * @ORM\Column(name="NCC", type="string", length=70, nullable=true)
      */
-    private $uname;
+    protected $uname;
 
     /**
      * @var string
      *
      * @ORM\Column(name="NCCENR", type="string", length=70, nullable=true)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string
@@ -40,7 +40,7 @@ class InseeDepartment
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var \Acreat\InseeBundle\Entity\InseeState
@@ -50,7 +50,7 @@ class InseeDepartment
      *   @ORM\JoinColumn(name="REGION", referencedColumnName="REGION")
      * })
      */
-    private $inseeState;
+    protected $inseeState;
 
     /**
      * @var \Acreat\InseeBundle\Entity\InseeCity
@@ -60,7 +60,7 @@ class InseeDepartment
      *   @ORM\JoinColumn(name="CHEFLIEU", referencedColumnName="codeInsee")
      * })
      */
-    private $inseeCapital;
+    protected $inseeCapital;
 
 
 

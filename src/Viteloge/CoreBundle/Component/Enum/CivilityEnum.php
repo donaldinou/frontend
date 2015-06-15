@@ -2,9 +2,7 @@
 
 namespace Viteloge\CoreBundle\Component\Enum {
 
-    use Acreat\CoreBundle\Component\Enum\SplEnum;
-
-    class CivilityEnum extends SplEnum implements ChoiceInterface {
+    class CivilityEnum extends Enum {
 
         const __default = null;
 

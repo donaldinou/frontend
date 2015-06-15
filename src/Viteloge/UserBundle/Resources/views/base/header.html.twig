@@ -7,7 +7,7 @@
                     <div class="navbar-header" id="navbar-button-logo">
                         {% block header_button %}
                             <button type="button" class="pull-left navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-navigation" aria-expanded="false" aria-controls="navbar-navigation">
-                                <span class="sr-only">{% trans %}Toggle navigation{% endtrans %}</span>
+                                <span class="sr-only">{% trans %}toggle.navigation{% endtrans %}</span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
@@ -27,7 +27,7 @@
                                 {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") or not app.user %}
                                     <li>
                                         <a href="{{ path('fos_user_registration_register') }}" class="">
-                                            <span class="icon-icon-subscribe"></span>&nbsp;{% trans %}Registration{% endtrans %}
+                                            <span class="icon-icon-subscribe"></span>&nbsp;{% trans %}user.registration{% endtrans %}
                                         </a>
                                     </li>
                                     <li class="hidden-xs">
@@ -35,7 +35,7 @@
                                     </li>
                                     <li>
                                         <a href="{{ path('fos_user_security_login') }}" class="">
-                                            <span class="icon-icon-connect"></span>&nbsp;{% trans %}Connection{% endtrans %}
+                                            <span class="icon-icon-connect"></span>&nbsp;{% trans %}user.connection{% endtrans %}
                                         </a>
                                     </li>
                                 {% else %}
@@ -67,19 +67,19 @@
                         {% endblock %}
                         <div class="clearfix"></div>
                         {% block header_navigation %}
-                            {% set transaction = app.request.get('transaction') %}
+                            {% set transaction = app.request.get('transaction')|lower %}
                             <ul id="navigation" class="nav nav-tabs">
-                                <li class="tab{% if transaction == 'V' %} active{% endif %} text-uppercase" role="presentation">
-                                    <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'V' }) }}" data-theme-hover="theme-sale">{% trans %}Vente{% endtrans %}</a>
+                                <li class="tab{% if transaction == 'v' %} active{% endif %} text-uppercase" role="presentation">
+                                    <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'v' }) }}" data-theme-hover="theme-sale">{% trans %}ad.sale{% endtrans %}</a>
                                 </li>
-                                <li class="tab{% if transaction == 'L' %} active{% endif %} text-uppercase" role="presentation">
-                                    <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'L' }) }}" data-theme-hover="theme-rent">{% trans %}Location{% endtrans %}</a>
+                                <li class="tab{% if transaction == 'l' %} active{% endif %} text-uppercase" role="presentation">
+                                    <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'l' }) }}" data-theme-hover="theme-rent">{% trans %}ad.rent{% endtrans %}</a>
                                 </li>
-                                <li class="tab{% if transaction == 'N' %} active{% endif %} text-uppercase" role="presentation">
-                                    <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'N' }) }}" data-theme-hover="theme-new">{% trans %}Neuf{% endtrans %}</a>
+                                <li class="tab{% if transaction == 'n' %} active{% endif %} text-uppercase" role="presentation">
+                                    <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'n' }) }}" data-theme-hover="theme-new">{% trans %}ad.new{% endtrans %}</a>
                                 </li>
-                                <li class="tab{% if transaction == 'P' %} active{% endif %} text-uppercase hidden" role="presentation">
-                                    <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'V' }) }}" data-theme-hover="theme-default">{% trans %}Plus{% endtrans %}</a>
+                                <li class="tab{% if transaction == 'p' %} active{% endif %} text-uppercase hidden" role="presentation">
+                                    <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'v' }) }}" data-theme-hover="theme-default">{% trans %}viteloge.more{% endtrans %}</a>
                                 </li>
                             </ul>
                         {% endblock %}

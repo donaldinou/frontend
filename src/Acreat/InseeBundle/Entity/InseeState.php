@@ -10,28 +10,28 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="insee_regions", indexes={@ORM\Index(name="cityId", columns={"CHEFLIEU"})})
  * @ORM\Entity(repositoryClass="Acreat\InseeBundle\Repository\InseeStateRepository")
  */
-class InseeState
+class InseeState extends InseeEntity
 {
     /**
      * @var string
      *
      * @ORM\Column(name="TNCC", type="string", length=1, nullable=true)
      */
-    private $prefix;
+    protected $prefix;
 
     /**
      * @var string
      *
      * @ORM\Column(name="NCC", type="string", length=70, nullable=true)
      */
-    private $uname;
+    protected $uname;
 
     /**
      * @var string
      *
      * @ORM\Column(name="NCCENR", type="string", length=70, nullable=true)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string
@@ -40,7 +40,7 @@ class InseeState
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var \Acreat\InseeBundle\Entity\InseeCity
@@ -50,7 +50,7 @@ class InseeState
      *   @ORM\JoinColumn(name="CHEFLIEU", referencedColumnName="codeInsee")
      * })
      */
-    private $inseeCapital;
+    protected $inseeCapital;
 
 
 
@@ -155,4 +155,5 @@ class InseeState
     {
         return $this->inseeCapital;
     }
+
 }

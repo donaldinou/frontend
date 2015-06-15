@@ -4,13 +4,32 @@ namespace Viteloge\CoreBundle\Entity {
 
     use Doctrine\ORM\Mapping as ORM;
     use Symfony\Component\Validator\Constraints as Assert;
+    use Gedmo\Mapping\Annotation as Gedmo;
 
     /**
      * WebSearch
      *
-     * @ORM\Table(name="web_searches", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_774729F45D419CCB", columns={"idUtilisateur"})}, indexes={@ORM\Index(name="IDX_774729F47E3C61F9", columns={"owner_id"})})
+     * @ORM\Table(
+     *      name="web_searches", uniqueConstraints={
+     *          @ORM\UniqueConstraint(
+     *              name="UNIQ_774729F45D419CCB",
+     *              columns={
+     *                  "idUtilisateur"
+     *              }
+     *          )
+     *      },
+     *      indexes={
+     *          @ORM\Index(
+     *              name="IDX_774729F47E3C61F9",
+     *              columns={
+     *                  "owner_id"
+     *              }
+     *          )
+     *      }
+     * )
      * @ORM\Entity(repositoryClass="Viteloge\CoreBundle\Repository\WebSearchRepository")
      * @ORM\HasLifecycleCallbacks
+     * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
      */
     class WebSearch
     {
@@ -18,8 +37,13 @@ namespace Viteloge\CoreBundle\Entity {
          * @var string
          *
          * @ORM\Column(name="title", type="string", length=255, nullable=true)
-         *
          * @Assert\NotBlank()
+         * @Assert\Length(
+         *      min = 3,
+         *      max = 100,
+         *      minMessage = "The title must be at least {{ limit }} characters long",
+         *      maxMessage = "The title cannot be longer than {{ limit }} characters"
+         * )
          */
         private $title;
 
@@ -27,6 +51,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @var integer
          *
          * @ORM\Column(name="totalMatches", type="integer", nullable=false)
+         * @Assert\GreaterThanOrEqual(
+         *     value = 0
+         * )
          */
         private $totalmatches;
 
@@ -34,6 +61,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @var integer
          *
          * @ORM\Column(name="newMatches", type="integer", nullable=false)
+         * @Assert\GreaterThanOrEqual(
+         *     value = 0
+         * )
          */
         private $newmatches;
 
@@ -41,6 +71,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @var \DateTime
          *
          * @ORM\Column(name="lastUpdate", type="datetime", nullable=true)
+         * @Assert\DateTime()
          */
         private $updatedAt;
 
@@ -48,6 +79,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @var \DateTime
          *
          * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+         * @Assert\DateTime()
          */
         private $deletedAt;
 
@@ -72,21 +104,22 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @ORM\ManyToOne(targetEntity="Viteloge\CoreBundle\Entity\User", inversedBy="webSearches")
          * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+         *      @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
          * })
+         * @Assert\Type(type="Viteloge\CoreBundle\Entity\User")
+         * @Assert\Valid()
          */
         private $user;
 
         /**
          * @var \Viteloge\CoreBundle\Entity\UserSearch
          *
-         * @ORM\OneToOne(targetEntity="Viteloge\CoreBundle\Entity\UserSearch")
+         * @ORM\OneToOne(targetEntity="Viteloge\CoreBundle\Entity\UserSearch", fetch="EAGER", cascade={"persist"})
          * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="idUtilisateur", referencedColumnName="idUtilisateur")
+         *      @ORM\JoinColumn(name="idUtilisateur", referencedColumnName="idUtilisateur")
          * })
-         *
-         * Assert\Type(type="VitelogeCoreBundle\Entity\UserSearch")
-         * Assert\Valid()
+         * @Assert\Type(type="Viteloge\CoreBundle\Entity\UserSearch")
+         * @Assert\Valid()
          */
         private $userSearch;
 
@@ -297,8 +330,10 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\PreUpdate
          */
         public function setUpdatedAtValue() {
-            $this->updatedAt = new \DateTime();
+            $this->setUpdatedAt(new \DateTime());
+            return $this;
         }
+
     }
 
 }

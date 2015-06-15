@@ -11,9 +11,7 @@
             {{ include('VitelogeUserBundle:Registration:fragment/subscribe_block.html.twig') }}
         {% endblock %}
         {% block right %}
-            <aside>
-                publicité
-            </aside>
+            {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
         {% endblock %}
     {% endembed %}
 {% endblock %}

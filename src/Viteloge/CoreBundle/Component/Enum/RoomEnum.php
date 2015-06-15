@@ -2,9 +2,7 @@
 
 namespace Viteloge\CoreBundle\Component\Enum {
 
-    use Acreat\CoreBundle\Component\Enum\SplEnum;
-
-    class RoomEnum extends SplEnum implements ChoiceInterface {
+    class RoomEnum extends Enum {
 
         const __default = null;
 
@@ -20,11 +18,11 @@ namespace Viteloge\CoreBundle\Component\Enum {
 
         public function choices() {
             return array(
-                self::ONE => 'ad.room.one',
-                self::TWO => 'ad.room.two',
-                self::THREE => 'ad.room.three',
-                self::FOUR => 'ad.room.four',
-                self::MORE => 'ad.room.more'
+                self::ONE => 'ad.rooms.one',
+                self::TWO => 'ad.rooms.two',
+                self::THREE => 'ad.rooms.three',
+                self::FOUR => 'ad.rooms.four',
+                self::MORE => 'ad.rooms.more'
             );
         }
 

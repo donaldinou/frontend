@@ -10,112 +10,112 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="insee_communes", indexes={@ORM\Index(name="postalcode", columns={"cp"}), @ORM\Index(name="lat", columns={"lat"}), @ORM\Index(name="lng", columns={"lon"}), @ORM\Index(name="geolevel", columns={"niveauGeo"}), @ORM\Index(name="isCapital", columns={"chefLieu"}), @ORM\Index(name="stateId", columns={"codeRegion"}), @ORM\Index(name="departmentId", columns={"codeDepartement"}), @ORM\Index(name="code", columns={"codeCommune"}), @ORM\Index(name="distictId", columns={"codeArrondissment"}), @ORM\Index(name="cantonId", columns={"codeCanton"}), @ORM\Index(name="population", columns={"population"}), @ORM\Index(name="basin", columns={"bassinVie"}), @ORM\Index(name="uname", columns={"search_nom"}), @ORM\Index(name="name", columns={"nom"})})
  * @ORM\Entity(repositoryClass="Acreat\InseeBundle\Repository\InseeCityRepository")
  */
-class InseeCity
+class InseeCity extends InseeEntity
 {
     /**
      * @var string
      *
      * @ORM\Column(name="niveauGeo", type="string", length=3, nullable=false)
      */
-    private $geolevel;
+    protected $geolevel;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="decoupageCanton", type="smallint", nullable=false)
      */
-    private $isCantonDivided;
+    protected $isCantonDivided;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="chefLieu", type="smallint", nullable=false)
      */
-    private $isCapital;
+    protected $isCapital;
 
     /**
      * @var string
      *
      * @ORM\Column(name="codeCommune", type="string", length=3, nullable=false)
      */
-    private $code;
+    protected $code;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="codeArrondissment", type="boolean", nullable=false)
      */
-    private $districtId;
+    protected $districtId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="codeCanton", type="string", length=2, nullable=false)
      */
-    private $cantonId;
+    protected $cantonId;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="typeNomClair", type="smallint", nullable=false)
      */
-    private $prefixId;
+    protected $prefixId;
 
     /**
      * @var string
      *
      * @ORM\Column(name="article", type="string", length=10, nullable=false)
      */
-    private $prefix;
+    protected $prefix;
 
     /**
      * @var string
      *
      * @ORM\Column(name="search_nom", type="text", nullable=false)
      */
-    private $uname;
+    protected $uname;
 
     /**
      * @var string
      *
      * @ORM\Column(name="nom", type="text", nullable=false)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var float
      *
      * @ORM\Column(name="lat", type="float", precision=10, scale=0, nullable=false)
      */
-    private $lat;
+    protected $lat;
 
     /**
      * @var float
      *
      * @ORM\Column(name="lon", type="float", precision=10, scale=0, nullable=false)
      */
-    private $lng;
+    protected $lng;
 
     /**
      * @var string
      *
      * @ORM\Column(name="cp", type="string", length=8, nullable=false)
      */
-    private $postalcode;
+    protected $postalcode;
 
     /**
      * @var string
      *
      * @ORM\Column(name="bassinVie", type="string", length=5, nullable=false)
      */
-    private $basin;
+    protected $basin;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="population", type="integer", nullable=false)
      */
-    private $population;
+    protected $population;
 
     /**
      * @var string
@@ -124,27 +124,27 @@ class InseeCity
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var \Acreat\InseeBundle\Entity\InseeState
      *
      * @ORM\ManyToOne(targetEntity="Acreat\InseeBundle\Entity\InseeState")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="codeRegion", referencedColumnName="REGION")
+     *   @ORM\JoinColumn(name="codeRegion", referencedColumnName="REGION", nullable=true)
      * })
      */
-    private $inseeState;
+    protected $inseeState;
 
     /**
      * @var \Acreat\InseeBundle\Entity\InseeDepartment
      *
      * @ORM\ManyToOne(targetEntity="Acreat\InseeBundle\Entity\InseeDepartment")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="codeDepartement", referencedColumnName="DEP")
+     *   @ORM\JoinColumn(name="codeDepartement", referencedColumnName="DEP", nullable=true)
      * })
      */
-    private $inseeDepartment;
+    protected $inseeDepartment;
 
 
 
@@ -379,15 +379,6 @@ class InseeCity
     }
 
     /**
-     * Return the entire name
-     *
-     * @return string
-     */
-    public function getFullname() {
-        return (!empty($this->prefix)) ? $this->prefix.' '.$this->name : $this->name;
-    }
-
-    /**
      * Set lat
      *
      * @param float $lat
@@ -431,6 +422,18 @@ class InseeCity
     public function getLng()
     {
         return $this->lng;
+    }
+
+    /**
+     * Return the location
+     * @return string
+     */
+    public function getLocation() {
+        //$location = new \StdClass();
+        //$location->lat = $this->getLat();
+        //$location->lon = $this->getLon();
+        $location = $this->getLat().','.$this->getLng();
+        return $location;
     }
 
     /**
@@ -560,8 +563,10 @@ class InseeCity
 
     /**
      *
+     * @return string
      */
-    public function __toString() {
-        return $this->getFullname();
+    public function getNameAndPostalcode() {
+        return $this->getName().' ('.$this->getPostalcode().')';
     }
+
 }

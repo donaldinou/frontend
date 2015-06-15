@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="searches col-md-8">
-                {{ render(controller('VitelogeFrontendBundle:WebSearch:latest', { })) }}
+                {{ render_hinclude(path('viteloge_frontend_websearch_latest', { limit: 5 })) }}
             </div>
             <aside class="col-md-4" data-role="secondary">
                 {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', { }) }}

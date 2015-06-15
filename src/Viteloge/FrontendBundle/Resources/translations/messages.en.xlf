@@ -56,6 +56,10 @@
         <source>All Sales</source>
         <target>All Sales</target>
       </trans-unit>
+      <trans-unit id="744c2e53968c09f067575ff76294afa2" resname="All programs">
+        <source>All programs</source>
+        <target>All programs</target>
+      </trans-unit>
       <trans-unit id="5db707f74d87bd123c565cfe06c13522" resname="All rights reserved">
         <source>All rights reserved</source>
         <target>All rights reserved</target>
@@ -95,6 +99,10 @@
       <trans-unit id="25051f6838598e0f424c7b1f5588e428" resname="Espace Personnel">
         <source>Espace Personnel</source>
         <target>Espace Personnel</target>
+      </trans-unit>
+      <trans-unit id="86fa37ca3bf88ed2d10b855b4f173f63" resname="ad.sticker.exlusivity">
+        <source>ad.sticker.exlusivity</source>
+        <target>Exclusivity</target>
       </trans-unit>
       <trans-unit id="3bc026b815790a05493fa56fc4b8d8bd" resname="Extend">
         <source>Extend</source>
@@ -180,6 +188,12 @@
         <source>Profile show</source>
         <target>Profile show</target>
       </trans-unit>
+      <trans-unit id="a65f034dbb82ab7f5b137c3c821135a5" resname="Properties for %transaction% near %name%&#10;        ">
+        <source>Properties for %transaction% near %name%
+        </source>
+        <target>Properties for %transaction% near %name%
+        </target>
+      </trans-unit>
       <trans-unit id="18bddf2d55e1e5c3cc6bb44ceb09454b" resname="Properties for rent near you">
         <source>Properties for rent near you</source>
         <target>Properties for rent near you</target>
@@ -212,10 +226,6 @@
         <source>Subscribe</source>
         <target>Subscribe</target>
       </trans-unit>
-      <trans-unit id="b78a3223503896721cca1303f776159b" resname="Title">
-        <source>Title</source>
-        <target>Title</target>
-      </trans-unit>
       <trans-unit id="b8c4c2cd6e0f11e2fbb894caeaeccef3" resname="Tri">
         <source>Tri</source>
         <target>Tri</target>
@@ -223,6 +233,10 @@
       <trans-unit id="59a3e984c9569a66fe6fcff3a090dcf6" resname="ViteLogé, moteur de recherche d'annonce immobilière">
         <source>ViteLogé, moteur de recherche d'annonce immobilière</source>
         <target>ViteLogé, moteur de recherche d'annonce immobilière</target>
+      </trans-unit>
+      <trans-unit id="0e2f7937956321c3a0e2b9693a2712a2" resname="Vitelogé neuf vous propose 1838 programmes immobiliers">
+        <source>Vitelogé neuf vous propose 1838 programmes immobiliers</source>
+        <target>Vitelogé neuf vous propose 1838 programmes immobiliers</target>
       </trans-unit>
       <trans-unit id="7b018c68cfe8eb5a7bd1d88954b3bdc5" resname="Vous allez être redirigé vers la fiche de l'agence.">
         <source>Vous allez être redirigé vers la fiche de l'agence.</source>
@@ -252,6 +266,10 @@
         <source>Your ad on Fasthousing</source>
         <target>Your ad on Fasthousing</target>
       </trans-unit>
+      <trans-unit id="d7fda136161207d57f6e1a51c6c7c743" resname="ad.program.count">
+        <source>ad.program.count</source>
+        <target>ad.program.count</target>
+      </trans-unit>
       <trans-unit id="18297ef96dd572703d08678955152603" resname="annonces...">
         <source>annonces...</source>
         <target>annonces...</target>
@@ -267,6 +285,10 @@
       <trans-unit id="d98a07f84921b24ee30f86fd8cd85c3c" resname="from">
         <source>from</source>
         <target>from</target>
+      </trans-unit>
+      <trans-unit id="a65c0b5bb06037ed0b0518ebef8050c4" resname="from you">
+        <source>from you</source>
+        <target>from you</target>
       </trans-unit>
       <trans-unit id="13b5bfe96f3e2fe411c9f66f4a582adf" resname="in">
         <source>in</source>
@@ -292,6 +314,10 @@
         <source>search.keywords</source>
         <target>search.keywords</target>
       </trans-unit>
+      <trans-unit id="6faba6da161d192a092c65b2e7c40a04" resname="search.noresult">
+        <source>search.noresult</source>
+        <target>search.noresult</target>
+      </trans-unit>
       <trans-unit id="bbf9bd5da41826b6e11b8835c9201a3a" resname="search.price_max">
         <source>search.price_max</source>
         <target>search.price_max</target>
@@ -311,6 +337,10 @@
       <trans-unit id="01b6e20344b68835c5ed1ddedf20d531" resname="to">
         <source>to</source>
         <target>to</target>
+      </trans-unit>
+      <trans-unit id="65f070829ea54b8081d5adbe4a1f9c17" resname="viteloge.usersearch.unknown">
+        <source>viteloge.usersearch.unknown</source>
+        <target>viteloge.usersearch.unknown</target>
       </trans-unit>
     </body>
   </file>

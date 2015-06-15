@@ -4,7 +4,7 @@
     <ul class="nav nav-pills nav-justified" role="tablist">
         {% for child in form.children %}
             <li class="{% if child.vars.checked %}active{% endif %}" role="presentation">
-                <a class="text-uppercase" data-theme="theme-{{ child.vars.value }}" data-theme-hover="theme-{{ child.vars.value }}" data-theme-parent="#map-container">
+                <a class="text-uppercase" data-theme="theme-{{ child.vars.value }}" data-theme-hover="theme-{{ child.vars.value }}" data-theme-parent="#{{ theme_container }}">
                     {{ form_widget(child, { attr: { 'class': 'hidden' }, parent_label_class: 'radio-inline' }) }}
                     {{ form_label(child, { label_attr: { 'class': 'radio-inline' } }) }}
                 </a>
@@ -34,21 +34,10 @@
             {% set label = name|humanize %}
         {% endif %}
     {% endif %}
-    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>
+    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}{% if span_class is defined %}aria-label="{{ label|trans({}, translation_domain) }}"{% endif %}>
         {% if span_class is defined %}
-            <span class="{{ span_class }}"></span>
+            <span class="{{ span_class }}" aria-hidden="true">&nbsp;</span>
         {% endif %}
-        {{ label|trans({}, translation_domain) }}
+        <span>{{ label|trans({}, translation_domain) }}</span>
     </button>
 {% endblock button_widget -%}
-
-{% block test %}
-    <input class="" type="text" list="where" placeholder="{% trans %}Where{% endtrans %} ?" autocomplete="off" spellcheck="off" maxlength="100">
-    <datalist id="where">
-        <option value="Paris">Paris</option>
-        <option value="Rennes">Rennes</option>
-        <option value="Laval">Laval</option>
-        <option value="Lorient">Lorient</option>
-        <option value="Macao">Macao</option>
-    </datalist>
-{% endblock %}

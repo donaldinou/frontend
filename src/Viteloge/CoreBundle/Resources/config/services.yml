@@ -15,5 +15,6 @@ services:
             - { name: twig.extension }
     viteloge_core.form.type.adsearch:
         class: %viteloge_core.form.type.adsearch.class%
+        arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type, alias: viteloge_core_adsearch }

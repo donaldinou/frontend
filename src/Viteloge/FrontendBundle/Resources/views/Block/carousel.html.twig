@@ -1,5 +1,5 @@
 {% set hasIndicators = hasIndicators|default(true) %}
-{% set hasControls = hasConstrols|default(true) %}
+{% set hasControls = hasControls|default(true) %}
 <div id="{%- block carousel_id -%}carousel-example-generic{%- endblock carousel_id -%}" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner{% if carouselClass is defined %} {{ carouselClass }}{% endif %}" role="listbox">
         {%- block carousel_slides -%}
@@ -17,11 +17,11 @@
         {%- block carousel_controls -%}
             <a class="left carousel-control" href="#{{ block('carousel_id') }}" role="button" data-slide="prev">
                 <span class="fa fa-chevron-left chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">{% trans %}Previous{% endtrans %}</span>
+                <span class="sr-only">{% trans %}carousel.previous{% endtrans %}</span>
             </a>
             <a class="right carousel-control" href="#{{ block('carousel_id') }}" role="button" data-slide="next">
                 <span class="fa fa-chevron-right chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">{% trans %}Next{% endtrans %}</span>
+                <span class="sr-only">{% trans %}carousel.next{% endtrans %}</span>
             </a>
         {%- endblock carousel_controls -%}
     {%- endif -%}

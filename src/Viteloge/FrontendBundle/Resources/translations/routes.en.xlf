@@ -82,21 +82,13 @@
         <source>viteloge_estimation_default_resultatcontact</source>
         <target>/prix-immobilier/votre-estimation/resultat/{id}</target>
       </trans-unit>
+      <trans-unit id="51d891aad8653712c808e4f6fe4b1504" resname="viteloge_frontend_ad_carousel">
+        <source>viteloge_frontend_ad_carousel</source>
+        <target>/ad/carousel/</target>
+      </trans-unit>
       <trans-unit id="74b85a3c66592173c1c3218aab00d7d2" resname="viteloge_frontend_ad_latest">
         <source>viteloge_frontend_ad_latest</source>
         <target>/ad/latest/{transaction}/{limit}</target>
-      </trans-unit>
-      <trans-unit id="2a305b54bd0b38ac8feb449ec6a3cc85" resname="viteloge_frontend_ad_latest_1">
-        <source>viteloge_frontend_ad_latest_1</source>
-        <target>/ad/latest/</target>
-      </trans-unit>
-      <trans-unit id="fda34731895876bffc3c120b073ea48d" resname="viteloge_frontend_ad_list">
-        <source>viteloge_frontend_ad_list</source>
-        <target>/ad/list/{transaction}/{page}/{limit}</target>
-      </trans-unit>
-      <trans-unit id="f5b565c0e46d7aa4356900d14c38ed11" resname="viteloge_frontend_ad_list_1">
-        <source>viteloge_frontend_ad_list_1</source>
-        <target>/ad/list/</target>
       </trans-unit>
       <trans-unit id="077162a103b9c7484f2d03dae2ce14ab" resname="viteloge_frontend_ad_redirect">
         <source>viteloge_frontend_ad_redirect</source>
@@ -104,11 +96,27 @@
       </trans-unit>
       <trans-unit id="a9d5ddab093d91f2edbba752a1dccdcb" resname="viteloge_frontend_ad_search">
         <source>viteloge_frontend_ad_search</source>
-        <target>/ad/search/{limit}</target>
+        <target>/ad/search/{page}/{limit}</target>
       </trans-unit>
       <trans-unit id="ca446031dcb25e4e6dd0377d1cd2cd45" resname="viteloge_frontend_ad_search_1">
-        <source>viteloge_frontend_ad_search_1</source>
+        <source>viteloge_frontend_ad_search_default</source>
         <target>/ad/search/</target>
+      </trans-unit>
+      <trans-unit id="62499259418ff68c784ef5b41f65fd98" resname="viteloge_frontend_ad_searchfromform">
+        <source>viteloge_frontend_ad_searchfromform</source>
+        <target>/ad/search/from/form/</target>
+      </trans-unit>
+      <trans-unit id="d34c3f96e5f9d3b1589c79fb537c5a93" resname="viteloge_frontend_ad_searchfromusersearch">
+        <source>viteloge_frontend_ad_searchfromusersearch</source>
+        <target>/ad/search/from/usersearch/{id}</target>
+      </trans-unit>
+      <trans-unit id="606673ee5a7a71de23f3888e78a47bcc" resname="viteloge_frontend_ad_suggestnew">
+        <source>viteloge_frontend_ad_suggestnew</source>
+        <target>/ad/suggest/new/{limit}</target>
+      </trans-unit>
+      <trans-unit id="dc118c7a381798e7ff54fe9126c7b538" resname="viteloge_frontend_ad_suggestnew_1">
+        <source>viteloge_frontend_ad_suggestnew_1</source>
+        <target>/ad/suggest/new/</target>
       </trans-unit>
       <trans-unit id="690d7e4c2438d4a965c685b5b62ace9d" resname="viteloge_frontend_glossary_areas">
         <source>viteloge_frontend_glossary_areas</source>
@@ -133,6 +141,14 @@
       <trans-unit id="2b040961a023f28c7fefb837d3af0d19" resname="viteloge_frontend_glossary_showcity">
         <source>viteloge_frontend_glossary_showcity</source>
         <target>/glossary/city/{name}/{id}</target>
+      </trans-unit>
+      <trans-unit id="4afc4b87902bfdf3c4a4770842a3f3ff" resname="viteloge_frontend_glossary_showdepartment">
+        <source>viteloge_frontend_glossary_showdepartment</source>
+        <target>/glossary/department/{name}/{id}</target>
+      </trans-unit>
+      <trans-unit id="95e8ea63a1a4a935757322d6c1d9647b" resname="viteloge_frontend_glossary_showstate">
+        <source>viteloge_frontend_glossary_showstate</source>
+        <target>/glossary/state/{name}/{id}</target>
       </trans-unit>
       <trans-unit id="529a1a748777e4d400f035df65e78526" resname="viteloge_frontend_homepage">
         <source>viteloge_frontend_homepage</source>

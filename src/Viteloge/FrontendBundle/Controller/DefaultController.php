@@ -12,8 +12,8 @@ namespace Viteloge\FrontendBundle\Controller {
     use Symfony\Component\Serializer\Serializer;
     use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
     use Symfony\Component\Serializer\Encoder\JsonEncoder;
-    use Viteloge\CoreBundle\Component\DBAL\EnumTransactionType;
-    use Viteloge\CoreBundle\SearchEntity\Ad;
+    use Viteloge\CoreBundle\Component\Enum\TransactionEnum;
+    use Viteloge\CoreBundle\SearchEntity\Ad as AdSearch;
 
     /**
      * @Route("/")
@@ -55,15 +55,13 @@ namespace Viteloge\FrontendBundle\Controller {
             // Breadcrumb
             // --
 
-            $transactionEnum = EnumTransactionType::getValues();
-
             $repository = $this->getDoctrine()
                 ->getRepository('VitelogeCoreBundle:Ad');
             $count = $repository->countByFiltered();
 
             // Form
-            $entity = new Ad();
-            $entity->setTransaction(array_search($transaction, $transactionEnum));
+            $entity = new AdSearch();
+            $entity->setTransaction($transaction);
             $form = $this->createForm('viteloge_core_adsearch', $entity);
             // --
 

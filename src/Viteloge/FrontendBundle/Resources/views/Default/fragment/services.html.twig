@@ -1,10 +1,8 @@
-{%- block section_services -%}
-    <section class="main-section text-center">
-        <div class="container">
-            <h3 class="text-uppercase">{% trans %}Services offered by Fasthousing{% endtrans %}</h3>
-            <div class="row">
-                {{ render_hinclude(controller('VitelogeFrontendBundle:Service:list', {'default': 'Loading...'})) }}
-            </div>
+<section class="main-section text-center">
+    <div class="container">
+        <h3 class="text-uppercase">{% trans %}Services offered by Fasthousing{% endtrans %}</h3>
+        <div class="row">
+            {{ render_hinclude(controller('VitelogeFrontendBundle:Service:list', {'default': 'Loading...'})) }}
         </div>
-    </section>
-{%- endblock -%}
+    </div>
+</section>

@@ -26,15 +26,19 @@
 
         {% block head_stylesheets %}
             <link rel="stylesheet" href="{{ asset('built/min.css') }}">
-            <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-tagsinput.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/select2.css') }}">
             <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
             <link rel="stylesheet" href="{{ asset('bundles/vitelogecore/css/viteloge-core.css') }}">
         {% endblock head_stylesheets %}
 
         {% block head_javascripts %}
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
             {#<script src="{{ asset('assets/js/require.js') }}"></script>#}
             <script src="{{ asset('assets/js/hinclude.js') }}"></script>
             <script src="{{ asset('assets/js/jquery.js') }}"></script>
+            <script src="{{ asset('assets/js/select2.js') }}"></script>
+            <script src="{{ asset('assets/js/placeholders.js') }}"></script>
 
             <script src="{{ asset('bundles/frontendbundle/js/modernizr.min.js') }}"></script>
             <script src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -62,7 +66,7 @@
            }(document, 'script', 'facebook-jssdk'));
         </script>
     {% endblock %}
-    {%- block body %}
+    {%- block body -%}
         <header class="header" data-role="header">
             {%- block header_start %}
 
@@ -80,37 +84,36 @@
             </div>
         </header>
         <main class="main clearfix" role="main">
-        {%- block flash %}
+        {%- block flash -%}
             {{ include('VitelogeUserBundle:base:flash.html.twig') }}
-        {% endblock flash -%}
-        {%- block body_start %}
+        {%- endblock flash -%}
+        {%- block body_start -%}
 
-        {% endblock body_start -%}
-        {%- block main %}
+        {%- endblock body_start -%}
+        {%- block main -%}
 
-        {% endblock main -%}
-        {%- block body_end %}
+        {%- endblock main -%}
+        {%- block body_end -%}
 
-        {% endblock body_end -%}
+        {%- endblock body_end -%}
         </main>
         <footer data-role="clearfix footer">
-        {%- block footer_start %}
+        {%- block footer_start -%}
 
-        {% endblock -%}
-        {%- block footer %}
+        {%- endblock -%}
+        {%- block footer -%}
             <div class="container text-center">
                 {{ include('VitelogeFrontendBundle:menu:footer.html.twig', {}) }}
                 {{ include('VitelogeFrontendBundle:misc:social.html.twig', {}) }}
                 {{ include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) }}
             </div>
-        {% endblock footer -%}
+        {%- endblock footer -%}
         </footer>
-    {% endblock body -%}
+    {%- endblock body -%}
     {%- block javascripts %}
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="{{ asset('bundles/frontendbundle/js/carousel.bootstrap.js') }}"></script>
         <script src="{{ asset('assets/js/typeahead.js') }}"></script>
-        <script src="{{ asset('assets/js/bootstrap-tagsinput.js') }}"></script>
         <script src="{{ asset('assets/js/background-check.js') }}"></script>
         <script src="{{ asset('bundles/frontendbundle/js/viteloge.jquery.js') }}"></script>
         <script src="{{ asset('bundles/frontendbundle/js/viteloge.js') }}"></script>

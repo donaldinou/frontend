@@ -1,8 +1,15 @@
 {% set page_class = "estimation resultat" %}
 {% extends 'VitelogeEstimationBundle::layout.html.twig' %}
 
-{% block listing_body %}
-  <div class="panel">
-    {{ 'estimation.contact.pris' | trans }}
-  </div>
-{% endblock listing_body %}
+{% block main %}
+    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } %}
+        {% block left %}
+            <div class="panel">
+                {{ 'estimation.contact.pris' | trans }}
+            </div>
+        {% endblock %}
+        {% block right %}
+            {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock main %}

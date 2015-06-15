@@ -12,20 +12,103 @@ fos_elastica:
                 index:
                     analysis:
                         analyzer:
-                            custom_french_analyzer:
+                            custom_lowercase_analyser:
                                 type: custom
-                                tokenizer: letter
-                                filter: ["asciifolding", "lowercase", "french_stem", "stop_fr"]
+                                tokenizer: standard
+                                filter: ["standard", "lowercase"]
+                            custom_search_analyzer:
+                                type: custom
+                                tokenizer: standard
+                                filter: ["asciifolding", "standard", "lowercase"] #"french_stem"
+                            custom_index_analyzer:
+                                type: custom
+                                tokenizer: standard
+                                filter: ["asciifolding", "standard", "lowercase", "custom_filter"]
                         filter:
-                            stop_fr:
-                                type: "stop"
-                                stopwords: ["l", "m", "t", "qu", "n", "s", "j", "d"]
+                            custom_filter:
+                                type: edgeNGram
+                                side: front
+                                min_gram: 1
+                                max_gram: 10
             types:
+                inseeArea:
+                    mappings:
+                        id:
+                            type: string
+                        keywords:
+                            type: string
+                    _parent:
+                        type: "inseeCity"
+                        property: "inseeCity"
+                        identifier: "id"
+                    persistence:
+                        driver: orm
+                        model: Acreat\InseeBundle\Entity\InseeArea
+                        provider:
+                            batch_size: 100
+                        listener:
+                            immediate: ~
+                        finder: ~
+                        elastica_to_model_transformer:
+                            ignore_missing: true
+                inseeCity:
+                    mappings:
+                        uname: ~
+                        name:
+                            type: "string"
+                            boost: 5
+                            search_analyzer: custom_search_analyzer
+                            index_analyzer: custom_index_analyzer
+                        fullname:
+                            boost: 5
+                        postalCode:
+                            type: "string"
+                            boost: 4
+                            index_analyzer: custom_index_analyzer
+                        id:
+                            type: "string"
+                        location:
+                            type : "geo_point"
+                        isCapital:
+                            type: "integer"
+                        population:
+                            type: "integer"
+                        inseeState:
+                            type: "nested"
+                            properties:
+                                state_uname:
+                                    property_path: uname
+                                state_name:
+                                    property_path: name
+                                state_id:
+                                    property_path: id
+                                    type: "string"
+                        inseeDepartment:
+                            type: "nested"
+                            properties:
+                                department_uname:
+                                    property_path: uname
+                                department_name:
+                                    property_path: name
+                                id:
+                                    property_path: id
+                                    type: "string"
+                    persistence:
+                        driver: orm
+                        model: Acreat\InseeBundle\Entity\InseeCity
+                        provider:
+                            batch_size: 100
+                        listener:
+                            immediate: ~
+                        finder: ~
+                        elastica_to_model_transformer:
+                            ignore_missing: true
                 ad:
                     mappings:
                         transaction:
                             type: "string"
                             boost: 5
+                            search_analyzer: custom_lowercase_analyser
                         type:
                             type: "string"
                             boost: 4
@@ -33,7 +116,7 @@ fos_elastica:
                         cityName:
                             type: "string"
                             boost: 3
-                            analyzer: custom_french_analyzer
+                            analyzer: custom_search_analyzer
                         postalCode:
                             type: "string"
                             boost: 2
@@ -43,20 +126,6 @@ fos_elastica:
                         createdAt :
                             type : "date"
                             boost: 1
-                        inseeCity:
-                            type: "object"
-                            properties :
-                                uname : ~
-                                name: ~
-                                id :
-                                    type: "string"
-                                lat:
-                                    type: "integer"
-                                lng:
-                                    type: "integer"
-                                population:
-                                    type: "integer"
-                            boost: 4
                         rooms:
                             type: "integer"
                             boost: 2
@@ -66,15 +135,21 @@ fos_elastica:
                         description:
                             type: "string"
                             boost: 1
+                            search_analyzer: custom_search_analyzer
                         descriptionMku:
                             type: "string"
                             boost: 1
+                            search_analyzer: custom_search_analyzer
                         privilegeRank:
                             type: "integer"
                             boost: 9
                         order:
                             type: "float"
                             boost: 8
+                    _parent:
+                        type: "inseeCity"
+                        property: "inseeCity"
+                        identifier: "id"
                     persistence:
                         driver: orm
                         model: Viteloge\CoreBundle\Entity\Ad

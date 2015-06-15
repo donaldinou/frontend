@@ -2,7 +2,7 @@
 
 namespace Viteloge\FrontendBundle\Twig {
 
-    use Viteloge\CoreBundle\Component\DBAL\EnumTransactionType;
+    use Viteloge\CoreBundle\Component\Enum\TransactionEnum;
 
     class VitelogeFrontendExtension extends \Twig_Extension {
 
@@ -39,18 +39,18 @@ namespace Viteloge\FrontendBundle\Twig {
          *
          */
         public function vlTheme() {
-            $transaction = $this->request->get('transaction');
+            $transaction = strtoupper($this->request->get('transaction'));
             switch ($transaction) {
-                case EnumTransactionType::SALE_VALUE:
-                    $theme = EnumTransactionType::SALE_LABEL;
+                case TransactionEnum::SALE:
+                    $theme = 'sale';
                     break;
 
-                case EnumTransactionType::NEWER_VALUE;
-                    $theme = EnumTransactionType::NEWER_LABEL;
+                case TransactionEnum::NEWER;
+                    $theme = 'new';
                     break;
 
-                case EnumTransactionType::RENT_VALUE:
-                    $theme = EnumTransactionType::RENT_LABEL;
+                case TransactionEnum::RENT:
+                    $theme = 'rent';
                     break;
 
                 default:

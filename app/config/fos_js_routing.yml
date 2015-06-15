@@ -1,0 +1,2 @@
+fos_js_routing:
+    routes_to_expose: [ acreat_insee_area_show, viteloge_frontend_ad_carousel ]

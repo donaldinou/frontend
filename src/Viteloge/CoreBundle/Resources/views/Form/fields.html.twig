@@ -1,36 +1,36 @@
 {% extends 'bootstrap_3_horizontal_layout.html.twig' %}
 
-{% block form_debug %}
+{%- block form_debug -%}
     <ol>
         {% for key, value in _context %}
         <li>{{ key }}</li>
         {% endfor %}
     </ol>
-{% endblock %}
+{%- endblock -%}
 
-{% block form_widget_success -%}
-    <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+{%- block form_widget_success -%}
+    <span class="fa fa-check-circle form-control-feedback" aria-hidden="true"></span>
     <span class="sr-only">(error)</span>
-{%- endblock %}
+{%- endblock -%}
 
-{% block form_widget_warning -%}
-    <span class="glyphicon glyphicon-warning form-control-feedback" aria-hidden="true"></span>
+{%- block form_widget_warning -%}
+    <span class="fa fa-warning form-control-feedback" aria-hidden="true"></span>
     <span class="sr-only">(error)</span>
-{%- endblock %}
+{%- endblock -%}
 
-{% block form_widget_error -%}
-    <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+{%- block form_widget_error -%}
+    <span class="fa fa-exclamation-circle form-control-feedback" aria-hidden="true"></span>
     <span class="sr-only">(error)</span>
-{%- endblock %}
+{%- endblock -%}
 
-{% block form_widget_simple -%}
+{%- block form_widget_simple -%}
     {{- parent() -}}
     {% if (not compound or force_error|default(false)) and not valid %}
         {{- block('form_widget_error') -}}
     {% endif %}
-{%- endblock form_widget_simple %}
+{%- endblock form_widget_simple -%}
 
-{% block form_row -%}
+{%- block form_row -%}
     <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error has-feedback{% endif %}">
         {{- form_label(form) -}}
         <div class="{{ block('form_group_class') }}">
@@ -38,16 +38,18 @@
             {{- form_errors(form) -}}
         </div>
     </div>
-{%- endblock form_row %}
+{%- endblock form_row -%}
 
-{# Errors #}
-{% block form_errors -%}
+{%- block form_errors -%}
     {%- if errors|length > 0 -%}
         {%- if form.parent -%}
             <span class="help-block">
                 <ul class="list-unstyled">
                     {%- for error in errors -%}
-                        <li><span class="glyphicon glyphicon-exclamation-sign"></span>&nbsp;{{ error.message }}</li>
+                        {% if error.cause.constraint.payload.severity is defined %}
+                            {% set severity = error.cause.constraint.payload.severity %}
+                        {% endif %}
+                        <li><span class="fa fa-exclamation-circle"></span>&nbsp;{{ error.message }}</li>
                     {%- endfor -%}
                 </ul>
             </span>
@@ -59,4 +61,4 @@
             {%- endembed -%}
         {%- endif -%}
     {%- endif -%}
-{%- endblock %}
+{%- endblock -%}

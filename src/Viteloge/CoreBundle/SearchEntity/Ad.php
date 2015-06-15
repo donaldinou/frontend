@@ -3,6 +3,7 @@
 namespace Viteloge\CoreBundle\SearchEntity {
 
     use Symfony\Component\HttpFoundation\Request;
+    use GeoIp2\Database\Reader;
 
     /**
      *
@@ -18,6 +19,21 @@ namespace Viteloge\CoreBundle\SearchEntity {
          *
          */
         protected $where;
+
+        /**
+         *
+         */
+        protected $whereArea;
+
+        /**
+         *
+         */
+        protected $whereDepartment;
+
+        /**
+         *
+         */
+        protected $whereState;
 
         /**
          *
@@ -52,7 +68,7 @@ namespace Viteloge\CoreBundle\SearchEntity {
         /**
          *
          */
-        protected $sort;
+        protected $location;
 
         /**
          *
@@ -67,13 +83,18 @@ namespace Viteloge\CoreBundle\SearchEntity {
         /**
          *
          */
+        protected $sort;
+
+        /**
+         *
+         */
         protected $direction;
 
         /**
          *
          */
         public function __construct() {
-
+            $this->setDirection('desc');
         }
 
         /**
@@ -89,6 +110,28 @@ namespace Viteloge\CoreBundle\SearchEntity {
                     $this->{'set'.ucfirst($key)}($value);
                 }
             }
+            $this->geoLocalize($request);
+        }
+
+        /**
+         *
+         */
+        protected function geoLocalize(Request $request) {
+            $adRadius = $this->getRadius();
+            $adLocation = $this->getLocation();
+            if (empty($adLocation) && !empty($adRadius)) {
+                $reader = new Reader('/usr/local/share/GeoIP/GeoLite2-City.mmdb', array($request->getLocale()));
+                try {
+                    $ip = $request->getClientIp();
+                    $record = $reader->city($ip);
+                    $lat = $record->location->latitude;
+                    $lng = $record->location->longitude;
+                } catch (\Exception $e) { // \GeoIp2\Exception\AddressNotFoundException
+                    $lat = 48.86;
+                    $lng = 2.35;
+                }
+                $this->setLocation($lat.','.$lng);
+            }
         }
 
         /**
@@ -102,7 +145,7 @@ namespace Viteloge\CoreBundle\SearchEntity {
          *
          */
         public function setTransaction($value) {
-            $this->transaction = $value;
+            $this->transaction = strtoupper($value);
             return $this;
         }
 
@@ -117,10 +160,77 @@ namespace Viteloge\CoreBundle\SearchEntity {
          *
          */
         public function setWhere($value) {
-            if (!is_array($value)) {
-                $value = explode(',', $value);
+            if (!empty($value)) {
+                if (!is_array($value)) {
+                    $value = explode(',', $value);
+                }
+                foreach ($value as $key => $entity) {
+                    if (is_object($entity)) {
+                        $value[$key] = $entity->getId();
+                    }
+                }
+                $this->where = $value;
             }
-            $this->where = $value;
+            return $this;
+        }
+
+        /**
+         *
+         */
+        public function getWhereArea() {
+            return $this->whereArea;
+        }
+
+        /**
+         *
+         */
+        public function setWhereArea($value) {
+            if (!empty($value)) {
+                if (!is_array($value)) {
+                    $value = explode(',', $value);
+                }
+                $this->whereArea = $value;
+            }
+            return $this;
+        }
+
+        /**
+         *
+         */
+        public function getWhereDepartment() {
+            return $this->whereDepartment;
+        }
+
+        /**
+         *
+         */
+        public function setWhereDepartment($value) {
+            if (!empty($value)) {
+                if (!is_array($value)) {
+                    $value = explode(',', $value);
+                }
+                $this->whereDepartment = $value;
+            }
+            return $this;
+        }
+
+        /**
+         *
+         */
+        public function getWhereState() {
+            return $this->whereState;
+        }
+
+        /**
+         *
+         */
+        public function setWhereState($value) {
+            if (!empty($value)) {
+                if (!is_array($value)) {
+                    $value = explode(',', $value);
+                }
+                $this->whereState = $value;
+            }
             return $this;
         }
 
@@ -135,10 +245,17 @@ namespace Viteloge\CoreBundle\SearchEntity {
          *
          */
         public function setWhat($value) {
-            if (!is_array($value)) {
-                $value = explode(',', $value);
+            if (!empty($value)) {
+                if (!is_array($value)) {
+                    $value = explode(',', $value);
+                }
+                $this->what = array_map(
+                    function($str){
+                        return /*strtolower(*/trim($str)/*)*/;
+                    },
+                    $value
+                );
             }
-            $this->what = $value;
             return $this;
         }
 
@@ -153,10 +270,12 @@ namespace Viteloge\CoreBundle\SearchEntity {
          *
          */
         public function setRooms($value) {
-            if (!is_array($value)) {
-                $value = explode(',', $value);
+            if (!empty($value)) {
+                if (!is_array($value)) {
+                    $value = explode(',', $value);
+                }
+                $this->rooms = $value;
             }
-            $this->rooms = $value;
             return $this;
         }
 
@@ -171,7 +290,9 @@ namespace Viteloge\CoreBundle\SearchEntity {
          *
          */
         public function setMinPrice($value) {
-            $this->minPrice = $value;
+            if (!empty($value)) {
+                $this->minPrice = $value;
+            }
             return $this;
         }
 
@@ -186,7 +307,9 @@ namespace Viteloge\CoreBundle\SearchEntity {
          *
          */
         public function setMaxPrice($value) {
-            $this->maxPrice = $value;
+            if (!empty($value)) {
+                $this->maxPrice = $value;
+            }
             return $this;
         }
 
@@ -201,7 +324,9 @@ namespace Viteloge\CoreBundle\SearchEntity {
          *
          */
         public function setKeywords($value) {
-            $this->keywords = $value;
+            if (!empty($keyword)) {
+                $this->keywords = $value;
+            }
             return $this;
         }
 
@@ -216,7 +341,26 @@ namespace Viteloge\CoreBundle\SearchEntity {
          *
          */
         public function setRadius($value) {
-            $this->radius = $value;
+            if (!empty($value)) {
+                $this->radius = $value;
+            }
+            return $this;
+        }
+
+        /**
+         *
+         */
+        public function getLocation() {
+            return $this->location;
+        }
+
+        /**
+         *
+         */
+        public function setLocation($value) {
+            if (!empty($value)) {
+                $this->location = $value;
+            }
             return $this;
         }
 
@@ -246,7 +390,8 @@ namespace Viteloge\CoreBundle\SearchEntity {
          *
          */
         public function setDirection($value) {
-            $this->direction = $value;
+            $this->direction = strtolower($value);
+            return $this;
         }
 
     }

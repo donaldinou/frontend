@@ -1,5 +1,148 @@
-{{ form_start(form, {'attr': {'enctype': 'application/x-www-form-urlencoded','class': 'search', 'role': 'search', 'novalidate': 'novalidate'}}) }}
-    {# form_row(form.userSearch.rooms, { attr: { 'data-role': 'tagsinput' }}) #}
+{% form_theme form with ['VitelogeFrontendBundle:Form:fields.html.twig'] %}
+
+{{ form_start(form, {'attr': {'enctype': 'application/x-www-form-urlencoded','class': 'form', 'role': 'form', 'novalidate': 'novalidate'}}) }}
+    {%- block form_errors -%}
+        {{ form_errors(form) }}
+    {%- endblock form_errors -%}
+    {%- block form_fields -%}
+        <div class="hidden">
+            {{ form_row(form._token) }}
+        </div>
+        {{ form_row(form.title, {
+            'attr': {
+                'class': '',
+                'placeholder': 'websearch.title',
+                'data-placeholder' : 'websearch.title'|trans(),
+                'autocomplete': 'off',
+                'spellcheck': 'on',
+                'maxlength': 100
+            }
+        }) }}
+        {{ form_row(form.userSearch.inseeCity, {
+            'attr': {
+                'class': 'select-tag-input',
+                'placeholder': 'usersearch.inseeCity',
+                'data-placeholder' : 'usersearch.inseeCity'|trans(),
+                'data-allow-clear' : 'true',
+                'data-ajax--url' : path('viteloge_suggest_cities'),
+                'data-ajax--cache' : 'true',
+                'data-ajax--data-type' : 'json',
+                'autocomplete': 'off',
+                'spellcheck': 'off',
+                'maxlength': 100
+            }
+        }) }}
+        {{ form_row(form.userSearch.radius, {
+            'attr': {
+                'class': 'select-tag-input',
+                'placeholder': 'usersearch.radius',
+                'data-placeholder' : 'usersearch.radius'|trans(),
+                'data-allow-clear' : 'false',
+                'autocomplete': 'off',
+                'spellcheck': 'off',
+                'maxlength': 100
+            }
+        }) }}
+        {{ form_row(form.userSearch.transaction, {
+            'attr': {
+                'class': '',
+                'placeholder': 'usersearch.transaction',
+                'data-placeholder' : 'usersearch.transaction'|trans(),
+                'autocomplete': 'off',
+                'spellcheck': 'off',
+                'maxlength': 100
+            }
+        }) }}
+        {{ form_row(form.userSearch.type, {
+            'attr': {
+                'class': 'select-tag-input',
+                'placeholder': 'usersearch.type',
+                'data-placeholder' : 'usersearch.type'|trans(),
+                'data-allow-clear' : 'true',
+                'autocomplete': 'off',
+                'spellcheck': 'off',
+                'maxlength': 100
+            }
+        }) }}
+        {{ form_row(form.userSearch.rooms, {
+            'attr': {
+                'class': 'select-tag-input',
+                'placeholder': 'usersearch.rooms',
+                'data-placeholder' : 'usersearch.rooms'|trans(),
+                'data-allow-clear' : 'true',
+                'autocomplete': 'off',
+                'spellcheck': 'off',
+                'maxlength': 100
+            }
+        }) }}
+        {{ form_row(form.userSearch.budgetMin, {
+            'attr': {
+                'class': '',
+                'placeholder': 'usersearch.budgetMin',
+                'data-placeholder' : 'usersearch.budgetMin'|trans(),
+                'autocomplete': 'off',
+                'spellcheck': 'off',
+                'maxlength': 100
+            }
+        }) }}
+        {{ form_row(form.userSearch.budgetMax, {
+            'attr': {
+                'class': '',
+                'placeholder': 'usersearch.budgetMax',
+                'data-placeholder' : 'usersearch.budgetMax'|trans(),
+                'autocomplete': 'off',
+                'spellcheck': 'off',
+                'maxlength': 100
+            }
+        }) }}
+        {{ form_row(form.userSearch.keywords, {
+            'attr': {
+                'class': '',
+                'placeholder': 'usersearch.keywords',
+                'data-placeholder' : 'usersearch.keywords'|trans(),
+                'autocomplete': 'off',
+                'spellcheck': 'on',
+                'maxlength': 100
+            }
+        }) }}
+        {{ form_row(form.userSearch.helpEnabled, {
+            'attr': {
+                'class': '',
+                'placeholder': 'usersearch.helpEnabled',
+                'data-placeholder' : 'usersearch.helpEnabled'|trans(),
+                'autocomplete': 'off',
+                'spellcheck': 'off'
+            }
+        }) }}
+        {{ form_row(form.userSearch.mailEnabled, {
+            'attr': {
+                'class': '',
+                'placeholder': 'usersearch.mailEnabled',
+                'data-placeholder' : 'usersearch.mailEnabled'|trans(),
+                'autocomplete': 'off',
+                'spellcheck': 'off'
+            }
+        }) }}
+    {%- endblock form_fields -%}
+    {%- block form_button -%}
+        {%- embed 'VitelogeCoreBundle:Form:submit.html.twig' -%}
+            {%- block form_button_back -%}
+                <a href="{{ path('viteloge_frontend_websearch_list') }}" class="btn btn-default btn-block" role="button" aria-label="{% trans %}usersearch.back{% endtrans %}">
+                    <span class="fa fa-undo" aria-hidden="true">&nbsp;</span>
+                    <span>{% trans %}usersearch.back{% endtrans %}</span>
+                </a>
+            {%- endblock -%}
+            {%- block form_button_submit -%}
+                {{ form_widget(form.userSearch.save, {
+                    'label': 'usersearch.save',
+                    'span_class': 'fa fa-save',
+                    'attr': {
+                        'class': 'btn btn-primary btn-block text-uppercase',
+                        'role': 'button'
+                    }
+                }) }}
+            {%- endblock -%}
+        {%- endembed -%}
+    {%- endblock form_button -%}
     {{ form_row(form) }}
-    <!--<input data-role="tagsinput">-->
 {{ form_end(form) }}

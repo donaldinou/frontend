@@ -6,9 +6,7 @@
             {{ include('FOSUserBundle:Resetting:fragment/reset_form.html.twig') }}
         {% endblock %}
         {% block right %}
-            <aside>
-                publicité
-            </aside>
+            {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
         {% endblock %}
     {% endembed %}
 {% endblock main %}

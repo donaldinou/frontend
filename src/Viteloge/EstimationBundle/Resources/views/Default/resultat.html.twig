@@ -5,58 +5,60 @@
   {% form_theme form 'VitelogeEstimationBundle:Default:form.html.twig' %}
 {% endif %}
 
-{% block listing_body %}
-
-  <div class="result{% if form %} ask_more{% endif %}">
-    <h2 class="computed">{{ 'estimation.result.title' | trans }}</h2>
-
-    {% if computed_estimation %}
-      <p>{{ 'estimation.result.range' | trans(computed_estimation) | raw }}</p>
-    {% else %}
-      <p>{{ 'estimation.result.failed' | trans }}</p>
-    {% endif %}
-  </div>
-
-  {% if form %}
-    {{ form_start(form) }}
-    <fieldset class="nolegend">
-      <div class="text-center">
-        {{ form_label(form.demande_agence) }}
-      </div>
-      <div class="text-center">
-        {{ form_widget(form.demande_agence) }}
-      </div>
-    </fieldset>
-    <div class="contact_wrapper">
-      <fieldset class="dark nolegend contact">
-        <div class="row">
-          <div class="large-6 columns">
-            <h3>{{ 'estimation.result.demande_call' | trans }}</h3>
-            <p></p>
-            {{ form_row(form.nom) }}
-            {{ form_row(form.prenom) }}
-            {{ form_row(form.tel) }}
-            <div class="field">
-              <div class="label_wrapper">&nbsp;</div>
-              <div class="input_wrapper"><span class="required_explain">{{ 'required_field' | trans }}</span></div>
+{% block main %}
+    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
+        {% block left %}
+            <div class="result{% if form %} ask_more{% endif %}">
+                <h2 class="computed">{{ 'estimation.result.title' | trans }}</h2>
+                {% if computed_estimation %}
+                    <p>{{ 'estimation.result.range' | trans(computed_estimation) | raw }}</p>
+                {% else %}
+                    <p>{{ 'estimation.result.failed' | trans }}</p>
+                {% endif %}
             </div>
-            <div class="field">
-              <div class="label_wrapper">&nbsp;</div>
-              <div class="input_wrapper">{{ form_row(form.save,{attr:{class:"widen submit"} } ) }}</div>
-            </div>
-          </div>
-          <div class="large-6 columns">
-            <!-- to be decorated -->
-          </div>
-        </div>
-        <div class="banner"></div>
-      </fieldset>
-    </div>
-    {{ form_end(form) }}
-  {% endif %}
-    
-  {#% if DEVELOPMENT_MODE %}
-    <pre>{{ dump(debug_result) }}</pre>
-  {% endif %#}
-
-{% endblock listing_body %}
+            {% if form %}
+                {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    <fieldset class="nolegend">
+                        <div class="text-center">
+                            {{ form_label(form.demande_agence) }}
+                        </div>
+                        <div class="text-center">
+                            {{ form_widget(form.demande_agence) }}
+                        </div>
+                    </fieldset>
+                    <div class="contact_wrapper">
+                        <fieldset class="dark nolegend contact">
+                            <div class="row">
+                                <div class="large-6 columns">
+                                    <h3>{{ 'estimation.result.demande_call' | trans }}</h3>
+                                    <p></p>
+                                    {{ form_row(form.nom) }}
+                                    {{ form_row(form.prenom) }}
+                                    {{ form_row(form.tel) }}
+                                    <div class="field">
+                                        <div class="label_wrapper">&nbsp;</div>
+                                        <div class="input_wrapper">
+                                            <span class="required_explain">{{ 'required_field' | trans }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <div class="label_wrapper">&nbsp;</div>
+                                        <div class="input_wrapper">{{ form_row(form.save,{attr:{class:"widen submit"} } ) }}</div>
+                                    </div>
+                                </div>
+                                <div class="large-6 columns">
+                                        <!-- to be decorated -->
+                                </div>
+                            </div>
+                            <div class="banner"></div>
+                        </fieldset>
+                    </div>
+                {{ form_end(form) }}
+            {% endif %}
+        {% endblock %}
+        {% block right %}
+            {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock main %}

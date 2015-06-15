@@ -1,0 +1,18 @@
+{% extends 'VitelogeFrontendBundle::base.html.twig' %}
+
+{% block main %}
+    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
+        {% block left %}
+            {{ include('VitelogeFrontendBundle:WebSearch:form/delete.html.twig', { form: form_websearch_delete }) }}
+            {{ include('VitelogeFrontendBundle:UserSearch:form/delete.html.twig', { form: form_usersearch_delete }) }}
+        {% endblock %}
+        {% block right %}
+            <aside>
+                <div class="">
+                    {{ include('VitelogeFrontendBundle:menu:user.html.twig', { }) }}
+                </div>
+            </aside>
+            {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock main %}

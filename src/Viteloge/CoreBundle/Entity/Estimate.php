@@ -88,7 +88,13 @@ namespace Viteloge\CoreBundle\Entity {
          */
         private $inseeCity;
 
-
+        /**
+         * Constructor
+         * @return void
+         */
+        public function __construct() {
+            $this->createdAt = new \DateTime('now');
+        }
 
         /**
          * Set data

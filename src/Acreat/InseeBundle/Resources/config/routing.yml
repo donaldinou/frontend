@@ -1,1 +1,3 @@
-
+acreat_insee_area:
+    resource: "@AcreatInseeBundle/Controller/AreaController.php"
+    type: annotation

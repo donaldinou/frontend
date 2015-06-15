@@ -1,15 +1,20 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-{{ form_start(form, {'attr': {'enctype': 'application/x-www-form-urlencoded','class': 'register form-horizontal', 'role': 'form', 'novalidate': 'novalidate'}}) }}
+{{ form_start(form, {'action': path('fos_user_registration_register'), 'attr': { 'id': 'fos_user_registration_form', 'enctype': 'application/x-www-form-urlencoded','class': 'register form-horizontal', 'role': 'form', 'novalidate': 'novalidate'}}) }}
     {{ form_errors(form) }}
-    <div class="hidden">
-        {{ form_row(form._token) }}
-    </div>
-    {{ form_row(form.email) }}
-    {{ form_row(form.plainPassword.first) }}
-    {{ form_row(form.plainPassword.second) }}
+    {%- block form_fields -%}
+        <div class="hidden">
+            {{ form_row(form._token) }}
+        </div>
+        {{ form_row(form.email) }}
+        {{ form_row(form.plainPassword.first) }}
+        {{ form_row(form.plainPassword.second) }}
+    {%- endblock -%}
+    {%- block form_submit -%}
     {{ include('VitelogeCoreBundle:Form:submit.html.twig', {
         back_uri: path('fos_user_security_login'),
+        submit_uri: true,
         submit_label: 'registration.submit'|trans()
     }) }}
+    {%- endblock form_submit -%}
 {{ form_end(form, {'render_rest': false}) }}

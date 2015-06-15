@@ -13,7 +13,7 @@ namespace Viteloge\CoreBundle\Component\Request\ParamConverter {
         }
 
         public function supports(ParamConverter $configuration) {
-            return
+            //return
         }
 
     }

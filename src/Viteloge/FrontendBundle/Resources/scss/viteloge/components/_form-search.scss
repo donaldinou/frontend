@@ -1,6 +1,7 @@
 form.search {
     background-color: transparent;
     margin-bottom: 10px;
+    color: $text-color;
     a {
         text-decoration: underline;
         > label {
@@ -22,6 +23,13 @@ form.search {
     input, select, .btn {
         height: 44px;
         border: none;
+    }
+    .select2-container {
+        .select2-search--inline {
+            .select2-search__field {
+                height: 36px;
+            }
+        }
     }
     .nav {
         &.nav-justified {

@@ -18,18 +18,25 @@ security:
     firewalls:
         main:
             pattern: ^/
+            stateless: true
             form_login:
-                check_path: /user/login_check
-                login_path: /user/login
+                check_path: fos_user_security_check
+                login_path: fos_user_security_login
                 use_forward: false
                 always_use_default_target_path: false
-                default_target_path: /user/
+                default_target_path: viteloge_frontend_user_index
                 use_referer: true
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
             logout:
-                path: /user/logout
-            anonymous:    true
+                path: fos_user_security_logout
+            remember_me:
+                key: %secret%
+                lifetime: 604800
+                path: /
+                domain: %domain%
+                secure: false
+            anonymous: true
 
     access_control:
          #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

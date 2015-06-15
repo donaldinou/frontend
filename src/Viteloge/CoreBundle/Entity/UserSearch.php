@@ -4,12 +4,27 @@ namespace Viteloge\CoreBundle\Entity {
 
     use Doctrine\ORM\Mapping as ORM;
     use Symfony\Component\Validator\Constraints as Assert;
+    use Gedmo\Mapping\Annotation as Gedmo;
 
     /**
      * Search
      *
-     * @ORM\Table(name="utilisateur", indexes={@ORM\Index(name="isHelp", columns={"help"}), @ORM\Index(name="isPartner", columns={"partenaires"}), @ORM\Index(name="mail", columns={"mail", "dateResiliation"})})
+     * @ORM\Table(name="utilisateur", indexes={
+     *      @ORM\Index(
+     *          name="isHelp",
+     *          columns={"help"}
+     *      ),
+     *      @ORM\Index(
+     *          name="isPartner",
+     *          columns={"partenaires"}
+     *      ),
+     *      @ORM\Index(
+     *          name="mail",
+     *          columns={"mail", "dateResiliation"}
+     *      )
+     * })
      * @ORM\Entity(repositoryClass="Viteloge\CoreBundle\Repository\UserSearchRepository")
+     * Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
      */
     class UserSearch
     {
@@ -17,6 +32,10 @@ namespace Viteloge\CoreBundle\Entity {
          * @var string
          *
          * @ORM\Column(name="civilite", type="string", length=50, nullable=false)
+         * @Assert\Choice(
+         *      callback = {"Viteloge\CoreBundle\Component\Enum\CivilityEnum", "getValues"},
+         *      multiple = false,
+         * )
          */
         private $civility;
 
@@ -24,6 +43,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @var string
          *
          * @ORM\Column(name="nom", type="string", length=50, nullable=false)
+         * @Assert\Length(
+         *      max = 50
+         * )
          */
         private $lastname;
 
@@ -31,6 +53,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @var string
          *
          * @ORM\Column(name="prenom", type="string", length=50, nullable=false)
+         * @Assert\Length(
+         *      max = 50
+         * )
          */
         private $firstname;
 
@@ -38,6 +63,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @var string
          *
          * @ORM\Column(name="codepostal", type="string", length=5, nullable=false)
+         * @Assert\Length(
+         *      max = 5
+         * )
          */
         private $postalcode;
 
@@ -45,20 +73,40 @@ namespace Viteloge\CoreBundle\Entity {
          * @var string
          *
          * @ORM\Column(name="mail", type="string", length=100, nullable=false)
+         * @Assert\Email(
+         *     checkMX = true,
+         *     checkHost = true
+         * )
+         * @Assert\Length(
+         *      max = 100
+         * )
          */
         private $mail;
+
+        /**
+         * @var boolean
+         */
+        private $mailEnabled;
 
         /**
          * @var enumtransaction
          *
          * @ORM\Column(name="transaction", type="enumtransaction", nullable=false)
+         * @Assert\Choice(
+         *      callback = {"Viteloge\CoreBundle\Component\Enum\TransactionEnum", "getValues"},
+         *      multiple = false
+         * )
          */
         private $transaction;
 
         /**
          * @var string
          *
-         * @ORM\Column(name="type", type="string", length=50, nullable=false)
+         * @ORM\Column(name="type", type="stringy_simple_array", length=50, nullable=false)
+         * @Assert\Choice(
+         *      callback = {"Viteloge\CoreBundle\Component\Enum\TypeEnum", "getValues"},
+         *      multiple = true
+         * )
          */
         private $type;
 
@@ -66,6 +114,10 @@ namespace Viteloge\CoreBundle\Entity {
          * @var string
          *
          * @ORM\Column(name="pieces", type="stringy_simple_array", length=50, nullable=false)
+         * @Assert\Choice(
+         *      callback = {"Viteloge\CoreBundle\Component\Enum\RoomEnum", "getValues"},
+         *      multiple = true
+         * )
          */
         private $rooms;
 
@@ -80,6 +132,10 @@ namespace Viteloge\CoreBundle\Entity {
          * @var integer
          *
          * @ORM\Column(name="rayon", type="smallint", nullable=false)
+         * @Assert\Choice(
+         *      callback = {"Viteloge\CoreBundle\Component\Enum\DistanceEnum", "getValues"},
+         *      multiple = false,
+         * )
          */
         private $radius;
 
@@ -87,6 +143,13 @@ namespace Viteloge\CoreBundle\Entity {
          * @var float
          *
          * @ORM\Column(name="budget_min", type="float", precision=10, scale=0, nullable=false)
+         * @Assert\GreaterThanOrEqual(
+         *     value = 0
+         * )
+         * @Assert\Expression(
+         *     "value === null or this.getBudgetMax() == null or value <= this.getBudgetMax()",
+         *     message="The minimum budget has to be lower than the maximum budget"
+         * )
          */
         private $budgetMin;
 
@@ -94,6 +157,13 @@ namespace Viteloge\CoreBundle\Entity {
          * @var float
          *
          * @ORM\Column(name="budget_max", type="float", precision=10, scale=0, nullable=false)
+         * @Assert\GreaterThanOrEqual(
+         *     value = 0
+         * )
+         * @Assert\Expression(
+         *     "value === null or this.getBudgetMin() == null or value >= this.getBudgetMin()",
+         *     message="The maximum budget has to be greater than the minimum budget"
+         * )
          */
         private $budgetMax;
 
@@ -101,6 +171,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @var string
          *
          * @ORM\Column(name="keywords", type="string", length=255, nullable=false)
+         * @Assert\Length(
+         *      max = 255
+         * )
          */
         private $keywords;
 
@@ -122,6 +195,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @var \DateTime
          *
          * @ORM\Column(name="dateInscription", type="datetime", nullable=false)
+         * @Assert\DateTime()
          */
         private $createdAt;
 
@@ -129,6 +203,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @var \DateTime
          *
          * @ORM\Column(name="dateResiliation", type="datetime", nullable=true)
+         * @Assert\DateTime()
          */
         private $deletedAt;
 
@@ -151,10 +226,12 @@ namespace Viteloge\CoreBundle\Entity {
         /**
          * @var \Acreat\InseeBundle\Entity\InseeCity
          *
-         * @ORM\ManyToOne(targetEntity="Acreat\InseeBundle\Entity\InseeCity")
+         * @ORM\ManyToOne(targetEntity="Acreat\InseeBundle\Entity\InseeCity", fetch="EAGER")
          * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="insee", referencedColumnName="codeInsee")
+         *      @ORM\JoinColumn(name="insee", referencedColumnName="codeInsee")
          * })
+         * @Assert\Type(type="Acreat\InseeBundle\Entity\InseeCity")
+         * @Assert\Valid()
          */
         private $inseeCity;
 
@@ -162,7 +239,15 @@ namespace Viteloge\CoreBundle\Entity {
          * Constructor
          */
         public function __construct() {
-
+            $this->createdAt = new \DateTime('now');
+            $this->disctrictId = 0;
+            $this->radius = 0;
+            $this->budgetMin = 0;
+            $this->budgetMax = 0;
+            $this->postalcode = '';
+            $this->keywords = '';
+            $this->helpEnabled = false;
+            $this->partnerContactEnabled = false;
         }
 
         /**
@@ -378,8 +463,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @param integer $radius
          * @return Search
          */
-        public function setRadius($radius)
-        {
+        public function setRadius($radius) {
             $this->radius = $radius;
 
             return $this;
@@ -401,8 +485,10 @@ namespace Viteloge\CoreBundle\Entity {
          * @param float $budgetMin
          * @return Search
          */
-        public function setBudgetMin($budgetMin)
-        {
+        public function setBudgetMin($budgetMin) {
+            if (!is_numeric($budgetMin)) {
+                $budgetMin = 0;
+            }
             $this->budgetMin = $budgetMin;
 
             return $this;
@@ -424,8 +510,10 @@ namespace Viteloge\CoreBundle\Entity {
          * @param float $budgetMax
          * @return Search
          */
-        public function setBudgetMax($budgetMax)
-        {
+        public function setBudgetMax($budgetMax) {
+            if (!is_numeric($budgetMax)) {
+                $budgetMax = 0;
+            }
             $this->budgetMax = $budgetMax;
 
             return $this;
@@ -447,8 +535,10 @@ namespace Viteloge\CoreBundle\Entity {
          * @param string $keywords
          * @return Search
          */
-        public function setKeywords($keywords)
-        {
+        public function setKeywords($keywords){
+            if ($keywords === null) {
+                $keywords = '';
+            }
             $this->keywords = $keywords;
 
             return $this;
@@ -505,7 +595,7 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return boolean
          */
-        public function getPartnerContactEnabled()
+        public function isPartnerContactEnabled()
         {
             return $this->partnerContactEnabled;
         }
@@ -554,6 +644,27 @@ namespace Viteloge\CoreBundle\Entity {
         public function getDeletedAt()
         {
             return $this->deletedAt;
+        }
+
+
+        /**
+         *
+         */
+        public function setMailEnabled($value) {
+            $this->mailEnabled = (boolean)$value;
+            return $this;
+        }
+
+        /**
+         * return true if sending mail is enabled
+         * @return boolean
+         */
+        public function isMailEnabled() {
+            if ($this->mailEnabled === null) {
+                $deletedAt = $this->getDeletedAt();
+                $this->mailEnabled = empty($deletedAt);
+            }
+            return $this->mailEnabled;
         }
 
         /**

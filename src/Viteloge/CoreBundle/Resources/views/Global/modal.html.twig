@@ -1,0 +1,27 @@
+{% set animation = animation|default('fade') %}
+<div class="modal {{ animation }}" role="dialog" id="{{ id }}" tabindex="-1"{% if labelledBy is defined %} aria-labelledby="{{ labelledBy }}"{% endif %}{% if describedBy is defined %} aria-describedby="{{ describedBy }}"{% endif %} aria-hidden="true">
+      <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    {%- block modal_header -%}
+                        {%- block modal_closebutton -%}
+                            <button type="button" class="close" data-dismiss="modal" aria-label="{% trans %}viteloge.close{% endtrans %}">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        {%- endblock modal_closebutton -%}
+                        <h4 class="modal-title">{%- block modal_title -%}{%- endblock modal_title -%}</h4>
+                    {%- endblock modal_header -%}
+                </div>
+                <div class="modal-body">
+                    {%- block modal_content -%}
+
+                    {%- endblock modal_content -%}
+                </div>
+                <div class="modal-footer">
+                    {%- block modal_footer -%}
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{%- trans -%}viteloge.close{%- endtrans -%}</button>
+                    {%- endblock modal_footer -%}
+                </div>
+            </div>
+      </div>
+</div>

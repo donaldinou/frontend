@@ -6,22 +6,23 @@ namespace Viteloge\FrontendBundle\Form\Type {
     use Symfony\Component\Form\FormBuilderInterface;
     use Symfony\Component\OptionsResolver\OptionsResolverInterface;
     use Doctrine\ORM\EntityRepository;
-    use Viteloge\CoreBundle\Component\DBAL\EnumTransactionType;
+    use Viteloge\CoreBundle\Component\Enum\TransactionEnum;
+    use Viteloge\CoreBundle\Component\Enum\TypeEnum;
 
     class AdType extends AbstractType {
 
         public function buildForm(FormBuilderInterface $builder, array $options) {
-            $transactionChoices = EnumTransactionType::getValues();
-            $transactionDefault = array_search(EnumTransactionType::getDefault(), $transactionChoices);
+            $transactionEnum = new TransactionEnum();
+            $typeEnum = new TypeEnum();
             $builder
                 ->add('transaction', 'choice', array(
-                    'choices' => $transactionChoices,
+                    'choices' => $transactionEnum->choices(),
                     'expanded' => true,
                     'multiple' => false
                 ))
                 ->add('inseeCity', 'search', array())
                 ->add('type', 'choice', array(
-                    'choices' => array( 'Appartement', 'Maison' ),
+                    'choices' => $typeEnum->choices(),
                     'expanded' => false,
                     'multiple' => false,
                     'placeholder' => 'What',

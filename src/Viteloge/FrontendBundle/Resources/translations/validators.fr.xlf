@@ -4,47 +4,47 @@
     <body>
       <trans-unit id="a55be57cc201693bfdc2c9021f8fd48d" resname="fos_user.email.already_used">
         <source>fos_user.email.already_used</source>
-        <target>fos_user.email.already_used</target>
+        <target>L'adresse e-mail est déjà utilisée</target>
       </trans-unit>
       <trans-unit id="6ff439fdb45d5bd0d58e8d210df8be77" resname="fos_user.email.blank">
         <source>fos_user.email.blank</source>
-        <target>fos_user.email.blank</target>
+        <target>Entrez une adresse e-mail s'il vous plait</target>
       </trans-unit>
       <trans-unit id="fc6c24981b4c0a57ce247c8687a585ea" resname="fos_user.email.invalid">
         <source>fos_user.email.invalid</source>
-        <target>fos_user.email.invalid</target>
+        <target>L'adresse e-mail est invalide</target>
       </trans-unit>
       <trans-unit id="966201b57a32472001eeb20f251cce59" resname="fos_user.email.long">
         <source>fos_user.email.long</source>
-        <target>fos_user.email.long</target>
+        <target>[-Inf,Inf]L'adresse e-mail est trop longue</target>
       </trans-unit>
       <trans-unit id="f21278704589f38c6334b87af1479cf9" resname="fos_user.email.short">
         <source>fos_user.email.short</source>
-        <target>fos_user.email.short</target>
+        <target>[-Inf,Inf]L'adresse e-mail est trop courte</target>
       </trans-unit>
       <trans-unit id="dcd6d14d0786e48363cedfda2f1ae893" resname="fos_user.password.blank">
         <source>fos_user.password.blank</source>
-        <target>fos_user.password.blank</target>
+        <target>Entrez un mot de passe s'il vous plait</target>
       </trans-unit>
       <trans-unit id="208830cde0e30a97e31cae31d1815c35" resname="fos_user.password.short">
         <source>fos_user.password.short</source>
-        <target>fos_user.password.short</target>
+        <target>[-Inf,Inf]Le mot de passe est trop court</target>
       </trans-unit>
       <trans-unit id="717412185b61194420c7def0b42418f1" resname="fos_user.username.already_used">
         <source>fos_user.username.already_used</source>
-        <target>fos_user.username.already_used</target>
+        <target>Le nom d'utilisateur est déjà utilisé</target>
       </trans-unit>
       <trans-unit id="e6b436802106350f126526dff34d889c" resname="fos_user.username.blank">
         <source>fos_user.username.blank</source>
-        <target>fos_user.username.blank</target>
+        <target>Entrez un nom d'utilisateur s'il vous plait</target>
       </trans-unit>
       <trans-unit id="8eb91da705aa09b820f19e5a4e06d1fe" resname="fos_user.username.long">
         <source>fos_user.username.long</source>
-        <target>fos_user.username.long</target>
+        <target>[-Inf,Inf]Le nom d'utilisateur est trop long</target>
       </trans-unit>
       <trans-unit id="a96e6b81d15a20e05150a905e30d70c4" resname="fos_user.username.short">
         <source>fos_user.username.short</source>
-        <target>fos_user.username.short</target>
+        <target>[-Inf,Inf]Le nom d'utilisateur est trop court</target>
       </trans-unit>
     </body>
   </file>

@@ -53,7 +53,7 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @ORM\Column(name="pieces", type="integer", nullable=true)
          */
-        private $pieces;
+        private $rooms;
 
         /**
          * @var integer
@@ -90,7 +90,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Id
          * @ORM\GeneratedValue(strategy="IDENTITY")
          */
-        private $idquery;
+        private $id;
 
         /**
          * @var \Acreat\InseeBundle\Entity\InseeCity
@@ -230,26 +230,26 @@ namespace Viteloge\CoreBundle\Entity {
         }
 
         /**
-         * Set pieces
+         * Set rooms
          *
-         * @param integer $pieces
+         * @param integer $rooms
          * @return QueryStats
          */
-        public function setPieces($pieces)
+        public function setRooms($rooms)
         {
-            $this->pieces = $pieces;
+            $this->rooms = $rooms;
 
             return $this;
         }
 
         /**
-         * Get pieces
+         * Get rooms
          *
          * @return integer
          */
-        public function getPieces()
+        public function getRooms()
         {
-            return $this->pieces;
+            return $this->rooms;
         }
 
         /**
@@ -345,13 +345,13 @@ namespace Viteloge\CoreBundle\Entity {
         }
 
         /**
-         * Get idquery
+         * Get id
          *
          * @return integer
          */
-        public function getIdquery()
+        public function getId()
         {
-            return $this->idquery;
+            return $this->id;
         }
 
         /**

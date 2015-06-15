@@ -17,28 +17,28 @@ class InseeArea
      *
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string
      *
      * @ORM\Column(name="keywords", type="text", nullable=false)
      */
-    private $keywords;
+    protected $keywords;
 
     /**
      * @var string
      *
      * @ORM\Column(name="polyline", type="text", nullable=false)
      */
-    private $polyline;
+    protected $polyline;
 
     /**
      * @var string
      *
      * @ORM\Column(name="levels", type="string", length=255, nullable=false)
      */
-    private $levels;
+    protected $levels;
 
     /**
      * @var integer
@@ -47,7 +47,7 @@ class InseeArea
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var \Acreat\InseeBundle\Entity\InseeCity
@@ -57,7 +57,7 @@ class InseeArea
      *   @ORM\JoinColumn(name="insee", referencedColumnName="codeInsee")
      * })
      */
-    private $inseeCity;
+    protected $inseeCity;
 
 
 

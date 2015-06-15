@@ -162,6 +162,15 @@
                     color: $color;
                 }
             }
+            [rel="quartier"], [rel="area"] {
+                & {
+                    color: $color;
+                    &:hover,
+                    &:focus {
+                        color: $color;
+                    }
+                }
+            }
         }
         .footer {
             > .nav {

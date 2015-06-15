@@ -17,63 +17,63 @@ class InseeCityhall
      *
      * @ORM\Column(name="adresse", type="string", length=255, nullable=false)
      */
-    private $address;
+    protected $address;
 
     /**
      * @var string
      *
      * @ORM\Column(name="cp", type="string", length=5, nullable=false)
      */
-    private $postalcode;
+    protected $postalcode;
 
     /**
      * @var string
      *
      * @ORM\Column(name="ville", type="string", length=255, nullable=false)
      */
-    private $city;
+    protected $city;
 
     /**
      * @var string
      *
      * @ORM\Column(name="tel", type="string", length=50, nullable=false)
      */
-    private $phone;
+    protected $phone;
 
     /**
      * @var string
      *
      * @ORM\Column(name="fax", type="string", length=50, nullable=false)
      */
-    private $fax;
+    protected $fax;
 
     /**
      * @var string
      *
      * @ORM\Column(name="mail", type="string", length=255, nullable=false)
      */
-    private $mail;
+    protected $mail;
 
     /**
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=255, nullable=false)
      */
-    private $url;
+    protected $url;
 
     /**
      * @var string
      *
      * @ORM\Column(name="maire", type="string", length=255, nullable=false)
      */
-    private $mayor;
+    protected $mayor;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="population", type="integer", nullable=false)
      */
-    private $population;
+    protected $population;
 
     /**
      * @var string
@@ -82,7 +82,7 @@ class InseeCityhall
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $cityId;
+    protected $cityId;
 
 
 

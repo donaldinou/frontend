@@ -3,44 +3,16 @@
 {% block main %}
     {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } %}
         {% block left %}
-            {{ include('VitelogeFrontendBundle:Form:webSearch.html.twig', { form: form }) }}
+            {{ include('VitelogeFrontendBundle:WebSearch:form/edit.html.twig', { form: form }) }}
+            {{ include('VitelogeFrontendBundle:WebSearch:form/delete.html.twig', { form: form_delete }) }}
         {% endblock %}
         {% block right %}
             <aside>
                 <div class="">
                     {{ include('VitelogeFrontendBundle:menu:user.html.twig', { }) }}
                 </div>
-                publicité
             </aside>
+            {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
         {% endblock %}
     {% endembed %}
 {% endblock main %}
-
-
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        jQuery('select[data-role="tagsinput"]').each(function() {
-            var name = jQuery(this).attr('id');
-            var source = jQuery(this).find('option');
-            var list = new Bloodhound({
-                name: name,
-                local: source,
-                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-                queryTokenizer: Bloodhound.tokenizers.whitespace
-            });
-            list.initialize();
-            jQuery('input[data-role="tagsinput"]').tagsinput({
-                itemValue: 'value',
-                itemText: 'text',
-                typeaheadjs: {
-                    name: name,
-                    displayKey: 'value',
-                    valueKey: 'text',
-                    source: list.ttAdapter()
-                },
-                freeInput: true
-            });
-        })
-</script>
-{% endblock %}

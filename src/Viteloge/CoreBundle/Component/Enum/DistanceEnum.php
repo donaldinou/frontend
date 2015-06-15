@@ -2,26 +2,27 @@
 
 namespace Viteloge\CoreBundle\Component\Enum {
 
-    use Acreat\CoreBundle\Component\Enum\SplEnum;
-
-    class DistanceEnum extends SplEnum implements ChoiceInterface {
+    class DistanceEnum extends Enum {
 
         const __default = null;
 
-        const FIVE = '5';
+        const NONE = 0;
 
-        const TEN = '10';
+        const FIVE = 5;
 
-        const TWENTY = '20';
+        const TEN = 10;
 
-        const THIRTY = '30';
+        const TWENTY = 20;
+
+        const THIRTY = 30;
 
         public function choices() {
             return array(
-                self::FIVE => 'viteloge.distance.five',
-                self::TEN => 'viteloge.distance.ten',
-                self::TWENTY => 'viteloge.distance.twenty',
-                self::THIRTY => 'viteloge.distance.thirty'
+                self::NONE => 'ad.distance.none',
+                self::FIVE => 'ad.distance.five',
+                self::TEN => 'ad.distance.ten',
+                self::TWENTY => 'ad.distance.twenty',
+                self::THIRTY => 'ad.distance.thirty'
             );
         }
 

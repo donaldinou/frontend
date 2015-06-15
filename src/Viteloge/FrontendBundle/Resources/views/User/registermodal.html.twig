@@ -1,0 +1,14 @@
+{% embed 'VitelogeCoreBundle:Global:modal.html.twig' with { id: 'register-modal' } %}
+    {%- block modal_title -%}
+        {%- trans -%}user.register{%- endtrans -%}
+    {%- endblock modal_title -%}
+    {%- block modal_content -%}
+        {%- embed 'VitelogeUserBundle:Registration:fragment/form.html.twig' with { form: form } -%}
+            {%- block form_submit -%}{%- endblock form_submit -%}
+        {%- endembed -%}
+    {%- endblock modal_content -%}
+    {%- block modal_footer -%}
+        <button type="button" class="btn btn-default" data-dismiss="modal">{%- trans -%}viteloge.close{%- endtrans -%}</button>
+        <button type="button" class="btn btn-default" data-submit="#fos_user_registration_form">{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}</button>
+    {%- endblock modal_footer -%}
+{% endembed %}

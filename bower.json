@@ -19,16 +19,17 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~2.1.1",
-    "normalize.css": "~3.0.2",
-    "requirejs": "~2.1.16",
-    "requirejs-domready": "~2.0.1",
-    "hinclude": "~0.9.5",
-    "typeahead.js": "~0.10.5",
-    "fontawesome": "~4.3.0",
+    "jquery": "latest",
+    "normalize.css": "latest",
+    "requirejs": "latest",
+    "requirejs-domready": "latest",
+    "hinclude": "latest",
+    "typeahead.js": "latest",
+    "fontawesome": "latest",
     "bootstrap-sass": "~3.3.4",
-    "bootstrap-tagsinput": "~0.4.2",
-    "background-check": "~1.2.2",
-    "hover": "~2.0.2"
+    "background-check": "latest",
+    "hover": "~2.0.2",
+    "select2": "latest",
+    "placeholders": "latest"
   }
 }

@@ -9,6 +9,8 @@ parameters:
     # You should uncomment this if you want use pdo_sqlite
     # database_path: "%kernel.root_dir%/data.db3"
 
+    domain : .viteloge.com
+
     elastic_host : localhost
     elastic_port : 9200
 

@@ -30,9 +30,9 @@
                 <div id="search-container" class="forward text-center">
                     <h1 class="text-uppercase">Nam nec tellus a odio tincidunt</h1>
                     <h2 class="text-uppercase">
-                        {% transchoice count with {'%count%': count|number_format(0, null, ' ')} %}
+                        {%- transchoice count with {'%count%': count|number_format(0, null, ' ')} -%}
                             today.properties.update.count
-                        {% endtranschoice %} !
+                        {%- endtranschoice -%} !
                     </h2>
                     {{ include('VitelogeFrontendBundle:Form:adSearch.html.twig', { form: form }) }}
                 </div>
@@ -41,28 +41,36 @@
     {% endembed %}
 {% endblock %}
 
-
 {%- block main -%}
-    <div class="{% if transaction != 'L' %}hidden{% endif %}" data-theme-showon="theme-rent theme-L">
-        {{ include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', { 'transaction': 'L' }) }}
-    </div>
-    <div class="{% if transaction != 'V' %}hidden{% endif %}" data-theme-showon="theme-sale theme-V">
-        {{ include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', { 'transaction': 'V' }) }}
-    </div>
-    <div class="{% if transaction != 'N' %}hidden{% endif %}" data-theme-showon="theme-new theme-N">
-        {{ include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', { 'transaction': 'N' }) }}
-    </div>
+    <section class="">
+        <div class="{% if transaction != 'L' %}hidden{% endif %}" data-theme-showon="theme-rent theme-L">
+            {{ include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', { 'transaction': 'L' }) }}
+        </div>
+        <div class="{% if transaction != 'V' %}hidden{% endif %}" data-theme-showon="theme-sale theme-V">
+            {{ include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', { 'transaction': 'V' }) }}
+        </div>
+        <div class="{% if transaction != 'N' %}hidden{% endif %}" data-theme-showon="theme-new theme-N">
+            {{ include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', { 'transaction': 'N' }) }}
+        </div>
+    </section>
     {{ include('VitelogeFrontendBundle:Default:fragment/services.html.twig', { }) }}
     {{ include('VitelogeFrontendBundle:Default:fragment/websearch.html.twig', { }) }}
 {%- endblock -%}
-
 
 {% block footer %}
 <div class="container text-center">
     {{ include('VitelogeFrontendBundle:menu:footer.html.twig', {}) }}
     {{ include('VitelogeFrontendBundle:misc:social.html.twig', {}) }}
     {{ include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) }}
-    {{ render(controller('VitelogeFrontendBundle:Glossary:mostSearched', { limit: 15 })) }}
-    {#{{ render_hinclude(controller('VitelogeFrontendBundle:Glossary:mostSearched', {'default': 'Loading...'})) }}#}
+    {{ include('VitelogeFrontendBundle:Default:fragment/glossary.html.twig', { }) }}
 </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        jQuery(document).ready(function() {
+            getCarouselLocation();
+        });
+    </script>
+{% endblock javascripts %}
