@@ -4,7 +4,7 @@ form.search {
     color: $text-color;
     a {
         text-decoration: underline;
-        > label {
+        > span {
             color: #fff;
         }
     }
@@ -31,6 +31,13 @@ form.search {
             }
         }
     }
+    .select2-container--default {
+        .select2-selection--multiple {
+            .select2-selection__choice {
+                padding: 5px;
+            }
+        }
+    }
     .nav {
         &.nav-justified {
             @media (min-width: $screen-sm-min) {
@@ -49,7 +56,8 @@ form.search {
         > li {
             > a {
                 background-color: $text-color;
-                label {
+                cursor: pointer;
+                span {
                     padding-left: 0px;
                 }
             }

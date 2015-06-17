@@ -4,9 +4,8 @@
     <ul class="nav nav-pills nav-justified" role="tablist">
         {% for child in form.children %}
             <li class="{% if child.vars.checked %}active{% endif %}" role="presentation">
-                <a class="text-uppercase" data-theme="theme-{{ child.vars.value }}" data-theme-hover="theme-{{ child.vars.value }}" data-theme-parent="#{{ theme_container }}">
+                <a class="text-uppercase transaction" data-theme="theme-{{ child.vars.value }}" data-theme-hover="theme-{{ child.vars.value }}" data-theme-parent="#{{ theme_container }}">
                     {{ form_widget(child, { attr: { 'class': 'hidden' }, parent_label_class: 'radio-inline' }) }}
-                    {{ form_label(child, { label_attr: { 'class': 'radio-inline' } }) }}
                 </a>
             </li>
         {% endfor %}
@@ -34,10 +33,10 @@
             {% set label = name|humanize %}
         {% endif %}
     {% endif %}
-    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}{% if span_class is defined %}aria-label="{{ label|trans({}, translation_domain) }}"{% endif %}>
-        {% if span_class is defined %}
+    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}{% if span_class is defined %} aria-label="{{ label|trans({}, translation_domain) }}"{% endif %}>
+        {%- if span_class is defined -%}
             <span class="{{ span_class }}" aria-hidden="true">&nbsp;</span>
-        {% endif %}
+        {%- endif -%}
         <span>{{ label|trans({}, translation_domain) }}</span>
     </button>
 {% endblock button_widget -%}

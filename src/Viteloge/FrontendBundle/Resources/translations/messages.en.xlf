@@ -2,11 +2,9 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
   <file source-language="fr-FR" target-language="en" datatype="plaintext" original="file.ext">
     <body>
-      <trans-unit id="63ced2ec9311e2e4c6817b83a08f806d" resname="                            today.properties.update.count&#10;                        ">
-        <source>                            today.properties.update.count
-                        </source>
-        <target>                            today.properties.update.count
-                        </target>
+      <trans-unit id="63ced2ec9311e2e4c6817b83a08f806d" resname="today.properties.update.count">
+        <source>today.properties.update.count</source>
+        <target>today.properties.update.count</target>
       </trans-unit>
       <trans-unit id="336d5ebc5436534e61d16e63ddfca327" resname="-">
         <source>-</source>
@@ -148,8 +146,8 @@
         <source>Informations on Fasthousing</source>
         <target>Informations on Fasthousing</target>
       </trans-unit>
-      <trans-unit id="0d3bc207b553eeb6e55799867ec9687c" resname="Latest properties searches">
-        <source>Latest properties searches</source>
+      <trans-unit id="0d3bc207b553eeb6e55799867ec9687c" resname="websearches.latest">
+        <source>websearches.latest</source>
         <target>Latest properties searches</target>
       </trans-unit>
       <trans-unit id="df1165a65ea0521ced1bb492c973017f" resname="Maison">
@@ -188,15 +186,11 @@
         <source>Profile show</source>
         <target>Profile show</target>
       </trans-unit>
-      <trans-unit id="a65f034dbb82ab7f5b137c3c821135a5" resname="Properties for %transaction% near %name%&#10;        ">
+      <trans-unit id="a65f034dbb82ab7f5b137c3c821135a5" resname="Properties for %transaction% near %name%">
         <source>Properties for %transaction% near %name%
         </source>
         <target>Properties for %transaction% near %name%
         </target>
-      </trans-unit>
-      <trans-unit id="18bddf2d55e1e5c3cc6bb44ceb09454b" resname="Properties for rent near you">
-        <source>Properties for rent near you</source>
-        <target>Properties for rent near you</target>
       </trans-unit>
       <trans-unit id="108f09008b0f1b98bd6ba2de71a8e28a" resname="Recommand">
         <source>Recommand</source>

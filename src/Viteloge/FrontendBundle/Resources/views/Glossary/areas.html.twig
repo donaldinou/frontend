@@ -1,5 +1,5 @@
-{%- block areas  %}
-{% if areas %}
+{%- block areas  -%}
+{%- if areas -%}
     {% set inseeCity = inseeCity|default(areas[0].inseeCity) %}
     <div class="panel-group" id="glossary-areas" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
@@ -15,12 +15,12 @@
             </div>
             <div id="glossary-area-{{ inseeCity.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="glossary-area-{{ inseeCity.id }}">
                 <ul class="list-group">
-                    {% for area in areas %}
+                    {%- for area in areas -%}
                         {{ include('VitelogeFrontendBundle:Glossary:render/li-area.html.twig') }}
-                    {% endfor %}
+                    {%- endfor -%}
                 </ul>
             </div>
         </div>
     </div>
-{% endif %}
-{% endblock -%}
+{%- endif -%}
+{%- endblock -%}

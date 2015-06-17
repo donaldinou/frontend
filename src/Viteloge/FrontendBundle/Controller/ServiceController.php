@@ -12,7 +12,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use Viteloge\CoreBundle\Entity\Service;
 
     /**
-     *
+     * @Route("/service")
      */
     class ServiceController extends Controller {
 
@@ -83,7 +83,18 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * @Route(
+         *     "/list/",
+         *     requirements={
+         *         "limit"="\d+"
+         *     },
+         *     defaults={
+         *         "limit" = "5"
+         *     }
+         * )
          * @Cache(expires="tomorrow", public=true)
+         * @Method({"GET"})
+         * @Template("VitelogeFrontendBundle:Service:list.html.twig")
          */
         public function listAction(Request $request) {
             $this->initServices();

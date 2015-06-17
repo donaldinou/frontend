@@ -1,9 +1,7 @@
 <h3 class="text-uppercase text-center">{% spaceless %}
     {%- block ad_latest_title -%}
-        {% set transaction = transaction|default('you') %}
-        {%- trans with { '%transaction%': 'ad.transaction.'~transaction|trans, '%name%': cityName|default('from you'|trans) } -%}
-            Properties for %transaction% near %name%
-        {% endtrans %}
+        {% set cityName = cityName|default('viteloge.from.you'|trans)%}
+        {%- transchoice transaction|vl_intval with { '%city%': cityName } -%}ad.transaction.near.city{%- endtranschoice -%}
     {%- endblock ad_latest_title -%}
 {% endspaceless %}</h3>
 {%- block ad_latest_content -%}

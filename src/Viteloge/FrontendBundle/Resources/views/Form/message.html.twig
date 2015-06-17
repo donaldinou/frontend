@@ -1,0 +1,62 @@
+{% form_theme form with ['VitelogeFrontendBundle:Form:fields.html.twig'] %}
+
+{{ form_start(form, {'attr': {'enctype': 'application/x-www-form-urlencoded','class': 'contact', 'role': 'search', 'novalidate': 'novalidate'}}) }}
+    {%- block form_errors -%}
+        {{ form_errors(form) }}
+    {%- endblock form_errors -%}
+    {%- block form_fields -%}
+        <div class="hidden">
+            {{ form_row(form._token) }}
+        </div>
+        {{ form_row(form.firstname, {
+            'attr': {
+                'class': '',
+                'placeholder': 'message.firstname',
+                'data-placeholder' : 'message.firstname'|trans(),
+                'autocomplete': 'on',
+                'spellcheck': 'off',
+                'maxlength': 64
+            }
+        }) }}
+        {{ form_row(form.lastname, {
+            'attr': {
+                'class': '',
+                'placeholder': 'message.lastname',
+                'data-placeholder' : 'message.lastname'|trans(),
+                'autocomplete': 'on',
+                'spellcheck': 'off',
+                'maxlength': 64
+            }
+        }) }}
+        {{ form_row(form.email, {
+            'attr': {
+                'class': '',
+                'placeholder': 'message.email',
+                'data-placeholder' : 'message.email'|trans(),
+                'autocomplete': 'on',
+                'spellcheck': 'off',
+                'maxlength': 128
+            }
+        }) }}
+        {{ form_row(form.phone, {
+            'attr': {
+                'class': '',
+                'placeholder': 'message.phone',
+                'data-placeholder' : 'message.phone'|trans(),
+                'autocomplete': 'on',
+                'spellcheck': 'off',
+                'maxlength': 16
+            }
+        }) }}
+        {{ form_row(form.message, {
+            'attr': {
+                'class': '',
+                'placeholder': 'message.message',
+                'data-placeholder' : 'message.message'|trans(),
+                'autocomplete': 'off',
+                'spellcheck': 'off',
+                'maxlength': 10
+            }
+        }) }}
+    {%- endblock form_fields -%}
+{{ form_end(form) }}

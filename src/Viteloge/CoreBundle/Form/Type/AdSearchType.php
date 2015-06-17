@@ -44,21 +44,18 @@ namespace Viteloge\CoreBundle\Form\Type {
                     'choices' => array(),
                     'expanded' => false,
                     'multiple' => true,
-                    'placeholder' => 'ad.where',
                     'preferred_choices' => array()
                 ))
                 ->add('what', 'choice', array(
                     'choices' => $typeEnum->choices(),
                     'expanded' => false,
                     'multiple' => true,
-                    'placeholder' => 'ad.what',
                     'preferred_choices' => array()
                 ))
                 ->add('rooms', 'choice', array(
                     'choices' => $roomEnum->choices(),
                     'expanded' => false,
                     'multiple' => true,
-                    'placeholder' => 'ad.rooms.number',
                     'preferred_choices' => array()
                 ))
                 ->add('keywords', 'text', array(
@@ -97,7 +94,6 @@ namespace Viteloge\CoreBundle\Form\Type {
                     'data' => $cities, // not really necessary
                     'required' => false,
                     //'preferred_choices' => array(),
-                    'placeholder' => 'ad.where',
                     'empty_value' => '',
                     'empty_data' => null,
                     'mapped' => true
@@ -110,8 +106,10 @@ namespace Viteloge\CoreBundle\Form\Type {
                     $form = $event->getForm();
                     $data = $event->getData();
                     $where = $data->getWhere();
-                    $cities = $this->em->getRepository('AcreatInseeBundle:InseeCity')->findById($where);
-                    $formModifier($form, $cities);
+                    if (!empty($where)) {
+                        $cities = $this->em->getRepository('AcreatInseeBundle:InseeCity')->findById($where);
+                        $formModifier($form, $cities);
+                    }
                 }
             );
 
@@ -120,15 +118,17 @@ namespace Viteloge\CoreBundle\Form\Type {
                 function (FormEvent $event) use ($formModifier) {
                     $form = $event->getForm();
                     $data = $event->getData();
-                    $cities = $this->em->getRepository('AcreatInseeBundle:InseeCity')->findById($data['where']);
-                    $formModifier(
-                        $form,
-                        $cities/*array_flip(array_map(
-                            function($city){
-                                return $city->getId();
-                            }, $cities
-                        ))*/
-                    );
+                    if (isset($data['where'])) {
+                        $cities = $this->em->getRepository('AcreatInseeBundle:InseeCity')->findById($data['where']);
+                        $formModifier(
+                            $form,
+                            $cities/*array_flip(array_map(
+                                function($city){
+                                    return $city->getId();
+                                }, $cities
+                            ))*/
+                        );
+                    }
                 }
             );
         }

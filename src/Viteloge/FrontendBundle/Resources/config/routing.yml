@@ -26,6 +26,10 @@ viteloge_frontend_usersearch:
     resource: "@VitelogeFrontendBundle/Controller/UserSearchController.php"
     type: annotation
 
+viteloge_frontend_service:
+    resource: "@VitelogeFrontendBundle/Controller/ServiceController.php"
+    type: annotation
+
 viteloge_frontend_suggest:
     resource: "@VitelogeFrontendBundle/Controller/SuggestController.php"
     type: annotation

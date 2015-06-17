@@ -1,4 +1,3 @@
-<h3 class="list-title text-uppercase">{% trans %}Latest properties searches{% endtrans %}</h3>
 <ul class="list-unstyled" data-role="listitem">
     {%- for webSearch in webSearches -%}
         {{ include('VitelogeFrontendBundle:WebSearch:render/list.html.twig', { 'webSearch': webSearch }) }}

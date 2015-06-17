@@ -135,11 +135,12 @@ namespace Viteloge\FrontendBundle\Pagerfanta\View\Template {
          *
          */
         private function elementLi($element, $href='', $class='', $rel='', $text='', $icon=null) {
+            $data = ($element != 'a') ? 'data-' : '';
             return
                 '<li class="'.$class.'">'.
                     '<'.$element.
                         ((!empty($rel)) ? ' rel="'.$rel.'"' : '').
-                        ((!empty($rel)) ? ' href="'.$href.'"' : '').
+                        ((!empty($href)) ? ' '.$data.'href="'.$href.'"' : '').
                         ((!empty($icon)) ? ' aria-label="'.$text.'"' : '').'>'.
                             ((!empty($icon)) ? '<span aria-hidden="true">'.$icon.'</span>' : $text) .
                     '</'.$element.'>'.

@@ -103,7 +103,19 @@ namespace Viteloge\CoreBundle\SearchRepository {
             if (!empty($adRooms)) {
                 $roomQuery = new \Elastica\Filter\Terms();
                 $roomQuery->setTerms('rooms', $adRooms);
-                $boolQuery->addMust($roomQuery);
+                if (in_array(5, $adRooms)) {
+                    $rangeQuery = new \Elastica\Filter\Range(
+                        'rooms', array(
+                            'gt' => 5
+                        )
+                    );
+                    $orQuery = new \Elastica\Filter\BoolOr();
+                    $orQuery->addFilter($roomQuery);
+                    $orQuery->addFilter($rangeQuery);
+                    $boolQuery->addMust($orQuery);
+                } else {
+                    $boolQuery->addMust($roomQuery);
+                }
             }
 
             $adRadius = $ad->getRadius();

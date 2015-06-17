@@ -3,7 +3,7 @@
 {%- block main -%}
     {%- embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } -%}
         {%- block left -%}
-            {{ render_hinclude(controller('VitelogeFrontendBundle:Glossary:areas', { 'id': city.id })) }}
+            {{ render_hinclude(path('viteloge_frontend_glossary_areas', { 'id': city.id })) }}
             <section class="theme-rent static">
                 {{ render_hinclude(path('viteloge_frontend_ad_latest', { 'limit': 3, 'transaction': 'L', 'where': [city.id], 'cityName': city.fullname })) }}
                 {{ render(path('viteloge_frontend_querystats_latest', { 'limit': 10, 'transaction': 'L', 'inseeCity': city.id })) }}

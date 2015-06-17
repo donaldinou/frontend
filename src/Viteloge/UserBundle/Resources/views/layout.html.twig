@@ -1,37 +1,30 @@
 <!doctype html>
-<html {{ sonata_seo_html_attributes() }}><!--manifest="viteloge.appcache"-->
-
-    <!-- block head -->
+<html {{ sonata_seo_html_attributes() }}>{#<!--manifest="viteloge.appcache"-->#}
     <head {{ sonata_seo_head_attributes() }}>
+        {%- block head_meta -%}
+            {{ sonata_seo_metadatas() }}
+            {{ sonata_seo_link_canonical() }}
+            {{ sonata_seo_lang_alternates() }}
+            <meta name="msapplication-TileImage" content="{{ asset('bundles/frontendbundle/public/images/common/icon.png') }}">
+        {%- endblock head_meta -%}
         {%- block title -%}
             {{ sonata_seo_title() }}
         {%- endblock title -%}
-        {%- block head_meta -%}
-            {{ sonata_seo_metadatas() }}
-            <meta name="msapplication-TileColor" content="#000">
-            <meta name="msapplication-TileImage" content="{{ asset('bundles/frontendbundle/public/images/common/icon.png') }}">
-        {%- endblock head_meta -%}
-
-        {% block head_icon %}
+        {%- block head_icon -%}
         <link rel="apple-touch-icon" href="{{ asset('bundles/frontendbundle/public/images/apple/touch-icon-iphone.png') }}">
         <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('bundles/frontendbundle/public/images/apple/touch-icon-ipad.png') }}">
         <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('bundles/frontendbundle/public/images/apple/touch-icon-iphone-retina.png') }}">
         <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('bundles/frontendbundle/public/images/apple/touch-icon-ipad-retina.png') }}">
         <link rel="apple-touch-startup-image" href="{{ asset('bundles/frontendbundle/public/images/common/logo.png') }}">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
-        {% endblock head_icon %}
-
-        {{ sonata_seo_link_canonical() }}
-        {{ sonata_seo_lang_alternates() }}
-
-        {% block head_stylesheets %}
+        {%- endblock head_icon -%}
+        {%- block head_stylesheets -%}
             <link rel="stylesheet" href="{{ asset('built/min.css') }}">
             <link rel="stylesheet" href="{{ asset('assets/css/select2.css') }}">
             <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
             <link rel="stylesheet" href="{{ asset('bundles/vitelogecore/css/viteloge-core.css') }}">
-        {% endblock head_stylesheets %}
-
-        {% block head_javascripts %}
+        {%- endblock head_stylesheets -%}
+        {%- block head_javascripts -%}
             <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
             <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
             {#<script src="{{ asset('assets/js/require.js') }}"></script>#}
@@ -39,15 +32,13 @@
             <script src="{{ asset('assets/js/jquery.js') }}"></script>
             <script src="{{ asset('assets/js/select2.js') }}"></script>
             <script src="{{ asset('assets/js/placeholders.js') }}"></script>
-
             <script src="{{ asset('bundles/frontendbundle/js/modernizr.min.js') }}"></script>
             <script src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
             {% block head_javascripts_requirejs %}{% endblock head_javascripts_requirejs %}
-        {% endblock head_javascripts %}
+        {%- endblock head_javascripts -%}
     </head>
-
     <body class="body{% block theme %} {{vl_theme()}}{% endblock theme %}" {% block schema %}itemscope itemtype="http://schema.org/WebPage"{% endblock schema %}>
-    {% block init_javascripts %}
+    {%- block init_javascripts -%}
         <script>
           window.fbAsyncInit = function() {
             FB.init({
@@ -65,15 +56,15 @@
              fjs.parentNode.insertBefore(js, fjs);
            }(document, 'script', 'facebook-jssdk'));
         </script>
-    {% endblock %}
+    {%- endblock -%}
     {%- block body -%}
         <header class="header" data-role="header">
             {%- block header_start %}
 
             {% endblock -%}
-            {%- block header %}
-                {%- embed "VitelogeUserBundle:base:header.html.twig" -%}{%- endembed -%}
-            {% endblock header -%}
+            {%- block header -%}
+                {{ include('VitelogeUserBundle:base:header.html.twig') }}
+            {%- endblock header -%}
             <div class="subheader">
                 {%- block breadcrumb %}
                     {{ wo_render_breadcrumbs() }}
@@ -119,5 +110,4 @@
         <script src="{{ asset('bundles/frontendbundle/js/viteloge.js') }}"></script>
     {% endblock javascripts -%}
     </body>
-
 </html>

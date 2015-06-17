@@ -385,13 +385,15 @@ namespace Viteloge\FrontendBundle\Controller {
          *     },
          *     defaults={
          *         "limit" = "3"
-         *     }
+         *     },
+         *     name="viteloge_frontend_ad_suggestnew"
          * )
          * @Route(
          *     "/suggest/new/",
          *     defaults={
          *         "limit" = "3"
-         *     }
+         *     },
+         *     name="viteloge_frontend_ad_suggestnew"
          * )
          * @Cache(expires="tomorrow", public=true)
          * @Method({"GET"})
@@ -407,11 +409,72 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         *
+         */
+        private function createContactForm() {
+            return $form;
+        }
+
+        /**
          * @Route(
-         *     "/redirect/{id}",
-         *     requirements={
+         *      "/contact/{id}",
+         *      requirements={
          *         "id"="\d+"
-         *     }
+         *      },
+         *      name = "viteloge_frontend_ad_contact"
+         * )
+         * @Method({"GET"})
+         * @ParamConverter("ad", class="VitelogeCoreBundle:Ad", options={"id" = "id"})
+         */
+        public function contactAction(Request $request, Ad $ad) {
+            return array(
+
+            );
+        }
+
+        /**
+         * @Route(
+         *      "/message/{id}",
+         *      requirements={
+         *         "id"="\d+"
+         *      },
+         *      name = "viteloge_frontend_ad_contact"
+         * )
+         * @Method({"POST"})
+         * @ParamConverter("ad", class="VitelogeCoreBundle:Ad", options={"id" = "id"})
+         */
+        public function messageAction(Request $request, Ad $ad) {
+            $contact = new Contact();
+            $contact->setUser($this->getUser());
+            $form = '';
+            if ($this->isXmlHttpRequest()) {
+                if ($form->isValid()) {
+                    $this->sendMessage();
+                    $this->addFlash(
+                        'notice',
+                        'Your message has been send!'
+                    );
+                }
+            }
+            return array(
+                'form' => $form,
+                'status' => $status
+            );
+        }
+
+        /**
+         *
+         */
+        public function sendMessage($arg1, $arg2) {
+
+        }
+
+        /**
+         * @Route(
+         *      "/redirect/{id}",
+         *      requirements={
+         *          "id"="\d+"
+         *      }
          * )
          * @Method({"GET"})
          * @ParamConverter("ad", class="VitelogeCoreBundle:Ad", options={"id" = "id"})

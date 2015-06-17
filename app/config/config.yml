@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: swiftmailer.yml }
     - { resource: sonata_seo.yml }
     - { resource: fos_js_routing.yml }
     - { resource: fos_elastica.yml }
@@ -79,14 +80,6 @@ doctrine:
             softdeleteable:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
                 enabled: true
-
-# Swiftmailer Configuration
-swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
-    spool:     { type: memory }
 
 # breadcrumb conf
 white_october_breadcrumbs:

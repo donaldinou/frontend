@@ -3,6 +3,7 @@ parameters:
     viteloge_frontend.form.type.ad.class: Viteloge\FrontendBundle\Form\Type\AdType
     viteloge_frontend.form.type.usersearch.class: Viteloge\FrontendBundle\Form\Type\UserSearchType
     viteloge_frontend.form.type.websearch.class: Viteloge\FrontendBundle\Form\Type\WebSearchType
+    viteloge_frontend.form.type.message.class: Viteloge\FrontendBundle\Form\Type\MessageType
     viteloge_frontend.form.type.insee_city_selector.class: Viteloge\FrontendBundle\Form\Type\InseeCitySelectorType
     viteloge_frontend.twig.extension.class: Viteloge\FrontendBundle\Twig\VitelogeFrontendExtension
     viteloge_frontend.pagerfanta.view.viteloge.class: Viteloge\FrontendBundle\Pagerfanta\View\VitelogeView
@@ -28,6 +29,10 @@ services:
         arguments: ["@security.token_storage", "@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type, alias: viteloge_frontend_websearch }
+    viteloge_frontend.form.type.message:
+        class: %viteloge_frontend.form.type.message.class%
+        tags:
+            - { name: form.type, alias: viteloge_frontend_message }
     viteloge_frontend.form.type.insee_city_selector:
         class: %viteloge_frontend.form.type.insee_city_selector.class%
         arguments: ["@doctrine.orm.entity_manager"]

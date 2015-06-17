@@ -8,7 +8,7 @@
     {{parent()}} home
 {%- endblock -%}
 
-{% block body %}
+{%- block body -%}
     <header class="header banner" role="banner" data-target="#search-container">
         {{ block('header') }}
     </header>
@@ -18,31 +18,27 @@
     <footer data-role="footer">
         {{ block('footer') }}
     </footer>
-{% endblock %}
+{%- endblock -%}
 
-{% block header %}
-    {% embed "VitelogeUserBundle:base:header.html.twig" %}
-        {% block header_navbarmenu %}
+{%- block header -%}
+    {%- embed "VitelogeUserBundle:base:header.html.twig" -%}
+        {%- block header_navbarmenu -%}
             <div class="collapse navbar-collapse" id="navbar-navigation">
                 {{ block('header_identification') }}
             </div>
-            {% block header_navigation %}
+            {%- block header_navigation -%}
                 <div id="search-container" class="forward text-center">
                     <h1 class="text-uppercase">Nam nec tellus a odio tincidunt</h1>
-                    <h2 class="text-uppercase">
-                        {%- transchoice count with {'%count%': count|number_format(0, null, ' ')} -%}
-                            today.properties.update.count
-                        {%- endtranschoice -%} !
-                    </h2>
+                    <h2 class="text-uppercase">{%- transchoice count with {'%count%': count|number_format(0, null, ' ')} -%}today.properties.update.count{%- endtranschoice -%} !</h2>
                     {{ include('VitelogeFrontendBundle:Form:adSearch.html.twig', { form: form }) }}
                 </div>
-            {% endblock %}
-        {% endblock %}
-    {% endembed %}
-{% endblock %}
+            {%- endblock -%}
+        {%- endblock -%}
+    {%- endembed -%}
+{%- endblock -%}
 
 {%- block main -%}
-    <section class="">
+    <div class="">
         <div class="{% if transaction != 'L' %}hidden{% endif %}" data-theme-showon="theme-rent theme-L">
             {{ include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', { 'transaction': 'L' }) }}
         </div>
@@ -52,25 +48,25 @@
         <div class="{% if transaction != 'N' %}hidden{% endif %}" data-theme-showon="theme-new theme-N">
             {{ include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', { 'transaction': 'N' }) }}
         </div>
-    </section>
+    </div>
     {{ include('VitelogeFrontendBundle:Default:fragment/services.html.twig', { }) }}
     {{ include('VitelogeFrontendBundle:Default:fragment/websearch.html.twig', { }) }}
 {%- endblock -%}
 
-{% block footer %}
+{%- block footer -%}
 <div class="container text-center">
     {{ include('VitelogeFrontendBundle:menu:footer.html.twig', {}) }}
     {{ include('VitelogeFrontendBundle:misc:social.html.twig', {}) }}
     {{ include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) }}
     {{ include('VitelogeFrontendBundle:Default:fragment/glossary.html.twig', { }) }}
 </div>
-{% endblock %}
+{%- endblock -%}
 
-{% block javascripts %}
+{%- block javascripts -%}
     {{ parent() }}
     <script>
         jQuery(document).ready(function() {
             getCarouselLocation();
         });
     </script>
-{% endblock javascripts %}
+{%- endblock javascripts -%}

@@ -296,10 +296,11 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * @Route(
-         *     "/areas/{id}/",
-         *     requirements={
-         *         "id"="\d+"
-         *     }
+         *      "/areas/{id}/",
+         *      requirements={
+         *          "id"="\d+"
+         *      },
+         *      name="viteloge_frontend_glossary_areas"
          * )
          * @Method({"GET"})
          * @ParamConverter("inseeCity", class="AcreatInseeBundle:InseeCity", options={"id" = "id"})

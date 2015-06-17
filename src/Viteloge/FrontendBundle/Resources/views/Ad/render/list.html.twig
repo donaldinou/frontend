@@ -71,7 +71,7 @@
                 </div>
             </div>
             {% if is_granted('ROLE_OPERATOR') %}
-            <div class="collapse col-md-12 tab-paned" id="estate-{{ ad.id }}-debug" role="tabpanel" aria-labelledby="estate-{{ ad.id }}-debug-share" data-parent="#estate-{{ ad.id }}-tab">
+            <div class="collapse col-md-12 tab-paned" id="estate-{{ ad.id }}-debug" role="tabpanel" aria-labelledby="estate-{{ ad.id }}-debug" data-parent="#estate-{{ ad.id }}-tab">
                 <div class="well">{{ dump(ad) }}</div>
             </div>
             {% endif %}

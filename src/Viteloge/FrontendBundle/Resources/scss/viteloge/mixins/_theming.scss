@@ -13,7 +13,7 @@
             }
         }
     }
-    .highlighting {
+    &.highlighting, .highlighting {
         background-color: $color;
     }
     .btn-primary {
@@ -210,6 +210,19 @@
                 > .fa-caret-right {
                     color: $color;
                 }
+            }
+        }
+    }
+    .select2-container--default {
+        .select2-selection--multiple {
+            .select2-selection__choice {
+                background-color: $color;
+                color: #fff;
+                border: 1px solid $text-color;
+                border-radius: 0px;
+            }
+            .select2-selection__choice__remove {
+                color: #fff;
             }
         }
     }

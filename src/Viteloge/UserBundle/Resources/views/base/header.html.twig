@@ -27,7 +27,8 @@
                                 {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") or not app.user %}
                                     <li>
                                         <a href="{{ path('fos_user_registration_register') }}" class="">
-                                            <span class="icon-icon-subscribe"></span>&nbsp;{% trans %}user.registration{% endtrans %}
+                                            <span class="icon-icon-subscribe"></span>
+                                            <span>&nbsp;{% trans %}user.registration{% endtrans %}</span>
                                         </a>
                                     </li>
                                     <li class="hidden-xs">
@@ -35,18 +36,19 @@
                                     </li>
                                     <li>
                                         <a href="{{ path('fos_user_security_login') }}" class="">
-                                            <span class="icon-icon-connect"></span>&nbsp;{% trans %}user.connection{% endtrans %}
+                                            <span class="icon-icon-connect"></span>
+                                            <span>&nbsp;{% trans %}user.connection{% endtrans %}</span>
                                         </a>
                                     </li>
                                 {% else %}
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                            <span class="icon-icon-connect" aria-hidden="true"></span>&nbsp;
-                                            <span>{{ app.user.fullname }}</span>&nbsp;
+                                            <span class="icon-icon-connect" aria-hidden="true"></span>
+                                            <span>&nbsp;{{ app.user.fullname }}&nbsp;</span>
                                             <span class="caret"></span>
                                         </a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <span class="navbar-text">{{ 'Welcome' | trans }}</span>
+                                            <li><span class="navbar-text">{{ 'Welcome' | trans }}</span></li>
                                             <li>
                                                 <a href="{{ path('viteloge_frontend_user_index') }}">{% trans %}Espace Personnel{% endtrans %}</a>
                                             </li>

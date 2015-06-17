@@ -31,7 +31,8 @@ namespace Viteloge\FrontendBundle\Twig {
          */
         public function getFilters() {
             return array(
-                new \Twig_SimpleFilter('schematizedcurrency', array($this, 'schematizedcurrency'))
+                new \Twig_SimpleFilter('schematizedcurrency', array($this, 'schematizedcurrency')),
+                new \Twig_SimpleFilter('vl_intval', array($this, 'vlIntval'))
             );
         }
 
@@ -58,6 +59,27 @@ namespace Viteloge\FrontendBundle\Twig {
                     break;
             }
             return strtolower('theme-'.$theme);
+        }
+
+        /**
+         *
+         */
+        public function vlIntval($value) {
+            switch ($value) {
+                case TransactionEnum::SALE:
+                    $result = 1;
+                    break;
+
+                case TransactionEnum::NEWER:
+                    $result = 2;
+                    break;
+
+                case TransactionEnum::RENT:
+                default:
+                    $result = (int)$value;
+                    break;
+            }
+            return $result;
         }
 
         /**

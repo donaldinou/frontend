@@ -1,12 +1,10 @@
 {% set transaction = transaction|default('L') %}
-<section class="text-center theme-{{ transaction }} static">
-    <div class="highlighting">
-        <div class="container">
-            {#{{ render(path('viteloge_frontend_ad_carousel', { 'transaction': transaction, 'radius': 5, 'limit': 9 })) }}#}
-            {%- embed "VitelogeFrontendBundle:Block:carousel.html.twig" with { 'hasIndicators': 0, 'hasControls': 0, 'carouselClass': 'estates' } -%}
-                {%- block carousel_id -%}carousel-home-{{ transaction|lower }}{%- endblock carousel_id -%}
-                {%- block carousel_slides -%}{%- endblock carousel_slides -%}
-            {%- endembed -%}
-        </div>
+<section class="text-center theme-{{ transaction }} static highlighting">
+    <div class="container">
+        <h3 class="hidden">{% trans %}ad.next.you{% endtrans %}</h3>
+        {%- embed "VitelogeFrontendBundle:Block:carousel.html.twig" with { 'hasIndicators': 0, 'hasControls': 0, 'carouselClass': 'estates' } -%}
+            {%- block carousel_id -%}carousel-home-{{ transaction|lower }}{%- endblock carousel_id -%}
+            {%- block carousel_slides -%}{%- endblock carousel_slides -%}
+        {%- endembed -%}
     </div>
 </section>
