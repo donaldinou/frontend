@@ -104,8 +104,8 @@ namespace Viteloge\FrontendBundle\Controller {
 
             // First Department
             $inseeDepartment = null;
-            if (!empty($adSearch->getWhereDepartment())) {
-                $whereDepartment = $adSearch->getWhereDepartment();
+            $whereDepartment = $adSearch->getWhereDepartment();
+            if (!empty($whereDepartment)) {
                 $departmentId = current($whereDepartment);
                 $departmentRepository = $this->getDoctrine()->getRepository('AcreatInseeBundle:InseeDepartment');
                 $inseeDepartment = $departmentRepository->find((int)$departmentId);
@@ -114,8 +114,8 @@ namespace Viteloge\FrontendBundle\Controller {
 
             // First city
             $inseeCity = null;
-            if (!empty($adSearch->getWhere())) {
-                $where = $adSearch->getWhere();
+            $where = $adSearch->getWhere();
+            if (!empty($where)) {
                 $cityId = current($where);
                 $cityRepository = $this->getDoctrine()->getRepository('AcreatInseeBundle:InseeCity');
                 $inseeCity = $cityRepository->find((int)$cityId);
@@ -166,7 +166,8 @@ namespace Viteloge\FrontendBundle\Controller {
                     )
                 );
             }
-            if (empty($request->get('qs'))) { // if there is no query stats in url
+            $qs = $request->get('qs');
+            if (empty($qs)) { // if there is no query stats in url
                 $breadcrumbTitle  = (!empty($adSearch->getTransaction())) ? $trans->trans('ad.transaction.'.strtoupper($adSearch->getTransaction())).' ' : $trans->trans('ad.research');
                 $breadcrumbTitle  .= (!empty($adSearch->getWhat())) ? implode(', ', $adSearch->getWhat()).' ' : '';
                 $breadcrumbTitle  .= ($inseeCity instanceof InseeCity) ? $inseeCity->getFullname() : '';
