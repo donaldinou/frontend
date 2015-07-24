@@ -195,10 +195,10 @@ namespace Viteloge\CoreBundle\Entity {
         /**
          * Set inseeDepartement
          *
-         * @param \Acreat\InseeBundle\Entity\InseeDepartement $inseeDepartement
+         * @param \Acreat\InseeBundle\Entity\InseeDepartement $inseeDepartment
          * @return InseeVitelogeStats
          */
-        public function setInseeDepartement(\Acreat\InseeBundle\Entity\InseeDepartement $inseeDepartement = null)
+        public function setInseeDepartement(\Acreat\InseeBundle\Entity\InseeDepartment $inseeDepartement = null)
         {
             $this->inseeDepartement = $inseeDepartement;
 
@@ -208,7 +208,7 @@ namespace Viteloge\CoreBundle\Entity {
         /**
          * Get inseeDepartement
          *
-         * @return \Acreat\InseeBundle\Entity\InseeDepartement
+         * @return \Acreat\InseeBundle\Entity\InseeDepartment
          */
         public function getInseeDepartement()
         {
