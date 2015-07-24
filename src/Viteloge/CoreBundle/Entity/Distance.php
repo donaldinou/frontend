@@ -18,21 +18,37 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @ORM\Column(name="distance", type="float", precision=10, scale=0, nullable=false)
          */
-        private $distance;
+        protected $distance;
 
         /**
          * @var float
          *
          * @ORM\Column(name="google_distance", type="float", precision=10, scale=0, nullable=false)
          */
-        private $googleDistance;
+        protected $googleDistance;
 
         /**
          * @var \DateTime
          *
          * @ORM\Column(name="google_time", type="time", nullable=false)
          */
-        private $googleTime;
+        protected $googleTime;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="codeInseeFrom", type="string")
+         * @ORM\Id
+         */
+        protected $codeInseeFrom;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="codeInseeTo", type="string")
+         * @ORM\Id
+         */
+        protected $codeInseeTo;
 
         /**
          * @var \Acreat\InseeBundle\Entity\InseeCity
@@ -42,7 +58,7 @@ namespace Viteloge\CoreBundle\Entity {
          *   @ORM\JoinColumn(name="codeInseeFrom", referencedColumnName="codeInsee")
          * })
          */
-        private $inseeFrom;
+        protected $inseeFrom;
 
         /**
          * @var \Acreat\InseeBundle\Entity\InseeCity
@@ -52,7 +68,7 @@ namespace Viteloge\CoreBundle\Entity {
          *   @ORM\JoinColumn(name="codeInseeTo", referencedColumnName="codeInsee")
          * })
          */
-        private $inseeTo;
+        protected $inseeTo;
 
 
 
