@@ -377,13 +377,14 @@ namespace Viteloge\FrontendBundle\Controller {
             $adSearch = new AdSearch();
             $adSearch->handleRequest($request);
 
+            $transaction = $adSearch->getTransaction();
             $elasticaManager = $this->container->get('fos_elastica.manager');
             $repository = $elasticaManager->getRepository('VitelogeCoreBundle:Ad');
-            $transaction = (!empty($adSearch->getTransaction())) ? $adSearch->getTransaction() : 'default';
+            $transaction = (!empty($transaction)) ? $transaction : 'default';
             $ads = $repository->search($adSearch, $limit);
 
             return array(
-                'transaction' => $adSearch->getTransaction(),
+                'transaction' => $transaction,
                 'ads' => $ads
             );
         }
