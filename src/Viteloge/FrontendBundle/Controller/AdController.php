@@ -123,12 +123,13 @@ namespace Viteloge\FrontendBundle\Controller {
             // --
 
             // Breadcrumbs
+            $transaction = $adSearch->getTransaction();
             $breadcrumbs = $this->get('white_october_breadcrumbs');
             $breadcrumbs->addItem(
                 'Home', $this->get('router')->generate('viteloge_frontend_homepage')
             );
             if ($inseeState instanceof InseeState) {
-                $breadcrumbTitle  = (!empty($adSearch->getTransaction())) ? $trans->trans('ad.transaction.'.strtoupper($adSearch->getTransaction())).' ' : '';
+                $breadcrumbTitle  = (!empty($transaction)) ? $trans->trans('ad.transaction.'.strtoupper($transaction)).' ' : '';
                 $breadcrumbTitle .= $inseeState->getFullname();
                 $breadcrumbs->addItem(
                     $breadcrumbTitle,
@@ -141,7 +142,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 );
             }
             if ($inseeDepartment instanceof InseeDepartment) {
-                $breadcrumbTitle  = (!empty($adSearch->getTransaction())) ? $trans->trans('ad.transaction.'.strtoupper($adSearch->getTransaction())).' ' : '';
+                $breadcrumbTitle  = (!empty($transaction)) ? $trans->trans('ad.transaction.'.strtoupper($transaction)).' ' : '';
                 $breadcrumbTitle .= $inseeDepartment->getFullname();
                 $breadcrumbs->addItem(
                     $breadcrumbTitle,
@@ -154,7 +155,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 );
             }
             if ($inseeCity instanceof InseeCity) {
-                $breadcrumbTitle  = (!empty($adSearch->getTransaction())) ? $trans->trans('ad.transaction.'.strtoupper($adSearch->getTransaction())).' ' : '';
+                $breadcrumbTitle  = (!empty($transaction)) ? $trans->trans('ad.transaction.'.strtoupper($transaction)).' ' : '';
                 $breadcrumbTitle .= $inseeCity->getFullname().' ('.$inseeCity->getInseeDepartment()->getId().')';
                 $breadcrumbs->addItem(
                     $breadcrumbTitle,
