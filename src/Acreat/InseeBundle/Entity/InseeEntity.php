@@ -98,7 +98,8 @@ namespace Acreat\InseeBundle\Entity {
          * @return string
          */
         public function getFullname() {
-            return (!empty($this->getArticlePrefix())) ? $this->getArticlePrefix().' '.$this->getName() : $this->getName();
+            $articlePrefix = $this->getArticlePrefix();
+            return (!empty($articlePrefix)) ? $articlePrefix.' '.$this->getName() : $this->getName();
         }
 
         /**
@@ -106,7 +107,8 @@ namespace Acreat\InseeBundle\Entity {
          * @return string
          */
         public function getHingeFullname() {
-            return (!empty($this->getHingePrefix())) ? $this->getHingePrefix().' '.$this->getName() : $this->getName();
+            $hingePrefix = $this->getHingePrefix();
+            return (!empty($hingePrefix)) ? $hingePrefix().' '.$this->getName() : $this->getName();
         }
 
         /**
