@@ -480,8 +480,8 @@ namespace Viteloge\CoreBundle\Entity {
          * @return string
          */
         public function getFullname() {
-            $fullname = preg_replace('/\s+/', ' ', $this->getCivility().' '.$this->getFirstname().' '.$this->getLastname());
-            if (empty(trim($fullname))) {
+            $fullname = trim(preg_replace('/\s+/', ' ', $this->getCivility().' '.$this->getFirstname().' '.$this->getLastname()));
+            if (empty($fullname)) {
                 $fullname = $this->getEmail();
             }
             return $fullname;
