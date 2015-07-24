@@ -167,8 +167,8 @@ namespace Viteloge\FrontendBundle\Controller {
                     )
                 );
             }
-            $qs = $request->get('qs');
-            if (empty($qs)) { // if there is no query stats in url
+            $qsId = $request->get('qs');
+            if (empty($qsId)) { // if there is no query stats in url
                 $what = $adSearch->getWhat();
                 $breadcrumbTitle  = (!empty($transaction)) ? $trans->trans('ad.transaction.'.strtoupper($transaction)).' ' : $trans->trans('ad.research');
                 $breadcrumbTitle  .= (!empty($what)) ? implode(', ', $what).' ' : '';
@@ -178,8 +178,7 @@ namespace Viteloge\FrontendBundle\Controller {
             // --
 
             // QueryStats SEO optimiation
-            if (!empty($request->get('qs'))) {
-                $qsId = (int)$request->get('qs');
+            if (!empty($qsId)) {
                 $qsRepository = $this->getDoctrine()->getRepository('VitelogeCoreBundle:QueryStats');
                 $qs = $qsRepository->find((int)$qsId);
                 $breadcrumbTitle  = $qs->getKeywords();
