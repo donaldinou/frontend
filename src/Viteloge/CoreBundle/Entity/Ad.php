@@ -662,7 +662,8 @@ namespace Viteloge\CoreBundle\Entity {
          * @return strig
          */
         public function getAdvancedDescription() {
-            return (!empty($this->getDescriptionMku())) ? $this->getDescriptionMku() : $this->getDescription();
+            $descriptionMku = $this->getDescriptionMku();
+            return (!empty($descriptionMku)) ? $descriptionMku : $this->getDescription();
         }
 
         /**
