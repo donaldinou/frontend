@@ -94,8 +94,8 @@ namespace Viteloge\FrontendBundle\Controller {
 
             // First State
             $inseeState = null;
-            if (!empty($adSearch->getWhereState())) {
-                $whereState = $adSearch->getWhereState();
+            $whereState = $adSearch->getWhereState();
+            if (!empty($whereState())) {
                 $stateId = current($whereState);
                 $stateRepository = $this->getDoctrine()->getRepository('AcreatInseeBundle:InseeState');
                 $inseeState = $stateRepository->find((int)$stateId);
