@@ -135,7 +135,7 @@ namespace Viteloge\FrontendBundle\Controller {
                     $breadcrumbTitle,
                     $this->get('router')->generate('viteloge_frontend_ad_search',
                         array(
-                            'transaction' => $adSearch->getTransaction(),
+                            'transaction' => $transaction,
                             'whereState' => array($inseeState->getId())
                         )
                     )
@@ -148,7 +148,7 @@ namespace Viteloge\FrontendBundle\Controller {
                     $breadcrumbTitle,
                     $this->get('router')->generate('viteloge_frontend_ad_search',
                         array(
-                            'transaction' => $adSearch->getTransaction(),
+                            'transaction' => $transaction,
                             'whereDepartment' => array($inseeDepartment->getId())
                         )
                     )
@@ -161,7 +161,7 @@ namespace Viteloge\FrontendBundle\Controller {
                     $breadcrumbTitle,
                     $this->get('router')->generate('viteloge_frontend_ad_search',
                         array(
-                            'transaction' => $adSearch->getTransaction(),
+                            'transaction' => $transaction,
                             'where' => array($inseeCity->getId())
                         )
                     )
@@ -169,8 +169,9 @@ namespace Viteloge\FrontendBundle\Controller {
             }
             $qs = $request->get('qs');
             if (empty($qs)) { // if there is no query stats in url
-                $breadcrumbTitle  = (!empty($adSearch->getTransaction())) ? $trans->trans('ad.transaction.'.strtoupper($adSearch->getTransaction())).' ' : $trans->trans('ad.research');
-                $breadcrumbTitle  .= (!empty($adSearch->getWhat())) ? implode(', ', $adSearch->getWhat()).' ' : '';
+                $what = $adSearch->getWhat();
+                $breadcrumbTitle  = (!empty($transaction)) ? $trans->trans('ad.transaction.'.strtoupper($transaction)).' ' : $trans->trans('ad.research');
+                $breadcrumbTitle  .= (!empty($what)) ? implode(', ', $what).' ' : '';
                 $breadcrumbTitle  .= ($inseeCity instanceof InseeCity) ? $inseeCity->getFullname() : '';
                 $breadcrumbs->addItem($breadcrumbTitle);
             }
