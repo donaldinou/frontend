@@ -58,7 +58,7 @@ namespace Viteloge\CoreBundle\Entity {
         /**
          * @var \Acreat\InseeBundle\Entity\InseeDepartement
          *
-         * @ORM\ManyToOne(targetEntity="Acreat\InseeBundle\Entity\InseeDepartement")
+         * @ORM\ManyToOne(targetEntity="Acreat\InseeBundle\Entity\InseeDepartment")
          * @ORM\JoinColumns({
          *   @ORM\JoinColumn(name="departement", referencedColumnName="DEP")
          * })
