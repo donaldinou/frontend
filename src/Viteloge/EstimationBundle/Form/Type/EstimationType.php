@@ -9,17 +9,27 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Validator\Constraints as Assert;
+use Viteloge\CoreBundle\Entity\Estimate;
+use Viteloge\EstimationBundle\Component\Enum\PathEnum;
+use Viteloge\EstimationBundle\Component\Enum\TypeEnum;
+use Viteloge\EstimationBundle\Component\Enum\ExpositionEnum;
+use Viteloge\EstimationBundle\Component\Enum\ConditionEnum;
+use Viteloge\EstimationBundle\Component\Enum\UsageEnum;
+use Viteloge\EstimationBundle\Component\Enum\ApplicantEnum;
+use Viteloge\EstimationBundle\Component\Enum\TimeEnum;
 
-use Viteloge\EstimationBundle\Entity\Estimation;
 
+class EstimationType extends MyTypeWithBoolean {
 
-class EstimationType extends MyTypeWithBoolean
-{
-    
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $pathEnum = new PathEnum();
+        $typeEnum = new TypeEnum();
+        $expositionEnum = new ExpositionEnum();
+        $conditionEnum = new ConditionEnum();
+        $usageEnum = new UsageEnum();
+        $applicantEnum = new ApplicantEnum();
+        $timeEnum = new TimeEnum();
 
-        
         $builder
             // general
             ->add(
@@ -31,7 +41,7 @@ class EstimationType extends MyTypeWithBoolean
                 'type_voie',
                 'genemu_jqueryselect2_choice',
                 array(
-                    'choices' => Estimation::$TYPES_VOIE,
+                    'choices' => $pathEnum->choices(),
                     'configs' => array( 'width' => '100%' ),
                     'label' => 'estimation.label.type_voie'
                 )
@@ -52,7 +62,7 @@ class EstimationType extends MyTypeWithBoolean
                 array( 'attr' => array( 'placeholder' => 'estimation.label.codepostal') )
             )
             ->add(
-                'ville',
+                'inseeCity',
                 'genemu_jqueryselect2_hidden',
                 array(
                     'required' => true,
@@ -69,7 +79,7 @@ class EstimationType extends MyTypeWithBoolean
                 'choice',
                 array(
                     'expanded' => true,
-                    'choices' => Estimation::$TYPES_BIEN,
+                    'choices' => $typeEnum->choices(),
                     'label' => 'estimation.label.type'
                 )
             )
@@ -108,7 +118,7 @@ class EstimationType extends MyTypeWithBoolean
                 'exposition',
                 'genemu_jqueryselect2_choice',
                 array(
-                    'choices' => Estimation::$EXPOSITIONS,
+                    'choices' => $expositionEnum->choices(),
                     'required' => false,
                     'configs' => array( 'width' => '100%', 'minimumResultsForSearch' => -1 ),
                     'label' => 'estimation.label.exposition'
@@ -172,7 +182,7 @@ class EstimationType extends MyTypeWithBoolean
                 'etat',
                 'genemu_jqueryselect2_choice',
                 array(
-                    'choices' => Estimation::$ETATS,
+                    'choices' => $conditionEnum->choices(),
                     'required' => false,
                     'configs' => array( 'width' => '100%', 'minimumResultsForSearch' => -1 ),
                     'label' => 'estimation.label.etat'
@@ -182,7 +192,7 @@ class EstimationType extends MyTypeWithBoolean
                 'usage',
                 'genemu_jqueryselect2_choice',
                 array(
-                    'choices' => Estimation::$USAGES,
+                    'choices' => $usageEnum->choices(),
                     'required' => false,
                     'configs' => array( 'width' => '100%', 'minimumResultsForSearch' => -1 ),
                     'label' => 'estimation.label.usage'
@@ -194,7 +204,7 @@ class EstimationType extends MyTypeWithBoolean
                 'proprietaire',
                 'genemu_jqueryselect2_choice',
                 array(
-                    'choices' => Estimation::$TYPES_PROPRIO,
+                    'choices' => $applicantEnum->choices(),
                     'configs' => array( 'width' => '100%', 'minimumResultsForSearch' => -1 ),
                     'label' => 'estimation.label.proprio',
                     'empty_value' => "estimation.value.proprio",
@@ -207,14 +217,14 @@ class EstimationType extends MyTypeWithBoolean
                 'delai',
                 'genemu_jqueryselect2_choice',
                 array(
-                    'choices' => Estimation::$DELAIS,
+                    'choices' => $timeEnum->choices(),
                     'required' => false,
                     'configs' => array( 'width' => '100%', 'minimumResultsForSearch' => -1 ),
                     'label' => 'estimation.label.delai'
                 )
             )
             ->add(
-                'demande_agence',
+                'agencyRequest',
                 'choice',
                 $this->makeBool( 'estimation.label.demande_agence', true )
             )
@@ -236,11 +246,10 @@ class EstimationType extends MyTypeWithBoolean
 
         $builder->addEventListener( FormEvents::PRE_SET_DATA, array( $this, 'checkAndSetPersonalData' ) );
         $builder->addEventListener( FormEvents::PRE_SUBMIT, array( $this, 'checkAndSetPersonalData' ) );
-        
+
     }
 
-    public function getName()
-    {
+    public function getName() {
         return 'estimation';
     }
 
@@ -249,14 +258,14 @@ class EstimationType extends MyTypeWithBoolean
         $estimation = $event->getData();
 
         if ( is_array( $estimation ) ) {
-            $constraints = 1 ==$estimation['demande_agence'];
+            $constraints = 1 ==$estimation['agencyRequest'];
         } else {
             $constraints = false;
         }
-        
+
         $form
             ->add(
-                'nom',
+                'lastname',
                 'text',
                 array(
                     'label' => 'estimation.label.nom',
@@ -265,7 +274,7 @@ class EstimationType extends MyTypeWithBoolean
                 )
             )
             ->add(
-                'prenom',
+                'firstname',
                 'text',
                 array(
                     'label' => 'estimation.label.prenom',
@@ -274,7 +283,7 @@ class EstimationType extends MyTypeWithBoolean
                 )
             )
             ->add(
-                'tel',
+                'phone',
                 'text',
                 array(
                     'label' => 'estimation.label.tel',
@@ -285,4 +294,4 @@ class EstimationType extends MyTypeWithBoolean
         ;
     }
 }
-    
+

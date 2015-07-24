@@ -4,10 +4,11 @@
 <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="{{ id }}-title">
         {%- block panel_heading -%}
+            {%- block panel_buttons_before -%}{%- endblock panel_buttons_before -%}
             <h3 class="panel-title">
                 <a class="{% if show is not defined or not show %}collapsed{% endif %}" data-toggle="collapse" data-parent="#{{ parent }}" href="#{{ id }}" aria-expanded="true" aria-controls="{{ id }}">{%- block panel_title -%}{%- endblock panel_title -%}</a>
-                {%- block panel_buttons -%}{%- endblock panel_buttons -%}
             </h3>
+            {%- block panel_buttons_after -%}{%- endblock panel_buttons_after -%}
         {% endblock panel_heading %}
     </div>
     <div id="{{ id }}" class="panel-collapse collapse{% if show is defined and show %} in{% endif %}" role="tabpanel" aria-labelledby="{{ id }}-title">

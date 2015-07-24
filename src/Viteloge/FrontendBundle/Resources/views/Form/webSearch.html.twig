@@ -1,6 +1,8 @@
 {% form_theme form with ['VitelogeFrontendBundle:Form:fields.html.twig'] %}
 
+{%- block form_start -%}
 {{ form_start(form, {'attr': {'enctype': 'application/x-www-form-urlencoded','class': 'form', 'role': 'form', 'novalidate': 'novalidate'}}) }}
+{%- endblock form_start -%}
     {%- block form_errors -%}
         {{ form_errors(form) }}
     {%- endblock form_errors -%}
@@ -21,10 +23,9 @@
         {{ form_row(form.userSearch.inseeCity, {
             'attr': {
                 'class': 'select-tag-input',
-                'placeholder': 'usersearch.inseeCity',
-                'data-placeholder' : 'usersearch.inseeCity'|trans(),
+                'data-placeholder' : 'usersearch.inseecity'|trans() ~ ' ...',
                 'data-allow-clear' : 'true',
-                'data-ajax--url' : path('viteloge_suggest_cities'),
+                'data-ajax--url' : path('viteloge_frontend_suggest_cities'),
                 'data-ajax--cache' : 'true',
                 'data-ajax--data-type' : 'json'
             }
@@ -108,14 +109,14 @@
     {%- block form_button -%}
         {%- embed 'VitelogeCoreBundle:Form:submit.html.twig' -%}
             {%- block form_button_back -%}
-                <a href="{{ path('viteloge_frontend_websearch_list') }}" class="btn btn-default btn-block" role="button" aria-label="{% trans %}usersearch.back{% endtrans %}">
+                <a href="{{ path('viteloge_frontend_websearch_list') }}" class="btn btn-default btn-block" role="button" aria-label="{% trans %}usersearch.action.back{% endtrans %}">
                     <span class="fa fa-undo" aria-hidden="true">&nbsp;</span>
-                    <span>{% trans %}usersearch.back{% endtrans %}</span>
+                    <span>{% trans %}usersearch.action.back{% endtrans %}</span>
                 </a>
             {%- endblock -%}
             {%- block form_button_submit -%}
                 {{ form_widget(form.userSearch.save, {
-                    'label': 'usersearch.save',
+                    'label': 'usersearch.action.save',
                     'span_class': 'fa fa-save',
                     'attr': {
                         'class': 'btn btn-primary btn-block text-uppercase',
@@ -125,5 +126,6 @@
             {%- endblock -%}
         {%- endembed -%}
     {%- endblock form_button -%}
-    {{ form_row(form) }}
+{%- block form_end -%}
 {{ form_end(form) }}
+{%- endblock form_end -%}

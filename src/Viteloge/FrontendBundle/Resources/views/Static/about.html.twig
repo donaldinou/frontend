@@ -1,36 +1,32 @@
-{% extends 'VitelogeFrontendBundle::base.html.twig' %}
+{% extends 'VitelogeFrontendBundle:Static:base.html.twig' %}
 
 {%- block schema -%}
     itemscope itemtype="http://schema.org/AboutPage"
 {%- endblock schema -%}
 
-{% block main %}
-<aside>
-    {{ include('VitelogeFrontendBundle:menu:static.html.twig', {}) }}
-</aside>
-<section class="highlighting text-center">
-    <article class="container">
-        <h3 class="text-uppercase">{% trans %}Informations on Fasthousing{% endtrans %}</h3>
-        <p>ViteLogé est un service édité par la société ACREAT Sarl, société spécialisée dans les technologies Web. </p>
-        <p>ViteLogé a pour mission de simplifier et d’accélérer la recherche de biens immobiliers sur Internet.</p>
-        <p>Pour se faire, les ingénieurs d’ACREAT ont mis au point un moteur de recherche unique en son genre permettant l’indexation automatique de centaines de milliers d’annonces immobilières éparpillées sur des milliers de sites hétérogènes. </p>
-        <p>ViteLogé visite chaque jour plusieurs centaines de sites de professionnels de l’immobilier et indexe chaque jour plusieurs centaines de milliers d’annonces immobilières. </p>
-        <p>Ainsi, à partir de la page&nbsp;d’accueil de ViteLogé, vous pouvez trouver rapidement le bien immobilier que vous cherchez et être mis directement en relation avec le site Internet de l’agence qui le propose.</p>
-        <p>ViteLogé est un service totalement gratuit pour les particuliers à la recherche d'un logement.</p>
-        <p>ViteLogé repose sur un modèle économique lié à la publicité. </p>
-        <ul>
-          <li>Publicité traditionnelle par bandeau et pop-up</li>
-          <li>Publicité liée à la mise en avant de certaines annonces immobilières,</li>
-          <li>Publicité de type liens sponsorisés </li>
-        </ul>
-        <p>Quelques chiffres&nbsp;:</p>
-        <ul>
-          <li>~ 700&nbsp;000 Annonces</li>
-          <li>~ 2500 Sites de professionnels visités</li>
-          <li>~ 8000 Professionnels représentés</li>
-          <li>Chaque annonce est revisitée en moyenne toutes les 26,5 Heures</li>
-        </ul>
-        <p>ViteLogé est un projet soutenu par OSEO Anvar et le Conseil Régional de Bretagne pour son caractère innovant.</p>
-    </article>
-</section>
-{% endblock %}
+{%- block title -%}
+    <title>{%- trans -%}Informations on Fasthousing{%- endtrans -%}</title>
+{%- endblock title -%}
+
+{%- block main_content -%}
+    <p>ViteLogé est un service édité par la société ACREAT Sarl, société spécialisée dans les technologies Web. </p>
+    <p>ViteLogé a pour mission de simplifier et d’accélérer la recherche de biens immobiliers sur Internet.</p>
+    <p>Pour se faire, les ingénieurs d’ACREAT ont mis au point un moteur de recherche unique en son genre permettant l’indexation automatique de centaines de milliers d’annonces immobilières éparpillées sur des milliers de sites hétérogènes. </p>
+    <p>ViteLogé visite chaque jour plusieurs centaines de sites de professionnels de l’immobilier et indexe chaque jour plusieurs centaines de milliers d’annonces immobilières. </p>
+    <p>Ainsi, à partir de la page&nbsp;d’accueil de ViteLogé, vous pouvez trouver rapidement le bien immobilier que vous cherchez et être mis directement en relation avec le site Internet de l’agence qui le propose.</p>
+    <p>ViteLogé est un service totalement gratuit pour les particuliers à la recherche d'un logement.</p>
+    <p>ViteLogé repose sur un modèle économique lié à la publicité. </p>
+    <ul>
+      <li>Publicité traditionnelle par bandeau et pop-up</li>
+      <li>Publicité liée à la mise en avant de certaines annonces immobilières,</li>
+      <li>Publicité de type liens sponsorisés </li>
+    </ul>
+    <p>Quelques chiffres&nbsp;:</p>
+    <ul>
+      <li>~ 700&nbsp;000 Annonces</li>
+      <li>~ 2500 Sites de professionnels visités</li>
+      <li>~ 8000 Professionnels représentés</li>
+      <li>Chaque annonce est revisitée en moyenne toutes les 26,5 Heures</li>
+    </ul>
+    <p>ViteLogé est un projet soutenu par OSEO Anvar et le Conseil Régional de Bretagne pour son caractère innovant.</p>
+{%- endblock -%}

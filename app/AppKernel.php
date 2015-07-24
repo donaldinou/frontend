@@ -27,6 +27,8 @@ class AppKernel extends Kernel
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Genemu\Bundle\FormBundle\GenemuFormBundle(), // used in Estimation
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(), // used in order to load only enabled
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+            new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new Acreat\CoreBundle\AcreatCoreBundle(),
             new Acreat\InseeBundle\AcreatInseeBundle(),
             new Viteloge\CoreBundle\VitelogeCoreBundle(),

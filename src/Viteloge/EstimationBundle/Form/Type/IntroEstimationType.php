@@ -8,14 +8,16 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Validator\Constraints as Assert;
-
 use Viteloge\EstimationBundle\Entity\Estimation;
+use Viteloge\EstimationBundle\Component\Enum\TypeEnum;
 
 
 class IntroEstimationType extends MyTypeWithBoolean
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $typeEnum = new TypeEnum();
+
         $builder
             ->add(
                 'ville',
@@ -26,7 +28,7 @@ class IntroEstimationType extends MyTypeWithBoolean
                 'choice',
                 array(
                     'expanded' => true,
-                    'choices' => Estimation::$TYPES_BIEN,
+                    'choices' => $typeEnum->choices(),
                     'label' => 'estimation.label.type'
                 )
             )
@@ -63,5 +65,5 @@ class IntroEstimationType extends MyTypeWithBoolean
     {
         return 'intro_estimation';
     }
-    
+
 }

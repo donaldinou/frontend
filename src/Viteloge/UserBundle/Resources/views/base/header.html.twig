@@ -14,15 +14,24 @@
                             </button>
                         {% endblock %}
                         {% block header_logo %}
-                            <a class="navbar-branded" href="{{ path('viteloge_frontend_homepage') }}" itemscope itemtype="http://schema.org/Brand">
+                            <a class="navbar-branded brand" href="{{ path('viteloge_frontend_homepage') }}" itemscope itemtype="http://schema.org/Brand">
                                 <img src="{{ asset('bundles/vitelogecore/images/logo-viteloge.svg') }}" class="logo img-responsive" alt="{% trans %}viteloge.brand{% endtrans %}" itemprop="logo" data-role="logo">
+                                {#<h1 class="title text-uppercase">Vite<em class="em">logé</em></h1>
+                                <h2 class="subtitle clearfix text-uppercase">Moteur de recherche immobilier</h2>#}
                             </a>
                         {% endblock %}
                     </div>
                 {% endblock %}
                 {% block header_navbarmenu %}
                     <div class="collapse navbar-collapse" id="navbar-navigation">
+                        {%- block header_brand -%}
+                        <div class="visible-xs-block">
+                            <button type="button" class="close" aria-label="{%- trans -%}viteloge.close{%- endtrans -%}"><span aria-hidden="true">&times;</span></button>
+                            <img src="{{ asset('bundles/vitelogecore/images/logo-viteloge.svg') }}" class="logo img-responsive" alt="{% trans %}viteloge.brand{% endtrans %}" itemprop="logo" data-role="logo">
+                        </div>
+                        {%- endblock header_brand -%}
                         {% block header_identification %}
+                        <div class="clearfix">
                             <ul id="identification" class="nav navbar-nav navbar-right">
                                 {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") or not app.user %}
                                     <li>
@@ -47,42 +56,28 @@
                                             <span>&nbsp;{{ app.user.fullname }}&nbsp;</span>
                                             <span class="caret"></span>
                                         </a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><span class="navbar-text">{{ 'Welcome' | trans }}</span></li>
-                                            <li>
-                                                <a href="{{ path('viteloge_frontend_user_index') }}">{% trans %}Espace Personnel{% endtrans %}</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ path('viteloge_frontend_websearch_list') }}">{% trans %}My research{% endtrans %}</a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ path('fos_user_profile_show') }}">{% trans %}Profile show{% endtrans %} <span class="badge">14</span></a>
-                                            </li>
-                                            <li class="divider"></li>
-                                            <li>
-                                                <a href="{{ path('fos_user_security_logout') }}">{% trans %}Logout{% endtrans %}</a>
-                                            </li>
-                                        </ul>
+                                        {{ include('VitelogeFrontendBundle:menu:user.html.twig', { }) }}
                                     </li>
                                 {% endif %}
                             </ul>
+                        </div>
                         {% endblock %}
                         <div class="clearfix"></div>
-                        {% block header_navigation %}
-                            {% set transaction = app.request.get('transaction')|lower %}
-                            <ul id="navigation" class="nav nav-tabs">
-                                <li class="tab{% if transaction == 'v' %} active{% endif %} text-uppercase" role="presentation">
+                        {%- block header_navigation -%}
+                            {%- set transaction = app.request.get('transaction')|lower -%}
+                            <ul id="navigation" class="nav navbar-nav navbar-right">
+                                <li class="text-uppercase{% if transaction == 'v' %} active{% endif %}" role="presentation">
                                     <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'v' }) }}" data-theme-hover="theme-sale">{% trans %}ad.sale{% endtrans %}</a>
                                 </li>
-                                <li class="tab{% if transaction == 'l' %} active{% endif %} text-uppercase" role="presentation">
+                                <li class="text-uppercase{% if transaction == 'l' %} active{% endif %}" role="presentation">
                                     <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'l' }) }}" data-theme-hover="theme-rent">{% trans %}ad.rent{% endtrans %}</a>
                                 </li>
-                                <li class="tab{% if transaction == 'n' %} active{% endif %} text-uppercase" role="presentation">
+                                <li class="text-uppercase{% if transaction == 'n' %} active{% endif %}" role="presentation">
                                     <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'n' }) }}" data-theme-hover="theme-new">{% trans %}ad.new{% endtrans %}</a>
                                 </li>
-                                <li class="tab{% if transaction == 'p' %} active{% endif %} text-uppercase hidden" role="presentation">
-                                    <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'v' }) }}" data-theme-hover="theme-default">{% trans %}viteloge.more{% endtrans %}</a>
-                                </li>
+                                {%- block header_navigation_more -%}
+
+                                {%- endblock header_navigation_more -%}
                             </ul>
                         {% endblock %}
                     </div>

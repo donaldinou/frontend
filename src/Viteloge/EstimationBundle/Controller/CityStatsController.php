@@ -9,10 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
-use Viteloge\FrontendBundle\Entity\City;
-use Viteloge\EstimationBundle\Entity\Estimation;
+use Acreat\InseeBundle\Entity\InseeCity;
+use Viteloge\CoreBundle\Entity\Estimate;
 
 /**
+ * @Route("prix-immobilier/")
  */
 class CityStatsController extends Controller
 {
@@ -20,21 +21,21 @@ class CityStatsController extends Controller
      * @Route("{slug}/{id}",requirements={"id"="^[0-9][0-9abAB][0-9]+"})
      * @Template
      */
-    public function cityAction( City $city ) {
+    public function cityAction( InseeCity $city ) {
 
         $om = $this->getDoctrine()->getManager();
         $baro_repo = $om->getRepository( 'Viteloge\EstimationBundle\Entity\Barometre' );
-        $city_repo = $om->getRepository( 'Viteloge\FrontendBundle\Entity\City' );
-        
+        $city_repo = $om->getRepository( 'AcreatInseeBundle:InseeCity' );
+
         $barometres = $baro_repo->findSortedSalesFor( $city );
 
-        $estimation = new Estimation();
-        $estimation->setVille( $city->getCodeInsee() );
-        
-        $form = $this->createForm( 'intro_estimation', $estimation, array(
+        $estimate = new Estimate();
+        $estimate->setVille( $city->getCodeInsee() );
+
+        $form = $this->createForm( 'intro_estimation', $estimate, array(
             'action' => $this->generateUrl( 'viteloge_estimation_default_index', array( 'intro' => 1 ) )
         ) );
-        
+
         return array(
             'city' => $city,
             'form' => $form->createView(),

@@ -25,7 +25,9 @@ namespace Viteloge\FrontendBundle\Form\Type {
         }
 
         public function buildForm(FormBuilderInterface $builder, array $options) {
-            $builder->add('title', 'text');
+            $builder->add('title', 'text', array(
+                'label' => 'websearch.title'
+            ));
             $builder->add('userSearch', new UserSearchType($this->tokenStorage, $this->em));
 
             // grab the user, do a quick sanity check that one exists

@@ -1,19 +1,15 @@
-{% extends 'VitelogeFrontendBundle::base.html.twig' %}
+{% extends 'VitelogeFrontendBundle:Static:base.html.twig' %}
 
-{%- block schema -%}
-    itemscope itemtype="http://schema.org/WebPage"
-{%- endblock schema -%}
+{%- block title -%}
+    <title>{%- trans -%}Fasthousing API{%- endtrans -%}</title>
+{%- endblock title -%}
 
-{% block main %}
-<aside>
-    {{ include('VitelogeFrontendBundle:menu:static.html.twig', {}) }}
-</aside>
-<section class="highlighting text-center">
-    <article class="container">
-        <h3 class="text-uppercase">{% trans %}Fasthousing API{% endtrans %}</h3>
-        <p>
-            Loremp ipsum
-        </p>
-    </article>
-</section>
-{% endblock %}
+{%- block main_title -%}
+    Insérez un formulaire de recherche ViteLogé dans votre propre site !
+{%- endblock main_title-%}
+
+{%- block main_content -%}
+    <p>Vous pouvez proposer aux visiteurs de votre site Web l'efficacité des recherches ViteLogé. Il vous suffit de copier le code ci-dessous et de le coller dans le code HTML de la page où vous souhaitez voir apparaître le formulaire de recherche. <b>Et c'est gratuit !</b></p>
+
+    <p>Vous devez choisir une ville pour générer le code correspondant au formulaire de recherche :</p>
+{%- endblock main_content -%}

@@ -1,6 +1,0 @@
-{% block form_row %}
-  <div class="field small_label {% if required %}required{% endif %}{% if errors|length > 0 %} error" title="{{ errors[0].message }}{% endif %}">
-    <div class="label_wrapper">{{ form_label(form) }}</div>
-    <div class="input_wrapper">{{ form_widget(form) }}</div>
-  </div>
-{% endblock %}

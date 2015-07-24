@@ -11,19 +11,27 @@
 <div class="panel panel-default alert alert-dismissible">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <div class="panel-body">
-        {% trans %}Welcome{% endtrans %}&nbsp;{{ app.user.fullname }}<br>
-        {% trans %}Your account has been created at: {% endtrans %}{{ app.user.createdAt|localizeddate('short', 'none', null) }}<br>
-        {% trans %}You actually have{% endtrans %}
-        {{ webSearches|length }}
-        {% trans %}research{% endtrans %}<br>
-        {% if percent != 100 %}
-            <span>{% trans %}Profile completed at{% endtrans %}</span>
-            <div class="progress">
-                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percent }}%">
-                    <span class="">{{ percent }}% Complete (success)</span>
-              </div>
+        <p>
+            <div class="user-icon pull-left">
+                <span class="rounded-icon large text-center">
+                    <span class="fa fa-user"></span>
+                </span>
             </div>
-            <a href="{{ path('fos_user_profile_edit') }}" class="">{% trans %}Edit profile{% endtrans %}</a>
-        {% endif %}
+            <span>{% trans with { '%name%' : app.user.fullname } %}viteloge.welcome.name{% endtrans %}</span><br>
+            <span>{% trans with { '%date%' : app.user.createdAt|localizeddate('short', 'none', null) } %}user.account.createdat.date{% endtrans %}</span><br>
+            <span>{% trans with { '%date%' : app.user.lastLogin|localizeddate('short', 'none', null) } %}user.account.lastlogin.date{% endtrans %}</span><br>
+            <span>{% transchoice webSearches|length with { '%count%' : webSearches|length } %}user.account.websearches.count{% endtranschoice %}</span><br>
+        </p>
+        {%- if percent != 100 -%}
+            <p>
+                <span>{% trans %}user.account.profile.completedat{% endtrans %}</span><br>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ percent }}%">
+                        <span class="">{% trans with { '%percent%' : percent } %}user.account.percent.completed{% endtrans %}</span>
+                  </div>
+                </div>
+            </p>
+            <a href="{{ path('fos_user_profile_edit') }}" class="">{% trans %}user.action.edit{% endtrans %}</a>
+        {%- endif -%}
     </div>
 </div>

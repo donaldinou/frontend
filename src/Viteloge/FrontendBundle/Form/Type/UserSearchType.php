@@ -36,57 +36,59 @@ namespace Viteloge\FrontendBundle\Form\Type {
             $distanceEnum = new DistanceEnum();
             $builder
                 ->add('transaction', 'choice', array(
+                    'label' => 'usersearch.transaction',
                     'choices' => $transactionEnum->choices(),
                     'expanded' => true,
                     'multiple' => false,
-                    'preferred_choices' => array(),
-                    'data' => TransactionEnum::__default,
+                    'preferred_choices' => array()
                 ))
                 ->add('inseeCity', 'text', array(
+                    'label' => 'usersearch.inseecity',
                     'data_class' => 'Acreat\InseeBundle\Entity\InseeCity',
                     'required' => true,
                     'empty_data' => null
                 ))
                 ->add('type', 'choice', array(
+                    'label' => 'usersearch.type',
                     'choices' => $typeEnum->choices(),
                     'expanded' => false,
                     'multiple' => true,
-                    'placeholder' => 'ad.type.what',
                     'preferred_choices' => array(),
-                    'data' => null
                 ))
                 ->add('rooms', 'choice', array(
+                    'label' => 'usersearch.rooms',
                     'choices' => $roomEnum->choices(),
                     'expanded' => false,
                     'multiple' => true,
                     'required' => false,
+                    'preferred_choices' => array(),
                     'empty_value' => 'usersearch.empty_value'
                 ))
                 ->add('keywords', 'text', array(
-                    'label' => 'search.keywords',
+                    'label' => 'usersearch.keywords',
                     'required' => false
                 ))
                 ->add('budgetMin', 'money', array(
-                    'label' => 'search.price_min',
+                    'label' => 'usersearch.budgetMin',
                     'required' => false,
                     'precision' => 0
                 ))
                 ->add('budgetMax', 'money', array(
-                    'label' => 'search.price_max',
+                    'label' => 'usersearch.budgetMax',
                     'required' => false,
                     'precision' => 0
                 ))
                 ->add( 'radius', 'choice', array(
-                    'label' => 'search.rayon',
+                    'label' => 'usersearch.radius',
                     'choices' => $distanceEnum->choices(),
                     'required' => true
                 ))
                 ->add( 'helpEnabled', null, array(
-                    'label' => 'search.help',
+                    'label' => 'usersearch.help',
                     'required' => false
                 ))
                 ->add('mailEnabled', 'checkbox', array(
-                    'label' => 'search.mailenabled',
+                    'label' => 'usersearch.mailenabled',
                     'required' => false
                 ))
                 ->add('save', 'submit')
@@ -107,12 +109,12 @@ namespace Viteloge\FrontendBundle\Form\Type {
                     'data_class' => null,
                     'property' => 'getNameAndPostalcode',
                     'group_by' => 'inseeDepartment',
+                    'label' => 'usersearch.inseecity',
                     'choices' => $choices,
                     'expanded' => false,
                     'multiple' => false,
                     'data' => $inseeCity, // not really necessary
                     'required' => true,
-                    //'preferred_choices' => array(),
                     'empty_value' => '',
                     'empty_data' => null,
                     'mapped' => true
@@ -124,7 +126,7 @@ namespace Viteloge\FrontendBundle\Form\Type {
                 function (FormEvent $event) use ($formModifier) {
                     $form = $event->getForm();
                     $data = $event->getData();
-                    $inseeCity = $data->getInseeCity();
+                    $inseeCity = ($data) ? $data->getInseeCity() : null;
                     $formModifier($form, $inseeCity);
                 }
             );
@@ -165,19 +167,6 @@ namespace Viteloge\FrontendBundle\Form\Type {
                 }
             );
 
-            /*$builder->get('inseeCity')->addEventListener(
-                FormEvents::POST_SUBMIT,
-                function (FormEvent $event) use ($formModifier) {
-                    // It's important here to fetch $event->getForm()->getData(), as
-                    // $event->getData() will get you the client data (that is, the ID)
-                    $inseeCity = $event->getForm()->getData();
-                    var_dump($inseeCity);die;
-
-                    // since we've added the listener to the child, we'll have to pass on
-                    // the parent to the callback functions!
-                    $formModifier($event->getForm()->getParent(), $inseeCity);
-                }
-            );*/
         }
 
         public function setDefaultOptions(OptionsResolverInterface $resolver){

@@ -26,8 +26,7 @@ namespace Viteloge\FrontendBundle\Form\Type {
                     'expanded' => false,
                     'multiple' => false,
                     'placeholder' => 'What',
-                    'preferred_choices' => array(),
-                    'data' => null
+                    'preferred_choices' => array()
                 ))
                 ->add('rooms', null, array())
                 ->add('price', 'money', array())

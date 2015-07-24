@@ -24,13 +24,14 @@
     {%- embed "VitelogeUserBundle:base:header.html.twig" -%}
         {%- block header_navbarmenu -%}
             <div class="collapse navbar-collapse" id="navbar-navigation">
+                {{ block('header_brand') }}
                 {{ block('header_identification') }}
             </div>
             {%- block header_navigation -%}
                 <div id="search-container" class="forward text-center">
                     <h1 class="text-uppercase">Nam nec tellus a odio tincidunt</h1>
                     <h2 class="text-uppercase">{%- transchoice count with {'%count%': count|number_format(0, null, ' ')} -%}today.properties.update.count{%- endtranschoice -%} !</h2>
-                    {{ include('VitelogeFrontendBundle:Form:adSearch.html.twig', { form: form }) }}
+                    {{ include('VitelogeFrontendBundle:Default:form/adSearch.html.twig', { form: form }) }}
                 </div>
             {%- endblock -%}
         {%- endblock -%}
@@ -54,12 +55,10 @@
 {%- endblock -%}
 
 {%- block footer -%}
-<div class="container text-center">
-    {{ include('VitelogeFrontendBundle:menu:footer.html.twig', {}) }}
-    {{ include('VitelogeFrontendBundle:misc:social.html.twig', {}) }}
-    {{ include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) }}
-    {{ include('VitelogeFrontendBundle:Default:fragment/glossary.html.twig', { }) }}
-</div>
+    {{- parent() -}}
+    <div class="container text-center text-secondary">
+        {{- include('VitelogeFrontendBundle:Default:fragment/glossary.html.twig', { }) -}}
+    </div>
 {%- endblock -%}
 
 {%- block javascripts -%}

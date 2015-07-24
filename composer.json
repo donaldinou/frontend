@@ -33,7 +33,10 @@
         "white-october/pagerfanta-bundle": "dev-master",
         "ruflin/Elastica": "~1.4",
         "genemu/form-bundle": "~2.2",
-        "stof/doctrine-extensions-bundle": "~1.1"
+        "stof/doctrine-extensions-bundle": "~1.1",
+        "hwi/oauth-bundle": "0.4.*@dev",
+        "ccampbell/chromephp": "^4.1",
+        "excelwebzone/recaptcha-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

@@ -2,9 +2,41 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
-            <trans-unit id="1">
-                <source>Symfony2 is great</source>
-                <target>J'aime Symfony2</target>
+            <trans-unit id="user.register" resname="user.register">
+                <source>user.register</source>
+                <target>Inscription</target>
+            </trans-unit>
+            <trans-unit id="user.register.success" resname="user.register.success">
+                <source>user.register.success</source>
+                <target>Enregistrement terminé</target>
+            </trans-unit>
+            <trans-unit id="user.register.success.line1" resname="user.register.success.line1">
+                <source>user.register.success.line1</source>
+                <target>Vous pouvez dès maintenant vous connectez à votre compte et profiter des nouvelles fonctionnalités qui vous sont offertes</target>
+            </trans-unit>
+            <trans-unit id="user.profile.access" resname="user.profile.access">
+                <source>user.profile.access</source>
+                <target>Accéder à mon profil</target>
+            </trans-unit>
+            <trans-unit id="user.register.account.exist" resname="user.register.account.exist">
+                <source>user.register.account.exist</source>
+                <target>Vous avez déjà un compte</target>
+            </trans-unit>
+            <trans-unit id="user.register.account.no" resname="user.register.account.no">
+                <source>user.register.account.no</source>
+                <target>Vous n'avez pas de compte</target>
+            </trans-unit>
+            <trans-unit id="user.register.account.line1" resname="user.register.account.line1">
+                <source>user.register.account.line1</source>
+                <target>Enregistrer vos recherches préférées</target>
+            </trans-unit>
+            <trans-unit id="user.register.account.line2" resname="user.register.account.line2">
+                <source>user.register.account.line2</source>
+                <target>Recevoir par email les dernières annonces</target>
+            </trans-unit>
+            <trans-unit id="user.register.account.line3" resname="user.register.account.line3">
+                <source>user.register.account.line3</source>
+                <target>Trier les résultats suivant différents critères</target>
             </trans-unit>
         </body>
     </file>

@@ -23,9 +23,6 @@ namespace Viteloge\FrontendBundle\Controller {
         /**
          * @Route(
          *     "/",
-         *     requirements={
-         *         "transaction"="V|L|N"
-         *     },
          *     defaults={
          *         "transaction" = "L",
          *     },
@@ -55,6 +52,7 @@ namespace Viteloge\FrontendBundle\Controller {
             // Breadcrumb
             // --
 
+            // This count is pretty faster than an elastic search count
             $repository = $this->getDoctrine()
                 ->getRepository('VitelogeCoreBundle:Ad');
             $count = $repository->countByFiltered();

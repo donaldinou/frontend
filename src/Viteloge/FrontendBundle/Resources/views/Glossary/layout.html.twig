@@ -5,6 +5,18 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
 {%- endblock -%}
 
+{%- block header -%}
+    {%- embed 'VitelogeUserBundle:base:header.html.twig' -%}
+        {%- block header_navigation_more -%}
+            <li class="tab text-uppercase dropdown active" role="presentation">
+                <a href="#map-container" data-toggle="collapse" aria-expanded="true" aria-controls="#map-container" role="button">
+                    <span class="fa fa-arrow-circle-down"></span>
+                </a>
+            </li>
+        {%- endblock header_navigation_more -%}
+    {%- endembed -%}
+{%- endblock header -%}
+
 {%- block body_start -%}
     {% set mapOptions = mapOptions|default(false) %}
     {%- embed "VitelogeFrontendBundle:misc:googlemap.html.twig" with { mapOptions: mapOptions } -%}

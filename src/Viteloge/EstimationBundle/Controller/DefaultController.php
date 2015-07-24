@@ -7,28 +7,44 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-
-use Viteloge\EstimationBundle\Entity\Estimation;
+use Viteloge\CoreBundle\Entity\Estimate;
 
 /**
  * @Route("prix-immobilier/")
  */
 class DefaultController extends Controller
 {
+    public function startAction( Request $request ) {
+        // change with index
+    }
+
     /**
      * @Route("votre-estimation/")
      * @Method("GET")
      * @Template()
      */
-    public function indexAction( Request $request )
-    {
+    public function indexAction( Request $request ) {
+        $translated = $this->get('translator');
 
-        $e = new Estimation();
+        // Breadcrumbs
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem(
+            $translated->trans('breadcrumb.home', array(), 'breadcrumbs'),
+            $this->get('router')->generate('viteloge_frontend_homepage')
+        );
+        $breadcrumbs->addItem(
+            $translated->trans('breadcrumb.estimate', array(), 'breadcrumbs'),
+            $this->get('router')->generate('viteloge_estimation_default_index')
+        );
+        $breadcrumbs->addItem(
+            $translated->trans('breadcrumb.estimate', array(), 'breadcrumbs')
+        );
+        // --
 
-        $form = $this->createForm( 'estimation', $e );
+        $estimate = new Estimate();
+        $form = $this->createForm( 'estimation', $estimate );
 
         return array(
-            'LAYOUT_TITLE' => $this->t( 'estimation.form_page.title' ),
             'form' => $form->createView()
         );
     }
@@ -38,19 +54,36 @@ class DefaultController extends Controller
      * @Method("POST")
      * @Template("VitelogeEstimationBundle:Default:index.html.twig")
      */
-    public function indexPostAction( Request $request )
-    {
-        $estimation = new Estimation();
+    public function indexPostAction( Request $request ) {
+        $translated = $this->get('translator');
+
+        // Breadcrumbs
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem(
+            $translated->trans('breadcrumb.home', array(), 'breadcrumbs'),
+            $this->get('router')->generate('viteloge_frontend_homepage')
+        );
+        $breadcrumbs->addItem(
+            $translated->trans('breadcrumb.estimate', array(), 'breadcrumbs'),
+            $this->get('router')->generate('viteloge_estimation_default_index')
+        );
+        $breadcrumbs->addItem(
+            $translated->trans('breadcrumb.estimate', array(), 'breadcrumbs')
+        );
+        // --
+
+        $estimate = new Estimate();
+        $form = $this->createForm( 'estimation', $estimate );
 
         $post_is_intro = false;
         if ( $request->query->get( 'intro', false ) ) {
             $post_is_intro = true;
 
-            $form_intro = $this->createForm( 'intro_estimation', $estimation );
+            $form_intro = $this->createForm( 'intro_estimation', $estimate );
             $form_intro->handleRequest( $request );
         }
 
-        $form = $this->createForm( 'estimation', $estimation, array(
+        $form = $this->createForm( 'estimation', $estimate, array(
             "action" => $this->generateUrl( 'viteloge_estimation_default_indexpost')
         ) );
 
@@ -59,21 +92,18 @@ class DefaultController extends Controller
 
             if ( $form->isValid() ) {
                 $handler = $this->get('viteloge_estimation.estimation.handler');
-                $handler->save( $estimation );
+                $handler->save( $estimate );
 
                 return $this->redirect(
                     $this->generateUrl(
                         'viteloge_estimation_default_resultat',
-                        array( 'id' => $estimation->getId() )
+                        array( 'id' => $estimate->getId() )
                     )
                 );
             }
         }
 
-
-
         return array(
-            'LAYOUT_TITLE' => $this->t( 'estimation.form_page.title' ),
             'form' => $form->createView()
         );
     }
@@ -83,16 +113,16 @@ class DefaultController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function resultatAction( Estimation $estimation ) {
+    public function resultatAction( Estimate $estimate ) {
 
         $computer = $this->get( 'viteloge_estimation.estimation.computer' );
 
         $form = null;
-        if ( ! $estimation->getDemandeAgence() ) {
-            $form = $this->createForm( 'contact_estimation', $estimation );
+        if ( ! $estimate->hasAgencyRequest() ) {
+            $form = $this->createForm( 'contact_estimation', $estimate );
         }
 
-        $result = $computer->estimate( $estimation );
+        $result = $computer->estimate( $estimate );
         $debug = false;
         if ( $result ) {
             $debug = $result["debug"];
@@ -102,8 +132,7 @@ class DefaultController extends Controller
         return array(
             'computed_estimation' => $result,
             'debug_result' => $debug,
-            'form' => $form ? $form->createView() : null,
-            'LAYOUT_TITLE' => $this->t( 'estimation.result.title' )
+            'form' => $form ? $form->createView() : null
         );
     }
 
@@ -112,15 +141,15 @@ class DefaultController extends Controller
      * @Method("POST")
      * @Template("VitelogeEstimationBundle:Default:resultat.html.twig")
      */
-    public function resultatContactAction( Request $request, Estimation $estimation ) {
+    public function resultatContactAction( Request $request, Estimate $estimate ) {
 
-        $form = $this->createForm( 'contact_estimation', $estimation );
+        $form = $this->createForm( 'contact_estimation', $estimate );
 
         $form->handleRequest( $request );
 
         if ( $form->isValid() ) {
             $handler = $this->get('viteloge_estimation.estimation.handler');
-            $handler->save( $estimation );
+            $handler->save( $estimate );
             return $this->redirect(
                 $this->generateUrl(
                     'viteloge_estimation_default_contact'
@@ -129,7 +158,7 @@ class DefaultController extends Controller
         }
 
         $computer = $this->get( 'viteloge_estimation.estimation.computer' );
-        $result = $computer->estimate( $estimation );
+        $result = $computer->estimate( $estimate );
         $debug = false;
         if ( $result ) {
             $debug = $result["debug"];
@@ -139,8 +168,7 @@ class DefaultController extends Controller
         return array(
             'computed_estimation' => $result,
             'debug_result' => $debug,
-            'form' => $form->createView(),
-            'LAYOUT_TITLE' => $this->t( 'estimation.result.title' )
+            'form' => $form->createView()
         );
     }
 
@@ -150,12 +178,8 @@ class DefaultController extends Controller
      */
     public function contactAction() {
         return array(
-            "LAYOUT_TITLE" => $this->t( 'estimation.contact.title' )
-        );
-    }
 
-    private function t( $ref ) {
-        return $this->get( 'translator' )->trans( $ref );
+        );
     }
 
 

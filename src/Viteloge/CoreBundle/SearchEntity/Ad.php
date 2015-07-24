@@ -3,6 +3,7 @@
 namespace Viteloge\CoreBundle\SearchEntity {
 
     use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\Validator\Constraints as Assert;
     use GeoIp2\Database\Reader;
 
     /**
@@ -16,52 +17,100 @@ namespace Viteloge\CoreBundle\SearchEntity {
         protected $transaction;
 
         /**
-         *
+         * @Assert\Expression(
+         *     "this.getWhereArea() or this.getWhereDepartment() or this.getWhereState() or value",
+         *     message="At least one city should be filled"
+         * )
+         * @Assert\Count(
+         *      min = "1",
+         *      max = "5",
+         *      minMessage = "You must specify at least one city",
+         *      maxMessage = "You cannot specify more than {{ limit }} city"
+         * )
+         * @Assert\Type(
+         *     type="array"
+         * )
          */
         protected $where;
 
         /**
-         *
+         * @Assert\Type(
+         *     type="array"
+         * )
          */
         protected $whereArea;
 
         /**
-         *
+         * @Assert\Type(
+         *     type="array"
+         * )
          */
         protected $whereDepartment;
 
         /**
-         *
+         * @Assert\Type(
+         *     type="array"
+         * )
          */
         protected $whereState;
 
         /**
-         *
+         * @Assert\Choice(
+         *      callback = {"Viteloge\CoreBundle\Component\Enum\TypeEnum", "getValues"},
+         *      multiple = true
+         * )
          */
         protected $what;
 
         /**
-         *
+         * @Assert\Choice(
+         *      callback = {"Viteloge\CoreBundle\Component\Enum\RoomEnum", "getValues"},
+         *      multiple = true
+         * )
          */
         protected $rooms;
 
         /**
          *
+         * @Assert\GreaterThanOrEqual(
+         *     value = 0
+         * )
+         * @Assert\Expression(
+         *     "value === null or this.getMaxPrice() == null or value <= this.getMaxPrice()",
+         *     message="The minimum budget has to be lower than the maximum budget"
+         * )
+         * @Assert\Type(
+         *     type="float"
+         * )
          */
         protected $minPrice;
 
         /**
-         *
+         * @Assert\GreaterThanOrEqual(
+         *     value = 0
+         * )
+         * @Assert\Expression(
+         *     "value === null or this.getMinPrice() == null or value >= this.getMinPrice()",
+         *     message="The maximum budget has to be greater than the minimum budget"
+         * )
+         * @Assert\Type(
+         *     type="float"
+         * )
          */
         protected $maxPrice;
 
         /**
-         *
+         * @Assert\Length(
+         *      max = 255
+         * )
          */
         protected $keywords;
 
         /**
-         *
+         * @Assert\Choice(
+         *      callback = {"Viteloge\CoreBundle\Component\Enum\DistanceEnum", "getValues"},
+         *      multiple = false,
+         * )
          */
         protected $radius;
 

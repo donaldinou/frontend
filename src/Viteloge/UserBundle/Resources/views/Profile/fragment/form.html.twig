@@ -1,24 +1,83 @@
-{% form_theme form _self %}
+{% form_theme form with [_self, 'VitelogeFrontendBundle:Form:fields.html.twig'] %}
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block _fos_user_profile_form_phone_widget %}
-    {%- set type = type|default('tel') -%}
-    {{ block('form_widget_simple') }}
-{% endblock %}
+{%- block _fos_user_profile_form_civility_widget -%}
+    {%- set translation_domain = 'messages' -%}
+    {{- block('choice_widget') -}}
+{%- endblock _fos_user_profile_form_civility_widget -%}
 
 {{ form_start(form, {'attr': {'action': path('fos_user_profile_edit'), 'enctype': 'application/x-www-form-urlencoded', 'class': 'fos_user_profile_edit form-horizontal', 'role': 'form', 'novalidate': 'novalidate'}}) }}
     {{ form_errors(form) }}
     <div class="hidden">
         {{ form_row(form._token) }}
     </div>
-    {{ form_row(form.civility) }}
-    {{ form_row(form.firstname) }}
-    {{ form_row(form.lastname) }}
-    {{ form_row(form.email) }}
-    {{ form_row(form.phone) }}
-    {{ form_row(form.partnerContactEnabled) }}
-    {{ include('VitelogeCoreBundle:Form:submit.html.twig', {
-        back_uri: path('fos_user_profile_show'),
-        submit_label: 'profile.edit.submit'|trans()
+    {{ form_row(form.civility, {
+        'label_attr': {
+            'class': ''
+        },
+        'attr': {
+            'class': 'select-tag-input',
+            'data-placeholder' : 'profile.civility'|trans(),
+            'data-allow-clear' : 'true'
+        }
     }) }}
+    {{ form_row(form.firstname, {
+        'label_attr': {
+            'class': ''
+        },
+        'attr': {
+            'class': '',
+            'placeholder': 'profile.firstname',
+            'data-placeholder' : 'profile.firstname'|trans(),
+            'maxlength': 64
+        }
+    }) }}
+    {{ form_row(form.lastname, {
+        'label_attr': {
+            'class': ''
+        },
+        'attr': {
+            'class': '',
+            'placeholder': 'profile.lastname',
+            'data-placeholder' : 'profile.lastname'|trans(),
+            'maxlength': 64
+        }
+    }) }}
+    {{ form_row(form.email, {
+        'label_attr': {
+            'class': ''
+        },
+        'attr': {
+            'class': '',
+            'placeholder': 'profile.email',
+            'data-placeholder' : 'profile.email'|trans(),
+            'maxlength': 128
+        }
+    }) }}
+    {{ form_row(form.phone, {
+        'label_attr': {
+            'class': ''
+        },
+        'attr': {
+            'class': '',
+            'placeholder': 'profile.phone',
+            'data-placeholder' : 'profile.phone'|trans(),
+            'maxlength': 16
+        }
+    }) }}
+    {{ form_row(form.partnerContactEnabled, {
+        'label_attr': {
+            'class': ''
+        },
+        'attr': {
+            'class': '',
+            'data-placeholder' : 'profile.partnercontactenabled'|trans()
+        }
+    }) }}
+    {{- include('VitelogeCoreBundle:Form:submit.html.twig', {
+        back_label: 'profile.action.edit.back',
+        back_uri: path('fos_user_profile_show'),
+        submit_label: 'profile.action.edit.submit',
+        translation_domain: 'FOSUserBundle'
+    }) -}}
 {{ form_end(form, {'render_rest': false}) }}

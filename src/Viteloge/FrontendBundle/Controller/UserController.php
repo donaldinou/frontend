@@ -28,9 +28,13 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:User:index.html.twig")
          */
         public function indexAction( Request $request ) {
+            $translated = $this->get('translator');
+
+            // Breadcrumbs
             $breadcrumbs = $this->get('white_october_breadcrumbs');
-            $breadcrumbs->addItem('Home', $this->get('router')->generate('viteloge_frontend_homepage'));
-            $breadcrumbs->addItem('User');
+            $breadcrumbs->addItem($translated->trans('breadcrumb.home', array(), 'breadcrumbs'), $this->get('router')->generate('viteloge_frontend_homepage'));
+            $breadcrumbs->addItem($translated->trans('breadcrumb.user', array(), 'breadcrumbs'));
+            // --
 
             return array(
 

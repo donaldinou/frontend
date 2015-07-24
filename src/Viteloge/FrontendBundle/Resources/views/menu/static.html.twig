@@ -1,31 +1,19 @@
-<nav>
-    <ul>
-        <li>
-            <a href="{{ path('viteloge_frontend_static_about') }}">{% trans%}Informations on Fasthousing{% endtrans %}</a>
+{% set menus = [
+    { title: 'Informations on Fasthousing', route: 'viteloge_frontend_static_about' },
+    { title: 'Why Fasthousing',             route: 'viteloge_frontend_static_why' },
+    { title: 'Your ad on Fasthousing',      route: 'viteloge_frontend_static_ad' },
+    { title: 'Contact',                     route: 'viteloge_frontend_static_contactus' },
+    { title: 'Privacy',                     route: 'viteloge_frontend_static_privacy' },
+    { title: 'Recommand',                   route: 'viteloge_frontend_static_recommand' },
+    { title: 'Subscribe',                   route: 'viteloge_frontend_static_subscribe' },
+    { title: 'Register',                    route: 'viteloge_frontend_static_register' },
+    { title: 'Fasthousing API',             route: 'viteloge_frontend_static_apiform' },
+    { title: 'General Terms and Conditions',route: 'viteloge_frontend_static_gtc' }
+]%}
+<ul class="dropdown-menu dropdown-menu-right">
+    {%- for menu in menus -%}
+        <li class="{% if app.request.get('_route') == menu.route %}active{% endif %}">
+            <a href="{{ path(menu.route) }}">{{ menu.title|trans }}</a>
         </li>
-        <li>
-            <a href="{{ path('viteloge_frontend_static_why') }}">{% trans%}Why{% endtrans %} {% trans %}Fasthousing{% endtrans %}</a>
-        </li>
-        <li>
-            <a href="{{ path('viteloge_frontend_static_ad') }}">{% trans%}Your ad on Fasthousing{% endtrans %}</a>
-        </li>
-        <li>
-            <a href="{{ path('viteloge_frontend_static_privacy') }}">{% trans%}Privacy{% endtrans %}</a>
-        </li>
-        <li>
-            <a href="{{ path('viteloge_frontend_static_recommand') }}">{% trans%}Recommand{% endtrans %}</a>
-        </li>
-        <li>
-            <a href="{{ path('viteloge_frontend_static_subscribe') }}">{% trans%}Subscribe{% endtrans %}</a>
-        </li>
-        <li>
-            <a href="{{ path('viteloge_frontend_static_register') }}">{% trans%}Register{% endtrans %}</a>
-        </li>
-        <li>
-            <a href="{{ path('viteloge_frontend_static_apiform') }}">{% trans%}Fasthousing API{% endtrans %}</a>
-        </li>
-        <li>
-            <a href="{{ path('viteloge_frontend_static_gtc') }}">{% trans%}General Terms and Conditions{% endtrans %}</a>
-        </li>
-    </ul>
-</nav>
+    {%- endfor -%}
+</ul>

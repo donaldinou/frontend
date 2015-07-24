@@ -7,9 +7,13 @@ imports:
     - { resource: fos_js_routing.yml }
     - { resource: fos_elastica.yml }
     - { resource: fos_user.yml }
+    - { resource: white_october_breadcrumbs.yml }
     - { resource: white_october_pagerfanta.yml }
     - { resource: stof_doctrine_extension.yml }
     - { resource: genemu_form.yml }
+    - { resource: hwi_oauth.yml }
+    - { resource: ewz_recaptcha.yml }
+    - { resource: jms_i18n_routing.yml }
 
 framework:
     #esi:             ~
@@ -39,7 +43,7 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form:
-        resources: ['VitelogeCoreBundle:Form:fields.html.twig']
+        resources: ['AcreatCoreBundle:Form:fields.html.twig', 'VitelogeCoreBundle:Form:fields.html.twig']
     globals:
         ga_tracking: %ga_tracking%
         adsense_publisher_id: %adsense_publisher_id%
@@ -80,20 +84,3 @@ doctrine:
             softdeleteable:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
                 enabled: true
-
-# breadcrumb conf
-white_october_breadcrumbs:
-    separator: "/"
-    separatorClass: "separator"
-    listId: ""
-    listClass: "breadcrumb"
-    itemClass: ""
-    linkRel: ""
-    locale: ~
-    translation_domain: ~
-    viewTemplate: "VitelogeUserBundle:base:breadcrumb.html.twig"
-
-jms_i18n_routing:
-    default_locale: fr
-    locales: [en, fr]
-    strategy: prefix_except_default

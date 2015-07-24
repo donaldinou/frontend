@@ -17,3 +17,13 @@ body a {
 body figure {
     margin: 0;
 }
+
+.copyright {
+    padding-top: 5px;
+}
+
+.text-secondary {
+    color: $text-color-secondary;
+    font-weight: 400;
+    font-size: $font-size-small;
+}

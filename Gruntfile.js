@@ -39,7 +39,8 @@ module.exports = function(grunt) {
                     'js/domReady.js': 'requirejs-domready/domReady.js',
                     'js/hinclude.js': 'hinclude/hinclude.js',
                     'js/background-check.js': 'background-check/background-check.js',
-                    'js/select2.js': 'select2/dist/js/select2.full.js',
+                    'js/select2.js': 'select2/dist/js/select2.min.js',
+                    'js/select2.fr.js': 'select2/dist/js/i18n/fr.js',
                     'js/placeholders.js': 'placeholders/dist/placeholders.jquery.js'
                 }
             },
@@ -129,7 +130,9 @@ module.exports = function(grunt) {
                 tasks: ['css']
             },
             javascript: {
-                files: ['src/Viteloge/FrontendBundle/Resources/public/js/*.js'],
+                files: [
+                    'src/**/*.js'
+                ],
                 tasks: ['javascript']
             },
             xliff: {
@@ -194,7 +197,7 @@ module.exports = function(grunt) {
     // All tasks
     //grunt.registerTask('default', ['css','javascript']);
     grunt.registerTask('css', ['compass','cssmin']);
-    grunt.registerTask('javascript', [/*'dart2js', */'uglify']);
+    grunt.registerTask('javascript', [/*'dart2js', */'uglify', 'copy']);
     grunt.registerTask('copy:assets', ['clean:build', 'copy', 'clean:sass']);
     grunt.registerTask('default', ['bowercopy']);
 };

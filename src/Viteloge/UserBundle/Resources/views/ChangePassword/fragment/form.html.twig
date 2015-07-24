@@ -5,11 +5,43 @@
     <div class="hidden">
         {{ form_row(form._token) }}
     </div>
-    {{ form_row(form.current_password) }}
-    {{ form_row(form.plainPassword.first) }}
-    {{ form_row(form.plainPassword.second) }}
+    {{ form_row(form.current_password, {
+        'label_attr': {
+            'class': ''
+        },
+        'attr': {
+            'class': '',
+            'placeholder': 'change_password.password.current',
+            'data-placeholder' : 'change_password.password.current'|trans(),
+            'maxlength': 32
+        }
+    }) }}
+    {{ form_row(form.plainPassword.first, {
+        'label_attr': {
+            'class': ''
+        },
+        'attr': {
+            'class': '',
+            'placeholder': 'change_password.password.plain',
+            'data-placeholder' : 'change_password.password.plain'|trans(),
+            'maxlength': 32
+        }
+    }) }}
+    {{ form_row(form.plainPassword.second, {
+        'label_attr': {
+            'class': ''
+        },
+        'attr': {
+            'class': '',
+            'placeholder': 'change_password.password.check',
+            'data-placeholder' : 'change_password.password.check'|trans(),
+            'maxlength': 32
+        }
+    }) }}
     {{ include('VitelogeCoreBundle:Form:submit.html.twig', {
+        back_label: 'change_password.action.back',
         back_uri: path('fos_user_profile_show'),
-        submit_label: 'change_password.submit'|trans()
+        submit_label: 'change_password.submit',
+        translation_domain: 'FOSUserBundle'
     }) }}
 {{ form_end(form) }}

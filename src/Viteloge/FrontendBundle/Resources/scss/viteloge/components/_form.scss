@@ -1,0 +1,16 @@
+.input-group-btn {
+    .field {
+        color: $text-color;
+        background-color: #eee;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        &:hover,
+        &:focus {
+            color: $text-color;
+            border-color: #aaa;
+            background-color: #ccc;
+        }
+    }
+}

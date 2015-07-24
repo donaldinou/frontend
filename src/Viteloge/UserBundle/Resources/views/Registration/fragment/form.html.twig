@@ -1,20 +1,53 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {{ form_start(form, {'action': path('fos_user_registration_register'), 'attr': { 'id': 'fos_user_registration_form', 'enctype': 'application/x-www-form-urlencoded','class': 'register form-horizontal', 'role': 'form', 'novalidate': 'novalidate'}}) }}
-    {{ form_errors(form) }}
+    {%- block form_errors -%}
+        {{ form_errors(form) }}
+    {%- endblock form_errors -%}
     {%- block form_fields -%}
         <div class="hidden">
             {{ form_row(form._token) }}
         </div>
-        {{ form_row(form.email) }}
-        {{ form_row(form.plainPassword.first) }}
-        {{ form_row(form.plainPassword.second) }}
+        {{ form_row(form.email, {
+            'label_attr': {
+                'class': ''
+            },
+            'attr': {
+                'class': '',
+                'placeholder': 'registration.email',
+                'data-placeholder' : 'registration.email'|trans(),
+                'maxlength': 32
+            }
+        }) }}
+        {{ form_row(form.plainPassword.first, {
+            'label_attr': {
+                'class': ''
+            },
+            'attr': {
+                'class': '',
+                'placeholder': 'registration.password.plain',
+                'data-placeholder' : 'registration.password.plain'|trans(),
+                'maxlength': 32
+            }
+        }) }}
+        {{ form_row(form.plainPassword.second, {
+            'label_attr': {
+                'class': ''
+            },
+            'attr': {
+                'class': '',
+                'placeholder': 'registration.password.check',
+                'data-placeholder' : 'registration.password.check'|trans(),
+                'maxlength': 32
+            }
+        }) }}
     {%- endblock -%}
     {%- block form_submit -%}
-    {{ include('VitelogeCoreBundle:Form:submit.html.twig', {
-        back_uri: path('fos_user_security_login'),
-        submit_uri: true,
-        submit_label: 'registration.submit'|trans()
-    }) }}
+        {{ include('VitelogeCoreBundle:Form:submit.html.twig', {
+            back_label: 'registration.action.back',
+            back_uri: path('fos_user_security_login'),
+            submit_label: 'registration.submit',
+            translation_domain: 'FOSUserBundle'
+        }) }}
     {%- endblock form_submit -%}
 {{ form_end(form, {'render_rest': false}) }}

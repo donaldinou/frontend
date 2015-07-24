@@ -5,6 +5,10 @@
             background-color: $color;
         }
     }
+    .include_200 {
+        @include heading($color);
+    }
+    @include heading($color);
     .glossary, .queries {
         a {
             &:hover,
@@ -15,6 +19,9 @@
     }
     &.highlighting, .highlighting {
         background-color: $color;
+    }
+    .panel-primary {
+        @include panel-variant($panel-default-border, $text-color, $background-color, $panel-default-border);
     }
     .btn-primary {
         @include button-variant($text-color, $background-color, $border-color);
@@ -28,7 +35,7 @@
             border-color: $border-color;
         }
     }
-    .nav-tabs {
+    #navigation {
         > li {
             > a {
                 &:hover,
@@ -41,6 +48,7 @@
                     &,
                     &:focus,
                     &:hover {
+                        color: #fff;
                         background-color: $color;
                         border-color: $color;
                     }
@@ -225,5 +233,13 @@
                 color: #fff;
             }
         }
+    }
+    .well {
+        min-height: 10px;
+        border: 1px solid $text-color;
+        border-radius: 0;
+        background-color: $color;
+        color: #fff;
+        margin-bottom: 0px;
     }
 }

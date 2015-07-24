@@ -1,0 +1,27 @@
+parameters:
+    viteloge_estimation.form.type.estimate.class: Viteloge\EstimationBundle\Form\Type\EstimationType
+    viteloge_estimation.form.type.contact.class: Viteloge\EstimationBundle\Form\Type\ContactEstimationType
+    viteloge_estimation.form.type.intro.class: Viteloge\FrontendBundle\Form\Type\IntroEstimationType
+    viteloge_estimation.estimate.handler.class: Viteloge\EstimationBundle\Entity\EstimationHandler
+    viteloge_estimation.estimate.computer.class: Viteloge\EstimationBundle\Service\EstimationComputer
+
+services:
+    viteloge_estimation.form.type.estimate:
+        class: %viteloge_estimation.form.type.estimate.class%
+        tags:
+            - { name: form.type, alias: estimation }
+    viteloge_estimation.form.type.contact:
+        class: %viteloge_estimation.form.type.contact.class%
+        tags:
+            - { name: form.type, alias: contact_estimation }
+    viteloge_estimation.form.type.intro:
+        class: %viteloge_estimation.form.type.intro.class%
+        tags:
+            - { name: form.type, alias: intro_estimation }
+    viteloge_estimation.estimate.handler:
+        class: %viteloge_estimation.estimate.handler.class%
+        arguments: ["@doctrine.orm.default_entity_manager"]
+    viteloge_estimation.estimate.computer:
+        class: %viteloge_estimation.estimate.computer.class%
+        arguments: ["@doctrine.orm.default_entity_manager"]
+

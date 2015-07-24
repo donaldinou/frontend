@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="assert.length.user.validate.firstname" resname="assert.length.user.validate.firstname">
+                <source>assert.length.user.validate.firstname</source>
+                <target>Le prénom ne peut pas être plus long que {{ limit }} caractère|Le prénom ne peut pas être plus long que {{ limit }} caractères</target>
+            </trans-unit>
+            <trans-unit id="assert.length.user.validate.lastname" resname="assert.length.user.validate.lastname">
+                <source>assert.length.user.validate.lastname</source>
+                <target>Le nom de famille ne peut pas être plus long que {{ limit }} caractère|Le nom de famille ne peut pas être plus long que {{ limit }} caractères</target>
+            </trans-unit>
+            <trans-unit id="assert.regex.user.validate.phone" resname="assert.regex.user.validate.phone">
+                <source>assert.regex.user.validate.phone</source>
+                <target>Veuillez saisir un numéro de téléphone valide</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -17,3 +17,15 @@
         }
     }
 }
+
+#websearch-panel {
+    .thumbnail {
+        a {
+            display: block;
+            > img {
+                background-image: url('../bundles/vitelogecore/images/logo-viteloge.svg');
+                min-height: $websearch-img-min-size;
+            }
+        }
+    }
+}

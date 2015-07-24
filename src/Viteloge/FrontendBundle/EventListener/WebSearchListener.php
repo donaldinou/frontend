@@ -5,6 +5,7 @@ namespace Viteloge\FrontendBundle\EventListener {
     use Doctrine\ORM\Event\LifecycleEventArgs;
     use Symfony\Component\EventDispatcher\Event;
     use FOS\ElasticaBundle\Manager\RepositoryManagerInterface as RepositoryManager;
+    use Acreat\InseeBundle\Entity\InseeCity;
     use Viteloge\CoreBundle\Entity\WebSearch;
     use Viteloge\CoreBundle\Entity\UserSearch;
     use Viteloge\CoreBundle\SearchEntity\Ad as AdSearch;

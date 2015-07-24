@@ -1,0 +1,6 @@
+ewz_recaptcha:
+    enabled: true
+    ajax: false
+    public_key:  6LeP6wgTAAAAAFZLZlxhr37I-5UI32yHei1Wj0ua
+    private_key: 6LeP6wgTAAAAALJOpwsfUZkw-Oj6K3iPyPnFIY3o
+    locale_key:  %kernel.default_locale%

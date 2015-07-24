@@ -10,12 +10,12 @@ namespace Viteloge\FrontendBundle\Form\Type {
 
         public function buildForm(FormBuilderInterface $builder, array $options) {
             $builder
-                ->add('firtname')
+                ->add('firstname')
                 ->add('lastname')
-                ->add('message', 'text')
+                ->add('message', 'textarea')
                 ->add('email')
                 ->add('phone')
-                ->add('viteloge.send', 'submit');
+                ->add('send', 'submit');
         }
 
         public function setDefaultOptions(OptionsResolverInterface $resolver){

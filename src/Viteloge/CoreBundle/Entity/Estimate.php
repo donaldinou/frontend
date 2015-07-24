@@ -18,56 +18,59 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @ORM\Column(name="data", type="json_array", nullable=true)
          */
-        private $data;
+        protected $data;
 
         /**
          * @var string
          *
          * @ORM\Column(name="nom", type="string", length=255, nullable=true)
          */
-        private $lastname;
+        protected $lastname;
 
         /**
          * @var string
          *
          * @ORM\Column(name="prenom", type="string", length=255, nullable=true)
          */
-        private $firstname;
+        protected $firstname;
 
         /**
          * @var string
          *
          * @ORM\Column(name="mail", type="string", length=255, nullable=true)
+         * @Assert\NotBlank()
+         * @Assert\Email()
          */
-        private $mail;
+        protected $mail;
 
         /**
          * @var string
          *
          * @ORM\Column(name="tel", type="string", length=255, nullable=true)
          */
-        private $phone;
+        protected $phone;
 
         /**
          * @var string
          *
          * @ORM\Column(name="type", type="string", length=1, nullable=false)
+         * @Assert\NotBlank()
          */
-        private $type;
+        protected $type;
 
         /**
          * @var boolean
          *
          * @ORM\Column(name="demande_agence", type="boolean", nullable=false)
          */
-        private $isAgencyRequest;
+        protected $agencyRequest;
 
         /**
          * @var \DateTime
          *
          * @ORM\Column(name="created_at", type="datetime", nullable=false)
          */
-        private $createdAt;
+        protected $createdAt;
 
         /**
          * @var integer
@@ -76,7 +79,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Id
          * @ORM\GeneratedValue(strategy="IDENTITY")
          */
-        private $id;
+        protected $id;
 
         /**
          * @var \Acreat\InseeBundle\Entity\InseeCity
@@ -85,8 +88,43 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\JoinColumns({
          *   @ORM\JoinColumn(name="code_insee", referencedColumnName="codeInsee")
          * })
+         * @Assert\Valid()
          */
-        private $inseeCity;
+        protected $inseeCity;
+
+        /**
+         * Fields used in data column
+         */
+        private $fields = array(
+            'numero',
+            'type_voie',
+            'voie',
+            'codepostal',
+
+            'nb_pieces',
+            'nb_sdb',
+            'surface_habitable',
+            'surface_terrain',
+            'exposition',
+            'etage',
+            'nb_etages',
+            'nb_niveaux',
+            'annee_construction',
+
+            'ascenseur',
+            'balcon',
+            'terrasse',
+            'parking',
+            'garage',
+            'travaux',
+            'vue',
+            'vue_detail',
+
+            'proprietaire',
+            'etat',
+            'usage',
+            'delai'
+        );
 
         /**
          * Constructor
@@ -94,6 +132,49 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function __construct() {
             $this->createdAt = new \DateTime('now');
+            $this->data = array();
+            $this->agencyRequest = false;
+        }
+
+        /**
+         * Magic getter for fields
+         *
+         * @return mixed
+         */
+        public function __get( $name ) {
+            $result = null;
+            if ( in_array( $name, $this->fields ) ) {
+                if ( array_key_exists( $name, $this->data ) ) {
+                    $result = $this->data[$name];
+                }
+            } else {
+                $trace = debug_backtrace();
+                trigger_error(
+                    'Undefined property via __get(): ' . $name .
+                    ' in ' . $trace[0]['file'] .
+                    ' on line ' . $trace[0]['line'],
+                    E_USER_NOTICE);
+            }
+            return $result;
+        }
+
+        /**
+         * Magic setter for fields
+         *
+         * @return Estimate
+         */
+        public function __set( $name, $value ) {
+            if ( in_array( $name, $this->fields ) ) {
+                $this->data[$name] = $value;
+            } else {
+                $trace = debug_backtrace();
+                trigger_error(
+                    'Undefined property via __get(): ' . $name .
+                    ' in ' . $trace[0]['file'] .
+                    ' on line ' . $trace[0]['line'],
+                    E_USER_NOTICE);
+            }
+            return $this;
         }
 
         /**
@@ -235,14 +316,14 @@ namespace Viteloge\CoreBundle\Entity {
         }
 
         /**
-         * Set isAgencyRequest
+         * Set agencyRequest
          *
-         * @param boolean $isAgencyRequest
+         * @param boolean $agencyRequest
          * @return Estimate
          */
-        public function setIsAgencyRequest($isAgencyRequest)
+        public function setAgencyRequest($agencyRequest)
         {
-            $this->isAgencyRequest = $isAgencyRequest;
+            $this->agencyRequest = $agencyRequest;
 
             return $this;
         }
@@ -252,9 +333,9 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return boolean
          */
-        public function getIsAgencyRequest()
+        public function hasAgencyRequest()
         {
-            return $this->isAgencyRequest;
+            return $this->agencyRequest;
         }
 
         /**

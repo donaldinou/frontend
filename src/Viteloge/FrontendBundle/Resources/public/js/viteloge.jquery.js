@@ -8,23 +8,59 @@ jQuery(document).ready(function() {
         images: 'header.header'
     });
 
-    /*$.ajaxSetup({ cache: true });
-    $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
-        FB.init({
-            version: 'v2.3' // or v2.0, v2.1, v2.0
-        });
-        $('#loginbutton,#feedbutton').removeAttr('disabled');
-        //FB.getLoginStatus(updateStatusCallback);
-    });*/
-
     jQuery('.carousel').carousel();
-    jQuery('.select-tag-input').select2();
+    jQuery('.select-tag-input').select2({'width':'100%'});
 
-    jQuery(document).on('click', '[data-submit]', submitForm);
-    jQuery(document).on('click', '[data-theme]', changeTheme);
-    jQuery(document).on('click', '.pagination.ajax li > a', displayNextPage);
-    jQuery(document).on('click', 'form > .nav li > a', checkCurrentTab);
-    jQuery(document).on('change', 'select.sortable', processToSort);
+    jQuery('.carousel-one-by-one .item').each(function(){
+        /*var active = jQuery(this).parent().find('.item.active:first-child');
+        var width = parseInt(active.width());
+        var childWidth = parseInt(active.children(':first-child').outerWidth(true));
+        var childrenCount = Math.floor(width/childWidth);*/
+        var childrenCount = Math.floor(1000/290);
+        var next = jQuery(this).next();
+        var clone = null;
+        for (var i = childrenCount - 1; i > 0; i--) {
+            if (next.length>0) {
+                next.children(':first-child').clone().addClass('hidden-xs hidden-sm').appendTo(jQuery(this));
+            } else {
+                jQuery(this).siblings(':lt('+i+')').children(':first-child').clone().addClass('hidden-xs hidden-sm').appendTo(jQuery(this));
+                break;
+            }
+            next = next.next();
+        };
+    });
+
+    jQuery('body').on('click', '[data-submit]', submitForm);
+    jQuery('body').on('click', '[data-theme]', changeTheme);
+    jQuery('body').on('click', '.pagination.ajax li > a', displayNextPage);
+    jQuery('body').on('click', 'form > .nav li > a', checkCurrentTab);
+    jQuery('body').on('change', 'select.sortable', processToSort);
+    jQuery('body').on('submit', 'form[data-ajax="true"]', submitInAjax);
+
+    jQuery('#navbar-navigation .close').on('click', collapseNavigation);
+    jQuery('#navbar-navigation').on('show.bs.collapse', onShowNavigation);
+    jQuery('#navbar-navigation').on('hide.bs.collapse', onHideNavigation);
+    function collapseNavigation(event) {
+        jQuery('#navbar-navigation').collapse('hide');
+    }
+    function onShowNavigation() {
+        jQuery('#navbar-navigation').show(400);
+        jQuery('<div id="nav-overlay" class="modal-backdrop fade in"></div>')
+            .on('click', collapseNavigation)
+            .appendTo('body');
+    }
+    function onHideNavigation() {
+        jQuery('#navbar-navigation').hide(400);
+        jQuery('#nav-overlay').off('click').remove();
+    }
+
+    jQuery('#map-container').on('show.bs.collapse', toggleNavigationArrow);
+    jQuery('#map-container').on('hide.bs.collapse', toggleNavigationArrow);
+    function toggleNavigationArrow() {
+        jQuery('#navbar-navigation a[href="#map-container"] > span')
+            .toggleClass('fa-arrow-circle-down')
+            .toggleClass('fa-arrow-circle-up');
+    }
 
     /**
      * update rel="quartier" with new tooltip
@@ -33,26 +69,22 @@ jQuery(document).ready(function() {
         html: true,
         container: 'body',
         selector: 'span[rel="quartier"]',
-        template: '<div class="popover estate" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
+        template: '<div class="popover estate alert alert-dismissible" role="tooltip"><button type="button" class="close" data-dismiss="alert" aria-label="X"><span aria-hidden="true">&times;</span></button><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
         trigger: 'click'
     });
     if (jQuery('span[rel="quartier"]')) {
-        jQuery('span[rel="quartier"]').each(function() {
-            jQuery(this)
+        jQuery('span[rel="quartier"]').each(buildPopover);
+    }
+    var popover = jQuery('span[rel="quartier"]').on('show.bs.popover', showAreaInMap);
+
+    function buildPopover() {
+        jQuery(this)
                 .attr('tabindex', 10)
                 .attr('data-toggle', 'popover')
                 .attr('data-trigger', 'focus')
                 .attr('data-content', 'Loading...')
                 .attr('data-placement', 'bottom')
                 .attr('title', 'show map');
-        });
-    }
-    //jQuery(document).on('click', 'span[rel="quartier"]', togglePopover);
-    //jQuery(document).on('hidden.bs.popover', 'span[rel="quartier"]', showAreaInMap);
-    var popover = jQuery('span[rel="quartier"]').on('show.bs.popover', showAreaInMap);
-
-    function togglePopover(event) {
-        jQuery(event.currentTarget).popover('toggle');
     }
     function decodeLevels(levels) {
         var c, i, len, results;
@@ -134,6 +166,7 @@ jQuery(document).ready(function() {
             .addClass(theme);
     }
 
+    var paginateEvent;
     function processToSort(event) {
         event.preventDefault();
         var select = jQuery(event.currentTarget);
@@ -150,13 +183,28 @@ jQuery(document).ready(function() {
         event.stopPropagation();
     }
     function paginate(id, url) {
-        jQuery.ajax({
+        if(typeof paginateEvent !== 'undefined') {
+            paginateEvent.abort();
+        }
+        paginateEvent = jQuery.ajax({
             url: url,
             method: 'GET',
             success: function(content) {
                 jQuery('#'+id).replaceWith(jQuery(content).find('#'+id));
+                jQuery('#'+id).find('span[rel="quartier"]').each(buildPopover);
+                popover = jQuery('span[rel="quartier"]').on('show.bs.popover', showAreaInMap);
+                initSocialShareWidgets();
+                hinclude.run();
             }
         })
+    }
+    function initSocialShareWidgets() {
+        if (twttr) {
+            twttr.widgets.load();
+        }
+        if (fbAsyncInit) {
+            fbAsyncInit();
+        }
     }
 
     function checkCurrentTab(event) {
@@ -170,6 +218,56 @@ jQuery(document).ready(function() {
             jQuery(radio).prop('checked', true);
         }
         event.stopPropagation();
+    }
+
+    var submitInAjaxEvent;
+    function submitInAjax(event) {
+        event.preventDefault();
+        var form = jQuery(event.currentTarget);
+        if(typeof submitInAjaxEvent !== 'undefined') {
+            submitInAjaxEvent.abort();
+        }
+        submitInAjaxEvent = jQuery.ajax({
+            url: form.attr('action'),
+            method: form.attr('method'),
+            data: form.serialize(),
+            success: function(content) {
+                if (content.redirect) {
+                    location.href = content.redirect;
+                }
+                else {
+                    var parent = (form.data('ajax-parent')) ? jQuery(form.data('ajax-parent')) : form;
+                    parent.replaceWith(content);
+                    jQuery('.select-tag-input').select2();
+                }
+            }
+        });
+        event.stopPropagation();
+    }
+
+    jQuery('body').on('click', '.add-field', addField);
+    jQuery('body').on('click', '.remove-field', removeField);
+    function addField(event) {
+        event.preventDefault();
+        var target = jQuery(event.currentTarget).data('target');
+        var limit = jQuery(event.currentTarget).data('limit');
+        var list = jQuery(target);
+        var count = list.find('input').length;
+        var newWidget = list.attr('data-prototype');
+        if (limit && limit > count) {
+            newWidget = newWidget.replace(/__name__/g, count);
+            jQuery(newWidget).appendTo(list);
+        }
+    }
+    function removeField(event) {
+        event.preventDefault();
+        var target = jQuery(event.currentTarget).data('target');
+        var minus = jQuery(event.currentTarget).data('minus');
+        var list = jQuery(target);
+        var count = list.find('input').length;
+        if (minus && minus < count) {
+            jQuery(event.currentTarget).parents('.form-group').first().remove();
+        }
     }
 
 });

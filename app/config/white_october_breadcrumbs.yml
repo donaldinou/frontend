@@ -1,0 +1,10 @@
+white_october_breadcrumbs:
+    separator: "/"
+    separatorClass: "separator"
+    listId: ""
+    listClass: "breadcrumb"
+    itemClass: ""
+    linkRel: ""
+    locale: ~
+    translation_domain: ~
+    viewTemplate: "VitelogeUserBundle:base:breadcrumb.html.twig"

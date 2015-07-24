@@ -16,6 +16,8 @@ parameters:
 
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
+    mailer_port:       587
+    mailer_encryption: ~
     mailer_user:       ~
     mailer_password:   ~
 
@@ -35,8 +37,20 @@ parameters:
         - ''
     adsense_slot_spec: ''
 
+    # google
+    google_client_id: id
+    google_client_secret: secret
+
     # facebook
     facebook_account:   viteloge
+    facebook_client_id: id
+    facebook_client_secret: secret
 
     # twitter
     twitter_account:    viteloge
+    twitter_client_id: id
+    twitter_client_secret: secret
+
+    # github
+    github_client_id: id
+    github_client_secret: secret

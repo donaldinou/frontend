@@ -1,0 +1,190 @@
+{% form_theme form with [_self, 'VitelogeCoreBundle:Form:fields.html.twig'] %}
+
+{{ form_start(form,{attr:{'novalidate':'novalidate'} } ) }}
+    {{ form_errors(form) }}
+    <h2>{{ 'votre_bien' | trans }}</h2>
+    <fieldset>
+        <legend>{{ 'Localisation' | trans }}</legend>
+        <div class="row">
+            <div class="col-sm-2">
+                {{ form_widget( form.numero ) }}
+            </div>
+            <div class="col-sm-3">
+                {{ form_widget( form.type_voie, {
+                    translation_domain : 'enums'
+                }) }}
+            </div>
+            <div class="col-sm-7{% if form.voie.vars.errors|length > 0 %} error" title="{{ form.voie.vars.errors[0].message }}{% endif %}">
+                {{ form_widget( form.voie ) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                {{ form_widget( form.codepostal ) }}
+            </div>
+            <div class="col-md-8">
+            {{ form_widget( form.inseeCity ) }}
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>{{ 'Caractéristiques' | trans }}</legend>
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_row(form.type, {
+                    widget_translation_domain: 'enums',
+                }) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row( form.nb_pieces) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row( form.surface_habitable) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row( form.nb_sdb) }}
+            </div>
+            <div class="col-md-6 only type_M last">
+                {{ form_row( form.surface_terrain) }}
+            </div>
+            <div class="col-md-6 only type_A">
+                {{ form_row( form.etage) }}
+            </div>
+            <div class="col-md-6 only type_A">
+                {{ form_row( form.nb_etages) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row( form.exposition, {
+                    widget_translation_domain: 'enums',
+                }) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row( form.nb_niveaux) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row( form.annee_construction) }}
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+    </fieldset>
+    <fieldset class="nolegend">
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row( form.ascenseur ) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row( form.parking ) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6s">
+                {{ form_row( form.balcon ) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row( form.garage ) }}
+            </div>
+        </div>
+        <div class="row only type_M">
+            <div class="col-md-6">
+                {{ form_row( form.terrasse ) }}
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                {{ form_row( form.vue ) }}
+            </div>
+            <div class="col-md-7"></div>
+        </div>
+        <div class="row only vue">
+            <div class="col-md-12">
+                {{ form_row( form.vue_detail ) }}
+            </div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <legend>{{ 'Situation du logement' | trans }}</legend>
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_row( form.etat, {
+                    widget_translation_domain: 'enums',
+                }) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_row( form.usage, {
+                    widget_translation_domain: 'enums',
+                }) }}
+            </div>
+        </div>
+    </fieldset>
+    <h2>{{ 'votre_profil' | trans }}</h2>
+    <fieldset>
+        <legend>{{ 'Votre situation' }}</legend>
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_row( form.mail ) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_row( form.proprietaire, {
+                    widget_translation_domain: 'enums',
+                }) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_row( form.delai, {
+                    widget_translation_domain: 'enums',
+                }) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_row( form.agencyRequest ) }}
+            </div>
+        </div>
+    </fieldset>
+    <div class="contact_wrapper">
+        <fieldset>
+            <legend>{{ 'Coordonnées' | trans }}</legend>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row( form.lastname ) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row( form.firstname ) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row( form.phone ) }}
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <p>
+        <span class="required_explain">{{ 'required_field' | trans }}</span>
+    </p>
+    <div class="text-center">
+        {{ form_widget( form.save, {
+            span_class: 'icon-icon-calculator',
+            attr: {
+                class: "btn btn-primary submit btn-block text-uppercase",
+                role: "button"
+            }
+        }) }}
+    </div>
+{{ form_end(form) }}

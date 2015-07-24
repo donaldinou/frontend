@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="breadcrumb.home" resname="breadcrumb.home">
+                <source>breadcrumb.home</source>
+                <target>Accueil</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.user" resname="breadcrumb.user">
+                <source>breadcrumb.user</source>
+                <target>Utilisateur</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.profile" resname="breadcrumb.profle">
+                <source>breadcrumb.profile</source>
+                <target>Mon profil</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.profile.edit" resname="breadcrumb.profile.edit">
+                <source>breadcrumb.profile.edit</source>
+                <target>Modifier son profil</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.profile.changepassword" resname="breadcrumb.profile.changepassword">
+                <source>breadcrumb.profile.changepassword</source>
+                <target>Modifier le mot de passe</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.reset" resname="breadcrumb.reset">
+                <source>breadcrumb.reset</source>
+                <target>Réinitialiser</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.login" resname="breadcrumb.login">
+                <source>breadcrumb.login</source>
+                <target>Se connecter</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.registration" resname="breadcrumb.registration">
+                <source>breadcrumb.registration</source>
+                <target>S'enregistrer</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.registration.success" resname="breadcrumb.registration.success">
+                <source>breadcrumb.registration.success</source>
+                <target>Enregistrement terminé</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.password" resname="breadcrumb.password">
+                <source>breadcrumb.password</source>
+                <target>Mot de passe</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

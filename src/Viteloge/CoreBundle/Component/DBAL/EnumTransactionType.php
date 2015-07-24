@@ -13,8 +13,8 @@ namespace Viteloge\CoreBundle\Component\DBAL {
         protected $name = 'enumtransaction';
         protected $values = array(
             self::RENT => self::RENT,
-            self::SALE => self::RENT,
-            self::NEWER => self::RENT
+            self::SALE => self::SALE,
+            self::NEWER => self::NEWER
         );
 
         public static function getValues() {

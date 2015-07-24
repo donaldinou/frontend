@@ -44,6 +44,9 @@ namespace Viteloge\CoreBundle\Entity {
          *      minMessage = "The title must be at least {{ limit }} characters long",
          *      maxMessage = "The title cannot be longer than {{ limit }} characters"
          * )
+         * @Assert\Type(
+         *     type="string"
+         * )
          */
         private $title;
 
@@ -54,6 +57,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @Assert\GreaterThanOrEqual(
          *     value = 0
          * )
+         * @Assert\Type(
+         *     type="integer"
+         * )
          */
         private $totalmatches;
 
@@ -63,6 +69,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Column(name="newMatches", type="integer", nullable=false)
          * @Assert\GreaterThanOrEqual(
          *     value = 0
+         * )
+         * @Assert\Type(
+         *     type="integer"
          * )
          */
         private $newmatches;

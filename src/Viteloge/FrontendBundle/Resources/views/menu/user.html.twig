@@ -1,15 +1,29 @@
-{% spaceless %}
-<nav>
-    <ul>
-        <li>
-            <a href="{{ path('viteloge_frontend_user_index') }}">{% trans %}Espace Personnel{% endtrans %}</a>
-        </li>
-        <li>
-            <a href="{{ path('fos_user_profile_show') }}">{% trans %}Profile show{% endtrans %}</a>
-        </li>
-        <li>
-            <a href="{{ path('fos_user_security_logout') }}">{% trans %}Deconnexion{% endtrans %}</a>
-        </li>
-    </ul>
-</nav>
-{% endspaceless %}
+<ul class="dropdown-menu dropdown-menu-right" role="menu">
+    <li><span class="dropdown-header">{{ 'viteloge.welcome' | trans }}</span></li>
+    <li>
+        <a href="{{ path('viteloge_frontend_user_index') }}">
+            <span class="fa fa-sliders" aria-hidden="true">&nbsp;</span>
+            <span class="">{% trans %}viteloge.my.personnal.space{% endtrans %}</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('viteloge_frontend_websearch_list') }}">
+            <span class="fa fa-search" aria-hidden="true">&nbsp;</span>
+            <span class="">{% trans %}viteloge.my.research{% endtrans %}&nbsp;</span>
+            <span class="badge">{{ app.user.webSearchesTotalNewMatches }}</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('fos_user_profile_show') }}">
+            <span class="fa fa-wrench" aria-hidden="true">&nbsp;</span>
+            <span class="">{% trans %}viteloge.my.profile{% endtrans %}</span>
+        </a>
+    </li>
+    <li class="divider"></li>
+    <li>
+        <a href="{{ path('fos_user_security_logout') }}">
+            <span class="fa fa-sign-out" aria-hidden="true">&nbsp;</span>
+            <span class="">{% trans %}user.logout{% endtrans %}</span>
+        </a>
+    </li>
+</ul>

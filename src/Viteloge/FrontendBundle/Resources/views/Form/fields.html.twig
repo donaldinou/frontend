@@ -20,23 +20,3 @@
 {%- block _viteloge_core_adsearch_transaction_widget %}
     {{ block('radiotab_widget') }}
 {% endblock _viteloge_core_adsearch_transaction_widget -%}
-
-{%- block button_widget %}
-    {% set attr = attr|merge({class: (attr.class|default('btn-default') ~ ' btn')|trim}) %}
-    {% if label is empty %}
-        {% if label_format is not empty %}
-            {% set label = label_format|replace({
-                '%name%': name,
-                '%id%': id,
-            }) %}
-        {% else %}
-            {% set label = name|humanize %}
-        {% endif %}
-    {% endif %}
-    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}{% if span_class is defined %} aria-label="{{ label|trans({}, translation_domain) }}"{% endif %}>
-        {%- if span_class is defined -%}
-            <span class="{{ span_class }}" aria-hidden="true">&nbsp;</span>
-        {%- endif -%}
-        <span>{{ label|trans({}, translation_domain) }}</span>
-    </button>
-{% endblock button_widget -%}

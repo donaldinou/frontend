@@ -9,10 +9,22 @@ namespace Viteloge\UserBundle\Controller {
     class SecurityController extends BaseController {
 
         public function loginAction(Request $request) {
+            $translated = $this->get('translator');
+
+            // Breadcrumbs
             $breadcrumbs = $this->get('white_october_breadcrumbs');
-            $breadcrumbs->addItem('Home', $this->get('router')->generate('viteloge_frontend_homepage'));
-            $breadcrumbs->addItem('User', $this->get('router')->generate('viteloge_frontend_user_index'));
-            $breadcrumbs->addItem('Login');
+            $breadcrumbs->addItem(
+                $translated->trans('breadcrumb.home', array(), 'breadcrumbs'),
+                $this->get('router')->generate('viteloge_frontend_homepage')
+            );
+            $breadcrumbs->addItem(
+                $translated->trans('breadcrumb.user', array(), 'breadcrumbs'),
+                $this->get('router')->generate('viteloge_frontend_user_index')
+            );
+            $breadcrumbs->addItem(
+                $translated->trans('breadcrumb.login', array(), 'breadcrumbs')
+            );
+            // --
 
             return parent::loginAction($request);
         }

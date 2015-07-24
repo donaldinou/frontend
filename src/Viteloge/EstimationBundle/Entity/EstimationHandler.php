@@ -1,18 +1,31 @@
 <?php
 
-namespace Viteloge\EstimationBundle\Entity;
+namespace Viteloge\EstimationBundle\Entity {
 
-use Doctrine\Common\Persistence\ObjectManager;
+    use Doctrine\Common\Persistence\ObjectManager;
+    use Viteloge\CoreBundle\Entity\Estimate;
 
-class EstimationHandler{
-    public function __construct( ObjectManager $om ){
-        $this->om = $om;
+    /**
+     * handler in order to save field as object in data
+     */
+    class EstimationHandler {
+
+        /**
+         *
+         */
+        public function __construct( ObjectManager $om ){
+            $this->om = $om;
+        }
+
+        /**
+         *
+         */
+        public function save( Estimate $estimate ) {
+            $this->om->persist( $estimate);
+            $this->om->flush();
+
+            return 42;
+        }
     }
 
-    public function save( Estimation $estimation ) {
-        $this->om->persist( $estimation );
-        $this->om->flush();
-
-        return 42;
-    }
 }

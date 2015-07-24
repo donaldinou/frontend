@@ -15,6 +15,8 @@ namespace Viteloge\FrontendBundle\Controller {
     use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
     use Symfony\Component\Security\Acl\Permission\MaskBuilder;
     use Viteloge\CoreBundle\Entity\WebSearch;
+    use Viteloge\CoreBundle\Entity\UserSearch;
+    use Viteloge\CoreBundle\SearchEntity\Ad as AdSearch;
 
     /**
      * @Route("/user/websearch")
@@ -32,19 +34,25 @@ namespace Viteloge\FrontendBundle\Controller {
          * @param string $rootTitle the title to display for root
          * @return Viteloge\FrontendBundle\Controller\WebSearchController
          */
-        protected function initBreadcrumbs($isRoot=false, $rootTitle='Alert', $rootRoute='viteloge_frontend_websearch_list') {
+        protected function initBreadcrumbs($isRoot=false, $rootTitle='breadcrumb.alert', $rootRoute='viteloge_frontend_websearch_list') {
+            $translated = $this->get('translator');
             $this->breadcrumbs = $this->get('white_october_breadcrumbs');
             $this->breadcrumbs->addItem(
-                'Home', $this->get('router')->generate('viteloge_frontend_homepage')
+                $translated->trans('breadcrumb.home', array(), 'breadcrumbs'),
+                $this->get('router')->generate('viteloge_frontend_homepage')
             );
             $this->breadcrumbs->addItem(
-                'User', $this->get('router')->generate('viteloge_frontend_user_index')
+                $translated->trans('breadcrumb.user', array(), 'breadcrumbs'),
+                $this->get('router')->generate('viteloge_frontend_user_index')
             );
             if ($isRoot) {
-                $this->breadcrumbs->addItem($rootTitle);
+                $this->breadcrumbs->addItem(
+                    $translated->trans($rootTitle, array(), 'breadcrumbs')
+                );
             } else {
                 $this->breadcrumbs->addItem(
-                    $rootTitle, $this->get('router')->generate($rootRoute)
+                    $translated->trans($rootTitle, array(), 'breadcrumbs'),
+                    $this->get('router')->generate($rootRoute)
                 );
             }
             return $this;
@@ -73,7 +81,7 @@ namespace Viteloge\FrontendBundle\Controller {
          */
         public function listAction(Request $request) {
             // Breadcrumbs
-            $this->initBreadcrumbs(true, 'Alert list');
+            $this->initBreadcrumbs(true, 'breadcrumb.alert.list');
             // --
 
             $webSearches = $this->getUser()->getWebSearches();
@@ -88,12 +96,12 @@ namespace Viteloge\FrontendBundle\Controller {
          *      name="viteloge_frontend_websearch_history"
          * )
          * @Method({"GET"})
-         * @Security("has_role('ROLE_USER')")
+         * @Security("has_role('ROLE_OPERATOR')")
          * @Template("VitelogeFrontendBundle:WebSearch:history.html.twig")
          */
         public function historyAction(Request $request) {
             // Breadcrumbs
-            $this->initBreadcrumbs(true, 'History list');
+            $this->initBreadcrumbs(true, 'breadcrumb.alert.history');
             // --
 
             // show deleted
@@ -187,7 +195,6 @@ namespace Viteloge\FrontendBundle\Controller {
                     'method' => 'POST'
                 )
             );
-            return $form;
         }
 
         /**
@@ -200,12 +207,50 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:WebSearch:create.html.twig")
          */
         public function newAction(Request $request) {
+            $translated = $this->get('translator');
+
             // Breadcrumbs
             $this->initBreadcrumbs();
-            $this->breadcrumbs->addItem('Add alert');
+            $this->breadcrumbs->addItem($translated->trans('breadcrumb.alert.action.add', array(), 'breadcrumbs'));
             // --
 
             $webSearch = new WebSearch();
+            $webSearch->setUserSearch(new UserSearch());
+
+            // try to get session
+            if ($request->query->has('session')) {
+                $session = $request->getSession();
+                if ($session->has('adSearch')) {
+                    $adSearch = $session->get('adSearch');
+                    if ($adSearch instanceof AdSearch) {
+                        $inseeCity = null;
+                        $cityId = (is_array($adSearch->getWhere())) ? current($adSearch->getWhere()) : null;
+                        if (!empty($cityId)) {
+                            $cityRepository = $this->getDoctrine()->getRepository('AcreatInseeBundle:InseeCity');
+                            $inseeCity = $cityRepository->find((int)$cityId);
+                        }
+                        $now = new \DateTime('now');
+                        $webSearch->setTitle($translated->trans('websearch.title.date', array('%date%' => $now->format('d/m/Y')), null));
+                        $webSearch->getUserSearch()->setTransaction($adSearch->getTransaction());
+                        $webSearch->getUserSearch()->setType($adSearch->getWhat());
+                        $webSearch->getUserSearch()->setInseeCity($inseeCity);
+                        $webSearch->getUserSearch()->setRadius($adSearch->getRadius());
+                        $webSearch->getUserSearch()->setRooms($adSearch->getRooms());
+                        $webSearch->getUserSearch()->setBudgetMin($adSearch->getMinPrice());
+                        $webSearch->getUserSearch()->setBudgetMax($adSearch->getMaxPrice());
+                        $webSearch->getUserSearch()->setKeywords($adSearch->getKeywords());
+
+                        $this->addFlash(
+                            'warning',
+                            $translated->trans('websearch.flash.creating')
+                        );
+                    }
+                }
+            }
+
+            // by default check mail enabled
+            $webSearch->getUserSearch()->setMailEnabled(true);
+
             $form = $this->createCreateForm($webSearch);
 
             return array(
@@ -224,22 +269,29 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:WebSearch:create.html.twig")
          */
         public function createAction(Request $request) {
+            $translated = $this->get('translator');
+
             // Breadcrumbs
             $this->initBreadcrumbs();
-            $this->breadcrumbs->addItem('Add alert');
+            $this->breadcrumbs->addItem($translated->trans('breadcrumb.alert.action.add', array(), 'breadcrumbs'));
             // --
 
             $webSearch = new WebSearch();
             $form = $this->createCreateForm($webSearch);
             $form->handleRequest($request);
 
+            $session = $request->getSession();
+
             if( $form->isValid() ) {
+                if ($session->has('adSearch')) {
+                    $session->remove('adSearch');
+                }
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($webSearch);
                 $em->flush();
                 $this->addFlash(
                     'notice',
-                    'Your changes were saved!'
+                    $translated->trans('websearch.flash.created', array('%title%' => $webSearch->getTitle()))
                 );
                 return $this->redirectToRoute('viteloge_frontend_websearch_list');
             }
@@ -281,9 +333,13 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:WebSearch:edit.html.twig")
          */
         public function editAction(Request $request, WebSearch $webSearch) {
+            $translated = $this->get('translator');
+
             // Breadcrumbs
             $this->initBreadcrumbs();
-            $this->breadcrumbs->addItem('Edit '.$webSearch->getTitle());
+            $this->breadcrumbs->addItem(
+                $translated->trans('breadcrumb.alert.action.edit', array(), 'breadcrumbs').' '.ucfirst($webSearch->getTitle())
+            );
             // --
 
             $deleteForm = $this->createDeleteForm($webSearch);
@@ -306,7 +362,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *     name="viteloge_frontend_websearch_history_edit"
          * )
          * @Method({"GET"})
-         * @Security("has_role('ROLE_USER')")
+         * @Security("has_role('ROLE_OPERATOR')")
          * @ParamConverter("webSearch", class="VitelogeCoreBundle:WebSearch", options={
          *    "repository_method" = "findHistory",
          *    "mapping": {"id": "id"},
@@ -315,9 +371,13 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:WebSearch:history_edit.html.twig")
          */
         public function historyEditAction(Request $request, WebSearch $webSearch) {
+            $translated = $this->get('translator');
+
             // Breadcrumbs
-            $this->initBreadcrumbs(false, 'History', 'viteloge_frontend_websearch_history');
-            $this->breadcrumbs->addItem('Edit '.$webSearch->getTitle());
+            $this->initBreadcrumbs(false, 'breadcrumb.alert.history', 'viteloge_frontend_websearch_history');
+            $this->breadcrumbs->addItem(
+                $translated->trans('breadcrumb.alert.action.edit', array(), 'breadcrumbs').' '.ucfirst($webSearch->getTitle())
+            );
             // --
 
             $deleteForm = $this->createActivateForm($webSearch);
@@ -345,9 +405,13 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:WebSearch:edit.html.twig")
          */
         public function updateAction(Request $request, WebSearch $webSearch) {
+            $translated = $this->get('translator');
+
             // Breadcrumbs
             $this->initBreadcrumbs();
-            $this->breadcrumbs->addItem('Edit '.ucfirst($webSearch->getTitle()));
+            $this->breadcrumbs->addItem(
+                $translated->trans('breadcrumb.alert.action.edit', array(), 'breadcrumbs').' '.ucfirst($webSearch->getTitle())
+            );
             // --
 
             $deleteForm = $this->createDeleteForm($webSearch);
@@ -360,7 +424,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 $em->flush();
                 $this->addFlash(
                     'notice',
-                    'Your changes were saved!'
+                    $translated->trans('websearch.flash.updated', array('%title%' => $webSearch->getTitle()))
                 );
                 return $this->redirectToRoute('viteloge_frontend_websearch_list');
             }
@@ -378,15 +442,15 @@ namespace Viteloge\FrontendBundle\Controller {
          * @param WebSearch the object
          * @return \Symfony\Component\Form\Form The form
          */
-        private function createDeleteForm(WebSearch $webSearch) {
+        private function createDeleteForm(WebSearch $webSearch, $forceDeleteForm=false) {
             $id = $webSearch->getId();
             $isMailEnabled = $webSearch->getUserSearch()->isMailEnabled();
-            $method = ($isMailEnabled) ? 'GET' : 'DELETE';
-            $action = ($isMailEnabled) ? 'viteloge_frontend_websearch_remove' : 'viteloge_frontend_websearch_delete';
+            $method = ($isMailEnabled && !$forceDeleteForm) ? 'GET' : 'DELETE';
+            $action = ($isMailEnabled && !$forceDeleteForm) ? 'viteloge_frontend_websearch_remove' : 'viteloge_frontend_websearch_delete';
             return $this->createFormBuilder()
                 ->setAction($this->generateUrl($action, array('id' => $id)))
                 ->setMethod($method)
-                ->add('submit', 'submit', array('label' => 'websearch.delete'))
+                ->add('submit', 'submit', array('label' => 'websearch.action.delete'))
                 ->getForm()
             ;
         }
@@ -405,14 +469,24 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:WebSearch:remove.html.twig")
          */
         public function removeAction(Request $request, WebSearch $webSearch) {
-            $form = $this->createDeleteForm($webSearch);
+            $translated = $this->get('translator');
+
+            // Breadcrumbs
+            $this->initBreadcrumbs();
+            $this->breadcrumbs->addItem(
+                $translated->trans('breadcrumb.alert.action.remove', array(), 'breadcrumbs').' '.ucfirst($webSearch->getTitle())
+            );
+            // --
+
+            $form = $this->createDeleteForm($webSearch, true);
             $userSearch = $webSearch->getUserSearch();
             $userSearchForm = $this->createFormBuilder()
                 ->setAction($this->generateUrl('viteloge_frontend_usersearch_delete', array('id' => $userSearch->getId())))
                 ->setMethod('DELETE')
-                ->add('submit', 'submit', array('label' => 'usersearch.delete'))
+                ->add('submit', 'submit', array('label' => 'usersearch.action.delete'))
                 ->getForm()
             ;
+
             return array(
                 'form_usersearch_delete' => $userSearchForm->createView(),
                 'form_websearch_delete' => $form->createView()
@@ -430,9 +504,12 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Method("DELETE")
          * @Security("has_role('ROLE_USER')")
          * @ParamConverter("webSearch", class="VitelogeCoreBundle:WebSearch", options={"id" = "id"})
-         * Template("VitelogeFrontendBundle:WebSearch:delete.html.twig")
+         * @Template("VitelogeFrontendBundle:WebSearch:delete.html.twig")
          */
         public function deleteAction(Request $request, WebSearch $webSearch) {
+            $translated = $this->get('translator');
+            $webSearch->getUserSearch()->setDeletedAt(new \DateTime('now')); // desactivate userSearch in order to remove websearch
+
             $form = $this->createDeleteForm($webSearch);
             $form->handleRequest($request);
 
@@ -442,7 +519,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 $em->flush();
                 $this->addFlash(
                     'notice',
-                    'Your changes were saved!'
+                    $translated->trans('websearch.flash.removed', array('%title%' => $webSearch->getTitle()))
                 );
             }
 
@@ -462,7 +539,7 @@ namespace Viteloge\FrontendBundle\Controller {
             return $this->createFormBuilder()
                 ->setAction($this->generateUrl($action, array('id' => $id)))
                 ->setMethod($method)
-                ->add('submit', 'submit', array('label' => 'websearch.activate'))
+                ->add('submit', 'submit', array('label' => 'websearch.action.activate'))
                 ->getForm()
             ;
         }
@@ -477,21 +554,28 @@ namespace Viteloge\FrontendBundle\Controller {
          * )
          * @Method("PUT")
          * @Security("has_role('ROLE_USER')")
-         * @ParamConverter("webSearch", class="VitelogeCoreBundle:WebSearch", options={"id" = "id"})
+         * @ParamConverter("webSearch", class="VitelogeCoreBundle:WebSearch", options={
+         *    "repository_method" = "findHistory",
+         *    "mapping": {"id": "id"},
+         *    "map_method_signature" = true
+         * })
          * Template("VitelogeFrontendBundle:WebSearch:activate.html.twig")
          */
         public function activateAction(Request $request, WebSearch $webSearch) {
+            $translated = $this->get('translator');
+
             $form = $this->createActivateForm($webSearch);
             $form->handleRequest($request);
 
             if ($form->isValid()) {
                 $webSearch->setDeletedAt(null);
+                $webSearch->getUserSearch()->setDeletedAt(null);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($webSearch);
                 $em->flush();
                 $this->addFlash(
                     'notice',
-                    'Your changes were saved!'
+                    $translated->trans('websearch.flash.activated', array('%title%' => $webSearch->getTitle()))
                 );
             }
 

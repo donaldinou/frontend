@@ -42,5 +42,6 @@ monolog:
         #    type:   chromephp
         #    level:  info
 
-#swiftmailer:
-#    delivery_address: me@example.com
+swiftmailer:
+    spool: { type: memory }
+    delivery_address: donaldinou@gmail.com

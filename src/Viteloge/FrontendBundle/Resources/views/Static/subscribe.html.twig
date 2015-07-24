@@ -1,19 +1,33 @@
-{% extends 'VitelogeFrontendBundle::base.html.twig' %}
+{% extends 'VitelogeFrontendBundle:Static:base.html.twig' %}
 
-{%- block schema -%}
-    itemscope itemtype="http://schema.org/WebPage"
-{%- endblock schema -%}
+{%- block title -%}
+    <title>{%- trans -%}Subscribe{%- endtrans -%}</title>
+{%- endblock title -%}
 
-{% block main %}
-<aside>
-    {{ include('VitelogeFrontendBundle:menu:static.html.twig', {}) }}
-</aside>
-<section class="highlighting text-center">
-    <article class="container">
-        <h3 class="text-uppercase">{% trans %}Subscribe{% endtrans %}</h3>
-        <p>
-            Loremp ipsum
-        </p>
-    </article>
-</section>
-{% endblock %}
+{%- block main_title -%}
+    {%- trans -%}viteloge.alert.mail{%- endtrans -%}
+{%- endblock -%}
+
+{%- block main_content -%}
+    <p>Vous cherchez la perle rare&nbsp;? Vous avez peur de passer à côté du bien de vos rêves&nbsp;mais vous n’avez pas le temps de chercher ? Vous souhaitez être le premier informé&nbsp;? L’alerte mail ViteLogé est faite pour vous&nbsp;!</p>
+    <ul>
+        <li><strong>Nous surveillons pour vous plus de 700&nbsp;000 annonces</strong> réparties dans plus de 3 500 agences et professionnels sur l’ensemble du territoire, <strong>actualisées en permanence</strong>.</li>
+        <li><strong>Vous êtes informé par un email personnalisé</strong> dès que notre moteur trouve un ou plusieurs biens répondant à vos critères.</li>
+        <li><strong> Vous bénéficiez de toute la puissance de notre moteur de recherche</strong> vous permettant de formuler des demandes d’une précision inégalée&nbsp;et ainsi de cibler le bien de vos rêves.</li>
+    </ul>
+    <p>Exemples&nbsp;:</p>
+    <ul>
+        <li>«&nbsp;Maison, avec piscine et tennis pour 2500000 à 20 km de La Baule&nbsp;»</li>
+        <li>«&nbsp;Location studio, Paris, parquet, ascenseur, - de 500 € /mois&nbsp;»</li>
+        <li>etc…</li>
+    </ul>
+    <p>Ainsi, que le bien de vos rêves soit dans une grande agence ou dans une toute petite, qu’il soit chez un notaire de l’autre coté de la rue ou à l’autre bout de la France…. Si il existe ViteLogé le trouvera…! </p>
+
+    <p class="text-center">
+        {%- if not is_granted("IS_AUTHENTICATED_REMEMBERED") or not app.user -%}
+            <a class="btn btn-primary" href="{{ path('fos_user_registration_register') }}">Commencer l'inscription</a>
+        {%- else -%}
+            <a class="btn btn-primary" href="{{ path('viteloge_frontend_websearch_new') }}">Créer votre alerte</a>
+        {%- endif -%}
+    </p>
+{%- endblock main_content -%}

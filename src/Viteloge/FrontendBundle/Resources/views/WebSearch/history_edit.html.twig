@@ -3,36 +3,48 @@
 {% block main %}
     {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } %}
         {% block left %}
-            {% embed "VitelogeFrontendBundle:WebSearch:form/edit.html.twig" with { form: form } %}
-                {%- block form_button -%}
-                    {%- embed 'VitelogeCoreBundle:Form:submit.html.twig' -%}
-                        {%- block form_button_back -%}
-                            <a href="{{ path('viteloge_frontend_websearch_history') }}" class="btn btn-default btn-block" role="button" aria-label="{% trans %}usersearch.back{% endtrans %}">
-                                <span class="fa fa-undo" aria-hidden="true">&nbsp;</span>
-                                <span>{% trans %}usersearch.back{% endtrans %}</span>
-                            </a>
-                        {%- endblock -%}
-                        {%- block form_button_submit -%}
-                            {{ form_widget(form.userSearch.save, {
-                                'label': 'usersearch.save',
-                                'span_class': 'fa fa-save',
-                                'attr': {
-                                    'class': 'btn btn-primary btn-block text-uppercase',
-                                    'role': 'button'
-                                }
-                            }) }}
-                        {%- endblock -%}
-                    {%- endembed -%}
-                {%- endblock form_button -%}
-            {% endembed %}
-            {{ include('VitelogeFrontendBundle:WebSearch:form/delete.html.twig', { form: form_delete }) }}
+            <div class="clearfix">
+                {% embed "VitelogeFrontendBundle:WebSearch:form/edit.html.twig" with { form: form } %}
+                    {%- block form_button -%}
+                        {%- embed 'VitelogeCoreBundle:Form:submit.html.twig' -%}
+                            {%- block form_button_back -%}
+                                <a href="{{ path('viteloge_frontend_websearch_history') }}" class="btn btn-default btn-block" role="button" aria-label="{% trans %}usersearch.action.back{% endtrans %}">
+                                    <span class="fa fa-undo" aria-hidden="true">&nbsp;</span>
+                                    <span>{% trans %}usersearch.action.back{% endtrans %}</span>
+                                </a>
+                            {%- endblock -%}
+                            {%- block form_button_submit -%}
+                                {{ form_widget(form.userSearch.save, {
+                                    'label': 'usersearch.action.save',
+                                    'span_class': 'fa fa-save',
+                                    'attr': {
+                                        'class': 'btn btn-primary btn-block text-uppercase',
+                                        'role': 'button'
+                                    }
+                                }) }}
+                            {%- endblock -%}
+                        {%- endembed -%}
+                    {%- endblock form_button -%}
+                {% endembed %}
+            </div>
+            <div class="clearfix text-right">
+                <br>
+                {%- embed "VitelogeFrontendBundle:WebSearch:form/delete.html.twig" with { form: form_delete } -%}
+                    {%- block form_fields -%}
+                        {{- form_row(form.submit, {
+                            'label_attr': {
+                                'class': 'sr-only'
+                            },
+                            'attr': {
+                                'class': 'btn btn-primary',
+                            },
+                            'span_class': 'fa fa-rotate-right',
+                        }) -}}
+                    {%- endblock form_fields -%}
+                {%- endembed -%}
+            </div>
         {% endblock %}
         {% block right %}
-            <aside>
-                <div class="">
-                    {{ include('VitelogeFrontendBundle:menu:user.html.twig', { }) }}
-                </div>
-            </aside>
             {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
         {% endblock %}
     {% endembed %}

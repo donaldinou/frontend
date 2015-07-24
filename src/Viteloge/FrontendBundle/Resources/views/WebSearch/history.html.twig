@@ -1,1 +1,18 @@
 {% extends 'VitelogeFrontendBundle:WebSearch:list.html.twig' %}
+
+{%- block main_buttons_toolbar -%}
+    <div class="btn-toolbar" role="toolbar" aria-label="...">
+        <div class="btn-group pull-left" role="group" aria-label="{% trans %}websearch.general.action{% endtrans %}">
+            <a href="{{ path('viteloge_frontend_websearch_new', { }) }}" class="btn btn-primary" role="button" aria-label="{% trans %}websearch.action.add{% endtrans %}">
+                <span class="fa fa-plus-circle" aria-hidden="true"></span>
+                <span>{% trans %}websearch.action.add{% endtrans %}</span>
+            </a>
+        </div>
+        <div class="btn-group pull-right" role="group" aria-label="{% trans %}websearch.additionnals.action{% endtrans %}">
+            <a href="{{ path('viteloge_frontend_websearch_list', { }) }}" class="btn btn-primary" role="button" aria-label="{% trans %}websearch.action.add{% endtrans %}">
+                <span class="fa fa-list-alt" aria-hidden="true"></span>
+                <span>{% trans %}websearch.action.list{% endtrans %}</span>
+            </a>
+        </div>
+    </div>
+{%- endblock main_buttons_toolbar -%}

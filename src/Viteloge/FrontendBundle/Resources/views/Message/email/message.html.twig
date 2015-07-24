@@ -1,0 +1,14 @@
+<h1>Demande de contact via le site Vitelogé.com</h1>
+<p>Vous avez reçu une demande de contact à partir de ViteLogé.com :</p>
+
+<h2>Détails du contact :</h2>
+<blockquote>
+    <strong>Nom : </strong>{{ message.fullname }}<br>
+    <strong>Email : </strong> <a href="mailto:{{ message.email }}">{{ message.email }}</a><br>
+    <strong>Téléphone : </strong> {{ message.phone }}<br>
+    <strong>Message : </strong> {{ message.message | raw }}
+</blockquote>
+
+{{ include('VitelogeFrontendBundle:Ad:email/message.html.twig', { ad: message.ad }) }}
+
+<p>Cordialement,<br><br>L'équipe de ViteLoge.com</p>

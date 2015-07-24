@@ -18,7 +18,7 @@ security:
     firewalls:
         main:
             pattern: ^/
-            stateless: true
+            stateless: false
             form_login:
                 check_path: fos_user_security_check
                 login_path: fos_user_security_login
@@ -29,6 +29,8 @@ security:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
             logout:
+                invalidate_session: true
+                delete_cookies: ~
                 path: fos_user_security_logout
             remember_me:
                 key: %secret%
@@ -37,6 +39,17 @@ security:
                 domain: %domain%
                 secure: false
             anonymous: true
+            oauth:
+                resource_owners:
+                    facebook: "/login/check-facebook"
+                    twitter: "/login/check-twitter"
+                    google: "/login/check-google"
+                    github: "/login/check-github"
+                login_path: fos_user_security_login
+                use_forward: false
+                failure_path: fos_user_security_login
+                oauth_user_provider:
+                    service: hwi_oauth.user.provider.fosub_bridge
 
     access_control:
          #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

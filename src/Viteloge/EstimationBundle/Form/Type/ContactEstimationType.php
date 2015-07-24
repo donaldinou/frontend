@@ -9,8 +9,6 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Validator\Constraints as Assert;
 
-use Viteloge\EstimationBundle\Entity\Estimation;
-
 
 class ContactEstimationType extends MyTypeWithBoolean
 {
@@ -58,7 +56,7 @@ class ContactEstimationType extends MyTypeWithBoolean
                 array('label' => 'estimation.label.contact_save')
             )
         ;
-        
+
     }
     public function getName()
     {

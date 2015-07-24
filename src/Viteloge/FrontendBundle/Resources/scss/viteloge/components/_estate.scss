@@ -61,7 +61,6 @@
         font-weight: 700;
     }
     .description {
-        text-align: justify;
         margin-top: 10px;
         a {
             text-decoration: underline;
@@ -168,7 +167,7 @@
         }
         .estate-images {
             position: static;
-            width: 250px;
+            min-width: 250px;
             min-height: 190px;
         }
         .estate-image, .estate-preview {
@@ -189,31 +188,21 @@
 
 /** * */
 .item .estate {
+    min-width: 260px;
     width: 260px;
     min-height: 290px;
     margin-left: auto;
     margin-right: auto;
     float: none;
-}
-
-@media (min-width: 768px) {
-    .item .estate {
-        margin-left: auto;
-        margin-right: auto;
-        float: none;
+    @media (max-width: $screen-sm-max) {
+        width: 90%;
     }
-}
-@media (min-width: 992px) {
-    .item .estate {
-        margin-left: 50px;
+    @media (min-width: $screen-md-min) {
+        margin-left: 25px;
         margin-right: 0px;
         float: left;
-    }
-}
-@media (min-width: 1200px) {
-    .item .estate {
-        margin-left: 50px;
-        margin-right: 0px;
-        float: left;
+        &:first-child {
+            margin-left: 50px;
+        }
     }
 }

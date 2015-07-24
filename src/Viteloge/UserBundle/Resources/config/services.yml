@@ -9,6 +9,6 @@ services:
             - { name: form.type, alias: viteloge_user_profile }
     viteloge_user.event_subscriber:
         class: Viteloge\UserBundle\EventListener\UserListener
-        arguments: [@white_october_breadcrumbs, @router]
+        arguments: [@white_october_breadcrumbs, @router, @translator]
         tags:
             - { name: kernel.event_subscriber }

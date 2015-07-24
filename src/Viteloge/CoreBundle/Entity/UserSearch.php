@@ -46,6 +46,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @Assert\Length(
          *      max = 50
          * )
+         * @Assert\Type(
+         *     type="string"
+         * )
          */
         private $lastname;
 
@@ -56,6 +59,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @Assert\Length(
          *      max = 50
          * )
+         * @Assert\Type(
+         *     type="string"
+         * )
          */
         private $firstname;
 
@@ -65,6 +71,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Column(name="codepostal", type="string", length=5, nullable=false)
          * @Assert\Length(
          *      max = 5
+         * )
+         * @Assert\Type(
+         *     type="string"
          * )
          */
         private $postalcode;
@@ -150,6 +159,9 @@ namespace Viteloge\CoreBundle\Entity {
          *     "value === null or this.getBudgetMax() == null or value <= this.getBudgetMax()",
          *     message="The minimum budget has to be lower than the maximum budget"
          * )
+         * @Assert\Type(
+         *     type="float"
+         * )
          */
         private $budgetMin;
 
@@ -163,6 +175,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @Assert\Expression(
          *     "value === null or this.getBudgetMin() == null or value >= this.getBudgetMin()",
          *     message="The maximum budget has to be greater than the minimum budget"
+         * )
+         * @Assert\Type(
+         *     type="float"
          * )
          */
         private $budgetMax;
@@ -232,6 +247,7 @@ namespace Viteloge\CoreBundle\Entity {
          * })
          * @Assert\Type(type="Acreat\InseeBundle\Entity\InseeCity")
          * @Assert\Valid()
+         * @Assert\NotBlank()
          */
         private $inseeCity;
 

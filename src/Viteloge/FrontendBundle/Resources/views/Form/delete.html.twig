@@ -1,0 +1,21 @@
+{% form_theme form with ['VitelogeFrontendBundle:Form:fields.html.twig'] %}
+
+{%- block form_start -%}
+{{- form_start(form) -}}
+{%- endblock form_start -%}
+
+{%- block form_fields -%}
+    {{- form_row(form.submit, {
+        'label_attr': {
+            'class': 'sr-only'
+        },
+        'attr': {
+            'class': 'btn btn-primary',
+        },
+        'span_class': 'fa fa-trash',
+    }) -}}
+{%- endblock form_fields -%}
+
+{%- block form_end -%}
+{{- form_end(form) -}}
+{%- endblock form_end -%}

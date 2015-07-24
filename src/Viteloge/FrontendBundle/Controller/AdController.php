@@ -10,6 +10,8 @@ namespace Viteloge\FrontendBundle\Controller {
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\HttpFoundation\Response;
+    use Symfony\Component\HttpFoundation\JsonResponse;
     use Symfony\Component\Serializer\Serializer;
     use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
     use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -23,14 +25,10 @@ namespace Viteloge\FrontendBundle\Controller {
     use Viteloge\CoreBundle\SearchEntity\Ad as AdSearch;
 
     /**
+     * Note: This should be the search ad controller
      * @Route("/ad")
      */
     class AdController extends Controller {
-
-        /**
-         *
-         */
-        protected $form;
 
         /**
          * @Route(
@@ -89,12 +87,17 @@ namespace Viteloge\FrontendBundle\Controller {
             $form = $this->createForm('viteloge_core_adsearch', $adSearch);
             // --
 
+            // Save session
+            $session = $request->getSession();
+            $session->set('adSearch', $adSearch);
+            // --
+
             // First State
             $inseeState = null;
             if (!empty($adSearch->getWhereState())) {
                 $whereState = $adSearch->getWhereState();
                 $stateId = current($whereState);
-                $stateRepository = $repository = $this->getDoctrine()->getRepository('AcreatInseeBundle:InseeState');
+                $stateRepository = $this->getDoctrine()->getRepository('AcreatInseeBundle:InseeState');
                 $inseeState = $stateRepository->find((int)$stateId);
             }
             // --
@@ -104,7 +107,7 @@ namespace Viteloge\FrontendBundle\Controller {
             if (!empty($adSearch->getWhereDepartment())) {
                 $whereDepartment = $adSearch->getWhereDepartment();
                 $departmentId = current($whereDepartment);
-                $departmentRepository = $repository = $this->getDoctrine()->getRepository('AcreatInseeBundle:InseeDepartment');
+                $departmentRepository = $this->getDoctrine()->getRepository('AcreatInseeBundle:InseeDepartment');
                 $inseeDepartment = $departmentRepository->find((int)$departmentId);
             }
             // --
@@ -114,7 +117,7 @@ namespace Viteloge\FrontendBundle\Controller {
             if (!empty($adSearch->getWhere())) {
                 $where = $adSearch->getWhere();
                 $cityId = current($where);
-                $cityRepository = $repository = $this->getDoctrine()->getRepository('AcreatInseeBundle:InseeCity');
+                $cityRepository = $this->getDoctrine()->getRepository('AcreatInseeBundle:InseeCity');
                 $inseeCity = $cityRepository->find((int)$cityId);
             }
             // --
@@ -174,7 +177,7 @@ namespace Viteloge\FrontendBundle\Controller {
             // QueryStats SEO optimiation
             if (!empty($request->get('qs'))) {
                 $qsId = (int)$request->get('qs');
-                $qsRepository = $repository = $this->getDoctrine()->getRepository('VitelogeCoreBundle:QueryStats');
+                $qsRepository = $this->getDoctrine()->getRepository('VitelogeCoreBundle:QueryStats');
                 $qs = $qsRepository->find((int)$qsId);
                 $breadcrumbTitle  = $qs->getKeywords();
                 $breadcrumbs->addItem($breadcrumbTitle);
@@ -207,22 +210,37 @@ namespace Viteloge\FrontendBundle\Controller {
          * )
          * Cache(expires="tomorrow", public=true)
          * @Method({"POST"})
+         * @Template("VitelogeFrontendBundle:Ad:search_from_form.html.twig")
          */
         public function searchFromForm(Request $request) {
             $adSearch = new AdSearch();
             $form = $this->createForm('viteloge_core_adsearch', $adSearch);
             $form->handleRequest($request);
 
-            // transform object to array in order to through it to url
-            $encoders = array(new JsonEncoder());
-            $normalizers = array(new GetSetMethodNormalizer());
-            $serializer = new Serializer($normalizers, $encoders);
-            $options = json_decode($serializer->serialize($form->getData(), 'json'), true);
+            if ($form->isValid()) {
+                // transform object to array in order to through it to url
+                $encoders = array(new JsonEncoder());
+                $normalizers = array(new GetSetMethodNormalizer());
+                $serializer = new Serializer($normalizers, $encoders);
+                $options = json_decode($serializer->serialize($form->getData(), 'json'), true);
 
-            return $this->redirectToRoute(
-                'viteloge_frontend_ad_search',
-                $options,
-                301
+                if ($request->isXmlHttpRequest()) {
+                    $response = new JsonResponse();
+                    return $response->setData(array(
+                        'redirect' => $this->generateUrl('viteloge_frontend_ad_search', $options)
+                    ));
+                }
+
+                return $this->redirectToRoute(
+                    'viteloge_frontend_ad_search',
+                    $options,
+                    301
+                );
+            }
+
+            return array(
+                'adSearch' => $adSearch,
+                'form' => $form->createView()
             );
         }
 
@@ -303,6 +321,32 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         *
+         */
+        public function convertRequestToWebSearch(Request $request) {
+            $userSearch = new UserSearch();
+            $webSearch = new WebSearch();
+            return $webSearch;
+        }
+
+        /**
+         * @Route(
+         *     "/create/websearch",
+         *     name="viteloge_frontend_ad_createwebsearch"
+         * )
+         */
+        public function createWebSearch(Request $request) {
+            $adSearch = new AdSearch();
+            $form = $this->createForm('viteloge_core_adsearch', $adSearch);
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $webSearch = $this->convertRequestToWebSearch($request);
+            }
+            var_dump($form->getErrors());
+            die('ddd');
+        }
+
+        /**
          * @Route(
          *     "/carousel/{limit}",
          *     requirements={
@@ -378,6 +422,8 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * News suggestion
+         *
          * @Route(
          *     "/suggest/new/{limit}",
          *     requirements={
@@ -409,67 +455,8 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Redirect to the hosted page
          *
-         */
-        private function createContactForm() {
-            return $form;
-        }
-
-        /**
-         * @Route(
-         *      "/contact/{id}",
-         *      requirements={
-         *         "id"="\d+"
-         *      },
-         *      name = "viteloge_frontend_ad_contact"
-         * )
-         * @Method({"GET"})
-         * @ParamConverter("ad", class="VitelogeCoreBundle:Ad", options={"id" = "id"})
-         */
-        public function contactAction(Request $request, Ad $ad) {
-            return array(
-
-            );
-        }
-
-        /**
-         * @Route(
-         *      "/message/{id}",
-         *      requirements={
-         *         "id"="\d+"
-         *      },
-         *      name = "viteloge_frontend_ad_contact"
-         * )
-         * @Method({"POST"})
-         * @ParamConverter("ad", class="VitelogeCoreBundle:Ad", options={"id" = "id"})
-         */
-        public function messageAction(Request $request, Ad $ad) {
-            $contact = new Contact();
-            $contact->setUser($this->getUser());
-            $form = '';
-            if ($this->isXmlHttpRequest()) {
-                if ($form->isValid()) {
-                    $this->sendMessage();
-                    $this->addFlash(
-                        'notice',
-                        'Your message has been send!'
-                    );
-                }
-            }
-            return array(
-                'form' => $form,
-                'status' => $status
-            );
-        }
-
-        /**
-         *
-         */
-        public function sendMessage($arg1, $arg2) {
-
-        }
-
-        /**
          * @Route(
          *      "/redirect/{id}",
          *      requirements={

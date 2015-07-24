@@ -5,17 +5,17 @@
             {{ sonata_seo_metadatas() }}
             {{ sonata_seo_link_canonical() }}
             {{ sonata_seo_lang_alternates() }}
-            <meta name="msapplication-TileImage" content="{{ asset('bundles/frontendbundle/public/images/common/icon.png') }}">
+            <meta name="msapplication-TileImage" content="{{ asset('bundles/frontendbundle/images/common/icon.png') }}">
         {%- endblock head_meta -%}
         {%- block title -%}
             {{ sonata_seo_title() }}
         {%- endblock title -%}
         {%- block head_icon -%}
-        <link rel="apple-touch-icon" href="{{ asset('bundles/frontendbundle/public/images/apple/touch-icon-iphone.png') }}">
-        <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('bundles/frontendbundle/public/images/apple/touch-icon-ipad.png') }}">
-        <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('bundles/frontendbundle/public/images/apple/touch-icon-iphone-retina.png') }}">
-        <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('bundles/frontendbundle/public/images/apple/touch-icon-ipad-retina.png') }}">
-        <link rel="apple-touch-startup-image" href="{{ asset('bundles/frontendbundle/public/images/common/logo.png') }}">
+        <link rel="apple-touch-icon" href="{{ asset('bundles/frontendbundle/images/apple/touch-icon-iphone.png') }}">
+        <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('bundles/frontendbundle/images/apple/touch-icon-ipad.png') }}">
+        <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('bundles/frontendbundle/images/apple/touch-icon-iphone-retina.png') }}">
+        <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('bundles/frontendbundle/images/apple/touch-icon-ipad-retina.png') }}">
+        <link rel="apple-touch-startup-image" href="{{ asset('bundles/frontendbundle/images/common/logo.png') }}">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
         {%- endblock head_icon -%}
         {%- block head_stylesheets -%}
@@ -31,6 +31,7 @@
             <script src="{{ asset('assets/js/hinclude.js') }}"></script>
             <script src="{{ asset('assets/js/jquery.js') }}"></script>
             <script src="{{ asset('assets/js/select2.js') }}"></script>
+            <script src="{{ asset('assets/js/select2.fr.js') }}"></script>
             <script src="{{ asset('assets/js/placeholders.js') }}"></script>
             <script src="{{ asset('bundles/frontendbundle/js/modernizr.min.js') }}"></script>
             <script src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -94,9 +95,11 @@
         {%- endblock -%}
         {%- block footer -%}
             <div class="container text-center">
-                {{ include('VitelogeFrontendBundle:menu:footer.html.twig', {}) }}
-                {{ include('VitelogeFrontendBundle:misc:social.html.twig', {}) }}
-                {{ include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) }}
+                {{- include('VitelogeFrontendBundle:menu:footer.html.twig', {}) -}}
+                {{- include('VitelogeFrontendBundle:misc:social.html.twig', {}) -}}
+            </div>
+            <div class="container text-center text-secondary">
+                {{- include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) -}}
             </div>
         {%- endblock footer -%}
         </footer>

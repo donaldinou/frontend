@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="fr-FR" target-language="fr" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="breadcrumb.home" resname="breadcrumb.home">
+                <source>breadcrumb.home</source>
+                <target>Acceuil</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.user" resname="breadcrumb.user">
+                <source>breadcrumb.user</source>
+                <target>Utilisateur</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.profile" resname="breadcrumb.profile">
+                <source>breadcrumb.profile</source>
+                <target>Mon Profil</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.profile.action.changepassword" resname="breadcrumb.profile.action.changepassword">
+                <source>breadcrumb.profile.action.changepassword</source>
+                <target>Changer de mot de passe</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.profile.action.edit" resname="breadcrumb.profile.action.edit">
+                <source>breadcrumb.profile.action.edit</source>
+                <target>Edition</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.alert" resname="breadcrumb.alert">
+                <source>breadcrumb.alert</source>
+                <target>Liste des alertes</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.alert.list" resname="breadcrumb.alert.list">
+                <source>breadcrumb.alert.list</source>
+                <target>Liste des alertes</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.alert.history" resname="breadcrumb.alert.history">
+                <source>breadcrumb.alert.history</source>
+                <target>Historique</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.alert.action.add" resname="breadcrumb.alert.action.add">
+                <source>breadcrumb.alert.action.add</source>
+                <target>Ajouter une alerte</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.alert.action.edit" resname="breadcrumb.alert.action.edit">
+                <source>breadcrumb.alert.action.edit</source>
+                <target>Editer l'alerte</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.alert.action.remove" resname="breadcrumb.alert.action.remove">
+                <source>breadcrumb.alert.action.remove</source>
+                <target>Supprimer l'alerte</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.estimate" resname="breadcrumb.estimate">
+                <source>breadcrumb.estimate</source>
+                <target>Votre estimation personnalisée</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

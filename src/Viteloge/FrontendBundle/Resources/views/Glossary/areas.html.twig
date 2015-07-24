@@ -1,26 +1,23 @@
-{%- block areas  -%}
 {%- if areas -%}
     {% set inseeCity = inseeCity|default(areas[0].inseeCity) %}
     <div class="panel-group" id="glossary-areas" role="tablist" aria-multiselectable="true">
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="glossary-area-{{ inseeCity.id }}-title">
-                <h3 class="panel-title">
-                    <a class="collapsed" data-toggle="collapse" data-parent="#glossary-areas" href="#glossary-area-{{ inseeCity.id }}" aria-expanded="false" aria-controls="glossary-area-{{ inseeCity.id }}">
-                        {% trans %}Area's from {% endtrans %}&nbsp;{{ inseeCity.name }}
-                    </a>
-                    <a class="collapsed rounded-icon small pull-right text-center" data-toggle="collapse" data-parent="#glossary-areas" href="#glossary-area-{{ inseeCity.id }}" aria-expanded="false" aria-controls="glossary-area-{{ inseeCity.id }}" aria-label="{% trans %}Extend{% endtrans %}">
+        {% embed 'VitelogeCoreBundle:Global:panel.html.twig' with { id: 'glossary-area-' ~ inseeCity.id, parent: 'glossary-areas' } %}
+            {%- block panel_buttons_before -%}
+                <div class="pull-right">
+                    <a class="collapsed rounded-icon small text-center" data-toggle="collapse" data-parent="#{{ parent }}" href="#{{ id }}" aria-expanded="false" aria-controls="{{ id }}" aria-label="{% trans %}viteloge.expand{% endtrans %}">
                         <span class="fa fa-plus" aria-hidden="true"></span>
                     </a>
-                </h3>
-            </div>
-            <div id="glossary-area-{{ inseeCity.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="glossary-area-{{ inseeCity.id }}">
+                </div>
+            {%- endblock panel_buttons_before -%}
+            {%- block panel_title -%}
+                {% trans with { name : '%name%' } %}Area's from {% endtrans %}&nbsp;{{ inseeCity.name }}
+            {%- endblock panel_title -%}
+            {%- block panel_content -%}
                 <ul class="list-group">
                     {%- for area in areas -%}
                         {{ include('VitelogeFrontendBundle:Glossary:render/li-area.html.twig') }}
                     {%- endfor -%}
                 </ul>
-            </div>
-        </div>
-    </div>
+            {%- endblock panel_content -%}
+        {% endembed %}
 {%- endif -%}
-{%- endblock -%}

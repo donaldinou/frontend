@@ -8,14 +8,14 @@
                 {{ render_hinclude(path('viteloge_frontend_ad_latest', { 'limit': 3, 'transaction': 'L', 'where': [city.id], 'cityName': city.fullname })) }}
                 {{ render(path('viteloge_frontend_querystats_latest', { 'limit': 10, 'transaction': 'L', 'inseeCity': city.id })) }}
                 <div class="text-center">
-                    <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'L', 'where': [city.id] }) }}" class="btn btn-default text-uppercase" role="button">{% trans %}All Rents{% endtrans %}</a>
+                    <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'L', 'where': [city.id] }) }}" class="btn btn-default text-uppercase" role="button">{% trans %}glossary.show.all.rent{% endtrans %}</a>
                 </div>
             </section>
             <section class="theme-sale static">
                 {{ render_hinclude(path('viteloge_frontend_ad_latest', { 'limit': 3, 'transaction': 'V', 'where': [city.id], 'cityName': city.fullname })) }}
                 {{ render_hinclude(path('viteloge_frontend_querystats_latest', { 'limit': 10, 'transaction': 'V', 'inseeCity': city.id })) }}
                 <div class="text-center">
-                    <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'V', 'where': [city.id] }) }}" class="btn btn-default text-uppercase" role="button">{% trans %}All Sales{% endtrans %}</a>
+                    <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'V', 'where': [city.id] }) }}" class="btn btn-default text-uppercase" role="button">{% trans %}glossary.show.all.sales{% endtrans %}</a>
                 </div>
             </section>
             <section class="clearfix"></section>

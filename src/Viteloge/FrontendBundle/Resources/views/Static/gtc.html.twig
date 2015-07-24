@@ -1,19 +1,30 @@
-{% extends 'VitelogeFrontendBundle::base.html.twig' %}
+{% extends 'VitelogeFrontendBundle:Static:base.html.twig' %}
 
-{%- block schema -%}
-    itemscope itemtype="http://schema.org/WebPage"
-{%- endblock schema -%}
+{%- block title -%}
+    <title>{%- trans -%}GTC{%- endtrans -%}</title>
+{%- endblock title -%}
 
-{% block main %}
-<aside>
-    {{ include('VitelogeFrontendBundle:menu:static.html.twig', {}) }}
-</aside>
-<section class="highlighting text-center">
-    <article class="container">
-        <h3 class="text-uppercase">{% trans %}GTC{% endtrans %}</h3>
-        <p>
-            Loremp ipsum
-        </p>
-    </article>
-</section>
-{% endblock %}
+{%- block main_content -%}
+    <p>Toute utilisation du moteur de recherche ViteLog&eacute; vaut acceptation des pr&eacute;sents termes et conditions &eacute;nonc&eacute;s dans ces conditions d&rsquo;utilisation.</p>
+    <p><strong>Nature de ViteLog&eacute; : </strong></p>
+    <p>ViteLog&eacute; est un moteur de recherche. Au moyen d&rsquo;un logiciel, ViteLog&eacute; parcourt de fa&ccedil;on automatique les sites &agrave; caract&egrave;re immobilier et en extrait les informations n&eacute;cessaires &agrave; la r&eacute;alisation d&rsquo;un r&eacute;sum&eacute;, de liens, de photos miniatures ou caract&eacute;ristiques partielles. </p>
+    <p>La consultation de ViteLog&eacute; est un service gratuit r&eacute;serv&eacute; &agrave; un usage personnel non commercial.</p>
+    <p><strong>Fonctionnement : </strong></p>
+    <p>Aucune intervention ou contr&ocirc;le d&rsquo;aucune sorte n&rsquo;est effectu&eacute; par un &ecirc;tre humain &agrave; aucun moment. Le nombre d&rsquo;informations trait&eacute;es par ViteLog&eacute; en 24H rend mat&eacute;riellement impossible tout contr&ocirc;le humain.</p>
+    <p>De plus, la grande h&eacute;t&eacute;rog&eacute;n&eacute;it&eacute; des sites internet immobilier, rend quasi impossible une indexation parfaite et sans erreurs des informations publi&eacute;es sur ViteLog&eacute;.</p>
+    <p><strong>Absence de garantie : </strong></p>
+    <p>ViteLog&eacute; &eacute;tant un service totalement gratuit et reposant sur un logiciel totalement automatis&eacute; sans possibilit&eacute; de contr&ocirc;le humain, il est dans l&rsquo;impossibilit&eacute; d'apporter de garantie quant &agrave; la pertinence, ou l&rsquo;exactitude des informations fournies.</p>
+    <p>Internet de par sa nature &eacute;volue en permanence. ViteLog&eacute; est dans l&rsquo;impossibilit&eacute; de garantir que les informations pr&eacute;sentes sur son site soient exhaustives, ni qu&rsquo;elles soient &agrave; jour. Il ne peut y avoir &eacute;galement aucune garantie que le lien vers le site index&eacute; soit fonctionnel au moment o&ugrave; l&rsquo;utilisateur cliquera dessus.</p>
+    <p><strong>Limite de responsabilit&eacute; : </strong></p>
+    <p>Les r&eacute;sum&eacute;s, liens, images miniatures, ou caract&eacute;ristiques partielles (en particulier le &laquo;&nbsp;prix&nbsp;&raquo;) ne sont fournis qu&rsquo;&agrave; titre d&rsquo;indication, sans aucune garantie d&rsquo;aucune sorte. Seules les informations compl&egrave;tes figurant sur le site immobilier index&eacute; font foi.</p>
+    <p>Les r&eacute;sum&eacute;s, liens, images miniatures, ou caract&eacute;ristiques partielles (en particulier le &laquo;&nbsp;prix&nbsp;&raquo;) sont &eacute;tablis de fa&ccedil;on automatique par notre logiciel d&rsquo;apr&egrave;s les informations trouv&eacute;es sur le site immobilier index&eacute;. ViteLog&eacute; ne pourra &ecirc;tre tenu responsable de la nature illicite ou pr&eacute;judiciable des informations retranscrites sur son site.</p>
+    <p>La responsabilit&eacute; de ViteLog&eacute; ne pourra &ecirc;tre &agrave; aucun moment engag&eacute;e en cas de perte ou de d&eacute;tournement de client&egrave;le, de concurrence d&eacute;loyale ou pr&eacute;judice de quelque nature que ce soit caus&eacute; &agrave; un tiers, du fait des informations publi&eacute;es sur son site.</p>
+    <p><strong>ViteLog&eacute; et les sites immobiliers : </strong></p>
+    <p>En exploitant un site web public accessible sur internet, et proposant une base de donn&eacute;es publique li&eacute;e &agrave; l&rsquo;immobilier, vous devez avoir conscience que votre site et par extension votre base de donn&eacute;es peuvent &ecirc;tre index&eacute;s par ViteLog&eacute; et publi&eacute;s sous forme de r&eacute;sum&eacute;, lien, image miniature, caract&eacute;ristiques partielles. </p>
+    <p>En ne vous opposant pas &agrave; ce r&eacute;f&eacute;rencement par notre moteur de recherche vous acceptez d&rsquo;&ecirc;tre li&eacute; par les pr&eacute;sentes conditions &eacute;nonc&eacute;es dans ces conditions d&rsquo;utilisation. Il vous est possible de demander la non indexation de votre site en nous adressant une demande par Lettre Recommand&eacute;e avec Accus&eacute; de R&eacute;ception.</p>
+    <p><strong>ViteLog&eacute; est un service &eacute;dit&eacute; et hébergé par la soci&eacute;t&eacute; Acreat Sarl : </strong><br>
+      Acreat Sarl<br>
+      3 rue Jules Simon<br>
+      35000 Rennes<br>
+    Sarl au capital de 40&nbsp;000 &euro; RCS Rennes B 433 168&nbsp;986</p>
+{%- endblock main_content -%}

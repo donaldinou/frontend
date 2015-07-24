@@ -1,0 +1,44 @@
+{% extends 'VitelogeFrontendBundle::base.html.twig' %}
+
+{%- block schema -%}
+    itemscope itemtype="http://schema.org/WebPage"
+{%- endblock schema -%}
+
+{%- block breadcrumb -%}
+    {%- set breadcrumbs = [
+        { url : path('viteloge_frontend_homepage'), text: 'Home'},
+        { url : path('viteloge_frontend_static_why'), text: block('title')|striptags},
+    ] -%}
+    {{ include('VitelogeUserBundle:base:breadcrumb.html.twig', { listClass: 'breadcrumb', breadcrumbs: breadcrumbs }) }}
+{%- endblock breadcrumb -%}
+
+{%- block header -%}
+    {%- embed 'VitelogeUserBundle:base:header.html.twig' -%}
+        {%- block header_navigation_more -%}
+            <li class="text-uppercase dropdown active" role="presentation">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                    <span>{% trans %}viteloge.more{% endtrans %}</span>
+                    <span class="caret"></span>
+                </a>
+                {{ include('VitelogeFrontendBundle:menu:static.html.twig', {}) }}
+            </li>
+        {%- endblock header_navigation_more -%}
+    {%- endembed -%}
+{%- endblock header -%}
+
+{% block main %}
+<div class="text-justify">
+    <article class="container">
+        <h3 class="text-uppercase text-center">{{- block('main_title') -}}</h3>
+        {{- block('main_content') -}}
+    </article>
+</div>
+{% endblock %}
+
+{%- block main_title -%}
+    {{- block('title')|striptags -}}
+{%- endblock -%}
+
+{%- block main_content -%}
+
+{%- endblock main_content -%}

@@ -1,16 +1,19 @@
+{% set no_padding_left = no_padding_left|default(false) %}
+{% set no_padding_middle = no_padding_middle|default(false) %}
+{% set no_padding_right = no_padding_right|default(false) %}
 <div class="container">
     <div class="row">
-        <div class="col-md-{{ lsize|default(2) }}">
+        <div class="col-md-{{ lsize|default(2) }}{% if no_padding_left is same as(true) %} no-padding{% endif %}">
             {% block left %}
 
             {% endblock %}
         </div>
-        <div class="col-md-{{ msize|default(8) }}">
+        <div class="col-md-{{ msize|default(8) }}{% if no_padding_middle is same as(true) %} no-padding{% endif %}">
             {% block middle %}
 
             {% endblock %}
         </div>
-        <div class="col-md-{{ rsize|default(2) }}">
+        <div class="col-md-{{ rsize|default(2) }}{% if no_padding_right is same as(true) %} no-padding{% endif %}">
             {% block right %}
 
             {% endblock %}

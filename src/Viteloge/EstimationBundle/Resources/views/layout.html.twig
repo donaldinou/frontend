@@ -2,23 +2,10 @@
 
 {% block head_stylesheets %}
     {{ parent() }}
-    {#{% stylesheets
-        '@VitelogeEstimationBundle/Resources/public/css/*.css'
-        '@VitelogeEstimationBundle/Resources/public/scss/*.scss'
-        filter='scss,?yui_css' output='assets/viteloge_estimation.css'  %}
-      <link rel="stylesheet" media="all" href="{{ VITELOGE_BASE_ASSET }}{{ asset_url }}">
-    {% endstylesheets %}#}
     <link rel="stylesheet" href="{{ asset('bundles/vitelogeestimation/css/viteloge_estimation.css') }}">
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {#{% javascripts
-     '@VitelogeEstimationBundle/Resources/public/js/*.js'
-     '@VitelogeEstimationBundle/Resources/public/js/*.coffee'
-     filter="?yui_js" output='assets/viteloge_estimation.js'
-    %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}#}
     <script src="{{ asset('bundles/vitelogeestimation/js/viteloge_estimation.js') }}"></script>
 {% endblock %}

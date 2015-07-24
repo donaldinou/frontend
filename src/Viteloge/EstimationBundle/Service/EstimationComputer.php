@@ -3,8 +3,11 @@
 namespace Viteloge\EstimationBundle\Service;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Viteloge\CoreBundle\Entity\Estimate;
+use Viteloge\EstimationBundle\Component\Enum\PathEnum;
+use Viteloge\EstimationBundle\Component\Enum\TypeEnum;
+use Viteloge\EstimationBundle\Component\Enum\ConditionEnum;
 
-use Viteloge\EstimationBundle\Entity\Estimation;
 
 class EstimationComputer {
 
@@ -45,103 +48,103 @@ class EstimationComputer {
         self::AJUSTEMENT_TRAVAUX => -10,
         self::AJUSTEMENT_REFAIRE => -25,
     );
-    
-    
+
+
     public function __construct( ObjectManager $om ){
         $this->om = $om;
     }
 
-    public function estimate( Estimation $estimation ){
+    public function estimate( Estimate $estimate ){
 
         $barometre_repo = $this->om->getRepository( 'Viteloge\EstimationBundle\Entity\Barometre' );
         $latest_barometre = $barometre_repo->findLatest( array(
-            'insee' => $estimation->getVille(),
-            'type' => $estimation->getType(),
+            'insee' => $estimate->getInseeCity(),
+            'type' => $estimate->getType(),
             'transaction' => 'v'
         ) );
         if ( ! $latest_barometre ) {
             return false;
         }
 
-        $px_base = $latest_barometre->getAvgSqm() * $estimation->surface_habitable;
+        $px_base = $latest_barometre->getAvgSqm() * $estimate->surface_habitable;
 
         $ajustement = 0;
         $supplement = 0;
-        
+
         $params = self::$DEFAULT_PARAMS;
-        
-        if ( $estimation->exposition ) {
-            switch( $estimation->exposition ) {
-                case Estimation::EXPOSITION_SUD:
+
+        if ( $estimate->exposition ) {
+            switch( $estimate->exposition ) {
+                case ExpositionEnum::SOUTH:
                     $ajustement += $params[self::AJUSTEMENT_EXPOSITION];
                     break;
-                case Estimation::EXPOSITION_SUD:
+                default:
                     $ajustement -= $params[self::AJUSTEMENT_EXPOSITION];
                     break;
             }
         }
-        if ( $estimation->etage && $estimation->nb_etages && $estimation->etage == $estimation->nb_etages ) {
+        if ( $estimate->etage && $estimate->nb_etages && $estimate->etage == $estimate->nb_etages ) {
             $ajustement += $params[self::AJUSTEMENT_DERNIER_ETAGE];
         }
-        if ( (! is_null( $estimation->etage ) ) && $estimation->nb_etages && 0 == $estimation->etage ) {
+        if ( (! is_null( $estimate->etage ) ) && $estimate->nb_etages && 0 == $estimate->etage ) {
             $ajustement += $params[self::AJUSTEMENT_RDC];
         }
-        if ( $estimation->annee_construction ) {
+        if ( $estimate->annee_construction ) {
             $current_year = date("Y");
-            if ( $estimation->annee_construction < 100 ) {
-                if ( $estimation->annee_construction <= $current_year ) {
-                    $estimation->annee_construction = 2000 + $estimation->annee_construction;
+            if ( $estimate->annee_construction < 100 ) {
+                if ( $estimate->annee_construction <= $current_year ) {
+                    $estimate->annee_construction = 2000 + $estimate->annee_construction;
                 } else {
-                    $estimation->annee_construction = 1900 + $estimation->annee_construction;                    
+                    $estimate->annee_construction = 1900 + $estimate->annee_construction;
                 }
             }
-            $max_ajustement = $params[self::AJUSTEMENT_BASE_ANNEE] - ( $current_year - $estimation->annee_construction ) * $params[self::AJUSTEMENT_ANNEE_AGE];
+            $max_ajustement = $params[self::AJUSTEMENT_BASE_ANNEE] - ( $current_year - $estimate->annee_construction ) * $params[self::AJUSTEMENT_ANNEE_AGE];
             if ( $max_ajustement > 0 ) {
                 $ajustement += $max_ajustement;
             }
         }
-        
-        if ( $estimation->ascenseur ) {
+
+        if ( $estimate->ascenseur ) {
             $ajustement += $params[self::AJUSTEMENT_ASCENSEUR];
         }
-        if ( Estimation::TYPE_BIEN_APPARTEMENT == $estimation->getType() ) {
-            if ( ! $estimation->ascenseur ) {
+        if ( TypeEnum::APPARTMENT == $estimate->getType() ) {
+            if ( ! $estimate->ascenseur ) {
                 $ajustement -= 10;
             }
-            if ( $estimation->terrasse ) {
+            if ( $estimate->terrasse ) {
                 $ajustement += 10;
             }
-        } elseif ( Estimation::TYPE_BIEN_MAISON == $estimation->getType() ) {
-            if ( $estimation->surface_terrain && $estimation->surface_terrain > $params[self::MIN_TERRAIN] ) {
-                $max_ajustement = $params[self::AJUSTEMENT_BASE_TERRAIN] * ($estimation->surface_terrain - $params[self::MIN_TERRAIN]) / 100;
+        } elseif ( TypeEnum::HOUSE == $estimate->getType() ) {
+            if ( $estimate->surface_terrain && $estimate->surface_terrain > $params[self::MIN_TERRAIN] ) {
+                $max_ajustement = $params[self::AJUSTEMENT_BASE_TERRAIN] * ($estimate->surface_terrain - $params[self::MIN_TERRAIN]) / 100;
                 $ajustement += $max_ajustement > $params[self::AJUSTEMENT_TERRAIN_MAX] ? $params[self::AJUSTEMENT_TERRAIN_MAX] : $max_ajustement;
-                
+
             }
         }
-        if ( $estimation->vue ) {
+        if ( $estimate->vue ) {
             $ajustement += $params[self::AJUSTEMENT_VUE];
         }
 
         $etat_correspondance = array(
-            Estimation::ETAT_NEUF => self::AJUSTEMENT_NEUF,
-            Estimation::ETAT_BON => self::AJUSTEMENT_BON,
-            Estimation::ETAT_REFAIRE => self::AJUSTEMENT_REFAIRE,
-            Estimation::ETAT_TRAVAUX => self::AJUSTEMENT_TRAVAUX
+            ConditionEnum::NEWER => self::AJUSTEMENT_NEUF,
+            ConditionEnum::GOOD => self::AJUSTEMENT_BON,
+            ConditionEnum::REPAIR => self::AJUSTEMENT_REFAIRE,
+            ConditionEnum::WORK => self::AJUSTEMENT_TRAVAUX
         );
-        if ( $estimation->etat && array_key_exists( $estimation->etat, $etat_correspondance ) ) {
-            $ajustement += $etat_correspondance[$estimation->etat];
+        if ( $estimate->etat && array_key_exists( $estimate->etat, $etat_correspondance ) ) {
+            $ajustement += $etat_correspondance[$estimate->etat];
         }
 
-        if ( $estimation->parking ) {
-            $supplement += $estimation->parking * $latest_barometre->getAvgSqm() * $params[self::AJUSTEMENT_MODIFIER_PARKING];
+        if ( $estimate->parking ) {
+            $supplement += $estimate->parking * $latest_barometre->getAvgSqm() * $params[self::AJUSTEMENT_MODIFIER_PARKING];
         }
-        if ( $estimation->garage ) {
-            $supplement += $estimation->garage * $latest_barometre->getAvgSqm() * $params[self::AJUSTEMENT_MODIFIER_GARAGE];
+        if ( $estimate->garage ) {
+            $supplement += $estimate->garage * $latest_barometre->getAvgSqm() * $params[self::AJUSTEMENT_MODIFIER_GARAGE];
         }
-        
-        
+
+
         $prix = $px_base * ( 100 + $ajustement ) / 100 + $supplement;
-        
+
         return array(
             "low" => number_format( $prix * 0.95, 0, ',', ' '),
             "high" => number_format( $prix * 1.05, 0, ',', ' '),

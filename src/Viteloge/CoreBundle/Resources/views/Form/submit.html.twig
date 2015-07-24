@@ -1,22 +1,30 @@
-{% spaceless %}
-{% set back_uri = back_uri|default(app.request.headers.get('referer')) %}
-{% set back_label = back_label|default('Back') %}
-{% set submit_uri = submit_uri|default(false) %}
-{% set submit_label = submit_label|default('Submit') %}
+{%- set translation_domain = translation_domain|default('messages') -%}
+{%- set back_uri = back_uri|default(app.request.headers.get('referer')) -%}
+{%- set back_label = back_label|default('Back') -%}
+{%- set submit_uri = submit_uri|default(false) -%}
+{%- set submit_label = submit_label|default('Submit') -%}
 <div class="row">
     <div class="col-xs-2">
         {%- block form_button_back -%}
-            <a href="{{ back_uri }}" class="btn btn-default btn-block" role="button">{{ back_label|trans }}</a>
+            <a href="{{ back_uri }}" class="btn btn-default btn-block" role="button">
+                <span class="fa fa-rotate-left">&nbsp;</span>
+                <span>{{ back_label|trans({}, translation_domain) }}</span>
+            </a>
         {%- endblock -%}
     </div>
     <div class="col-xs-10">
         {%- block form_button_submit -%}
-            {%- if submit_uri -%}
-                <button type="submit" class="btn btn-default btn-block" role="button">{{ submit_label|trans }}</button>
+            {%- if not submit_uri -%}
+                <button type="submit" class="btn btn-default btn-block" role="button">
+                    <span class="fa fa-refresh">&nbsp;</span>
+                    <span>{{ submit_label|trans({}, translation_domain) }}</span>
+                </button>
             {%- else -%}
-                <a href="{{ submit_uri }}" class="btn btn-default btn-block" role="button">{{ submit_label|trans }}</a>
+                <a href="{{ submit_uri }}" class="btn btn-default btn-block" role="button">
+                    <span class="fa fa-refresh">&nbsp;</span>
+                    <span>{{ submit_label|trans({}, translation_domain) }}</span>
+                </a>
             {%- endif -%}
         {%- endblock -%}
     </div>
 </div>
-{% endspaceless %}

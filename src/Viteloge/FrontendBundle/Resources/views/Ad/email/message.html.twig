@@ -1,0 +1,8 @@
+<h2>Annonce consulté :</h2>
+<blockquote>
+    <strong>Transaction : </strong> {{ ( ad.transaction == "N" ) ? "Programme neuf" : ad.transaction == "L" ? "Location" : "Vente" }}<br>
+    <strong>Type : </strong> {{ad.type}}{% if ( ad.rooms is defined and not ad.rooms is empty ) and ad.transaction != "N"  %}, {{ad.rooms }} pièce(s) {% endif %}<br>
+    <strong>Prix : </strong> {{ad.price }} &euro;<br>
+    <strong>Commune : </strong> {{ ad.postalcode }} {{ ad.cityName }} <br>
+    <strong>Url : </strong> <a href="{{ ad.url }}">{{ ad.url }}</a>
+</blockquote>

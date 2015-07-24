@@ -21,11 +21,11 @@
             {%- endblock -%}
         </strong>
     </header>
-    <div class="col-md-8 clearfix description" role="presentation" itemprop="description">
+    <div class="col-md-8 clearfix description text-justify" role="presentation" itemprop="description">
         {%- block estate_content -%}
             <p>{{ ad.advancedDescription|raw }}</p>
-            <a href="{{ ad.url }}" class="link">
-                {% trans with {'%agency%': ad.agencyDomainName} %}Annonce immobilière sur %agency%{% endtrans %}
+            <a href="{{ path('viteloge_frontend_ad_redirect', { 'id': ad.id }) }}" class="link text-left">
+                <span>{%- trans with {'%agency%': ad.agencyDomainName} -%}Annonce immobilière sur %agency%{%- endtrans -%}</span>
             </a>
         {%- endblock -%}
     </div>
@@ -61,13 +61,13 @@
             {% if ad.privilege.isAgency %}
                 <div class="collapse col-md-12 tab-paned" id="estate-{{ ad.id }}-group" role="tabpanel" aria-labelledby="estate-{{ ad.id }}-group-lnk" data-parent="#estate-{{ ad.id }}-tab">
                     <div class="well">
-                        include form
+                        {{ render_hinclude(path('viteloge_frontend_message_new', { ad: ad.id })) }}
                     </div>
                 </div>
             {% endif %}
             <div class="collapse col-md-12 tab-paned" id="estate-{{ ad.id }}-share" role="tabpanel" aria-labelledby="estate-{{ ad.id }}-share-lnk" data-parent="#estate-{{ ad.id }}-tab">
                 <div class="well">
-                    share
+                    {{ include('VitelogeFrontendBundle:Block:social_share.html.twig', { url: path('viteloge_frontend_ad_redirect', { 'id': ad.id }), text: 'viteloge.shared.with'|trans() }) }}
                 </div>
             </div>
             {% if is_granted('ROLE_OPERATOR') %}

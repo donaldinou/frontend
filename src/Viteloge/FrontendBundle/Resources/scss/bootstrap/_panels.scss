@@ -27,6 +27,14 @@
   > .dropdown .dropdown-toggle {
     color: inherit;
   }
+
+  .rounded-icon {
+    margin-top: -4px;
+  }
+
+  .badge.pull-right {
+    margin-right: 10px;
+  }
 }
 
 // Within heading, strip any `h*` tag of its default margins for spacing.
@@ -82,6 +90,11 @@
         border-bottom: 0;
         @include border-bottom-radius(($panel-border-radius - 1));
       }
+    }
+  }
+  > .panel-heading + .panel-collapse > .list-group {
+    .list-group-item:first-child {
+      @include border-top-radius(0);
     }
   }
 }

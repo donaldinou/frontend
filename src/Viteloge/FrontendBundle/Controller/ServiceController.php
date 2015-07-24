@@ -30,9 +30,9 @@ namespace Viteloge\FrontendBundle\Controller {
                 $service->setName('estimate');
                 $service->setImage('bundles/frontendbundle/images/service/estimate.jpg');
                 $service->setIcon('icon-icon-calculator');
-                $service->setTitle('Estimate my property');
+                $service->setTitle('service.estimate');
                 $service->setUrl($this->generateUrl('viteloge_estimation_default_index'));
-                $service->setDescription('Aenean sollicitudin, lorem quis bibendum auctor');
+                $service->setDescription('service.estimate.description');
                 $this->services['estimate'] = $service;
             }
             return $this;
@@ -47,9 +47,9 @@ namespace Viteloge\FrontendBundle\Controller {
                 $service->setName('publish');
                 $service->setImage('bundles/frontendbundle/images/service/publish.jpg');
                 $service->setIcon('icon-icon-publish');
-                $service->setTitle('Publish my ads');
+                $service->setTitle('service.publish');
                 $service->setUrl($this->generateUrl('viteloge_frontend_static_register'));
-                $service->setDescription('Aenean sollicitudin, lorem quis bibendum auctor');
+                $service->setDescription('service.estimate.description');
                 $this->services['publish'] = $service;
             }
             return $this;
@@ -64,9 +64,9 @@ namespace Viteloge\FrontendBundle\Controller {
                 $service->setName('mail');
                 $service->setImage('bundles/frontendbundle/images/service/mail.jpg');
                 $service->setIcon('icon-icon-alert');
-                $service->setTitle('Create my mail alert');
+                $service->setTitle('service.alert');
                 $service->setUrl($this->generateUrl('viteloge_frontend_static_subscribe'));
-                $service->setDescription('Aenean sollicitudin, lorem quis bibendum auctor');
+                $service->setDescription('service.alert.description');
                 $this->services['mail'] = $service;
             }
             return $this;

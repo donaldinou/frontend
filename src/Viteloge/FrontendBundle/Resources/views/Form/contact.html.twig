@@ -1,0 +1,143 @@
+{% form_theme form with ['VitelogeFrontendBundle:Form:fields.html.twig'] %}
+
+{%- block form_start -%}
+{{ form_start(form, {'attr': {'enctype': 'application/x-www-form-urlencoded','class': 'contact', 'data-role': 'contact', 'novalidate': 'novalidate'}}) }}
+{%- endblock form_start -%}
+    {%- block form_errors -%}
+        {{ form_errors(form) }}
+    {%- endblock form_errors -%}
+    {%- block form_fields -%}
+        <div class="hidden">
+            {{ form_row(form._token) }}
+        </div>
+        {{ form_row(form.firstname, {
+            'label_attr': {
+                'class': 'sr-only'
+            },
+            'attr': {
+                'class': '',
+                'placeholder': 'contact.firstname',
+                'data-placeholder' : 'contact.firstname'|trans(),
+                'autocomplete': 'on',
+                'spellcheck': 'off',
+                'maxlength': 64
+            }
+        }) }}
+        {{ form_row(form.lastname, {
+            'label_attr': {
+                'class': 'sr-only'
+            },
+            'attr': {
+                'class': '',
+                'placeholder': 'contact.lastname',
+                'data-placeholder' : 'contact.lastname'|trans(),
+                'autocomplete': 'on',
+                'spellcheck': 'off',
+                'maxlength': 64
+            }
+        }) }}
+        {{ form_row(form.company, {
+            'label_attr': {
+                'class': 'sr-only'
+            },
+            'attr': {
+                'class': '',
+                'placeholder': 'contact.company',
+                'data-placeholder' : 'contact.company'|trans(),
+                'autocomplete': 'on',
+                'spellcheck': 'off',
+                'maxlength': 64
+            }
+        }) }}
+        {{ form_row(form.phone, {
+            'label_attr': {
+                'class': 'sr-only'
+            },
+            'attr': {
+                'class': '',
+                'placeholder': 'contact.phone',
+                'data-placeholder' : 'contact.phone'|trans(),
+                'autocomplete': 'on',
+                'spellcheck': 'off',
+                'maxlength': 16
+            }
+        }) }}
+        {{ form_row(form.email, {
+            'label_attr': {
+                'class': 'sr-only'
+            },
+            'attr': {
+                'class': '',
+                'placeholder': 'contact.email',
+                'data-placeholder' : 'contact.email'|trans(),
+                'autocomplete': 'on',
+                'spellcheck': 'off',
+                'maxlength': 128
+            }
+        }) }}
+        {{ form_row(form.message, {
+            'label_attr': {
+                'class': 'sr-only'
+            },
+            'attr': {
+                'class': '',
+                'placeholder': 'contact.message',
+                'data-placeholder' : 'contact.message'|trans(),
+                'autocomplete': 'off',
+                'spellcheck': 'off',
+                'maxlength': 250
+            }
+        }) }}
+        {{ form_row(form.subject, {
+            'label_attr': {
+                'class': 'sr-only'
+            },
+            'attr': {
+                'class': 'select-tag-input',
+                'data-placeholder' : 'contact.subject'|trans(),
+                'data-allow-clear' : 'true'
+            }
+        }) }}
+        {{ form_row(form.address, {
+            'label_attr': {
+                'class': 'sr-only'
+            },
+            'attr': {
+                'class': '',
+                'placeholder': 'contact.address',
+                'data-placeholder' : 'contact.address'|trans(),
+                'autocomplete': 'off',
+                'spellcheck': 'off',
+                'maxlength': 250
+            }
+        }) }}
+        {{ form_row(form.postalCode, {
+            'label_attr': {
+                'class': 'sr-only'
+            },
+            'attr': {
+                'class': '',
+                'placeholder': 'contact.postalcode',
+                'data-placeholder' : 'contact.postalcode'|trans(),
+                'autocomplete': 'on',
+                'spellcheck': 'off',
+                'maxlength': 16
+            }
+        }) }}
+        {{ form_row(form.city, {
+            'label_attr': {
+                'class': 'sr-only'
+            },
+            'attr': {
+                'class': '',
+                'placeholder': 'contact.city',
+                'data-placeholder' : 'contact.city'|trans(),
+                'autocomplete': 'on',
+                'spellcheck': 'off',
+                'maxlength': 64
+            }
+        }) }}
+    {%- endblock form_fields -%}
+{%- block form_end -%}
+{{ form_end(form) }}
+{%- endblock form_end -%}

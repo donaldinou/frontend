@@ -1,0 +1,7 @@
+/* @see modal-backdrop fade in */
+#nav-overlay {
+    z-index: 49;
+    @media (min-width: $grid-float-breakpoint) {
+        display: none;
+    }
+}

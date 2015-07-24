@@ -16,7 +16,9 @@
         </div>
     </div>
     {{ include('VitelogeCoreBundle:Form:submit.html.twig', {
+        back_label: 'resetting.reset.back',
         back_uri: path('fos_user_security_login'),
-        submit_label: 'resetting.request.submit'|trans()
+        submit_label: 'resetting.request.submit',
+        translation_domain: 'FOSUserBundle'
     }) }}
 </form>

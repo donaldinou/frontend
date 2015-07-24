@@ -1,22 +1,23 @@
 {% extends 'VitelogeFrontendBundle::base.html.twig' %}
 
 {% block main %}
-    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } %}
-        {% block left %}
-            {{ include('VitelogeFrontendBundle:WebSearch:fragment/resume.html.twig', { 'webSearches': app.user.webSearches }) }}
-            <ol class="list-unstyled">
-                {% for webSearch in app.user.webSearches %}
-                    <li>{{ include('VitelogeFrontendBundle:WebSearch:render/result.html.twig', { 'webSearch': webSearch }) }}</li>
-                {% endfor %}
-            </ol>
-        {% endblock %}
-        {% block right %}
-            <aside>
+    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
+        {%- block left %}
+            {{- include('VitelogeFrontendBundle:WebSearch:fragment/resume.html.twig', { 'webSearches': app.user.webSearches }) -}}
+            <section>
+                <h2>{% trans %}user.websearch.title{% endtrans %}</h2>
                 <div class="">
-                    {{ include('VitelogeFrontendBundle:menu:user.html.twig', { }) }}
+                    <a href="{{ path('viteloge_frontend_websearch_new', { }) }}" class="btn btn-default" role="button">{% trans %}websearch.action.add{% endtrans %}</a>
                 </div>
-                publicité
-            </aside>
-        {% endblock %}
+                <div class="panel-group" id="websearch-panel" role="tablist" aria-multiselectable="true">
+                    {% for websearch in app.user.webSearches %}
+                        {{ include('VitelogeFrontendBundle:WebSearch:render/panel.html.twig', { id: websearch.id, parent: 'websearch-panel', show: (not loop.index0), websearch: websearch }) }}
+                    {% endfor %}
+                </div>
+            </section>
+        {%- endblock %}
+        {%- block right -%}
+            {{- include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) -}}
+        {%- endblock -%}
     {% endembed %}
 {% endblock main %}

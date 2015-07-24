@@ -1,1 +1,13 @@
-{{form(form)}}
+{% extends 'VitelogeFrontendBundle:Form:delete.html.twig' %}
+
+{%- block form_fields -%}
+    {{- form_row(form.submit, {
+        'label_attr': {
+            'class': 'sr-only'
+        },
+        'attr': {
+            'class': 'btn btn-primary',
+        },
+        'span_class': 'fa fa-ban',
+    }) -}}
+{%- endblock form_fields -%}

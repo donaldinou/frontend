@@ -182,6 +182,10 @@ $btn-danger-border:              darken($btn-danger-bg, 5%) !default;
 
 $btn-link-disabled-color:        $gray-light !default;
 
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius-base:         $border-radius-base !default;
+$btn-border-radius-large:        $border-radius-large !default;
+$btn-border-radius-small:        $border-radius-small !default;
 
 //== Forms
 //
@@ -379,7 +383,7 @@ $navbar-default-border:            darken($navbar-default-bg, 6.5%) !default;
 $navbar-default-link-color:                $navbar-default-color !default;
 $navbar-default-link-hover-color:          darken($navbar-default-link-color, 6.5%) !default;
 $navbar-default-link-hover-bg:             transparent !default;
-$navbar-default-link-active-color:         #ddd !default;
+$navbar-default-link-active-color:         #898d90 !default;
 $navbar-default-link-active-bg:            darken($navbar-default-bg, 6.5%) !default;
 $navbar-default-link-disabled-color:       #555 !default;
 $navbar-default-link-disabled-bg:          transparent !default;
@@ -501,7 +505,7 @@ $jumbotron-color:                inherit !default;
 $jumbotron-bg:                   $gray-lighter !default;
 $jumbotron-heading-color:        inherit !default;
 $jumbotron-font-size:            ceil(($font-size-base * 1.5)) !default;
-
+$jumbotron-heading-font-size:    ceil(($font-size-base * 4.5)) !default;
 
 //== Form states and alerts
 //
@@ -728,7 +732,7 @@ $panel-default-border:        #ddd !default;
 $panel-default-heading-bg:    $text-color !default;
 
 $panel-primary-text:          #fff !default;
-$panel-primary-border:        $brand-primary !default;
+$panel-primary-border:        $panel-default-border !default;
 $panel-primary-heading-bg:    $brand-primary !default;
 
 $panel-success-text:          $state-success-text !default;

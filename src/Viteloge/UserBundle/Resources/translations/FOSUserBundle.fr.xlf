@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="security.login.retrievepassword" resname="security.login.retrievepassword">
+                <source>security.login.retrievepassword</source>
+                <target>Mot de passe oublié?</target>
+            </trans-unit>
+            <trans-unit id="security.login.email" resname="security.login.email">
+                <source>security.login.email</source>
+                <target>Adresse email</target>
+            </trans-unit>
+            <trans-unit id="security.login.password" resname="security.login.password">
+                <source>security.login.password</source>
+                <target>Mot de passe</target>
+            </trans-unit>
+            <trans-unit id="resetting.reset.back" resname="resetting.reset.back">
+                <source>resetting.reset.back</source>
+                <target>Retour</target>
+            </trans-unit>
+            <trans-unit id="resetting.request.username" resname="resetting.request.username">
+                <source>resetting.request.username</source>
+                <target>Nom d'utilisateur ou adresse email</target>
+            </trans-unit>
+            <trans-unit id="change_password.action.back" resname="change_password.action.back">
+                <source>change_password.action.back</source>
+                <target>Retour</target>
+            </trans-unit>
+            <trans-unit id="change_password.password.current" resname="change_password.password.current">
+                <source>change_password.password.current</source>
+                <target>Mot de passe actuel</target>
+            </trans-unit>
+            <trans-unit id="change_password.password.plain" resname="change_password.password.plain">
+                <source>change_password.password.plain</source>
+                <target>Nouveau mot de passe</target>
+            </trans-unit>
+            <trans-unit id="change_password.password.check" resname="change_password.password.check">
+                <source>change_password.password.check</source>
+                <target>Vérification</target>
+            </trans-unit>
+            <trans-unit id="registration.action.back" resname="registration.action.back">
+                <source>registration.action.back</source>
+                <target>Retour</target>
+            </trans-unit>
+            <trans-unit id="registration.email" resname="registration.email">
+                <source>registration.email</source>
+                <target>Adresse email</target>
+            </trans-unit>
+            <trans-unit id="registration.password.plain" resname="registration.password.plain">
+                <source>registration.password.plain</source>
+                <target>Mot de passe</target>
+            </trans-unit>
+            <trans-unit id="registration.password.check" resname="registration.password.check">
+                <source>registration.password.check</source>
+                <target>Vérification</target>
+            </trans-unit>
+            <trans-unit id="profile.action.edit" resname="profile.action.edit">
+                <source>profile.action.edit</source>
+                <target>Modifier</target>
+            </trans-unit>
+            <trans-unit id="profile.action.edit.back" resname="profile.action.edit.back">
+                <source>profile.action.edit.back</source>
+                <target>Retour</target>
+            </trans-unit>
+            <trans-unit id="profile.action.edit.submit" resname="profile.action.edit.submit">
+                <source>profile.action.edit.submit</source>
+                <target>Mettre à jour</target>
+            </trans-unit>
+            <trans-unit id="profile.action.changepassword" resname="profile.action.changepassword">
+                <source>profile.action.changepassword</source>
+                <target>Changer le mot de passe</target>
+            </trans-unit>
+            <trans-unit id="profile.action.back" resname="profile.action.back">
+                <source>profile.action.back</source>
+                <target>Retour</target>
+            </trans-unit>
+            <trans-unit id="profile.civility" resname="profile.civility">
+                <source>profile.civility</source>
+                <target>Civilité</target>
+            </trans-unit>
+            <trans-unit id="profile.firstname" resname="profile.firstname">
+                <source>profile.firstname</source>
+                <target>Prénom</target>
+            </trans-unit>
+            <trans-unit id="profile.lastname" resname="profile.lastname">
+                <source>profile.lastname</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="profile.email" resname="profile.email">
+                <source>profile.email</source>
+                <target>Adresse email</target>
+            </trans-unit>
+            <trans-unit id="profile.phone" resname="profile.phone">
+                <source>profile.phone</source>
+                <target>Téléphone</target>
+            </trans-unit>
+            <trans-unit id="profile.partnercontactenabled" resname="profile.partnercontactenabled">
+                <source>profile.partnercontactenabled</source>
+                <target>Oui, je souhaite recevoir par email les offres privilégiées et des informations relatives à ma recherche immobilière et à l'habitat.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

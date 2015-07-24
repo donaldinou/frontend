@@ -1,0 +1,9 @@
+{% extends 'VitelogeFrontendBundle:Static:base.html.twig' %}
+
+{%- block title -%}
+    <title>{%- trans -%}Contact us{%- endtrans -%}</title>
+{%- endblock title -%}
+
+{%- block main_content -%}
+    {{ render(path('viteloge_frontend_contact_new')) }}
+{%- endblock -%}

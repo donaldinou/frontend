@@ -12,7 +12,7 @@
                 {{ ad.cityName }} - {{ ad.program }}
             {%- endblock estate_title -%}
         </h5>
-        <p class="description" data-role="description">
+        <p class="description text-center" data-role="description">
             {%- block program_description -%}
                 {%- transchoice ad.programCount with { '%count%': ad.programCount } -%}
                     ad.program.count

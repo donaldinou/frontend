@@ -29,7 +29,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      defaults={
          *          "_format"="json"
          *      },
-         *     name="viteloge_suggest_cities",
+         *     name="viteloge_frontend_suggest_cities",
          *     options = {
          *         "i18n" = true
          *     }

@@ -11,7 +11,17 @@ namespace Viteloge\CoreBundle\Entity {
     /**
      * User
      *
-     * @ORM\Table(name="accounts", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_CAC89EAC92FC23A8", columns={"username_canonical"}), @ORM\UniqueConstraint(name="UNIQ_CAC89EACA0D96FBF", columns={"email_canonical"}), @ORM\UniqueConstraint(name="email_unique", columns={"email"})})
+     * @ORM\Table(name="accounts", uniqueConstraints={
+     *      @ORM\UniqueConstraint(name="UNIQ_CAC89EAC92FC23A8", columns={
+     *          "username_canonical"
+     *      }),
+     *      @ORM\UniqueConstraint(name="UNIQ_CAC89EACA0D96FBF", columns={
+     *          "email_canonical"
+     *      }),
+     *      @ORM\UniqueConstraint(name="email_unique", columns={
+     *          "email"
+     *      })
+     * })
      * @ORM\Entity(repositoryClass="Viteloge\CoreBundle\Repository\UserRepository")
      */
     class User extends BaseUser {
@@ -20,6 +30,10 @@ namespace Viteloge\CoreBundle\Entity {
          * @var string
          *
          * @ORM\Column(name="civilite", type="string", length=5, nullable=true)
+         * @Assert\Choice(
+         *      callback = {"Viteloge\CoreBundle\Component\Enum\CivilityEnum", "getValues"},
+         *      multiple = false,
+         * )
          */
         protected $civility;
 
@@ -27,6 +41,10 @@ namespace Viteloge\CoreBundle\Entity {
          * @var string
          *
          * @ORM\Column(name="firstName", type="string", length=255, nullable=true)
+         * @Assert\Length(
+         *      max = 64,
+         *      maxMessage = "assert.user.validate.firstname"
+         * )
          */
         protected $firstname;
 
@@ -34,6 +52,10 @@ namespace Viteloge\CoreBundle\Entity {
          * @var string
          *
          * @ORM\Column(name="lastName", type="string", length=255, nullable=true)
+         * @Assert\Length(
+         *      max = 64,
+         *      maxMessage = "assert.user.validate.firstname"
+         * )
          */
         protected $lastname;
 
@@ -41,6 +63,11 @@ namespace Viteloge\CoreBundle\Entity {
          * @var string
          *
          * @ORM\Column(name="phone", type="string", length=25, nullable=true)
+         * @Assert\Regex(
+         *     pattern = "/^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/",
+         *     match = true,
+         *     message = "assert.regex.user.validate.phone"
+         * )
          */
         protected $phone;
 
@@ -76,6 +103,7 @@ namespace Viteloge\CoreBundle\Entity {
         protected $id;
 
         /**
+         * Note: We cannot fetch eager because of softdeleteable
          * @ORM\OneToMany(targetEntity="Viteloge\CoreBundle\Entity\WebSearch", mappedBy="user")
          */
         private $webSearches;
@@ -667,6 +695,17 @@ namespace Viteloge\CoreBundle\Entity {
         public function getWebSearches()
         {
             return $this->webSearches;
+        }
+
+        /**
+         * @return int
+         */
+        public function webSearchesTotalNewMatches() {
+            $result = 0;
+            foreach ($this->getWebSearches() as $key => $webSearches) {
+                $result += (int)$webSearches->getNewmatches();
+            }
+            return $result;
         }
 
     }

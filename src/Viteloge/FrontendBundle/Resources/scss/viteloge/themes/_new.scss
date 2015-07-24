@@ -10,7 +10,7 @@ $btn-new-border: darken($btn-new-bg, 5%) !default;
 }
 
 body {
-    .nav-tabs {
+    #navigation {
         > li {
             > a[data-theme-hover="theme-N"], a[data-theme-hover="theme-new"] {
                 &:hover,

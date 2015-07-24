@@ -1,58 +1,100 @@
 {% form_theme form with ['VitelogeFrontendBundle:Form:fields.html.twig'] %}
 {% form_theme form.transaction with['VitelogeFrontendBundle:Form:form_radio_span.html.twig'] %}
 
+{%- block form_start -%}
 {{ form_start(form, {'action': path('viteloge_frontend_ad_searchfromform'), 'attr': {'enctype': 'application/x-www-form-urlencoded','class': 'search', 'role': 'search', 'novalidate': 'novalidate'}}) }}
-    {{ form_errors(form) }}
-    <div class="hidden">
-        {{ form_row(form._token) }}
-    </div>
-    {{ form_widget(form.transaction, { label_attr: { 'class': 'radio-inline' }, theme_container: theme_container|default('search-container') }) }}
-    <fieldset class="bg-darken text-left" role="tabpanel">
-        <div class="row">
-            <div class="col-md-4">
-                {{ form_widget(form.where, {
-                    'attr': {
-                        'class': 'select-tag-input',
-                        'data-placeholder' : 'ad.where'|trans(),
-                        'data-allow-clear' : 'true',
-                        'data-ajax--url' : path('viteloge_suggest_cities'),
-                        'data-ajax--cache' : 'true',
-                        'data-ajax--data-type' : 'json',
-                    }
-                }) }}
-            </div>
-            <div class="col-md-4">
-                {{ form_widget(form.what, {
-                    'attr': {
-                        'class': 'select-tag-input',
-                        'data-placeholder' : 'ad.what'|trans(),
-                    }
-                }) }}
-            </div>
-            <div class="col-md-4">
-                {{ form_widget(form.rooms, {
-                    'attr': {
-                        'class': 'select-tag-input',
-                        'data-placeholder' : 'ad.rooms.number'|trans(),
-                    }
-                }) }}
-            </div>
+{%- endblock form_start -%}
+    {%- block form_errors -%}
+        {{ form_errors(form) }}
+    {%- endblock form_errors -%}
+    {%- block form_fields -%}
+        <div class="hidden">
+            {{ form_row(form._token) }}
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                {{ form_widget(form.minPrice, { 'attr': { 'class': '',  'placeholder': 'ad.price.min', 'maxlength': 10 } }) }}
+        {{ form_widget(form.transaction, { label_attr: { 'class': 'radio-inline' }, theme_container: theme_container|default('search-container') }) }}
+        <fieldset class="bg-darken text-left" role="tabpanel">
+            <div class="row">
+                <div class="col-md-4">
+                    {{ form_row(form.where, {
+                        'label_attr': {
+                            'class': 'sr-only'
+                        },
+                        'attr': {
+                            'class': 'select-tag-input',
+                            'data-placeholder' : 'ad.where'|trans(),
+                            'data-allow-clear' : 'true',
+                            'data-ajax--url' : path('viteloge_frontend_suggest_cities'),
+                            'data-ajax--cache' : 'true',
+                            'data-ajax--data-type' : 'json',
+                        }
+                    }) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(form.what, {
+                        'label_attr': {
+                            'class': 'sr-only'
+                        },
+                        'attr': {
+                            'class': 'select-tag-input',
+                            'data-placeholder' : 'ad.what'|trans(),
+                        }
+                    }) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(form.rooms, {
+                        'label_attr': {
+                            'class': 'sr-only'
+                        },
+                        'attr': {
+                            'class': 'select-tag-input',
+                            'data-placeholder' : 'ad.rooms.number'|trans(),
+                        }
+                    }) }}
+                </div>
             </div>
-            <div class="col-md-4">
-                {{ form_widget(form.maxPrice, { 'attr': { 'class': '', 'placeholder': 'ad.price.max', 'maxlength': 10 } }) }}
+            <div class="row">
+                <div class="col-md-4">
+                    {{ form_row(form.minPrice, {
+                        'label_attr': {
+                            'class': 'sr-only'
+                        },
+                        'attr': {
+                            'class': '',
+                            'placeholder': 'ad.price.min',
+                            'maxlength': 10
+                        }
+                    }) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(form.maxPrice, {
+                        'label_attr': {
+                            'class': 'sr-only'
+                        },
+                        'attr': {
+                            'class': '',
+                            'placeholder': 'ad.price.max',
+                            'maxlength': 10
+                        }
+                    }) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_widget(form.search, {
+                        'label': 'ad.search',
+                        'span_class': 'fa fa-search',
+                        'attr': {
+                            'class': 'btn btn-primary btn-block text-uppercase',
+                            'role': 'button'
+                        }
+                    }) }}
+                </div>
             </div>
-            <div class="col-md-4">
-                {{ form_widget(form.search, { 'label': 'ad.search', 'span_class': 'fa fa-search', 'attr': { 'class': 'btn btn-primary btn-block text-uppercase', 'role': 'button' } }) }}
+            <div class="row hidden">
+                <div class="col-md-12">
+                    <a id="see-more" href="#search-more">{% trans %}Advanced search{% endtrans %}</a>
+                </div>
             </div>
-        </div>
-        <div class="row hidden">
-            <div class="col-md-12">
-                <a id="see-more" href="#search-more">{% trans %}Advanced search{% endtrans %}</a>
-            </div>
-        </div>
-    </fieldset>
+        </fieldset>
+    {%- endblock form_fields -%}
+{%- block form_end -%}
 {{ form_end(form, {'render_rest': false}) }}
+{%- endblock form_end -%}

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="fr-FR" target-language="fr" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="estimate.path.driveway" resname="estimate.path.driveway">
+                <source>estimate.path.driveway</source>
+                <target>Allée</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.drive" resname="estimate.path.drive">
+                <source>estimate.path.drive</source>
+                <target>Avenue</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.boulevard" resname="estimate.path.boulevard">
+                <source>estimate.path.boulevard</source>
+                <target>Boulevard</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.crossroads" resname="estimate.path.crossroads">
+                <source>estimate.path.crossroads</source>
+                <target>Carrefour</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.way" resname="estimate.path.way">
+                <source>estimate.path.way</source>
+                <target>Chemin</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.pavement" resname="estimate.path.pavement">
+                <source>estimate.path.pavement</source>
+                <target>Chaussée</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.city" resname="estimate.path.city">
+                <source>estimate.path.city</source>
+                <target>Cité</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.cornice" resname="estimate.path.cornice">
+                <source>estimate.path.cornice</source>
+                <target>Corniche</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.course" resname="estimate.path.course">
+                <source>estimate.path.course</source>
+                <target>Cours</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.domain" resname="estimate.path.domain">
+                <source>estimate.path.domain</source>
+                <target>Domaine</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.descent" resname="estimate.path.descent">
+                <source>estimate.path.descent</source>
+                <target>Descente</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.gap" resname="estimate.path.gap">
+                <source>estimate.path.gap</source>
+                <target>Ecart</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.esplanade" resname="estimate.path.esplanade">
+                <source>estimate.path.esplanade</source>
+                <target>Esplanade</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.suburb" resname="estimate.path.suburb">
+                <source>estimate.path.suburb</source>
+                <target>Faubourg</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.great" resname="estimate.path.great">
+                <source>estimate.path.great</source>
+                <target>Grande</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.hamlet" resname="estimate.path.hamlet">
+                <source>estimate.path.hamlet</source>
+                <target>Hameau</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.halle" resname="estimate.path.halle">
+                <source>estimate.path.halle</source>
+                <target>Halle</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.impasse" resname="estimate.path.impasse">
+                <source>estimate.path.impasse</source>
+                <target>Impasse</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.locality" resname="estimate.path.locality">
+                <source>estimate.path.locality</source>
+                <target>Lieu-dit</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.allotment" resname="estimate.path.allotment">
+                <source>estimate.path.allotment</source>
+                <target>Lotissement</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.market" resname="estimate.path.market">
+                <source>estimate.path.market</source>
+                <target>Marché</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.mounted" resname="estimate.path.mounted">
+                <source>estimate.path.mounted</source>
+                <target>Monté</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.passage" resname="estimate.path.passage">
+                <source>estimate.path.passage</source>
+                <target>Passage</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.spot" resname="estimate.path.spot">
+                <source>estimate.path.spot</source>
+                <target>Place</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.lowland" resname="estimate.path.lowland">
+                <source>estimate.path.lowland</source>
+                <target>Plaine</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.plateau" resname="estimate.path.plateau">
+                <source>estimate.path.plateau</source>
+                <target>Plateau</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.walk" resname="estimate.path.walk">
+                <source>estimate.path.walk</source>
+                <target>Promenade</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.parvis" resname="estimate.path.parvis">
+                <source>estimate.path.parvis</source>
+                <target>Parvis</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.neighborhood" resname="estimate.path.neighborhood">
+                <source>estimate.path.neighborhood</source>
+                <target>Quartiers</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.platform" resname="estimate.path.platform">
+                <source>estimate.path.platform</source>
+                <target>Quai</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.residence" resname="estimate.path.residence">
+                <source>estimate.path.residence</source>
+                <target>Résidence</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.alley" resname="estimate.path.alley">
+                <source>estimate.path.alley</source>
+                <target>Ruelle</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.bypass" resname="estimate.path.bypass">
+                <source>estimate.path.</source>
+                <target>Rocade</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.trafficcircle" resname="estimate.path.trafficcircle">
+                <source>estimate.path.trafficcircle</source>
+                <target>Rond-point</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.road" resname="estimate.path.road">
+                <source>estimate.path.road</source>
+                <target>Route</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.street" resname="estimate.path.street">
+                <source>estimate.path.street</source>
+                <target>Rue</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.sente" resname="estimate.path.sente">
+                <source>estimate.path.sente</source>
+                <target>Sente</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.square" resname="estimate.path.square">
+                <source>estimate.path.square</source>
+                <target>Square</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.median" resname="estimate.path.median">
+                <source>estimate.path.median</source>
+                <target>Terre-plein</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.traverse" resname="estimate.path.traverse">
+                <source>estimate.path.traverse</source>
+                <target>Traverse</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.villa" resname="estimate.path.villa">
+                <source>estimate.path.villa</source>
+                <target>Villa</target>
+            </trans-unit>
+            <trans-unit id="estimate.path.village" resname="estimate.path.village">
+                <source>estimate.path.village</source>
+                <target>Village</target>
+            </trans-unit>
+            <trans-unit id="estimate.type.house" resname="estimate.type.house">
+                <source>estimate.type.house</source>
+                <target>Maison</target>
+            </trans-unit>
+            <trans-unit id="estimate.type.appartment" resname="estimate.type.appartment">
+                <source>estimate.type.appartment</source>
+                <target>Appartement</target>
+            </trans-unit>
+            <trans-unit id="estimate.exposition.north" resname="estimate.exposition.north">
+                <source>estimate.path.north</source>
+                <target>Nord</target>
+            </trans-unit>
+            <trans-unit id="estimate.exposition.south" resname="estimate.exposition.south">
+                <source>estimate.path.south</source>
+                <target>Sud</target>
+            </trans-unit>
+            <trans-unit id="estimate.exposition.west" resname="estimate.exposition.west">
+                <source>estimate.path.west</source>
+                <target>Ouest</target>
+            </trans-unit>
+            <trans-unit id="estimate.exposition.east" resname="estimate.exposition.east">
+                <source>estimate.path.east</source>
+                <target>Est</target>
+            </trans-unit>
+            <trans-unit id="estimate.condition.newer" resname="estimate.condition.newer">
+                <source>estimate.condition.newer</source>
+                <target>Neuf</target>
+            </trans-unit>
+            <trans-unit id="estimate.condition.good" resname="estimate.condition.good">
+                <source>estimate.condition.good</source>
+                <target>Bon</target>
+            </trans-unit>
+            <trans-unit id="estimate.condition.work" resname="estimate.condition.work">
+                <source>estimate.condition.work</source>
+                <target>Travaux à prévoir</target>
+            </trans-unit>
+            <trans-unit id="estimate.condition.repair" resname="estimate.condition.repair">
+                <source>estimate.condition.repair</source>
+                <target>A refaire</target>
+            </trans-unit>
+            <trans-unit id="estimate.usage.inhabited" resname="estimate.usage.inhabited">
+                <source>estimate.usage.inhabited</source>
+                <target>Habité</target>
+            </trans-unit>
+            <trans-unit id="estimate.usage.rent" resname="estimate.usage.rent">
+                <source>estimate.usage.rent</source>
+                <target>Loué</target>
+            </trans-unit>
+            <trans-unit id="estimate.usage.empty" resname="estimate.usage.empty">
+                <source>estimate.usage.empty</source>
+                <target>Vide</target>
+            </trans-unit>
+            <trans-unit id="estimate.applicant.owner" resname="estimate.applicant.owner">
+                <source>estimate.applicant.owner</source>
+                <target>Propriétaire</target>
+            </trans-unit>
+            <trans-unit id="estimate.applicant.tenant" resname="estimate.applicant.tenant">
+                <source>estimate.applicant.tenant</source>
+                <target>Locataire</target>
+            </trans-unit>
+            <trans-unit id="estimate.applicant.purchaser" resname="estimate.applicant.purchaser">
+                <source>estimate.applicant.purchaser</source>
+                <target>Acquéreur</target>
+            </trans-unit>
+            <trans-unit id="estimate.applicant.agent" resname="estimate.applicant.agent">
+                <source>estimate.applicant.agent</source>
+                <target>Agent immobilier</target>
+            </trans-unit>
+            <trans-unit id="estimate.time.immediate" resname="estimate.time.immediate">
+                <source>estimate.time.immediate</source>
+                <target>Vendre ce bien au plus vite</target>
+            </trans-unit>
+            <trans-unit id="estimate.time.one_month" resname="estimate.time.one_month">
+                <source>estimate.time.one_month</source>
+                <target>Mettre ce bien en vente dans un mois</target>
+            </trans-unit>
+            <trans-unit id="estimate.time.two_month" resname="estimate.time.two_month">
+                <source>estimate.time.two_month</source>
+                <target>Mettre ce bien en vente dans deux mois</target>
+            </trans-unit>
+            <trans-unit id="estimate.time.six_month" resname="estimate.time.six_month">
+                <source>estimate.time.six_month</source>
+                <target>Mettre ce bien en vente dans six mois</target>
+            </trans-unit>
+            <trans-unit id="estimate.time.none" resname="estimate.time.none">
+                <source>estimate.time.none</source>
+                <target>Je ne suis pas vendeur</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

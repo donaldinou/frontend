@@ -3,15 +3,14 @@
 {% block main %}
     {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } %}
         {% block left %}
-            {{ include('VitelogeFrontendBundle:WebSearch:form/edit.html.twig', { form: form }) }}
-            {{ include('VitelogeFrontendBundle:WebSearch:form/delete.html.twig', { form: form_delete }) }}
+            <div class="clearfix">
+                {{ include('VitelogeFrontendBundle:WebSearch:form/edit.html.twig', { form: form }) }}
+            </div>
+            <div class="clearfix text-right">
+                <br>{{ include('VitelogeFrontendBundle:WebSearch:form/delete.html.twig', { form: form_delete }) }}
+            </div>
         {% endblock %}
         {% block right %}
-            <aside>
-                <div class="">
-                    {{ include('VitelogeFrontendBundle:menu:user.html.twig', { }) }}
-                </div>
-            </aside>
             {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
         {% endblock %}
     {% endembed %}

@@ -1,0 +1,19 @@
+<h1>Demande de contact via le site Vitelogé.com</h1>
+<p>Vous avez reçu une demande de contact à partir de ViteLogé.com :</p>
+
+<h2>Détails du contact :</h2>
+<blockquote>
+    <strong>Nom : </strong>{{ contact.fullname }}<br>
+    <strong>Société: {{ contact.company }}</strong><br>
+    <strong>Email : </strong> <a href="mailto:{{ contact.email }}">{{ contact.email }}</a><br>
+    <strong>Adresse: {{ contact.address }}</strong>
+    <strong>Code postal: {{ contact.postalCode }}</strong>
+    <strong>Ville: {{ contact.city }}</strong>
+    <strong>Téléphone : </strong> {{ contact.phone }}<br>
+</blockquote>
+
+<h2>Détails du message</h2>
+<blockquote>
+    <strong>Object: {{ contact.subject }}</strong>
+    <strong>Message : </strong> {{ contact.message | raw }}
+</blockquote>
