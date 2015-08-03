@@ -43,7 +43,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Column(name="firstName", type="string", length=255, nullable=true)
          * @Assert\Length(
          *      max = 64,
-         *      maxMessage = "assert.user.validate.firstname"
+         *      maxMessage = "assert.length.user.validate.max.firstname"
          * )
          */
         protected $firstname;
@@ -54,7 +54,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Column(name="lastName", type="string", length=255, nullable=true)
          * @Assert\Length(
          *      max = 64,
-         *      maxMessage = "assert.user.validate.firstname"
+         *      maxMessage = "assert.length.user.validate.max.lastname"
          * )
          */
         protected $lastname;

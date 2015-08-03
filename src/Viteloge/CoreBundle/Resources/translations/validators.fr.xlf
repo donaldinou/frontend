@@ -2,17 +2,37 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
-            <trans-unit id="assert.length.user.validate.firstname" resname="assert.length.user.validate.firstname">
-                <source>assert.length.user.validate.firstname</source>
+            <trans-unit id="assert.length.user.validate.max.firstname" resname="assert.length.user.validate.max.firstname">
+                <source>assert.length.user.validate.max.firstname</source>
                 <target>Le prénom ne peut pas être plus long que {{ limit }} caractère|Le prénom ne peut pas être plus long que {{ limit }} caractères</target>
             </trans-unit>
-            <trans-unit id="assert.length.user.validate.lastname" resname="assert.length.user.validate.lastname">
+            <trans-unit id="assert.length.user.validate.max.lastname" resname="assert.length.user.validate.max.lastname">
                 <source>assert.length.user.validate.lastname</source>
                 <target>Le nom de famille ne peut pas être plus long que {{ limit }} caractère|Le nom de famille ne peut pas être plus long que {{ limit }} caractères</target>
             </trans-unit>
             <trans-unit id="assert.regex.user.validate.phone" resname="assert.regex.user.validate.phone">
                 <source>assert.regex.user.validate.phone</source>
                 <target>Veuillez saisir un numéro de téléphone valide</target>
+            </trans-unit>
+            <trans-unit id="assert.expression.ad.validate.where" resname="assert.expression.ad.validate.where">
+                <source>assert.expression.ad.validate.where</source>
+                <target>Veuillez sélectionner au moins une ville dans la liste proposée</target>
+            </trans-unit>
+            <trans-unit id="assert.count.ad.validate.min.where" resname="assert.count.ad.validate.min.where">
+                <source>assert.count.ad.validate.min.where</source>
+                <target>Veuillez sélectionner au moins une ville dans la liste</target>
+            </trans-unit>
+            <trans-unit id="assert.count.ad.validate.max.where" resname="assert.count.ad.validate.max.where">
+                <source>assert.count.ad.validate.max.where</source>
+                <target>Vous ne pouvez pas sélectionner plus d'une ville|Vous ne pouvez pas sélectionner plus de {{ limit }} villes</target>
+            </trans-unit>
+            <trans-unit id="assert.expression.ad.validate.minprice" resname="assert.expression.ad.validate.minprice">
+                <source>assert.expression.ad.validate.minprice</source>
+                <target>Le budget minimum doit être inférieur au budget maximum</target>
+            </trans-unit>
+            <trans-unit id="assert.expression.ad.validate.maxprice" resname="assert.expression.ad.validate.maxprice">
+                <source>assert.expression.ad.validate.maxprice</source>
+                <target>Le budget maximum doit être supérieur au budget minimum</target>
             </trans-unit>
         </body>
     </file>

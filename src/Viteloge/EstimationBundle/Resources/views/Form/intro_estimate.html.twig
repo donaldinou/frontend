@@ -1,0 +1,60 @@
+{% form_theme form with [_self, 'VitelogeCoreBundle:Form:fields.html.twig'] %}
+
+{{ form_start(form,{attr:{'novalidate':'novalidate'} } ) }}
+    {%- block form_errors -%}
+        {{ form_errors(form) }}
+    {%- endblock form_errors-%}
+
+    <div class="hidden">
+        {{ form_row(form._token) }}
+        {{ form_row(form.inseeCity) }}
+    </div>
+
+    <h4>{{ 'votre_bien' | trans }}</h4>
+
+    <div class="panel-group" id="estimate-form" role="tablist" aria-multiselectable="true">
+        {%- block form_localisation -%}
+            {%- embed 'VitelogeCoreBundle:Global:panel.html.twig' with { id: 'estimate-localisation', parent: 'estimate-form', show: true, footer: true } -%}
+                {%- block panel_title -%}
+                    {% trans %}city_eval.form.title{% endtrans %}
+                {%- endblock panel_title -%}
+                {%- block panel_body -%}
+                    {{ form_row( form.type, {
+                        widget_translation_domain: 'enums',
+                        'label_attr': {
+                            'class': 'radio-inline'
+                        },
+                        'row_attr': {
+                            'label_class': 'col-md-3',
+                            'group_class': 'col-md-9'
+                        }
+                    }) }}
+                    {{ form_row( form.nb_pieces, {
+                        'row_attr': {
+                            'label_class': 'col-md-3',
+                            'group_class': 'col-md-9'
+                        }
+                    }) }}
+                    {{ form_row( form.surface_habitable, {
+                        'row_attr': {
+                            'label_class': 'col-md-3',
+                            'group_class': 'col-md-9'
+                        }
+                    }) }}
+                {%- endblock panel_body -%}
+                {%- block panel_footer -%}
+                    <div class="text-center">
+                        {{ form_widget( form.save, {
+                            span_class: 'icon-icon-calculator',
+                            attr: {
+                                class: "btn btn-primary submit btn-block text-uppercase",
+                                role: "button"
+                            }
+                        }) }}
+                    </div>
+                {%- endblock panel_footer -%}
+            {%- endembed -%}
+        {%- endblock form_localisation -%}
+    </div>
+
+{{ form_end(form) }}

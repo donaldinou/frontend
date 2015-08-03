@@ -1,23 +1,24 @@
 {% set page_class = "estimation resultat" %}
 {% extends 'VitelogeEstimationBundle::layout.html.twig' %}
 
-{% if form %}
-  {% form_theme form 'VitelogeEstimationBundle:Default:form.html.twig' %}
-{% endif %}
-
 {% block main %}
     {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
         {% block left %}
-            <div class="result{% if form %} ask_more{% endif %}">
-                <h2 class="computed">{{ 'estimation.result.title' | trans }}</h2>
-                {% if computed_estimation %}
-                    <p>{{ 'estimation.result.range' | trans(computed_estimation) | raw }}</p>
-                {% else %}
-                    <p>{{ 'estimation.result.failed' | trans }}</p>
-                {% endif %}
+            {{ include('VitelogeCoreBundle:Global:alert.html.twig', { type: 'success', alerts: { 0: 'estimation.contact.pris' | trans }, dismissible: false }) }}
+            <div class="panel panel-default{% if form %} arrow{% endif %}">
+                <div class="panel-heading">
+                    {{ 'estimation.result.title' | trans }}
+                </div>
+                <div class="panel-body">
+                    {% if computed_estimation %}
+                        <p>{{ 'estimation.result.range' | trans(computed_estimation) | raw }}</p>
+                    {% else %}
+                        <p>{{ 'estimation.result.failed' | trans }}</p>
+                    {% endif %}
+                </div>
             </div>
             {% if form %}
-                {{ include('VitelogeEstimationBundle:Default:form/estimate.html.twig', {}) }}
+                {{ include('VitelogeEstimationBundle:Default:form/contact.html.twig', {}) }}
             {% endif %}
         {% endblock %}
         {% block right %}

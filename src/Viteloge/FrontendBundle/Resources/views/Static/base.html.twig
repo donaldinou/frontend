@@ -26,14 +26,18 @@
     {%- endembed -%}
 {%- endblock header -%}
 
-{% block main %}
-<div class="text-justify">
-    <article class="container">
+{%- block teaser -%}
+    one
+{%- endblock teaser -%}
+
+{%- block main -%}
+<div class="teaser {{ block('teaser') }}">
+    <article class="over container text-justify">
         <h3 class="text-uppercase text-center">{{- block('main_title') -}}</h3>
         {{- block('main_content') -}}
     </article>
 </div>
-{% endblock %}
+{%- endblock -%}
 
 {%- block main_title -%}
     {{- block('title')|striptags -}}

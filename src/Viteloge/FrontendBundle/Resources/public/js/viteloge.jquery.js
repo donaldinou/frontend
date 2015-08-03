@@ -9,7 +9,7 @@ jQuery(document).ready(function() {
     });
 
     jQuery('.carousel').carousel();
-    jQuery('.select-tag-input').select2({'width':'100%'});
+    jQuery('.select-tag-input').select2({'width':'100%', 'theme': 'viteloge'});
 
     jQuery('.carousel-one-by-one .item').each(function(){
         /*var active = jQuery(this).parent().find('.item.active:first-child');
@@ -52,6 +52,13 @@ jQuery(document).ready(function() {
     function onHideNavigation() {
         jQuery('#navbar-navigation').hide(400);
         jQuery('#nav-overlay').off('click').remove();
+    }
+
+    jQuery('.collapse').on('show.bs.collapse', updateCollapsibleIcon);
+    jQuery('.collapse').on('hide.bs.collapse', updateCollapsibleIcon);
+    function updateCollapsibleIcon() {
+        jQuery(this).parent().find('.panel-heading .fa-minus, .panel-heading .fa-plus')
+            .toggleClass('fa-minus fa-plus');
     }
 
     jQuery('#map-container').on('show.bs.collapse', toggleNavigationArrow);
@@ -224,6 +231,7 @@ jQuery(document).ready(function() {
     function submitInAjax(event) {
         event.preventDefault();
         var form = jQuery(event.currentTarget);
+        var callback = jQuery(event.currentTarget).data('ajax-callback');
         if(typeof submitInAjaxEvent !== 'undefined') {
             submitInAjaxEvent.abort();
         }
@@ -231,14 +239,20 @@ jQuery(document).ready(function() {
             url: form.attr('action'),
             method: form.attr('method'),
             data: form.serialize(),
-            success: function(content) {
-                if (content.redirect) {
-                    location.href = content.redirect;
+            success: function(data, textStatus, jqXHR) {
+                if (data.redirect) {
+                    location.href = data.redirect;
                 }
                 else {
                     var parent = (form.data('ajax-parent')) ? jQuery(form.data('ajax-parent')) : form;
-                    parent.replaceWith(content);
+                    parent.replaceWith(data);
                     jQuery('.select-tag-input').select2();
+                }
+            },
+            complete: function(jqXHR, textStatus) {
+                if (callback) {
+                    var fn = window[callback];
+                    fn();
                 }
             }
         });

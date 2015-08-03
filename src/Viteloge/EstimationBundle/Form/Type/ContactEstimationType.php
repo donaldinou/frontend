@@ -16,7 +16,7 @@ class ContactEstimationType extends MyTypeWithBoolean
     {
         $builder
             ->add(
-                'nom',
+                'lastname',
                 'text',
                 array(
                     'label' => 'estimation.label.nom',
@@ -26,7 +26,7 @@ class ContactEstimationType extends MyTypeWithBoolean
                 )
             )
             ->add(
-                'prenom',
+                'firstname',
                 'text',
                 array(
                     'label' => 'estimation.label.prenom',
@@ -36,7 +36,7 @@ class ContactEstimationType extends MyTypeWithBoolean
                 )
             )
             ->add(
-                'tel',
+                'phone',
                 'text',
                 array(
                     'label' => 'estimation.label.tel',
@@ -46,7 +46,7 @@ class ContactEstimationType extends MyTypeWithBoolean
                 )
             )
             ->add(
-                'demande_agence',
+                'agencyRequest',
                 'choice',
                 $this->makeBool( 'estimation.label.demande_agence', true )
             )

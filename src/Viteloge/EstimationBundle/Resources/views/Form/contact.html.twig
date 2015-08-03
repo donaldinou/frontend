@@ -1,37 +1,46 @@
+{% form_theme form with [_self, 'VitelogeCoreBundle:Form:fields.html.twig'] %}
+
+{%- block form_start -%}
 {{ form_start(form) }}
-    {{ form_errors(form) }}
-    <fieldset class="nolegend">
-        <div class="text-center">
-            {{ form_label(form.demande_agence) }}
+{%- endblock form_start -%}
+    {%- block form_errors -%}
+        {{ form_errors(form) }}
+    {%- endblock form_errors -%}
+    {%- block form_fields -%}
+        <div class="hidden">
+            {{ form_row(form._token) }}
         </div>
-        <div class="text-center">
-            {{ form_widget(form.demande_agence) }}
-        </div>
-    </fieldset>
-    <div class="contact_wrapper">
-        <fieldset class="dark nolegend contact">
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>{{ 'estimation.result.demande_call' | trans }}</h3>
-                    <p></p>
-                    {{ form_row(form.nom) }}
-                    {{ form_row(form.prenom) }}
-                    {{ form_row(form.tel) }}
-                    <div class="field">
-                        <div class="label_wrapper">&nbsp;</div>
-                        <div class="input_wrapper">
-                            <span class="required_explain">{{ 'required_field' | trans }}</span>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="label_wrapper">&nbsp;</div>
-                        <div class="input_wrapper">{{ form_row(form.save,{attr:{class:"widen submit"} } ) }}</div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                        <!-- to be decorated -->
+        {%- block form_profil -%}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ form_row(form.agencyRequest, {
+                        'label_attr': {
+                            'class': 'radio-inline'
+                        },
+                        'row_attr': {
+                            'label_class': 'col-md-6',
+                            'group_class': 'col-md-6'
+                        }
+                    }) }}
                 </div>
             </div>
-        </fieldset>
-    </div>
+        {%- endblock form_profil -%}
+        {%- block form_contact -%}
+            {%- embed 'VitelogeEstimationBundle:Form:fragment/form_contact.html.twig' with { id: 'estimate-contact', parent: 'estimate-form', class: 'hidden', show: true, footer: true } -%}
+                {%- block panel_footer -%}
+                    <div class="text-center">
+                        {{ form_widget( form.save, {
+                            span_class: 'icon-icon-calculator',
+                            attr: {
+                                class: "btn btn-primary submit text-uppercase",
+                                role: "button"
+                            }
+                        }) }}
+                    </div>
+                {%- endblock panel_footer -%}
+            {%- endembed -%}
+        {%- endblock form_contact -%}
+    {%- endblock form_fields -%}
+{%- block form_end -%}
 {{ form_end(form) }}
+{%- endblock form_end -%}

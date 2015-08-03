@@ -1,0 +1,5 @@
+<div class="pull-right">
+    <a class="collapsed rounded-icon small text-center" data-toggle="collapse"{% if parent is defined %} data-parent="#{{ parent }}"{% endif %} href="#{{ id }}" aria-expanded="false" aria-controls="{{ id }}" aria-label="{% trans %}viteloge.expand{% endtrans %}">
+        <span class="fa{% if show %} fa-minus{% else %} fa-plus{% endif %}" aria-hidden="true"></span>
+    </a>
+</div>

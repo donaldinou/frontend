@@ -19,13 +19,13 @@ namespace Viteloge\CoreBundle\SearchEntity {
         /**
          * @Assert\Expression(
          *     "this.getWhereArea() or this.getWhereDepartment() or this.getWhereState() or value",
-         *     message="At least one city should be filled"
+         *     message="assert.expression.ad.validate.where"
          * )
          * @Assert\Count(
          *      min = "1",
          *      max = "5",
-         *      minMessage = "You must specify at least one city",
-         *      maxMessage = "You cannot specify more than {{ limit }} city"
+         *      minMessage = "assert.count.ad.validate.min.where",
+         *      maxMessage = "assert.count.ad.validate.max.where"
          * )
          * @Assert\Type(
          *     type="array"
@@ -77,7 +77,7 @@ namespace Viteloge\CoreBundle\SearchEntity {
          * )
          * @Assert\Expression(
          *     "value === null or this.getMaxPrice() == null or value <= this.getMaxPrice()",
-         *     message="The minimum budget has to be lower than the maximum budget"
+         *     message="assert.expression.ad.validate.minprice"
          * )
          * @Assert\Type(
          *     type="float"
@@ -91,7 +91,7 @@ namespace Viteloge\CoreBundle\SearchEntity {
          * )
          * @Assert\Expression(
          *     "value === null or this.getMinPrice() == null or value >= this.getMinPrice()",
-         *     message="The maximum budget has to be greater than the minimum budget"
+         *     message="assert.expression.ad.validate.maxprice"
          * )
          * @Assert\Type(
          *     type="float"

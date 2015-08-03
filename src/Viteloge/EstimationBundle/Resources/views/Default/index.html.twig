@@ -3,30 +3,41 @@
 
 {% block head_stylesheets %}
   {{ parent() }}
-  {{ form_stylesheet(form) }}
 {% endblock %}
 
 {% block head_javascripts %}
   {{ parent() }}
-  {{ form_javascript(form) }}
 {% endblock head_javascripts %}
+
+{%- block body_start -%}
+    {{ block('teaser') }}
+{%- endblock body_start -%}
+
+{%- block teaser -%}
+    <div class="teaser one">
+        <div class="over container">
+            <h3>{{ 'estimation.form_page.title' | trans }}</h3>
+            <div>
+                <p>
+                    <strong>{{ 'estimation.form_page.bold_call' | trans }}</strong>
+                    <span>{{ 'estimation.form_page.call' | trans }}</span>
+                </p>
+                <p>
+                    Merci de remplir le plus précisément possible le formulaire si dessous. Nous comparerons vos informations au 12 Millions de biens que nous avons en base de données afin d'estimer au plus juste le prix de votre logement. En cliquant sur <a href="#estimation_save" class=""><em>Estimer mon bien</em></a> vous aurez une réponse immédiate. Vous pourrez, si vous le souhaitez, compléter notre évaluation par une estimation faite par une de nos agences partenaires locale. Ceci est complètement gratuit et sans engagement.<br>
+                </p>
+                <a href="#estimate-start" class="btn btn-primary" role="button">
+                    <span class="fa fa-caret-right"></span>
+                    <span>Commencer</span>
+                </a>
+            </div>
+        </div>
+    </div>
+{%- endblock teaser -%}
 
 {% block main %}
     {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
         {% block left %}
-            <div class="dark invitation">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h2>{{ 'estimation.form_page.title' | trans }}</h2>
-                        <p><b>{{ 'estimation.form_page.bold_call' | trans }}</b> {{ 'estimation.form_page.call' | trans }}</p>
-                    </div>
-                    <div class="col-md-6"></div>
-                </div>
-            </div>
-            <p></p>
-            <p>Merci de remplir le plus précisément possible le formulaire si dessous. Nous comparerons vos informations au 12 Millions de biens que nous avons en base de données afin d'estimer au plus juste le prix de votre logement. En cliquant sur <i>Estimer mon bien</i> vous aurez une réponse immédiate. Vous pourrez, si vous le souhaitez, compléter notre évaluation par une estimation faite par une de nos agences partenaires locale. Ceci est complètement gratuit et sans engagement.
-            </p>
-            <div class="">
+            <div id="estimate-start" class="">
                 {{ include('VitelogeEstimationBundle:Form:estimate.html.twig', {}) }}
             </div>
         {% endblock %}

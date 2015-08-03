@@ -8,7 +8,20 @@ namespace Viteloge\CoreBundle\Entity {
     /**
      * Barometer
      *
-     * @ORM\Table(name="barometre", indexes={@ORM\Index(name="state", columns={"region"}), @ORM\Index(name="department", columns={"departement"}), @ORM\Index(name="itt", columns={"insee", "transaction", "type"})})
+     * @ORM\Table(name="barometre", indexes={
+     *      @ORM\Index(
+     *          name="state",
+     *          columns={"region"}
+     *      ),
+     *      @ORM\Index(
+     *          name="department",
+     *          columns={"departement"}
+     *      ),
+     *      @ORM\Index(
+     *          name="itt",
+     *          columns={"insee", "transaction", "type"}
+     *      )
+     * })
      * @ORM\Entity(repositoryClass="Viteloge\CoreBundle\Repository\BarometerRepository")
      */
     class Barometer
@@ -18,14 +31,14 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @ORM\Column(name="nb", type="integer", nullable=false)
          */
-        private $total;
+        protected $total;
 
         /**
          * @var float
          *
          * @ORM\Column(name="avg_sqm", type="float", precision=10, scale=0, nullable=false)
          */
-        private $avgSqm;
+        protected $avgSqm;
 
         /**
          * @var integer
@@ -34,7 +47,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Id
          * @ORM\GeneratedValue(strategy="NONE")
          */
-        private $year;
+        protected $year;
 
         /**
          * @var integer
@@ -43,7 +56,12 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Id
          * @ORM\GeneratedValue(strategy="NONE")
          */
-        private $month;
+        protected $month;
+
+        /**
+         * @var \DateTime
+         */
+        protected $createdAt;
 
         /**
          * @var string
@@ -52,7 +70,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Id
          * @ORM\GeneratedValue(strategy="NONE")
          */
-        private $type;
+        protected $type;
 
         /**
          * @var string
@@ -61,17 +79,17 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Id
          * @ORM\GeneratedValue(strategy="NONE")
          */
-        private $transaction;
+        protected $transaction;
 
         /**
          * @var \Acreat\InseeBundle\Entity\InseeCity
          *
          * @ORM\ManyToOne(targetEntity="Acreat\InseeBundle\Entity\InseeCity")
          * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="insee", referencedColumnName="CodeInsee")
+         *   @ORM\JoinColumn(name="insee", referencedColumnName="codeInsee")
          * })
          */
-        private $inseeCity;
+        protected $inseeCity;
 
         /**
          * @var \Acreat\InseeBundle\Entity\InseeState
@@ -81,7 +99,7 @@ namespace Viteloge\CoreBundle\Entity {
          *   @ORM\JoinColumn(name="region", referencedColumnName="REGION")
          * })
          */
-        private $inseeState;
+        protected $inseeState;
 
         /**
          * @var \Acreat\InseeBundle\Entity\InseeDepartment
@@ -91,9 +109,14 @@ namespace Viteloge\CoreBundle\Entity {
          *   @ORM\JoinColumn(name="departement", referencedColumnName="DEP")
          * })
          */
-        private $inseeDepartment;
+        protected $inseeDepartment;
 
+        /**
+         *
+         */
+        public function __construct() {
 
+        }
 
         /**
          * Set total
@@ -147,10 +170,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @param integer $year
          * @return Barometer
          */
-        public function setYear($year)
-        {
+        public function setYear($year) {
             $this->year = $year;
-
+            $this->updateCreatedAt();
             return $this;
         }
 
@@ -173,7 +195,7 @@ namespace Viteloge\CoreBundle\Entity {
         public function setMonth($month)
         {
             $this->month = $month;
-
+            $this->updateCreatedAt();
             return $this;
         }
 
@@ -300,6 +322,25 @@ namespace Viteloge\CoreBundle\Entity {
         public function getInseeDepartment()
         {
             return $this->inseeDepartment;
+        }
+
+        /**
+         * Update createdAt date with year and month
+         *
+         * @return Barometer
+         */
+        private function updateCreatedAt() {
+            $this->createdAt->setDate($this->year, $this->month, '1');
+            return $this;
+        }
+
+        /**
+         * Return DateTime from the year and month
+         *
+         * @return \DateTime
+         */
+        public function getCreatedAt() {
+            return $this->createdAt;
         }
     }
 

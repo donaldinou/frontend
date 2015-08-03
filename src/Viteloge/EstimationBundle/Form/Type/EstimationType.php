@@ -2,13 +2,16 @@
 
 namespace Viteloge\EstimationBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\EntityManager;
+use Acreat\InseeBundle\Entity\InseeCity;
 use Viteloge\CoreBundle\Entity\Estimate;
 use Viteloge\EstimationBundle\Component\Enum\PathEnum;
 use Viteloge\EstimationBundle\Component\Enum\TypeEnum;
@@ -20,6 +23,12 @@ use Viteloge\EstimationBundle\Component\Enum\TimeEnum;
 
 
 class EstimationType extends MyTypeWithBoolean {
+
+    protected $em;
+
+    public function __construct(EntityManager $em) {
+        $this->em = $em;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $pathEnum = new PathEnum();
@@ -61,18 +70,16 @@ class EstimationType extends MyTypeWithBoolean {
                 'text',
                 array( 'attr' => array( 'placeholder' => 'estimation.label.codepostal') )
             )
-            ->add(
-                'inseeCity',
-                'genemu_jqueryselect2_hidden',
-                array(
-                    'required' => true,
-                    'label' => 'estimation.label.ville',
-                    'constraints' => array(
-                        new Assert\NotBlank(),
-                        new Assert\NotNull()
-                    )
+            ->add('inseeCity', 'text', array(
+                'label' => 'estimation.label.ville',
+                'data_class' => 'Acreat\InseeBundle\Entity\InseeCity',
+                'required' => true,
+                'empty_data' => null,
+                'constraints' => array(
+                    new Assert\NotBlank(),
+                    new Assert\NotNull()
                 )
-            )
+            ))
             // caracteristics
             ->add(
                 'type',
@@ -207,7 +214,7 @@ class EstimationType extends MyTypeWithBoolean {
                     'choices' => $applicantEnum->choices(),
                     'configs' => array( 'width' => '100%', 'minimumResultsForSearch' => -1 ),
                     'label' => 'estimation.label.proprio',
-                    'empty_value' => "estimation.value.proprio",
+                    'empty_value' => '',
                     'constraints' => array(
                         new Assert\NotBlank()
                     )
@@ -243,6 +250,50 @@ class EstimationType extends MyTypeWithBoolean {
             )
         ;
 
+        $em = $this->em;
+        $formModifier = function (FormInterface $form, /*InseeCity*/ $inseeCity) {
+            $choices = (empty($inseeCity)) ? array() : array($inseeCity);
+            $form->add('inseeCity', 'entity', array(
+                'class' => 'AcreatInseeBundle:InseeCity',
+                'data_class' => null,
+                'property' => 'getNameAndPostalcode',
+                'group_by' => 'inseeDepartment',
+                'label' => 'estimation.label.ville',
+                'choices' => $choices,
+                'expanded' => false,
+                'multiple' => false,
+                'data' => $inseeCity, // not really necessary
+                'required' => true,
+                'empty_value' => '',
+                'empty_data' => null,
+                'mapped' => true
+            ));
+        };
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($formModifier) {
+                $form = $event->getForm();
+                $data = $event->getData();
+                $inseeCity = ($data) ? $data->getInseeCity() : null;
+                $formModifier($form, $inseeCity);
+            }
+        );
+
+        $builder->addEventListener(
+            FormEvents::PRE_SUBMIT,
+            function (FormEvent $event) use ($formModifier, $em) {
+                $form = $event->getForm();
+                $data = $event->getData();
+                if ($form->has('inseeCity')) {
+                    $inseeCity = $form->get('inseeCity')->getData();
+                    if (!($inseeCity instanceof InseeCity) || $inseeCity->getId() != $data['inseeCity']) {
+                        $inseeCity = $em->getRepository('AcreatInseeBundle:InseeCity')->findOneById($data['inseeCity']);
+                        $formModifier($form, $inseeCity);
+                    }
+                }
+            }
+        );
 
         $builder->addEventListener( FormEvents::PRE_SET_DATA, array( $this, 'checkAndSetPersonalData' ) );
         $builder->addEventListener( FormEvents::PRE_SUBMIT, array( $this, 'checkAndSetPersonalData' ) );

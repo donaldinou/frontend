@@ -110,7 +110,6 @@
     {%- if label is sameas(false) -%}
         <div class="{{- label_attr_class -}}"></div>
     {%- else -%}
-        {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ label_attr_class)|trim}) %}
         {{- parent() -}}
     {%- endif -%}
 {%- endblock form_label -%}
@@ -138,10 +137,21 @@
     </div>
 {%- endblock submit_row %}
 
+{%- block choice_widget_expanded -%}
+    <div {% if '-inline' in label_attr.class|default('') %}class="control-group"{% else %}{{ block('widget_container_attributes') }}{% endif %}>
+        {%- for child in form -%}
+            {{- form_widget(child, {
+                parent_label_class: label_attr.class|default(''),
+                translation_domain: translation_domain
+            }) -}}
+        {%- endfor -%}
+    </div>
+{%- endblock choice_widget_expanded -%}
+
 {%- block checkbox_radio_row -%}
     <div class="form-group{% if not valid %} has-error{% endif %}">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-10">
+        <div class="{{ block('form_label_class') }}"></div>
+        <div class="{{ block('form_group_class') }}">
             {{- form_widget(form) -}}
             {{- form_errors(form) -}}
         </div>
@@ -149,18 +159,26 @@
 {%- endblock checkbox_radio_row -%}
 
 {%- block form_label_class -%}
-    {%- if label_attr.class is not defined or label_attr.class is empty or not 'sr-only' in label_attr.class -%}
-        col-sm-2
+    {%- if row_attr is defined and row_attr.label_class is defined -%}
+        {{- row_attr.label_class -}}
     {%- else -%}
-        col-sm-0
+        {%- if label_attr.class is not defined or label_attr.class is empty or not 'sr-only' in label_attr.class -%}
+            col-sm-2
+        {%- else -%}
+            col-sm-0
+        {%- endif -%}
     {%- endif -%}
 {%- endblock form_label_class -%}
 
 {%- block form_group_class -%}
-    {%- if label_attr.class is not defined or label_attr.class is empty or not 'sr-only' in label_attr.class -%}
-        col-sm-10
+    {%- if row_attr is defined and row_attr.group_class is defined -%}
+        {{- row_attr.group_class -}}
     {%- else -%}
-        col-sm-12
+        {%- if label_attr.class is not defined or label_attr.class is empty or not 'sr-only' in label_attr.class -%}
+            col-sm-10
+        {%- else -%}
+            col-sm-12
+        {%- endif -%}
     {%- endif -%}
 {%- endblock form_group_class -%}
 

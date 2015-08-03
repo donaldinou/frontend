@@ -41,7 +41,8 @@ module.exports = function(grunt) {
                     'js/background-check.js': 'background-check/background-check.js',
                     'js/select2.js': 'select2/dist/js/select2.min.js',
                     'js/select2.fr.js': 'select2/dist/js/i18n/fr.js',
-                    'js/placeholders.js': 'placeholders/dist/placeholders.jquery.js'
+                    'js/placeholders.js': 'placeholders/dist/placeholders.jquery.js',
+                    'js/d3.js': 'd3/d3.js'
                 }
             },
             stylesheets: {

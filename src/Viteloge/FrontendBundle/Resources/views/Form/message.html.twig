@@ -76,6 +76,18 @@
             }
         }) }}
     {%- endblock form_fields -%}
+    {%- block form_button -%}
+        {{- form_row(form.send, {
+            'label': 'message.action.send',
+            'label_attr': {
+                'class': 'sr-only'
+            },
+            'attr': {
+                'class': 'btn btn-primary text-uppercase',
+            },
+            'span_class': 'fa fa-send',
+        }) -}}
+    {%- endblock form_button -%}
 {%- block form_end -%}
 {{ form_end(form) }}
 {%- endblock form_end -%}

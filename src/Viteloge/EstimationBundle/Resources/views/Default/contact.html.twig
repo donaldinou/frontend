@@ -2,11 +2,9 @@
 {% extends 'VitelogeEstimationBundle::layout.html.twig' %}
 
 {% block main %}
-    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } %}
+    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
         {% block left %}
-            <div class="panel">
-                {{ 'estimation.contact.pris' | trans }}
-            </div>
+            {{ include('VitelogeCoreBundle:Global:alert.html.twig', { type: 'success', alerts: { 0: 'estimation.contact.pris' | trans }, dismissible: false }) }}
         {% endblock %}
         {% block right %}
             {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}

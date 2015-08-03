@@ -30,6 +30,7 @@
     "background-check": "latest",
     "hover": "~2.0.2",
     "select2": "latest",
-    "placeholders": "latest"
+    "placeholders": "latest",
+    "d3": "latest"
   }
 }

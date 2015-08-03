@@ -49,7 +49,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 $service->setIcon('icon-icon-publish');
                 $service->setTitle('service.publish');
                 $service->setUrl($this->generateUrl('viteloge_frontend_static_register'));
-                $service->setDescription('service.estimate.description');
+                $service->setDescription('service.publish.description');
                 $this->services['publish'] = $service;
             }
             return $this;

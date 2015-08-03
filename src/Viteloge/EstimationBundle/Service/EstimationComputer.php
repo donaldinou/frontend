@@ -56,7 +56,7 @@ class EstimationComputer {
 
     public function estimate( Estimate $estimate ){
 
-        $barometre_repo = $this->om->getRepository( 'Viteloge\EstimationBundle\Entity\Barometre' );
+        $barometre_repo = $this->om->getRepository( 'VitelogeCoreBundle:Barometer' );
         $latest_barometre = $barometre_repo->findLatest( array(
             'insee' => $estimate->getInseeCity(),
             'type' => $estimate->getType(),

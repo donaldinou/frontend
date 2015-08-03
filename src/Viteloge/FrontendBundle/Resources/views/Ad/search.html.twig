@@ -31,7 +31,7 @@
         {%- if form is defined -%}
             <div id="search-container" class="collapse row clearfix">
                 <div class="col-md-12">
-                    {{ include('VitelogeFrontendBundle:Ad:form/adSearch.html.twig', { form: form, theme_container: 'search-container' }) }}
+                    {{ include('VitelogeFrontendBundle:Ad:form/adSearch.html.twig', { form: form, isTransactionLabelHidden: true, theme_container: 'search-container' }) }}
                 </div>
             </div>
         {%- endif -%}

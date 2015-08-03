@@ -88,7 +88,9 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\JoinColumns({
          *   @ORM\JoinColumn(name="code_insee", referencedColumnName="codeInsee")
          * })
+         * @Assert\Type(type="Acreat\InseeBundle\Entity\InseeCity")
          * @Assert\Valid()
+         * @Assert\NotBlank()
          */
         protected $inseeCity;
 

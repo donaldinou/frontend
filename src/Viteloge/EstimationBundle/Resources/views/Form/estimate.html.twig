@@ -1,183 +1,446 @@
 {% form_theme form with [_self, 'VitelogeCoreBundle:Form:fields.html.twig'] %}
 
 {{ form_start(form,{attr:{'novalidate':'novalidate'} } ) }}
-    {{ form_errors(form) }}
-    <h2>{{ 'votre_bien' | trans }}</h2>
-    <fieldset>
-        <legend>{{ 'Localisation' | trans }}</legend>
-        <div class="row">
-            <div class="col-sm-2">
-                {{ form_widget( form.numero ) }}
-            </div>
-            <div class="col-sm-3">
-                {{ form_widget( form.type_voie, {
-                    translation_domain : 'enums'
-                }) }}
-            </div>
-            <div class="col-sm-7{% if form.voie.vars.errors|length > 0 %} error" title="{{ form.voie.vars.errors[0].message }}{% endif %}">
-                {{ form_widget( form.voie ) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                {{ form_widget( form.codepostal ) }}
-            </div>
-            <div class="col-md-8">
-            {{ form_widget( form.inseeCity ) }}
-            </div>
-        </div>
-    </fieldset>
-    <fieldset>
-        <legend>{{ 'Caractéristiques' | trans }}</legend>
-        <div class="row">
-            <div class="col-md-12">
-                {{ form_row(form.type, {
-                    widget_translation_domain: 'enums',
-                }) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                {{ form_row( form.nb_pieces) }}
-            </div>
-            <div class="col-md-6">
-                {{ form_row( form.surface_habitable) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                {{ form_row( form.nb_sdb) }}
-            </div>
-            <div class="col-md-6 only type_M last">
-                {{ form_row( form.surface_terrain) }}
-            </div>
-            <div class="col-md-6 only type_A">
-                {{ form_row( form.etage) }}
-            </div>
-            <div class="col-md-6 only type_A">
-                {{ form_row( form.nb_etages) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                {{ form_row( form.exposition, {
-                    widget_translation_domain: 'enums',
-                }) }}
-            </div>
-            <div class="col-md-6">
-                {{ form_row( form.nb_niveaux) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                {{ form_row( form.annee_construction) }}
-            </div>
-            <div class="col-md-6"></div>
-        </div>
-    </fieldset>
-    <fieldset class="nolegend">
-        <div class="row">
-            <div class="col-md-6">
-                {{ form_row( form.ascenseur ) }}
-            </div>
-            <div class="col-md-6">
-                {{ form_row( form.parking ) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6s">
-                {{ form_row( form.balcon ) }}
-            </div>
-            <div class="col-md-6">
-                {{ form_row( form.garage ) }}
-            </div>
-        </div>
-        <div class="row only type_M">
-            <div class="col-md-6">
-                {{ form_row( form.terrasse ) }}
-            </div>
-            <div class="col-md-6"></div>
-        </div>
-        <div class="row">
-            <div class="col-md-5">
-                {{ form_row( form.vue ) }}
-            </div>
-            <div class="col-md-7"></div>
-        </div>
-        <div class="row only vue">
-            <div class="col-md-12">
-                {{ form_row( form.vue_detail ) }}
-            </div>
-        </div>
-    </fieldset>
-    <fieldset>
-        <legend>{{ 'Situation du logement' | trans }}</legend>
-        <div class="row">
-            <div class="col-md-12">
-                {{ form_row( form.etat, {
-                    widget_translation_domain: 'enums',
-                }) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                {{ form_row( form.usage, {
-                    widget_translation_domain: 'enums',
-                }) }}
-            </div>
-        </div>
-    </fieldset>
-    <h2>{{ 'votre_profil' | trans }}</h2>
-    <fieldset>
-        <legend>{{ 'Votre situation' }}</legend>
-        <div class="row">
-            <div class="col-md-12">
-                {{ form_row( form.mail ) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                {{ form_row( form.proprietaire, {
-                    widget_translation_domain: 'enums',
-                }) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                {{ form_row( form.delai, {
-                    widget_translation_domain: 'enums',
-                }) }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                {{ form_row( form.agencyRequest ) }}
-            </div>
-        </div>
-    </fieldset>
-    <div class="contact_wrapper">
-        <fieldset>
-            <legend>{{ 'Coordonnées' | trans }}</legend>
-            <div class="row">
-                <div class="col-md-12">
-                    {{ form_row( form.lastname ) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    {{ form_row( form.firstname ) }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    {{ form_row( form.phone ) }}
-                </div>
-            </div>
-        </fieldset>
+    {%- block form_errors -%}
+        {%- if not form.vars.valid -%}
+            {%- embed 'VitelogeCoreBundle:Global:alert.html.twig' with { alerts: { 0: 'Vous avez des erreurs dans le formulaire'|trans }, type: 'danger', dismissible: false } -%}
+                {%- block alert_title -%}{%- endblock -%}
+            {%- endembed -%}
+        {%- endif -%}
+        {{ form_errors(form) }}
+    {%- endblock form_errors-%}
+
+    <div class="hidden">
+        {{ form_row(form._token) }}
     </div>
-    <p>
-        <span class="required_explain">{{ 'required_field' | trans }}</span>
-    </p>
+
+    <h4>{{ 'votre_bien' | trans }}</h4>
+
+    <div class="panel-group" id="estimate-form" role="tablist" aria-multiselectable="true">
+        {%- block form_localisation -%}
+            {%- embed 'VitelogeCoreBundle:Global:panel.html.twig' with { id: 'estimate-localisation', parent: 'estimate-form', show: true, footer: true } -%}
+                {%- block panel_title -%}
+                    {% trans %}Localisation{% endtrans %}
+                {%- endblock panel_title -%}
+                {%- block panel_body -%}
+                    <div class="row">
+                        <div class="col-sm-2">
+                            {{ form_row( form.numero, {
+                                'label_attr': {
+                                    'class': 'sr-only'
+                                }
+                            }) }}
+                        </div>
+                        <div class="col-sm-3">
+                            {{ form_row( form.type_voie, {
+                                translation_domain : 'enums',
+                                'label_attr': {
+                                    'class': 'sr-only'
+                                },
+                                'attr': {
+                                    'class': 'select-tag-input',
+                                    'placeholder': 'estimation.label.type_voie',
+                                    'data-placeholder' : 'estimation.label.type_voie'|trans(),
+                                    'data-allow-clear' : 'false'
+                                }
+                            }) }}
+                        </div>
+                        <div class="col-sm-7{% if form.voie.vars.errors|length > 0 %} error" title="{{ form.voie.vars.errors[0].message }}{% endif %}">
+                            {{ form_row( form.voie, {
+                                'label_attr': {
+                                    'class': 'sr-only'
+                                }
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="clearfix"><br></div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ form_row( form.codepostal, {
+                                'label_attr': {
+                                    'class': 'sr-only'
+                                }
+                            }) }}
+                        </div>
+                        <div class="col-md-8">
+                            {{ form_row(form.inseeCity, {
+                                'label_attr': {
+                                    'class': 'sr-only'
+                                },
+                                'attr': {
+                                    'class': 'select-tag-input',
+                                    'data-placeholder' : 'estimation.label.ville'|trans() ~ ' ...',
+                                    'data-allow-clear' : 'true',
+                                    'data-ajax--url' : path('viteloge_frontend_suggest_cities'),
+                                    'data-ajax--cache' : 'true',
+                                    'data-ajax--data-type' : 'json'
+                                }
+                            }) }}
+                        </div>
+                    </div>
+                {%- endblock panel_body -%}
+                {%- block panel_footer -%}
+                    <div class="text-right">
+                        <a href="#estimate-description" class="btn btn-primary" role="button" data-toggle="collapse" data-parent="#estimate-form" aria-expanded="false" aria-controls="estimate-description">
+                            <span class="fa fa-caret-right"></span>
+                            <span>{% trans %}Suivant{% endtrans %}</span>
+                        </a>
+                    </div>
+                {%- endblock panel_footer -%}
+            {%- endembed -%}
+        {%- endblock form_localisation -%}
+
+        {%- block form_description -%}
+            {%- embed 'VitelogeCoreBundle:Global:panel.html.twig' with { id: 'estimate-description', parent: 'estimate-form', show: false, footer: true } -%}
+                {%- block panel_title -%}
+                    {% trans %}Caractéristiques{% endtrans %}
+                {%- endblock panel_title -%}
+                {%- block panel_body -%}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row( form.type, {
+                                widget_translation_domain: 'enums',
+                                'label_attr': {
+                                    'class': 'radio-inline'
+                                },
+                                'row_attr': {
+                                    'label_class': 'col-md-3',
+                                    'group_class': 'col-md-9'
+                                }
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row( form.nb_pieces, {
+                                'row_attr': {
+                                    'label_class': 'col-md-6',
+                                    'group_class': 'col-md-6'
+                                }
+                            }) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row( form.surface_habitable, {
+                                'row_attr': {
+                                    'label_class': 'col-md-6',
+                                    'group_class': 'col-md-6'
+                                }
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row( form.nb_sdb, {
+                                'row_attr': {
+                                    'label_class': 'col-md-6',
+                                    'group_class': 'col-md-6'
+                                }
+                            }) }}
+                        </div>
+                        <div class="col-md-6 hidden">
+                            {{ form_row( form.surface_terrain, {
+                                'row_attr': {
+                                    'label_class': 'col-md-6',
+                                    'group_class': 'col-md-6'
+                                }
+                            }) }}
+                        </div>
+                        <div class="col-md-6 hidden">
+                            {{ form_row( form.etage, {
+                                'row_attr': {
+                                    'label_class': 'col-md-6',
+                                    'group_class': 'col-md-6'
+                                }
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-6 hidden">
+                            {{ form_row( form.nb_etages, {
+                                'row_attr': {
+                                    'label_class': 'col-md-6',
+                                    'group_class': 'col-md-6'
+                                }
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row( form.exposition, {
+                                widget_translation_domain: 'enums',
+                                'attr': {
+                                    'class': 'select-tag-input',
+                                    'placeholder': 'estimation.label.exposition',
+                                    'data-placeholder' : 'estimation.label.exposition'|trans(),
+                                    'data-allow-clear' : 'true'
+                                },
+                                'row_attr': {
+                                    'label_class': 'col-md-6',
+                                    'group_class': 'col-md-6'
+                                }
+                            }) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row( form.nb_niveaux, {
+                                'row_attr': {
+                                    'label_class': 'col-md-6',
+                                    'group_class': 'col-md-6'
+                                }
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row( form.annee_construction, {
+                                'row_attr': {
+                                    'label_class': 'col-md-6',
+                                    'group_class': 'col-md-6'
+                                }
+                            }) }}
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="clearfix">
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row( form.ascenseur, {
+                                'label_attr': {
+                                    'class': 'radio-inline'
+                                },
+                                'row_attr': {
+                                    'label_class': 'col-md-6',
+                                    'group_class': 'col-md-6'
+                                }
+                            }) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row( form.parking, {
+                                'row_attr': {
+                                    'label_class': 'col-md-6',
+                                    'group_class': 'col-md-6'
+                                }
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row( form.balcon, {
+                                'label_attr': {
+                                    'class': 'radio-inline'
+                                },
+                                'row_attr': {
+                                    'label_class': 'col-md-6',
+                                    'group_class': 'col-md-6'
+                                }
+                            }) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row( form.garage, {
+                                'row_attr': {
+                                    'label_class': 'col-md-6',
+                                    'group_class': 'col-md-6'
+                                }
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 hidden">
+                            {{ form_row( form.terrasse, {
+                                'label_attr': {
+                                    'class': 'radio-inline'
+                                },
+                                'row_attr': {
+                                    'label_class': 'col-md-6',
+                                    'group_class': 'col-md-6'
+                                }
+                            }) }}
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+                    <div class="row">
+                        {{ form_row( form.vue, {
+                            'row_attr': {
+                                'label_class': 'col-md-2',
+                                'group_class': 'col-md-10'
+                            }
+                        }) }}
+                    </div>
+                    <div class="row">
+                        {{ form_row( form.vue_detail, {
+                            'label_attr': {
+                                'class': 'sr-only'
+                            },
+                            'attr': {
+                                'class': 'hidden',
+                                'placeholder': 'estimation.label.vue_detail',
+                                'data-placeholder': 'estimation.label.vue_detail'|trans(),
+                            },
+                            'row_attr': {
+                                'label_class': 'col-md-2',
+                                'group_class': 'col-md-10'
+                            }
+                        }) }}
+                    </div>
+                {%- endblock panel_body -%}
+                {%- block panel_footer -%}
+                    <div class="text-right">
+                        <a href="#estimate-localisation" class="btn btn-primary" role="button" data-toggle="collapse" data-parent="#estimate-form" aria-expanded="false" aria-controls="estimate-localisation">
+                            <span class="fa fa-rotate-left"></span>
+                            <span>{% trans %}Précédent{% endtrans %}</span>
+                        </a>
+                        <a href="#estimate-situation" class="btn btn-primary" role="button" data-toggle="collapse" data-parent="#estimate-form" aria-expanded="false" aria-controls="estimate-situation">
+                            <span class="fa fa-caret-right"></span>
+                            <span>{% trans %}Suivant{% endtrans %}</span>
+                        </a>
+                    </div>
+                {%- endblock panel_footer -%}
+            {%- endembed -%}
+        {%- endblock form_description -%}
+
+        {%- block form_situation -%}
+            {%- embed 'VitelogeCoreBundle:Global:panel.html.twig' with { id: 'estimate-situation', parent: 'estimate-form', show: false, footer: true } -%}
+                {%- block panel_title -%}
+                    {% trans %}Situation du logement{% endtrans %}
+                {%- endblock panel_title -%}
+                {%- block panel_body -%}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row( form.etat, {
+                                widget_translation_domain: 'enums',
+                                'attr': {
+                                    'class': 'select-tag-input',
+                                    'placeholder': 'estimation.label.usage',
+                                    'data-placeholder' : 'estimation.label.usage'|trans(),
+                                    'data-allow-clear' : 'true'
+                                }
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row( form.usage, {
+                                widget_translation_domain: 'enums',
+                                'attr': {
+                                    'class': 'select-tag-input',
+                                    'placeholder': 'estimation.label.usage',
+                                    'data-placeholder' : 'estimation.label.usage'|trans(),
+                                    'data-allow-clear' : 'true'
+                                }
+                            }) }}
+                        </div>
+                    </div>
+                {%- endblock panel_body -%}
+                {%- block panel_footer -%}
+                    <div class="text-right">
+                        <a href="#estimate-description" class="btn btn-primary" role="button" data-toggle="collapse" data-parent="#estimate-form" aria-expanded="false" aria-controls="estimate-description">
+                            <span class="fa fa-rotate-left"></span>
+                            <span>{% trans %}Précédent{% endtrans %}</span>
+                        </a>
+                        <a href="#estimate-profil" class="btn btn-primary" role="button" data-toggle="collapse" data-parent="#estimate-form" aria-expanded="false" aria-controls="estimate-profil">
+                            <span class="fa fa-caret-right"></span>
+                            <span>{% trans %}Suivant{% endtrans %}</span>
+                        </a>
+                    </div>
+                {%- endblock panel_footer -%}
+            {%- endembed -%}
+        {%- endblock form_situation -%}
+
+        {%- block form_profil -%}
+            {%- embed 'VitelogeCoreBundle:Global:panel.html.twig' with { id: 'estimate-profil', parent: 'estimate-form', show: false, footer: true } -%}
+                {%- block panel_title -%}
+                    {% trans %}votre_profil{% endtrans %}
+                {%- endblock panel_title -%}
+                {%- block panel_body -%}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row( form.mail ) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row( form.proprietaire, {
+                                widget_translation_domain: 'enums',
+                                'attr': {
+                                    'class': 'select-tag-input',
+                                    'placeholder': 'estimation.label.proprio',
+                                    'data-placeholder' : 'estimation.label.proprio'|trans(),
+                                    'data-allow-clear' : 'true'
+                                }
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row( form.delai, {
+                                widget_translation_domain: 'enums',
+                                'attr': {
+                                    'class': 'select-tag-input',
+                                    'placeholder': 'estimation.label.delai',
+                                    'data-placeholder' : 'estimation.label.delai'|trans(),
+                                    'data-allow-clear' : 'true'
+                                }
+                            }) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row( form.agencyRequest ) }}
+                        </div>
+                    </div>
+                {%- endblock panel_body -%}
+                {%- block panel_footer -%}
+                    <div class="text-right">
+                        <a href="#estimate-situation" class="btn btn-primary" role="button" data-toggle="collapse" data-parent="#estimate-form" aria-expanded="false" aria-controls="estimate-situation">
+                            <span class="fa fa-rotate-left"></span>
+                            <span>{% trans %}Précédent{% endtrans %}</span>
+                        </a>
+                        <a href="#estimate-contact" class="btn btn-primary hidden" role="button" data-toggle="collapse" data-parent="#estimate-form" aria-expanded="false" aria-controls="estimate-contact">
+                            <span class="fa fa-caret-right"></span>
+                            <span>{% trans %}Suivant{% endtrans %}</span>
+                        </a>
+                    </div>
+                {%- endblock panel_footer -%}
+            {%- endembed -%}
+        {%- endblock form_profil -%}
+
+        {%- block form_contact -%}
+            {{ include('VitelogeEstimationBundle:Form:fragment/form_contact.html.twig', { id: 'estimate-contact', parent: 'estimate-form', class: 'hidden', show: false, footer: true }) }}
+            {%- embed 'VitelogeCoreBundle:Global:panel.html.twig' with { id: 'estimate-contact', parent: 'estimate-form', class: 'hidden', show: false, footer: true } -%}
+                {%- block panel_title -%}
+                    {% trans %}Coordonnées{% endtrans %}
+                {%- endblock panel_title -%}
+                {%- block panel_body -%}
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row( form.lastname ) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row( form.firstname ) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row( form.phone ) }}
+                        </div>
+                    </div>
+                {%- endblock panel_body -%}
+                {%- block panel_footer -%}
+                    <div class="text-right">
+                        <a href="#estimate-profil" class="btn btn-primary" role="button" data-toggle="collapse" data-parent="#estimate-form" aria-expanded="false" aria-controls="estimate-profil">
+                            <span class="fa fa-rotate-left"></span>
+                            <span>{% trans %}Précédent{% endtrans %}</span>
+                        </a>
+                    </div>
+                {%- endblock panel_footer -%}
+            {%- endembed -%}
+        {%- endblock form_contact -%}
+    </div>
+
     <div class="text-center">
         {{ form_widget( form.save, {
             span_class: 'icon-icon-calculator',

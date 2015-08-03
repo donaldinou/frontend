@@ -94,6 +94,14 @@
         <source>viteloge.noresult</source>
         <target>Pas de résulat</target>
       </trans-unit>
+      <trans-unit id="viteloge.share.ad.with" resname="viteloge.share.ad.with">
+        <source>viteloge.share.ad.with</source>
+        <target>Partager via </target>
+      </trans-unit>
+      <trans-unit id="home.teaser" resname="home.teaser">
+        <source>home.teaser</source>
+        <target>Trouvez rapidement votre bien</target>
+      </trans-unit>
       <trans-unit id="ad.distance.none" resname="ad.distance.none">
         <source>ad.distance.none</source>
         <target>-</target>
@@ -636,7 +644,7 @@
       </trans-unit>
       <trans-unit id="service.estimate.description" resname="service.estimate.description">
         <source>service.estimate.description</source>
-        <target>Aenean sollicitudin, lorem quis bibendum auctor</target>
+        <target>Estimation gratuite de votre bien immobilier</target>
       </trans-unit>
       <trans-unit id="service.publish" resname="service.publish">
         <source>service.publish</source>
@@ -644,7 +652,7 @@
       </trans-unit>
       <trans-unit id="service.publish.description" resname="service.publish.description">
         <source>service.publish.description</source>
-        <target>Aenean sollicitudin, lorem quis bibendum auctor</target>
+        <target>Publier et augmenter la visibilité de votre annonce</target>
       </trans-unit>
       <trans-unit id="service.alert" resname="service.alert">
         <source>service.alert</source>
@@ -652,7 +660,7 @@
       </trans-unit>
       <trans-unit id="service.alert.description" resname="service.alert.description">
         <source>service.alert.description</source>
-        <target>Aenean sollicitudin, lorem quis bibendum auctor</target>
+        <target>Ne ratez plus aucunes annonces</target>
       </trans-unit>
       <trans-unit id="websearch.title" resname="websearch.title">
         <source>websearch.title</source>
@@ -746,6 +754,10 @@
         <source>glossary.show.all.sales</source>
         <target>Voir toutes les ventes</target>
       </trans-unit>
+      <trans-unit id="message.send.message.to.group.for.ad" resname="message.send.message.to.group.for.ad">
+        <source>message.send.message.to.group.for.ad</source>
+        <target>Envoyez un message à l'agence concernant ce bien</target>
+      </trans-unit>
       <trans-unit id="message.firstname" resname="message.firstname">
         <source>message.firstname</source>
         <target>Votre prénom</target>
@@ -766,8 +778,8 @@
         <source>message.message</source>
         <target>Votre message</target>
       </trans-unit>
-      <trans-unit id="message.send" resname="message.send">
-        <source>message.send</source>
+      <trans-unit id="message.action.send" resname="message.action.send">
+        <source>message.action.send</source>
         <target>Envoyer</target>
       </trans-unit>
       <trans-unit id="contact.send.message.for.ad" resname="contact.send.message.for.ad">

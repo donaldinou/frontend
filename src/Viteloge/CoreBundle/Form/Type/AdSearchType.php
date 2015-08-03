@@ -81,6 +81,7 @@ namespace Viteloge\CoreBundle\Form\Type {
                 ->add('search', 'submit')
             ;
 
+            $em = $this->em;
             $formModifier = function (FormInterface $form, $cities) {
                 $choices = (empty($cities)) ? array() : $cities;
                 $form->add('where', 'entity', array(
@@ -102,12 +103,12 @@ namespace Viteloge\CoreBundle\Form\Type {
 
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
-                function (FormEvent $event) use ($formModifier) {
+                function (FormEvent $event) use ($formModifier, $em) {
                     $form = $event->getForm();
                     $data = $event->getData();
                     $where = $data->getWhere();
                     if (!empty($where)) {
-                        $cities = $this->em->getRepository('AcreatInseeBundle:InseeCity')->findById($where);
+                        $cities = $em->getRepository('AcreatInseeBundle:InseeCity')->findById($where);
                         $formModifier($form, $cities);
                     }
                 }
@@ -115,11 +116,11 @@ namespace Viteloge\CoreBundle\Form\Type {
 
             $builder->addEventListener(
                 FormEvents::PRE_SUBMIT,
-                function (FormEvent $event) use ($formModifier) {
+                function (FormEvent $event) use ($formModifier, $em) {
                     $form = $event->getForm();
                     $data = $event->getData();
                     if (isset($data['where'])) {
-                        $cities = $this->em->getRepository('AcreatInseeBundle:InseeCity')->findById($data['where']);
+                        $cities = $em->getRepository('AcreatInseeBundle:InseeCity')->findById($data['where']);
                         $formModifier(
                             $form,
                             $cities/*array_flip(array_map(

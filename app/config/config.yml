@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: swiftmailer.yml }
+    - { resource: doctrine_migrations.yml }
     - { resource: sonata_seo.yml }
     - { resource: fos_js_routing.yml }
     - { resource: fos_elastica.yml }

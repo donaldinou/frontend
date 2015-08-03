@@ -29,7 +29,7 @@
             </div>
             {%- block header_navigation -%}
                 <div id="search-container" class="forward text-center">
-                    <h1 class="text-uppercase">Nam nec tellus a odio tincidunt</h1>
+                    <h1 class="text-uppercase">{% trans %}home.teaser{% endtrans %}</h1>
                     <h2 class="text-uppercase">{%- transchoice count with {'%count%': count|number_format(0, null, ' ')} -%}today.properties.update.count{%- endtranschoice -%} !</h2>
                     {{ include('VitelogeFrontendBundle:Default:form/adSearch.html.twig', { form: form }) }}
                 </div>

@@ -240,10 +240,15 @@ namespace Viteloge\FrontendBundle\Controller {
                 );
             }
 
-            return array(
+            $isTransactionLabelHidden = (bool)$request->query->has('hideTransaction');
+            $options = array(
                 'adSearch' => $adSearch,
                 'form' => $form->createView()
             );
+            if ($request->query->has('hideTransaction')) {
+                $options['isTransactionLabelHidden'] = true;
+            }
+            return $options;
         }
 
         /**

@@ -1,0 +1,47 @@
+{% extends 'VitelogeCoreBundle:Global:panel.html.twig' %}
+
+{%- block panel_title -%}
+    {% trans %}Coordonnées{% endtrans %}
+{%- endblock panel_title -%}
+
+{%- block panel_body -%}
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row( form.lastname, {
+                'attr': {
+                    'placeholder': 'estimation.label.nom',
+                    'data-placeholder': 'estimation.label.nom'|trans()
+                }
+            }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row( form.firstname, {
+                'attr': {
+                    'placeholder': 'estimation.label.prenom',
+                    'data-placeholder': 'estimation.label.prenom'|trans()
+                }
+            }) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row( form.phone, {
+                'attr': {
+                    'placeholder': 'estimation.label.tel',
+                    'data-placeholder': 'estimation.label.tel'|trans()
+                }
+            }) }}
+        </div>
+    </div>
+{%- endblock panel_body -%}
+
+{%- block panel_footer -%}
+    <div class="text-right">
+        <a href="#estimate-profil" class="btn btn-primary" role="button" data-toggle="collapse" data-parent="#estimate-form" aria-expanded="false" aria-controls="estimate-profil">
+            <span class="fa fa-rotate-left"></span>
+            <span>{% trans %}Précédent{% endtrans %}</span>
+        </a>
+    </div>
+{%- endblock panel_footer -%}

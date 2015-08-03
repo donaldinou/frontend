@@ -1,0 +1,45 @@
+.teaser {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    position: relative;
+    height: 100%;
+    &.one, &.two, &.three, &.four, &.five, &.six, &.seven, &.eight, &.nine {
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    &.one {
+        background-image: url('../bundles/frontendbundle/images/teaser/teaser-01.jpg');
+    }
+    &.two {
+        background-image: url('../bundles/frontendbundle/images/teaser/teaser-02.jpg');
+    }
+    &.three {
+        background-image: url('../bundles/frontendbundle/images/teaser/teaser-03.jpg');
+    }
+    &.four {
+        background-image: url('../bundles/frontendbundle/images/teaser/teaser-04.jpg');
+    }
+    &.five {
+        background-image: url('../bundles/frontendbundle/images/teaser/teaser-05.jpg');
+    }
+    &.six {
+        background-image: url('../bundles/frontendbundle/images/teaser/teaser-06.jpg');
+    }
+    &.seven {
+        background-image: url('../bundles/frontendbundle/images/teaser/teaser-07.jpg');
+    }
+    &.eight {
+        background-image: url('../bundles/frontendbundle/images/teaser/teaser-08.jpg');
+    }
+    &.nine {
+        background-image: url('../bundles/frontendbundle/images/teaser/teaser-09.jpg');
+    }
+    .over {
+        padding-top: 18px;
+        padding-bottom: 18px;
+        color: #fff;
+        background-color: rgba(0, 0, 0, .5);
+    }
+}

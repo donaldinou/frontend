@@ -4,13 +4,21 @@
     <title>{%- trans -%}Register{%- endtrans -%}</title>
 {%- endblock title -%}
 
+{%- block teaser -%}
+    eight
+{%- endblock teaser -%}
+
 {%- block main_content -%}
-    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 6, 'rsize': 6, 'no_padding_right': 'false' } %}
-        {% block left %}
-            <div class="theme-rent">{{ include('VitelogeFrontendBundle:Static:fragment/register-perso.html.twig') }}</div>
-        {% endblock %}
-        {% block right %}
-            <div class="theme-sale">{{ include('VitelogeFrontendBundle:Static:fragment/register-pro.html.twig') }}</div>
-        {% endblock %}
-    {% endembed %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="theme-rent">
+                {{- include('VitelogeFrontendBundle:Static:fragment/register-perso.html.twig') -}}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="theme-sale">
+                {{- include('VitelogeFrontendBundle:Static:fragment/register-pro.html.twig') -}}
+            </div>
+        </div>
+    </div>
 {%- endblock main_content -%}

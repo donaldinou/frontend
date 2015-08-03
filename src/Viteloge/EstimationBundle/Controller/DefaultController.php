@@ -33,10 +33,6 @@ class DefaultController extends Controller
             $this->get('router')->generate('viteloge_frontend_homepage')
         );
         $breadcrumbs->addItem(
-            $translated->trans('breadcrumb.estimate', array(), 'breadcrumbs'),
-            $this->get('router')->generate('viteloge_estimation_default_index')
-        );
-        $breadcrumbs->addItem(
             $translated->trans('breadcrumb.estimate', array(), 'breadcrumbs')
         );
         // --
@@ -64,10 +60,6 @@ class DefaultController extends Controller
             $this->get('router')->generate('viteloge_frontend_homepage')
         );
         $breadcrumbs->addItem(
-            $translated->trans('breadcrumb.estimate', array(), 'breadcrumbs'),
-            $this->get('router')->generate('viteloge_estimation_default_index')
-        );
-        $breadcrumbs->addItem(
             $translated->trans('breadcrumb.estimate', array(), 'breadcrumbs')
         );
         // --
@@ -91,7 +83,7 @@ class DefaultController extends Controller
             $form->handleRequest( $request );
 
             if ( $form->isValid() ) {
-                $handler = $this->get('viteloge_estimation.estimation.handler');
+                $handler = $this->get('viteloge_estimation.estimate.handler');
                 $handler->save( $estimate );
 
                 return $this->redirect(
@@ -114,8 +106,24 @@ class DefaultController extends Controller
      * @Template()
      */
     public function resultatAction( Estimate $estimate ) {
+        $translated = $this->get('translator');
 
-        $computer = $this->get( 'viteloge_estimation.estimation.computer' );
+        // Breadcrumbs
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem(
+            $translated->trans('breadcrumb.home', array(), 'breadcrumbs'),
+            $this->get('router')->generate('viteloge_frontend_homepage')
+        );
+        $breadcrumbs->addItem(
+            $translated->trans('breadcrumb.estimate', array(), 'breadcrumbs'),
+            $this->get('router')->generate('viteloge_estimation_default_index')
+        );
+        $breadcrumbs->addItem(
+            $translated->trans('breadcrumb.estimate.result', array(), 'breadcrumbs')
+        );
+        // --
+
+        $computer = $this->get( 'viteloge_estimation.estimate.computer' );
 
         $form = null;
         if ( ! $estimate->hasAgencyRequest() ) {
@@ -148,7 +156,7 @@ class DefaultController extends Controller
         $form->handleRequest( $request );
 
         if ( $form->isValid() ) {
-            $handler = $this->get('viteloge_estimation.estimation.handler');
+            $handler = $this->get('viteloge_estimation.estimate.handler');
             $handler->save( $estimate );
             return $this->redirect(
                 $this->generateUrl(
@@ -157,7 +165,7 @@ class DefaultController extends Controller
             );
         }
 
-        $computer = $this->get( 'viteloge_estimation.estimation.computer' );
+        $computer = $this->get( 'viteloge_estimation.estimate.computer' );
         $result = $computer->estimate( $estimate );
         $debug = false;
         if ( $result ) {
@@ -177,6 +185,23 @@ class DefaultController extends Controller
      * @Template()
      */
     public function contactAction() {
+        $translated = $this->get('translator');
+
+        // Breadcrumbs
+        $breadcrumbs = $this->get('white_october_breadcrumbs');
+        $breadcrumbs->addItem(
+            $translated->trans('breadcrumb.home', array(), 'breadcrumbs'),
+            $this->get('router')->generate('viteloge_frontend_homepage')
+        );
+        $breadcrumbs->addItem(
+            $translated->trans('breadcrumb.estimate', array(), 'breadcrumbs'),
+            $this->get('router')->generate('viteloge_estimation_default_index')
+        );
+        $breadcrumbs->addItem(
+            $translated->trans('breadcrumb.estimate.contact', array(), 'breadcrumbs')
+        );
+        // --
+
         return array(
 
         );

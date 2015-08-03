@@ -569,4 +569,11 @@ class InseeCity extends InseeEntity
         return $this->getName().' ('.$this->getPostalcode().')';
     }
 
+    /**
+     * @return string
+     */
+    public function getSlug() {
+        return \Gedmo\Sluggable\Util\Urlizer::urlize( $this->getName() );
+    }
+
 }

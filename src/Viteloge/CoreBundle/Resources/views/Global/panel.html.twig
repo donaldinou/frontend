@@ -1,23 +1,29 @@
 {# extends box #}
 
 {% set id = id|default('panel-' ~ random()) %}
-<div class="panel panel-default">
+<div class="{{ class|default('') ~ ' panel panel-default' }}">
     <div class="panel-heading" role="tab" id="{{ id }}-title">
         {%- block panel_heading -%}
             {%- block panel_buttons_before -%}{%- endblock panel_buttons_before -%}
             <h3 class="panel-title">
-                <a class="{% if show is not defined or not show %}collapsed{% endif %}" data-toggle="collapse" data-parent="#{{ parent }}" href="#{{ id }}" aria-expanded="true" aria-controls="{{ id }}">{%- block panel_title -%}{%- endblock panel_title -%}</a>
+                <a class="{% if show is not defined or not show %}collapsed{% endif %}" data-toggle="collapse"{% if parent is defined and parent %} data-parent="#{{ parent }}"{% endif %} href="#{{ id }}" aria-expanded="true" aria-controls="{{ id }}">{%- block panel_title -%}{%- endblock panel_title -%}</a>
             </h3>
             {%- block panel_buttons_after -%}{%- endblock panel_buttons_after -%}
         {% endblock panel_heading %}
     </div>
     <div id="{{ id }}" class="panel-collapse collapse{% if show is defined and show %} in{% endif %}" role="tabpanel" aria-labelledby="{{ id }}-title">
         {%- block panel_content -%}
+            {%- block panel_body_before -%}
+
+            {%- endblock panel_body_before -%}
             <div class="panel-body">
                 {%- block panel_body -%}
 
                 {%- endblock panel_body -%}
             </div>
+            {%- block panel_body_after -%}
+
+            {%- endblock panel_body_after -%}
             {%- if footer is defined and footer -%}
                 <div class="panel-footer">
                     {%- block panel_footer -%}

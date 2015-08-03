@@ -1,12 +1,14 @@
 {%- block alert -%}
     {% set type = type|default('danger') %}
-    {% set dismissible = dismissible|default(true) %}
+    {%- if dismissible is not defined -%}
+        {% set dismissible = true %}
+    {%- endif -%}
     {% set valid = valid|default(true) %}
     {%- if type == 'notice' -%}
         {% set type = 'info' %}
     {%- endif -%}
     {%- if type == 'success' -%}
-        {% set class = 'fa-check-sign' %}
+        {% set class = 'fa-check-circle' %}
     {%- elseif type == 'info' -%}
         {% set class = 'fa-info-circle' %}
     {%- elseif type == 'warning' -%}
@@ -23,7 +25,11 @@
 
                 {%- endblock -%}
             </strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {%- if dismissible -%}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            {%- endif -%}
             {%- block alert_messages -%}
                 <ul class="list-unstyled">
                 {%- for alert in alerts -%}

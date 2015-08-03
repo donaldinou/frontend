@@ -4,7 +4,7 @@
     {%- if websearch.deletedAt -%}
         <span class="fa fa-asterisk">&nbsp;</span>
     {%- endif -%}
-    <span class="text-capitalize">{{ websearch.title }}</span>
+    <span class="text-capitalize">{%- if websearch.title -%}{{ websearch.title }}{%- else -%}{%- trans with { '%date%': websearch.updatedAt|localizeddate('short', 'none', null) }-%}websearch.title.date{%- endtrans -%}{%- endif -%}</span>
     <span class="badge pull-right">{% transchoice websearch.newMatches with { '%count%': websearch.newMatches } %}websearch.newmatches.count{% endtranschoice %} {% trans %}websearch.on{% endtrans %} {% transchoice websearch.totalMatches with { '%count%': websearch.totalMatches } %}websearch.totalmatches.count{% endtranschoice %}</span>
 {%- endblock panel_title -%}
 

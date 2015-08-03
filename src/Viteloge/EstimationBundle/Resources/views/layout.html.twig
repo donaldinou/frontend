@@ -2,10 +2,11 @@
 
 {% block head_stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('bundles/vitelogeestimation/css/viteloge_estimation.css') }}">
+    {#<link rel="stylesheet" href="{{ asset('bundles/vitelogeestimation/css/viteloge_estimation.css') }}">#}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('bundles/vitelogeestimation/js/viteloge_estimation.js') }}"></script>
+    {#<script src="{{ asset('bundles/vitelogeestimation/js/viteloge_estimation.js') }}"></script>#}
+    <script src="{{ asset('bundles/vitelogeestimation/js/viteloge_estimation.jquery.js') }}"></script>
 {% endblock %}

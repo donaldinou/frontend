@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="fr-FR" target-language="fr" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="breadcrumb.estimate" resname="breadcrumb.estimate">
+                <source>breadcrumb.estimate</source>
+                <target>Votre estimation personnalisée</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.estimate.result" resname="breadcrumb.estimate.result">
+                <source>breadcrumb.estimate.result</source>
+                <target>Résultat</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.estimate.contact" resname="breadcrumb.estimate.contact">
+                <source>breadcrumb.estimate.contact</source>
+                <target>Demande de contact</target>
+            </trans-unit>
+            <trans-unit id="breadcrumb.statistic.city" resname="breadcrumb.statistic.city">
+                <source>breadcrumb.statistic.city</source>
+                <target>Prix immobilier pour %city%</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
