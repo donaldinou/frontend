@@ -69,7 +69,7 @@ namespace Viteloge\CoreBundle\SearchRepository {
             $adWhereDepartment = $ad->getWhereDepartment();
             if (!empty($adWhereDepartment)) {
                 $departmentTermsQuery = new \Elastica\Filter\Terms();
-                $departmentTermsQuery->setTerms('inseeDepartment.id', $adWhereDepartment);
+                $departmentTermsQuery->setTerms('inseeDepartment.department_id', $adWhereDepartment);
                 $departmentBoolQuery = new \Elastica\Filter\Bool();
                 $departmentBoolQuery->addMust($departmentTermsQuery);
                 $departmentQuery = new \Elastica\Filter\Nested();
@@ -82,7 +82,7 @@ namespace Viteloge\CoreBundle\SearchRepository {
             $adWhereState = $ad->getWhereState();
             if (!empty($adWhereState)) {
                 $stateTermsQuery = new \Elastica\Filter\Terms();
-                $stateTermsQuery->setTerms('inseeState.id', $adWhereState);
+                $stateTermsQuery->setTerms('inseeState.state_id', $adWhereState);
                 $stateBoolQuery = new \Elastica\Filter\Bool();
                 $stateBoolQuery->addMust($stateTermsQuery);
                 $stateQuery = new \Elastica\Filter\Nested();

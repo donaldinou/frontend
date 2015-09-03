@@ -7,7 +7,7 @@
     <figcaption class="estate-legend">
         <h4 class="title" itemprop="name">
             {%- block estate_title  -%}
-                <span>{{ ad.type | trans }}</span><br> à <span>{{ ad.cityName }}</span> (<span>{{ ad.postalcode }}</span>)
+                <span>{{ ad.type | trans }}</span><br> {% trans %}ad.at{% endtrans %} <span>{{ ad.cityName }}</span> (<span>{{ ad.postalcode }}</span>)
             {%- endblock estate_title -%}
         </h4>
         <p class="subtitle" data-role="description">

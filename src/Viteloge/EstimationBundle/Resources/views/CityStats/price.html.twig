@@ -1,0 +1,6 @@
+{{ include('VitelogeEstimationBundle:CityStats:fragment/surface_price.html.twig', {
+    statistics: [
+        { type: 'Appartement', city: city, date: (barometers['a']|last|default({date:null})).date, price: (barometers['a']|last|default({value:null})).value },
+        { type: 'Maison', city: city, date: (barometers['m']|last|default({date:null})).date, price: (barometers['m']|last|default({value:null})).value }
+    ]
+}) }}

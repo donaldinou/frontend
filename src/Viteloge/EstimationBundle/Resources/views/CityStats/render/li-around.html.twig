@@ -1,0 +1,4 @@
+<li>
+    <span class="fa fa-caret-right"></span>
+    <a href="{{ path( 'viteloge_estimation_citystats_city', { slug: city.slug, id: city.id }) }}">{% trans with { '%city%': city.getNameAndPostalcode() } %}Prix de l'immobilier à %city%{% endtrans %}</a>
+</li>

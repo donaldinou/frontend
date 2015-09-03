@@ -33,26 +33,6 @@ namespace Acreat\InseeBundle\Repository {
             }
         }
 
-        /**
-         * legacy: inherits from VitelogeEstimation
-         */
-        public function findNeighbors( InseeCity $city, $distance, $nb_matches ) {
-            $qb = $this->_em->createQueryBuilder();
-            $qb
-                ->select( 'distance' )
-                ->addSelect( 'city' )
-                ->from( 'VitelogeCoreBundle:Distance', 'distance' )
-                ->leftJoin( 'distance.inseeTo', 'city' )
-                ->andWhere( 'distance.inseeFrom = :city' )
-                ->andWhere( 'distance.googleDistance < :distance')
-                ->addOrderBy( 'distance.googleDistance', 'ASC' )
-                ->setParameter( 'city', $city )
-                ->setParameter( 'distance', $distance )
-                ->setMaxResults( $nb_matches )
-            ;
-            return $qb->getQuery()->getResult();
-        }
-
     }
 
 }

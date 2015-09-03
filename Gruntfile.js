@@ -34,10 +34,12 @@ module.exports = function(grunt) {
             scripts: {
                 files: {
                     'js/jquery.js': 'jquery/dist/jquery.js',
+                    'js/cookie.jquery.js': 'jquery.cookie/jquery.cookie.js',
                     'js/typeahead.js': 'typeahead.js/dist/typeahead.bundle.js',
                     'js/require.js': 'requirejs/require.js',
                     'js/domReady.js': 'requirejs-domready/domReady.js',
                     'js/hinclude.js': 'hinclude/hinclude.js',
+                    'js/owl.carousel.js' : 'OwlCarousel2/dist/owl.carousel.js',
                     'js/background-check.js': 'background-check/background-check.js',
                     'js/select2.js': 'select2/dist/js/select2.min.js',
                     'js/select2.fr.js': 'select2/dist/js/i18n/fr.js',
@@ -50,6 +52,7 @@ module.exports = function(grunt) {
                     'css/normalize.css': 'normalize.css/normalize.css',
                     'css/font-awesome.css': 'fontawesome/css/font-awesome.min.css',
                     'css/select2.css': 'select2/dist/css/select2.min.css',
+                    'css/owl.carousel.css' : 'OwlCarousel2/dist/assets/owl.carousel.css',
                 }
             }//,
             /*fonts: {
@@ -127,7 +130,9 @@ module.exports = function(grunt) {
         }, // end uglify
         watch: {
             css: {
-                files: ['src/Viteloge/FrontendBundle/Resources/scss/**'],
+                files: [
+                    'src/**/*.scss'
+                ],
                 tasks: ['css']
             },
             javascript: {

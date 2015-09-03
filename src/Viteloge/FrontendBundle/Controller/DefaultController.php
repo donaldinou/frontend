@@ -24,11 +24,15 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Route(
          *     "/",
          *     defaults={
-         *         "transaction" = "L",
+         *          "transaction" = "L",
          *     },
          *     name="viteloge_frontend_homepage",
          *     options = {
-         *         "i18n" = true
+         *          "i18n" = true,
+         *          "vl_sitemap" = {
+         *              "title" = "viteloge.frontend.default.index.title",
+         *              "description" = "viteloge.frontend.default.index.description"
+         *          }
          *     }
          * )
          * @Method({"GET"})

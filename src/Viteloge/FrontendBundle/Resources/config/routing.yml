@@ -46,6 +46,10 @@ viteloge_frontend_recommand:
     resource: "@VitelogeFrontendBundle/Controller/RecommandController.php"
     type: annotation
 
+viteloge_frontend_sitemap:
+    resource: "@VitelogeFrontendBundle/Controller/SitemapController.php"
+    type: annotation
+
 viteloge_frontend_static_about:
     path: /about
     defaults:
@@ -55,6 +59,12 @@ viteloge_frontend_static_about:
         sharedAge: 86400
     requirements:
         _method: GET
+    options:
+        vl_sitemap:
+            priority: 0.7
+            changefreq: "weekly"
+            title: viteloge.frontend.static.about.title
+            description: viteloge.frontend.static.about.description
 
 viteloge_frontend_static_why:
     path: /why
@@ -65,6 +75,12 @@ viteloge_frontend_static_why:
         sharedAge: 86400
     requirements:
         _method: GET
+    options:
+        vl_sitemap:
+            priority: 0.7
+            changefreq: "weekly"
+            title: viteloge.frontend.static.why.title
+            description: viteloge.frontend.static.why.description
 
 viteloge_frontend_static_ad:
     path: /ad
@@ -75,6 +91,12 @@ viteloge_frontend_static_ad:
         sharedAge: 86400
     requirements:
         _method: GET
+    options:
+        vl_sitemap:
+            priority: 0.7
+            changefreq: "weekly"
+            title: viteloge.frontend.static.ad.title
+            description: viteloge.frontend.static.ad.description
 
 viteloge_frontend_static_contactus:
     path: /contact-us
@@ -85,6 +107,12 @@ viteloge_frontend_static_contactus:
         sharedAge: 86400
     requirements:
         _method: GET
+    options:
+        vl_sitemap:
+            priority: 0.7
+            changefreq: "weekly"
+            title: viteloge.frontend.static.contactus.title
+            description: viteloge.frontend.static.contactus.description
 
 viteloge_frontend_static_recommand:
     path: /recommand
@@ -95,6 +123,12 @@ viteloge_frontend_static_recommand:
         sharedAge: 86400
     requirements:
         _method: GET
+    options:
+        vl_sitemap:
+            priority: 0.7
+            changefreq: "weekly"
+            title: viteloge.frontend.static.recommand.title
+            description: viteloge.frontend.static.recommand.description
 
 viteloge_frontend_static_subscribe:
     path: /subscribe
@@ -105,6 +139,12 @@ viteloge_frontend_static_subscribe:
         sharedAge: 86400
     requirements:
         _method: GET
+    options:
+        vl_sitemap:
+            priority: 0.7
+            changefreq: "weekly"
+            title: viteloge.frontend.static.subscribe.title
+            description: viteloge.frontend.static.subscribe.description
 
 viteloge_frontend_static_register:
     path: /register
@@ -115,6 +155,12 @@ viteloge_frontend_static_register:
         sharedAge: 86400
     requirements:
         _method: GET
+    options:
+        vl_sitemap:
+            priority: 0.7
+            changefreq: "weekly"
+            title: viteloge.frontend.static.register.title
+            description: viteloge.frontend.static.register.description
 
 viteloge_frontend_static_apiform:
     path: /apiform
@@ -125,6 +171,12 @@ viteloge_frontend_static_apiform:
         sharedAge: 86400
     requirements:
         _method: GET
+    options:
+        vl_sitemap:
+            priority: 0.7
+            changefreq: "weekly"
+            title: viteloge.frontend.static.apiform.title
+            description: viteloge.frontend.static.apiform.description
 
 viteloge_frontend_static_gtc:
     path: /gtc
@@ -135,6 +187,12 @@ viteloge_frontend_static_gtc:
         sharedAge: 86400
     requirements:
         _method: GET
+    options:
+        vl_sitemap:
+            priority: 0.7
+            changefreq: "weekly"
+            title: viteloge.frontend.static.gtc.title
+            description: viteloge.frontend.static.gtc.description
 
 viteloge_frontend_static_privacy:
     path: /privacy
@@ -145,13 +203,9 @@ viteloge_frontend_static_privacy:
         sharedAge: 86400
     requirements:
         _method: GET
-
-viteloge_frontend_static_sitemap:
-    path: /sitemap
-    defaults:
-        _controller: FrameworkBundle:Template:template
-        template: 'VitelogeFrontendBundle:Static:privacy.html.twig'
-        maxAge: 86400
-        sharedAge: 86400
-    requirements:
-        _method: GET
+    options:
+        vl_sitemap:
+            priority: 0.7
+            changefreq: "weekly"
+            title: viteloge.frontend.static.privacy.title
+            description: viteloge.frontend.static.privacy.description

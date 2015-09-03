@@ -126,6 +126,13 @@ namespace Acreat\InseeBundle\Entity {
         }
 
         /**
+         * @return string
+         */
+        public function getSlug() {
+            return \Gedmo\Sluggable\Util\Urlizer::urlize( $this->getName() );
+        }
+
+        /**
          *
          */
         public function __toString() {

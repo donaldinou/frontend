@@ -1,0 +1,23 @@
+{%- if not app.request.cookies.has('acceptCookies') -%}
+<div id="cookie-policy" class="theme-default cookie-policy bottom panel panel-default alert alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert" aria-label="{% trans %}viteloge.close{% endtrans %}"><span aria-hidden="true">&times;</span></button>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-xs-10 text-justify">
+                <span>{% trans %}viteloge.cookies.accept.policy{% endtrans %}</span>
+                <br>
+                <a href="{{ path('viteloge_frontend_static_privacy') }}" class="">
+                    <span class="fa fa-caret-right"></span>
+                    <span>{% trans %}viteloge.more.read{% endtrans %}</span>
+                </a>
+            </div>
+            <div class="col-xs-2">
+                <a href="#" class="accept-policy btn btn-primary" data-parent="#cookie-policy" role="button">
+                    <span class="fa fa-check"></span>
+                    <span>{% trans %}viteloge.gotit{% endtrans %}</span>
+                </a>
+            </div>
+        <div>
+    </div>
+</div>
+{%- endif -%}

@@ -90,7 +90,7 @@ fos_elastica:
                                     property_path: uname
                                 department_name:
                                     property_path: name
-                                id:
+                                department_id:
                                     property_path: id
                                     type: "string"
                     persistence:

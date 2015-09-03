@@ -1,0 +1,20 @@
+<div class="row-no-padding suggestions clearfix">
+    <div class="col-md-5">
+        <ul class="queries list-unstyled">
+            {%- for city in cities|slice(0, (cities|length)/2) %}
+                {{ include('VitelogeEstimationBundle:CityStats:render/li-around.html.twig', { city: city.inseeTo }) }}
+            {% else %}
+                <li>{% trans %}No more suggestions{% endtrans %}</li>
+            {% endfor -%}
+        </ul>
+    </div>
+    <div class="col-md-5">
+        <ul class="queries list-unstyled">
+            {%- for city in cities|slice((cities|length)/2, cities|length) %}
+                {{ include('VitelogeEstimationBundle:CityStats:render/li-around.html.twig', { city: city.inseeTo }) }}
+            {% else %}
+                <li>{% trans %}No more suggestions{% endtrans %}</li>
+            {% endfor -%}
+        </ul>
+    </div>
+</div>

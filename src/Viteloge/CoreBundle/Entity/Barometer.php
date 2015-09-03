@@ -340,6 +340,10 @@ namespace Viteloge\CoreBundle\Entity {
          * @return \DateTime
          */
         public function getCreatedAt() {
+            if (!$this->createdAt instanceof \DateTime) {
+                $this->createdAt = new \DateTime();
+                $this->updateCreatedAt();
+            }
             return $this->createdAt;
         }
     }

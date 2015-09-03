@@ -10,7 +10,7 @@
                 </div>
             {%- endblock panel_buttons_before -%}
             {%- block panel_title -%}
-                {% trans with { name : '%name%' } %}Area's from {% endtrans %}&nbsp;{{ inseeCity.name }}
+                {% trans with { '%name%': inseeCity.name } %}glossary.area.from.name{% endtrans %}
             {%- endblock panel_title -%}
             {%- block panel_content -%}
                 <ul class="list-group">

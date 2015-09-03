@@ -1,0 +1,7 @@
+{% extends 'VitelogeFrontendBundle::base.html.twig' %}
+
+{%- block main -%}
+    {%- for key, state in states -%}
+        {{ dump(state) }}
+    {%- endfor -%}
+{%- endblock -%}

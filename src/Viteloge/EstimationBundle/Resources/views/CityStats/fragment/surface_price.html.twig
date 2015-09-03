@@ -12,35 +12,23 @@
 {%- endblock panel_title -%}
 
 {%- block panel_body -%}
-    <span>{%- trans with { '%count%': 157, '%city%': city } -%}Ce calcul se base sur les %count% biens actuellement en vente sur la ville de %city% et référencé sur Vitelogé.{%- endtrans -%}</span><br>
-    <a href="{{ path('viteloge_frontend_ad_search', { where: city.id }) }}">Voir ses biens</a>
+    <span class="text-secondary">{%- trans with { '%count%': barometers.total, '%city%': city } -%}Ce calcul se base sur les %count% biens actuellement en vente sur la ville de %city% et référencé sur Vitelogé.{%- endtrans -%}</span>
+    <a href="{{ path('viteloge_frontend_ad_search', { where: city.id }) }}" class="text-secondary">Voir ces biens</a>
 {%- endblock panel_body -%}
 
 {%- block panel_body_before -%}
     <ul class="list-group">
-        {%- for item in surfaces -%}
-            <li class="list-group-item">
-                <div class="clearfix">
-                    <div class="col-md-6">
-                        <div class="row">
-                            <h5><strong>{{ item.type }} {{ city.prefix }} {{ city }}</strong></h5>
-                            <span>{%- trans with { '%date%': item.date|localizeddate('long', 'none', null) } -%}prix moyen du m² au %date%{%- endtrans -%}</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <strong>{{ item.price|localizedcurrency('EUR') }}</strong>
-                    </div>
-                </div>
-            </li>
+        {%- for item in statistics -%}
+            {{ include('VitelogeEstimationBundle:CityStats:render/li-surface_price.html.twig') }}
         {%- endfor -%}
     </ul>
 {%- endblock panel_body_before -%}
 
 {%- block panel_footer -%}
-    <div class="text-right">
+    <div class="text-center">
         <a href="{{ path('viteloge_estimation_default_index') }}" class="btn btn-primary" role="button">
-            <span class="'icon-icon-calculator"></span>
-            <span>{% trans %}Estimate{% endtrans %}</span>
+            <span class="icon-icon-calculator"></span>
+            <span>{% trans %}estimation.label.save{% endtrans %}</span>
         </a>
     </div>
 {%- endblock panel_footer -%}

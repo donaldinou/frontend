@@ -10,8 +10,6 @@
         {{ form_row(form.inseeCity) }}
     </div>
 
-    <h4>{{ 'votre_bien' | trans }}</h4>
-
     <div class="panel-group" id="estimate-form" role="tablist" aria-multiselectable="true">
         {%- block form_localisation -%}
             {%- embed 'VitelogeCoreBundle:Global:panel.html.twig' with { id: 'estimate-localisation', parent: 'estimate-form', show: true, footer: true } -%}

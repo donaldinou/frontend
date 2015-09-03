@@ -15,76 +15,25 @@
     {%- endembed -%}
 {%- endblock -%}
 
-{% block main %}
-    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
-        {% block left %}
-            {{ include('VitelogeEstimationBundle:CityStats:fragment/surface_price.html.twig', {
-                surfaces: [
-                    { type: 'Appartement', city: city, date: (barometres['a']|last).date, price: (barometres['a']|last).value },
-                    { type: 'Maison', city: city, date: (barometres['m']|last).date, price: (barometres['m']|last).value },
+{%- block main -%}
+    {%- embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } -%}
+        {%- block left -%}
+            {{- include('VitelogeEstimationBundle:CityStats:fragment/surface_price.html.twig', {
+                barometers: barometres,
+                statistics: [
+                    { type: 'Appartement', city: city, date: (barometres['a']|last|default({date:null})).date, price: (barometres['a']|last|default({value:null})).value, total: barometres.total },
+                    { type: 'Maison', city: city, date: (barometres['m']|last|default({date:null})).date, price: (barometres['m']|last|default({value:null})).value, total: barometres.total },
                 ]
-            }) }}
-
-  <h2>{{ 'city_eval.map.title' | trans({'%name%': city.getname(true), '%cp%': city.postalCode, '%charniere%': city.prefixID|trans() }) }}</h2>
-  <div class="map" data-loc="{{ { lat: city.lat, lon: city.lng } | json_encode }}" data-type-m="{{ barometres.m | last | json_encode }}" data-type-a="{{ barometres.a | last | json_encode }}">
-  </div>
-  <div class="show-for-small">
-    {% for type in [ 'a', 'm' ] if barometres[type]|length > 0 %}
-      <div id="overlay_price_{{ type }}" class="price_overlay">
-        <h3>{% set title = 'estimation.type.' ~ (type|upper) %}{{ title|trans }}</h3>
-        <p>{{ 'city_eval.map.price_info' | trans({"%formatted_date%": (barometres[type]|last).date|localizeddate('short', 'none', null) }) }}</p>
-        <p class="price">{{ (barometres[type]|last).value| number_format( 0, ',', ' ') }} €</p>
-      </div>
-    {% endfor %}
-  </div>
-
-  {% if barometres.a|length > 0 or barometres.m|length > 0 %}
-    <p> {{ 'city_eval.description.intro' | trans({ '%name%': city.getName(true), '%charniere%': city.prefixId })}}<br>
-      {% if barometres.a|length > 0 and barometres.m|length > 0 %}
-        {{ 'city_eval.description.houses_and_flats'| trans({ '%flats_price%': (barometres.a | last).value | number_format( 0, ',', ' '), '%houses_price%': (barometres.m | last).value | number_format( 0, ',', ' '), '%name%': city.getName(true), '%charniere%': city.prefixId }) }}
-      {% elseif barometres.a|length > 0 %}
-        {{ 'city_eval.description.flats'| trans({ '%flats_price%': (barometres.a | last).value | number_format( 0, ',', ' '), '%name%': city.getName(true), '%charniere%': city.prefixId }) }}
-      {% elseif barometres.m|length > 0 %}
-        {{ 'city_eval.description.houses'| trans({ '%houses_price%': (barometres.m | last).value | number_format( 0, ',', ' '), '%name%': city.getName(true), '%charniere%': city.prefixId }) }}
-      {% endif %}
-    </p>
-
-    <p>{{ 'city_eval.description.source' | trans({ '%count%': ((barometres.a|length > 0 ? (barometres.a|last).nb : 0) + (barometres.m|length > 0 ? (barometres.m|last).nb : 0)) | number_format( 0, ',', ' '), '%name%': city.Name }) }}</p>
-  {% endif %}
-
-            {{ include('VitelogeEstimationBundle:CityStats:form/intro_estimate.html.twig', { form: form }) }}
-
-  <h2 class="pre_framed">{{ 'city_eval.graph.title' | trans({ '%name%': city.getname(true), '%cp%': city.postalCode, '%charniere%': city.prefixId }) }}</h2>
-  {% if barometres.m|length > 0 or barometres.a|length > 0 %}
-    <div class="graph"
-         data-type-m="{{ barometres.m | json_encode }}"
-         data-legend-type-m="{{ 'estimation.type.M' | trans }}"
-         data-type-a="{{ barometres.a | json_encode }}"
-         data-legend-type-a="{{ 'estimation.type.A' | trans }}">
-    </div>
-  {% else %}
-    <div class="panel">
-      <p>{{ 'city_eval.graph.nodata' | trans( { '%name%': city.getname(true), '%charniere%': city.prefixId }) }}</p>
-    </div>
-  {% endif %}
-
-  <p></p>
-
-  {% if surrounding_cities|length > 0 %}
-    <h2 class="pre_framed">{{ 'city_eval.links.title' | trans({ '%name%': city.name, '%cp%': city.postalCode }) }}</h2>
-
-    <ul class="framed city_links">
-      {% for distance in surrounding_cities %}
-        <li><a href="{{ path( 'viteloge_estimation_citystats_city', { slug: distance.inseeTo.slug, id: distance.inseeTo.id }) }}">{{ 'city_eval.links.txt' | trans({ '%name%': distance.inseeTo.getname(true), '%charniere%': distance.inseeTo.prefixId}) }}</a></li>
-      {% endfor %}
-    </ul>
-  {% endif %}
-
-
-
-{% endblock left %}
-        {% block right %}
-            {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
-        {% endblock %}
-    {% endembed %}
-{% endblock main %}
+            }) -}}
+            {{- include('VitelogeEstimationBundle:CityStats:form/intro_estimate.html.twig', { form: form }) -}}
+            {{- include('VitelogeEstimationBundle:CityStats:fragment/chart.html.twig', { barometers: barometres }) -}}
+            <section class="clearfix">
+                <h3 class="text-uppercase text-center">{%- trans with { '%city%': city.getNameAndPostalcode() } -%}Prix au m² des villes proches de %city%{%- endtrans -%}</h3>
+                {{- include('VitelogeEstimationBundle:CityStats:fragment/around.html.twig', { cities: surrounding_cities }) -}}
+            </section>
+        {%- endblock left -%}
+        {%- block right -%}
+            {{- include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) -}}
+        {%- endblock -%}
+    {%- endembed -%}
+{%- endblock main -%}

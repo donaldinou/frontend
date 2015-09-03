@@ -1,0 +1,15 @@
+{%- if item.price > 0 -%}
+<li class="list-group-item">
+    <div class="clearfix">
+        <div class="col-md-6">
+            <div class="row">
+                <h5><strong>{{ item.type }} {{ city.prefix }} {{ city }}</strong></h5>
+                <span>{%- trans with { '%date%': item.date|localizeddate('long', 'none', null) } -%}prix moyen du m² au %date%{%- endtrans -%}</span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <strong>{{ item.price|localizedcurrency('EUR') }}</strong>
+        </div>
+    </div>
+</li>
+{%- endif -%}

@@ -35,24 +35,28 @@ namespace Viteloge\CoreBundle\Form\Type {
             $distanceEnum = new DistanceEnum();
             $builder
                 ->add('transaction', 'choice', array(
+                    'label' => 'ad.transaction',
                     'choices' => $transactionEnum->choices(),
                     'expanded' => true,
                     'multiple' => false,
                     'preferred_choices' => array()
                 ))
                 ->add('where', 'choice', array(
+                    'label' => 'ad.where',
                     'choices' => array(),
                     'expanded' => false,
                     'multiple' => true,
                     'preferred_choices' => array()
                 ))
                 ->add('what', 'choice', array(
+                    'label' => 'ad.what',
                     'choices' => $typeEnum->choices(),
                     'expanded' => false,
                     'multiple' => true,
                     'preferred_choices' => array()
                 ))
                 ->add('rooms', 'choice', array(
+                    'label' => 'ad.rooms',
                     'choices' => $roomEnum->choices(),
                     'expanded' => false,
                     'multiple' => true,
@@ -85,6 +89,7 @@ namespace Viteloge\CoreBundle\Form\Type {
             $formModifier = function (FormInterface $form, $cities) {
                 $choices = (empty($cities)) ? array() : $cities;
                 $form->add('where', 'entity', array(
+                    'label' => 'ad.where',
                     'class' => 'AcreatInseeBundle:InseeCity',
                     'data_class' => null,
                     'property' => 'getNameAndPostalcode',

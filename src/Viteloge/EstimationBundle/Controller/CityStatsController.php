@@ -20,7 +20,12 @@ use Viteloge\CoreBundle\Entity\Estimate;
 class CityStatsController extends Controller
 {
     /**
-     * @Route("{slug}/{id}",requirements={"id"="^[0-9][0-9abAB][0-9]+"})
+     * @Route(
+     *     "/{slug}/{id}",
+     *     requirements={
+     *         "id"="^[0-9][0-9abAB][0-9]+"
+     *     }
+     * )
      * @ParamConverter("inseeCity", class="AcreatInseeBundle:InseeCity", options={"id" = "id"})
      * @Template()
      */
@@ -52,6 +57,37 @@ class CityStatsController extends Controller
             $translated->trans('breadcrumb.home', array(), 'breadcrumbs'),
             $this->get('router')->generate('viteloge_frontend_homepage')
         );
+        if ($inseeCity->getInseeState()){
+            $breadcrumbs->addItem(
+                $inseeCity->getInseeState()->getFullname(),
+                $this->get('router')->generate('viteloge_frontend_glossary_showstate',
+                    array(
+                        'name' => $inseeCity->getInseeState()->getSlug(),
+                        'id' => $inseeCity->getInseeState()->getId()
+                    )
+                )
+            );
+        }
+        if ($inseeCity->getInseeDepartment()) {
+            $breadcrumbs->addItem(
+                $inseeCity->getInseeDepartment()->getFullname(),
+                $this->get('router')->generate('viteloge_frontend_glossary_showdepartment',
+                    array(
+                        'name' => $inseeCity->getInseeDepartment()->getSlug(),
+                        'id' => $inseeCity->getInseeDepartment()->getId()
+                    )
+                )
+            );
+        }
+        $breadcrumbs->addItem(
+            $inseeCity->getFullname(),
+            $this->get('router')->generate('viteloge_frontend_glossary_showcity',
+                array(
+                    'name' => $inseeCity->getSlug(),
+                    'id' => $inseeCity->getId()
+                )
+            )
+        );
         $breadcrumbs->addItem(
             $translated->trans('breadcrumb.statistic.city', array('%city%' => $inseeCity->getName()), 'breadcrumbs')
         );
@@ -59,7 +95,7 @@ class CityStatsController extends Controller
 
         $om = $this->getDoctrine()->getManager();
         $baro_repo = $om->getRepository( 'VitelogeCoreBundle:Barometer' );
-        $city_repo = $om->getRepository( 'AcreatInseeBundle:InseeCity' );
+        $dist_repo = $om->getRepository( 'VitelogeCoreBundle:Distance' );
 
         $barometers = $baro_repo->findSortedSalesFor( $inseeCity );
 
@@ -84,7 +120,7 @@ class CityStatsController extends Controller
             'mapOptions' => $mapOptions,
             'form' => $form->createView(),
             'barometres' => $barometers,
-            'surrounding_cities' => $city_repo->findNeighbors( $inseeCity, 30, 8 ),
+            'surrounding_cities' => $dist_repo->findNeighbors( $inseeCity, 30, 8 ),
             'main_title' => $translated->trans( 'city_eval.main_title', array(
                 '%name%' => $inseeCity->getName( true ),
                 '%cp%' => $inseeCity->getPostalCode(),
@@ -100,21 +136,69 @@ class CityStatsController extends Controller
 
     /**
      * @Route(
-     *     "/around/{id}",
+     *     "price/{slug}/{id}",
      *     requirements={
-     *         "id"="\d+",
-     *         "limit"="\d+"
+     *         "id"="\d+"
+     *     },
+     *     name="viteloge_estimation_statistic_price"
+     * )
+     * Cache(expires="tomorrow", public=true)
+     * @Method({"GET"})
+     * @ParamConverter("inseeCity", class="AcreatInseeBundle:InseeCity", options={"id" = "id"})
+     * @Template()
+     */
+    public function priceAction(Request $request, InseeCity $inseeCity) {
+        $baro_repo = $this->getDoctrine()->getRepository( 'VitelogeCoreBundle:Barometer' );
+        $barometers = $baro_repo->findSortedSalesFor( $inseeCity );
+
+        return array(
+            'city' => $inseeCity,
+            'barometers' => $barometers
+        );
+    }
+
+    /**
+     * @Route(
+     *     "history/{slug}/{id}",
+     *     requirements={
+     *         "id"="\d+"
+     *     },
+     *     name="viteloge_estimation_statistic_history"
+     * )
+     * Cache(expires="tomorrow", public=true)
+     * @Method({"GET"})
+     * @ParamConverter("inseeCity", class="AcreatInseeBundle:InseeCity", options={"id" = "id"})
+     * @Template()
+     */
+    public function historyAction(Request $request, InseeCity $inseeCity) {
+        $baro_repo = $this->getDoctrine()->getRepository( 'VitelogeCoreBundle:Barometer' );
+        $barometers = $baro_repo->findSortedSalesFor( $inseeCity );
+
+        return array(
+            'city' => $inseeCity,
+            'barometers' => $barometers
+        );
+    }
+
+    /**
+     * @Route(
+     *     "around/{slug}/{id}",
+     *     requirements={
+     *         "id"="\d+"
      *     },
      *     name="viteloge_estimation_statistic_around"
      * )
      * Cache(expires="tomorrow", public=true)
      * @Method({"GET"})
+     * @ParamConverter("inseeCity", class="AcreatInseeBundle:InseeCity", options={"id" = "id"})
      * @Template()
      */
     public function aroundAction(Request $request, InseeCity $inseeCity) {
+        $dist_repo = $this->getDoctrine()->getRepository( 'VitelogeCoreBundle:Distance' );
+        $cities = $dist_repo->findNeighbors( $inseeCity, 30, 8 );
 
         return array(
-
+            'cities' => $cities
         );
     }
 

@@ -71,6 +71,9 @@
             }
         }
     }
+    &.facebook, &.twitter {
+        vertical-align: bottom;
+    }
 }
 .rounded-icon {
     @extend .round-icon;

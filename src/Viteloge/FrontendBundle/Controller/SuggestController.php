@@ -70,6 +70,66 @@ namespace Viteloge\FrontendBundle\Controller {
             );
         }
 
+        /**
+         * @Route(
+         *     "/states/{_format}",
+         *      requirements={
+         *          "_format"="html|json"
+         *      },
+         *      defaults={
+         *          "_format"="json"
+         *      },
+         *     name="viteloge_frontend_suggest_states",
+         *     options = {
+         *         "i18n" = true
+         *     }
+         * )
+         * @Cache(expires="tomorrow", public=true)
+         * @Method({"GET"})
+         * @Template()
+         */
+        public function statesAction( Request $request, $_format ) {
+            $search = $request->get('q', '');
+
+            $repository = $this->getDoctrine()
+                ->getRepository('AcreatInseeBundle:InseeState');
+            $result = $repository->findAll();
+
+            return array(
+                'states' => $result
+            );
+        }
+
+        /**
+         * @Route(
+         *     "/departments/{_format}",
+         *      requirements={
+         *          "_format"="html|json"
+         *      },
+         *      defaults={
+         *          "_format"="json"
+         *      },
+         *     name="viteloge_frontend_suggest_departments",
+         *     options = {
+         *         "i18n" = true
+         *     }
+         * )
+         * @Cache(expires="tomorrow", public=true)
+         * @Method({"GET"})
+         * @Template()
+         */
+        public function departmentsAction( Request $request, $_format) {
+            $search = $request->get('q', '');
+
+            $repository = $this->getDoctrine()
+                ->getRepository('AcreatInseeBundle:InseeDepartment');
+            $result = $repository->findAll();
+
+            return array(
+                'departments' => $result
+            );
+        }
+
     }
 
 }

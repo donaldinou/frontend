@@ -1,0 +1,3 @@
+{%- for url in urls -%}
+    {{ include('VitelogeFrontendBundle:Sitemap:render/element.html.twig', { url: url } ) }}
+{%- endfor -%}

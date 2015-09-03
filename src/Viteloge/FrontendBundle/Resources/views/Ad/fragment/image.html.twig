@@ -1,11 +1,11 @@
 {%- if ad.privilege.isExclu -%}
     {{ include('VitelogeCoreBundle:Global:sticker.html.twig', { title: 'ad.sticker.exlusivity'|trans }) }}
 {%- endif -%}
-<a href="{{ path('viteloge_frontend_ad_redirect', { 'id': ad.id }) }}" class="preview">
-    <img itemprop="image" src="{{ 'http://img.viteloge.com/' ~ ad.photo }}" class="img-responsive" alt="">
+<a href="{{ path('viteloge_frontend_ad_redirect', { 'id': ad.id }) }}" class="preview" target="_blank">
+    <img itemprop="image" src="{{ 'http://media.viteloge.com/' ~ ad.photo }}" class="img-responsive" alt="">
 </a>
 {%- if ad.privilege.hasLogo -%}
 <div class="pos-relative">
-    <img itemprop="logo" src="{{ 'http://img.viteloge.com/logos/agence.' ~ ad.agencyId ~ '.gif' }}" class="agency-logo img-responsive" alt="logo">
+    <img itemprop="logo" src="{{ 'http://media.viteloge.com/logos/agence.' ~ ad.agencyId ~ '.gif' }}" class="agency-logo img-responsive" alt="logo">
 </div>
 {%- endif -%}

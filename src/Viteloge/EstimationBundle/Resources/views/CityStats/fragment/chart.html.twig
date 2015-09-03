@@ -1,0 +1,25 @@
+{% extends 'VitelogeCoreBundle:Global:panel.html.twig' %}
+
+{%- set show = show|default(true) -%}
+{%- set footer = footer|default(false) -%}
+
+{%- block panel_buttons_before -%}
+    {{ include('VitelogeCoreBundle:Global:panel/button_plus.html.twig') }}
+{%- endblock panel_buttons_before -%}
+
+{%- block panel_title -%}
+    {%- trans with { '%city%': city.getNameAndPostalcode() } -%}Évolution du prix du m² à %city%{%- endtrans -%}
+{%- endblock panel_title -%}
+
+{%- block panel_body -%}
+    {%- if barometers.m|length > 0 or barometers.a|length > 0 -%}
+        <div class="graph"
+            data-type-m="{{ barometers.m | json_encode }}"
+            data-legend-type-m="{{ 'estimation.type.M' | trans }}"
+            data-type-a="{{ barometers.a | json_encode }}"
+            data-legend-type-a="{{ 'estimation.type.A' | trans }}">
+        </div>
+    {%- else -%}
+        {% trans %}No result{% endtrans %}
+    {%- endif -%}
+{%- endblock panel_body -%}

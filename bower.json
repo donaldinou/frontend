@@ -20,6 +20,7 @@
   ],
   "dependencies": {
     "jquery": "latest",
+    "jquery.cookie": "latest",
     "normalize.css": "latest",
     "requirejs": "latest",
     "requirejs-domready": "latest",
@@ -27,6 +28,7 @@
     "typeahead.js": "latest",
     "fontawesome": "latest",
     "bootstrap-sass": "~3.3.4",
+    "OwlCarousel2": "latest",
     "background-check": "latest",
     "hover": "~2.0.2",
     "select2": "latest",

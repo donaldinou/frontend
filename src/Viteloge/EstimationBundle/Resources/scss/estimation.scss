@@ -1,0 +1,34 @@
+.graph {
+    width: 100%;
+    height: 300px;
+    border: 1px solid #ddd;
+
+    .axis path, .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    .line {
+        fill: none;
+        stroke-width: 1.5px;
+    }
+    .type_a {
+        stroke: $rent-color;
+    }
+    .type_m {
+        stroke: $sale-color;
+    }
+
+    .x.axis line, .y.axis line {
+        stroke: lightgrey;
+    }
+
+    .x.axis path {
+        display: none;
+    }
+
+    .legend rect.type_a { fill: $rent-color; }
+    .legend rect.type_m { fill: $sale-color; }
+
+}

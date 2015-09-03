@@ -22,22 +22,17 @@
                 {%- block sortable -%}
                     {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") or not app.user %}
                         {{ render_hinclude(path('viteloge_frontend_user_registermodal', {})) }}
-                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#register-modal">{%- trans -%}Trier{%- endtrans -%}</button>
+                        <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#register-modal">{%- trans -%}ad.order{%- endtrans -%}</button>
                     {%- else -%}
                         <select name="sort" class="sortable">
-                            <optgroup label="Defaut">
-                                <option value="ASC" data-url="{{ path('viteloge_frontend_ad_search', app.request.query.all|merge(app.request.attributes.get('_route_params'))|merge({'sort': 'default', 'direction': 'asc'})) }}"{% if app.request.query.get('direction') == 'asc' and app.request.query.get('sort') == 'default' %} selected="selected"{% endif %}>ASC</option>
-                                <option value="DESC" data-url="{{ path('viteloge_frontend_ad_search', app.request.query.all|merge(app.request.attributes.get('_route_params'))|merge({'sort': 'default', 'direction': 'desc'})) }}"{% if (app.request.query.get('direction') == 'desc' or not app.request.query.get('direction')) and (app.request.query.get('sort') == 'default' or not app.request.query.get('sort')) %} selected="selected"{% endif %}>DESC</option>
-                            </optgroup>
-                            <optgroup label="Date">
-                                <option value="ASC" data-url="{{ path('viteloge_frontend_ad_search', app.request.query.all|merge(app.request.attributes.get('_route_params'))|merge({'sort': 'createdAt', 'direction': 'asc'})) }}"{% if app.request.query.get('direction') == 'asc' and app.request.query.get('sort') == 'createdAt' %} selected="selected"{% endif %}>ASC</option>
-                                <option value="DESC" data-url="{{ path('viteloge_frontend_ad_search', app.request.query.all|merge(app.request.attributes.get('_route_params'))|merge({'sort': 'createdAt', 'direction': 'desc'})) }}"{% if app.request.query.get('direction') == 'desc' and app.request.query.get('sort') == 'createdAt' %} selected="selected"{% endif %}>DESC</option>
-                            </optgroup>
-                            <optgroup label="Prix">
-                                <option value="ASC" data-url="{{ path('viteloge_frontend_ad_search', app.request.query.all|merge(app.request.attributes.get('_route_params'))|merge({'sort': 'price', 'direction': 'asc'})) }}"{% if app.request.query.get('direction') == 'asc' and app.request.query.get('sort') == 'price' %} selected="selected"{% endif %}>ASC</option>
-                                <option value="DESC" data-url="{{ path('viteloge_frontend_ad_search', app.request.query.all|merge(app.request.attributes.get('_route_params'))|merge({'sort': 'price', 'direction': 'desc'})) }}"{% if app.request.query.get('direction') == 'desc' and app.request.query.get('sort') == 'price' %} selected="selected"{% endif %}>DESC</option>
-                            </optgroup>
+                            <option value="default" data-url="{{ path('viteloge_frontend_ad_search', app.request.query.all|merge(app.request.attributes.get('_route_params'))|merge({'sort': 'default'})) }}" {% if app.request.query.get('sort') == 'default' %} selected="selected"{% endif %}>{% trans %}ad.sort.default{% endtrans %}</option>
+                            <option value="createdAt" data-url="{{ path('viteloge_frontend_ad_search', app.request.query.all|merge(app.request.attributes.get('_route_params'))|merge({'sort': 'createdAt'})) }}" {% if app.request.query.get('sort') == 'createdAt' %} selected="selected"{% endif %}>{% trans %}ad.sort.createdat{% endtrans %}</option>
+                            <option value="price" data-url="{{ path('viteloge_frontend_ad_search', app.request.query.all|merge(app.request.attributes.get('_route_params'))|merge({'sort': 'price'})) }}" {% if app.request.query.get('sort') == 'price' %} selected="selected"{% endif %}>{% trans %}ad.sort.price{% endtrans %}</option>
                         </select>
+                        <a href="{{ path('viteloge_frontend_ad_search', app.request.query.all|merge(app.request.attributes.get('_route_params'))|merge({'direction': (app.request.query.get('direction') == 'asc') ? 'desc' : 'asc'})) }}" data-url="{{ path('viteloge_frontend_ad_search', app.request.query.all|merge(app.request.attributes.get('_route_params'))|merge({'direction': (app.request.query.get('direction') == 'asc') ? 'desc' : 'asc'})) }}">
+                            <span>{% trans %}ad.order{% endtrans %}</span>
+                            <span class="fa {% if app.request.query.get('direction') == 'asc' %}fa-angle-up{% else %}fa-angle-down{% endif %}"></span>
+                        </a>
                     {%- endif -%}
                 {%- endblock sortable -%}
                 {%- endif -%}
@@ -45,11 +40,11 @@
         </div>
         <div class="clearfix">
         {%- for ad in ads -%}
-            <div class="theme-{{ad.transaction}}">{{ include('VitelogeFrontendBundle:Ad:render/list.html.twig', { 'ad': ad }) }}</div>
+            <div class="theme-{{ad.transaction}}">{{- include('VitelogeFrontendBundle:Ad:render/list.html.twig', { 'ad': ad }) -}}</div>
         {%- else -%}
-            <div class="highlight">{% trans %}ad.noresult{% endtrans %}</div>
+            <br>{{- include('VitelogeCoreBundle:Global:alert.html.twig', { type: 'info', alerts: { 0: 'ad.noresult'|trans }, dismissible: false }) -}}
         {%- endfor -%}
         </div>
-        {{ block('pagination') }}
+        {{- block('pagination') -}}
     </div>
 </div>

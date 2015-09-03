@@ -61,12 +61,18 @@ namespace Viteloge\CoreBundle\Repository {
             $result = $qb->getQuery()->getResult();
             $end_result = array( 'a' => array(), 'm' => array() );
             foreach ( $result as $barometre ) {
+                //var_dump(get_class($barometre));die;
                 $end_result[$barometre->getType()][] = array(
-                    'date' => $barometre->getCreatedAt(),
+                    //'date' => $barometre->getCreatedAt(),
+                    'date' => sprintf( '%4d%02d', $barometre->getYear(), $barometre->getMonth() ),
                     'value' => round( $barometre->getAvgSqm() ),
                     'nb' => $barometre->getTotal()
                 );
             }
+
+            $lastHome = end($end_result['m']);
+            $lastAppt = end($end_result['m']);
+            $end_result['total'] = (float)$lastHome['nb']+(float)$lastAppt['nb'];
             return $end_result;
         }
     }

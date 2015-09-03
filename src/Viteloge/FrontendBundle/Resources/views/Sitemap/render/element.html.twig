@@ -1,0 +1,13 @@
+<a href="{{ url.loc }}" class="list-group-item"{% if url.hasChild() %} data-ajax="http://dev.viteloge.com/sitemap/section/35" data-ajax-parent="#list-sitemap" data-ajax-animate=""{% endif %}>
+    <div class="row">
+        <div class="col-xs-10">
+            <h4 class="list-group-item-heading">{{ url.name }}</h4>
+            <p>{{ url.description }}</p>
+        </div>
+        <div class="col-xs-2 text-right">
+            {%- if url.hasChild() -%}
+                <span class="fa fa-chevron-right"></span>
+            {%- endif -%}
+        </div>
+    </div>
+</a>

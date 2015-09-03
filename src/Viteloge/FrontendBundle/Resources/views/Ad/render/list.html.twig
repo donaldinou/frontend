@@ -7,7 +7,7 @@
     <header class="col-md-8">
         <h4 class="title" itemprop="name">
             {%- block estate_title -%}
-                <span>{{ ad.type }}</span><br> à <span>{{ ad.cityName }}</span> (<span>{{ ad.postalcode }}</span>)
+                <span>{{ ad.type }}</span><br> {% trans %}ad.at{% endtrans %} <span>{{ ad.cityName }}</span> (<span>{{ ad.postalcode }}</span>)
             {%- endblock -%}
         </h4>
         <sub class="subtitle">
@@ -33,45 +33,49 @@
         <ul class="nav nav-pills pull-right" role="tablist" aria-multiselectable="true">
             {% if ad.privilege.isAgency %}
             <li role="presentation" class="active" itemscope itemtype="https://schema.org/RealEstateAgent">
-                <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="collapse" itemprop="url">
-                    <span class="fa fa-envelope" itemprop="legalName"></span>&nbsp;{{ ad.agencyName }}
+                <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="collapse" data-parent="#estate-{{ ad.id }}-tab" itemprop="url">
+                    <span class="fa fa-envelope" itemprop="legalName"></span>
+                    <span>{{ ad.agencyName }}</span>
                 </a>
             </li>
             {% endif %}
             <li role="presentation" class="">
                 <a href="{{ path('viteloge_frontend_ad_redirect', { 'id': ad.id }) }}" class="" role="tab" rel="nofollow" target="_blank">
-                    <span class="fa fa-desktop"></span>&nbsp;Visit
+                    <span class="fa fa-desktop"></span>
+                    <span>{% trans %}ad.visit{% endtrans %}</span>
                 </a>
             </li>
             <li role="presentation" class="">
-                <a id="estate-{{ ad.id }}-share-lnk" href="#estate-{{ ad.id }}-share" class="" role="tab" aria-controls="estate-{{ ad.id }}-share" aria-expanded="false" data-toggle="collapse">
-                    <span class="fa fa-share"></span>&nbsp;Share
+                <a id="estate-{{ ad.id }}-share-lnk" href="#estate-{{ ad.id }}-share" class="" role="tab" aria-controls="estate-{{ ad.id }}-share" aria-expanded="false" data-toggle="collapse" data-parent="#estate-{{ ad.id }}-tab">
+                    <span class="fa fa-share"></span>
+                    <span>{% trans %}ad.share{% endtrans %}</span>
                 </a>
             </li>
             {% if is_granted('ROLE_OPERATOR') %}
                 <li role="presentation" class="">
-                    <a id="estate-{{ ad.id }}-debug-lnk" href="#estate-{{ ad.id }}-debug" class="" role="tab" aria-controls="estate-{{ ad.id }}-debug" aria-expanded="false" data-toggle="collapse">
-                        <span class="fa fa-wrench"></span>&nbsp;Debug
+                    <a id="estate-{{ ad.id }}-debug-lnk" href="#estate-{{ ad.id }}-debug" class="" role="tab" aria-controls="estate-{{ ad.id }}-debug" aria-expanded="false" data-toggle="collapse" data-parent="#estate-{{ ad.id }}-tab">
+                        <span class="fa fa-wrench"></span>
+                        <span>{% trans %}ad.debug{% endtrans %}</span>
                     </a>
                 </li>
             {% endif %}
         </ul>
         <div class="clearfix"></div>
-        <div class="tab-content clearfix">
+        <div id="#estate-{{ ad.id }}-tab-content" class="tab-content clearfix">
             {% if ad.privilege.isAgency %}
-                <div class="collapse col-md-12 tab-paned" id="estate-{{ ad.id }}-group" role="tabpanel" aria-labelledby="estate-{{ ad.id }}-group-lnk" data-parent="#estate-{{ ad.id }}-tab">
+                <div class="collapse col-md-12 tab-paned" id="estate-{{ ad.id }}-group" role="tabpanel" aria-labelledby="estate-{{ ad.id }}-group-lnk">
                     <div class="well">
                         {{ render_hinclude(path('viteloge_frontend_message_new', { ad: ad.id })) }}
                     </div>
                 </div>
             {% endif %}
-            <div class="collapse col-md-12 tab-paned" id="estate-{{ ad.id }}-share" role="tabpanel" aria-labelledby="estate-{{ ad.id }}-share-lnk" data-parent="#estate-{{ ad.id }}-tab">
+            <div class="collapse col-md-12 tab-paned" id="estate-{{ ad.id }}-share" role="tabpanel" aria-labelledby="estate-{{ ad.id }}-share-lnk">
                 <div class="well">
-                    {{ include('VitelogeFrontendBundle:Block:social_share.html.twig', { url: path('viteloge_frontend_ad_redirect', { 'id': ad.id }), text: 'viteloge.shared.with'|trans() }) }}
+                    {{ include('VitelogeFrontendBundle:Block:social_share.html.twig', { url: path('viteloge_frontend_ad_redirect', { 'id': ad.id }), text: 'viteloge.share.ad.with'|trans() }) }}
                 </div>
             </div>
             {% if is_granted('ROLE_OPERATOR') %}
-            <div class="collapse col-md-12 tab-paned" id="estate-{{ ad.id }}-debug" role="tabpanel" aria-labelledby="estate-{{ ad.id }}-debug" data-parent="#estate-{{ ad.id }}-tab">
+            <div class="collapse col-md-12 tab-paned" id="estate-{{ ad.id }}-debug" role="tabpanel" aria-labelledby="estate-{{ ad.id }}-debug">
                 <div class="well">{{ dump(ad) }}</div>
             </div>
             {% endif %}

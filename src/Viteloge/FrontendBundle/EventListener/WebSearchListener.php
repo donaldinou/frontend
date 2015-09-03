@@ -11,7 +11,7 @@ namespace Viteloge\FrontendBundle\EventListener {
     use Viteloge\CoreBundle\SearchEntity\Ad as AdSearch;
 
     /**
-     *
+     * Listener called when a websearch element is saved
      */
     class WebSearchListener {
 
@@ -27,6 +27,9 @@ namespace Viteloge\FrontendBundle\EventListener {
             $this->elasticaManager = $elasticaManager;
         }
 
+        /**
+         *
+         */
         public function prePersist(LifecycleEventArgs $args) {
             $webSearch = $args->getEntity();
             if ($webSearch instanceof WebSearch) {

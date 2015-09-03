@@ -1,3 +1,7 @@
+viteloge_news:
+    resource: "@VitelogeNewsBundle/Resources/config/routing.yml"
+    prefix:   /
+
 viteloge_user:
     resource: "@VitelogeUserBundle/Resources/config/routing.yml"
     prefix:   /
@@ -20,3 +24,7 @@ acreat_insee:
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+PrestaSitemapBundle:
+    resource: "@PrestaSitemapBundle/Resources/config/routing.yml"
+    prefix:   /

@@ -8,7 +8,9 @@ jQuery(document).ready(function() {
         images: 'header.header'
     });
 
-    jQuery('.carousel').carousel();
+    //jQuery('.carousel').carousel();
+    jQuery('.owl-carousel').owlCarousel();
+    jQuery('[data-toggle="tooltip"]').tooltip();
     jQuery('.select-tag-input').select2({'width':'100%', 'theme': 'viteloge'});
 
     jQuery('.carousel-one-by-one .item').each(function(){
@@ -30,12 +32,14 @@ jQuery(document).ready(function() {
         };
     });
 
+    jQuery('body').on('click', '[data-ajax]', ajaxClick);
     jQuery('body').on('click', '[data-submit]', submitForm);
     jQuery('body').on('click', '[data-theme]', changeTheme);
     jQuery('body').on('click', '.pagination.ajax li > a', displayNextPage);
     jQuery('body').on('click', 'form > .nav li > a', checkCurrentTab);
     jQuery('body').on('change', 'select.sortable', processToSort);
     jQuery('body').on('submit', 'form[data-ajax="true"]', submitInAjax);
+    jQuery('body').on('click', '.accept-policy', acceptPolicy);
 
     jQuery('#navbar-navigation .close').on('click', collapseNavigation);
     jQuery('#navbar-navigation').on('show.bs.collapse', onShowNavigation);
@@ -259,6 +263,14 @@ jQuery(document).ready(function() {
         event.stopPropagation();
     }
 
+    function acceptPolicy(event) {
+        jQuery.cookie('acceptCookies', 'true', { expires: 7 });
+        var parent = jQuery(event.currentTarget).data('parent');
+        if (jQuery(parent)) {
+            jQuery(parent).remove();
+        }
+    }
+
     jQuery('body').on('click', '.add-field', addField);
     jQuery('body').on('click', '.remove-field', removeField);
     function addField(event) {
@@ -281,6 +293,40 @@ jQuery(document).ready(function() {
         var count = list.find('input').length;
         if (minus && minus < count) {
             jQuery(event.currentTarget).parents('.form-group').first().remove();
+        }
+    }
+
+    function ajaxClick(event) {
+        event.preventDefault();
+        var target = jQuery(event.currentTarget);
+        var url = jQuery(target).data('ajax');
+        var parent = jQuery(target).data('ajax-parent');
+        var animate = jQuery(target).data('ajax-animate');
+        var callback = jQuery(target).data('ajax-callback');
+        var data = jQuery(target).data('ajax-data');
+        var method = (jQuery(target).data('ajax-method')) ? jQuery(target).data('ajax-method') : 'get';
+        if (parent) {
+            jQuery.ajax({
+                url: url,
+                method: method,
+                data: data,
+                success: function(data, textStatus, jqXHR) {
+                    var width = jQuery(parent).width();
+                    var height = jQuery(parent).height();
+                    jQuery(parent).css('float', 'left');
+                    jQuery(data).hide();
+                    jQuery(data).css('height', height);
+                    jQuery(parent).after(data);
+                    jQuery(parent).animate({width:'0px'}, "slow");
+                    jQuery(parent).after().animate({width:width}, "slow", function() { /*jQuery(parent).remove();*/ });
+                },
+                complete: function(jqXHR, textStatus) {
+                    if (callback) {
+                        var fn = window[callback];
+                        fn();
+                    }
+                }
+            });
         }
     }
 

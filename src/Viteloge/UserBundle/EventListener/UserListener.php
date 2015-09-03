@@ -4,7 +4,7 @@ namespace Viteloge\UserBundle\EventListener {
 
     use Symfony\Component\EventDispatcher\EventSubscriberInterface;
     use Symfony\Component\HttpFoundation\RedirectResponse;
-    use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+    use Symfony\Component\Routing\RouterInterface as Router;
     use Symfony\Component\Translation\TranslatorInterface;
     use FOS\UserBundle\FOSUserEvents;
     use FOS\UserBundle\Event\FormEvent;
@@ -24,7 +24,7 @@ namespace Viteloge\UserBundle\EventListener {
 
         private $translated;
 
-        public function __construct( Breadcrumbs $breadcrumbs, UrlGeneratorInterface $router, TranslatorInterface $translated) {
+        public function __construct( Breadcrumbs $breadcrumbs, Router $router, TranslatorInterface $translated) {
             $this->breadcrumbs = $breadcrumbs;
             $this->router = $router;
             $this->translated = $translated;

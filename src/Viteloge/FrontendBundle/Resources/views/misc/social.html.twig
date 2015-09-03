@@ -2,10 +2,10 @@
     <span>{% trans %}viteloge.if.you.like.then.click{% endtrans %}&nbsp;</span>
     <div class="fb-like" data-href="{{ 'http://facebook.com/'~facebook_account }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
     <span>{% trans %}viteloge.follow.news{% endtrans %}</span>
-    <a href="{{ 'http://facebook.com/'~facebook_account }}" class="round-icon small facebook" target="_blank" aria-label="{%- trans -%}social.facebook{%- endtrans -%}">
+    <a href="{{ 'http://facebook.com/'~facebook_account }}" class="round-icon small facebook" data-toggle="tooltip" data-placement="top" title="{% trans %}social.facebook.followus{% endtrans %}" target="_blank" aria-label="{%- trans -%}social.facebook{%- endtrans -%}">
         <span class="fa fa-facebook" aria-hidden="true"></span>
     </a>
-    <a href="{{ 'http://twitter.com/'~twitter_account }}" class="round-icon small twitter" target="_blank" aria-label="{%- trans -%}social.twitter{%- endtrans -%}">
+    <a href="{{ 'http://twitter.com/'~twitter_account }}" class="round-icon small twitter" data-toggle="tooltip" data-placement="top" title="{% trans %}social.twitter.followus{% endtrans %}" target="_blank" aria-label="{%- trans -%}social.twitter{%- endtrans -%}">
         <span class="fa fa-twitter" aria-hidden="true"></span>
     </a>
 </div>

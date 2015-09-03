@@ -16,6 +16,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new JMS\I18nRoutingBundle\JMSI18nRoutingBundle(),
@@ -29,6 +30,7 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(), // used in order to load only enabled
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
+            new Presta\SitemapBundle\PrestaSitemapBundle(),
             new Acreat\CoreBundle\AcreatCoreBundle(),
             new Acreat\InseeBundle\AcreatInseeBundle(),
             new Viteloge\CoreBundle\VitelogeCoreBundle(),
@@ -36,6 +38,7 @@ class AppKernel extends Kernel
             new Viteloge\GlossaryBundle\VitelogeGlossaryBundle(),
             new Viteloge\EstimationBundle\VitelogeEstimationBundle(),
             new Viteloge\UserBundle\VitelogeUserBundle(),
+            new Viteloge\NewsBundle\VitelogeNewsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

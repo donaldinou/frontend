@@ -1,5 +1,6 @@
 parameters:
     viteloge_frontend.eventlistener.websearch.class: Viteloge\FrontendBundle\EventListener\WebSearchListener
+    viteloge_frontend.eventlistener.sitemap.class: Viteloge\FrontendBundle\EventListener\SitemapListener
     viteloge_frontend.form.type.ad.class: Viteloge\FrontendBundle\Form\Type\AdType
     viteloge_frontend.form.type.usersearch.class: Viteloge\FrontendBundle\Form\Type\UserSearchType
     viteloge_frontend.form.type.websearch.class: Viteloge\FrontendBundle\Form\Type\WebSearchType
@@ -17,6 +18,11 @@ services:
         arguments: ["@fos_elastica.manager"]
         tags:
             - { name: doctrine.event_listener, event: prePersist }
+    viteloge_frontend.sitemaplistener:
+        class: %viteloge_frontend.eventlistener.sitemap.class%
+        arguments: ["@router"]
+        tags:
+            - { name: "presta.sitemap.listener"}
     viteloge_frontend.form.type.ad:
         class: %viteloge_frontend.form.type.ad.class%
         tags:
@@ -50,8 +56,7 @@ services:
             - { name: form.type, alias: insee_city_selector }
     viteloge_frontend.twig.extension:
         class: %viteloge_frontend.twig.extension.class%
-        arguments:
-            - @service_container
+        arguments: ["@service_container"]
         tags:
             - { name: twig.extension, priority: 255 }
     pagerfanta.view.viteloge:

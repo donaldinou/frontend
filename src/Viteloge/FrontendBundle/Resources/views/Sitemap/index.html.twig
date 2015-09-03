@@ -1,0 +1,16 @@
+{% extends 'VitelogeFrontendBundle::base.html.twig' %}
+
+{% block main %}
+    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
+        {% block left %}
+            <div id="list-sitemap" class="list-group">
+                {%- for url in urls -%}
+                    {{ include('VitelogeFrontendBundle:Sitemap:render/element.html.twig', { 'url': url }) }}
+                {%- endfor -%}
+            </div>
+        {% endblock %}
+        {% block right %}
+            {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
+        {% endblock %}
+    {% endembed %}
+{% endblock main %}
