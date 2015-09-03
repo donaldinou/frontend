@@ -1,0 +1,5 @@
+presta_sitemap:
+    timetolive: 3600
+    dumper_base_url: %domain%
+    route_annotation_listener: true
+    items_by_set: 50000
