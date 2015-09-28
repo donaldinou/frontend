@@ -2,6 +2,6 @@
 
 {%- block main -%}
     {%- for key, state in states -%}
-        {{ dump(state) }}
+        {{ state.name }}
     {%- endfor -%}
 {%- endblock -%}

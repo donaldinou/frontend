@@ -3,7 +3,7 @@
         <div class="row">
             <div class="searches col-md-8">
                 <h3 class="list-title text-uppercase">{% trans %}websearches.latest{% endtrans %}</h3>
-                {{ render_hinclude(path('viteloge_frontend_websearch_latest', { limit: 5 })) }}
+                {{ render(path('viteloge_frontend_websearch_latest', { limit: 5 })) }}
             </div>
             <aside class="col-md-4" data-role="secondary">
                 {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', { }) }}

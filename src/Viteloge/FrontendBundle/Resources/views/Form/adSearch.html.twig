@@ -9,7 +9,9 @@
     {%- endblock form_errors -%}
     {%- block form_fields -%}
         <div class="hidden">
-            {{ form_row(form._token) }}
+            {%- if form._token is defined -%}
+                {{ form_row(form._token) }}
+            {%- endif -%}
         </div>
         {{ form_widget(form.transaction, { label_attr: { 'class': 'radio-inline' }, theme_container: theme_container|default('search-container') }) }}
         <fieldset class="bg-darken text-left" role="tabpanel">

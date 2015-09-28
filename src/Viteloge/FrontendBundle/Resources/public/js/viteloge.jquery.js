@@ -3,6 +3,15 @@ if (typeof jQuery === 'undefined') {
 }
 jQuery(document).ready(function() {
 
+    function initLazyLoad() {
+        jQuery("img.lazy").show().lazyload({
+            effect : "fadeIn",
+            skip_invisible : true,
+            placeholder: '',
+        });
+    }
+    initLazyLoad();
+
     BackgroundCheck.init({
         targets: 'header.header .navbar-default .navbar-nav > li > a, header.header .navbar-default .navbar-nav > li .navbar-text',
         images: 'header.header'
@@ -32,7 +41,8 @@ jQuery(document).ready(function() {
         };
     });
 
-    jQuery('body').on('click', '[data-ajax]', ajaxClick);
+    jQuery(window).on('popstate', popstateHistoryEvent);
+    jQuery('body').on('click', '[data-ajax-click]', ajaxClickEvent);
     jQuery('body').on('click', '[data-submit]', submitForm);
     jQuery('body').on('click', '[data-theme]', changeTheme);
     jQuery('body').on('click', '.pagination.ajax li > a', displayNextPage);
@@ -40,6 +50,35 @@ jQuery(document).ready(function() {
     jQuery('body').on('change', 'select.sortable', processToSort);
     jQuery('body').on('submit', 'form[data-ajax="true"]', submitInAjax);
     jQuery('body').on('click', '.accept-policy', acceptPolicy);
+
+    function popstateHistoryEvent(event) {
+        event.preventDefault();
+        var location = window.history.location || window.location;
+        var state = event.originalEvent.state;
+        if (state && state.trigger) {
+            switch(state.trigger) {
+                case 'animate':
+                    if (state.parent && state.clone) {
+                        var sanimate = state.animate;
+                        var sparent = state.parent;
+                        var sclone = state.clone;
+                        if (state.type == 'ajax') { // this is a back
+                            sanimate = reverseAnimation(state.animate);
+                            if (previousHistoryState) {
+                                sparent = previousHistoryState.clone;
+                            }
+                        }
+                        animation(sparent, sclone, sanimate);
+                    }
+                default:
+                    if (state.target) {
+                        jQuery('#'+state.target).trigger(state.trigger);
+                    }
+                    break;
+            }
+        }
+        previousHistoryState = history.state;
+    }
 
     jQuery('#navbar-navigation .close').on('click', collapseNavigation);
     jQuery('#navbar-navigation').on('show.bs.collapse', onShowNavigation);
@@ -188,26 +227,60 @@ jQuery(document).ready(function() {
     }
     function displayNextPage(event) {
         event.preventDefault();
-        var id = jQuery(event.currentTarget).parents('.ajax-pager-container').attr('id');
-        var url = jQuery(event.currentTarget).attr('href');
-        paginate(id, url);
+        var target = event.currentTarget;
+        var id = jQuery(target).parents('.ajax-pager-container').attr('id');
+        var url = jQuery(target).attr('href');
+        var reference = jQuery(target).data('target');
+        var animate = (jQuery(target).data('ajax-animate')) ? jQuery(target).data('ajax-animate') : 'noAnimation';
+        paginate(id, url, reference, animate);
         event.stopPropagation();
     }
-    function paginate(id, url) {
+    function paginate(id, url, reference, animate) {
         if(typeof paginateEvent !== 'undefined') {
             paginateEvent.abort();
         }
-        paginateEvent = jQuery.ajax({
-            url: url,
-            method: 'GET',
-            success: function(content) {
-                jQuery('#'+id).replaceWith(jQuery(content).find('#'+id));
-                jQuery('#'+id).find('span[rel="quartier"]').each(buildPopover);
-                popover = jQuery('span[rel="quartier"]').on('show.bs.popover', showAreaInMap);
-                initSocialShareWidgets();
-                hinclude.run();
+
+        animate = typeof animate !== 'undefined' ? animate : 'noAnimation';
+        var parent = '#'+id;
+        var clone = (reference) ? reference : '#'+generateUUID()+'-paginate';
+        if (jQuery(clone).length>0) {
+            animation(parent, clone, animate);
+            if (!history.state) {
+                history.replaceState({'trigger': 'animate', 'type': 'ajax', 'animate': animate, 'parent': clone, 'clone': parent}, null, document.URL);
             }
-        })
+            var sObj = {
+                'trigger': 'animate',
+                'animate': animate,
+                'parent': parent,
+                'clone': clone
+            };
+            history.pushState(sObj, null, url);
+        } else {
+            paginateEvent = jQuery.ajax({
+                url: url,
+                method: 'GET',
+                success: function(content) {
+                    //jQuery('#'+id).replaceWith(jQuery(content).find('#'+id));
+                    var cloneObj = jQuery(content).find(clone);
+                    animation(parent, cloneObj, animate);
+                    jQuery(clone).find('span[rel="quartier"]').each(buildPopover);
+                    popover = jQuery('span[rel="quartier"]').on('show.bs.popover', showAreaInMap);
+                    initLazyLoad();
+                    initSocialShareWidgets();
+                    hinclude.run();
+                    if (!history.state) {
+                        history.replaceState({'trigger': 'animate', 'type': 'ajax', 'animate': animate, 'parent': clone, 'clone': parent}, null, document.URL);
+                    }
+                    var sObj = {
+                        'trigger': 'animate',
+                        'animate': animate,
+                        'parent': parent,
+                        'clone': clone
+                    };
+                    history.pushState(sObj, null, url);
+                }
+            });
+        }
     }
     function initSocialShareWidgets() {
         if (twttr) {
@@ -267,7 +340,7 @@ jQuery(document).ready(function() {
         jQuery.cookie('acceptCookies', 'true', { expires: 7 });
         var parent = jQuery(event.currentTarget).data('parent');
         if (jQuery(parent)) {
-            jQuery(parent).remove();
+            jQuery(parent).hide('slow', function() { jQuery(parent).remove(); });
         }
     }
 
@@ -296,38 +369,198 @@ jQuery(document).ready(function() {
         }
     }
 
-    function ajaxClick(event) {
+    var ajaxClick;
+    function ajaxClickEvent(event) {
         event.preventDefault();
+        if (typeof ajaxClick === 'object' && ajaxClick.status != 200) {
+            ajaxClick.abort();
+        }
+        if (!jQuery(event.currentTarget).attr('id')) {
+            jQuery(event.currentTarget).attr('id', generateUUID()+'-link');
+        }
         var target = jQuery(event.currentTarget);
-        var url = jQuery(target).data('ajax');
+        var url = jQuery(target).data('ajax-click');
         var parent = jQuery(target).data('ajax-parent');
-        var animate = jQuery(target).data('ajax-animate');
+        var clone = jQuery(target).data('ajax-back');
+        var animate = (jQuery(target).data('ajax-animate')) ? jQuery(target).data('ajax-animate') : 'noAnimation';
         var callback = jQuery(target).data('ajax-callback');
         var data = jQuery(target).data('ajax-data');
         var method = (jQuery(target).data('ajax-method')) ? jQuery(target).data('ajax-method') : 'get';
         if (parent) {
-            jQuery.ajax({
-                url: url,
-                method: method,
-                data: data,
-                success: function(data, textStatus, jqXHR) {
-                    var width = jQuery(parent).width();
-                    var height = jQuery(parent).height();
-                    jQuery(parent).css('float', 'left');
-                    jQuery(data).hide();
-                    jQuery(data).css('height', height);
-                    jQuery(parent).after(data);
-                    jQuery(parent).animate({width:'0px'}, "slow");
-                    jQuery(parent).after().animate({width:width}, "slow", function() { /*jQuery(parent).remove();*/ });
-                },
-                complete: function(jqXHR, textStatus) {
-                    if (callback) {
-                        var fn = window[callback];
-                        fn();
-                    }
+            if (clone && typeof clone == 'string' && jQuery(clone).length>0) {
+                animation(parent, clone, animate);
+                jQuery(clone).scrollTop();
+                var sObj = {
+                    'trigger': 'animate',
+                    'animate': animate,
+                    'parent': parent,
+                    'clone': clone
+                };
+                if (!history.state) {
+                    history.replaceState({'trigger': 'animate', 'type': 'ajax', 'animate': animate, 'parent': clone, 'clone': parent}, null, document.URL);
                 }
-            });
+                history.pushState(sObj, null, url);
+            } else {
+                ajaxClick = jQuery.ajax({
+                    url: url,
+                    method: method,
+                    data: data,
+                    success: function(data, textStatus, jqXHR) {
+                        var id = generateUUID();
+                        var clone = '#'+id+'-clone';
+                        var parentObj = jQuery(parent);
+                        var cloneObj = parentObj.clone();
+                        window[animate](parentObj, cloneObj, data);
+                        jQuery(target).attr('data-ajax-back', clone);
+                        cloneObj.attr('id', id+'-clone');
+                        cloneObj.find('[data-ajax-click]').each(function(index, element) {
+                            jQuery(this).attr('data-ajax-parent', clone);
+                        });
+                        cloneObj.find('[data-ajax-back]').each(function(index, element) {
+                            jQuery(this).attr('data-ajax-back', parent);
+                        });
+                        if (cloneObj) { // use a callback
+                            jQuery(clone).scrollTop();
+                            var sObj = {
+                                'trigger': 'animate',
+                                'animate': animate,
+                                'parent': parent,
+                                'clone': clone
+                            };
+                            if (!history.state) {
+                                history.replaceState({'trigger': 'animate', 'type': 'ajax', 'animate': animate, 'parent': clone, 'clone': parent}, null, document.URL);
+                            }
+                            history.pushState(sObj, null, url);
+                        }
+                    },
+                    complete: function(jqXHR, textStatus) {
+                        if (callback) {
+                            var fn = window[callback];
+                            fn();
+                        }
+                    }
+                });
+            }
         }
     }
 
 });
+
+var previousHistoryState = history.state;
+var animation = function animation(parent, clone, animate) {
+    animate = typeof animate !== 'undefined' ? animate : 'noAnimation';
+    var parentObj = (typeof parent == 'object') ? parent : jQuery(parent);
+    var cloneObj = (typeof clone == 'object') ? clone : jQuery(clone);
+    var data = (typeof clone != 'object' && jQuery(clone).length>0) ? null : cloneObj.html();
+    window[animate](parentObj, cloneObj, data);
+}
+
+var reverseAnimation = function reverseAnimation(animation) {
+    switch(animation) {
+        case 'leftToRight':
+            return 'rightToLeft';
+            break;
+        case 'rightToLeft':
+            return 'leftToRight'
+            break;
+        default:
+            return 'noAnimation';
+            break;
+    }
+}
+
+var noAnimation = function noAnimation(parentObj, cloneObj, data) {
+    var width = parentObj.width();
+    var height = parentObj.height();
+    var container = parentObj.parent();
+    var cloneId = (cloneObj.attr('id') && cloneObj.attr('id') != parentObj.attr('id')) ? '#'+cloneObj.attr('id') : false;
+
+    if (container.attr('id') != 'ajax-click-animation-container') {
+        parentObj.wrap('<div id="ajax-click-animation-container" style="position:relative;"></div>');
+    }
+    parentObj.parent().children().hide(); // hide all children before animate.
+
+    if (data) {
+        cloneObj.html(data);
+    }
+    if (!cloneId || jQuery(cloneId).length<=0) {
+        parentObj.after(cloneObj);
+    }
+    cloneObj.show();
+    parentObj.hide();
+}
+
+var rightToLeft = function rightToLeft(parentObj, cloneObj, data) {
+    var width = parentObj.width();
+    var height = parentObj.height();
+    var container = parentObj.parent();
+    var cloneId = (cloneObj.attr('id') && cloneObj.attr('id') != parentObj.attr('id')) ? '#'+cloneObj.attr('id') : false;
+
+    if (container.attr('id') != 'ajax-click-animation-container') {
+        parentObj.wrap('<div id="ajax-click-animation-container" style="position:relative;"></div>');
+    }
+    parentObj.parent().css({ 'min-width': Math.max(width, cloneObj.width())+'px', 'min-height': Math.max(height, cloneObj.height())+'px'});
+    parentObj.parent().children().hide(); // hide all children before animate.
+
+    parentObj.show();
+    parentObj.width(width);
+    parentObj.css({'position': 'absolute', 'top': 0, 'left': 0});
+    cloneObj.show();
+    cloneObj.width(0);
+    cloneObj.css({'position': 'absolute', 'top': 0, 'right': 0});
+
+    if (data) {
+        cloneObj.html(data);
+    }
+    if (!cloneId || jQuery(cloneId).length<=0) {
+        parentObj.after(cloneObj);
+    }
+    cloneObj.animate({'width': width+'px'}, "slow", function() {
+        cloneObj.css({'width': '', 'position': '', 'top': '', 'right': '', 'display': ''});
+    });
+    parentObj.animate({'width':'0px'}, "slow", function() {
+        parentObj.hide().css({'width': '', 'position': '', 'top': '', 'left': ''});
+    });
+}
+
+var leftToRight = function leftToRight(parentObj, cloneObj, data) {
+    var width = parentObj.width();
+    var height = parentObj.height();
+    var container = parentObj.parent();
+    var cloneId = (cloneObj.attr('id') && cloneObj.attr('id') != parentObj.attr('id')) ? '#'+cloneObj.attr('id') : false;
+
+    if (container.attr('id') != 'ajax-click-animation-container') {
+        parentObj.wrap('<div id="ajax-click-animation-container" style="position:relative;overflow:hidden"></div>');
+    }
+    parentObj.parent().css({ 'min-width': Math.max(width, cloneObj.width())+'px', 'min-height': Math.max(height, cloneObj.height())+'px'});
+    parentObj.parent().children().hide(); // hide all children before animate.
+
+    parentObj.show();
+    parentObj.width(width);
+    parentObj.css({'position': 'absolute', 'top': 0, 'right': 0});
+    cloneObj.show();
+    cloneObj.css({'position': 'absolute', 'top': 0, 'left': 0});
+
+    if (data) {
+        cloneObj.html(data);
+    }
+    if (!cloneId || jQuery(cloneId).length<=0) {
+        parentObj.before(cloneObj);
+    }
+    cloneObj.animate({'width': width+'px'}, "slow", function() {
+        cloneObj.css({'width': '', 'position': '', 'top': '', 'left': '', 'display': ''});
+    });
+    parentObj.animate({'width':'0px'}, "slow", function() {
+        parentObj.hide().css({'width': '', 'position': '', 'top': '', 'right': ''});
+    });
+}
+
+var generateUUID = function generateUUID() {
+    var d = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+};

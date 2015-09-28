@@ -2,6 +2,6 @@
 
 {%- block main -%}
     {%- for key, department in departments -%}
-        {{ dump(department) }}
+        {{ department.name }}
     {%- endfor -%}
 {%- endblock -%}

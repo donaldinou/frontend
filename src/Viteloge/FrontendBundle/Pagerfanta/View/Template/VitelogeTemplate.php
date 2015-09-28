@@ -54,6 +54,22 @@ namespace Viteloge\FrontendBundle\Pagerfanta\View\Template {
         /**
          *
          */
+        public function page($page, $animate='rightToLeft') {
+            $text = $page;
+            return $this->pageWithText($page, $text, $animate);
+        }
+
+        /**
+         *
+         */
+        public function pageWithText($page, $text, $animate='rightToLeft') {
+            $class = null;
+            return $this->pageWithTextAndClass($page, $text, $class, $animate);
+        }
+
+        /**
+         *
+         */
         public function previousDisabled() {
             $rel = 'prev';
             $class = $this->option('css_prev_class').' '.$this->option('css_disabled_class');
@@ -111,7 +127,7 @@ namespace Viteloge\FrontendBundle\Pagerfanta\View\Template {
                 $element = 'span';
                 $class .= ' '.$this->option('css_disabled_class');
             }
-            return $this->elementLi($element, $href, $class, $rel, $text, $icon);
+            return $this->elementLi($element, $href, $class, $rel, $text, $icon, 'leftToRight');
         }
 
         /**
@@ -128,19 +144,29 @@ namespace Viteloge\FrontendBundle\Pagerfanta\View\Template {
                 $element = 'span';
                 $class .= ' '.$this->option('css_disabled_class');
             }
-            return $this->elementLi($element, $href, $class, $rel, $text, $icon);
+            return $this->elementLi($element, $href, $class, $rel, $text, $icon, 'rightToLeft');
         }
 
         /**
          *
          */
-        private function elementLi($element, $href='', $class='', $rel='', $text='', $icon=null) {
+        private function pageWithTextAndClass($page, $text, $class, $animate='rightToLeft') {
+            $href = $this->generateRoute($page);
+            return $this->linkLi($class, $href, $text, $animate);
+        }
+
+        /**
+         *
+         */
+        private function elementLi($element, $href='', $class='', $rel='', $text='', $icon=null, $animate='rightToLeft') {
             $data = ($element != 'a') ? 'data-' : '';
             return
                 '<li class="'.$class.'">'.
                     '<'.$element.
                         ((!empty($rel)) ? ' rel="'.$rel.'"' : '').
                         ((!empty($href)) ? ' '.$data.'href="'.$href.'"' : '').
+                        ' data-target="#viteloge-frontend-ad-paginated-'.$text.'"'.
+                        ' data-ajax-animate="'.$animate.'"'.
                         ((!empty($icon)) ? ' aria-label="'.$text.'"' : '').'>'.
                             ((!empty($icon)) ? '<span aria-hidden="true">'.$icon.'</span>' : $text) .
                     '</'.$element.'>'.
@@ -151,15 +177,15 @@ namespace Viteloge\FrontendBundle\Pagerfanta\View\Template {
         /**
          *
          */
-        private function linkLi($class, $href, $text) {
-            return $this->elementLi('a', $href, $class, '', $text, null);
+        private function linkLi($class, $href, $text, $animate) {
+            return $this->elementLi('a', $href, $class, '', $text, null, $animate);
         }
 
         /**
          *
          */
         private function spanLi($class, $text) {
-            return $this->elementLi('span', '', $class, '', $text, null);
+            return $this->elementLi('span', '', $class, '', $text, null, $animate);
         }
     }
 

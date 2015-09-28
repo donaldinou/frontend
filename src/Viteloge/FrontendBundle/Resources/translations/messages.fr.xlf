@@ -150,9 +150,9 @@
         <source>All Sales</source>
         <target>All Sales</target>
       </trans-unit>
-      <trans-unit id="744c2e53968c09f067575ff76294afa2" resname="All programs">
-        <source>All programs</source>
-        <target>All programs</target>
+      <trans-unit id="viteloge.all.programs" resname="viteloge.all.programs">
+        <source>viteloge.all.programs</source>
+        <target>Tous les programmes</target>
       </trans-unit>
       <trans-unit id="5db707f74d87bd123c565cfe06c13522" resname="All rights reserved">
         <source>All rights reserved</source>

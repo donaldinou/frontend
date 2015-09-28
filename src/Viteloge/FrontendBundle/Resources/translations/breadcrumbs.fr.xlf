@@ -14,6 +14,10 @@
                 <source>breadcrumb.profile</source>
                 <target>Mon Profil</target>
             </trans-unit>
+            <trans-unit id="breadcrumb.sitemap" resname="breadcrumb.sitemap">
+                <source>breadcrumb.sitemap</source>
+                <target>Plan du site</target>
+            </trans-unit>
             <trans-unit id="breadcrumb.profile.action.changepassword" resname="breadcrumb.profile.action.changepassword">
                 <source>breadcrumb.profile.action.changepassword</source>
                 <target>Changer de mot de passe</target>

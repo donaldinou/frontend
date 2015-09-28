@@ -27,3 +27,9 @@ body figure {
     font-weight: 400;
     font-size: $font-size-small;
 }
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

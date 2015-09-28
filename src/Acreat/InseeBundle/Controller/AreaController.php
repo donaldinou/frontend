@@ -36,8 +36,10 @@ namespace Acreat\InseeBundle\Controller {
          */
         public function showAction(Request $request, $_format, InseeArea $inseeArea) {
             //if ($request->isXmlHttpRequest()) {
-                $serializer = $this->get('jms_serializer');
-                $inseeArea = $serializer->serialize($inseeArea, $_format);
+                $inseeArea->getInseeCity()->setInseeState(null); // we do not need insee city
+                $inseeArea->getInseeCity()->setInseeDepartment(null); // we do not need insee city
+                //$serializer = $this->get('jms_serializer');
+                //$inseeArea = $serializer->serialize($inseeArea, $_format);
             //}
             return $this->render(
                 'AcreatInseeBundle:Area:show.'.$_format.'.twig',

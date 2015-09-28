@@ -93,4 +93,19 @@
         line-height: 55px;
         border: 4px solid #fff;
     }
+    &.animated {
+        &:hover, &:focus {
+            line-height: 35px;
+            border: none;
+        }
+        &.small:hover, &.small:focus {
+            line-height: 25px;
+        }
+        &.medium:hover, &.medium:focus {
+            line-height: 45px;
+        }
+        &.large:hover, &.large:focus {
+            line-height: 60px;
+        }
+    }
 }

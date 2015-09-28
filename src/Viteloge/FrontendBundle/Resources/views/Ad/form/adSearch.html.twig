@@ -7,12 +7,11 @@
 {%- if isTransactionLabelHidden -%}
     {%- set path = path('viteloge_frontend_ad_searchfromform', { 'hideTransaction': isTransactionLabelHidden }) -%}
 {%- endif -%}
-{{- form_start(form, {'action': path, 'attr': {'enctype': 'application/x-www-form-urlencoded', 'class': 'search', 'data-ajax': 'true', 'role': 'search', 'novalidate': 'novalidate'}}) -}}
+{{- form_start(form, {'action': path, 'attr': {'enctype': 'application/x-www-form-urlencoded', 'class': 'search', 'data-ajax': 'false', 'role': 'search', 'novalidate': 'novalidate'}}) -}}
 {%- endblock form_start -%}
 
 {%- block form_fields -%}
     <div class="hidden">
-        {{- form_row(form._token) -}}
         {%- if isTransactionLabelHidden -%}
             {{- form_widget(form.transaction, { label_attr: { 'class': 'radio-inline hidden' }, theme_container: theme_container|default('search-container') }) -}}
         {%- endif -%}

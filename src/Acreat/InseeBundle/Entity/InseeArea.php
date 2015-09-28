@@ -54,7 +54,7 @@ class InseeArea
      *
      * @ORM\ManyToOne(targetEntity="Acreat\InseeBundle\Entity\InseeCity")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="insee", referencedColumnName="codeInsee")
+     *      @ORM\JoinColumn(name="insee", referencedColumnName="codeInsee")
      * })
      */
     protected $inseeCity;

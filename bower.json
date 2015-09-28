@@ -25,6 +25,7 @@
     "requirejs": "latest",
     "requirejs-domready": "latest",
     "hinclude": "latest",
+    "html5-history-api": "latest",
     "typeahead.js": "latest",
     "fontawesome": "latest",
     "bootstrap-sass": "~3.3.4",
@@ -33,6 +34,7 @@
     "hover": "~2.0.2",
     "select2": "latest",
     "placeholders": "latest",
+    "jquery.lazyload": "latest",
     "d3": "latest"
   }
 }

@@ -131,7 +131,7 @@ class InseeCity extends InseeEntity
      *
      * @ORM\ManyToOne(targetEntity="Acreat\InseeBundle\Entity\InseeState")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="codeRegion", referencedColumnName="REGION", nullable=true)
+     *      @ORM\JoinColumn(name="codeRegion", referencedColumnName="REGION", nullable=true)
      * })
      */
     protected $inseeState;
@@ -139,14 +139,19 @@ class InseeCity extends InseeEntity
     /**
      * @var \Acreat\InseeBundle\Entity\InseeDepartment
      *
-     * @ORM\ManyToOne(targetEntity="Acreat\InseeBundle\Entity\InseeDepartment")
+     * @ORM\ManyToOne(targetEntity="Acreat\InseeBundle\Entity\InseeDepartment", inversedBy="inseeCities")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="codeDepartement", referencedColumnName="DEP", nullable=true)
+     *      @ORM\JoinColumn(name="codeDepartement", referencedColumnName="DEP", nullable=true)
      * })
      */
     protected $inseeDepartment;
 
+    /**
+     *
+     */
+    public function __construct() {
 
+    }
 
     /**
      * Set geolevel

@@ -38,9 +38,9 @@
 {%- block inputgroup_attributes -%}
     {%- for attrname, attrvalue in inputgroup_attr -%}
         {{- " " -}}
-        {%- if attrvalue is sameas(true) -%}
+        {%- if attrvalue is same as(true) -%}
             {{- attrname }}="{{ attrname }}"
-        {%- elseif attrvalue is not sameas(false) -%}
+        {%- elseif attrvalue is not same as(false) -%}
             {{- attrname }}="{{ attrvalue }}"
         {%- endif -%}
     {%- endfor -%}
@@ -107,7 +107,7 @@
 
 {%- block form_label -%}
     {%- set label_attr_class = block('form_label_class') -%}
-    {%- if label is sameas(false) -%}
+    {%- if label is same as(false) -%}
         <div class="{{- label_attr_class -}}"></div>
     {%- else -%}
         {{- parent() -}}

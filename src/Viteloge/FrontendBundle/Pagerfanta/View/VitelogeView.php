@@ -169,10 +169,17 @@ namespace Viteloge\FrontendBundle\Pagerfanta\View {
         }
         private function page($page)
         {
-            if ($page == $this->currentPage) {
-                return $this->template->current($page);
+            switch ($page) {
+                case ($page == $this->currentPage):
+                    return $this->template->current($page);
+                    break;
+                case ($page<$this->currentPage):
+                    return $this->template->page($page, 'leftToRight');
+                    break;
+                default:
+                    return $this->template->page($page);
+                    break;
             }
-            return $this->template->page($page);
         }
         private function dotsIfEndIsUnder3ToLast()
         {

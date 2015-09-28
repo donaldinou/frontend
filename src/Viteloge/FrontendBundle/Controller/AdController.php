@@ -329,32 +329,6 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
-         *
-         */
-        public function convertRequestToWebSearch(Request $request) {
-            $userSearch = new UserSearch();
-            $webSearch = new WebSearch();
-            return $webSearch;
-        }
-
-        /**
-         * @Route(
-         *     "/create/websearch",
-         *     name="viteloge_frontend_ad_createwebsearch"
-         * )
-         */
-        public function createWebSearch(Request $request) {
-            $adSearch = new AdSearch();
-            $form = $this->createForm('viteloge_core_adsearch', $adSearch);
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $webSearch = $this->convertRequestToWebSearch($request);
-            }
-            var_dump($form->getErrors());
-            die('ddd');
-        }
-
-        /**
          * @Route(
          *     "/carousel/{limit}",
          *     requirements={

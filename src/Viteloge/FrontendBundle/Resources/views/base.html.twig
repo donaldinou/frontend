@@ -1,1 +1,4 @@
-{% extends 'VitelogeUserBundle::layout.html.twig' %}
+{% extends app.request.xmlHttpRequest
+        ? 'VitelogeFrontendBundle::ajax-layout.html.twig'
+        : 'VitelogeUserBundle::layout.html.twig' %}
+{#request.ajax#}

@@ -11,8 +11,14 @@ namespace Viteloge\FrontendBundle\EventListener {
 
     class SitemapListener extends RouteAnnotationEventListener {
 
+        /**
+         *
+         */
         private $router;
 
+        /**
+         *
+         */
         public function __construct(RouterInterface $router) {
             $this->router = $router;
         }

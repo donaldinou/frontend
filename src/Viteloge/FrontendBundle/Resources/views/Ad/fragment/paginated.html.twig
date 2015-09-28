@@ -1,4 +1,4 @@
-<div id="viteloge-frontend-ad-paginated" class="ajax-pager-container">
+<div id="viteloge-frontend-ad-paginated{%- if pagination is defined -%}-{{ pagination.currentPage }}{%- endif -%}" class="ajax-pager-container">
     <div class="container-unfluid">
         {%- if pagination is defined -%}
         {%- block pagination -%}

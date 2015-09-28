@@ -4,7 +4,7 @@
             {{ include('VitelogeFrontendBundle:UserSearch:render/element.html.twig', { 'userSearch': webSearch.userSearch }) }}
         </div>
         <div class="col-xs-2 padding-5">
-            <a href="{{ path('viteloge_frontend_ad_searchfromusersearch', { id: webSearch.userSearch.id }) }}" class="btn btn-default btn-block">
+            <a href="{{ path('viteloge_frontend_ad_searchfromusersearch', { id: webSearch.userSearch.id }) }}" class="btn btn-default btn-block ellipsis">
                 <span class="fa fa-clock-o"></span><span>&nbsp;{{ webSearch.updatedAt|time_diff }}</span>
             </a>
         </div>

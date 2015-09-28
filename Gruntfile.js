@@ -39,11 +39,13 @@ module.exports = function(grunt) {
                     'js/require.js': 'requirejs/require.js',
                     'js/domReady.js': 'requirejs-domready/domReady.js',
                     'js/hinclude.js': 'hinclude/hinclude.js',
+                    'js/history.js': 'html5-history-api/history.js',
                     'js/owl.carousel.js' : 'OwlCarousel2/dist/owl.carousel.js',
                     'js/background-check.js': 'background-check/background-check.js',
                     'js/select2.js': 'select2/dist/js/select2.min.js',
                     'js/select2.fr.js': 'select2/dist/js/i18n/fr.js',
                     'js/placeholders.js': 'placeholders/dist/placeholders.jquery.js',
+                    'js/jquery.lazyload.js': 'jquery.lazyload/jquery.lazyload.js',
                     'js/d3.js': 'd3/d3.js'
                 }
             },

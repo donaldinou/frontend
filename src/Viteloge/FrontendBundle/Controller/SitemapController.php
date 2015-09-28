@@ -6,12 +6,15 @@ namespace Viteloge\FrontendBundle\Controller {
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+    use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\Serializer\Serializer;
     use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
     use Symfony\Component\Serializer\Encoder\JsonEncoder;
+    use Acreat\InseeBundle\Entity\InseeState;
+    use Acreat\InseeBundle\Entity\InseeDepartment;
     use Viteloge\CoreBundle\Component\Enum\TransactionEnum;
     use Viteloge\CoreBundle\SearchEntity\Ad as AdSearch;
     use Viteloge\FrontendBundle\Component\Sitemap\Element;
@@ -61,14 +64,12 @@ namespace Viteloge\FrontendBundle\Controller {
                 $translated->trans('breadcrumb.home', array(), 'breadcrumbs'),
                 $this->get('router')->generate('viteloge_frontend_homepage')
             );
-            $breadcrumbs->addItem('Plan du site');
+            $breadcrumbs->addItem($translated->trans('breadcrumb.sitemap', array(), 'breadcrumbs'));
             // --
 
-            /*$section = $this->get('presta_sitemap.generator')->fetch('default');
-            $sxe = new \SimpleXMLElement($section->toXml());
-            $urls = (isset($sxe->url)) ? $sxe->url : array();*/
-            $this->build();
+            $this->elements = new \ArrayObject();
             $this->buildStates();
+            $this->build();
 
             return array(
                 'urls' => $this->elements
@@ -77,52 +78,122 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * @Route(
-         *     "/sitemap/section/{id}",
+         *     "/sitemap/state/{id}",
          *      defaults={
          *          "_format"="html"
          *      },
-         *     name="viteloge_frontend_sitemap_section",
-         *     options = {
-         *         "i18n" = true
-         *     }
+         *      name="viteloge_frontend_sitemap_state",
+         *      options = {
+         *          "i18n" = true
+         *      }
          * )
          * @Route(
-         *     "/sitemap/section/{id}.{_format}",
+         *     "/sitemap/state/{id}.{_format}",
          *      requirements={
          *          "_format"="html|json"
          *      },
          *      defaults={
          *          "_format"="html"
          *      },
-         *     name="viteloge_frontend_sitemap_section",
-         *     options = {
-         *         "i18n" = true
-         *     }
+         *      name="viteloge_frontend_sitemap_state",
+         *      options = {
+         *          "i18n" = true
+         *      }
          * )
+         * @ParamConverter("inseeState", class="AcreatInseeBundle:InseeState", options={"id" = "id"})
          * @Cache(expires="tomorrow", public=true)
          * @Method({"GET"})
          * @Template()
          */
-        public function sectionAction(Request $request, $_format) {
+        public function stateAction(Request $request, InseeState $inseeState, $_format) {
             $translated = $this->get('translator');
 
+            $section = new Element();
+            $section->setName($inseeState->getName());
+            //$section->setSection();
+            $section->setDescription($translated->trans('sitemap.properties.for.name', array('%name%' => $inseeState->getFullName())));
+            $section->setLoc(
+                $this->get('router')->generate(
+                    'viteloge_frontend_ad_search',
+                    array(
+                        'whereState' => array($inseeState->getId())
+                    ),
+                    true
+                )
+            );
+
             $this->elements = new \ArrayObject();
-            $element = new Element();
-            $element->setName($translated->trans('test'));
-            //$element->setSection($section);
-            $element->setDescription($translated->trans('testttt'));
-            $element->setLoc('http://test.com');
-            $this->elements->append($element);
+            $departments = $inseeState->getInseeDepartments();
+            $this->appendDepartments($departments);
 
             return array(
+                'section' => $section,
                 'urls' => $this->elements
             );
         }
 
+        /**
+         * @Route(
+         *     "/sitemap/department/{id}",
+         *      defaults={
+         *          "_format"="html"
+         *      },
+         *      name="viteloge_frontend_sitemap_department",
+         *      options = {
+         *          "i18n" = true
+         *      }
+         * )
+         * @Route(
+         *     "/sitemap/department/{id}.{_format}",
+         *      requirements={
+         *          "_format"="html|json"
+         *      },
+         *      defaults={
+         *          "_format"="html"
+         *      },
+         *      name="viteloge_frontend_sitemap_department",
+         *      options = {
+         *          "i18n" = true
+         *      }
+         * )
+         * @ParamConverter("inseeDepartment", class="AcreatInseeBundle:InseeDepartment", options={"id" = "id"})
+         * @Cache(expires="tomorrow", public=true)
+         * @Method({"GET"})
+         * @Template()
+         */
+        public function departmentAction(Request $request, InseeDepartment $inseeDepartment, $_format) {
+            $translated = $this->get('translator');
+
+            $section = new Element();
+            $section->setName($inseeDepartment->getName());
+            //$section->setSection();
+            $section->setDescription($translated->trans('sitemap.properties.for.name', array('%name%' => $inseeDepartment->getFullName())));
+            $section->setLoc(
+                $this->get('router')->generate(
+                    'viteloge_frontend_ad_search',
+                    array(
+                        'whereDepartment' => array($inseeDepartment->getId())
+                    ),
+                    true
+                )
+            );
+
+            $this->elements = new \ArrayObject();
+            $cities = $inseeDepartment->getInseeCities();
+            $this->appendCities($cities);
+
+            return array(
+                'section' => $section,
+                'urls' => $this->elements
+            );
+        }
+
+        /**
+         *
+         */
         public function build() {
             $translated = $this->get('translator');
 
-            $this->elements = new \ArrayObject();
             $collection = $this->get('router')->getOriginalRouteCollection();
             foreach ($collection->all() as $name => $route) {
                 $option = $route->getOption('vl_sitemap');
@@ -139,15 +210,44 @@ namespace Viteloge\FrontendBundle\Controller {
                     $this->elements->append($element);
                 }
             }
+
             return $this->elements;
         }
 
+        /**
+         *
+         */
         public function buildStates() {
             $translated = $this->get('translator');
 
             $repository = $this->getDoctrine()
                 ->getRepository('AcreatInseeBundle:InseeState');
-            $states = $repository->findAll();
+            $states = $repository->findBy(array(), array('name' => 'ASC'));
+            $this->appendStates($states);
+
+            return $this->elements;
+        }
+
+        /**
+         *
+         */
+        public function buildDepartments() {
+            $translated = $this->get('translator');
+
+            $repository = $this->getDoctrine()
+                ->getRepository('AcreatInseeBundle:InseeDepartment');
+            $departments = $repository->findBy(array(), array('name' => 'ASC'));
+            $this->appendDepartments();
+
+            return $this->elements;
+        }
+
+        /**
+         *
+         */
+        protected function appendStates($states) {
+            $translated = $this->get('translator');
+
             foreach ($states as $key => $state) {
                 $element = new Element();
                 $element->setName($state->getFullName());
@@ -162,12 +262,98 @@ namespace Viteloge\FrontendBundle\Controller {
                     )
                 );
                 $element->setChild(true);
+                $element->setChildrenLoc(
+                    $this->get('router')->generate(
+                        'viteloge_frontend_sitemap_state',
+                        array(
+                            'id' => $state->getId(),
+                            '_format' => 'html'
+                        ),
+                        true
+                    )
+                );
                 $this->elements->append($element);
             }
+            return $this->elements;
         }
 
         /**
          *
+         */
+        protected function appendDepartments($departments) {
+            $translated = $this->get('translator');
+
+            foreach ($departments as $key => $department) {
+                $element = new Element();
+                $element->setName($department->getFullName());
+                $element->setDescription($translated->trans('sitemap.properties.for.name', array('%name%' => $department->getFullName())));
+                $element->setLoc(
+                    $this->get('router')->generate(
+                        'viteloge_frontend_ad_search',
+                        array(
+                            'whereState' => array($department->getId())
+                        ),
+                        true
+                    )
+                );
+                $element->setChild(true);
+                $element->setChildrenLoc(
+                    $this->get('router')->generate(
+                        'viteloge_frontend_sitemap_department',
+                        array(
+                            'id' => $department->getId(),
+                            '_format' => 'html'
+                        ),
+                        true
+                    )
+                );
+                $this->elements->append($element);
+            }
+            return $this->elements;
+        }
+
+        /**
+         *
+         */
+        protected function appendCities($cities) {
+            $translated = $this->get('translator');
+
+            foreach ($cities as $key => $city) {
+                $element = new Element();
+                $element->setName($city->getFullName());
+                $element->setDescription($translated->trans('sitemap.properties.for.name', array('%name%' => $city->getFullName())));
+                $element->setLoc(
+                    $this->get('router')->generate(
+                        'viteloge_frontend_glossary_showcity',
+                        array(
+                            'name' => $city->getSlug(),
+                            'id' => $city->getId()
+                        ),
+                        true
+                    )
+                );
+
+                // if city has child
+                /*$element->setChild(true);
+                $element->setChildrenLoc(
+                    $this->get('router')->generate(
+                        'viteloge_frontend_sitemap_city',
+                        array(
+                            'id' => $city->getId(),
+                            '_format' => 'html'
+                        ),
+                        true
+                    )
+                );*/
+                // endif
+
+                $this->elements->append($element);
+            }
+            return $this->elements;
+        }
+
+        /**
+         * note : unused at this moment
          */
         public function buildSection($section) {
             $repository = $this->getDoctrine()

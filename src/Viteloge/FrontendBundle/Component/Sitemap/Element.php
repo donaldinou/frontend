@@ -20,6 +20,8 @@ namespace Viteloge\FrontendBundle\Component\Sitemap {
 
         protected $child;
 
+        protected $childrenLoc;
+
         public function __construct() {
             $this->child = false;
         }
@@ -93,6 +95,15 @@ namespace Viteloge\FrontendBundle\Component\Sitemap {
 
         public function setChild($child) {
             $this->child = (boolean)$child;
+            return $this;
+        }
+
+        public function getChildrenLoc() {
+            return $this->childrenLoc;
+        }
+
+        public function setChildrenLoc($childrenLoc) {
+            $this->childrenLoc = $childrenLoc;
             return $this;
         }
 

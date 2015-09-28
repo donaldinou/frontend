@@ -1,3 +1,16 @@
+<a href="{{ section.loc }}" class="list-group-item active" data-ajax-click="{{ path('viteloge_frontend_sitemap_index') }}" data-ajax-parent="#list-sitemap" data-ajax-back="true" data-ajax-animate="leftToRight">
+    <div class="row">
+        <div class="col-xs-10">
+            <h4 class="list-group-item-heading">{{ section.name }}</h4>
+            <p>{{ section.description }}</p>
+        </div>
+        <div class="col-xs-2 text-right">
+            <span class="fa fa-chevron-left"></span>
+        </div>
+    </div>
+</a>
 {%- for url in urls -%}
     {{ include('VitelogeFrontendBundle:Sitemap:render/element.html.twig', { url: url } ) }}
+{%- else -%}
+    {%- trans -%}viteloge.noresult{%- endtrans -%}
 {%- endfor -%}

@@ -143,6 +143,7 @@ namespace Viteloge\CoreBundle\Form\Type {
             parent::setDefaultOptions($resolver);
             $resolver->setDefaults(
                 array(
+                    'csrf_protection' => false,
                     'data_class' => 'Viteloge\CoreBundle\SearchEntity\Ad'
                 )
             );

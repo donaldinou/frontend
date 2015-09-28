@@ -24,6 +24,8 @@
             display: block;
             > img {
                 background-image: url('../bundles/vitelogecore/images/logo-viteloge.svg');
+                background-repeat: no-repeat;
+                background-position: center center;
                 min-height: $websearch-img-min-size;
             }
         }

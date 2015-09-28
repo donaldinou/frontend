@@ -61,7 +61,6 @@ namespace Viteloge\CoreBundle\Repository {
             $result = $qb->getQuery()->getResult();
             $end_result = array( 'a' => array(), 'm' => array() );
             foreach ( $result as $barometre ) {
-                //var_dump(get_class($barometre));die;
                 $end_result[$barometre->getType()][] = array(
                     //'date' => $barometre->getCreatedAt(),
                     'date' => sprintf( '%4d%02d', $barometre->getYear(), $barometre->getMonth() ),
