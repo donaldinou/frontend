@@ -31,6 +31,7 @@ class AppKernel extends Kernel
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new Presta\SitemapBundle\PrestaSitemapBundle(),
+            new Bazinga\Bundle\JsTranslationBundle\BazingaJsTranslationBundle(),
             new Acreat\CoreBundle\AcreatCoreBundle(),
             new Acreat\InseeBundle\AcreatInseeBundle(),
             new Viteloge\CoreBundle\VitelogeCoreBundle(),

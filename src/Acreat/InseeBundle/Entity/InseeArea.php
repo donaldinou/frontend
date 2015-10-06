@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="insee_quartiers", indexes={@ORM\Index(name="cityId", columns={"insee"})})
  * @ORM\Entity(repositoryClass="Acreat\InseeBundle\Repository\InseeAreaRepository")
  */
-class InseeArea
+class InseeArea extends InseeEntity
 {
     /**
      * @var string

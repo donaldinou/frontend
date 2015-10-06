@@ -18,3 +18,12 @@
 .lazy {
     display: none;
 }
+
+span.list-group-item {
+    &:focus, &:hover {
+        text-decoration: none;
+        color: #555;
+        background-color: #f5f5f5;
+        cursor: pointer;
+    }
+}

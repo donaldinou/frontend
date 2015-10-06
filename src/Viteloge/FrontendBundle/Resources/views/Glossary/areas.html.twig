@@ -13,11 +13,11 @@
                 {% trans with { '%name%': inseeCity.name } %}glossary.area.from.name{% endtrans %}
             {%- endblock panel_title -%}
             {%- block panel_content -%}
-                <ul class="list-group">
+                <div class="list-group">
                     {%- for area in areas -%}
                         {{ include('VitelogeFrontendBundle:Glossary:render/li-area.html.twig') }}
                     {%- endfor -%}
-                </ul>
+                </div>
             {%- endblock panel_content -%}
         {% endembed %}
 {%- endif -%}

@@ -110,6 +110,18 @@
         <source>viteloge.from.you</source>
         <target>chez vous</target>
       </trans-unit>
+      <trans-unit id="viteloge.seemap" resname="viteloge.seemap">
+        <source>viteloge.seemap</source>
+        <target>Voir la carte</target>
+      </trans-unit>
+      <trans-unit id="viteloge.localized.area" resname="viteloge.localized.area">
+        <source>viteloge.localized.area</source>
+        <target>Localisation du quartier: %area%</target>
+      </trans-unit>
+      <trans-unit id="viteloge.loading" resname="viteloge.loading">
+        <source>viteloge.loading</source>
+        <target>Chargement...</target>
+      </trans-unit>
       <trans-unit id="viteloge.noresult" resname="viteloge.noresult">
         <source>viteloge.noresult</source>
         <target>Pas de résulat</target>

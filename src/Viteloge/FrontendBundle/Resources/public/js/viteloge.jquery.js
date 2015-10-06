@@ -50,6 +50,8 @@ jQuery(document).ready(function() {
     jQuery('body').on('change', 'select.sortable', processToSort);
     jQuery('body').on('submit', 'form[data-ajax="true"]', submitInAjax);
     jQuery('body').on('click', '.accept-policy', acceptPolicy);
+    jQuery('body').on('show.bs.popover', 'span[rel="quartier"]', showAreaInMapEvent);
+    jQuery('body').on('click', 'span[rel="quartier"]', buildPopover);
 
     function popstateHistoryEvent(event) {
         event.preventDefault();
@@ -122,19 +124,17 @@ jQuery(document).ready(function() {
         template: '<div class="popover estate alert alert-dismissible" role="tooltip"><button type="button" class="close" data-dismiss="alert" aria-label="X"><span aria-hidden="true">&times;</span></button><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
         trigger: 'click'
     });
-    if (jQuery('span[rel="quartier"]')) {
-        jQuery('span[rel="quartier"]').each(buildPopover);
-    }
-    var popover = jQuery('span[rel="quartier"]').on('show.bs.popover', showAreaInMap);
 
     function buildPopover() {
-        jQuery(this)
+        if (!jQuery(this).attr('data-regionalized')) {
+            jQuery(this)
                 .attr('tabindex', 10)
                 .attr('data-toggle', 'popover')
                 .attr('data-trigger', 'focus')
-                .attr('data-content', 'Loading...')
+                .attr('data-content', Translator.trans('viteloge.loading'))
                 .attr('data-placement', 'bottom')
-                .attr('title', 'show map');
+                .attr('title', Translator.trans('viteloge.localized.area', { "area" : "" }));
+        }
     }
     function decodeLevels(levels) {
         var c, i, len, results;
@@ -145,12 +145,15 @@ jQuery(document).ready(function() {
           }
           return results;
     }
-    function showAreaInMap() {
+    function showAreaInMapEvent(event) {
         var areaId = jQuery(this).attr('id');
         var color = jQuery(this).css('color');
+        showAreaInMap(this, areaId, color);
+    }
+    function showAreaInMap(element, areaId, color) {
         jQuery.ajax({
             url: Routing.generate('acreat_insee_area_show', {id: areaId, _format: 'json'}, true),
-            context: jQuery(this),
+            context: jQuery(element),
             method: 'GET',
             success: function(inseeArea) {
                 var optMap = {
@@ -159,7 +162,7 @@ jQuery(document).ready(function() {
                     zoom: 12
                 }
 
-                var popoverId = jQuery(this).attr('aria-describedby');
+                var popoverId = jQuery(element).attr('aria-describedby');
                 var popoverContent = jQuery('#'+popoverId).find('.popover-content');
                 jQuery(popoverContent).attr('id', popoverId+'-content');
 
@@ -263,8 +266,6 @@ jQuery(document).ready(function() {
                     //jQuery('#'+id).replaceWith(jQuery(content).find('#'+id));
                     var cloneObj = jQuery(content).find(clone);
                     animation(parent, cloneObj, animate);
-                    jQuery(clone).find('span[rel="quartier"]').each(buildPopover);
-                    popover = jQuery('span[rel="quartier"]').on('show.bs.popover', showAreaInMap);
                     initLazyLoad();
                     initSocialShareWidgets();
                     hinclude.run();

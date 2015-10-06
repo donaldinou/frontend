@@ -1,3 +1,4 @@
-<li class="list-group-item">
-    <a href="{{ path('viteloge_frontend_glossary_showarea', { name: area.Name, id: area.id }) }}">{{ area.Name }}</a>
-</li>
+<span class="list-group-item">
+    <a href="{{ path('viteloge_frontend_glossary_showarea', { name: area.slug, id: area.id }) }}" class="">{{ area.Name }}</a>
+    <span rel="quartier" id="{{ area.id }}" class="pull-right" tabindex="10" data-toggle="popover" data-trigger="focus" data-content="{%- trans -%}viteloge.loading{%- endtrans -%}" data-placement="bottom" data-regionalized="true" title="{%- trans with { '%area%': area.Name } -%}viteloge.localized.area{%- endtrans -%}"><span class="fa fa-map-marker"></span></span>
+</span>

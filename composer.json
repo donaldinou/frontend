@@ -37,13 +37,14 @@
         "genemu/form-bundle": "~2.2",
         "stof/doctrine-extensions-bundle": "~1.1",
         "hwi/oauth-bundle": "0.4.*@dev",
-        "ccampbell/chromephp": "^4.1",
+        "willdurand/js-translation-bundle": "dev-master",
         "excelwebzone/recaptcha-bundle": "dev-master",
-        "presta/sitemap-bundle": "dev-master",
-        "symfony/var-dumper": "^2.7"
+        "presta/sitemap-bundle": "dev-master"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3"
+        "symfony/var-dumper": "^2.7",
+        "sensio/generator-bundle": "~2.3",
+        "ccampbell/chromephp": "^4.1"
     },
     "scripts": {
         "post-root-package-install": [

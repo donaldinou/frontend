@@ -28,3 +28,6 @@ fos_js_routing:
 PrestaSitemapBundle:
     resource: "@PrestaSitemapBundle/Resources/config/routing.yml"
     prefix:   /
+
+_bazinga_jstranslation:
+    resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"
