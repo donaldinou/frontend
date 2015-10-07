@@ -2,6 +2,10 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
   <file source-language="fr-FR" target-language="fr" datatype="plaintext" original="file.ext">
     <body>
+      <trans-unit id="Error" resname="Error">
+        <source>Error</source>
+        <target>Erreur</target>
+      </trans-unit>
       <trans-unit id="social.facebook" resname="social.facebook">
         <source>social.facebook</source>
         <target>Facebook</target>
@@ -41,6 +45,10 @@
       <trans-unit id="viteloge.brand" resname="viteloge.brand">
         <source>viteloge.brand</source>
         <target>Vitelogé</target>
+      </trans-unit>
+      <trans-unit id="viteloge.slogan" resname="viteloge.slogan">
+        <source>viteloge.slogan</source>
+        <target>Moteur de recherche immobilier</target>
       </trans-unit>
       <trans-unit id="viteloge.welcome" resname="viteloge.welcome">
         <source>viteloge.welcome</source>
@@ -720,7 +728,7 @@
       </trans-unit>
       <trans-unit id="service.publish.description" resname="service.publish.description">
         <source>service.publish.description</source>
-        <target>Publier et augmenter la visibilité de votre annonce</target>
+        <target>Publier et augmenter la visibilité de vos annonces</target>
       </trans-unit>
       <trans-unit id="service.alert" resname="service.alert">
         <source>service.alert</source>
@@ -898,8 +906,40 @@
         <source>contact.city</source>
         <target>Votre ville</target>
       </trans-unit>
-      <trans-unit id="contact.send" resname="contact.send">
-        <source>contact.send</source>
+      <trans-unit id="contact.city" resname="contact.city">
+        <source>contact.city</source>
+        <target>Votre ville</target>
+      </trans-unit>
+      <trans-unit id="contact.subject.nationalad" resname="contact.subject.nationalad">
+        <source>contact.subject.nationalad</source>
+        <target>Publicité Nationale</target>
+      </trans-unit>
+      <trans-unit id="contact.subject.localad" resname="contact.subject.localad">
+        <source>contact.subject.localad</source>
+        <target>Publicité Locale</target>
+      </trans-unit>
+      <trans-unit id="contact.subject.highlightad" resname="contact.subject.highlightad">
+        <source>contact.subject.highlightad</source>
+        <target>Mise en valeur d'annonces</target>
+      </trans-unit>
+      <trans-unit id="contact.subject.partner" resname="contact.subject.partner">
+        <source>contact.subject.partner</source>
+        <target>Partenariat</target>
+      </trans-unit>
+      <trans-unit id="contact.subject.bug" resname="contact.subject.bug">
+        <source>contact.subject.bug</source>
+        <target>Bogue</target>
+      </trans-unit>
+      <trans-unit id="contact.subject.technicalassist" resname="contact.subject.technicalassist">
+        <source>contact.subject.technicalassist</source>
+        <target>Assistance Technique</target>
+      </trans-unit>
+      <trans-unit id="contact.subject.miscquestion" resname="contact.subject.miscquestion">
+        <source>contact.subject.miscquestion</source>
+        <target>Question(s) diverse(s)</target>
+      </trans-unit>
+      <trans-unit id="contact.action.send" resname="contact.action.send">
+        <source>contact.action.send</source>
         <target>Envoyer</target>
       </trans-unit>
       <trans-unit id="sitemap.properties.for.name" resname="sitemap.properties.for.name">
@@ -918,6 +958,14 @@
         <source>viteloge.frontend.static.index.title</source>
         <target>Vitelogé - A propos du moteur de recherche immobilier</target>
       </trans-unit>
+      <trans-unit id="viteloge.frontend.static.about.maintitle" resname="viteloge.frontend.static.about.maintitle">
+        <source>viteloge.frontend.static.index.maintitle</source>
+        <target>A propos de Vitelogé</target>
+      </trans-unit>
+      <trans-unit id="viteloge.frontend.static.about.short" resname="viteloge.frontend.static.about.short">
+        <source>viteloge.frontend.static.index.short</source>
+        <target>A propos</target>
+      </trans-unit>
       <trans-unit id="viteloge.frontend.static.about.description" resname="viteloge.frontend.static.about.description">
         <source>viteloge.frontend.static.about.description</source>
         <target>Immobilier - ViteLogé, le moteur de recherche immobilier le plus rapide. Acheter une maison, louer un appartement : site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers</target>
@@ -925,6 +973,10 @@
       <trans-unit id="viteloge.frontend.static.why.title" resname="viteloge.frontend.static.why.title">
         <source>viteloge.frontend.static.why.title</source>
         <target>Vitelogé - Pourquoi ce moteur de recherche immobilier</target>
+      </trans-unit>
+      <trans-unit id="viteloge.frontend.static.why.maintitle" resname="viteloge.frontend.static.why.maintitle">
+        <source>viteloge.frontend.static.why.maintitle</source>
+        <target>Pourquoi Vitelogé ?</target>
       </trans-unit>
       <trans-unit id="viteloge.frontend.static.why.description" resname="viteloge.frontend.static.why.description">
         <source>viteloge.frontend.static.why.description</source>
@@ -934,6 +986,10 @@
         <source>viteloge.frontend.static.ad.title</source>
         <target>Vitelogé - Les annonces du moteur de recherche immobilier</target>
       </trans-unit>
+      <trans-unit id="viteloge.frontend.static.ad.maintitle" resname="viteloge.frontend.static.ad.maintitle">
+        <source>viteloge.frontend.static.ad.maintitle</source>
+        <target>Votre publicité sur Vitelogé</target>
+      </trans-unit>
       <trans-unit id="viteloge.frontend.static.ad.description" resname="viteloge.frontend.static.ad.description">
         <source>viteloge.frontend.static.ad.description</source>
         <target>Immobilier - ViteLogé, le moteur de recherche immobilier le plus rapide. Acheter une maison, louer un appartement : site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers</target>
@@ -941,6 +997,10 @@
       <trans-unit id="viteloge.frontend.static.contactus.title" resname="viteloge.frontend.static.contactus.title">
         <source>viteloge.frontend.static.contactus.title</source>
         <target>Vitelogé - Nous contacter</target>
+      </trans-unit>
+      <trans-unit id="viteloge.frontend.static.contactus.maintitle" resname="viteloge.frontend.static.contactus.maintitle">
+        <source>viteloge.frontend.static.contactus.maintitle</source>
+        <target>Contacter Vitelogé</target>
       </trans-unit>
       <trans-unit id="viteloge.frontend.static.contactus.description" resname="viteloge.frontend.static.contactus.description">
         <source>viteloge.frontend.static.contactus.description</source>
@@ -950,6 +1010,10 @@
         <source>viteloge.frontend.static.recommand.title</source>
         <target>Vitelogé - Recommander le moteur de recherche immobilier</target>
       </trans-unit>
+      <trans-unit id="viteloge.frontend.static.recommand.maintitle" resname="viteloge.frontend.static.recommand.maintitle">
+        <source>viteloge.frontend.static.recommand.maintitle</source>
+        <target>Recommander Vitelogé</target>
+      </trans-unit>
       <trans-unit id="viteloge.frontend.static.recommand.description" resname="viteloge.frontend.static.recommand.description">
         <source>viteloge.frontend.static.recommand.description</source>
         <target>Immobilier - ViteLogé, le moteur de recherche immobilier le plus rapide. Acheter une maison, louer un appartement : site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers</target>
@@ -957,6 +1021,10 @@
       <trans-unit id="viteloge.frontend.static.subscribe.title" resname="viteloge.frontend.static.subscribe.title">
         <source>viteloge.frontend.static.subscribe.title</source>
         <target>Vitelogé - Souscrire sur le moteur de recherche immobilier</target>
+      </trans-unit>
+      <trans-unit id="viteloge.frontend.static.subscribe.maintitle" resname="viteloge.frontend.static.subscribe.maintitle">
+        <source>viteloge.frontend.static.subscribe.maintitle</source>
+        <target>Alerte mail Vitelogé</target>
       </trans-unit>
       <trans-unit id="viteloge.frontend.static.subscribe.description" resname="viteloge.frontend.static.subscribe.description">
         <source>viteloge.frontend.static.subscribe.description</source>
@@ -966,6 +1034,10 @@
         <source>viteloge.frontend.static.register.title</source>
         <target>Vitelogé - S'enregister sur le moteur de recherche immobilier</target>
       </trans-unit>
+      <trans-unit id="viteloge.frontend.static.register.maintitle" resname="viteloge.frontend.static.register.maintitle">
+        <source>viteloge.frontend.static.register.maintitle</source>
+        <target>S'enregister sur Vitelogé</target>
+      </trans-unit>
       <trans-unit id="viteloge.frontend.static.register.description" resname="viteloge.frontend.static.register.description">
         <source>viteloge.frontend.static.register.description</source>
         <target>Immobilier - ViteLogé, le moteur de recherche immobilier le plus rapide. Acheter une maison, louer un appartement : site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers</target>
@@ -973,6 +1045,10 @@
       <trans-unit id="viteloge.frontend.static.apiform.title" resname="viteloge.frontend.static.apiform.title">
         <source>viteloge.frontend.static.apiform.title</source>
         <target>Vitelogé - Application pour le moteur de recherche immobilier</target>
+      </trans-unit>
+      <trans-unit id="viteloge.frontend.static.apiform.maintitle" resname="viteloge.frontend.static.apiform.maintitle">
+        <source>viteloge.frontend.static.apiform.maintitle</source>
+        <target>Application sur Vitelogé</target>
       </trans-unit>
       <trans-unit id="viteloge.frontend.static.apiform.description" resname="viteloge.frontend.static.apiform.description">
         <source>viteloge.frontend.static.apiform.description</source>
@@ -982,6 +1058,14 @@
         <source>viteloge.frontend.static.gtc.title</source>
         <target>Vitelogé - Conditions générales d'utilisation du moteur de recherche immobilier</target>
       </trans-unit>
+      <trans-unit id="viteloge.frontend.static.gtc.maintitle" resname="viteloge.frontend.static.gtc.maintitle">
+        <source>viteloge.frontend.static.gtc.maintitle</source>
+        <target>Conditions générales d'utilisation</target>
+      </trans-unit>
+      <trans-unit id="viteloge.frontend.static.gtc.short" resname="viteloge.frontend.static.gtc.short">
+        <source>viteloge.frontend.static.gtc.short</source>
+        <target>CGU</target>
+      </trans-unit>
       <trans-unit id="viteloge.frontend.static.gtc.description" resname="viteloge.frontend.static.gtc.description">
         <source>viteloge.frontend.static.gtc.description</source>
         <target>Immobilier - ViteLogé, le moteur de recherche immobilier le plus rapide. Acheter une maison, louer un appartement : site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers</target>
@@ -990,8 +1074,28 @@
         <source>viteloge.frontend.static.privacy.title</source>
         <target>Vitelogé - Données personnelles sur le moteur de recherche immobilier</target>
       </trans-unit>
+      <trans-unit id="viteloge.frontend.static.privacy.maintitle" resname="viteloge.frontend.static.privacy.maintitle">
+        <source>viteloge.frontend.static.privacy.maintitle</source>
+        <target>Informations privée</target>
+      </trans-unit>
       <trans-unit id="viteloge.frontend.static.privacy.description" resname="viteloge.frontend.static.privacy.description">
         <source>viteloge.frontend.static.privacy.description</source>
+        <target>Immobilier - ViteLogé, le moteur de recherche immobilier le plus rapide. Acheter une maison, louer un appartement : site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers</target>
+      </trans-unit>
+      <trans-unit id="viteloge.frontend.ad.search.title" resname="viteloge.frontend.ad.search.title">
+        <source>viteloge.frontend.ad.search.title</source>
+        <target>Vitelogé - Recherche d'annonces immobilières</target>
+      </trans-unit>
+      <trans-unit id="viteloge.frontend.ad.search.description" resname="viteloge.frontend.ad.search.description">
+        <source>viteloge.frontend.ad.search.description</source>
+        <target>Immobilier - ViteLogé, le moteur de recherche immobilier le plus rapide. Acheter une maison, louer un appartement : site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers</target>
+      </trans-unit>
+      <trans-unit id="viteloge.frontend.glossary.showcity.title" resname="viteloge.frontend.glossary.showcity.title">
+        <source>viteloge.frontend.glossary.showcity.title</source>
+        <target>Vitelogé - Ville recherché sur le moteur</target>
+      </trans-unit>
+      <trans-unit id="viteloge.frontend.glossary.showcity.description" resname="viteloge.frontend.glossary.showcity.description">
+        <source>viteloge.frontend.glossary.showcity.description</source>
         <target>Immobilier - ViteLogé, le moteur de recherche immobilier le plus rapide. Acheter une maison, louer un appartement : site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers</target>
       </trans-unit>
     </body>

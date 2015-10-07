@@ -4,11 +4,11 @@
 {%- set submit_uri = submit_uri|default(false) -%}
 {%- set submit_label = submit_label|default('Submit') -%}
 <div class="row">
-    <div class="col-xs-2">
+    <div class="col-xs-2 no-padding-right">
         {%- block form_button_back -%}
             <a href="{{ back_uri }}" class="btn btn-default btn-block" role="button">
                 <span class="fa fa-rotate-left">&nbsp;</span>
-                <span>{{ back_label|trans({}, translation_domain) }}</span>
+                <span class="hidden-xs">{{ back_label|trans({}, translation_domain) }}</span>
             </a>
         {%- endblock -%}
     </div>
@@ -17,12 +17,12 @@
             {%- if not submit_uri -%}
                 <button type="submit" class="btn btn-default btn-block" role="button">
                     <span class="fa fa-refresh">&nbsp;</span>
-                    <span>{{ submit_label|trans({}, translation_domain) }}</span>
+                    <span class="">{{ submit_label|trans({}, translation_domain) }}</span>
                 </button>
             {%- else -%}
                 <a href="{{ submit_uri }}" class="btn btn-default btn-block" role="button">
                     <span class="fa fa-refresh">&nbsp;</span>
-                    <span>{{ submit_label|trans({}, translation_domain) }}</span>
+                    <span class="">{{ submit_label|trans({}, translation_domain) }}</span>
                 </a>
             {%- endif -%}
         {%- endblock -%}

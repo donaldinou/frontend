@@ -5,7 +5,6 @@
     {%- embed "VitelogeUserBundle:grid:three-columns.html.twig" with {'lsize': 5, 'msize': 4, 'rsize': 3} -%}
         {%- block left -%}
             {{- include('VitelogeUserBundle:Security:fragment/form.html.twig') -}}
-            {#{% render(controller('HWIOAuthBundle:Connect:connect')) %}#}
         {%- endblock -%}
         {%- block middle -%}
             {{- include('VitelogeUserBundle:Registration:fragment/subscribe_block.html.twig') -}}

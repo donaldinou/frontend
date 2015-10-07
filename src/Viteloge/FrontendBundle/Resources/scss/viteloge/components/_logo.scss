@@ -1,6 +1,9 @@
 .brand {
     > .logo {
-        width: 300px;
+        width: 240px;
+        @media (min-width: $screen-sm-min) {
+            width: 300px;
+        }
         height: auto;
     }
     > h1.title {

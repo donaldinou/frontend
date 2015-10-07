@@ -7,9 +7,22 @@
 
 {%- block header -%}
     {%- embed 'VitelogeUserBundle:base:header.html.twig' -%}
+        {%- block header_navbarheader -%}
+            <div class="navbar-header" id="navbar-button-logo">
+                {{- block('header_button') -}}
+                {{- block('header_logo') -}}
+                {%- block header_more -%}
+                    <button type="button" class="visible-xs pull-right btn btn-inverted navbar-button collapsed" data-toggle="collapse" data-target="#map-container" aria-expanded="true" aria-controls="map-container">
+                        <span class="sr-only">{% trans %}viteloge.more{% endtrans %}</span>
+                        <span class="fa fa-arrow-circle-down"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                {%- endblock header_more -%}
+            </div>
+        {%- endblock -%}
         {%- block header_navigation_more -%}
-            <li class="tab text-uppercase dropdown active" role="presentation">
-                <a href="#map-container" data-toggle="collapse" aria-expanded="true" aria-controls="#map-container" role="button">
+            <li class="tab text-uppercase dropdown hidden-xs active" role="presentation">
+                <a href="#map-container" data-toggle="collapse" aria-expanded="true" aria-controls="map-container" role="button">
                     <span class="fa fa-arrow-circle-down"></span>
                 </a>
             </li>

@@ -137,6 +137,17 @@
                 'maxlength': 64
             }
         }) }}
+        {{ form_row(form.send, {
+            'label': 'contact.action.send',
+            'span_class': 'fa fa-send',
+            'label_attr': {
+                'class': 'sr-only'
+            },
+            'attr': {
+                'class': 'btn btn-primary btn-block text-uppercase',
+                'role': 'button'
+            }
+        }) }}
     {%- endblock form_fields -%}
 {%- block form_end -%}
 {{ form_end(form) }}

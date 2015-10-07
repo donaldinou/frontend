@@ -71,8 +71,25 @@
             }
         }
     }
-    &.facebook, &.twitter {
-        vertical-align: bottom;
+    &.google {
+        background-color: #db4437;
+        &:hover,
+        &:focus {
+            background-color: darken(#db4437, 2);
+            border: 1px solid #db4437;
+            & {
+                line-height: 33px;
+            }
+            &.small {
+                line-height: 23px;
+            }
+            &.medium {
+                line-height: 43px;
+            }
+            &.large {
+                line-height: 58px;
+            }
+        }
     }
 }
 .rounded-icon {

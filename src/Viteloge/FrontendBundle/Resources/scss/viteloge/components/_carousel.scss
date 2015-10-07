@@ -1,0 +1,28 @@
+.owl-stage-outer {
+    z-index: 10;
+    .owl-stage {
+
+    }
+}
+.owl-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    font-size: 26px;
+    .owl-prev, .owl-next {
+        position: absolute;
+        top: 50%;
+        &:hover, &:focus {
+
+        }
+    }
+    .owl-prev {
+        left: -25px;
+    }
+    .owl-next {
+        right: -25px;
+    }
+}

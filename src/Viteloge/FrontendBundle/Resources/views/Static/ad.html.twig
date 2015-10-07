@@ -1,8 +1,12 @@
 {% extends 'VitelogeFrontendBundle:Static:base.html.twig' %}
 
 {% block title %}
-    <title>{%- trans -%}Your ad on Fasthousing{%- endtrans -%}</title>
+    <title>{%- trans -%}viteloge.frontend.static.ad.title{%- endtrans -%}</title>
 {% endblock title %}
+
+{% block main_title %}
+    {%- trans -%}viteloge.frontend.static.ad.maintitle{%- endtrans -%}
+{% endblock main_title %}
 
 {%- block teaser -%}
     two

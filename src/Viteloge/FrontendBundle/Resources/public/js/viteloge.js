@@ -47,8 +47,7 @@ function showCarouselLocation(transaction, radius, position) {
         method: 'GET',
         success: function(data, textStatus, jqXHR) {
             jQuery(idContainer).parent().show().html(data);
-            jQuery('.owl-carousel').removeClass('owl-carousel');
-            //jQuery('.owl-carousel').owlCarousel();
+            runResponsiveCarousel('.owl-carousel');
         }
     });
 }

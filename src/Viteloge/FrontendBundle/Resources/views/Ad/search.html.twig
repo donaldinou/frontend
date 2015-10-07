@@ -13,6 +13,26 @@
     {{ include('VitelogeFrontendBundle:misc:requirejs.html.twig', { 'module': 'app/homepage.js' }) }}
 {%- endblock -%}
 
+{%- block header -%}
+    {%- embed "VitelogeUserBundle:base:header.html.twig" -%}
+        {%- block header_navbarheader -%}
+            <div class="navbar-header" id="navbar-button-logo">
+                {{- block('header_button') -}}
+                {{- block('header_logo') -}}
+                {%- block header_more -%}
+                    {%- if form is defined -%}
+                        <button type="button" class="visible-xs pull-right btn btn-inverted navbar-button collapsed" data-toggle="collapse" data-target="#search-container" aria-expanded="false" aria-controls="search-container">
+                            <span class="sr-only">{% trans %}ad.change.research{% endtrans %}</span>
+                            <span class="fa fa-search"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    {%- endif -%}
+                {%- endblock header_more -%}
+            </div>
+        {%- endblock -%}
+    {%- endembed -%}
+{%- endblock -%}
+
 {%- block header_end -%}
     <div class="container">
         <div class="row clearfix">
@@ -20,7 +40,7 @@
                 {% set count = pagination.nbResults|default(ads|length) %}
                 <h2 class="">{% transchoice count with { '%count%' : count } %}ads.count.research{% endtranschoice %}</h2>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 text-right hidden-xs">
                 {%- if form is defined -%}
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="collapse" aria-expanded="false" data-target="#search-container" aria-controls="search-container">
                         {% trans %}ad.change.research{% endtrans %}&nbsp;<span class="caret"></span>

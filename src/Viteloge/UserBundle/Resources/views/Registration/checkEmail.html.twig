@@ -2,6 +2,6 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block main %}
+{%- block main -%}
     <p>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>
-{% endblock main %}
+{%- endblock main -%}

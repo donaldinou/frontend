@@ -1,12 +1,18 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
-{% block main %}
-    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } %}
-        {% block left %}
-            {{ include('FOSUserBundle:Resetting:fragment/reset_form.html.twig') }}
-        {% endblock %}
-        {% block right %}
-            {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
-        {% endblock %}
-    {% endembed %}
-{% endblock main %}
+{%- block main -%}
+    {%- embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } -%}
+        {%- block left -%}
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <div class="content">
+                        {{- include('FOSUserBundle:Resetting:fragment/reset_form.html.twig') -}}
+                    </div>
+                </div>
+            </div>
+        {%- endblock -%}
+        {%- block right -%}
+            {{- include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) -}}
+        {%- endblock -%}
+    {%- endembed -%}
+{%- endblock main -%}

@@ -50,7 +50,8 @@ namespace Viteloge\FrontendBundle\Form\Type {
         public function setDefaultOptions(OptionsResolverInterface $resolver){
             $resolver->setDefaults(array(
                 'data_class' => 'Viteloge\CoreBundle\Entity\WebSearch',
-                'cascade_validation' => true
+                'cascade_validation' => true,
+                'intention' => 'task_form',
             ));
         }
 

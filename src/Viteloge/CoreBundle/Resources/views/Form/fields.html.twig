@@ -63,6 +63,32 @@
     </div>
 {%- endblock remove_inputgroup_widget -%}
 
+{% block email_inputgroup_widget -%}
+    {% set prepend = prepend|default(false) %}
+    <div class="input-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+        {% if not prepend %}
+            <span class="input-group-addon">@</span>
+        {% endif %}
+        {{- block('form_widget_simple') -}}
+        {% if prepend %}
+            <span class="input-group-addon">@</span>
+        {% endif %}
+    </div>
+{%- endblock email_inputgroup_widget %}
+
+{% block password_inputgroup_widget -%}
+    {% set prepend = prepend|default(false) %}
+    <div class="input-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+        {% if not prepend %}
+            <span class="input-group-addon">&nbsp;#</span>
+        {% endif %}
+        {{- block('form_widget_simple') -}}
+        {% if prepend %}
+            <span class="input-group-addon">&nbsp;#</span>
+        {% endif %}
+    </div>
+{%- endblock password_inputgroup_widget %}
+
 {%- block checkbox_inputgroup_widget -%}
     {%- set inputgroup_attr = input_group.attr|default({'class':''}) -%}
     <div class="input-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">

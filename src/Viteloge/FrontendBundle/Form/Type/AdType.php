@@ -36,6 +36,7 @@ namespace Viteloge\FrontendBundle\Form\Type {
         public function setDefaultOptions(OptionsResolverInterface $resolver){
             $resolver->setDefaults(array(
                 'data_class' => 'Viteloge\CoreBundle\Entity\Ad',
+                'intention' => 'task_form',
             ));
         }
 

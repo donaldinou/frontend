@@ -9,7 +9,9 @@
 {{ form_start(form, {'attr': {'action': path('fos_user_profile_edit'), 'enctype': 'application/x-www-form-urlencoded', 'class': 'fos_user_profile_edit form-horizontal', 'role': 'form', 'novalidate': 'novalidate'}}) }}
     {{ form_errors(form) }}
     <div class="hidden">
-        {{ form_row(form._token) }}
+        {%- if form._token is defined -%}
+            {{ form_row(form._token) }}
+        {%- endif -%}
     </div>
     {{ form_row(form.civility, {
         'label_attr': {

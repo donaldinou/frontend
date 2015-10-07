@@ -29,6 +29,7 @@ namespace Viteloge\FrontendBundle\Form\Type {
         public function setDefaultOptions(OptionsResolverInterface $resolver) {
             $resolver->setDefaults(array(
                 'invalid_message' => 'The selected city does not exist',
+                'intention' => 'task_form',
             ));
         }
 

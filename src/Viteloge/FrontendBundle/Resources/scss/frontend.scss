@@ -64,45 +64,6 @@
 }
 
 /**
-* Grid
-*/
-.row-no-padding {
-    [class*='col-'] {
-        padding-right:0;
-        padding-left:0;
-    }
-}
-
-.row-padding-5 {
-    [class*='col-'] {
-        padding-right:5px;
-        padding-left:5px;
-    }
-}
-
-.row-padding-10 {
-    [class*='col-'] {
-        padding-right:10px;
-        padding-left:10px;
-    }
-}
-
-[class*='col-'] {
-    &.no-padding {
-        padding-right: 0;
-        padding-left: 0;
-    }
-    &.padding-5 {
-        padding-right:5px;
-        padding-left:5px;
-    }
-    &.padding-10 {
-        padding-right:10px;
-        padding-left:10px;
-    }
-}
-
-/**
 * Background generic
 */
 .bg-transparent {

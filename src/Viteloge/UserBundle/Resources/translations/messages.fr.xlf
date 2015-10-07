@@ -38,6 +38,30 @@
                 <source>user.register.account.line3</source>
                 <target>Trier les résultats suivant différents critères</target>
             </trans-unit>
+            <trans-unit id="viteloge.user.registration.register.title" resname="viteloge.user.registration.register.title">
+                <source>viteloge.user.registration.register.title</source>
+                <target>Vitelogé - S'enregistrer sur le moteur de recherche immobilier</target>
+            </trans-unit>
+            <trans-unit id="viteloge.user.registration.register.description" resname="viteloge.user.registration.register.description">
+                <source>viteloge.user.registration.register.description</source>
+                <target>Site immobilier d'annonces immobilières de ventes et locations de logement en France.</target>
+            </trans-unit>
+            <trans-unit id="viteloge.user.security.login.title" resname="viteloge.user.security.login.title">
+                <source>viteloge.user.security.login.title</source>
+                <target>Vitelogé - Se connecter au moteur de recherche immobilier</target>
+            </trans-unit>
+            <trans-unit id="viteloge.user.security.login.description" resname="viteloge.user.security.login.description">
+                <source>viteloge.user.security.login.description</source>
+                <target>Site immobilier d'annonces immobilières de ventes et locations de logement en France.</target>
+            </trans-unit>
+            <trans-unit id="viteloge.user.resetting.request.title" resname="viteloge.user.resetting.request.title">
+                <source>viteloge.user.resetting.request.title</source>
+                <target>Vitelogé - Réinitialiser son mot de passe sur le moteur de recherche</target>
+            </trans-unit>
+            <trans-unit id="viteloge.user.resetting.request.description" resname="viteloge.user.resetting.request.description">
+                <source>viteloge.user.resetting.request.description</source>
+                <target>Site immobilier d'annonces immobilières de ventes et locations de logement en France.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

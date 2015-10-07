@@ -161,26 +161,7 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:Glossary:showCity.html.twig")
          */
         public function showCityAction(Request $request, InseeCity $inseeCity) {
-            // SEO
-            $canonicalLink = $this->get('router')->generate(
-                $request->get('_route'),
-                array(
-                    'name' => $inseeCity->getName(),
-                    'id' => $inseeCity->getId()
-                ),
-                true
-            );
-            $seoPage = $this->container->get('sonata.seo.page');
-            $seoPage
-                ->setTitle('viteloge.frontend.glossary.showcity.title')
-                ->addMeta('name', 'description', 'viteloge.frontend.glossary.showcity.description')
-                ->addMeta('property', 'og:title', "viteloge.frontend.glossary.showcity.title")
-                ->addMeta('property', 'og:type', 'website')
-                ->addMeta('property', 'og:url',  $canonicalLink)
-                ->addMeta('property', 'og:description', 'viteloge.frontend.glossary.showcity.description')
-                ->setLinkCanonical($canonicalLink)
-            ;
-            // --
+            $translated = $this->get('translator');
 
             // Breadcrumbs
             $breadcrumbs = $this->get('white_october_breadcrumbs');
@@ -215,6 +196,28 @@ namespace Viteloge\FrontendBundle\Controller {
             $mapOptions->lng = $inseeCity->getLng();
             $mapOptions->disableDefaultUI = true;
             $mapOptions->scrollwheel = false;
+            // --
+
+            // SEO
+            $canonicalLink = $this->get('router')->generate(
+                $request->get('_route'),
+                array(
+                    'name' => $inseeCity->getName(),
+                    'id' => $inseeCity->getId()
+                ),
+                true
+            );
+            $cityTitle = $inseeCity->getFullname().' ('.$inseeCity->getInseeDepartment()->getId().')';
+            $seoPage = $this->container->get('sonata.seo.page');
+            $seoPage
+                ->setTitle($cityTitle.' - '.$translated->trans('viteloge.frontend.glossary.showcity.title'))
+                ->addMeta('name', 'description', $cityTitle.' - '.$translated->trans('viteloge.frontend.glossary.showcity.description'))
+                ->addMeta('property', 'og:title', $cityTitle.' - '.$translated->trans('viteloge.frontend.glossary.showcity.title'))
+                ->addMeta('property', 'og:type', 'website')
+                ->addMeta('property', 'og:description', $cityTitle.' - '.$translated->trans('viteloge.frontend.glossary.showcity.description'))
+                ->addMeta('property', 'og:url',  $canonicalLink)
+                ->setLinkCanonical($canonicalLink)
+            ;
             // --
 
             return array(

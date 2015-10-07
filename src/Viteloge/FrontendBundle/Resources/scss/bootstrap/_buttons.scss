@@ -63,6 +63,9 @@
 .btn-primary {
   @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
 }
+.btn-inverted {
+  @include button-variant($btn-inverted-color, $btn-inverted-bg, $btn-inverted-border);
+}
 // Success appears as green
 .btn-success {
   @include button-variant($btn-success-color, $btn-success-bg, $btn-success-border);

@@ -26,6 +26,20 @@ namespace Viteloge\UserBundle\Controller {
             );
             // --
 
+            // SEO
+            $canonicalLink = $this->get('router')->generate($this->getRequest()->get('_route'), array(), true);
+            $seoPage = $this->container->get('sonata.seo.page');
+            $seoPage
+                ->setTitle($translated->trans('viteloge.user.resetting.request.title'))
+                ->addMeta('name', 'description', $translated->trans('viteloge.user.resetting.request.description'))
+                ->addMeta('property', 'og:title', $translated->trans('viteloge.user.resetting.request.title'))
+                ->addMeta('property', 'og:type', 'website')
+                ->addMeta('property', 'og:url',  $canonicalLink)
+                ->addMeta('property', 'og:description', $translated->trans('viteloge.user.resetting.request.description'))
+                ->setLinkCanonical($canonicalLink)
+            ;
+            // --
+
             return parent::requestAction();
         }
 

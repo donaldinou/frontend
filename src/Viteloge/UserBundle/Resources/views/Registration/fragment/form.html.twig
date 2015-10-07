@@ -1,4 +1,5 @@
 {% trans_default_domain 'FOSUserBundle' %}
+{% form_theme form with ['VitelogeUserBundle:Registration:Form/fields.html.twig'] %}
 
 {{ form_start(form, {'action': path('fos_user_registration_register'), 'attr': { 'id': 'fos_user_registration_form', 'enctype': 'application/x-www-form-urlencoded','class': 'register form-horizontal', 'role': 'form', 'novalidate': 'novalidate'}}) }}
     {%- block form_errors -%}
@@ -6,7 +7,9 @@
     {%- endblock form_errors -%}
     {%- block form_fields -%}
         <div class="hidden">
-            {{ form_row(form._token) }}
+            {%- if form._token is defined -%}
+                {{ form_row(form._token) }}
+            {%- endif -%}
         </div>
         {{ form_row(form.email, {
             'label_attr': {

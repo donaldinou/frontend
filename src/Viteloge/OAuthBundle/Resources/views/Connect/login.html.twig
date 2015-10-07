@@ -1,0 +1,12 @@
+{%- block hwi_oauth_content -%}
+    {%- if error is defined and error -%}
+        <span>{{ error }}</span>
+    {%- endif -%}
+    {%- if hwi_oauth_resource_owners() -%}
+        <ul class="text-center list-inline">
+        {%- for owner in hwi_oauth_resource_owners() -%}
+            {{- include('VitelogeOAuthBundle:Connect:render/list.html.twig', { 'owner': owner }) -}}
+        {%- endfor -%}
+        </ul>
+    {%- endif -%}
+{%- endblock hwi_oauth_content -%}

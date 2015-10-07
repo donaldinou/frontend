@@ -1,25 +1,10 @@
 <h3 class="text-uppercase">{% transchoice transaction|vl_intval with { '%city%': 'viteloge.from.you'|trans } %}ad.transaction.near.city{% endtranschoice %}</h3>
 {% if ads|length %}
-    {%- embed "VitelogeFrontendBundle:Block:carousel.html.twig" with { 'hasIndicators': 0, 'hasControls': true, 'carouselClass': 'estates carousel-one-by-one' } -%}
-        {%- block carousel_id -%}
-            carousel-home-{{ transaction }}
-        {%- endblock carousel_id -%}
-        {%- block carousel_slides -%}
-            {%- for ad in ads -%}
-                {% if loop.first or loop.index0 is divisible by(3) %}{%- set additionnals_class = '' -%}<div class="item clearfix{% if loop.first %} active{% endif %}">{% endif %}
-                    {{ include('VitelogeFrontendBundle:Ad:render/figure.html.twig', { 'ad': ad, 'additionnals_class': additionnals_class }) }}
-                    {%- set additionnals_class = 'hidden-xs hidden-sm' -%}
-                {% if loop.last or ( not loop.first and loop.index is divisible by(3) ) %}</div>{% endif %}
-            {%- endfor -%}
-        {%- endblock carousel_slides -%}
-        {%- block carousel_indicators -%}
-            {#
-            {%- for i in 1..(ads|length)/3|round -%}
-                <li data-target="#{{ block('carousel_id') }}" data-slide-to="{{ loop.index0 }}" class="{% if loop.first %}active{% endif %}"></li>
-            {%- endfor -%}
-            #}
-        {%- endblock carousel_indicators -%}
-    {%- endembed -%}
+    <div id="carousel-home-{{ transaction }}" class="owl-carousel slide" data-ride="carousel">
+        {%- for ad in ads -%}
+            {{ include('VitelogeFrontendBundle:Ad:render/figure.html.twig', { 'ad': ad }) }}
+        {%- endfor -%}
+    </div>
 {% else %}
     <span>{% trans %}None{% endtrans %}</span>
 {% endif %}

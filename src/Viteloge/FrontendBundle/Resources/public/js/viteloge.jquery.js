@@ -17,29 +17,8 @@ jQuery(document).ready(function() {
         images: 'header.header'
     });
 
-    //jQuery('.carousel').carousel();
-    jQuery('.owl-carousel').owlCarousel();
     jQuery('[data-toggle="tooltip"]').tooltip();
     jQuery('.select-tag-input').select2({'width':'100%', 'theme': 'viteloge'});
-
-    jQuery('.carousel-one-by-one .item').each(function(){
-        /*var active = jQuery(this).parent().find('.item.active:first-child');
-        var width = parseInt(active.width());
-        var childWidth = parseInt(active.children(':first-child').outerWidth(true));
-        var childrenCount = Math.floor(width/childWidth);*/
-        var childrenCount = Math.floor(1000/290);
-        var next = jQuery(this).next();
-        var clone = null;
-        for (var i = childrenCount - 1; i > 0; i--) {
-            if (next.length>0) {
-                next.children(':first-child').clone().addClass('hidden-xs hidden-sm').appendTo(jQuery(this));
-            } else {
-                jQuery(this).siblings(':lt('+i+')').children(':first-child').clone().addClass('hidden-xs hidden-sm').appendTo(jQuery(this));
-                break;
-            }
-            next = next.next();
-        };
-    });
 
     jQuery(window).on('popstate', popstateHistoryEvent);
     jQuery('body').on('click', '[data-ajax-click]', ajaxClickEvent);
@@ -109,9 +88,8 @@ jQuery(document).ready(function() {
     jQuery('#map-container').on('show.bs.collapse', toggleNavigationArrow);
     jQuery('#map-container').on('hide.bs.collapse', toggleNavigationArrow);
     function toggleNavigationArrow() {
-        jQuery('#navbar-navigation a[href="#map-container"] > span')
-            .toggleClass('fa-arrow-circle-down')
-            .toggleClass('fa-arrow-circle-up');
+        jQuery('[aria-controls="map-container"] > span.fa')
+            .toggleClass('fa-arrow-circle-down fa-arrow-circle-up')
     }
 
     /**
@@ -565,3 +543,29 @@ var generateUUID = function generateUUID() {
     });
     return uuid;
 };
+
+function runResponsiveCarousel(identifier) {
+    jQuery(identifier).owlCarousel({
+        loop: true,
+        center: false,
+        margin: 10,
+        items: 3,
+        dots: false,
+        navText: [
+            '<span class="fa fa-chevron-left"></span>',
+            '<span class="fa fa-chevron-right"></span>'
+        ],
+        responsiveClass: true,
+        responsive:{
+            0:{
+                items: 1,
+                stagePadding: 50,
+                nav: false
+            },
+            970:{
+                items: 3,
+                nav: true
+            }
+        }
+    });
+}

@@ -2,7 +2,7 @@
 <div class="container">
     <nav class="navbar navbar-default" role="navigation">
         {% block header_navbar %}
-            <div class="container">
+            <div class="clearfix">
                 {% block header_navbarheader %}
                     <div class="navbar-header" id="navbar-button-logo">
                         {% block header_button %}
@@ -14,12 +14,15 @@
                             </button>
                         {% endblock %}
                         {% block header_logo %}
-                            <a class="navbar-branded brand" href="{{ path('viteloge_frontend_homepage') }}" itemscope itemtype="http://schema.org/Brand">
-                                <img src="{{ asset('bundles/vitelogecore/images/logo-viteloge.svg') }}" class="logo img-responsive" alt="{% trans %}viteloge.brand{% endtrans %}" itemprop="logo" data-role="logo">
+                            <a class="navbar-branded brand pull-left" href="{{ path('viteloge_frontend_homepage') }}" itemscope itemtype="http://schema.org/Brand">
+                                <img src="{{ asset('bundles/vitelogecore/images/fr/logo-viteloge-moteur-recherche-immobilier.svg') }}" class="logo img-responsive" alt="{% trans %}viteloge.brand{% endtrans %}" title="{% trans %}viteloge.brand{% endtrans %} - {% trans %}viteloge.slogan{% endtrans %}" itemprop="logo" data-role="logo">
                                 {#<h1 class="title text-uppercase">Vite<em class="em">logé</em></h1>
                                 <h2 class="subtitle clearfix text-uppercase">Moteur de recherche immobilier</h2>#}
                             </a>
                         {% endblock %}
+                        {%- block header_more -%}
+
+                        {%- endblock header_more -%}
                     </div>
                 {% endblock %}
                 {% block header_navbarmenu %}
@@ -27,8 +30,9 @@
                         {%- block header_brand -%}
                         <div class="visible-xs-block">
                             <button type="button" class="close" aria-label="{%- trans -%}viteloge.close{%- endtrans -%}"><span aria-hidden="true">&times;</span></button>
-                            <img src="{{ asset('bundles/vitelogecore/images/logo-viteloge.svg') }}" class="logo img-responsive" alt="{% trans %}viteloge.brand{% endtrans %}" itemprop="logo" data-role="logo">
+                            <img src="{{ asset('bundles/vitelogecore/images/fr/logo-viteloge-moteur-recherche-immobilier.svg') }}" class="logo img-responsive" alt="{% trans %}viteloge.brand{% endtrans %}" title="{% trans %}viteloge.brand{% endtrans %} - {% trans %}viteloge.slogan{% endtrans %}" itemprop="logo" data-role="logo">
                         </div>
+                        <hr class="visible-xs">
                         {%- endblock header_brand -%}
                         {% block header_identification %}
                         <div class="clearfix">

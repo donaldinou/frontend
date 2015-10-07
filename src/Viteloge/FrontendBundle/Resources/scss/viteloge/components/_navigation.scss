@@ -46,7 +46,7 @@
             &,
             &:hover,
             &:focus {
-                background-color: $navbar-default-link-active-color;
+                background-color: $dropdown-link-hover-bg;
                 color: $text-color;
                 border-color: $navbar-default-link-active-color;
                 border-bottom-color: transparent;
@@ -58,9 +58,27 @@
         @extend .nav-justified;
         @extend .nav-tabs-justified;
     }
+    .dropdown-menu {
+        min-width: 295px;
+        margin-top: -1px;
+        margin-right: 2px;
+        border-radius: 0px;
+        background-color: $dropdown-link-hover-bg;
+        border-color: transparent $navbar-default-link-active-color $navbar-default-link-active-color $navbar-default-link-active-color;
+        @include box-shadow(none);
+        > li {
+            > a {
+                &:hover, &:focus {
+                    color: $text-color;
+                    background-color: $navbar-default-link-active-color;
+                }
+            }
+        }
+    }
     @media (max-width: $grid-float-breakpoint-max) {
         .dropdown-menu {
             padding-top: 0px;
+            min-width: auto;
             > li {
                 &.active > a {
                     &,

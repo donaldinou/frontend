@@ -261,28 +261,32 @@
                         <div class="col-md-6"></div>
                     </div>
                     <div class="row">
-                        {{ form_row( form.vue, {
-                            'row_attr': {
-                                'label_class': 'col-md-2',
-                                'group_class': 'col-md-10'
-                            }
-                        }) }}
+                        <div class="col-md-12">
+                            {{ form_row( form.vue, {
+                                'row_attr': {
+                                    'label_class': 'col-md-2',
+                                    'group_class': 'col-md-10'
+                                }
+                            }) }}
+                        </div>
                     </div>
                     <div class="row">
-                        {{ form_row( form.vue_detail, {
-                            'label_attr': {
-                                'class': 'sr-only'
-                            },
-                            'attr': {
-                                'class': 'hidden',
-                                'placeholder': 'estimation.label.vue_detail',
-                                'data-placeholder': 'estimation.label.vue_detail'|trans(),
-                            },
-                            'row_attr': {
-                                'label_class': 'col-md-2',
-                                'group_class': 'col-md-10'
-                            }
-                        }) }}
+                        <div class="col-md-12">
+                            {{ form_row( form.vue_detail, {
+                                'label_attr': {
+                                    'class': 'sr-only'
+                                },
+                                'attr': {
+                                    'class': 'hidden',
+                                    'placeholder': 'estimation.label.vue_detail',
+                                    'data-placeholder': 'estimation.label.vue_detail'|trans(),
+                                },
+                                'row_attr': {
+                                    'label_class': 'col-md-2',
+                                    'group_class': 'col-md-10'
+                                }
+                            }) }}
+                        </div>
                     </div>
                 {%- endblock panel_body -%}
                 {%- block panel_footer -%}

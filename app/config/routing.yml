@@ -1,3 +1,7 @@
+viteloge_o_auth:
+    resource: "@VitelogeOAuthBundle/Resources/config/routing.yml"
+    prefix:   /
+
 viteloge_news:
     resource: "@VitelogeNewsBundle/Resources/config/routing.yml"
     prefix:   /

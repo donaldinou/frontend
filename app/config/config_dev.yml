@@ -1,5 +1,6 @@
 imports:
     - { resource: config.yml }
+    - { resource: security_dev.yml }
 
 framework:
     router:
@@ -7,6 +8,10 @@ framework:
         strict_requirements: true
     profiler: { only_exceptions: false }
     ide: sublime
+    csrf_protection:
+        enabled: true
+    session:
+        save_path: %kernel.cache_dir%/sessions
 
 web_profiler:
     toolbar: true

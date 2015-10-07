@@ -1,5 +1,8 @@
 aside {
     > :first-child {
+        @media (max-width: $screen-sm-max) {
+            margin-top: 10px;
+        }
         margin-bottom: 10px;
     }
     .clearfix {
@@ -10,7 +13,6 @@ aside {
 }
 
 .adsbygoogle {
-    /*background-color: #fff;*/
     display:inline-block;
     width:100%;
     height:250px;

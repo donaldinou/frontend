@@ -169,33 +169,18 @@ module.exports = function(grunt) {
                 src: ['<%= cmp.extra["symfony-assets-dir"] %>/sass']
             }
         },
-        s3: {
+        aws_s3: {
             options: {
-                key: '<%= aws.key %>',
-                secret: '<%= aws.secret %>',
+                accessKeyId: '<%= aws.key %>',
+                secretAccessKey: '<%= aws.secret %>',
                 bucket: '<%= aws.bucket %>'
             },
-            cdn: {
-                upload: [
-                    {
-                        src: 'cmp.extra["symfony-assets-dir"]/css/*',
-                        dest: 'css/'
-                    },
-
-                    {
-                        src: 'cmp.extra["symfony-assets-dir"]/fonts/*',
-                        dest: 'fonts/'
-                    },
-                    {
-                        src: 'cmp.extra["symfony-assets-dir"]/images/*',
-                        dest: 'images/'
-                    },
-                    {
-                        src: 'cmp.extra["symfony-assets-dir"]/js/*',
-                        dest: 'js/'
-                    }
-                ]
-            }
+            files: [
+                {expand: true, cwd: 'cmp.extra["symfony-assets-dir"]/css/', src: ['**'], dest: 'assets/css/', action: 'upload'},
+                {expand: true, cwd: 'cmp.extra["symfony-assets-dir"]/fonts/', src: ['**'], dest: 'assets/fonts/', action: 'upload'},
+                {expand: true, cwd: 'cmp.extra["symfony-assets-dir"]/images/', src: ['**'], dest: 'assets/img/', action: 'upload'},
+                {expand: true, cwd: 'cmp.extra["symfony-assets-dir"]/js/', src: ['**'], dest: 'assets/js/', action: 'upload'},
+            ]
         }
     };
 
@@ -208,4 +193,5 @@ module.exports = function(grunt) {
     grunt.registerTask('javascript', [/*'dart2js', */'uglify', 'copy']);
     grunt.registerTask('copy:assets', ['clean:build', 'copy', 'clean:sass']);
     grunt.registerTask('default', ['bowercopy']);
+    grunt.registerTask('deploy', ['clean:build', 'clean:sass', 'compass', 'cssmin', 'bowercopy', 'uglify', 'copy', 'aws_s3'])
 };

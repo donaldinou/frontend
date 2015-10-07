@@ -62,25 +62,6 @@ namespace Viteloge\FrontendBundle\Controller {
         public function searchAction(Request $request, $page, $limit) {
             $translated = $this->get('translator');
 
-            // SEO
-            $canonicalLink = $this->get('router')->generate(
-                $request->get('_route'),
-                $request->get('_route_params'),
-                true
-            );
-            $seoPage = $this->container->get('sonata.seo.page');
-            $seoPage
-                ->setTitle('viteloge.frontend.ad.search.title')
-                ->addMeta('name', 'robots', 'noindex, nofollow')
-                ->addMeta('name', 'description', 'viteloge.frontend.ad.search.description')
-                //->addMeta('property', 'og:title', "viteloge.frontend.ad.search.title")
-                ->addMeta('property', 'og:type', 'website')
-                ->addMeta('property', 'og:url',  $canonicalLink)
-                //->addMeta('property', 'og:description', 'viteloge.frontend.ad.search.description')
-                ->setLinkCanonical($canonicalLink)
-            ;
-            // --
-
             // Form
             $adSearch = new AdSearch();
             $adSearch->handleRequest($request);
@@ -197,6 +178,25 @@ namespace Viteloge\FrontendBundle\Controller {
             // pager
             $pagination->setMaxPerPage($limit);
             $pagination->setCurrentPage($page);
+            // --
+
+            // SEO
+            $canonicalLink = $this->get('router')->generate(
+                $request->get('_route'),
+                $request->get('_route_params'),
+                true
+            );
+            $seoPage = $this->container->get('sonata.seo.page');
+            $seoPage
+                ->setTitle($breadcrumbTitle.' - '.$translated->trans('viteloge.frontend.ad.search.title'))
+                ->addMeta('name', 'robots', 'noindex, nofollow')
+                ->addMeta('name', 'description', $breadcrumbTitle.' - '.$translated->trans('viteloge.frontend.ad.search.description'))
+                ->addMeta('property', 'og:title', $seoPage->getTitle())
+                ->addMeta('property', 'og:type', 'website')
+                ->addMeta('property', 'og:url',  $canonicalLink)
+                ->addMeta('property', 'og:description', $breadcrumbTitle.' - '.$translated->trans('viteloge.frontend.ad.search.description'))
+                ->setLinkCanonical($canonicalLink)
+            ;
             // --
 
             return array(

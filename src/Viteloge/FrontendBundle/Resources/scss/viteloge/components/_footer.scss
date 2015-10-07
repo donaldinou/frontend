@@ -1,0 +1,7 @@
+footer {
+    .round-icon {
+        &.facebook, &.twitter, &.github, &.google {
+            vertical-align: bottom;
+        }
+    }
+}

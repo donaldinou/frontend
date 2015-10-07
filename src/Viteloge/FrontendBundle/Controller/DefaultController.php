@@ -39,16 +39,18 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:Default:index.html.twig")
          */
         public function indexAction( Request $request, $transaction ) {
+            $translated = $this->get('translator');
+
             // SEO
             $canonicalLink = $this->get('router')->generate($request->get('_route'), array(), true);
             $seoPage = $this->container->get('sonata.seo.page');
             $seoPage
-                ->setTitle('viteloge.frontend.default.index.title')
-                ->addMeta('name', 'description', 'viteloge.frontend.default.index.description')
-                ->addMeta('property', 'og:title', "viteloge.frontend.default.index.title")
+                ->setTitle($translated->trans('viteloge.frontend.default.index.title'))
+                ->addMeta('name', 'description', $translated->trans('viteloge.frontend.default.index.description'))
+                ->addMeta('property', 'og:title', $translated->trans('viteloge.frontend.default.index.title'))
                 ->addMeta('property', 'og:type', 'website')
                 ->addMeta('property', 'og:url',  $canonicalLink)
-                ->addMeta('property', 'og:description', 'viteloge.frontend.default.index.description')
+                ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.default.index.description'))
                 ->setLinkCanonical($canonicalLink)
             ;
             // --

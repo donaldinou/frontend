@@ -35,6 +35,10 @@
     }
 }
 
+.navbar-button {
+    @include navbar-vertical-align(28px);
+}
+
 .subheader {
     background-color: $text-color;
     color: #fff;

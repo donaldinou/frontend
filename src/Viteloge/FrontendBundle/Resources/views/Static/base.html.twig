@@ -7,7 +7,7 @@
 {%- block breadcrumb -%}
     {%- set breadcrumbs = [
         { url : path('viteloge_frontend_homepage'), text: 'Home'},
-        { url : path('viteloge_frontend_static_why'), text: block('title')|striptags},
+        { url : path('viteloge_frontend_static_why'), text: block('main_title')|striptags},
     ] -%}
     {{ include('VitelogeUserBundle:base:breadcrumb.html.twig', { listClass: 'breadcrumb', breadcrumbs: breadcrumbs }) }}
 {%- endblock breadcrumb -%}
@@ -16,9 +16,9 @@
     {%- embed 'VitelogeUserBundle:base:header.html.twig' -%}
         {%- block header_navigation_more -%}
             <li class="text-uppercase dropdown active" role="presentation">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
-                    <span>{% trans %}viteloge.more{% endtrans %}</span>
-                    <span class="caret"></span>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="{% trans %}viteloge.more{% endtrans %}" role="button">
+                    <span class="fa fa-plus hidden-xs" aria-hidden="true">&nbsp;</span>
+                    <span class="visible-xs-inline">{% trans %}viteloge.more{% endtrans %}</span>
                 </a>
                 {{ include('VitelogeFrontendBundle:menu:static.html.twig', {}) }}
             </li>

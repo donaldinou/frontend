@@ -1,6 +1,6 @@
 {% set hasIndicators = hasIndicators|default(true) %}
 {% set hasControls = hasControls|default(true) %}
-<div id="{%- block carousel_id -%}carousel-example-generic{%- endblock carousel_id -%}" class="owl-carousel carousel slide" data-ride="carousel">
+<div id="{%- block carousel_id -%}carousel-example-generic{%- endblock carousel_id -%}" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner{% if carouselClass is defined %} {{ carouselClass }}{% endif %}" role="listbox">
         {%- block carousel_slides -%}
 
