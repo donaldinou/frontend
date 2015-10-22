@@ -1,0 +1,49 @@
+<div class="pages" data-role="pages">
+    <ul class="clearfix list-inline">
+        <li>
+            <a href="{{ url('viteloge_frontend_homepage') }}">{%- trans -%}viteloge.home{%- endtrans -%}</a>
+        </li>
+        <li>
+            <a href="{{ url('viteloge_frontend_glossary_showcity', { 'name': 'Paris', 'id': '75056'  }) }}">{%- trans with { '%city%': 'Paris' } -%}glossary.properties.in.city{%- endtrans -%}</a>
+        </li>
+        <li>
+            <a href="{{ url('viteloge_frontend_glossary_showcity', { 'name': 'Rennes', 'id': '35238'  }) }}">{%- trans with { '%city%': 'Rennes' } -%}glossary.properties.in.city{%- endtrans -%}</a>
+        </li>
+        <li>
+            <a href="{{ url('viteloge_estimation_default_index') }}">{% trans %}service.estimate{%- endtrans -%}</a>
+        </li>
+        <li>
+            <a href="{{ url('viteloge_frontend_sitemap_index') }}">{%- trans -%}viteloge.sitemap{%- endtrans -%}</a>
+        </li>
+        <li>
+            <a href="{{ url('viteloge_frontend_ad_search', { transaction: 'v' }) }}">{% trans %}ad.sale{% endtrans %}</a>
+        </li>
+        <li>
+            <a href="{{ url('viteloge_frontend_ad_search', { transaction: 'l' }) }}">{% trans %}ad.rent{% endtrans %}</a>
+        </li>
+        <li>
+            <a href="{{ url('viteloge_frontend_ad_search', { transaction: 'n' }) }}">{% trans %}ad.new{% endtrans %}</a>
+        </li>
+        <li>
+            <a href="{{ url('viteloge_frontend_glossary_showcity', { 'name': 'Nantes', 'id': '44109'  }) }}">{%- trans with { '%city%': 'Nantes' } -%}glossary.properties.in.city{%- endtrans -%}</a>
+        </li>
+        <li>
+            <a href="{{ url('viteloge_frontend_static_register') }}">{% trans %}service.publish{%- endtrans -%}</a>
+        </li>
+        <li>
+            <a href="{{ url('viteloge_frontend_static_subscribe') }}">{% trans %}service.alert{%- endtrans -%}</a>
+        </li>
+        <li>
+            <a href="{{ url('viteloge_frontend_static_about') }}">{% trans %}viteloge.frontend.static.about.short{% endtrans %}</a>
+        </li>
+        <li>
+            <a href="{{ url('viteloge_frontend_glossary_showcity', { 'name': 'Lyon', 'id': '69123'  }) }}">{%- trans with { '%city%': 'Lyon' } -%}glossary.properties.in.city{%- endtrans -%}</a>
+        </li>
+        <li>
+            <a href="{{ url('viteloge_frontend_static_gtc') }}">{% trans %}viteloge.frontend.static.gtc.short{% endtrans %}</a>
+        </li>
+        <li>
+            <a href="{{ url('viteloge_frontend_glossary_showcity', { 'name': 'Marseille', 'id': '13055'  }) }}">{%- trans with { '%city%': 'Marseille' } -%}glossary.properties.in.city{%- endtrans -%}</a>
+        </li>
+    </ul>
+</div>

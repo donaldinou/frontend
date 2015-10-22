@@ -1,0 +1,72 @@
+{% extends 'VitelogeFrontendBundle::base.html.twig' %}
+
+{%- block head_meta -%}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="MobileOptimized" content="320">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="apple-itunes-app" content="app-id=391727896">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="keywords" content="immobilier, immo, viteloge, vente, achat, location, particulier, annonce, petite-annonce, logement, appart, appartement, studio, maison, pavillon, villa, demenagement, agence, notaire, loft, duplex, paris, marseille, lille, bordeaux,lyon, nantes, toulouse, rennes">
+    <meta name="description" content="Immobilier - Vitelogé, Le moteur de recherche de l'immobilier. Acheter une maison, louer un appartement? Vitelogé est le site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="google" content="notranslate">
+    <meta name="include_mode" content="async">
+    <meta name="msapplication-TileColor" content="#fff">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#fff">
+    <meta property="fb:admins" content="588583794,724810804">
+    <meta property="og:site_name" content="Vitelogé : Le moteur de recherche de l'immobilier">
+    <meta property="og:title" content="{{ block('main_title')|striptags }}">
+    <meta property="og:image" content="http://www.viteloge.com/img/viteloge_logo.png">
+    <meta property="og:description" content="Immobilier - Vitelogé, Le moteur de recherche de l'immobilier. Acheter une maison, louer un appartement? Vitelogé est le site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers.">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-Ua-Compatible" content="IE=edge">
+    <meta name="msapplication-TileImage" content="{{ asset('bundles/frontendbundle/images/common/icon.png') }}">
+{%- endblock head_meta -%}
+
+{%- block title -%}
+    <title>{% trans %}viteloge.title.prefix{% endtrans %} {% trans %}viteloge.page.does.not.access{% endtrans %}</title>
+{%- endblock title -%}
+
+{%- block breadcrumb -%}
+    {%- set breadcrumbs = [
+        { url : '', text: text: 'viteloge.error.occurred'|trans},
+    ] -%}
+    {{ include('VitelogeUserBundle:base:breadcrumb.html.twig', { listClass: 'breadcrumb', breadcrumbs: breadcrumbs }) }}
+{%- endblock breadcrumb -%}
+
+{%- block main -%}
+    <div class="container">
+        <h1 class="h1">{%- trans -%}viteloge.page.does.not.access{%- endtrans -%}</h1>
+        <h2 class="h4">{%- trans -%}viteloge.request.not.lead.known.page{%- endtrans -%}</h2>
+        <div class="clearfix jumbotron">
+            <div class="clearfix text-justify">
+                {%- trans -%}viteloge.something.broken{%- endtrans -%}
+            </div>
+            <br>
+            <div class="clearfix text-right">
+                <a href="{{ url('viteloge_frontend_homepage') }}" class="h4"><span class="fa fa-caret-right">&nbsp;</span>{%- trans -%}viteloge.back.home{%- endtrans -%}</a>
+            </div>
+        </div>
+        <div class="row">
+            <section class="col-md-6">
+                <h3 class="h3 text-uppercase">{% trans %}viteloge.main.cities{% endtrans %}</h3>
+                <div class="text-secondary jumbotron">
+                    {{ render(path('viteloge_frontend_glossary_mostsearched', { limit: 15 })) }}
+                </div>
+            </section>
+            <section class="col-md-6">
+                <h3 class="h3 text-uppercase">{% trans %}viteloge.main.pages{% endtrans %}</h3>
+                <div class="text-secondary jumbotron">
+                    {{- include('VitelogeTwigBundle:Exception:fragment/pages.html.twig', { }) -}}
+                </div>
+            </section>
+        </div>
+        {{- include('VitelogeFrontendBundle:Default:fragment/websearch.html.twig', { }) -}}
+        <div class="row">
+
+        </div>
+    </div>
+{%- endblock main -%}
