@@ -23,22 +23,22 @@ namespace Viteloge\FrontendBundle\Controller {
         /**
          * @Route(
          *     "/",
-         *     defaults={
-         *          "transaction" = "L",
-         *     },
+         *     defaults={},
          *     name="viteloge_frontend_homepage",
          *     options = {
          *          "i18n" = true,
          *          "vl_sitemap" = {
          *              "title" = "viteloge.frontend.default.index.title",
-         *              "description" = "viteloge.frontend.default.index.description"
+         *              "description" = "viteloge.frontend.default.index.description",
+         *              "changefreq" = "hourly",
+         *              "priority" = "1.0"
          *          }
          *     }
          * )
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:Default:index.html.twig")
          */
-        public function indexAction( Request $request, $transaction ) {
+        public function indexAction( Request $request ) {
             $translated = $this->get('translator');
 
             // SEO
@@ -65,12 +65,10 @@ namespace Viteloge\FrontendBundle\Controller {
 
             // Form
             $entity = new AdSearch();
-            $entity->setTransaction($transaction);
             $form = $this->createForm('viteloge_core_adsearch', $entity);
             // --
 
             return array(
-                'transaction' => $transaction,
                 'count' => $count,
                 'form' => $form->createView()
             );

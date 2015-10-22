@@ -1,23 +1,47 @@
 {% extends 'VitelogeFrontendBundle:Static:base.html.twig' %}
 
 {%- block title -%}
-    <title>{%- trans -%}viteloge.frontend.static.apiform.title{%- endtrans -%}</title>
+    <title>{%- trans -%}viteloge.frontend.static.apiform.maintitle{%- endtrans -%}</title>
 {%- endblock title -%}
-
-{%- block title -%}
-    {%- trans -%}viteloge.frontend.static.apiform.maintitle{%- endtrans -%}
-{%- endblock title -%}
-
-{%- block teaser -%}
-    three
-{%- endblock teaser -%}
 
 {%- block main_title -%}
     Insérez un formulaire de recherche ViteLogé dans votre propre site !
 {%- endblock main_title-%}
 
+{%- block teaser -%}
+    three
+{%- endblock teaser -%}
+
 {%- block main_content -%}
     <p>Vous pouvez proposer aux visiteurs de votre site Web l'efficacité des recherches ViteLogé. Il vous suffit de copier le code ci-dessous et de le coller dans le code HTML de la page où vous souhaitez voir apparaître le formulaire de recherche. <b>Et c'est gratuit !</b></p>
 
     <p>Vous devez choisir une ville pour générer le code correspondant au formulaire de recherche :</p>
+    {{ render(path('viteloge_frontend_api_new')) }}
 {%- endblock main_content -%}
+
+{%- block javascripts -%}
+    <script src="{{ asset('assets/js/zeroclipboard.js') }}"></script>
+    <script>
+        var clientZC;
+        jQuery(document).ready(function() {
+            ZeroClipboard.config({
+                swfPath: "{{ 'http://www.viteloge.local' ~ '/built/zeroclipboard.swf' }}",
+            });
+        });
+        function addCopyEvent() {
+            clientZC = new ZeroClipboard(jQuery('.copy-button'));
+            /*clientZC.on( 'copy', function (event) {
+                var clipboard = event.clipboardData;
+                var target = event.currentTarget;
+                clipboard.setData( "text/html", "<b>Copy me!</b>" );
+                jQuery(target).append(
+                    '<div class="alert alert-info alert-dismissible fade in" role="alert">'+
+                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+
+                        ''+Translator.trans('apiform.text.copied')+''+
+                    '</div>'
+                );
+            });*/
+        }
+    </script>
+    {{ parent() }}
+{%- endblock -%}

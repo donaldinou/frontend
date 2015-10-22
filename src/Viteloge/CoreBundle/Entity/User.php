@@ -103,6 +103,34 @@ namespace Viteloge\CoreBundle\Entity {
         protected $id;
 
         /**
+         * @var string
+         *
+         * @ORM\Column(name="facebook_id", type="string", nullable=true)
+         */
+        protected $facebookId;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="twitter_id", type="string", nullable=true)
+         */
+        protected $twitterId;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="google_id", type="string", nullable=true)
+         */
+        protected $googleId;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="github_id", type="string", nullable=true)
+         */
+        protected $githubId;
+
+        /**
          * Note: We cannot fetch eager because of softdeleteable
          * @ORM\OneToMany(targetEntity="Viteloge\CoreBundle\Entity\WebSearch", mappedBy="user")
          */
@@ -117,6 +145,20 @@ namespace Viteloge\CoreBundle\Entity {
             $this->partnerContactEnabled = true;
             $this->internalMailDisabled = false;
             $this->webSearches = new ArrayCollection();
+        }
+
+        /**
+         *
+         */
+        public function calculateRatioProfile() {
+            $percent = 40;
+            $percent += (!empty($this->civility)) ? 10 : 0;
+            $percent += (!empty($this->firstname)) ? 10 : 0;
+            $percent += (!empty($this->lastname)) ? 10 : 0;
+            $percent += (!empty($this->email)) ? 10 : 0;
+            $percent += (!empty($this->phone)) ? 10 : 0;
+            $percent += (count($this->webSearches)>0) ? 10 : 0;
+            return $percent;
         }
 
         /**

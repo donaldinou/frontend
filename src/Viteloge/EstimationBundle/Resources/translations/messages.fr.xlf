@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file source-language="fr-FR" target-language="fr" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="viteloge.estimation.default.index.title" resname="viteloge.estimation.default.index.title">
+                <source>viteloge.estimation.default.index.title</source>
+                <target>Estimation immobilières - Vitelogé - Le moteur de recherche de l'immobilier</target>
+            </trans-unit>
+            <trans-unit id="viteloge.estimation.default.index.description" resname="viteloge.estimation.default.index.description">
+                <source>viteloge.estimation.default.index.description</source>
+                <target>Estimer gratuitement votre bien immobilier en France. Vitelogé le moteur de recherche l'immobilier compare vos informations au 12 Millions de biens que nous avons en base de données afin d'estimer au plus juste le prix de votre logement.</target>
+            </trans-unit>
+            <trans-unit id="viteloge.estimation.default.resultat.title" resname="viteloge.estimation.default.resultat.title">
+                <source>viteloge.estimation.default.resultat.title</source>
+                <target>Résultat de l'estimation - Vitelogé - Le moteur de recherche de l'immobilier</target>
+            </trans-unit>
+            <trans-unit id="viteloge.estimation.default.resultat.description" resname="viteloge.estimation.default.resultat.description">
+                <source>viteloge.estimation.default.resultat.description</source>
+                <target>Estimer gratuitement votre bien immobilier en France. Vitelogé le moteur de recherche l'immobilier compare vos informations au 12 Millions de biens que nous avons en base de données afin d'estimer au plus juste le prix de votre logement.</target>
+            </trans-unit>
+            <trans-unit id="viteloge.estimation.default.contact.title" resname="viteloge.estimation.default.contact.title">
+                <source>viteloge.estimation.default.contact.title</source>
+                <target>Me contacter - Vitelogé - Le moteur de recherche l'immobilier</target>
+            </trans-unit>
+            <trans-unit id="viteloge.estimation.default.contact.description" resname="viteloge.estimation.default.contact.description">
+                <source>viteloge.estimation.default.contact.description</source>
+                <target>Estimer gratuitement votre bien immobilier en France. Vitelogé le moteur de recherche l'immobilier compare vos informations au 12 Millions de biens que nous avons en base de données afin d'estimer au plus juste le prix de votre logement.</target>
+            </trans-unit>
+            <trans-unit id="viteloge.estimation.statistic.index.title" resname="viteloge.estimation.statistic.index.title">
+                <source>viteloge.estimation.statistic.index.title</source>
+                <target>Prix immobilier de %city% - Vitelogé - Le moteur de recherche l'immobilier</target>
+            </trans-unit>
+            <trans-unit id="viteloge.estimation.statistic.index.description" resname="viteloge.estimation.statistic.index.description">
+                <source>viteloge.estimation.statistic.index.description</source>
+                <target>Prix de l'immobilier pour la ville de %city%. Retrouvez chaque mois le prix moyen du m² pour les appartements et les maisons à %city%. Le calcul du prix des biens est basé sur les milliers de biens indexés par Vitelogé.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

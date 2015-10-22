@@ -46,6 +46,14 @@
         <source>fos_user.username.short</source>
         <target>[-Inf,Inf]Le nom d'utilisateur est trop court</target>
       </trans-unit>
+      <trans-unit id="assert.count.recommand.validate.min" resname="assert.count.recommand.validate.min">
+        <source>assert.count.recommand.validate.min</source>
+        <target>Vous devez recommander au minimum un contact email</target>
+      </trans-unit>
+      <trans-unit id="assert.count.recommand.validate.max" resname="assert.count.recommand.validate.max">
+        <source>assert.count.recommand.validate.max</source>
+        <target>Vous ne pouvez recommander plus d'un contact email|Vous ne pouvez recommander plus de {{ limit }} contacts emails</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

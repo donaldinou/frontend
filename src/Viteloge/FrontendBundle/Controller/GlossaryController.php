@@ -15,6 +15,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use Acreat\InseeBundle\Entity\InseeCity;
     use Acreat\InseeBundle\Entity\InseeArea;
     use Viteloge\CoreBundle\SearchEntity\Ad as AdSearch;
+    use Viteloge\FrontendBundle\Entity\CityData;
 
     /**
      * @Route("/glossary")
@@ -108,7 +109,7 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Route(
          *     "/department/{name}/{id}",
          *     requirements={
-         *         "id"="\d+"
+         *         "id"="(?:2[a|b|A|B])|\d+"
          *     }
          * )
          * @Method({"GET", "POST"})
@@ -142,7 +143,7 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Route(
          *     "/city/{name}/{id}",
          *     requirements={
-         *         "id"="\d+"
+         *         "id"="(?:2[a|b|A|B])?0{0,2}\d+"
          *     }
          * )
          * @Method({"GET", "POST"})
@@ -162,6 +163,18 @@ namespace Viteloge\FrontendBundle\Controller {
          */
         public function showCityAction(Request $request, InseeCity $inseeCity) {
             $translated = $this->get('translator');
+
+            // Load city data
+            $repository = $this->getDoctrine()
+                ->getRepository('VitelogeCoreBundle:CityData');
+            $cityData = $repository->findOneByInseeCity($inseeCity);
+            // --
+
+            //
+            $repository = $this->getDoctrine()
+                ->getRepository('VitelogeCoreBundle:Ad');
+            $count = $repository->countByFiltered(array('inseeCity' => $inseeCity));
+            // --
 
             // Breadcrumbs
             $breadcrumbs = $this->get('white_october_breadcrumbs');
@@ -216,12 +229,18 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->addMeta('property', 'og:type', 'website')
                 ->addMeta('property', 'og:description', $cityTitle.' - '.$translated->trans('viteloge.frontend.glossary.showcity.description'))
                 ->addMeta('property', 'og:url',  $canonicalLink)
+                ->addMeta('property', 'geo.region', 'FR')
+                ->addMeta('property', 'geo.placename', $inseeCity->getFullname())
+                ->addMeta('property', 'geo.position', $inseeCity->getLat().';'.$inseeCity->getLng())
+                ->addMeta('property', 'ICMB', $inseeCity->getLat().','.$inseeCity->getLng())
                 ->setLinkCanonical($canonicalLink)
             ;
             // --
 
             return array(
                 'city' => $inseeCity,
+                'cityData' => $cityData,
+                'count' => $count,
                 'mapOptions' => $mapOptions,
                 'form' => $this->initForm()->form->createView()
             );
@@ -301,7 +320,7 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Route(
          *      "/areas/{id}/",
          *      requirements={
-         *          "id"="\d+"
+         *          "id"="(?:2[a|b|A|B])?0{0,2}\d+"
          *      },
          *      name="viteloge_frontend_glossary_areas"
          * )

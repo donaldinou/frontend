@@ -2,7 +2,7 @@
     position: fixed;
     width: 100%;
     min-height: 50px;
-    z-index: 999;
+    z-index: 9000000;
     @include box-shadow(0 3px 40px $text-color);
     &.bottom {
         bottom: 0;

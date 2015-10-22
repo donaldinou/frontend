@@ -65,8 +65,8 @@ namespace Viteloge\FrontendBundle\Entity {
          * @Assert\Count(
          *      min = "1",
          *      max = "10",
-         *      minMessage = "You must specify at least one email",
-         *      maxMessage = "You cannot specify more than {{ limit }} emails"
+         *      minMessage = "assert.count.recommand.validate.min",
+         *      maxMessage = "assert.count.recommand.validate.max"
          * )
          * @Assert\All(
          *     @Assert\Email()

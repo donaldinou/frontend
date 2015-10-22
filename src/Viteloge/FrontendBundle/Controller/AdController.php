@@ -53,6 +53,14 @@ namespace Viteloge\FrontendBundle\Controller {
          *         "page"=1,
          *         "limit"="25"
          *     },
+         *     options = {
+         *          "i18n" = true,
+         *          "vl_sitemap" = {
+         *              "title" = "viteloge.frontend.ad.search.title",
+         *              "description" = "viteloge.ad.search.search.description",
+         *              "priority" = "0.7"
+         *          }
+         *     },
          *     name="viteloge_frontend_ad_search_default"
          * )
          * Cache(expires="tomorrow", public=true)
@@ -149,12 +157,14 @@ namespace Viteloge\FrontendBundle\Controller {
                     )
                 );
             }
+
+            // No QueryStats SEO Optimization
             $qsId = $request->get('qs');
-            if (empty($qsId)) { // if there is no query stats in url
+            if (empty($qsId)) {
                 $what = $adSearch->getWhat();
-                $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction)).' ' : $translated->trans('ad.research');
-                $breadcrumbTitle  .= (!empty($what)) ? implode(', ', $what).' ' : '';
-                $breadcrumbTitle  .= ($inseeCity instanceof InseeCity) ? $inseeCity->getFullname() : '';
+                $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction)).' ' : $translated->trans('ad.research').': ';
+                $breadcrumbTitle .= (!empty($what)) ? implode(', ', $what).' ' : ' ';
+                $breadcrumbTitle .= ($inseeCity instanceof InseeCity) ? $inseeCity->getFullname() : '';
                 $breadcrumbs->addItem($breadcrumbTitle);
             }
             // --
@@ -163,7 +173,7 @@ namespace Viteloge\FrontendBundle\Controller {
             if (!empty($qsId)) {
                 $qsRepository = $this->getDoctrine()->getRepository('VitelogeCoreBundle:QueryStats');
                 $qs = $qsRepository->find((int)$qsId);
-                $breadcrumbTitle  = $qs->getKeywords();
+                $breadcrumbTitle = $qs->getKeywords();
                 $breadcrumbs->addItem($breadcrumbTitle);
             }
             // --

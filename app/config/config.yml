@@ -51,6 +51,9 @@ twig:
         adsense_slots: %adsense_slots%
         adsense_slot_spec: %adsense_slot_spec%
         facebook_account: %facebook_account%
+        facebook_client_id: %facebook_client_id%
+        facebook_client_secret: %facebook_client_secret%
+        facebook_app_version: %facebook_app_version%
         twitter_account: %twitter_account%
 
 # Doctrine Configuration

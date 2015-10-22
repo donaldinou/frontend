@@ -11,6 +11,11 @@
 {%- block body -%}
     <header class="header banner" role="banner" data-target="#search-container">
         {{- block('header') -}}
+        <div class="hidden-xs hidden-sm next-link text-center">
+            <a href="#main-content" rel="nofollow" class="round-icon medium transition-large" data-toggle="tooltip" data-placement="top" title="{%- trans -%}home.header.next.tooltip{%- endtrans -%}" data-original-title="{%- trans -%}home.header.next.tooltip{%- endtrans -%}" aria-label="{%- trans -%}home.header.next{%- endtrans -%}">
+                <span class="fa fa-chevron-down" aria-hidden="true"></span>
+            </a>
+        </div>
     </header>
     <main class="main" role="main">
         {{- block('main') -}}
@@ -39,14 +44,17 @@
 {%- endblock -%}
 
 {%- block main -%}
-    <div class="">
-        <div class="{% if transaction != 'L' %}hidden{% endif %}" data-theme-showon="theme-rent theme-L">
+    <div id="main-content" class="clearfix">
+        <div class="{% if transaction is defined %}hidden{% endif %}" data-theme-showon="theme-default">
+            {{- include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', {}) -}}
+        </div>
+        <div class="{% if transaction is not defined or transaction != 'L' %}hidden{% endif %}" data-theme-showon="theme-rent theme-L">
             {{- include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', { 'transaction': 'L' }) -}}
         </div>
-        <div class="{% if transaction != 'V' %}hidden{% endif %}" data-theme-showon="theme-sale theme-V">
+        <div class="{% if transaction is not defined or transaction != 'V' %}hidden{% endif %}" data-theme-showon="theme-sale theme-V">
             {{- include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', { 'transaction': 'V' }) -}}
         </div>
-        <div class="{% if transaction != 'N' %}hidden{% endif %}" data-theme-showon="theme-new theme-N">
+        <div class="{% if transaction is not defined or transaction != 'N' %}hidden{% endif %}" data-theme-showon="theme-new theme-N">
             {{- include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', { 'transaction': 'N' }) -}}
         </div>
     </div>

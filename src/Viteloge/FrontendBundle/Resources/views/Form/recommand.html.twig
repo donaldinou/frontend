@@ -8,7 +8,9 @@
     {%- endblock form_errors -%}
     {%- block form_fields -%}
         <div class="hidden">
-            {{ form_row(form._token) }}
+            {%- if form._token is defined -%}
+                {{ form_row(form._token) }}
+            {%- endif -%}
         </div>
         {{ form_row(form.firstname, {
             'label_attr': {
@@ -110,6 +112,17 @@
         {{ form_row(form.recaptcha, {
             'label_attr': {
                 'class': 'sr-only'
+            }
+        }) }}
+        {{ form_row(form.send, {
+            'label': 'recommand.action.send',
+            'span_class': 'fa fa-send',
+            'label_attr': {
+                'class': 'sr-only'
+            },
+            'attr': {
+                'class': 'btn btn-primary btn-block text-uppercase',
+                'role': 'button'
             }
         }) }}
     {%- endblock form_fields -%}

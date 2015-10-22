@@ -58,9 +58,9 @@
         <source>fos_user_security_logout</source>
         <target>/user/logout</target>
       </trans-unit>
-      <trans-unit id="d0c379abcde6f7e97f29b46d8c1d789e" resname="viteloge_estimation_citystats_city">
-        <source>viteloge_estimation_citystats_city</source>
-        <target>/prix-immobilier/{slug}/{id}</target>
+      <trans-unit id="d0c379abcde6f7e97f29b46d8c1d789e" resname="viteloge_estimation_statistic_city">
+        <source>viteloge_estimation_statistic_city</source>
+        <target>/prix-immobilier/{name}/{id}</target>
       </trans-unit>
       <trans-unit id="ceab495dcabca14582824822d8846d6b" resname="viteloge_estimation_default_contact">
         <source>viteloge_estimation_default_contact</source>

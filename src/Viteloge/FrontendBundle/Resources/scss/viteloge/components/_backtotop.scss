@@ -1,0 +1,27 @@
+.backtotop {
+    position: fixed !important;
+    bottom: -30px;
+    right: 10px;
+    opacity: .8;
+    z-index: 8000000;
+    @include transition(all .6s !important);
+    &:hover, &:focus, &:active, &.hover, &.focus, &.active {
+        bottom: 5px;
+        opacity: 1;
+    }
+    &:hover, &:focus, &:active {
+        line-height: 35px;
+        &.small, &.transition-small {
+            line-height: 25px;
+        }
+        &.medium, &.transition-medium {
+            line-height: 45px;
+        }
+        &.large, &.transition-large {
+            line-height: 55px;
+        }
+    }
+    &, &.round-icon, &.rounded-icon {
+        display: none;
+    }
+}

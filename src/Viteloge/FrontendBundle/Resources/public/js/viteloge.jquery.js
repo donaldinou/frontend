@@ -1,6 +1,7 @@
 if (typeof jQuery === 'undefined') {
     throw new Error('This JavaScript requires jQuery');
 }
+
 jQuery(document).ready(function() {
 
     function initLazyLoad() {
@@ -17,10 +18,16 @@ jQuery(document).ready(function() {
         images: 'header.header'
     });
 
+    // forbit scroll for a small sized screen
+    jQuery('#navbar-navigation').on('show.bs.collapse', function (event) {jQuery('body').css('overflow', 'hidden')});
+    jQuery('#navbar-navigation').on('hidden.bs.collapse', function (event) {jQuery('body').css('overflow', '')});
+
     jQuery('[data-toggle="tooltip"]').tooltip();
-    jQuery('.select-tag-input').select2({'width':'100%', 'theme': 'viteloge'});
+    jQuery('a').smoothScroll();
 
     jQuery(window).on('popstate', popstateHistoryEvent);
+    jQuery(window).on('scroll', scrollHandlerEvent);
+    jQuery('body').on('click', 'a[href="#backtotop"]', backToTopEvent);
     jQuery('body').on('click', '[data-ajax-click]', ajaxClickEvent);
     jQuery('body').on('click', '[data-submit]', submitForm);
     jQuery('body').on('click', '[data-theme]', changeTheme);
@@ -30,7 +37,10 @@ jQuery(document).ready(function() {
     jQuery('body').on('submit', 'form[data-ajax="true"]', submitInAjax);
     jQuery('body').on('click', '.accept-policy', acceptPolicy);
     jQuery('body').on('show.bs.popover', 'span[rel="quartier"]', showAreaInMapEvent);
+    jQuery('body').on('show.bs.collapse', '.social-share', initSocialShareWidgetsEvent);
     jQuery('body').on('click', 'span[rel="quartier"]', buildPopover);
+    jQuery('body').on('show.bs.collapse', '.collapse', updateCollapsibleIconEvent);
+    jQuery('body').on('hide.bs.collapse', '.collapse', updateCollapsibleIconEvent);
 
     function popstateHistoryEvent(event) {
         event.preventDefault();
@@ -61,6 +71,85 @@ jQuery(document).ready(function() {
         previousHistoryState = history.state;
     }
 
+    function scrollHandlerEvent(event) {
+        var target = event.currentTarget;
+        var position = jQuery(target).scrollTop();
+        if (jQuery('.header .next-link').length>0) {
+            var height = jQuery('header').height();
+            if (position<height/2) {
+                jQuery('.header .next-link').fadeIn('slow');
+            } else {
+                jQuery('.header .next-link').fadeOut('slow');
+            }
+        }
+        if (jQuery('.backtotop').length>0) {
+            if (position<200) {
+                jQuery('.backtotop').fadeOut('slow');
+            } else {
+                jQuery('.backtotop').fadeIn('slow');
+            }
+            if(jQuery(window).scrollTop() + jQuery(window).height() == jQuery(document).height()) {
+                jQuery('.backtotop:not(.hover)').trigger('mouseenter').toggleClass('hover');
+            } else {
+                jQuery('.backtotop.hover').trigger('mouseleave').toggleClass('hover');
+            }
+        }
+        if (jQuery('.over-scrollable .scrollable').length>0) {
+            if(jQuery(window).scrollTop() + jQuery(window).height() != jQuery(document).height()) {
+                jQuery('.over-scrollable .scrollable').each(function(index, element) {
+                    var ePosition = jQuery(element).offset().top;
+                    var eHeight = jQuery(element).height();
+                    if (position>ePosition) {
+                        jQuery(element).css('margin-bottom', (ePosition-position));
+                    } else {
+                        jQuery(element).css('margin-bottom', '');
+                    }
+                });
+            }
+        }
+    }
+
+    function backToTopEvent(event) {
+        event.preventDefault();
+        var element = event.currentTarget;
+        jQuery('body, html').animate({
+            scrollTop: 0,
+        }, 'slow');
+        event.stopPropagation();
+    }
+
+    function updateCollapsibleIconEvent(event) {
+        return updateCollapsibleIcon(event.currentTarget);
+    }
+    function updateCollapsibleIcon(element) {
+        jQuery(element).parent().find('.panel-heading .fa-minus, .panel-heading .fa-plus')
+            .toggleClass('fa-minus fa-plus');
+    }
+
+    function initSocialShareWidgetsEvent(event) {
+        var element = event.currentTarget;
+        initSocialShareWidgets(element);
+    }
+
+    function initSocialShareWidgets(element) {
+        if (twttr) {
+            twttr.widgets.load(element);
+        }
+        if (FB) {
+            FB.XFBML.parse(element);
+        }
+    }
+
+    initSelect2Components('.select-tag-input');
+    function initSelect2Components(element) {
+        jQuery(element).select2({
+            'width':'100%',
+            'theme': 'viteloge',
+            'templateResult': adSearchTemplateResult,
+            'templateSelection': adSearchTemplateSelection
+        });
+    }
+
     jQuery('#navbar-navigation .close').on('click', collapseNavigation);
     jQuery('#navbar-navigation').on('show.bs.collapse', onShowNavigation);
     jQuery('#navbar-navigation').on('hide.bs.collapse', onHideNavigation);
@@ -78,16 +167,10 @@ jQuery(document).ready(function() {
         jQuery('#nav-overlay').off('click').remove();
     }
 
-    jQuery('.collapse').on('show.bs.collapse', updateCollapsibleIcon);
-    jQuery('.collapse').on('hide.bs.collapse', updateCollapsibleIcon);
-    function updateCollapsibleIcon() {
-        jQuery(this).parent().find('.panel-heading .fa-minus, .panel-heading .fa-plus')
-            .toggleClass('fa-minus fa-plus');
-    }
-
     jQuery('#map-container').on('show.bs.collapse', toggleNavigationArrow);
     jQuery('#map-container').on('hide.bs.collapse', toggleNavigationArrow);
     function toggleNavigationArrow() {
+        jQuery('main .inner .container, main .inner .container-fluid').toggleClass('inner-absolute container container-fluid');
         jQuery('[aria-controls="map-container"] > span.fa')
             .toggleClass('fa-arrow-circle-down fa-arrow-circle-up')
     }
@@ -200,21 +283,24 @@ jQuery(document).ready(function() {
     var paginateEvent;
     function processToSort(event) {
         event.preventDefault();
-        var select = jQuery(event.currentTarget);
-        var id = jQuery(event.currentTarget).parents('.ajax-pager-container').attr('id');
-        var url = jQuery(select).find('option:selected').data('url');
-        paginate(id, url);
+        var target = event.currentTarget;
+        var url = jQuery(target).find('option:selected').data('url');
+        location.href = url;
+        //return displayTargetedPage(target, url);
         event.stopPropagation();
     }
     function displayNextPage(event) {
         event.preventDefault();
         var target = event.currentTarget;
-        var id = jQuery(target).parents('.ajax-pager-container').attr('id');
         var url = jQuery(target).attr('href');
+        return displayTargetedPage(target, url);
+        event.stopPropagation();
+    }
+    function displayTargetedPage(target, url) {
+        var id = jQuery(target).parents('.ajax-pager-container').attr('id');
         var reference = jQuery(target).data('target');
         var animate = (jQuery(target).data('ajax-animate')) ? jQuery(target).data('ajax-animate') : 'noAnimation';
-        paginate(id, url, reference, animate);
-        event.stopPropagation();
+        return paginate(id, url, reference, animate);
     }
     function paginate(id, url, reference, animate) {
         if(typeof paginateEvent !== 'undefined') {
@@ -245,7 +331,6 @@ jQuery(document).ready(function() {
                     var cloneObj = jQuery(content).find(clone);
                     animation(parent, cloneObj, animate);
                     initLazyLoad();
-                    initSocialShareWidgets();
                     hinclude.run();
                     if (!history.state) {
                         history.replaceState({'trigger': 'animate', 'type': 'ajax', 'animate': animate, 'parent': clone, 'clone': parent}, null, document.URL);
@@ -259,14 +344,6 @@ jQuery(document).ready(function() {
                     history.pushState(sObj, null, url);
                 }
             });
-        }
-    }
-    function initSocialShareWidgets() {
-        if (twttr) {
-            twttr.widgets.load();
-        }
-        if (fbAsyncInit) {
-            fbAsyncInit();
         }
     }
 
@@ -302,12 +379,15 @@ jQuery(document).ready(function() {
                 else {
                     var parent = (form.data('ajax-parent')) ? jQuery(form.data('ajax-parent')) : form;
                     parent.replaceWith(data);
-                    jQuery('.select-tag-input').select2();
+                    initSelect2Components('.select-tag-input');
                 }
             },
             complete: function(jqXHR, textStatus) {
                 if (callback) {
-                    var fn = window[callback];
+                    var fn = callback;
+                    if (typeof callback == "string") {
+                        fn = window[callback];
+                    }
                     fn();
                 }
             }
@@ -558,6 +638,17 @@ function runResponsiveCarousel(identifier) {
         responsiveClass: true,
         responsive:{
             0:{
+                items: 1,
+                margin: 5,
+                stagePadding: 10,
+                nav: false
+            },
+            350: {
+                items: 1,
+                stagePadding: 20,
+                nav: false
+            },
+            420:{
                 items: 1,
                 stagePadding: 50,
                 nav: false

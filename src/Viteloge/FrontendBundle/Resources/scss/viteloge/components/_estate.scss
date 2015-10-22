@@ -1,6 +1,7 @@
 .estate {
     position: relative;
     background-color: #fff;
+    overflow: hidden;
     &:focus,
     &:hover {
         .description {

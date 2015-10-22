@@ -8,6 +8,6 @@
     {% for ad in ads %}
         {{ include('VitelogeFrontendBundle:Ad:render/list.html.twig', { 'ad': ad }) }}
     {% else %}
-        {% trans %}search.noresult{% endtrans %}
+        {% trans %}ad.noresult{% endtrans %}
     {% endfor %}
 {%- endblock ad_latest_content -%}

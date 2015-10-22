@@ -4,6 +4,7 @@ namespace Viteloge\FrontendBundle\EventListener {
 
     use Symfony\Component\Routing\Route;
     use Symfony\Component\Routing\RouterInterface;
+    use Doctrine\ORM\EntityManager;
     use Presta\SitemapBundle\Service\SitemapListenerInterface;
     use Presta\SitemapBundle\Event\SitemapPopulateEvent;
     use Presta\SitemapBundle\EventListener\RouteAnnotationEventListener;
@@ -14,13 +15,19 @@ namespace Viteloge\FrontendBundle\EventListener {
         /**
          *
          */
-        private $router;
+        protected $router;
 
         /**
          *
          */
-        public function __construct(RouterInterface $router) {
+        protected $entityManager;
+
+        /**
+         *
+         */
+        public function __construct(RouterInterface $router, EntityManager $entityManager) {
             $this->router = $router;
+            $this->entityManager = $entityManager;
         }
 
         /**
@@ -38,6 +45,7 @@ namespace Viteloge\FrontendBundle\EventListener {
             $section = $event->getSection();
             if (is_null($section) || $section == 'default') {
                 $this->addUrlsFromRoutes($event);
+                $this->addUrlsFromCities($event);
             }
         }
 
@@ -52,9 +60,46 @@ namespace Viteloge\FrontendBundle\EventListener {
                 $options = $this->getOptions($name, $route);
                 if ($options) {
                     $event->getGenerator()->addUrl(
-                        $this->getUrlConcrete($name, $options),
+                        $this->getUrlConcrete($name, array(), $options),
                         $event->getSection() ? $event->getSection() : 'default'
                     );
+                }
+            }
+        }
+
+        /**
+         *
+         */
+        private function addUrlsFromCities(SitemapPopulateEvent $event) {
+            $repository = $this->entityManager->getRepository('AcreatInseeBundle:InseeCity');
+            $cities = $repository->findAll();
+            $options = array(
+                'priority' => 1,
+                'changefreq' => UrlConcrete::CHANGEFREQ_DAILY,
+                'lastmod' => new \DateTime()
+            );
+            $i = 0;
+            $j = 0;
+            $glossary_section = 'glossary_part_';
+            $statistic_section = 'statistic_part_';
+            foreach ($cities as $key => $city) {
+                if (!empty($city->getSlug())) {
+                    $i++;
+                    $parameters = array(
+                        'name' => $city->getSlug(),
+                        'id' => $city->getId()
+                    );
+                    $event->getGenerator()->addUrl(
+                        $this->getUrlConcrete('viteloge_frontend_glossary_showcity', $parameters, $options),
+                        $glossary_section.$j
+                    );
+                    $event->getGenerator()->addUrl(
+                        $this->getUrlConcrete('viteloge_estimation_statistic_default', $parameters, $options),
+                        $statistic_section.$j
+                    );
+                    if ($i % 100 == 0) {
+                        $j++;
+                    }
                 }
             }
         }
@@ -101,15 +146,16 @@ namespace Viteloge\FrontendBundle\EventListener {
 
         /**
          * @param $name
+         * @param $parameters
          * @param $options
          * @return UrlConcrete
          * @throws \InvalidArgumentException
          */
-        private function getUrlConcrete($name, $options)
+        private function getUrlConcrete($name, $parameters, $options)
         {
             try {
                 $url = new UrlConcrete(
-                    $this->getRouteUri($name),
+                    $this->getRouteUri($name, $parameters),
                     $options['lastmod'],
                     $options['changefreq'],
                     $options['priority']
@@ -128,13 +174,14 @@ namespace Viteloge\FrontendBundle\EventListener {
 
         /**
          * @param $name
+         * @param $parameters
          * @return string
          * @throws \InvalidArgumentException
          */
-        private function getRouteUri($name) {
+        private function getRouteUri($name, $parameters=array()) {
             // does the route need parameters? if so, we can't add it
             try {
-                return $this->router->generate($name, array(), true);
+                return $this->router->generate($name, $parameters, true);
             } catch (MissingMandatoryParametersException $e) {
                 throw new \InvalidArgumentException(
                     sprintf(

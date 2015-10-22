@@ -21,10 +21,11 @@ class CityStatsController extends Controller
 {
     /**
      * @Route(
-     *     "/{slug}/{id}",
+     *     "/{name}/{id}",
      *     requirements={
-     *         "id"="^[0-9][0-9abAB][0-9]+"
-     *     }
+     *         "id"="(?:2[a|b|A|B])?0{0,2}\d+"
+     *     },
+     *     name="viteloge_estimation_statistic_city"
      * )
      * @ParamConverter("inseeCity", class="AcreatInseeBundle:InseeCity", options={"id" = "id"})
      * @Template()
@@ -40,13 +41,13 @@ class CityStatsController extends Controller
         );
         $seoPage = $this->container->get('sonata.seo.page');
         $seoPage
-            ->setTitle('viteloge.estimation.statistic.index.title')
+            ->setTitle($translated->trans('viteloge.estimation.statistic.index.title', array('%city%' => $inseeCity->getFullname())))
             ->addMeta('name', 'robots', 'index, follow')
-            ->addMeta('name', 'description', 'viteloge.estimation.statistic.index.description')
-            //->addMeta('property', 'og:title', "viteloge.frontend.ad.search.title")
+            ->addMeta('name', 'description', $translated->trans('viteloge.estimation.statistic.index.description', array('%city%' => $inseeCity->getFullname())))
+            ->addMeta('property', 'og:title', $translated->trans('viteloge.frontend.ad.search.title', array('%city%' => $inseeCity->getFullname())))
             ->addMeta('property', 'og:type', 'website')
             ->addMeta('property', 'og:url',  $canonicalLink)
-            //->addMeta('property', 'og:description', 'viteloge.frontend.ad.search.description')
+            ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.ad.search.description', array('%city%' => $inseeCity->getFullname())))
             ->setLinkCanonical($canonicalLink)
         ;
         // --
@@ -136,9 +137,9 @@ class CityStatsController extends Controller
 
     /**
      * @Route(
-     *     "price/{slug}/{id}",
+     *     "price/{name}/{id}",
      *     requirements={
-     *         "id"="\d+"
+     *         "id"="(?:2[a|b|A|B])?0{0,2}\d+"
      *     },
      *     name="viteloge_estimation_statistic_price"
      * )
@@ -159,7 +160,7 @@ class CityStatsController extends Controller
 
     /**
      * @Route(
-     *     "history/{slug}/{id}",
+     *     "history/{name}/{id}",
      *     requirements={
      *         "id"="\d+"
      *     },
@@ -182,7 +183,7 @@ class CityStatsController extends Controller
 
     /**
      * @Route(
-     *     "around/{slug}/{id}",
+     *     "around/{name}/{id}",
      *     requirements={
      *         "id"="\d+"
      *     },

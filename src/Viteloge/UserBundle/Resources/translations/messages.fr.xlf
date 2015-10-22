@@ -44,7 +44,7 @@
             </trans-unit>
             <trans-unit id="viteloge.user.registration.register.description" resname="viteloge.user.registration.register.description">
                 <source>viteloge.user.registration.register.description</source>
-                <target>Site immobilier d'annonces immobilières de ventes et locations de logement en France.</target>
+                <target>Immobilier - Vitelogé - Le moteur de recherche de l'immobilier. Acheter une maison, louer un appartement? Vitelogé est le site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers.</target>
             </trans-unit>
             <trans-unit id="viteloge.user.security.login.title" resname="viteloge.user.security.login.title">
                 <source>viteloge.user.security.login.title</source>
@@ -52,7 +52,7 @@
             </trans-unit>
             <trans-unit id="viteloge.user.security.login.description" resname="viteloge.user.security.login.description">
                 <source>viteloge.user.security.login.description</source>
-                <target>Site immobilier d'annonces immobilières de ventes et locations de logement en France.</target>
+                <target>Immobilier - Vitelogé - Le moteur de recherche de l'immobilier. Acheter une maison, louer un appartement? Vitelogé est le site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers.</target>
             </trans-unit>
             <trans-unit id="viteloge.user.resetting.request.title" resname="viteloge.user.resetting.request.title">
                 <source>viteloge.user.resetting.request.title</source>
@@ -60,7 +60,31 @@
             </trans-unit>
             <trans-unit id="viteloge.user.resetting.request.description" resname="viteloge.user.resetting.request.description">
                 <source>viteloge.user.resetting.request.description</source>
-                <target>Site immobilier d'annonces immobilières de ventes et locations de logement en France.</target>
+                <target>Immobilier - Vitelogé - Le moteur de recherche de l'immobilier. Acheter une maison, louer un appartement? Vitelogé est le site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers.</target>
+            </trans-unit>
+            <trans-unit id="viteloge.user.profile.show.title" resname="viteloge.user.profile.show.title">
+                <source>viteloge.user.profile.show.title</source>
+                <target>Vitelogé - Mon profil utilisateur sur le moteur de recherche</target>
+            </trans-unit>
+            <trans-unit id="viteloge.user.profile.show.description" resname="viteloge.user.profile.show.description">
+                <source>viteloge.user.profile.show.description</source>
+                <target>Immobilier - Vitelogé - Le moteur de recherche de l'immobilier. Acheter une maison, louer un appartement? Vitelogé est le site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers.</target>
+            </trans-unit>
+            <trans-unit id="viteloge.user.profile.edit.title" resname="viteloge.user.profile.edit.title">
+                <source>viteloge.user.profile.edit.title</source>
+                <target>Vitelogé - Modifier mon profil utilisateur sur le moteur de recherche</target>
+            </trans-unit>
+            <trans-unit id="viteloge.user.profile.edit.description" resname="viteloge.user.profile.edit.description">
+                <source>viteloge.user.profile.edit.description</source>
+                <target>Immobilier - Vitelogé - Le moteur de recherche de l'immobilier. Acheter une maison, louer un appartement? Vitelogé est le site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers.</target>
+            </trans-unit>
+            <trans-unit id="viteloge.user.changepassword.changepassword.title" resname="viteloge.user.changepassword.changepassword.title">
+                <source>viteloge.user.changepassword.changepassword.title</source>
+                <target>Vitelogé - Modifier son mot de passe sur le moteur de recherche</target>
+            </trans-unit>
+            <trans-unit id="viteloge.user.changepassword.changepassword.description" resname="viteloge.user.changepassword.changepassword.description">
+                <source>viteloge.user.profile.changepassword.description</source>
+                <target>Immobilier - Vitelogé - Le moteur de recherche de l'immobilier. Acheter une maison, louer un appartement? Vitelogé est le site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers.</target>
             </trans-unit>
         </body>
     </file>

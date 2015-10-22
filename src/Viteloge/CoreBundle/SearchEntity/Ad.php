@@ -5,6 +5,7 @@ namespace Viteloge\CoreBundle\SearchEntity {
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\Validator\Constraints as Assert;
     use GeoIp2\Database\Reader;
+    use Viteloge\CoreBundle\Component\Enum\TransactionEnum;
 
     /**
      *
@@ -194,7 +195,11 @@ namespace Viteloge\CoreBundle\SearchEntity {
          *
          */
         public function setTransaction($value) {
-            $this->transaction = strtoupper($value);
+            $value = strtoupper($value);
+            if ($value == TransactionEnum::__default) {
+                $value = null;
+            }
+            $this->transaction = $value;
             return $this;
         }
 
@@ -213,12 +218,14 @@ namespace Viteloge\CoreBundle\SearchEntity {
                 if (!is_array($value)) {
                     $value = explode(',', $value);
                 }
-                foreach ($value as $key => $entity) {
-                    if (is_object($entity)) {
-                        $value[$key] = $entity->getId();
+                $this->where = array_map(function($item) {
+                    if(is_string($item)) {
+                        return strtolower($item);
                     }
-                }
-                $this->where = $value;
+                    elseif (is_object($item)) {
+                        return $item->getId();
+                    }
+                }, $value);
             }
             return $this;
         }
@@ -238,7 +245,7 @@ namespace Viteloge\CoreBundle\SearchEntity {
                 if (!is_array($value)) {
                     $value = explode(',', $value);
                 }
-                $this->whereArea = $value;
+                $this->whereArea = array_map('strtolower', $value);
             }
             return $this;
         }
@@ -258,7 +265,7 @@ namespace Viteloge\CoreBundle\SearchEntity {
                 if (!is_array($value)) {
                     $value = explode(',', $value);
                 }
-                $this->whereDepartment = $value;
+                $this->whereDepartment = array_map('strtolower', $value);
             }
             return $this;
         }
@@ -278,7 +285,7 @@ namespace Viteloge\CoreBundle\SearchEntity {
                 if (!is_array($value)) {
                     $value = explode(',', $value);
                 }
-                $this->whereState = $value;
+                $this->whereState = array_map('strtolower', $value);
             }
             return $this;
         }

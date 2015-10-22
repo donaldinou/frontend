@@ -24,6 +24,18 @@ module.exports = function(grunt) {
                     stdout: true
                 },
                 command: 'php app/console cache:clear'
+            },
+            composerInstall: {
+                options: {
+                    stdout: true
+                },
+                command: 'composer install --optimize-autoloader --no-dev'
+            },
+            composerDump: {
+                options: {
+                    stdout: true
+                },
+                command: 'composer dump-autoload --optimize'
             }
         },
         bowercopy: { // download with bower and copy necessary files to web/assets/*
@@ -35,18 +47,19 @@ module.exports = function(grunt) {
                 files: {
                     'js/jquery.js': 'jquery/dist/jquery.js',
                     'js/cookie.jquery.js': 'jquery.cookie/jquery.cookie.js',
-                    'js/typeahead.js': 'typeahead.js/dist/typeahead.bundle.js',
+                    'js/jquery.lazyload.js': 'jquery.lazyload/jquery.lazyload.js',
+                    'js/jquery.smooth-scroll.js': 'jquery-smooth-scroll/jquery.smooth-scroll.min.js',
                     'js/require.js': 'requirejs/require.js',
                     'js/domReady.js': 'requirejs-domready/domReady.js',
                     'js/hinclude.js': 'hinclude/hinclude.js',
                     'js/history.js': 'html5-history-api/history.js',
                     'js/owl.carousel.js' : 'OwlCarousel2/dist/owl.carousel.js',
                     'js/background-check.js': 'background-check/background-check.js',
-                    'js/select2.js': 'select2/dist/js/select2.min.js',
+                    'js/select2.js': 'select2/dist/js/select2.js',
                     'js/select2.fr.js': 'select2/dist/js/i18n/fr.js',
                     'js/placeholders.js': 'placeholders/dist/placeholders.jquery.js',
-                    'js/jquery.lazyload.js': 'jquery.lazyload/jquery.lazyload.js',
-                    'js/d3.js': 'd3/d3.js'
+                    'js/d3.js': 'd3/d3.js',
+                    'js/zeroclipboard.js': 'zeroclipboard/dist/ZeroClipboard.min.js'
                 }
             },
             stylesheets: {
@@ -193,5 +206,5 @@ module.exports = function(grunt) {
     grunt.registerTask('javascript', [/*'dart2js', */'uglify', 'copy']);
     grunt.registerTask('copy:assets', ['clean:build', 'copy', 'clean:sass']);
     grunt.registerTask('default', ['bowercopy']);
-    grunt.registerTask('deploy', ['clean:build', 'clean:sass', 'compass', 'cssmin', 'bowercopy', 'uglify', 'copy', 'aws_s3'])
+    grunt.registerTask('deploy', ['clean:build', 'clean:sass', 'shell:composerInstall', 'copy', 'bowercopy', 'compass', 'cssmin', 'uglify', 'aws_s3', 'shell:composerDump'])
 };

@@ -10,8 +10,6 @@ framework:
     ide: sublime
     csrf_protection:
         enabled: true
-    session:
-        save_path: %kernel.cache_dir%/sessions
 
 web_profiler:
     toolbar: true

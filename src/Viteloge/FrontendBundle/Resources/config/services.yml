@@ -7,6 +7,7 @@ parameters:
     viteloge_frontend.form.type.message.class: Viteloge\FrontendBundle\Form\Type\MessageType
     viteloge_frontend.form.type.contact.class: Viteloge\FrontendBundle\Form\Type\ContactType
     viteloge_frontend.form.type.recommand.class: Viteloge\FrontendBundle\Form\Type\RecommandType
+    viteloge_frontend.form.type.api.class: Viteloge\FrontendBundle\Form\Type\ApiType
     viteloge_frontend.form.type.insee_city_selector.class: Viteloge\FrontendBundle\Form\Type\InseeCitySelectorType
     viteloge_frontend.twig.extension.class: Viteloge\FrontendBundle\Twig\VitelogeFrontendExtension
     viteloge_frontend.pagerfanta.view.viteloge.class: Viteloge\FrontendBundle\Pagerfanta\View\VitelogeView
@@ -20,7 +21,7 @@ services:
             - { name: doctrine.event_listener, event: prePersist }
     viteloge_frontend.sitemaplistener:
         class: %viteloge_frontend.eventlistener.sitemap.class%
-        arguments: ["@router"]
+        arguments: ["@router", "@doctrine.orm.entity_manager"]
         tags:
             - { name: "presta.sitemap.listener"}
     viteloge_frontend.form.type.ad:
@@ -49,6 +50,11 @@ services:
         class: %viteloge_frontend.form.type.recommand.class%
         tags:
             - { name: form.type, alias: viteloge_frontend_recommand }
+    viteloge_frontend.form.type.api:
+        class: %viteloge_frontend.form.type.api.class%
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type, alias: viteloge_frontend_api }
     viteloge_frontend.form.type.insee_city_selector:
         class: %viteloge_frontend.form.type.insee_city_selector.class%
         arguments: ["@doctrine.orm.entity_manager"]

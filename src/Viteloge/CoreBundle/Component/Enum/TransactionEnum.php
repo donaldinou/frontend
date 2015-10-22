@@ -6,7 +6,7 @@ namespace Viteloge\CoreBundle\Component\Enum {
 
     class TransactionEnum extends Enum {
 
-        const __default = EnumTransactionType::__default;
+        const __default = 'DEFAULT';
 
         const RENT = EnumTransactionType::RENT;
 

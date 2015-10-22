@@ -1,0 +1,103 @@
+{% extends 'VitelogeFrontendBundle:Form:adSearch.html.twig' %}
+
+{%- block form_start -%}
+{{ form_start(form, {'action': url('viteloge_frontend_ad_searchfromform'), 'attr': {'enctype': 'application/x-www-form-urlencoded','class': 'search', 'role': 'search', 'novalidate': 'novalidate'}}) }}
+{%- endblock form_start -%}
+
+{%- block form_fields -%}
+    <div class="hidden">
+        {%- if form._token is defined -%}
+            {{ form_row(form._token) }}
+        {%- endif -%}
+        {{- form_row(form.where, {
+            'label_attr': {
+                'class': 'sr-only'
+            },
+            'attr': {
+                'class': 'select-tag-input',
+                'data-placeholder' : 'ad.where'|trans(),
+                'data-minimum-input-length': '3',
+                'data-allow-clear' : 'true',
+                'data-ajax--url' : url('viteloge_frontend_suggest_cities'),
+                'data-ajax--cache' : 'true',
+                'data-ajax--data-type' : 'json',
+            }
+        }) -}}
+    </div>
+    <a href="{{ url('viteloge_frontend_homepage') }}" class="logo-container clearfix">
+        <img src="{{ app.request.getSchemeAndHttpHost() ~ asset('bundles/vitelogecore/images/fr/logo-viteloge-moteur-recherche-immobilier.svg') }}" class="logo img-responsive center-block" alt="{% trans %}viteloge.brand{% endtrans %}" title="{% trans %}viteloge.brand{% endtrans %} - {% trans %}viteloge.slogan{% endtrans %}" itemprop="logo" data-role="logo">
+    </a>
+    {{- form_widget(form.transaction, { label_attr: { 'class': 'radio-inline' }, theme_container: theme_container|default('search-container') }) -}}
+    <fieldset class="bg-darken text-left" role="tabpanel">
+        <div class="row">
+            <div class="col-md-6">
+                {{- form_row(form.what, {
+                    'label_attr': {
+                        'class': 'sr-only'
+                    },
+                    'attr': {
+                        'class': 'select-tag-input',
+                        'data-placeholder' : 'ad.what'|trans(),
+                    }
+                }) -}}
+            </div>
+            <div class="col-md-6">
+                {{- form_row(form.rooms, {
+                    'label_attr': {
+                        'class': 'sr-only'
+                    },
+                    'attr': {
+                        'class': 'select-tag-input',
+                        'data-placeholder' : 'ad.rooms.number'|trans(),
+                    }
+                }) -}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                {{- form_row(form.minPrice, {
+                    'label_attr': {
+                        'class': 'sr-only'
+                    },
+                    'attr': {
+                        'class': '',
+                        'placeholder': 'ad.price.min',
+                        'maxlength': 10
+                    }
+                }) -}}
+            </div>
+            <div class="col-md-6">
+                {{- form_row(form.maxPrice, {
+                    'label_attr': {
+                        'class': 'sr-only'
+                    },
+                    'attr': {
+                        'class': '',
+                        'placeholder': 'ad.price.max',
+                        'maxlength': 10
+                    }
+                }) -}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {{- form_widget(form.search, {
+                    'label': 'ad.search',
+                    'span_class': '',
+                    'attr': {
+                        'class': 'btn btn-primary btn-block text-uppercase',
+                        'role': 'button'
+                    }
+                }) -}}
+            </div>
+        </div>
+    </fieldset>
+{%- endblock -%}
+
+{%- block form_end -%}
+    <script src="{{ app.request.getSchemeAndHttpHost() ~ asset('assets/js/jquery.js') }}"></script>
+    <script src="{{ app.request.getSchemeAndHttpHost() ~ asset('assets/js/select2.js') }}"></script>
+    <script src="{{ app.request.getSchemeAndHttpHost() ~ asset('assets/js/select2.fr.js') }}"></script>
+    <script>$('form[name="viteloge_core_adsearch"] .select-tag-input').select2({'width': '100%'})</script>
+    {{- parent() -}}
+{%- endblock form_end -%}

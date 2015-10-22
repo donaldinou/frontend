@@ -3,7 +3,13 @@
 {% block main %}
     {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } %}
         {% block left %}
-            {{ include('VitelogeUserBundle:Profile:fragment/form.html.twig') }}
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <div class="content">
+                        {{ include('VitelogeUserBundle:Profile:fragment/form.html.twig') }}
+                    </div>
+                </div>
+            </div>
         {% endblock %}
         {% block right %}
             {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}

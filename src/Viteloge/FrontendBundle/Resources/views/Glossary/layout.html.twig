@@ -9,15 +9,16 @@
     {%- embed 'VitelogeUserBundle:base:header.html.twig' -%}
         {%- block header_navbarheader -%}
             <div class="navbar-header" id="navbar-button-logo">
-                {{- block('header_button') -}}
-                {{- block('header_logo') -}}
-                {%- block header_more -%}
+                {%- block header_button -%}
+                    {{- parent() -}}
                     <button type="button" class="visible-xs pull-right btn btn-inverted navbar-button collapsed" data-toggle="collapse" data-target="#map-container" aria-expanded="true" aria-controls="map-container">
                         <span class="sr-only">{% trans %}viteloge.more{% endtrans %}</span>
                         <span class="fa fa-arrow-circle-down"></span>
                         <span class="icon-bar"></span>
                     </button>
-                {%- endblock header_more -%}
+                {%- endblock header_button -%}
+                {{- block('header_logo') -}}
+                {{- block('header_more') -}}
             </div>
         {%- endblock -%}
         {%- block header_navigation_more -%}

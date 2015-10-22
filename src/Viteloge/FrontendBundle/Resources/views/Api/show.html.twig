@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="/built/min.css">
+
+{{ include('VitelogeFrontendBundle:Api:form/adSearch.html.twig', { form: form, theme_container: 'search-container' }) }}
+
+{#
+
+New way to implement
+
+window.viteloge = (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0],
+        v = window.viteloge || {};
+    if (d.getElementById(id)) return v;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "http://www.viteloge.com/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, "script", "viteloge-jssdk"));
+
+#}

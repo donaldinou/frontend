@@ -26,14 +26,6 @@
     clear: both;
 }
 
-.vr {
-    display: inline;
-    border-style: solid;
-    border-width: 0px;
-    border-left: 1px solid;
-    margin: .5em 10px;
-}
-
 .fa.form-control-feedback {
     line-height: 34px; /* @input-height-base; */
 }
@@ -45,41 +37,10 @@
 }
 
 /**
- * Position
- */
-.pos-relative {
-    position: relative !important;
-}
-
-.pos-absolute {
-    position: absolute !important;
-}
-
-.pos-static {
-    position: static !important;
-}
-
-.position-fixed {
-    position: fixed !important;
-}
-
-/**
-* Background generic
-*/
-.bg-transparent {
-    background-color: transparent;
-}
-
-.bg-darken {
-    background-color: rgba(0, 0, 0, .5);
-}
-/** * */
-
-/**
 * highlighting
 */
 .highlighting {
-    background-color: $rent-color;
+    background-color: $text-color;
     color: #fff;
     padding-bottom: 10px;
 }

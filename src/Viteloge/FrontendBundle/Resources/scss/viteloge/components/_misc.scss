@@ -15,6 +15,10 @@
     margin-top: 10px;
 }
 
+.content-title {
+    margin-top: 0px;
+}
+
 .lazy {
     display: none;
 }
@@ -30,4 +34,40 @@ span.list-group-item {
 
 .label-height {
     line-height: 26px;
+}
+
+.vr {
+    display: inline;
+    border-style: solid;
+    border-width: 0px;
+    border-left: 1px solid;
+    margin: .5em 10px;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.inline {
+    display: inline;
+}
+
+.inner {
+    position: relative;
+    z-index: 1;
+    .inner-absolute {
+        position: absolute;
+        top: 0;
+        &.inner-absolute-center {
+            left: 0;
+            right: 0;
+            text-align: center;
+            margin: auto;
+            & > * {
+                position: relative;
+            }
+        }
+    }
 }

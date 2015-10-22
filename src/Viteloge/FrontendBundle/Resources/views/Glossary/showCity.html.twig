@@ -1,25 +1,44 @@
 {% extends 'VitelogeFrontendBundle:Glossary:layout.html.twig' %}
 
+{%- block body_start -%}
+    <div class="clearfix inner">
+        <div class="text-center container-fluid inner-absolute inner-absolute-center forward">
+            <h1 class="title text-uppercase">{%- trans with { '%city%': '<strong>'~city.getNameAndPostalcode()~'</strong>' } -%}glossary.properties.in.city{%- endtrans -%}</h1>
+            <div class="clearfix"></div>
+            <h2 class="subtitle text-uppercase">{%- transchoice count with { '%count%': '<strong>'~count~'</strong>', '%city%': city.fullname } -%}glossary.today.properties.update.count.in.city{%- endtranschoice -%}</h2>
+        </div>
+    </div>
+    {{- parent() -}}
+{%- endblock -%}
+
 {%- block main -%}
     {%- embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } -%}
         {%- block left -%}
-            {{ render_hinclude(path('viteloge_frontend_glossary_areas', { 'id': city.id })) }}
-            {{ render_hinclude(path('viteloge_estimation_statistic_price', { 'slug': city.slug, 'id': city.id })) }}
-            <section class="theme-rent static">
+            <section id="summary">
+                {%- if cityData is not empty -%}
+                    <article>
+                        <h3 class="theme-default text-uppercase content-title">{%- trans with { '%city%': city.fullname } -%}glossary.about.city{%- endtrans -%}</h3>
+                        {{ cityData.description|raw }}
+                    </article>
+                {%- endif -%}
+                {{ render_hinclude(path('viteloge_frontend_glossary_areas', { 'id': city.id })) }}
+                {{ render_hinclude(path('viteloge_estimation_statistic_price', { 'name': city.slug, 'id': city.id })) }}
+            </section>
+            <section id="rent-around" class="theme-rent static">
                 {{ render(path('viteloge_frontend_ad_latest', { 'limit': 3, 'transaction': 'L', 'where': [city.id], 'cityName': city.fullname })) }}
                 {{ render_hinclude(path('viteloge_frontend_querystats_latest', { 'limit': 10, 'transaction': 'L', 'inseeCity': city.id })) }}
                 <div class="text-center margin-t10">
                     <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'L', 'where': [city.id] }) }}" class="btn btn-default text-uppercase" role="button">{% trans %}glossary.show.all.rent{% endtrans %}</a>
                 </div>
             </section>
-            <section class="theme-sale static">
+            <section id="sale-around" class="theme-sale static">
                 {{ render(path('viteloge_frontend_ad_latest', { 'limit': 3, 'transaction': 'V', 'where': [city.id], 'cityName': city.fullname })) }}
                 {{ render_hinclude(path('viteloge_frontend_querystats_latest', { 'limit': 10, 'transaction': 'V', 'inseeCity': city.id })) }}
                 <div class="text-center margin-t10">
                     <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'V', 'where': [city.id] }) }}" class="btn btn-default text-uppercase" role="button">{% trans %}glossary.show.all.sales{% endtrans %}</a>
                 </div>
             </section>
-            <section class="clearfix"></section>
+            <div class="clearfix"></div>
         {%- endblock -%}
         {%- block right -%}
             {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}

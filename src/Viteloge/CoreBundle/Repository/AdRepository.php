@@ -18,7 +18,7 @@ namespace Viteloge\CoreBundle\Repository {
                 ->select('count(a.id)');
             if (!empty($criteria) && is_array($criteria)) {
                 foreach ($criteria as $key => $value) {
-                    if (!$this->getClassMetadata()->hasField($key)) {
+                    if (!$this->getClassMetadata()->hasField($key) && !$this->getClassMetadata()->hasAssociation($key)) {
                         continue;
                     }
                     $expr = $query->expr()->eq('a.'.$key, ':'.$key);

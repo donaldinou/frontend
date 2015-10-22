@@ -11,13 +11,24 @@
             {{ sonata_seo_title() }}
         {%- endblock title -%}
         {%- block head_icon -%}
-        <link rel="apple-touch-icon" href="{{ asset('bundles/frontendbundle/images/apple/touch-icon-iphone.png') }}">
-        <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('bundles/frontendbundle/images/apple/touch-icon-ipad.png') }}">
-        <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('bundles/frontendbundle/images/apple/touch-icon-iphone-retina.png') }}">
-        <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('bundles/frontendbundle/images/apple/touch-icon-ipad-retina.png') }}">
-        <link rel="apple-touch-startup-image" href="{{ asset('bundles/frontendbundle/images/common/logo.png') }}">
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
-        <link rel="author" type="text/plain" href="humans.txt">
+            <link rel="apple-touch-startup-image" href="{{ asset('bundles/frontendbundle/images/common/logo.png') }}">
+            <link rel="apple-touch-icon" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon.png') }}">
+            <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-57x57.png') }}">
+            <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-60x60.png') }}">
+            <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-72x72.png') }}">
+            <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-76x76.png') }}">
+            <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-114x114.png') }}">
+            <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-120x120.png') }}">
+            <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-144x144.png') }}">
+            <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-152x152.png') }}">
+            <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-180x180.png') }}">
+            <link rel="icon" type="image/png" href="{{ asset('bundles/frontendbundle/images/favicon/favicon-16x16.png') }}" sizes="16x16">
+            <link rel="icon" type="image/png" href="{{ asset('bundles/frontendbundle/images/favicon/favicon-32x32.png') }}" sizes="32x32">
+            <link rel="icon" type="image/png" href="{{ asset('bundles/frontendbundle/images/favicon/favicon-194x194.png') }}" sizes="194x194">
+            <link rel="icon" type="image/png" href="{{ asset('bundles/frontendbundle/images/favicon/favicon-96x96.png') }}" sizes="96x96">
+            <link rel="icon" type="image/png" href="{{ asset('bundles/frontendbundle/images/favicon/android/android-chrome-192x192.png') }}" sizes="192x192">
+            <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+            <link rel="author" type="text/plain" href="humans.txt">
         {%- endblock head_icon -%}
         {%- block head_stylesheets -%}
             <link rel="stylesheet" href="{{ asset('built/min.css') }}">
@@ -40,9 +51,10 @@
         <script>
           window.fbAsyncInit = function() {
             FB.init({
-              appId      : '588522051250560',
-              xfbml      : true,
-              version    : 'v2.3'
+              appId : '{{ facebook_client_id }}',
+              cookie : true,
+              xfbml : true,
+              version : '{{ facebook_app_version }}'
             });
           };
 
@@ -50,7 +62,7 @@
              var js, fjs = d.getElementsByTagName(s)[0];
              if (d.getElementById(id)) {return;}
              js = d.createElement(s); js.id = id;
-             js.src = "//connect.facebook.net/en_US/sdk.js";
+             js.src = "https://connect.facebook.net/fr_FR/sdk.js";
              fjs.parentNode.insertBefore(js, fjs);
            }(document, 'script', 'facebook-jssdk'));
         </script>
@@ -72,7 +84,16 @@
           return t;
         }(document, "script", "twitter-wjs"));
         </script>
-    {%- endblock -%}
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+          ga('create', '{{ ga_tracking }}', 'auto');
+          ga('send', 'pageview');
+        </script>
+    {%- endblock init_javascripts -%}
     {%- block html_start -%}
 
     {%- endblock html_start -%}
@@ -124,6 +145,7 @@
     {%- endblock body -%}
     {%- block html_end -%}
         {{- include('VitelogeFrontendBundle:misc:cookie-policy.html.twig', {}) -}}
+        {{- include('VitelogeFrontendBundle:misc:backtotop.html.twig', {}) -}}
     {%- endblock html_end -%}
     {%- block javascripts %}
         <script src="{{ asset('bundles/bazingajstranslation/js/translator.min.js') }}"></script>
@@ -134,10 +156,10 @@
         <script src="{{ asset('assets/js/placeholders.js') }}"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="{{ asset('assets/js/owl.carousel.js') }}"></script>
-        <script src="{{ asset('assets/js/typeahead.js') }}"></script>
         <script src="{{ asset('assets/js/background-check.js') }}"></script>
         <script src="{{ asset('assets/js/history.js') }}"></script>
         <script src="{{ asset('assets/js/jquery.lazyload.js') }}"></script>
+        <script src="{{ asset('assets/js/jquery.smooth-scroll.js') }}"></script>
         <script src="{{ asset('bundles/frontendbundle/js/viteloge.jquery.js') }}"></script>
         <script src="{{ asset('bundles/frontendbundle/js/viteloge.js') }}"></script>
     {% endblock javascripts -%}

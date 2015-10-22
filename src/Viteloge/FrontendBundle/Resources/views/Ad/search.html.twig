@@ -17,9 +17,8 @@
     {%- embed "VitelogeUserBundle:base:header.html.twig" -%}
         {%- block header_navbarheader -%}
             <div class="navbar-header" id="navbar-button-logo">
-                {{- block('header_button') -}}
-                {{- block('header_logo') -}}
-                {%- block header_more -%}
+                {%- block header_button -%}
+                    {{- parent() -}}
                     {%- if form is defined -%}
                         <button type="button" class="visible-xs pull-right btn btn-inverted navbar-button collapsed" data-toggle="collapse" data-target="#search-container" aria-expanded="false" aria-controls="search-container">
                             <span class="sr-only">{% trans %}ad.change.research{% endtrans %}</span>
@@ -27,23 +26,44 @@
                             <span class="icon-bar"></span>
                         </button>
                     {%- endif -%}
-                {%- endblock header_more -%}
+                {%- endblock header_button -%}
+                {{- block('header_logo') -}}
+                {{- block('header_more') -}}
             </div>
         {%- endblock -%}
+        {%- block header_navigation -%}
+            {%- set transaction = app.request.get('transaction')|lower -%}
+            <ul id="navigation" class="nav navbar-nav navbar-right">
+                <li class="text-uppercase{% if transaction == 'v' %} active{% endif %}" role="presentation">
+                    <a href="{{ path('viteloge_frontend_ad_search', app.request.query.all()|merge({ transaction: 'v' })) }}" data-theme-hover="theme-sale">{% trans %}ad.sale{% endtrans %}</a>
+                </li>
+                <li class="text-uppercase{% if transaction == 'l' %} active{% endif %}" role="presentation">
+                    <a href="{{ path('viteloge_frontend_ad_search', app.request.query.all()|merge({ transaction: 'l' })) }}" data-theme-hover="theme-rent">{% trans %}ad.rent{% endtrans %}</a>
+                </li>
+                <li class="text-uppercase{% if transaction == 'n' %} active{% endif %}" role="presentation">
+                    <a href="{{ path('viteloge_frontend_ad_search', app.request.query.all()|merge({ transaction: 'n' })) }}" data-theme-hover="theme-new">{% trans %}ad.new{% endtrans %}</a>
+                </li>
+                {%- block header_navigation_more -%}
+
+                {%- endblock header_navigation_more -%}
+            </ul>
+        {% endblock %}
     {%- endembed -%}
 {%- endblock -%}
 
 {%- block header_end -%}
     <div class="container">
         <div class="row clearfix">
-            <div class="col-md-10">
+            <div class="col-sm-10 col-md-9 col-lg-9">
                 {% set count = pagination.nbResults|default(ads|length) %}
                 <h2 class="">{% transchoice count with { '%count%' : count } %}ads.count.research{% endtranschoice %}</h2>
             </div>
-            <div class="col-md-2 text-right hidden-xs">
+            <div class="col-sm-2 col-md-3 col-lg-3 text-right hidden-xs">
                 {%- if form is defined -%}
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="collapse" aria-expanded="false" data-target="#search-container" aria-controls="search-container">
-                        {% trans %}ad.change.research{% endtrans %}&nbsp;<span class="caret"></span>
+                    <button type="button" class="h2 btn btn-default dropdown-toggle" data-toggle="collapse" aria-expanded="false" data-target="#search-container" aria-controls="search-container" aria-label="{%- trans -%}ad.change.research{%- endtrans -%}">
+                        <span class="fa fa-search hidden-md hidden-lg" aria-hidden="true"></span>
+                        <span class="hidden-xs hidden-sm">{%- trans -%}ad.change.research{%- endtrans -%}</span>
+                        <span class="caret hidden-xs hidden-sm"></span>
                     </button>
                 {%- endif -%}
             </div>

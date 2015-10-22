@@ -28,7 +28,7 @@
     }
     .btn-default {
         &:hover,
-        &:focus
+        &:focus,
         &:active {
             background-color: $color;
             color: #fff;

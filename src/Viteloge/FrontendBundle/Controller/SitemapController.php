@@ -46,7 +46,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      defaults={
          *          "_format"="html"
          *      },
-         *     name="viteloge_frontend_sitemap_index",
+         *     name="viteloge_frontend_sitemap_index_format",
          *     options = {
          *         "i18n" = true
          *     }

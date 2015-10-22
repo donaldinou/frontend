@@ -14,16 +14,21 @@ if (window.adsbygoogle != null) {
 
 function getCarouselLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showCarousels);
+        navigator.geolocation.getCurrentPosition(showCarousels, function(){showCarousels(null)});
     } else {
         showCarousels(null);
     }
 }
 
 function showCarousels(position) {
+    showCarouselLocationDefault(position);
     showCarouselLocationRent(position);
     showCarouselLocationSale(position);
     showCarouselLocationNew(position);
+}
+
+function showCarouselLocationDefault(position) {
+    return showCarouselLocation('default', 30, position);
 }
 
 function showCarouselLocationRent(position) {
@@ -50,4 +55,16 @@ function showCarouselLocation(transaction, radius, position) {
             runResponsiveCarousel('.owl-carousel');
         }
     });
+}
+
+function adSearchTemplateResult(result) {
+    var text = result.text;
+    if (result.id) {
+        //text = jQuery('<span>'+result.text+'</span>'+'<span class="fa fa-plus-circle pull-right" data-id="">&nbsp;</span>');
+    }
+    return text;
+}
+
+function adSearchTemplateSelection(selection) {
+    return selection.text;
 }

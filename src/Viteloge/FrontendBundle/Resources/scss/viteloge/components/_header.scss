@@ -1,4 +1,5 @@
 .header {
+    position: relative;
     background-color: #fff;
     background-image: url('../bundles/vitelogecore/images/pixels/white.png');
     .vr {
@@ -14,23 +15,50 @@
     .subheader {
         margin-top: 0px;
     }
+    .navbar {
+        .navbar-header {
+            button.pull-right + .brand {
+                padding-right: 40px;
+                @media (min-width: $screen-sm-min) {
+                    padding-right: 0px;
+                }
+            }
+        }
+    }
     #identification {
         > li {
             > a {
                 padding-top: 5px;
                 padding-bottom: 5px;
                 padding-left: 10px;
+                padding-right: 5px;
             }
         }
         .vr {
             margin: 5px 10px;
         }
     }
-    @media (min-width: $screen-sm-min) {
-        #navigation {
+    #navigation {
+        @media (min-width: $screen-sm-min) {
             position: absolute;
             right: 15px;
             bottom: 0;
+        }
+    }
+    > .next-link {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        z-index: 1;
+        > a {
+            opacity: .6;
+            margin-bottom: -30px;
+            background-color: $text-color;
+            @include transition(all .6s);
+            &:hover, &:focus {
+                margin-bottom: 0px;
+                opacity: 1;
+            }
         }
     }
 }
@@ -54,7 +82,16 @@
         min-height: 500px;
     }
     .forward {
-        margin-top: 150px;
+        margin-top: 20px;
+        @media (min-width: $screen-sm-min) {
+            margin-top: 80px;
+        }
+        @media (min-width: $screen-md-min) {
+            margin-top: 150px;
+        }
+        @media (min-width: $screen-lg-min) {
+            margin-top: 150px;
+        }
         > h1, > h2 {
             color: #fff;
         }

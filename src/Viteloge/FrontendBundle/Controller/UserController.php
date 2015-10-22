@@ -36,6 +36,25 @@ namespace Viteloge\FrontendBundle\Controller {
             $breadcrumbs->addItem($translated->trans('breadcrumb.user', array(), 'breadcrumbs'));
             // --
 
+            // SEO
+            $canonicalLink = $this->get('router')->generate(
+                $request->get('_route'),
+                $request->get('_route_params'),
+                true
+            );
+            $seoPage = $this->container->get('sonata.seo.page');
+            $seoPage
+                ->setTitle($translated->trans('viteloge.frontend.user.index.title'))
+                ->addMeta('name', 'robots', 'noindex, nofollow')
+                ->addMeta('name', 'description', $translated->trans('viteloge.frontend.user.index.description'))
+                ->addMeta('property', 'og:title', $seoPage->getTitle())
+                ->addMeta('property', 'og:type', 'website')
+                ->addMeta('property', 'og:url',  $canonicalLink)
+                ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.user.index.description'))
+                ->setLinkCanonical($canonicalLink)
+            ;
+            // --
+
             return array(
 
             );

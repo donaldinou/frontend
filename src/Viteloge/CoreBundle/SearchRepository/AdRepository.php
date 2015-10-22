@@ -168,7 +168,7 @@ namespace Viteloge\CoreBundle\SearchRepository {
                 $sort[$ad->getSort()] = array( 'order' => $ad->getDirection() );
             }
             $sort['privilegeRank'] = array( 'order' => 'desc' );
-            $sort['order'] = array( 'order' => 'asc' );
+            $sort['order'] = array( 'order' => 'desc' );
 
             $filtered = new \Elastica\Query\Filtered();
             $filtered->setQuery($fieldQuery);

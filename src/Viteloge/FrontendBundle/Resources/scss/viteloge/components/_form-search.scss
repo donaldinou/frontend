@@ -8,6 +8,10 @@ form.search {
             color: #fff;
         }
     }
+    .logo-container {
+        display: block;
+        margin-bottom: 5px;
+    }
     > fieldset {
         border: none;
         .row {
@@ -55,8 +59,20 @@ form.search {
                     }
                 }
             }
+            > li {
+                + li {
+                    margin-left: 2px;
+                    margin-right: 2px;
+                }
+            }
         }
         > li {
+            @media (max-width: $screen-sm-min) {
+                &:first-child {
+                    margin-left: 2px;
+                    margin-right: 2px;
+                }
+            }
             > a {
                 background-color: $text-color;
                 cursor: pointer;

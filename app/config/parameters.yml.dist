@@ -45,6 +45,7 @@ parameters:
     facebook_account:   viteloge
     facebook_client_id: id
     facebook_client_secret: secret
+    facebook_app_version: v2.5
 
     # twitter
     twitter_account:    viteloge

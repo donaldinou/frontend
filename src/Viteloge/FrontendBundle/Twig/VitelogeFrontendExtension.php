@@ -66,17 +66,17 @@ namespace Viteloge\FrontendBundle\Twig {
          */
         public function vlIntval($value) {
             switch ($value) {
+                case TransactionEnum::RENT:
+                    $result = 0;
+                    break;
                 case TransactionEnum::SALE:
                     $result = 1;
                     break;
-
                 case TransactionEnum::NEWER:
                     $result = 2;
                     break;
-
-                case TransactionEnum::RENT:
                 default:
-                    $result = (int)$value;
+                    $result = 3;
                     break;
             }
             return $result;

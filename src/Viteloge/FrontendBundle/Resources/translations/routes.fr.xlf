@@ -58,9 +58,9 @@
         <source>fos_user_security_logout</source>
         <target>/utilisateur/deconnexion</target>
       </trans-unit>
-      <trans-unit id="d0c379abcde6f7e97f29b46d8c1d789e" resname="viteloge_estimation_citystats_city">
-        <source>viteloge_estimation_citystats_city</source>
-        <target>/prix-immobilier/{slug}/{id}</target>
+      <trans-unit id="d0c379abcde6f7e97f29b46d8c1d789e" resname="viteloge_estimation_statistic_city">
+        <source>viteloge_estimation_statistic_city</source>
+        <target>/prix-immobilier/{name}/{id}</target>
       </trans-unit>
       <trans-unit id="ceab495dcabca14582824822d8846d6b" resname="viteloge_estimation_default_contact">
         <source>viteloge_estimation_default_contact</source>
@@ -98,7 +98,7 @@
         <source>viteloge_frontend_ad_search</source>
         <target>/annonce/recherche/{page}/{limit}</target>
       </trans-unit>
-      <trans-unit id="ca446031dcb25e4e6dd0377d1cd2cd45" resname="viteloge_frontend_ad_search_1">
+      <trans-unit id="ca446031dcb25e4e6dd0377d1cd2cd45" resname="viteloge_frontend_ad_search_default">
         <source>viteloge_frontend_ad_search_default</source>
         <target>/annonce/recherche/</target>
       </trans-unit>
@@ -226,19 +226,23 @@
         <source>viteloge_frontend_usersearch_list</source>
         <target>/utilisateur/recherche/liste/</target>
       </trans-unit>
-      <trans-unit id="587c14c944dec9e5eb945c2ae76f396d" resname="viteloge_frontend_websearch_create">
-        <source>viteloge_frontend_websearch_create</source>
+      <trans-unit id="viteloge_frontend_websearch_new" resname="viteloge_frontend_websearch_new">
+        <source>viteloge_frontend_websearch_new</source>
         <target>/utilisateur/alerte/ajout/</target>
       </trans-unit>
-      <trans-unit id="fb5bb6c400f43d2f23558ed73a87737e" resname="viteloge_frontend_websearch_delete">
+      <trans-unit id="viteloge_frontend_websearch_create" resname="viteloge_frontend_websearch_create">
+        <source>viteloge_frontend_websearch_create</source>
+        <target>/utilisateur/alerte/creer/</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_websearch_delete" resname="viteloge_frontend_websearch_delete">
         <source>viteloge_frontend_websearch_delete</source>
         <target>/utilisateur/alerte/supprimer/{id}</target>
       </trans-unit>
-      <trans-unit id="9735287831cb7b678d5f42d33ed1bcca" resname="viteloge_frontend_websearch_edit">
+      <trans-unit id="viteloge_frontend_websearch_edit" resname="viteloge_frontend_websearch_edit">
         <source>viteloge_frontend_websearch_edit</source>
         <target>/utilisateur/alerte/editer/{id}</target>
       </trans-unit>
-      <trans-unit id="9740647eb8dbfd1e58c734d8dd9c624c" resname="viteloge_frontend_websearch_list">
+      <trans-unit id="viteloge_frontend_websearch_list" resname="viteloge_frontend_websearch_list">
         <source>viteloge_frontend_websearch_list</source>
         <target>/utilisateur/alerte/liste/</target>
       </trans-unit>

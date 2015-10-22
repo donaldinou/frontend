@@ -7,7 +7,7 @@
 {%- block breadcrumb -%}
     {%- set breadcrumbs = [
         { url : path('viteloge_frontend_homepage'), text: 'Home'},
-        { url : path('viteloge_frontend_static_why'), text: block('main_title')|striptags},
+        { url : '', text: block('main_title')|striptags},
     ] -%}
     {{ include('VitelogeUserBundle:base:breadcrumb.html.twig', { listClass: 'breadcrumb', breadcrumbs: breadcrumbs }) }}
 {%- endblock breadcrumb -%}

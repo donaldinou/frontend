@@ -1,0 +1,44 @@
+{% form_theme form with ['VitelogeFrontendBundle:Form:fields.html.twig'] %}
+
+{%- block form_start -%}
+{{ form_start(form, {'attr': {'enctype': 'application/x-www-form-urlencoded', 'class': 'api', 'data-role': 'search', 'novalidate': 'novalidate'}}) }}
+{%- endblock form_start -%}
+    {%- block form_errors -%}
+        {{ form_errors(form) }}
+    {%- endblock form_errors -%}
+    {%- block form_fields -%}
+        <div class="hidden">
+            {%- if form._token is defined -%}
+                {{ form_row(form._token) }}
+            {%- endif -%}
+        </div>
+        {{ form_row(form.inseeCity, {
+            'label_attr': {
+                'class': 'sr-only'
+            },
+            'attr': {
+                'class': 'select-tag-input',
+                'data-placeholder' : 'api.inseecity'|trans() ~ ' ...',
+                'data-minimum-input-length': '3',
+                'data-allow-clear' : 'true',
+                'data-ajax--url' : path('viteloge_frontend_suggest_cities'),
+                'data-ajax--cache' : 'true',
+                'data-ajax--data-type' : 'json'
+            }
+        }) }}
+    {%- endblock form_fields -%}
+    {%- block form_button -%}
+        {{- form_row(form.send, {
+            'label': 'api.action.send',
+            'label_attr': {
+                'class': 'sr-only'
+            },
+            'attr': {
+                'class': 'btn btn-primary text-uppercase',
+            },
+            'span_class': 'fa fa-send',
+        }) -}}
+    {%- endblock form_button -%}
+{%- block form_end -%}
+{{ form_end(form) }}
+{%- endblock form_end -%}

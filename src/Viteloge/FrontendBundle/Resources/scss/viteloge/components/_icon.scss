@@ -112,17 +112,28 @@
     }
     &.animated {
         &:hover, &:focus {
-            line-height: 35px;
+            @extend .round-icon;
             border: none;
         }
-        &.small:hover, &.small:focus {
-            line-height: 25px;
+    }
+}
+.round-icon, .rounded-icon {
+    &.transition-small, &.transition-medium, &.transition-large, &.transition {
+        @include transition(border .6s, width .6s, height .6s);
+    }
+    &.transition-small {
+        &:hover, &:focus {
+            @extend .small;
         }
-        &.medium:hover, &.medium:focus {
-            line-height: 45px;
+    }
+    &.transition-medium {
+        &:hover, &:focus {
+            @extend .medium;
         }
-        &.large:hover, &.large:focus {
-            line-height: 60px;
+    }
+    &.transition-large {
+        &:hover, &:focus {
+            @extend .large;
         }
     }
 }

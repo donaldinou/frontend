@@ -5,3 +5,11 @@
         display: none;
     }
 }
+
+.over-scrollable {
+    position: relative;
+    overflow: hidden;
+    .scrollable {
+        @include transition(all .4s);
+    }
+}

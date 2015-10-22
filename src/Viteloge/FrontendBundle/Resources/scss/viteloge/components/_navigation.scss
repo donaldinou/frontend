@@ -11,6 +11,9 @@
         margin-right: 0;
         margin-left: 0;
     }
+    .logo {
+        width: 270px;
+    }
 }
 
 #navigation {
@@ -25,7 +28,6 @@
             margin-bottom: -1px;
         }
         > a {
-            margin-right: 2px;
             line-height: $line-height-base;
             border: 1px solid transparent;
             border-radius: 0 0 0 0;
@@ -38,6 +40,7 @@
                 border-color: $nav-tabs-link-hover-border-color $nav-tabs-link-hover-border-color $nav-tabs-border-color;
             }
             @media (min-width: $grid-float-breakpoint) {
+                margin-right: 2px;
                 padding-top: 10px;
                 padding-bottom: 10px;
             }

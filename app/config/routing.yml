@@ -1,3 +1,7 @@
+viteloge_twig:
+    resource: "@VitelogeTwigBundle/Resources/config/routing.yml"
+    prefix:   /
+
 viteloge_o_auth:
     resource: "@VitelogeOAuthBundle/Resources/config/routing.yml"
     prefix:   /
