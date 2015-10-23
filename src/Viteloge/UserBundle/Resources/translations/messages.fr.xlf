@@ -2,6 +2,10 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" datatype="plaintext" original="file.ext">
         <body>
+             <trans-unit id="user.actions" resname="user.actions">
+                <source>user.actions</source>
+                <target>Actions</target>
+            </trans-unit>
             <trans-unit id="user.register" resname="user.register">
                 <source>user.register</source>
                 <target>Inscription</target>

@@ -45,6 +45,7 @@ twig:
     strict_variables: "%kernel.debug%"
     form:
         resources: ['AcreatCoreBundle:Form:fields.html.twig', 'VitelogeCoreBundle:Form:fields.html.twig']
+    exception_controller:  viteloge_twig.controller.exception:showAction
     globals:
         ga_tracking: %ga_tracking%
         adsense_publisher_id: %adsense_publisher_id%

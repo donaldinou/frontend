@@ -5,7 +5,7 @@
         <span class="fa fa-asterisk">&nbsp;</span>
     {%- endif -%}
     <span class="text-capitalize">{%- if websearch.title -%}{{ websearch.title }}{%- else -%}{%- trans with { '%date%': websearch.updatedAt|localizeddate('short', 'none', null) }-%}websearch.title.date{%- endtrans -%}{%- endif -%}</span>
-    <span class="badge pull-right">{% transchoice websearch.newMatches with { '%count%': websearch.newMatches } %}websearch.newmatches.count{% endtranschoice %} {% trans %}websearch.on{% endtrans %} {% transchoice websearch.totalMatches with { '%count%': websearch.totalMatches } %}websearch.totalmatches.count{% endtranschoice %}</span>
+    <span class="badge pull-right hidden-xs">{% transchoice websearch.newMatches with { '%count%': websearch.newMatches } %}websearch.newmatches.count{% endtranschoice %} {% trans %}websearch.on{% endtrans %} {% transchoice websearch.totalMatches with { '%count%': websearch.totalMatches } %}websearch.totalmatches.count{% endtranschoice %}</span>
 {%- endblock panel_title -%}
 
 {%- block panel_buttons_before -%}
@@ -29,6 +29,12 @@
         #}
     </div>
 {%- endblock panel_buttons_before -%}
+
+{%- block panel_buttons_after -%}
+    <div class="position-absolute text-center visible-xs">
+        <span class="badge">{{ websearch.newMatches }}/{{ websearch.totalMatches }}</span>
+    </div>
+{%- endblock panel_buttons_after -%}
 
 {%- block panel_body -%}
     {%- for ad in websearch.cachedProperties -%}

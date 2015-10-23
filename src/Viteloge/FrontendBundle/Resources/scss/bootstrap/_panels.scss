@@ -232,7 +232,7 @@
 
   // Tighten up margin so it's only between panels
   .panel {
-    margin-bottom: 0;
+    margin-bottom: 20px;
     border-radius: $panel-border-radius;
 
     + .panel {

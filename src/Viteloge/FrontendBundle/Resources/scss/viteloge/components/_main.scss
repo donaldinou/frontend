@@ -18,7 +18,10 @@
     }
     > .inner {
         > .inner-absolute {
-            top: 40px;
+            top: 18px;
+            @media (min-width: $screen-sm-min) {
+                top: 40px;
+            }
         }
         .container-fluid {
             h1.title, h2.subtitle {

@@ -1,0 +1,7 @@
+parameters:
+    viteloge_twig.controller.exception.class: Viteloge\TwigBundle\Controller\ExceptionController
+
+services:
+    viteloge_twig.controller.exception:
+        class: %viteloge_twig.controller.exception.class%
+        arguments: ["@service_container", "%kernel.debug%"]

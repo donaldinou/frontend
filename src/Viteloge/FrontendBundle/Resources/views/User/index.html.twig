@@ -6,10 +6,15 @@
             {{- include('VitelogeFrontendBundle:WebSearch:fragment/resume.html.twig', { 'webSearches': app.user.webSearches }) -}}
             <section>
                 <h2>{% trans %}user.websearch.title{% endtrans %}</h2>
-                <div class="">
-                    <a href="{{ path('viteloge_frontend_websearch_new', { }) }}" class="btn btn-default" role="button">{% trans %}websearch.action.add{% endtrans %}</a>
+                <div class="btn-toolbar" role="toolbar" aria-label="{%- trans -%}user.actions{%- endtrans -%}">
+                    <div class="btn-group pull-left" role="group" aria-label="{% trans %}websearch.general.action{% endtrans %}">
+                        <a href="{{ path('viteloge_frontend_websearch_new', { }) }}" class="btn btn-primary" role="button" aria-label="{% trans %}websearch.action.add{% endtrans %}">
+                            <span class="fa fa-plus-circle" aria-hidden="true"></span>
+                            <span class="hidden-xs">{% trans %}websearch.action.add{% endtrans %}</span>
+                        </a>
+                    </div>
                 </div>
-                <div class="panel-group" id="websearch-panel" role="tablist" aria-multiselectable="true">
+                <div class="clearfix panel-group" id="websearch-panel" role="tablist" aria-multiselectable="true">
                     {% for websearch in app.user.webSearches %}
                         {{ include('VitelogeFrontendBundle:WebSearch:render/panel.html.twig', { id: websearch.id, parent: 'websearch-panel', show: (not loop.index0), websearch: websearch }) }}
                     {% endfor %}

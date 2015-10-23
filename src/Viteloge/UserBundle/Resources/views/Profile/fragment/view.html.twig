@@ -12,15 +12,21 @@
     </address>
 </div>
 
-<a class="btn btn-default" href="{{ path('viteloge_frontend_user_index') }}" role="button">
-    <span class="fa fa-rotate-left">&nbsp;</span>
-    <span>{% trans %}profile.action.back{% endtrans %}</span>
-</a>
-<a class="btn btn-default" href="{{ path('fos_user_change_password') }}" role="button">
-    <span class="fa fa-lock">&nbsp;</span>
-    <span>{% trans %}profile.action.changepassword{% endtrans %}</span>
-</a>
-<a class="btn btn-default" href="{{ path('fos_user_profile_edit') }}" role="button">
-    <span class="fa fa-pencil" aria-hidden="true">&nbsp;</span>
-    <span>{% trans %}profile.action.edit{% endtrans %}</span>
-</a>
+<div class="btn-group" role="group" aria-label="{% trans %}user.actions{% endtrans %}">
+    <a class="btn btn-default" href="{{ path('viteloge_frontend_user_index') }}" role="button">
+        <span class="fa fa-rotate-left">&nbsp;</span>
+        <span class="hidden-xs">{% trans %}profile.action.back{% endtrans %}</span>
+    </a>
+    <a class="btn btn-default" href="{{ path('fos_user_change_password') }}" role="button">
+        <span class="fa fa-lock">&nbsp;</span>
+        <span>{% trans %}profile.action.changepassword{% endtrans %}</span>
+    </a>
+    <a class="btn btn-default" href="{{ path('fos_user_profile_edit') }}" role="button">
+        <span class="fa fa-pencil" aria-hidden="true">&nbsp;</span>
+        <span class="hidden-xs">{% trans %}profile.action.edit{% endtrans %}</span>
+    </a>
+</div>
+
+
+
+

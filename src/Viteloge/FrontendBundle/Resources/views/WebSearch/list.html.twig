@@ -1,11 +1,11 @@
 {% extends 'VitelogeFrontendBundle::base.html.twig' %}
 
 {%- block main_buttons_toolbar -%}
-    <div class="btn-toolbar" role="toolbar" aria-label="...">
+    <div class="btn-toolbar" role="toolbar" aria-label="{%- trans -%}user.actions{%- endtrans -%}">
         <div class="btn-group pull-left" role="group" aria-label="{% trans %}websearch.general.action{% endtrans %}">
             <a href="{{ path('viteloge_frontend_websearch_new', { }) }}" class="btn btn-primary" role="button" aria-label="{% trans %}websearch.action.add{% endtrans %}">
                 <span class="fa fa-plus-circle" aria-hidden="true"></span>
-                <span>{% trans %}websearch.action.add{% endtrans %}</span>
+                <span class="hidden-xs">{% trans %}websearch.action.add{% endtrans %}</span>
             </a>
         </div>
         {% if is_granted('ROLE_OPERATOR') %}

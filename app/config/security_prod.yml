@@ -1,4 +1,4 @@
 security:
     firewalls:
         main:
-            stateless: false
+            stateless: true

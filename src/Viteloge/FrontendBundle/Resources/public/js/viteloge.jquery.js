@@ -94,7 +94,7 @@ jQuery(document).ready(function() {
                 jQuery('.backtotop.hover').trigger('mouseleave').toggleClass('hover');
             }
         }
-        if (jQuery('.over-scrollable .scrollable').length>0) {
+        if (jQuery('.over-scrollable .scrollable:visible').length>0 && jQuery(document).width()>768) {
             if(jQuery(window).scrollTop() + jQuery(window).height() != jQuery(document).height()) {
                 jQuery('.over-scrollable .scrollable').each(function(index, element) {
                     var ePosition = jQuery(element).offset().top;

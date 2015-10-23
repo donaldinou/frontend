@@ -67,6 +67,20 @@ namespace Viteloge\FrontendBundle\Controller {
             $breadcrumbs->addItem($translated->trans('breadcrumb.sitemap', array(), 'breadcrumbs'));
             // --
 
+            // SEO
+            $canonicalLink = $this->get('router')->generate($request->get('_route'), array(), true);
+            $seoPage = $this->container->get('sonata.seo.page');
+            $seoPage
+                ->setTitle($translated->trans('viteloge.frontend.sitemap.index.title'))
+                ->addMeta('name', 'description', $translated->trans('viteloge.frontend.sitemap.index.description'))
+                ->addMeta('property', 'og:title', $translated->trans('viteloge.frontend.sitemap.index.title'))
+                ->addMeta('property', 'og:type', 'website')
+                ->addMeta('property', 'og:url',  $canonicalLink)
+                ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.sitemap.index.description'))
+                ->setLinkCanonical($canonicalLink)
+            ;
+            // --
+
             $this->elements = new \ArrayObject();
             $this->buildStates();
             $this->build();
@@ -197,7 +211,7 @@ namespace Viteloge\FrontendBundle\Controller {
             $collection = $this->get('router')->getOriginalRouteCollection();
             foreach ($collection->all() as $name => $route) {
                 $option = $route->getOption('vl_sitemap');
-                if ($option) {
+                if (is_array($option)) {
                     $title = (isset($option['title'])) ? $option['title'] : $name;
                     $section = (isset($option['section'])) ? $option['section'] : 'default';
                     $description = (isset($option['description'])) ? $option['description'] : '';

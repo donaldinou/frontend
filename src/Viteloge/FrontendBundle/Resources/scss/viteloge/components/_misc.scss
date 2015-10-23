@@ -71,3 +71,8 @@ span.list-group-item {
         }
     }
 }
+
+.panel > .panel-heading > .pos-absolute, .panel > .panel-heading .position-absolute {
+    width: 100%;
+    left: 0;
+}

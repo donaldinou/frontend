@@ -1,8 +1,8 @@
 {# extends box #}
 
 {% set id = id|default('panel-' ~ random()) %}
-<div class="{{ class|default('') ~ ' panel panel-default' }}">
-    <div class="panel-heading" role="tab" id="{{ id }}-title">
+<div class="{{ class|default('') ~ ' position-relative panel panel-default' }}">
+    <div class="position-relative panel-heading" role="tab" id="{{ id }}-title">
         {%- block panel_heading -%}
             {%- block panel_buttons_before -%}{%- endblock panel_buttons_before -%}
             <h3 class="panel-title">
