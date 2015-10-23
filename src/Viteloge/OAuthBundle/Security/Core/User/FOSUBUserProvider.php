@@ -26,13 +26,13 @@ namespace Viteloge\OAuthBundle\Security\Core\User {
                 $user = $this->userManager->findUserByUsernameOrEmail($email);
                 if (!$user instanceof UserInterface) {
                     $user = $this->userManager->createUser();
-                    $user->{'set'.ucfirst($service).'Id'}($username);
                     $user->setUsername($email);
-                    $user->setPassword($username);
+                    $user->setPlainPassword($username);
                     $user->setEmail($email);
                     $user->setEnabled(true);
-                    $this->userManager->updateUser($user);
                 }
+                $user->{'set'.ucfirst($service).'Id'}($username);
+                $this->userManager->updateUser($user, true);
             }
             return $user;
         }
