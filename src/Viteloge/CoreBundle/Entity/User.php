@@ -707,6 +707,86 @@ namespace Viteloge\CoreBundle\Entity {
         }
 
         /**
+         * Set FacebookId
+         *
+         * @param integer $facebookId
+         * @return Account
+         */
+        public function setFacebookId($facebookId) {
+            $this->facebookId = $facebookId;
+            return $this;
+        }
+
+        /**
+         * Get FacebookId
+         *
+         * @return integer
+         */
+        public function getFacebookId() {
+            return $this->facebookId;
+        }
+
+        /**
+         * Set TwitterId
+         *
+         * @param integer $twitterId
+         * @return Account
+         */
+        public function setTwitterId($twitterId) {
+            $this->twitterId = $twitterId;
+            return $this;
+        }
+
+        /**
+         * Get FacebookId
+         *
+         * @return integer
+         */
+        public function getTwitterId() {
+            return $this->twitterId;
+        }
+
+        /**
+         * Set FacebookId
+         *
+         * @param integer $facebookId
+         * @return Account
+         */
+        public function setGoogleId($googleId) {
+            $this->googleId = $googleId;
+            return $this;
+        }
+
+        /**
+         * Get FacebookId
+         *
+         * @return integer
+         */
+        public function getGoogleId() {
+            return $this->googleId;
+        }
+
+        /**
+         * Set githubId
+         *
+         * @param integer $facebookId
+         * @return Account
+         */
+        public function setGithubId($githubId) {
+            $this->githubId = $githubId;
+            return $this;
+        }
+
+        /**
+         * Get FacebookId
+         *
+         * @return integer
+         */
+        public function getGithubId() {
+            return $this->githubId;
+        }
+
+        /**
          * Add webSearches
          *
          * @param \Viteloge\CoreBundle\Entity\WebSearch $webSearches

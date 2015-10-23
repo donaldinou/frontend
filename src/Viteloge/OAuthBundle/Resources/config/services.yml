@@ -1,4 +1,7 @@
+parameters:
+    viteloge_o_auth.user.provider.fosub_bridge.class: Viteloge\OAuthBundle\Security\Core\User\FOSUBUserProvider
+
 services:
-#    viteloge_o_auth.example:
-#        class: Viteloge\OAuthBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    viteloge_o_auth.user.provider.fosub_bridge:
+        class: %viteloge_o_auth.user.provider.fosub_bridge.class%
+        arguments: ["@fos_user.user_manager", { "facebook": "facebookId", "twitter": "twitterId", "google": "googleId", "github": "githubId" }]

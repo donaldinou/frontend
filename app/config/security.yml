@@ -50,7 +50,7 @@ security:
                 use_forward: false
                 failure_path: fos_user_security_login
                 oauth_user_provider:
-                    service: hwi_oauth.user.provider.fosub_bridge
+                    service: viteloge_o_auth.user.provider.fosub_bridge
 
     access_control:
          #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

@@ -1,4 +1,6 @@
 hwi_oauth:
+    connect:
+        account_connector: viteloge_o_auth.user.provider.fosub_bridge
     firewall_name: main
     resource_owners:
         facebook:

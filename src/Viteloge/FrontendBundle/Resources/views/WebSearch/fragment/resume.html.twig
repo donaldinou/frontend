@@ -4,9 +4,9 @@
     <div class="panel-body">
         <p>
             <div class="user-icon pull-left">
-                <span class="rounded-icon large text-center">
+                <a href="{{ path('fos_user_profile_show') }}" class="rounded-icon large text-center">
                     <span class="fa fa-user"></span>
-                </span>
+                </a>
             </div>
             <span>{% trans with { '%name%' : app.user.fullname } %}viteloge.welcome.name{% endtrans %}</span><br>
             <span>{% trans with { '%date%' : app.user.createdAt|localizeddate('short', 'none', null) } %}user.account.createdat.date{% endtrans %}</span><br>
@@ -22,7 +22,6 @@
                   </div>
                 </div>
             </p>
-            <a href="{{ path('fos_user_profile_edit') }}" class="">{% trans %}user.action.edit{% endtrans %}</a>
         {%- endif -%}
     </div>
 </div>

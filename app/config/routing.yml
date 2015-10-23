@@ -2,10 +2,6 @@ viteloge_twig:
     resource: "@VitelogeTwigBundle/Resources/config/routing.yml"
     prefix:   /
 
-viteloge_o_auth:
-    resource: "@VitelogeOAuthBundle/Resources/config/routing.yml"
-    prefix:   /
-
 viteloge_news:
     resource: "@VitelogeNewsBundle/Resources/config/routing.yml"
     prefix:   /
@@ -39,3 +35,7 @@ PrestaSitemapBundle:
 
 _bazinga_jstranslation:
     resource: "@BazingaJsTranslationBundle/Resources/config/routing/routing.yml"
+
+viteloge_o_auth:
+    resource: "@VitelogeOAuthBundle/Resources/config/routing.yml"
+    prefix:   /
