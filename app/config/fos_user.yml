@@ -16,4 +16,4 @@ fos_user:
             template: VitelogeFrontendBundle:Resetting:email.html.twig
     from_email:
         address: no-reply@viteloge.com
-        sender_name: Vitelogé
+        sender_name: ViteLogé

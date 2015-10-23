@@ -26,7 +26,7 @@ security:
                 default_target_path: viteloge_frontend_user_index
                 use_referer: true
                 provider: fos_userbundle
-                csrf_provider: form.csrf_provider
+                csrf_provider: security.csrf.token_manager
                 #intention: form_item
             logout:
                 invalidate_session: true
@@ -36,6 +36,7 @@ security:
                 key: %secret%
                 lifetime: 604800
                 path: /
+                always_remember_me: true
                 domain: %domain%
                 secure: false
             anonymous: true
