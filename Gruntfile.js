@@ -438,7 +438,7 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('deploy', [
         'clean',
-        //'shell:composerInstall',
+        'shell:composerInstall',
         'shell:assetsInstall',
         'bowercopy',
         'copy',
@@ -448,6 +448,6 @@ module.exports = function(grunt) {
         'uglify',
         'compress',
         'aws_s3',
-        //'shell:composerDump'
+        'shell:composerDump'
     ]);
 };
