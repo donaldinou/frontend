@@ -57,7 +57,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *          "i18n" = true,
          *          "vl_sitemap" = {
          *              "title" = "viteloge.frontend.ad.search.title",
-         *              "description" = "viteloge.ad.search.search.description",
+         *              "description" = "viteloge.frontend.ad.search.description",
          *              "priority" = "0.7"
          *          }
          *     },
@@ -199,7 +199,7 @@ namespace Viteloge\FrontendBundle\Controller {
             $seoPage = $this->container->get('sonata.seo.page');
             $seoPage
                 ->setTitle($breadcrumbTitle.' - '.$translated->trans('viteloge.frontend.ad.search.title'))
-                ->addMeta('name', 'robots', 'noindex, nofollow')
+                ->addMeta('name', 'robots', 'noindex, follow')
                 ->addMeta('name', 'description', $breadcrumbTitle.' - '.$translated->trans('viteloge.frontend.ad.search.description'))
                 ->addMeta('property', 'og:title', $seoPage->getTitle())
                 ->addMeta('property', 'og:type', 'website')
@@ -320,9 +320,9 @@ namespace Viteloge\FrontendBundle\Controller {
 
             $adSearch = new AdSearch();
             $adSearch->setTransaction($queryStats->getTransaction());
-            $adSearch->setwhere($queryStats->getInseeCity()->getId());
-            $adSearch->setwhat($queryStats->getType());
-            $adSearch->setrooms($queryStats->getRooms());
+            $adSearch->setWhere($queryStats->getInseeCity()->getId());
+            $adSearch->setWhat(ucfirst($queryStats->getType()));
+            $adSearch->setRooms($queryStats->getRooms());
 
             // transform object to array in order to through it to url
             $encoders = array(new JsonEncoder());

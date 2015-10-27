@@ -1,7 +1,7 @@
 .header {
     position: relative;
     background-color: #fff;
-    background-image: url('../bundles/vitelogecore/images/pixels/white.png');
+    background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogecore/images/pixels/white.png');
     .vr {
         margin: 16px 10px;
     }

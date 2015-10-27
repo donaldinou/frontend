@@ -3,7 +3,7 @@
 {%- block head_javascripts -%}
     {{ parent() }}
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
-    <script src="{{ asset('assets/js/d3.js') }}"></script>
+    <script src="{{ aws_s3_domain('built/assets/js/d3.min.js') }}"></script>
 {%- endblock -%}
 
 {%- block body_start -%}

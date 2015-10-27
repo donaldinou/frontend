@@ -94,7 +94,7 @@ namespace Viteloge\FrontendBundle\EventListener {
                         $glossary_section.$j
                     );
                     $event->getGenerator()->addUrl(
-                        $this->getUrlConcrete('viteloge_estimation_statistic_default', $parameters, $options),
+                        $this->getUrlConcrete('viteloge_estimation_statistic_city', $parameters, $options),
                         $statistic_section.$j
                     );
                     if ($i % 100 == 0) {

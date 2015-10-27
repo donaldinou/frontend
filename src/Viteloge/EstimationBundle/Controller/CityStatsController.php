@@ -48,6 +48,10 @@ class CityStatsController extends Controller
             ->addMeta('property', 'og:type', 'website')
             ->addMeta('property', 'og:url',  $canonicalLink)
             ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.ad.search.description', array('%city%' => $inseeCity->getFullname())))
+            ->addMeta('property', 'geo.region', 'FR')
+            ->addMeta('property', 'geo.placename', $inseeCity->getFullname())
+            ->addMeta('property', 'geo.position', $inseeCity->getLat().';'.$inseeCity->getLng())
+            ->addMeta('property', 'ICMB', $inseeCity->getLat().','.$inseeCity->getLng())
             ->setLinkCanonical($canonicalLink)
         ;
         // --

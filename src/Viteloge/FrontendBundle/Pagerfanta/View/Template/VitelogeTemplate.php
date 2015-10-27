@@ -10,10 +10,10 @@ namespace Viteloge\FrontendBundle\Pagerfanta\View\Template {
     class VitelogeTemplate extends TwitterBootstrap3Template {
 
         static protected $defaultOptions = array(
-            'first_icon'          => '&laquo;',
-            'prev_icon'           => '&lt;',
-            'next_icon'           => '&gt;',
-            'last_icon'           => '&raquo;',
+            'first_icon'          => '<span class="fa fa-angle-double-left">&nbsp;</span>',
+            'prev_icon'           => '<span class="fa fa-angle-left">&nbsp;</span>',
+            'next_icon'           => '<span class="fa fa-angle-right">&nbsp;</span>',
+            'last_icon'           => '<span class="fa fa-angle-double-right">&nbsp;</span>',
             'first_message'       => 'First',
             'prev_message'        => 'Previous',
             'next_message'        => 'Next',
@@ -87,7 +87,7 @@ namespace Viteloge\FrontendBundle\Pagerfanta\View\Template {
             $class = $this->option('css_prev_class');
             $text = $this->option('prev_message');
             $icon = $this->option('prev_icon');
-            return $this->elementLi('a', $href, $class, $rel, $text, $icon);
+            return $this->elementLi('a', $href, $class, $rel, $page, $icon, 'leftToRight');
         }
 
         /**
@@ -110,7 +110,7 @@ namespace Viteloge\FrontendBundle\Pagerfanta\View\Template {
             $class = $this->option('css_next_class');
             $text = $this->option('next_message');
             $icon = $this->option('next_icon');
-            return $this->elementLi('a', $href, $class, $rel, $text, $icon);
+            return $this->elementLi('a', $href, $class, $rel, $page, $icon, 'rightToLeft');
         }
 
         /**
@@ -127,7 +127,7 @@ namespace Viteloge\FrontendBundle\Pagerfanta\View\Template {
                 $element = 'span';
                 $class .= ' '.$this->option('css_disabled_class');
             }
-            return $this->elementLi($element, $href, $class, $rel, $text, $icon, 'leftToRight');
+            return $this->elementLi($element, $href, $class, $rel, $page, $icon, 'leftToRight');
         }
 
         /**
@@ -144,7 +144,7 @@ namespace Viteloge\FrontendBundle\Pagerfanta\View\Template {
                 $element = 'span';
                 $class .= ' '.$this->option('css_disabled_class');
             }
-            return $this->elementLi($element, $href, $class, $rel, $text, $icon, 'rightToLeft');
+            return $this->elementLi($element, $href, $class, $rel, $page, $icon, 'rightToLeft');
         }
 
         /**

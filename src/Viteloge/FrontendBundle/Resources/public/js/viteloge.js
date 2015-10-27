@@ -52,6 +52,7 @@ function showCarouselLocation(transaction, radius, position) {
         method: 'GET',
         success: function(data, textStatus, jqXHR) {
             jQuery(idContainer).parent().show().html(data);
+            initLazyLoad();
             runResponsiveCarousel('.owl-carousel');
         }
     });

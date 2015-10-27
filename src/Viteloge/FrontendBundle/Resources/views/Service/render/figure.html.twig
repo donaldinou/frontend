@@ -2,7 +2,7 @@
     <figure class="hvr-fade service">
         <a href="{{ service.getUrl() }}">
             {%- block service_image -%}
-                <img src="{{ asset( service.getImage() ) }}" class="" alt="image">
+                <img src="{{ aws_s3_domain( service.getImage() ) }}" class="" alt="image">
                 <div class="rounded-icon animated transition large center-block">
                     <span class="{{ service.getIcon() }}"></span>
                 </div>

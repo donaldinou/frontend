@@ -22,7 +22,8 @@ namespace Viteloge\FrontendBundle\Twig {
          */
         public function getFunctions() {
             return array(
-                new \Twig_SimpleFunction('vl_theme', array($this, 'vlTheme'))
+                new \Twig_SimpleFunction('vl_theme', array($this, 'vlTheme')),
+                new \Twig_SimpleFunction('aws_s3_domain', array($this, 'awsS3Domain'))
             );
         }
 
@@ -59,6 +60,14 @@ namespace Viteloge\FrontendBundle\Twig {
                     break;
             }
             return strtolower('theme-'.$theme);
+        }
+
+        /**
+         *
+         */
+        public function awsS3Domain($path) {
+            $protocol = 'http';
+            return $protocol.'://'.$this->container->getParameter('media_domain').'/'.$path;
         }
 
         /**

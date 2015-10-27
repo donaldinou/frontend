@@ -20,12 +20,12 @@
 {%- endblock main_content -%}
 
 {%- block javascripts -%}
-    <script src="{{ asset('assets/js/zeroclipboard.js') }}"></script>
+    <script src="{{ aws_s3_domain('built/assets/js/zeroclipboard.min.js') }}"></script>
     <script>
         var clientZC;
         jQuery(document).ready(function() {
             ZeroClipboard.config({
-                swfPath: "{{ 'http://www.viteloge.local' ~ '/built/zeroclipboard.swf' }}",
+                swfPath: "{{ aws_s3_domain('/built/zeroclipboard.swf') }}",
             });
         });
         function addCopyEvent() {

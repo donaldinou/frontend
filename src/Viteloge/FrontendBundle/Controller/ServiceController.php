@@ -28,7 +28,7 @@ namespace Viteloge\FrontendBundle\Controller {
             if (!isset($this->services['estimate'])) {
                 $service = new Service();
                 $service->setName('estimate');
-                $service->setImage('bundles/frontendbundle/images/service/estimate.jpg');
+                $service->setImage('bundles/vitelogefrontend/images/service/estimate.jpg');
                 $service->setIcon('icon-icon-calculator');
                 $service->setTitle('service.estimate');
                 $service->setUrl($this->generateUrl('viteloge_estimation_default_index'));
@@ -45,7 +45,7 @@ namespace Viteloge\FrontendBundle\Controller {
             if (!isset($this->services['publish'])) {
                 $service = new Service();
                 $service->setName('publish');
-                $service->setImage('bundles/frontendbundle/images/service/publish.jpg');
+                $service->setImage('bundles/vitelogefrontend/images/service/publish.jpg');
                 $service->setIcon('icon-icon-publish');
                 $service->setTitle('service.publish');
                 $service->setUrl($this->generateUrl('viteloge_frontend_static_register'));
@@ -62,7 +62,7 @@ namespace Viteloge\FrontendBundle\Controller {
             if (!isset($this->services['mail'])) {
                 $service = new Service();
                 $service->setName('mail');
-                $service->setImage('bundles/frontendbundle/images/service/mail.jpg');
+                $service->setImage('bundles/vitelogefrontend/images/service/mail.jpg');
                 $service->setIcon('icon-icon-alert');
                 $service->setTitle('service.alert');
                 $service->setUrl($this->generateUrl('viteloge_frontend_static_subscribe'));

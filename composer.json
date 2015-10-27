@@ -75,7 +75,8 @@
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
         "symfony-assets-dir": "web/assets",
-        "symfony-assets-install": "symlink",
+        "symfony-assets-install": "",
+        "symfony-bundles-dir": "web/bundles",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         }

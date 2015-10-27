@@ -2,7 +2,8 @@
     <div class="program-images center-block">
         {%- block estate_images -%}
             <a href="{{ path('viteloge_frontend_ad_redirect', { 'id': ad.id }) }}">
-                <img src="{{ 'http://media.viteloge.com/' ~ ad.photo }}" class="responsive-image program-preview">
+                <img data-original="{{ aws_s3_domain(ad.photo) }}" class="responsive-image program-preview lazy" alt="">
+                <noscript><img src="{{ aws_s3_domain(ad.photo) }}" class="responsive-image program-preview" alt=""></noscript>
             </a>
         {%- endblock estate_images -%}
     </div>

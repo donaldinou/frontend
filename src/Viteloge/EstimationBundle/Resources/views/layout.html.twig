@@ -8,5 +8,5 @@
 {% block javascripts %}
     {{ parent() }}
     {#<script src="{{ asset('bundles/vitelogeestimation/js/viteloge_estimation.js') }}"></script>#}
-    <script src="{{ asset('bundles/vitelogeestimation/js/viteloge_estimation.jquery.js') }}"></script>
+    <script src="{{ aws_s3_domain('built/bundles/vitelogeestimation/js/viteloge_estimation.jquery.min.js') }}"></script>
 {% endblock %}

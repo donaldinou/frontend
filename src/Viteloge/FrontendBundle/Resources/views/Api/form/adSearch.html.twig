@@ -25,7 +25,7 @@
         }) -}}
     </div>
     <a href="{{ url('viteloge_frontend_homepage') }}" class="logo-container clearfix">
-        <img src="{{ app.request.getSchemeAndHttpHost() ~ asset('bundles/vitelogecore/images/fr/logo-viteloge-moteur-recherche-immobilier.svg') }}" class="logo img-responsive center-block" alt="{% trans %}viteloge.brand{% endtrans %}" title="{% trans %}viteloge.brand{% endtrans %} - {% trans %}viteloge.slogan{% endtrans %}" itemprop="logo" data-role="logo">
+        <img src="{{ aws_s3_domain('bundles/vitelogecore/images/fr/logo-viteloge-moteur-recherche-immobilier.svg') }}" class="logo img-responsive center-block" alt="{% trans %}viteloge.brand{% endtrans %}" title="{% trans %}viteloge.brand{% endtrans %} - {% trans %}viteloge.slogan{% endtrans %}" itemprop="logo" data-role="logo">
     </a>
     {{- form_widget(form.transaction, { label_attr: { 'class': 'radio-inline' }, theme_container: theme_container|default('search-container') }) -}}
     <fieldset class="bg-darken text-left" role="tabpanel">
@@ -95,9 +95,9 @@
 {%- endblock -%}
 
 {%- block form_end -%}
-    <script src="{{ app.request.getSchemeAndHttpHost() ~ asset('assets/js/jquery.js') }}"></script>
-    <script src="{{ app.request.getSchemeAndHttpHost() ~ asset('assets/js/select2.js') }}"></script>
-    <script src="{{ app.request.getSchemeAndHttpHost() ~ asset('assets/js/select2.fr.js') }}"></script>
+    <script src="{{ aws_s3_domain('built/assets/js/jquery.min.js') }}"></script>
+    <script src="{{ aws_s3_domain('built/assets/js/select2.min.js') }}"></script>
+    <script src="{{ aws_s3_domain('built/assets/js/select2.fr.min.js') }}"></script>
     <script>$('form[name="viteloge_core_adsearch"] .select-tag-input').select2({'width': '100%'})</script>
     {{- parent() -}}
 {%- endblock form_end -%}

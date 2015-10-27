@@ -10,6 +10,7 @@ parameters:
     # database_path: "%kernel.root_dir%/data.db3"
 
     domain : .viteloge.com
+    media_domain : media.viteloge.com
 
     elastic_host : localhost
     elastic_port : 9200

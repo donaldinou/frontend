@@ -51,7 +51,6 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->addMeta('property', 'og:type', 'website')
                 ->addMeta('property', 'og:url',  $canonicalLink)
                 ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.default.index.description'))
-                ->setLinkCanonical($canonicalLink)
             ;
             // --
 

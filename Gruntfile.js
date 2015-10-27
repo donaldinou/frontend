@@ -8,22 +8,44 @@ module.exports = function(grunt) {
         bwr: grunt.file.readJSON('.bowerrc'),
         pkg: grunt.file.readJSON('package.json'),
         aws: grunt.file.readJSON('aws-credentials.json'),
-        //hub: {
-        //    all: {
-        //        files: {
-        //            src: [
-        //                'src/*/Gruntfile.js',
-        //                'vendor/*/Gruntfile.js'
-        //            ]
-        //        }
-        //    }
-        //},
+        clean: {
+            tmp: {
+                src: ['.tmp']
+            },
+            cache: {
+                src: ['app/cache/*', '!app/cache/.gitkeep']
+            },
+            logs: {
+                src: ['app/logs/*', '!app/logs/.gitkeep']
+            },
+            built: {
+                src: ['<%= cmp.extra["symfony-web-dir"] %>/built']
+            },
+            bundles: {
+                src: ['<%= cmp.extra["symfony-web-dir"] %>/bundles']
+            },
+            assets: {
+                src: ['<%= cmp.extra["symfony-assets-dir"] %>/**']
+            },
+            sass: {
+                src: ['<%= cmp.extra["symfony-assets-dir"] %>/sass']
+            },
+            sasscache: {
+                src: ['.sass-cache']
+            },
+        },
         shell: {
             clearCache: {
                 options: {
                     stdout: true
                 },
                 command: 'php app/console cache:clear'
+            },
+            assetsInstall: {
+                options: {
+                    stdout: true
+                },
+                command: 'php app/console assets:install'
             },
             composerInstall: {
                 options: {
@@ -38,7 +60,33 @@ module.exports = function(grunt) {
                 command: 'composer dump-autoload --optimize'
             }
         },
-        bowercopy: { // download with bower and copy necessary files to web/assets/*
+        copy: {
+            favicon: {
+                src: '<%= cmp.extra["symfony-bundles-dir"] %>/vitelogecore/images/favicon/favicon.ico',
+                dest: '<%= cmp.extra["symfony-web-dir"] %>/favicon.ico'
+            },
+            zeroclipboard: {
+                src: '<%= cmp.extra["bwr.directory"] %>/zeroclipboard/dist/ZeroClipboard.swf',
+                dest: '<%= cmp.extra["symfony-web-dir"] %>/built/zeroclipboard.swf'
+            },
+            vitelogefonts: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= cmp.extra["symfony-bundles-dir"] %>/vitelogecore/fonts/',
+                    src: ['**'],
+                    dest: '<%= cmp.extra["symfony-web-dir"] %>/fonts/'
+                }]
+            },
+            fontawesomefonts: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= cmp.extra["symfony-assets-dir"] %>/fonts/',
+                    src: ['**'],
+                    dest: '<%= cmp.extra["symfony-web-dir"] %>/fonts/'
+                }]
+            }
+        },
+        bowercopy: {
             options: {
                 srcPrefix: '<%= bwr.directory %>',
                 destPrefix: '<%= cmp.extra["symfony-assets-dir"] %>'
@@ -48,7 +96,8 @@ module.exports = function(grunt) {
                     'js/jquery.js': 'jquery/dist/jquery.js',
                     'js/cookie.jquery.js': 'jquery.cookie/jquery.cookie.js',
                     'js/jquery.lazyload.js': 'jquery.lazyload/jquery.lazyload.js',
-                    'js/jquery.smooth-scroll.js': 'jquery-smooth-scroll/jquery.smooth-scroll.min.js',
+                    'js/jquery.smooth-scroll.js': 'jquery-smooth-scroll/jquery.smooth-scroll.js',
+                    'js/bootstrap.js': 'bootstrap-sass/assets/javascripts/bootstrap.js',
                     'js/require.js': 'requirejs/require.js',
                     'js/domReady.js': 'requirejs-domready/domReady.js',
                     'js/hinclude.js': 'hinclude/hinclude.js',
@@ -59,7 +108,7 @@ module.exports = function(grunt) {
                     'js/select2.fr.js': 'select2/dist/js/i18n/fr.js',
                     'js/placeholders.js': 'placeholders/dist/placeholders.jquery.js',
                     'js/d3.js': 'd3/d3.js',
-                    'js/zeroclipboard.js': 'zeroclipboard/dist/ZeroClipboard.min.js'
+                    'js/zeroclipboard.js': 'zeroclipboard/dist/ZeroClipboard.js'
                 }
             },
             stylesheets: {
@@ -69,13 +118,23 @@ module.exports = function(grunt) {
                     'css/select2.css': 'select2/dist/css/select2.min.css',
                     'css/owl.carousel.css' : 'OwlCarousel2/dist/assets/owl.carousel.css',
                 }
-            }//,
-            /*fonts: {
+            },
+            fonts: {
                 files: {
-                    'fonts': 'font-awesome/fonts'
+                    'fonts/FontAwesome.otf': 'fontawesome/fonts/FontAwesome.otf',
+                    'fonts/fontawesome-webfont.eot': 'fontawesome/fonts/fontawesome-webfont.eot',
+                    'fonts/fontawesome-webfont.svg': 'fontawesome/fonts/fontawesome-webfont.svg',
+                    'fonts/fontawesome-webfont.ttf': 'fontawesome/fonts/fontawesome-webfont.ttf',
+                    'fonts/fontawesome-webfont.woff': 'fontawesome/fonts/fontawesome-webfont.woff',
+                    'fonts/fontawesome-webfont.woff2': 'fontawesome/fonts/fontawesome-webfont.woff2'
                 }
-            }*/
-        }, //end bowercopy
+            },
+            demo: {
+                files: {
+                    'tmp/demo-page.css': 'hover/css/demo-page.css'
+                }
+            }
+        },
         requirejs: {
             main: {
                 options: {
@@ -94,8 +153,8 @@ module.exports = function(grunt) {
                 }
             }
         },
-        compass: { // compass compilation
-            sass: {
+        compass: {
+            frontend: {
                 options: {
                     sassDir: 'src/Viteloge/FrontendBundle/Resources/scss',
                     cssDir: '.tmp/css',
@@ -103,58 +162,118 @@ module.exports = function(grunt) {
                     outputStyle: 'expanded',
                     noLineComments: true
                 }
+            },
+            estimation: {
+                options: {
+                    sassDir: 'src/Viteloge/EstimationBundle/Resources/scss',
+                    cssDir: '.tmp/css',
+                    importPath: '<%= bwr.directory %>',
+                    outputStyle: 'expanded',
+                    noLineComments: true
+                }
             }
-        }, //end compass
-        cssmin: { // css minify
+        },
+        cssmin: {
             combine: {
                 options:{
                     report: 'gzip',
+                    sourceMap: false,
                     keepSpecialComments: 0
                 },
                 files: {
-                    '<%= cmp.extra["symfony-web-dir"] %>/built/min.css': [
+                    '<%= cmp.extra["symfony-web-dir"] %>/built/viteloge.min.css': [
                         '.tmp/css/**/*.css',
-                        'web/assets/**/*.css'
+                        '<%= cmp.extra["symfony-assets-dir"] %>/css/**/*.css',
+                        '<%= cmp.extra["symfony-bundles-dir"] %>/vitelogecore/css/*.css'
                     ]
                 }
             }
-        }, //end cssmin
-        dart2js: { // dart2js
+        },
+        concat: {
             options: {
-              // Task-specific options go here.
+                separator: ';\n'
             },
-            your_target: {
-              // Target-specific file lists and/or options go here.
+            headjs: {
+                src: [
+                    '<%= cmp.extra["symfony-bundles-dir"] %>/fosjsrouting/js/router.js',
+                    '<%= cmp.extra["symfony-bundles-dir"] %>/vitelogefrontend/js/modernizr.js',
+                    '<%= cmp.extra["symfony-assets-dir"] %>/js/hinclude.js',
+                    '<%= cmp.extra["symfony-assets-dir"] %>/js/jquery.js',
+                ],
+                dest: '<%= cmp.extra["symfony-web-dir"] %>/built/head.js',
             },
-        }, // end dart
-        uglify: { // uglufy files
+            globaljs: {
+                src: [
+                    '<%= cmp.extra["symfony-assets-dir"] %>/js/bootstrap.js',
+                    '<%= cmp.extra["symfony-assets-dir"] %>/js/cookie.jquery.js',
+                    '<%= cmp.extra["symfony-assets-dir"] %>/js/jquery.lazyload.js',
+                    '<%= cmp.extra["symfony-assets-dir"] %>/js/jquery.smooth-scroll.js',
+                    '<%= cmp.extra["symfony-assets-dir"] %>/js/select2.js',
+                    '<%= cmp.extra["symfony-assets-dir"] %>/js/select2.fr.js',
+                    '<%= cmp.extra["symfony-assets-dir"] %>/js/placeholders.js',
+                    '<%= cmp.extra["symfony-assets-dir"] %>/js/owl.carousel.js',
+                    '<%= cmp.extra["symfony-assets-dir"] %>/js/background-check.js',
+                    '<%= cmp.extra["symfony-assets-dir"] %>/js/history.js',
+                    '<%= cmp.extra["symfony-bundles-dir"] %>/bazingajstranslation/js/translator.min.js',
+                    '<%= cmp.extra["symfony-bundles-dir"] %>/vitelogefrontend/js/viteloge.jquery.js',
+                    '<%= cmp.extra["symfony-bundles-dir"] %>/vitelogefrontend/js/viteloge.js',
+                ],
+                dest: '<%= cmp.extra["symfony-web-dir"] %>/built/global.js'
+            }
+        },
+        uglify: {
             options: {
+                report: 'gzip',
                 mangle: false,
-                sourceMap: true,
-                sourceMapName: '<%= cmp.extra["symfony-web-dir"] %>/built/app.map',
+                sourceMap: false,
+                /*sourceMapName: '<%= cmp.extra["symfony-web-dir"] %>/built/app.map',*/
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
-            build: {
+            built: {
+                files: {
+                    '<%= cmp.extra["symfony-web-dir"] %>/built/head.min.js': [
+                        '<%= cmp.extra["symfony-web-dir"] %>/built/head.js'
+                    ],
+                    '<%= cmp.extra["symfony-web-dir"] %>/built/global.min.js': [
+                        '<%= cmp.extra["symfony-web-dir"] %>/built/global.js'
+                    ]
+                }
+            },
+            assets: {
                 files: [{
                     expand: true,
                     cwd: '<%= cmp.extra["symfony-assets-dir"] %>/js/',
-                    src: ['**/*.js'],
-                    dest: '<%= cmp.extra["symfony-assets-dir"] %>/js/'
+                    src: ['**/*.js', '!*.min.js'],
+                    rename: function(destBase, destPath) {
+                        return destBase+destPath.replace('.js', '.min.js');
+                    },
+                    dest: '<%= cmp.extra["symfony-web-dir"] %>/built/assets/'
+                }]
+            },
+            bundles: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= cmp.extra["symfony-bundles-dir"] %>',
+                    src: ['**/*.js', '!*.min.js'],
+                    rename: function(destBase, destPath) {
+                        return destBase+destPath.replace('.js', '.min.js');
+                    },
+                    dest: '<%= cmp.extra["symfony-web-dir"] %>/built/bundles/'
                 }]
             }
-        }, // end uglify
+        },
         watch: {
             css: {
                 files: [
                     'src/**/*.scss'
                 ],
-                tasks: ['css']
+                tasks: ['css', 'compress', 'aws_s3']
             },
             javascript: {
                 files: [
                     'src/**/*.js'
                 ],
-                tasks: ['javascript']
+                tasks: ['javascript', 'compress', 'aws_s3']
             },
             xliff: {
                 files: [
@@ -163,37 +282,150 @@ module.exports = function(grunt) {
                 ],
                 tasks: ['shell:clearCache']
             }
-        }, // end watch
-        copy: { // copy files
-            dist: {
-                files: [{
-                    expand: true,
-                    cwd: 'src/Viteloge/FrontendBundle/Resources/public/',
-                    src: ['**'],
-                    dest: '<%= cmp.extra["symfony-web-dir"] %>/bundles/frontendbundle/'
-                }]
-            }
-        }, // end copy
-        clean: {
-            build: {
-                src: ['<%= cmp.extra["symfony-assets-dir"] %>/**']
+        },
+        compress: {
+            assets: {
+                options: {
+                    mode: 'gzip'
+                },
+                expand: true,
+                cwd: '<%= cmp.extra["symfony-assets-dir"] %>/',
+                rename: function(destBase, destPath) {
+                    return destBase+destPath+'.gz';
+                },
+                src: ['**/*'],
+                dest: '<%= cmp.extra["symfony-assets-dir"] %>/'
             },
-            sass: {
-                src: ['<%= cmp.extra["symfony-assets-dir"] %>/sass']
+            built: {
+                options: {
+                    mode: 'gzip'
+                },
+                expand: true,
+                cwd: '<%= cmp.extra["symfony-web-dir"] %>/built/',
+                rename: function(destBase, destPath) {
+                    return destBase+destPath+'.gz';
+                },
+                src: ['**/*'],
+                dest: '<%= cmp.extra["symfony-web-dir"] %>/built/'
+            },
+            bundles: {
+                options: {
+                    mode: 'gzip'
+                },
+                expand: true,
+                cwd: '<%= cmp.extra["symfony-bundles-dir"] %>/',
+                rename: function(destBase, destPath) {
+                    return destBase+destPath+'.gz';
+                },
+                src: ['**/*'],
+                dest: '<%= cmp.extra["symfony-bundles-dir"] %>/'
+            },
+            assets: {
+                options: {
+                    mode: 'gzip'
+                },
+                expand: true,
+                cwd: '<%= cmp.extra["symfony-web-dir"] %>/fonts/',
+                rename: function(destBase, destPath) {
+                    return destBase+destPath+'.gz';
+                },
+                src: ['**/*'],
+                dest: '<%= cmp.extra["symfony-web-dir"] %>/fonts/'
             }
         },
         aws_s3: {
             options: {
                 accessKeyId: '<%= aws.key %>',
                 secretAccessKey: '<%= aws.secret %>',
-                bucket: '<%= aws.bucket %>'
+                region: '<%= aws.region %>',
+                uploadConcurrency: 10, // 10 simultaneous uploads
+                downloadConcurrency: 10 // 10 simultaneous downloads
             },
-            files: [
-                {expand: true, cwd: 'cmp.extra["symfony-assets-dir"]/css/', src: ['**'], dest: 'assets/css/', action: 'upload'},
-                {expand: true, cwd: 'cmp.extra["symfony-assets-dir"]/fonts/', src: ['**'], dest: 'assets/fonts/', action: 'upload'},
-                {expand: true, cwd: 'cmp.extra["symfony-assets-dir"]/images/', src: ['**'], dest: 'assets/img/', action: 'upload'},
-                {expand: true, cwd: 'cmp.extra["symfony-assets-dir"]/js/', src: ['**'], dest: 'assets/js/', action: 'upload'},
-            ]
+            production: {
+                options: {
+                    bucket: '<%= aws.bucket %>',
+                    //params: {
+                    //    ContentEncoding: 'gzip',
+                    //}
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= cmp.extra["symfony-assets-dir"] %>/css/',
+                    src: ['**'],
+                    dest: 'assets/css/',
+                    action: 'upload',
+                    params: {
+                        CacheControl: 'max-age=604800',
+                        Expires: new Date(Date.now() + 2600000000)
+                    }
+                },
+                {
+                    expand: true,
+                    cwd: '<%= cmp.extra["symfony-assets-dir"] %>/fonts/',
+                    src: ['**'],
+                    dest: 'fonts/',
+                    action: 'upload',
+                    params: {
+                        CacheControl: 'max-age=604800',
+                        Expires: new Date(Date.now() + 63072000000)
+                    }
+                },
+                {
+                    expand: true,
+                    cwd: '<%= cmp.extra["symfony-assets-dir"] %>/images/',
+                    src: ['**'],
+                    dest: 'assets/img/',
+                    action: 'upload',
+                    params: {
+                        CacheControl: 'max-age=604800',
+                        Expires: new Date(Date.now() + 31630000000)
+                    }
+                },
+                {
+                    expand: true,
+                    cwd: '<%= cmp.extra["symfony-assets-dir"] %>/js/',
+                    src: ['**'],
+                    dest: 'assets/js/',
+                    action: 'upload',
+                    params: {
+                        CacheControl: 'max-age=604800',
+                        Expires: new Date(Date.now() + 2600000000)
+                    }
+                },
+                {
+                    expand: true,
+                    cwd: '<%= cmp.extra["symfony-web-dir"] %>/built/',
+                    src: ['**'],
+                    dest: 'built/',
+                    action: 'upload',
+                    params: {
+                        CacheControl: 'max-age=604800',
+                        Expires: new Date(Date.now() + 2600000000)
+                    }
+                },
+                {
+                    expand: true,
+                    cwd: '<%= cmp.extra["symfony-bundles-dir"] %>',
+                    src: ['**'],
+                    dest: 'bundles/',
+                    action: 'upload',
+                    params: {
+                        CacheControl: 'max-age=604800',
+                        Expires: new Date(Date.now() + 2600000000)
+                    }
+                },
+                {
+                    expand: true,
+                    cwd: '<%= cmp.extra["symfony-web-dir"] %>/fonts/',
+                    src: ['**'],
+                    dest: 'fonts/',
+                    action: 'upload',
+                    params: {
+                        CacheControl: 'max-age=604800',
+                        Expires: new Date(Date.now() + 63072000000)
+                    }
+                },]
+            }
         }
     };
 
@@ -201,10 +433,21 @@ module.exports = function(grunt) {
     grunt.initConfig(config);
 
     // All tasks
-    //grunt.registerTask('default', ['css','javascript']);
-    grunt.registerTask('css', ['compass','cssmin']);
-    grunt.registerTask('javascript', [/*'dart2js', */'uglify', 'copy']);
-    grunt.registerTask('copy:assets', ['clean:build', 'copy', 'clean:sass']);
-    grunt.registerTask('default', ['bowercopy']);
-    grunt.registerTask('deploy', ['clean:build', 'clean:sass', 'shell:composerInstall', 'copy', 'bowercopy', 'compass', 'cssmin', 'uglify', 'aws_s3', 'shell:composerDump'])
+    grunt.registerTask('css', ['shell:assetsInstall', 'bowercopy', 'copy', 'compass', 'cssmin']);
+    grunt.registerTask('javascript', ['shell:assetsInstall', 'bowercopy', 'copy', 'concat', 'uglify']);
+    grunt.registerTask('default', ['watch']);
+    grunt.registerTask('deploy', [
+        'clean',
+        //'shell:composerInstall',
+        'shell:assetsInstall',
+        'bowercopy',
+        'copy',
+        'compass',
+        'cssmin',
+        'concat',
+        'uglify',
+        'compress',
+        'aws_s3',
+        //'shell:composerDump'
+    ]);
 };

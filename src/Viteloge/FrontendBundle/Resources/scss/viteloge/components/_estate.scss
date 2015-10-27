@@ -27,7 +27,7 @@
         overflow: hidden;
         text-decoration: none;
         > img {
-            background-image: url('../bundles/vitelogecore/images/logo-viteloge.svg');
+            background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogecore/images/fr/logo-viteloge-moteur-recherche-immobilier.svg');
             background-position: center center;
             background-repeat: no-repeat;
             background-color: #ddd;
@@ -187,6 +187,19 @@
     }
 }
 
+.program {
+    .program-images {
+        .program-preview {
+            background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogecore/images/fr/logo-viteloge-moteur-recherche-immobilier.svg');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-color: #ddd;
+            background-size: 230px;
+            width: 100%;
+            height: 60px;
+        }
+    }
+}
 
 /** * */
 .item .estate {

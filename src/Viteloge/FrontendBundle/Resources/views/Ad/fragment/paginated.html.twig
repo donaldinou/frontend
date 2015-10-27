@@ -42,7 +42,14 @@
         {%- for ad in ads -%}
             <div class="theme-{{ad.transaction}}">{{- include('VitelogeFrontendBundle:Ad:render/list.html.twig', { 'ad': ad }) -}}</div>
         {%- else -%}
-            <br>{{- include('VitelogeCoreBundle:Global:alert.html.twig', { type: 'info', alerts: { 0: 'ad.noresult'|trans }, dismissible: false }) -}}
+            <section class="margin-t10 clearfix">
+                <div class="clearfix">
+                    {{- include('VitelogeCoreBundle:Global:alert.html.twig', { type: 'info', alerts: { 0: 'ad.noresult'|trans }, dismissible: false }) -}}
+                </div>
+                <div class="clearfix">
+                    {{ render(path('viteloge_frontend_ad_latest', { limit: 5, 'where': app.request.query.get('where'), 'cityName': 'ad.your.research'|trans })) }}
+                </div>
+            </section>
         {%- endfor -%}
         </div>
         {{- block('pagination') -}}

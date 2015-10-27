@@ -1,6 +1,6 @@
 .home {
     .banner {
-        background-image: url('../bundles/frontendbundle/images/home/background.jpg');
+        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/home/background.jpg');
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;

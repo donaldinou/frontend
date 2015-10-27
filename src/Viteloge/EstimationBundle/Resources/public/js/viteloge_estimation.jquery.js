@@ -21,7 +21,7 @@ jQuery(document).ready(function() {
             jQuery('a[href="#estimate-contact"]').removeClass('hidden');
         } else {
             jQuery('#estimate-contact').parents('.panel').addClass('hidden');
-            JQuery('#estimate-contact').find('input').prop('disabled', true);
+            jQuery('#estimate-contact').find('input').prop('disabled', true);
             jQuery('a[href="#estimate-contact"]').addClass('hidden');
         }
     }

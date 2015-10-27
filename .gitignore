@@ -13,6 +13,7 @@ _def_assets.scss
 # Cache and logs (Symfony2)
 /app/cache/*
 /app/logs/*
+/app/spool/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 
@@ -36,7 +37,11 @@ _def_assets.scss
 /vendor/
 
 # Assets and user uploads
+/web/assets/
 /web/bundles/
+/web/built/
+/web/fonts
+/web/fonts/
 /web/uploads/
 
 # PHPUnit

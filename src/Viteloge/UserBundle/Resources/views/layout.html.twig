@@ -5,43 +5,37 @@
             {{ sonata_seo_metadatas() }}
             {{ sonata_seo_link_canonical() }}
             {{ sonata_seo_lang_alternates() }}
-            <meta name="msapplication-TileImage" content="{{ asset('bundles/frontendbundle/images/common/icon.png') }}">
+            <meta name="msapplication-TileImage" content="{{ aws_s3_domain('bundles/vitelogefrontend/images/common/icon.png') }}">
         {%- endblock head_meta -%}
         {%- block title -%}
             {{ sonata_seo_title() }}
         {%- endblock title -%}
         {%- block head_icon -%}
-            <link rel="apple-touch-startup-image" href="{{ asset('bundles/frontendbundle/images/common/logo.png') }}">
-            <link rel="apple-touch-icon" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon.png') }}">
-            <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-57x57.png') }}">
-            <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-60x60.png') }}">
-            <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-72x72.png') }}">
-            <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-76x76.png') }}">
-            <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-114x114.png') }}">
-            <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-120x120.png') }}">
-            <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-144x144.png') }}">
-            <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-152x152.png') }}">
-            <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('bundles/frontendbundle/images/favicon/apple/apple-touch-icon-180x180.png') }}">
-            <link rel="icon" type="image/png" href="{{ asset('bundles/frontendbundle/images/favicon/favicon-16x16.png') }}" sizes="16x16">
-            <link rel="icon" type="image/png" href="{{ asset('bundles/frontendbundle/images/favicon/favicon-32x32.png') }}" sizes="32x32">
-            <link rel="icon" type="image/png" href="{{ asset('bundles/frontendbundle/images/favicon/favicon-194x194.png') }}" sizes="194x194">
-            <link rel="icon" type="image/png" href="{{ asset('bundles/frontendbundle/images/favicon/favicon-96x96.png') }}" sizes="96x96">
-            <link rel="icon" type="image/png" href="{{ asset('bundles/frontendbundle/images/favicon/android/android-chrome-192x192.png') }}" sizes="192x192">
+            <link rel="apple-touch-startup-image" href="{{ aws_s3_domain('bundles/vitelogefrontend/images/common/logo.png') }}">
+            <link rel="apple-touch-icon" href="{{ aws_s3_domain('bundles/frontendbundle/images/favicon/apple/apple-touch-icon.png') }}">
+            <link rel="apple-touch-icon" sizes="57x57" href="{{ aws_s3_domain('bundles/vitelogefrontend/images/favicon/apple/apple-touch-icon-57x57.png') }}">
+            <link rel="apple-touch-icon" sizes="60x60" href="{{ aws_s3_domain('bundles/vitelogefrontend/images/favicon/apple/apple-touch-icon-60x60.png') }}">
+            <link rel="apple-touch-icon" sizes="72x72" href="{{ aws_s3_domain('bundles/vitelogefrontend/images/favicon/apple/apple-touch-icon-72x72.png') }}">
+            <link rel="apple-touch-icon" sizes="76x76" href="{{ aws_s3_domain('bundles/vitelogefrontend/images/favicon/apple/apple-touch-icon-76x76.png') }}">
+            <link rel="apple-touch-icon" sizes="114x114" href="{{ aws_s3_domain('bundles/vitelogefrontend/images/favicon/apple/apple-touch-icon-114x114.png') }}">
+            <link rel="apple-touch-icon" sizes="120x120" href="{{ aws_s3_domain('bundles/vitelogefrontend/images/favicon/apple/apple-touch-icon-120x120.png') }}">
+            <link rel="apple-touch-icon" sizes="144x144" href="{{ aws_s3_domain('bundles/vitelogefrontend/images/favicon/apple/apple-touch-icon-144x144.png') }}">
+            <link rel="apple-touch-icon" sizes="152x152" href="{{ aws_s3_domain('bundles/vitelogefrontend/images/favicon/apple/apple-touch-icon-152x152.png') }}">
+            <link rel="apple-touch-icon" sizes="180x180" href="{{ aws_s3_domain('bundles/vitelogefrontend/images/favicon/apple/apple-touch-icon-180x180.png') }}">
+            <link rel="icon" type="image/png" href="{{ aws_s3_domain('bundles/vitelogefrontend/images/favicon/favicon-16x16.png') }}" sizes="16x16">
+            <link rel="icon" type="image/png" href="{{ aws_s3_domain('bundles/vitelogefrontend/images/favicon/favicon-32x32.png') }}" sizes="32x32">
+            <link rel="icon" type="image/png" href="{{ aws_s3_domain('bundles/vitelogefrontend/images/favicon/favicon-194x194.png') }}" sizes="194x194">
+            <link rel="icon" type="image/png" href="{{ aws_s3_domain('bundles/vitelogefrontend/images/favicon/favicon-96x96.png') }}" sizes="96x96">
+            <link rel="icon" type="image/png" href="{{ aws_s3_domain('bundles/vitelogefrontend/images/favicon/android/android-chrome-192x192.png') }}" sizes="192x192">
             <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
             <link rel="author" type="text/plain" href="humans.txt">
         {%- endblock head_icon -%}
         {%- block head_stylesheets -%}
-            <link rel="stylesheet" href="{{ asset('built/min.css') }}">
-            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-            <link rel="stylesheet" href="{{ asset('bundles/vitelogecore/css/viteloge-core.css') }}">
+            <link rel="stylesheet" href="{{ aws_s3_domain('built/viteloge.min.css') }}">
         {%- endblock head_stylesheets -%}
         {%- block head_javascripts -%}
-            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ aws_s3_domain('built/head.min.js') }}"></script>
             <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-            {#<script src="{{ asset('assets/js/require.js') }}"></script>#}
-            <script src="{{ asset('assets/js/hinclude.js') }}"></script>
-            <script src="{{ asset('assets/js/jquery.js') }}"></script>
-            <script src="{{ asset('bundles/frontendbundle/js/modernizr.min.js') }}"></script>
             <script src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
             {% block head_javascripts_requirejs %}{% endblock head_javascripts_requirejs %}
         {%- endblock head_javascripts -%}
@@ -148,20 +142,8 @@
         {{- include('VitelogeFrontendBundle:misc:backtotop.html.twig', {}) -}}
     {%- endblock html_end -%}
     {%- block javascripts %}
-        <script src="{{ asset('bundles/bazingajstranslation/js/translator.min.js') }}"></script>
+        <script src="{{ aws_s3_domain('built/global.min.js') }}"></script>
         <script src="{{ url('bazinga_jstranslation_js') }}"></script>
-        <script src="{{ asset('assets/js/cookie.jquery.js') }}"></script>
-        <script src="{{ asset('assets/js/select2.js') }}"></script>
-        <script src="{{ asset('assets/js/select2.fr.js') }}"></script>
-        <script src="{{ asset('assets/js/placeholders.js') }}"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <script src="{{ asset('assets/js/owl.carousel.js') }}"></script>
-        <script src="{{ asset('assets/js/background-check.js') }}"></script>
-        <script src="{{ asset('assets/js/history.js') }}"></script>
-        <script src="{{ asset('assets/js/jquery.lazyload.js') }}"></script>
-        <script src="{{ asset('assets/js/jquery.smooth-scroll.js') }}"></script>
-        <script src="{{ asset('bundles/frontendbundle/js/viteloge.jquery.js') }}"></script>
-        <script src="{{ asset('bundles/frontendbundle/js/viteloge.js') }}"></script>
     {% endblock javascripts -%}
     </body>
 </html>

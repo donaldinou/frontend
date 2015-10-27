@@ -3,14 +3,6 @@ if (typeof jQuery === 'undefined') {
 }
 
 jQuery(document).ready(function() {
-
-    function initLazyLoad() {
-        jQuery("img.lazy").show().lazyload({
-            effect : "fadeIn",
-            skip_invisible : true,
-            placeholder: '',
-        });
-    }
     initLazyLoad();
 
     BackgroundCheck.init({
@@ -504,6 +496,14 @@ jQuery(document).ready(function() {
     }
 
 });
+
+function initLazyLoad() {
+    jQuery('img.lazy').show().lazyload({
+        effect : 'fadeIn',
+        skip_invisible : true,
+        placeholder: '',
+    });
+}
 
 var previousHistoryState = history.state;
 var animation = function animation(parent, clone, animate) {

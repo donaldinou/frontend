@@ -1,8 +1,21 @@
-# www.robotstxt.org/
-# www.google.com/support/webmasters/bin/answer.py?hl=en&answer=156449
-
 User-agent: *
-Disallow: /account/
+Crawl-delay: 10
 
 User-agent: msnbot
 Crawl-delay: 1
+
+User-agent: *
+
+# Directories
+Disallow: /account/
+Disallow: /user/
+Disallow: /user/search
+Disallow: /user/websearch
+Disallow: /utilisateur/recherche/
+Disallow: /utilisateur/alert/
+
+# Files
+Disallow: /config.php
+
+# Sitemap
+Sitemap: http://www.viteloge.com/sitemap.xml

@@ -446,6 +446,10 @@
         <source>ad.noresult</source>
         <target>Pas de résultat</target>
       </trans-unit>
+      <trans-unit id="ad.your.research" resname="ad.your.research">
+        <source>ad.your.research</source>
+        <target>Votre recherche</target>
+      </trans-unit>
       <trans-unit id="ad.transaction.near.city" resname="ad.transaction.near.city">
         <source>ad.transaction.near.city</source>
         <target>{0} Biens à la location près de %city%|{1} Biens à la vente près de %city%|{2} Biens neufs près de %city%|{3} Biens pour vous près de %city%</target>

@@ -97,7 +97,6 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->addMeta('property', 'og:type', 'website')
                 ->addMeta('property', 'og:url',  $canonicalLink)
                 ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.websearch.list.description'))
-                ->setLinkCanonical($canonicalLink)
             ;
             // --
 
@@ -134,7 +133,6 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->addMeta('property', 'og:type', 'website')
                 ->addMeta('property', 'og:url',  $canonicalLink)
                 ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.websearch.history.description'))
-                ->setLinkCanonical($canonicalLink)
             ;
             // --
 
@@ -259,7 +257,6 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->addMeta('property', 'og:type', 'website')
                 ->addMeta('property', 'og:url',  $canonicalLink)
                 ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.websearch.new.description'))
-                ->setLinkCanonical($canonicalLink)
             ;
             // --
 
@@ -336,7 +333,6 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->addMeta('property', 'og:type', 'website')
                 ->addMeta('property', 'og:url',  $canonicalLink)
                 ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.websearch.new.description'))
-                ->setLinkCanonical($canonicalLink)
             ;
             // --
 
@@ -421,7 +417,6 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->addMeta('property', 'og:type', 'website')
                 ->addMeta('property', 'og:url',  $canonicalLink)
                 ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.websearch.edit.description'))
-                ->setLinkCanonical($canonicalLink)
             ;
             // --
 
@@ -478,7 +473,6 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->addMeta('property', 'og:type', 'website')
                 ->addMeta('property', 'og:url',  $canonicalLink)
                 ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.websearch.historyedit.description'))
-                ->setLinkCanonical($canonicalLink)
             ;
             // --
 
@@ -527,7 +521,6 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->addMeta('property', 'og:type', 'website')
                 ->addMeta('property', 'og:url',  $canonicalLink)
                 ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.websearch.edit.description'))
-                ->setLinkCanonical($canonicalLink)
             ;
             // --
 
@@ -606,7 +599,6 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->addMeta('property', 'og:type', 'website')
                 ->addMeta('property', 'og:url',  $canonicalLink)
                 ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.websearch.remove.description'))
-                ->setLinkCanonical($canonicalLink)
             ;
             // --
 
