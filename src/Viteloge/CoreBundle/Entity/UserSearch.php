@@ -272,8 +272,10 @@ namespace Viteloge\CoreBundle\Entity {
          * @param string $civility
          * @return Search
          */
-        public function setCivility($civility)
-        {
+        public function setCivility($civility){
+            if (empty($civility)) {
+                $civility = '';
+            }
             $this->civility = $civility;
 
             return $this;
@@ -295,8 +297,10 @@ namespace Viteloge\CoreBundle\Entity {
          * @param string $lastname
          * @return Search
          */
-        public function setLastname($lastname)
-        {
+        public function setLastname($lastname) {
+            if (empty($lastname)) {
+                $lastname = '';
+            }
             $this->lastname = $lastname;
 
             return $this;
@@ -318,8 +322,10 @@ namespace Viteloge\CoreBundle\Entity {
          * @param string $firstname
          * @return Search
          */
-        public function setFirstname($firstname)
-        {
+        public function setFirstname($firstname) {
+            if (empty($firstname)) {
+                $firstname = '';
+            }
             $this->firstname = $firstname;
 
             return $this;
@@ -387,8 +393,10 @@ namespace Viteloge\CoreBundle\Entity {
          * @param \enumtransaction $transaction
          * @return Search
          */
-        public function setTransaction($transaction)
-        {
+        public function setTransaction($transaction) {
+            if (empty($transaction)) {
+                $transaction = '';
+            }
             $this->transaction = $transaction;
 
             return $this;
@@ -399,9 +407,8 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return \enumtransaction
          */
-        public function getTransaction()
-        {
-            return $this->transaction;
+        public function getTransaction() {
+            return (!empty($this->transaction)) ? $this->transaction : '';
         }
 
         /**

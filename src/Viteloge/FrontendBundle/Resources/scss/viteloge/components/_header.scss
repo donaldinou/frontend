@@ -1,7 +1,7 @@
 .header {
     position: relative;
     background-color: #fff;
-    background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogecore/images/pixels/white.png');
+    /*background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogecore/images/pixels/white.png');*//* use with background check */
     .vr {
         margin: 16px 10px;
     }
@@ -95,15 +95,21 @@
         > h1, > h2 {
             color: #fff;
         }
+        > hr {
+            border: 2px solid #eee;
+            width: 50px;
+        }
     }
 }
 
 .forward {
     color: #fff;
     h1 {
+        font-size: 35px;
         font-weight: 800;
     }
     h2 {
         font-size: 20px;
+        font-weight: 400;
     }
 }

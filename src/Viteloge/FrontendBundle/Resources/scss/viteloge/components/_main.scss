@@ -1,6 +1,5 @@
 .main {
     background-color: #ddd;
-    padding-bottom: 25px;
     > section {
         padding-bottom: 25px;
         &:first-child {
@@ -13,14 +12,18 @@
     .main-section {
         background-color: #fff;
     }
-    .container {
+    > .container, .inner > .container, .inner > .container-fluid {
         padding-top: 18px;
     }
     > .inner {
         > .inner-absolute {
-            top: 18px;
+            top: 2px;
+            padding-top: 0px;
+            @media (min-width: $screen-xs-min) {
+                top: 15px;
+            }
             @media (min-width: $screen-sm-min) {
-                top: 40px;
+                top: 20px;
             }
         }
         .container-fluid {

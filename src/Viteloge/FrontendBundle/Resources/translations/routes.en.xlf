@@ -130,11 +130,11 @@
         <source>viteloge_frontend_glossary_departments</source>
         <target>/glossary/departments/{id}/</target>
       </trans-unit>
-      <trans-unit id="2e3ab861307f3dad16ea66501fa69df0" resname="viteloge_frontend_glossary_mostsearched">
+      <trans-unit id="2e3ab861307f3dad16ea66501fa69df0" resname="viteloge_frontend_glossary_mostsearched_limited">
         <source>viteloge_frontend_glossary_mostsearched</source>
         <target>/glossary/mostSearched/{limit}</target>
       </trans-unit>
-      <trans-unit id="c9a193a141cfc9a3c8ae2b00101a189d" resname="viteloge_frontend_glossary_mostsearched_1">
+      <trans-unit id="c9a193a141cfc9a3c8ae2b00101a189d" resname="viteloge_frontend_glossary_mostsearched">
         <source>viteloge_frontend_glossary_mostsearched_1</source>
         <target>/glossary/mostSearched/</target>
       </trans-unit>

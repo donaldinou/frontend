@@ -65,9 +65,10 @@ namespace Viteloge\FrontendBundle\Twig {
         /**
          *
          */
-        public function awsS3Domain($path) {
+        public function awsS3Domain($path, $compress=true) {
             $protocol = 'http';
-            return $protocol.'://'.$this->container->getParameter('media_domain').'/'.$path;
+            $suffix = $compress ? '.gz' : '';
+            return $protocol.'://'.$this->container->getParameter('media_domain').'/'.$path.$suffix;
         }
 
         /**

@@ -5,7 +5,7 @@
         </div>
         <div class="col-xs-3 col-sm-2 padding-5">
             <a href="{{ path('viteloge_frontend_ad_searchfromusersearch', { id: webSearch.userSearch.id }) }}" class="btn btn-default btn-block ellipsis">
-                <span class="fa fa-clock-o"></span><span>&nbsp;{{ webSearch.updatedAt|time_diff }}</span>
+                <span class="fa fa-clock-o"></span><span>&nbsp;{{ webSearch.updatedAt|time_diff|default('viteloge.now'|trans) }}</span>
             </a>
         </div>
     </div>

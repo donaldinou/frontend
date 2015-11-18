@@ -5,11 +5,6 @@ if (typeof jQuery === 'undefined') {
 jQuery(document).ready(function() {
     initLazyLoad();
 
-    BackgroundCheck.init({
-        targets: 'header.header .navbar-default .navbar-nav > li > a, header.header .navbar-default .navbar-nav > li .navbar-text',
-        images: 'header.header'
-    });
-
     // forbit scroll for a small sized screen
     jQuery('#navbar-navigation').on('show.bs.collapse', function (event) {jQuery('body').css('overflow', 'hidden')});
     jQuery('#navbar-navigation').on('hidden.bs.collapse', function (event) {jQuery('body').css('overflow', '')});
@@ -635,6 +630,7 @@ function runResponsiveCarousel(identifier) {
             '<span class="fa fa-chevron-left"></span>',
             '<span class="fa fa-chevron-right"></span>'
         ],
+        lazyLoad: true,
         responsiveClass: true,
         responsive:{
             0:{

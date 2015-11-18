@@ -22,6 +22,14 @@
                 <source>user.profile.access</source>
                 <target>Accéder à mon profil</target>
             </trans-unit>
+            <trans-unit id="user.profile.login" resname="user.profile.login">
+                <source>user.profile.login</source>
+                <target>S'enregistrer sur ViteLogé</target>
+            </trans-unit>
+            <trans-unit id="user.register.login" resname="user.register.login">
+                <source>user.register.login</source>
+                <target>Se connecter sur ViteLogé</target>
+            </trans-unit>
             <trans-unit id="user.register.account.exist" resname="user.register.account.exist">
                 <source>user.register.account.exist</source>
                 <target>Vous avez déjà un compte</target>

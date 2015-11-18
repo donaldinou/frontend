@@ -26,8 +26,8 @@
                             'data-placeholder' : 'ad.where'|trans(),
                             'data-minimum-input-length': '3',
                             'data-allow-clear' : 'true',
-                            'data-ajax--url' : path('viteloge_frontend_suggest_cities'),
-                            'data-ajax--cache' : 'true',
+                            'data-ajax--url' : path('viteloge_frontend_suggest_cities', { _format: 'json' }),
+                            'data-ajax--cache' : 'false',
                             'data-ajax--data-type' : 'json',
                         }
                     }) }}

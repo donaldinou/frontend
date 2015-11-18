@@ -108,6 +108,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 $cityId = current($where);
                 $cityRepository = $this->getDoctrine()->getRepository('AcreatInseeBundle:InseeCity');
                 $inseeCity = $cityRepository->find((int)$cityId);
+                $adSearch->setLocation($inseeCity->getLocation());
             }
             // --
 
@@ -162,9 +163,11 @@ namespace Viteloge\FrontendBundle\Controller {
             $qsId = $request->get('qs');
             if (empty($qsId)) {
                 $what = $adSearch->getWhat();
+                $breadcrumbTitleSuffix = '';
+                $breadcrumbTitleSuffix .= (!empty($what)) ? implode(', ', $what).' ' : ' ';
+                $breadcrumbTitleSuffix .= ($inseeCity instanceof InseeCity) ? $inseeCity->getFullname() : '';
                 $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction)).' ' : $translated->trans('ad.research').': ';
-                $breadcrumbTitle .= (!empty($what)) ? implode(', ', $what).' ' : ' ';
-                $breadcrumbTitle .= ($inseeCity instanceof InseeCity) ? $inseeCity->getFullname() : '';
+                $breadcrumbTitle .= (!empty(trim($breadcrumbTitleSuffix))) ? $breadcrumbTitleSuffix : $translated->trans('viteloge.result');
                 $breadcrumbs->addItem($breadcrumbTitle);
             }
             // --
@@ -285,6 +288,7 @@ namespace Viteloge\FrontendBundle\Controller {
             $adSearch->setKeywords($userSearch->getKeywords());
             if ($userSearch->getInseeCity() instanceof InseeCity) {
                 $adSearch->setWhere($userSearch->getInseeCity()->getId());
+                $adSearch->setLocation($userSearch->getInseeCity()->getLocation());
             }
 
             // transform object to array in order to through it to url
@@ -323,6 +327,7 @@ namespace Viteloge\FrontendBundle\Controller {
             $adSearch->setWhere($queryStats->getInseeCity()->getId());
             $adSearch->setWhat(ucfirst($queryStats->getType()));
             $adSearch->setRooms($queryStats->getRooms());
+            $adSearch->setLocation($queryStats->getInseeCity()->getLocation());
 
             // transform object to array in order to through it to url
             $encoders = array(new JsonEncoder());
@@ -461,6 +466,27 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:Ad:redirect.html.twig")
          */
         public function redirectAction(Request $request, Ad $ad) {
+            $translated = $this->get('translator');
+
+            // SEO
+            $canonicalLink = $this->get('router')->generate(
+                $request->get('_route'),
+                $request->get('_route_params'),
+                true
+            );
+            $seoPage = $this->container->get('sonata.seo.page');
+            $seoPage
+                ->setTitle($translated->trans('viteloge.frontend.ad.redirect.title'))
+                ->addMeta('name', 'robots', 'noindex, nofollow')
+                ->addMeta('name', 'description', $translated->trans('viteloge.frontend.ad.redirect.description'))
+                ->addMeta('property', 'og:title', $seoPage->getTitle())
+                ->addMeta('property', 'og:type', 'website')
+                ->addMeta('property', 'og:url',  $canonicalLink)
+                ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.ad.redirect.description'))
+                ->setLinkCanonical($canonicalLink)
+            ;
+            // --
+
             return array(
                 'ad' => $ad
             );

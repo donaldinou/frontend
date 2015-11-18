@@ -32,10 +32,12 @@
 {%- endblock header -%}
 
 {%- block body_start -%}
-    {% set mapOptions = mapOptions|default(false) %}
-    {%- embed "VitelogeFrontendBundle:misc:googlemap.html.twig" with { mapOptions: mapOptions } -%}
-        {%- block over -%}
-            {{ include('VitelogeFrontendBundle:Glossary:form/adSearch.html.twig', { form: form, theme_container: 'map-container' }) }}
-        {%- endblock -%}
-    {%- endembed -%}
+    {%- if form is defined -%}
+        {% set mapOptions = mapOptions|default(false) %}
+        {%- embed "VitelogeFrontendBundle:misc:googlemap.html.twig" with { mapOptions: mapOptions } -%}
+            {%- block over -%}
+                {{ include('VitelogeFrontendBundle:Glossary:form/adSearch.html.twig', { form: form, theme_container: 'map-container' }) }}
+            {%- endblock -%}
+        {%- endembed -%}
+    {%- endif -%}
 {%- endblock -%}

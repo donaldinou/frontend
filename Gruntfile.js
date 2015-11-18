@@ -47,6 +47,12 @@ module.exports = function(grunt) {
                 },
                 command: 'php app/console assets:install'
             },
+            composerUpdate: {
+                options: {
+                    stdout: true
+                },
+                command: 'composer update'
+            },
             composerInstall: {
                 options: {
                     stdout: true
@@ -58,6 +64,12 @@ module.exports = function(grunt) {
                     stdout: true
                 },
                 command: 'composer dump-autoload --optimize'
+            },
+            sitemapDump: {
+                options: {
+                    stdout: true
+                },
+                command: 'php app/console presta:sitemap:dump'
             }
         },
         copy: {
@@ -212,7 +224,6 @@ module.exports = function(grunt) {
                     '<%= cmp.extra["symfony-assets-dir"] %>/js/select2.fr.js',
                     '<%= cmp.extra["symfony-assets-dir"] %>/js/placeholders.js',
                     '<%= cmp.extra["symfony-assets-dir"] %>/js/owl.carousel.js',
-                    '<%= cmp.extra["symfony-assets-dir"] %>/js/background-check.js',
                     '<%= cmp.extra["symfony-assets-dir"] %>/js/history.js',
                     '<%= cmp.extra["symfony-bundles-dir"] %>/bazingajstranslation/js/translator.min.js',
                     '<%= cmp.extra["symfony-bundles-dir"] %>/vitelogefrontend/js/viteloge.jquery.js',
@@ -293,7 +304,7 @@ module.exports = function(grunt) {
                 rename: function(destBase, destPath) {
                     return destBase+destPath+'.gz';
                 },
-                src: ['**/*'],
+                src: ['**/*', '!**/*.gz'],
                 dest: '<%= cmp.extra["symfony-assets-dir"] %>/'
             },
             built: {
@@ -305,7 +316,7 @@ module.exports = function(grunt) {
                 rename: function(destBase, destPath) {
                     return destBase+destPath+'.gz';
                 },
-                src: ['**/*'],
+                src: ['**/*', '!**/*.gz'],
                 dest: '<%= cmp.extra["symfony-web-dir"] %>/built/'
             },
             bundles: {
@@ -317,10 +328,10 @@ module.exports = function(grunt) {
                 rename: function(destBase, destPath) {
                     return destBase+destPath+'.gz';
                 },
-                src: ['**/*'],
+                src: ['**/*', '!**/*.gz'],
                 dest: '<%= cmp.extra["symfony-bundles-dir"] %>/'
             },
-            assets: {
+            fonts: {
                 options: {
                     mode: 'gzip'
                 },
@@ -329,7 +340,7 @@ module.exports = function(grunt) {
                 rename: function(destBase, destPath) {
                     return destBase+destPath+'.gz';
                 },
-                src: ['**/*'],
+                src: ['**/*', '!**/*.gz'],
                 dest: '<%= cmp.extra["symfony-web-dir"] %>/fonts/'
             }
         },
@@ -355,7 +366,7 @@ module.exports = function(grunt) {
                     dest: 'assets/css/',
                     action: 'upload',
                     params: {
-                        CacheControl: 'max-age=604800',
+                        CacheControl: 'max-age=604800, public',
                         Expires: new Date(Date.now() + 2600000000)
                     }
                 },
@@ -366,7 +377,7 @@ module.exports = function(grunt) {
                     dest: 'fonts/',
                     action: 'upload',
                     params: {
-                        CacheControl: 'max-age=604800',
+                        CacheControl: 'max-age=604800, public',
                         Expires: new Date(Date.now() + 63072000000)
                     }
                 },
@@ -377,7 +388,7 @@ module.exports = function(grunt) {
                     dest: 'assets/img/',
                     action: 'upload',
                     params: {
-                        CacheControl: 'max-age=604800',
+                        CacheControl: 'max-age=604800, public',
                         Expires: new Date(Date.now() + 31630000000)
                     }
                 },
@@ -388,7 +399,7 @@ module.exports = function(grunt) {
                     dest: 'assets/js/',
                     action: 'upload',
                     params: {
-                        CacheControl: 'max-age=604800',
+                        CacheControl: 'max-age=604800, public',
                         Expires: new Date(Date.now() + 2600000000)
                     }
                 },
@@ -399,7 +410,7 @@ module.exports = function(grunt) {
                     dest: 'built/',
                     action: 'upload',
                     params: {
-                        CacheControl: 'max-age=604800',
+                        CacheControl: 'max-age=604800, public',
                         Expires: new Date(Date.now() + 2600000000)
                     }
                 },
@@ -410,7 +421,7 @@ module.exports = function(grunt) {
                     dest: 'bundles/',
                     action: 'upload',
                     params: {
-                        CacheControl: 'max-age=604800',
+                        CacheControl: 'max-age=604800, public',
                         Expires: new Date(Date.now() + 2600000000)
                     }
                 },
@@ -421,7 +432,7 @@ module.exports = function(grunt) {
                     dest: 'fonts/',
                     action: 'upload',
                     params: {
-                        CacheControl: 'max-age=604800',
+                        CacheControl: 'max-age=604800, public',
                         Expires: new Date(Date.now() + 63072000000)
                     }
                 },]
@@ -438,6 +449,7 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('deploy', [
         'clean',
+        'shell:composerUpdate',
         'shell:composerInstall',
         'shell:assetsInstall',
         'bowercopy',
@@ -448,6 +460,7 @@ module.exports = function(grunt) {
         'uglify',
         'compress',
         'aws_s3',
-        'shell:composerDump'
+        'shell:composerDump',
+        'shell:sitemapDump'
     ]);
 };

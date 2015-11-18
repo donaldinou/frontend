@@ -38,13 +38,78 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * @Route(
+         *      "/",
+         *      defaults={},
+         *      name="viteloge_frontend_glossary",
+         *      options = {
+         *          "i18n" = true,
+         *          "vl_sitemap" = {
+         *              "title" = "viteloge.frontend.glossary.index.title",
+         *              "description" = "viteloge.frontend.glossary.index.description",
+         *              "changefreq" = "hourly",
+         *              "priority" = "1.0"
+         *          }
+         *      }
+         * )
+         * @Method({"GET"})
+         * @Template()
+         */
+        public function indexAction(Request $request) {
+            return array(
+
+            );
+        }
+
+        /**
+         * Legacy function used because there is no slug saved in table
+         * @Route(
+         *      "/{slug}",
+         *      defaults={},
+         *      name="viteloge_frontend_glossary_legacy"
+         * )
+         * @Method({"GET"})
+         * @Template()
+         */
+        public function legacyAction(Request $request, $slug) {
+            $repository = $this->getDoctrine()
+                ->getRepository('AcreatInseeBundle:InseeState');
+            $inseeEntity = $repository->findOneBySoundex($slug);
+            if ($inseeEntity instanceof InseeState) {
+                return $this->redirectToRoute(
+                    'viteloge_frontend_glossary_showstate',
+                    array(
+                        'name' => $inseeEntity->getSlug(),
+                        'id' => $inseeEntity->getId()
+                    ), 301
+                );
+            }
+
+            $repository = $this->getDoctrine()
+                ->getRepository('AcreatInseeBundle:InseeDepartment');
+            $inseeEntity = $repository->findOneBySoundex($slug);
+            if ($inseeEntity instanceof InseeDepartment) {
+                return $this->redirectToRoute(
+                    'viteloge_frontend_glossary_showdepartment',
+                    array(
+                        'name' => $inseeEntity->getSlug(),
+                        'id' => $inseeEntity->getId()
+                    ), 301
+                );
+            }
+
+            throw $this->createNotFoundException();
+        }
+
+        /**
+         * @Route(
          *     "/mostSearched/{limit}",
          *     requirements={
          *         "limit"="\d+"
          *     },
          *     defaults={
-         *         "limit" = "5"
-         *     }
+         *         "limit"="5"
+         *     },
+         *     name="viteloge_frontend_glossary_mostsearched_limited"
          * )
          * @Route(
          *     "/mostSearched/",
@@ -53,7 +118,8 @@ namespace Viteloge\FrontendBundle\Controller {
          *     },
          *     defaults={
          *         "limit" = "5"
-         *     }
+         *     },
+         *     name="viteloge_frontend_glossary_mostsearched"
          * )
          * @Cache(expires="tomorrow", public=true)
          * @Method({"GET"})
@@ -76,7 +142,8 @@ namespace Viteloge\FrontendBundle\Controller {
          *     "/state/{name}/{id}",
          *     requirements={
          *         "id"="\d+"
-         *     }
+         *     },
+         *     name="viteloge_frontend_glossary_showstate"
          * )
          * @Method({"GET", "POST"})
          * @ParamConverter(
@@ -110,7 +177,8 @@ namespace Viteloge\FrontendBundle\Controller {
          *     "/department/{name}/{id}",
          *     requirements={
          *         "id"="(?:2[a|b|A|B])|\d+"
-         *     }
+         *     },
+         *     name="viteloge_frontend_glossary_showdepartment"
          * )
          * @Method({"GET", "POST"})
          * @ParamConverter(
@@ -144,7 +212,8 @@ namespace Viteloge\FrontendBundle\Controller {
          *     "/city/{name}/{id}",
          *     requirements={
          *         "id"="(?:2[a|b|A|B])?0{0,2}\d+"
-         *     }
+         *     },
+         *     name="viteloge_frontend_glossary_showcity"
          * )
          * @Method({"GET", "POST"})
          * @ParamConverter(
@@ -185,7 +254,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 $inseeCity->getInseeState()->getFullname(),
                 $this->get('router')->generate('viteloge_frontend_glossary_showstate',
                     array(
-                        'name' => $inseeCity->getInseeState()->getName(),
+                        'name' => $inseeCity->getInseeState()->getSlug(),
                         'id' => $inseeCity->getInseeState()->getId()
                     )
                 )
@@ -194,7 +263,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 $inseeCity->getInseeDepartment()->getFullname(),
                 $this->get('router')->generate('viteloge_frontend_glossary_showdepartment',
                     array(
-                        'name' => $inseeCity->getInseeDepartment()->getName(),
+                        'name' => $inseeCity->getInseeDepartment()->getSlug(),
                         'id' => $inseeCity->getInseeDepartment()->getId()
                     )
                 )
@@ -215,7 +284,7 @@ namespace Viteloge\FrontendBundle\Controller {
             $canonicalLink = $this->get('router')->generate(
                 $request->get('_route'),
                 array(
-                    'name' => $inseeCity->getName(),
+                    'name' => $inseeCity->getSlug(),
                     'id' => $inseeCity->getId()
                 ),
                 true
@@ -223,11 +292,11 @@ namespace Viteloge\FrontendBundle\Controller {
             $cityTitle = $inseeCity->getFullname().' ('.$inseeCity->getInseeDepartment()->getId().')';
             $seoPage = $this->container->get('sonata.seo.page');
             $seoPage
-                ->setTitle($cityTitle.' - '.$translated->trans('viteloge.frontend.glossary.showcity.title'))
-                ->addMeta('name', 'description', $cityTitle.' - '.$translated->trans('viteloge.frontend.glossary.showcity.description'))
-                ->addMeta('property', 'og:title', $cityTitle.' - '.$translated->trans('viteloge.frontend.glossary.showcity.title'))
+                ->setTitle($translated->trans('viteloge.frontend.glossary.showcity.title.city', array('%city%' => $cityTitle)))
+                ->addMeta('name', 'description', $translated->trans('viteloge.frontend.glossary.showcity.description.city', array('%city%' => $cityTitle)))
+                ->addMeta('property', 'og:title', $translated->trans('viteloge.frontend.glossary.showcity.title.city', array('%city%' => $cityTitle)))
                 ->addMeta('property', 'og:type', 'website')
-                ->addMeta('property', 'og:description', $cityTitle.' - '.$translated->trans('viteloge.frontend.glossary.showcity.description'))
+                ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.glossary.showcity.description.city', array('%city%' => $cityTitle)))
                 ->addMeta('property', 'og:url',  $canonicalLink)
                 ->addMeta('property', 'geo.region', 'FR')
                 ->addMeta('property', 'geo.placename', $inseeCity->getFullname())
@@ -251,7 +320,8 @@ namespace Viteloge\FrontendBundle\Controller {
          *     "/area/{name}/{id}",
          *     requirements={
          *         "id"="\d+"
-         *     }
+         *     },
+         *     name="viteloge_frontend_glossary_showarea"
          * )
          * @Method({"GET", "POST"})
          * @ParamConverter(
@@ -279,7 +349,8 @@ namespace Viteloge\FrontendBundle\Controller {
          *     "/departments/{id}/",
          *     requirements={
          *         "id"="\d+"
-         *     }
+         *     },
+         *     name="viteloge_frontend_glossary_department"
          * )
          * @Method({"GET"})
          * @ParamConverter("inseeState", class="AcreatInseeBundle:InseeState", options={"id" = "id"})
@@ -300,7 +371,8 @@ namespace Viteloge\FrontendBundle\Controller {
          *     "/cities/{id}/",
          *     requirements={
          *         "id"="\d+"
-         *     }
+         *     },
+         *     name="viteloge_frontend_glossary_city"
          * )
          * @Method({"GET"})
          * @ParamConverter("inseeDepartment", class="AcreatInseeBundle:InseeDepartment", options={"id" = "id"})

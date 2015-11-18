@@ -1,7 +1,7 @@
 .round-icon {
     display: inline-block;
     border-radius: 50%;
-    background-color: #333;
+    background-color: #27303d;
     color: #fff;
     overflow: hidden;
     > .fa {
@@ -52,11 +52,11 @@
         }
     }
     &.twitter {
-        background-color: #c0deed;
+        background-color: #55acee;
         &:hover,
         &:focus {
-            background-color: darken(#c0deed, 2);
-            border: 1px solid #c0deed;
+            background-color: darken(#55acee, 2);
+            border: 1px solid #55acee;
             & {
                 line-height: 33px;
             }

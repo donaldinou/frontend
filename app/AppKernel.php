@@ -39,6 +39,7 @@ class AppKernel extends Kernel
             new Viteloge\GlossaryBundle\VitelogeGlossaryBundle(),
             new Viteloge\EstimationBundle\VitelogeEstimationBundle(),
             new Viteloge\UserBundle\VitelogeUserBundle(),
+            new Viteloge\MailBundle\VitelogeMailBundle(),
             new Viteloge\NewsBundle\VitelogeNewsBundle(),
             new Viteloge\OAuthBundle\VitelogeOAuthBundle(),
             new Viteloge\TwigBundle\VitelogeTwigBundle(),

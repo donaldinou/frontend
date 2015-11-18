@@ -1,3 +1,3 @@
 <li>
-    <a href="{{ path( 'viteloge_frontend_glossary_showcity', { name: glossary.name, id: glossary.inseeCity }) }}">{% trans with { '%name%': glossary.name } %}glossary.properties.name{% endtrans %}</a>
+    <a href="{{ path( 'viteloge_frontend_glossary_showcity', { name: glossary.name|lower, id: glossary.inseeCity }) }}">{% trans with { '%name%': glossary.name } %}glossary.properties.name{% endtrans %}</a>
 </li>

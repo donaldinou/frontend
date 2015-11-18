@@ -25,23 +25,27 @@
                 {{ render_hinclude(path('viteloge_estimation_statistic_price', { 'name': city.slug, 'id': city.id })) }}
             </section>
             <section id="rent-around" class="theme-rent static">
-                {{ render(path('viteloge_frontend_ad_latest', { 'limit': 3, 'transaction': 'L', 'where': [city.id], 'cityName': city.fullname })) }}
+                {{ render(path('viteloge_frontend_ad_latest', { 'limit': 3, 'transaction': 'L', 'where': [city.id], 'radius': '5', 'location': city.location, 'cityName': city.fullname })) }}
                 {{ render_hinclude(path('viteloge_frontend_querystats_latest', { 'limit': 10, 'transaction': 'L', 'inseeCity': city.id })) }}
-                <div class="text-center margin-t10">
+                <div class="text-center margin-t10 margin-b10">
                     <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'L', 'where': [city.id] }) }}" class="btn btn-default text-uppercase" role="button">{% trans %}glossary.show.all.rent{% endtrans %}</a>
                 </div>
             </section>
             <section id="sale-around" class="theme-sale static">
-                {{ render(path('viteloge_frontend_ad_latest', { 'limit': 3, 'transaction': 'V', 'where': [city.id], 'cityName': city.fullname })) }}
+                {{ render(path('viteloge_frontend_ad_latest', { 'limit': 3, 'transaction': 'V', 'where': [city.id], 'radius': '5', 'location': city.location, 'cityName': city.fullname })) }}
                 {{ render_hinclude(path('viteloge_frontend_querystats_latest', { 'limit': 10, 'transaction': 'V', 'inseeCity': city.id })) }}
-                <div class="text-center margin-t10">
+                <div class="text-center margin-t10 margin-b10">
                     <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'V', 'where': [city.id] }) }}" class="btn btn-default text-uppercase" role="button">{% trans %}glossary.show.all.sales{% endtrans %}</a>
                 </div>
             </section>
             <div class="clearfix"></div>
         {%- endblock -%}
         {%- block right -%}
-            {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
+            {%- embed "VitelogeFrontendBundle:Block:aside_right.html.twig" -%}
+                {%- block aside_before_adsense1 -%}
+                    {{- render_hinclude(path('viteloge_frontend_suggest_near', { 'name': city.slug, 'id': city.id, 'radius': 10, 'limit': 10, '_format': 'html' })) -}}
+                {%- endblock aside_before_adsense1 -%}
+            {%- endembed -%}
         {%- endblock -%}
-    {% endembed %}
+    {%- endembed -%}
 {%- endblock main -%}

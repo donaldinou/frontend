@@ -1,10 +1,7 @@
 {% set transaction = transaction|default('default') %}
-<section class="over-scrollable text-center theme-{{ transaction }} static highlighting">
+<section class="over-unscrollable text-center theme-{{ transaction }} static highlighting">
     <div class="scrollable container">
         <h3 class="hidden">{% transchoice transaction|vl_intval with { '%city%': 'viteloge.from.you'|trans } %}ad.transaction.near.city{% endtranschoice %}</h3>
-        {%- embed "VitelogeFrontendBundle:Block:carousel.html.twig" with { 'hasIndicators': 0, 'hasControls': 0, 'carouselClass': 'estates' } -%}
-            {%- block carousel_id -%}carousel-home-{{ transaction|lower }}{%- endblock carousel_id -%}
-            {%- block carousel_slides -%}{%- endblock carousel_slides -%}
-        {%- endembed -%}
+        <div id="carousel-home-{{ transaction|lower }}" class="owl-carousel owl-slide" data-role="carousel"></div>
     </div>
 </section>

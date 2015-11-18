@@ -41,6 +41,10 @@
         {{ include('VitelogeFrontendBundle:WebSearch:cachedProperties/ad.html.twig', { 'ad': ad }) }}
         {%- if loop.index is divisible by(4) -%}<div class="clearfix"></div>{%- endif -%}
     {%- else -%}
-        <span>{% trans %}websearch.cachedproperties.noresult{% endtrans %}</span>
+        <span>{% trans %}websearch.cachedproperties.noresult{% endtrans %}</span><br>
+        <a href="{{ path('viteloge_frontend_ad_searchfromusersearch', { id: websearch.userSearch.id }) }}" class="" aria-label="{% trans %}websearch.action.show{% endtrans %}">
+            <span class="fa fa-search" aria-hidden="true"></span>
+            <span>{% trans %}websearch.see.search.result{% endtrans %}</span>
+        </a>
     {%- endfor -%}
 {%- endblock panel_body -%}

@@ -6,6 +6,13 @@
         -o-background-size: cover;
         background-size: cover;
     }
+    .banner .foward, .forward {
+        > h1, > .h1 {
+            @media (max-width: $screen-sm-max) {
+                color: #27303d;
+            }
+        }
+    }
     .container {
         @include container-fixed;
 

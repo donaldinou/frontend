@@ -6,7 +6,7 @@ namespace Viteloge\CoreBundle\Component\Enum {
 
     class TransactionEnum extends Enum {
 
-        const __default = 'DEFAULT';
+        const __default = '';
 
         const RENT = EnumTransactionType::RENT;
 
@@ -20,6 +20,11 @@ namespace Viteloge\CoreBundle\Component\Enum {
                 self::SALE => 'ad.sale',
                 self::NEWER => 'ad.new'
             );
+        }
+
+        public static function getValues() {
+            $object = new static();
+            return $object->getConstList(true);
         }
 
     }

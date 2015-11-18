@@ -118,6 +118,14 @@
         <source>viteloge_frontend_ad_suggestnew_1</source>
         <target>/annonce/suggestion/neuf/</target>
       </trans-unit>
+      <trans-unit id="viteloge_frontend_glossary" resname="viteloge_frontend_glossary">
+        <source>viteloge_frontend_glossary</source>
+        <target>/immobilier/</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_glossary_legacy" resname="viteloge_frontend_glossary_legacy">
+        <source>viteloge_frontend_glossary_legacy</source>
+        <target>/immobilier/{slug}</target>
+      </trans-unit>
       <trans-unit id="690d7e4c2438d4a965c685b5b62ace9d" resname="viteloge_frontend_glossary_areas">
         <source>viteloge_frontend_glossary_areas</source>
         <target>/immobilier/quartiers/{id}/</target>
@@ -130,12 +138,12 @@
         <source>viteloge_frontend_glossary_departments</source>
         <target>/immobilier/departements/{id}/</target>
       </trans-unit>
-      <trans-unit id="2e3ab861307f3dad16ea66501fa69df0" resname="viteloge_frontend_glossary_mostsearched">
-        <source>viteloge_frontend_glossary_mostsearched</source>
+      <trans-unit id="2e3ab861307f3dad16ea66501fa69df0" resname="viteloge_frontend_glossary_mostsearched_limited">
+        <source>viteloge_frontend_glossary_mostsearched_limited</source>
         <target>/immobilier/les-plus-recherches/{limit}</target>
       </trans-unit>
-      <trans-unit id="c9a193a141cfc9a3c8ae2b00101a189d" resname="viteloge_frontend_glossary_mostsearched_1">
-        <source>viteloge_frontend_glossary_mostsearched_1</source>
+      <trans-unit id="c9a193a141cfc9a3c8ae2b00101a189d" resname="viteloge_frontend_glossary_mostsearched">
+        <source>viteloge_frontend_glossary_mostsearched</source>
         <target>/immobilier/les-plus-recherches/</target>
       </trans-unit>
       <trans-unit id="2b040961a023f28c7fefb837d3af0d19" resname="viteloge_frontend_glossary_showcity">
@@ -194,10 +202,6 @@
         <source>viteloge_frontend_static_register</source>
         <target>/enregistrement</target>
       </trans-unit>
-      <trans-unit id="31bfc83153d1c2a0712e8f3c766d9196" resname="viteloge_frontend_static_sitemap">
-        <source>viteloge_frontend_static_sitemap</source>
-        <target>/plan-du-site</target>
-      </trans-unit>
       <trans-unit id="461281821790fac839a9e44067a8d1ac" resname="viteloge_frontend_static_subscribe">
         <source>viteloge_frontend_static_subscribe</source>
         <target>/inscription</target>
@@ -226,6 +230,14 @@
         <source>viteloge_frontend_usersearch_list</source>
         <target>/utilisateur/recherche/liste/</target>
       </trans-unit>
+      <trans-unit id="viteloge_frontend_suggest_cities" resname="viteloge_frontend_suggest_cities">
+        <source>viteloge_frontend_suggest_cities</source>
+        <target>/suggestion/villes/{_format}</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_suggest_near" resname="viteloge_frontend_suggest_near">
+        <source>viteloge_frontend_suggest_near</source>
+        <target>/suggestion/proche/{name}/{id}/{radius}/{limit}/{_format}</target>
+      </trans-unit>
       <trans-unit id="viteloge_frontend_websearch_new" resname="viteloge_frontend_websearch_new">
         <source>viteloge_frontend_websearch_new</source>
         <target>/utilisateur/alerte/ajout/</target>
@@ -245,6 +257,14 @@
       <trans-unit id="viteloge_frontend_websearch_list" resname="viteloge_frontend_websearch_list">
         <source>viteloge_frontend_websearch_list</source>
         <target>/utilisateur/alerte/liste/</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_sitemap_index" resname="viteloge_frontend_sitemap_index">
+        <source>viteloge_frontend_sitemap_index</source>
+        <target>/plan-du-site</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_sitemap_index_format" resname="viteloge_frontend_sitemap_index_format">
+        <source>viteloge_frontend_sitemap_index_format</source>
+        <target>/plan-du-site.{_format}</target>
       </trans-unit>
     </body>
   </file>

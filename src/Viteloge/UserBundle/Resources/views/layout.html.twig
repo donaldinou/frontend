@@ -133,6 +133,7 @@
             </div>
             <div class="container text-center text-secondary">
                 {{- include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) -}}
+                {{- include('VitelogeFrontendBundle:Block:sites.html.twig', {}) -}}
             </div>
         {%- endblock footer -%}
         </footer>
@@ -142,7 +143,7 @@
         {{- include('VitelogeFrontendBundle:misc:backtotop.html.twig', {}) -}}
     {%- endblock html_end -%}
     {%- block javascripts %}
-        <script src="{{ aws_s3_domain('built/global.min.js') }}"></script>
+        <script src="{{ aws_s3_domain('built/global.js') }}"></script>
         <script src="{{ url('bazinga_jstranslation_js') }}"></script>
     {% endblock javascripts -%}
     </body>

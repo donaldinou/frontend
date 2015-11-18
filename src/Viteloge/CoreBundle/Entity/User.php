@@ -523,7 +523,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function getFullname() {
             $fullname = trim(preg_replace('/\s+/', ' ', $this->getCivility().' '.$this->getFirstname().' '.$this->getLastname()));
-            if (empty($fullname)) {
+            if (empty($fullname) || $fullname == $this->getCivility()) {
                 $fullname = $this->getEmail();
             }
             return $fullname;
@@ -553,9 +553,8 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return string
          */
-        public function getCivility()
-        {
-            return $this->civility;
+        public function getCivility() {
+            return (!empty($this->civility)) ? $this->civility : \Viteloge\CoreBundle\Component\Enum\CivilityEnum::MISTER;
         }
 
         /**
@@ -576,9 +575,8 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return string
          */
-        public function getFirstname()
-        {
-            return $this->firstname;
+        public function getFirstname() {
+            return (!empty($this->firstname)) ? $this->firstname : '';
         }
 
         /**
@@ -599,9 +597,8 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return string
          */
-        public function getLastname()
-        {
-            return $this->lastname;
+        public function getLastname() {
+            return (!empty($this->lastname)) ? $this->lastname : '';
         }
 
         /**

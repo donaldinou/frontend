@@ -87,6 +87,8 @@ doctrine:
         dql:
             numeric_functions:
                 round: Acreat\CoreBundle\Component\ORM\Query\Functions\Round
+            string_functions:
+                soundex: Acreat\CoreBundle\Component\ORM\Query\Functions\Soundex
         filters:
             softdeleteable:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter

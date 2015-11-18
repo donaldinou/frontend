@@ -72,6 +72,9 @@ _def_assets.scss
 *.sublime-project
 *.sublime-workspace
 
+# Specific to viteloge
+src/Viteloge/CoreBundle/Resources/descriptions/*
+
 # Swap & temp files
 *~
 *.tmp
@@ -90,3 +93,5 @@ local.properties
 .vagrant/
 /test
 /tests
+git rm --cached
+git rm -r --cached .

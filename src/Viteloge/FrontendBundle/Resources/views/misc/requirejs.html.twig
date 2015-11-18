@@ -1,7 +1,7 @@
 <script src="{{ aws_s3_domain('built/assets/js/require.min.js') }}"></script>
 <script>
     requirejs.config({
-        baseUrl: "{{ aws_s3_domain('built/bundles/vitelogefrontend/js') }}"
+        baseUrl: "{{ aws_s3_domain('built/bundles/vitelogefrontend/js', false) }}"
     })
     require(['viteloge'], function(common) {
         require(['{{ module }}']); // load {module}.js

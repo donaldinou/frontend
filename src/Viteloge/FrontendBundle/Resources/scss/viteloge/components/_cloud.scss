@@ -1,0 +1,33 @@
+.cloud {
+    background-color: #fff;
+    h4 {
+        background-color: #3b5998;
+        color: #fff;
+        padding: 5px;
+    }
+    ul {
+        padding: 5px;
+    }
+    .size-xsmall {
+        font-size: 10px;
+    }
+    .size-small {
+        font-size: 12px;
+    }
+    .size-medium {
+        font-size: 14px;
+    }
+    .size-large {
+        font-size: 16px;
+    }
+    .size-xlarge {
+        font-size: 18px;
+    }
+}
+
+aside {
+    .cloud {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}

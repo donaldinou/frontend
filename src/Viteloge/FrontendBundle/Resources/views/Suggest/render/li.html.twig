@@ -1,0 +1,14 @@
+{% if city.population <= 5000 %}
+    {% set sizeClass = 'size-xsmall' %}
+{% elseif city.population <= 30000 %}
+    {% set sizeClass = 'size-small' %}
+{% elseif city.population <= 60000 %}
+    {% set sizeClass = 'size-medium' %}
+{% elseif city.population <= 120000 %}
+    {% set sizeClass = 'size-large' %}
+{% else %}
+    {% set sizeClass = 'size-xlarge' %}
+{% endif %}
+<li>
+    <a class="{{ sizeClass }}" href="{{ path( 'viteloge_frontend_glossary_showcity', { name: city.slug|lower, id: city.id }) }}">{% trans with { '%name%': city.fullname } %}glossary.properties.name{% endtrans %}</a>
+</li>

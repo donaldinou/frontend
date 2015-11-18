@@ -39,7 +39,7 @@
         {%- block userSearch_city -%}
             <span>
                 <span>{%- trans -%}usersearch.in{%- endtrans -%}</span>
-                <a href="{{ path( 'viteloge_frontend_glossary_showcity', { name: userSearch.inseeCity, id: userSearch.inseeCity.id }) }}">{{ userSearch.inseeCity }}</a>
+                <a href="{{ path( 'viteloge_frontend_glossary_showcity', { name: userSearch.inseeCity.slug, id: userSearch.inseeCity.id }) }}">{{ userSearch.inseeCity }}</a>
             </span>
         {%- endblock userSearch_city -%}
     {%- endif -%}

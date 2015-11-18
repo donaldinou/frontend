@@ -60,7 +60,7 @@
             </div>
             <div class="col-sm-2 col-md-3 col-lg-3 text-right hidden-xs">
                 {%- if form is defined -%}
-                    <button type="button" class="h2 btn btn-default dropdown-toggle" data-toggle="collapse" aria-expanded="false" data-target="#search-container" aria-controls="search-container" aria-label="{%- trans -%}ad.change.research{%- endtrans -%}">
+                    <button type="button" class="h2 btn btn-default btn-research dropdown-toggle" data-toggle="collapse" aria-expanded="false" data-target="#search-container" aria-controls="search-container" aria-label="{%- trans -%}ad.change.research{%- endtrans -%}">
                         <span class="fa fa-search hidden-md hidden-lg" aria-hidden="true"></span>
                         <span class="hidden-xs hidden-sm">{%- trans -%}ad.change.research{%- endtrans -%}</span>
                         <span class="caret hidden-xs hidden-sm"></span>
@@ -84,7 +84,13 @@
             {{ include('VitelogeFrontendBundle:Ad:fragment/paginated.html.twig', {}) }}
         {% endblock %}
         {% block right %}
-            {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
+            {%- embed "VitelogeFrontendBundle:Block:aside_right.html.twig" -%}
+                {%- block aside_before_adsense1 -%}
+                    {%- if form is defined and form.vars.value.where.0 -%}
+                        {{- render_hinclude(path('viteloge_frontend_suggest_near', { 'name': 'test', 'id': form.vars.value.where.0, 'radius': 10, 'limit': 10, '_format': 'html' })) -}}
+                    {%- endif -%}
+                {%- endblock aside_before_adsense1 -%}
+            {%- endembed -%}
         {% endblock %}
     {% endembed %}
 {%- endblock main -%}

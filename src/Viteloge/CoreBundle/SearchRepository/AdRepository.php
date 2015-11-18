@@ -56,8 +56,17 @@ namespace Viteloge\CoreBundle\SearchRepository {
                 }
             }
 
+            $adRadius = $ad->getRadius();
+            $adLocation = $ad->getLocation();
             $adWhere = $ad->getWhere();
-            if (!empty($adWhere)) {
+            if (!empty($adRadius) && !empty($adLocation)) {
+                $radiusDistanceQuery = new \Elastica\Filter\GeoDistance('location', $adLocation, $adRadius.'km');
+                $radiusQuery = new \Elastica\Filter\Bool();
+                $radiusQuery->addMust($radiusDistanceQuery);
+                $cityHasParent = new \Elastica\Filter\HasParent($radiusQuery, 'inseeCity');
+                $boolQuery->addMust($cityHasParent);
+            }
+            elseif (!empty($adWhere)) {
                 $cityTermsQuery = new \Elastica\Filter\Terms();
                 $cityTermsQuery->setTerms('id', $adWhere);
                 $cityQuery = new \Elastica\Filter\Bool();
@@ -116,16 +125,6 @@ namespace Viteloge\CoreBundle\SearchRepository {
                 } else {
                     $boolQuery->addMust($roomQuery);
                 }
-            }
-
-            $adRadius = $ad->getRadius();
-            $adLocation = $ad->getLocation();
-            if (!empty($adRadius) && !empty($adLocation)) {
-                $radiusDistanceQuery = new \Elastica\Filter\GeoDistance('location', $adLocation, $adRadius.'km');
-                $radiusQuery = new \Elastica\Filter\Bool();
-                $radiusQuery->addMust($radiusDistanceQuery);
-                $cityHasParent = new \Elastica\Filter\HasParent($radiusQuery, 'inseeCity');
-                $boolQuery->addMust($cityHasParent);
             }
 
             $adMinPrice = $ad->getMinPrice();

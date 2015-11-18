@@ -1,19 +1,33 @@
 <aside class="">
-    <div class="">
-        {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', {}) }}
-    </div>
-    <div class="clearfix">
-        <div class="services row-no-padding" role="listbox">
-            {{ render_hinclude(path('viteloge_frontend_service_list', { })) }}
+    {%- block aside_top -%}{%- endblock aside_top -%}
+    {%- block aside_adsense1 -%}
+        <div class="">
+            {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', {}) }}
         </div>
-    </div>
-    <div class="clearfix">
-        {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', {}) }}
-    </div>
-     <div class="clearfix">
-        {{ render_hinclude(path('viteloge_frontend_ad_suggestnew', { 'limit': 3 })) }}
-    </div>
-     <div class="clearfix">
-        {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', {}) }}
-    </div>
+    {%- endblock aside_adsense1 -%}
+    {%- block aside_before_adsense1 -%}{%- endblock aside_before_adsense1 -%}
+    {%- block aside_services -%}
+        <div class="clearfix">
+            <div class="services row-no-padding" role="listbox">
+                {{ render_hinclude(path('viteloge_frontend_service_list', { })) }}
+            </div>
+        </div>
+    {%- endblock aside_services -%}
+    {%- block aside_before_services -%}{%- endblock aside_before_services -%}
+    {%- block aside_adsense2 -%}
+        <div class="clearfix">
+            {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', {}) }}
+        </div>
+    {%- endblock aside_adsense2 -%}
+    {%- block aside_before_adsense2 -%}{%- endblock aside_before_adsense2 -%}
+    {%- block aside_suggestnew -%}
+        <div class="clearfix">
+            {{ render_hinclude(path('viteloge_frontend_ad_suggestnew', { 'limit': 3 })) }}
+        </div>
+    {%- endblock aside_suggestnew -%}
+    {%- block aside_before_new -%}{%- endblock aside_before_new -%}
+    {%- block aside_adsense3 -%}
+        {{- block('aside_adsense2') -}}
+    {%- endblock aside_adsense3 -%}
+    {%- block aside_bottom -%}{%- endblock aside_bottom -%}
 </aside>

@@ -1,18 +1,23 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
 {%- block main -%}
-    {%- embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } -%}
-        {%- block left -%}
-            <div class="panel panel-primary">
-                <div class="panel-body">
-                    <div class="content">
-                        {{- include('FOSUserBundle:Registration:fragment/form.html.twig') -}}
+    <div class="teaser one">
+        <article class="over container text-justify">
+            <h3 class="text-uppercase text-center">{%- trans from 'messages' -%}user.profile.login{%- endtrans -%}</h3>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <div class="content">
+                                {{- include('FOSUserBundle:Registration:fragment/form.html.twig') -}}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        {%- endblock -%}
-        {%- block right -%}
-            {{- include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) -}}
-        {%- endblock -%}
-    {%- endembed -%}
+            <div class="services row" role="listbox">
+                {{- render_hinclude(path('viteloge_frontend_service_list', { })) -}}
+            </div>
+        </article>
+    </div>
 {%- endblock main -%}

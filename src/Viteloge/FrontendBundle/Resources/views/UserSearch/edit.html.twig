@@ -1,7 +1,7 @@
 {% extends 'VitelogeFrontendBundle::base.html.twig' %}
 
 {% block main %}
-    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } %}
+    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
         {% block left %}
             {{ include('VitelogeFrontendBundle:Form:userSearch.html.twig', { form: form }) }}
         {% endblock %}
