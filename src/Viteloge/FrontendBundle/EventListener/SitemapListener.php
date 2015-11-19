@@ -100,7 +100,7 @@ namespace Viteloge\FrontendBundle\EventListener {
                     );
                     $event->getGenerator()->addUrl(
                         $this->getUrlConcrete('viteloge_frontend_querystats_city', $parameters, $options),
-                        $statistic_section.$j
+                        $keyword_section.$j
                     );
                     if ($i % 100 == 0) {
                         $j++;
