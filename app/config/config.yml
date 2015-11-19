@@ -15,6 +15,7 @@ imports:
     - { resource: hwi_oauth.yml }
     - { resource: ewz_recaptcha.yml }
     - { resource: jms_i18n_routing.yml }
+    - { resource: presta_sitemap.yml }
 
 framework:
     #esi:             ~

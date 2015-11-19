@@ -188,7 +188,7 @@ module.exports = function(grunt) {
         cssmin: {
             combine: {
                 options:{
-                    report: 'gzip',
+                    report: 'min',
                     sourceMap: false,
                     keepSpecialComments: 0
                 },
