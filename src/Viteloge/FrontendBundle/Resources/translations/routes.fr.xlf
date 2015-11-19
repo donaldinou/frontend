@@ -168,7 +168,7 @@
       </trans-unit>
       <trans-unit id="viteloge_frontend_querystats_city" resname="viteloge_frontend_querystats_city">
         <source>viteloge_frontend_querystats_city</source>
-        <target>/recherche/ville/{slug}/{id}/{page}/{limit}</target>
+        <target>/recherche/ville/{name}/{id}/{page}/{limit}</target>
       </trans-unit>
       <trans-unit id="viteloge_frontend_querystats_legacy" resname="viteloge_frontend_querystats_legacy">
         <source>viteloge_frontend_querystats_legacy</source>

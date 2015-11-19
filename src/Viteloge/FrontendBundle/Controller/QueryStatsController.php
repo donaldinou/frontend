@@ -26,7 +26,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * @Route(
-         *      "/city/{slug}/{id}/{page}/{limit}",
+         *      "/city/{name}/{id}/{page}/{limit}",
          *      requirements={
          *          "id"="(?:2[a|b|A|B])?0{0,2}\d+",
          *          "page"="\d+",
@@ -47,9 +47,9 @@ namespace Viteloge\FrontendBundle\Controller {
          *     class="AcreatInseeBundle:InseeCity",
          *     options={
          *         "id" = "id",
-         *         "slug" = "slug",
+         *         "name" = "name",
          *         "exclude": {
-         *             "slug"
+         *             "name"
          *         }
          *     }
          * )
