@@ -196,8 +196,11 @@ namespace Viteloge\CoreBundle\SearchEntity {
          */
         public function setTransaction($value) {
             $value = strtoupper($value);
-            if ($value == TransactionEnum::__default) {
+            if ($value == TransactionEnum::__default || $value == 'default') {
                 $value = null;
+            }
+            if (strlen($value)>1) {
+                $value = TransactionEnum::getAlias($value);
             }
             $this->transaction = $value;
             return $this;
@@ -218,14 +221,16 @@ namespace Viteloge\CoreBundle\SearchEntity {
                 if (!is_array($value)) {
                     $value = explode(',', $value);
                 }
-                $this->where = array_map(function($item) {
-                    if(is_string($item)) {
-                        return strtolower($item);
-                    }
-                    elseif (is_object($item)) {
-                        return $item->getId();
-                    }
-                }, $value);
+                $this->where = array_filter(array_map(
+                    function($item) {
+                        if(is_string($item)) {
+                            return strtolower($item);
+                        }
+                        elseif (is_object($item)) {
+                            return $item->getId();
+                        }
+                    }, $value
+                ));
             }
             return $this;
         }
@@ -245,7 +250,7 @@ namespace Viteloge\CoreBundle\SearchEntity {
                 if (!is_array($value)) {
                     $value = explode(',', $value);
                 }
-                $this->whereArea = array_map('strtolower', $value);
+                $this->whereArea = array_filter(array_map('strtolower', $value));
             }
             return $this;
         }
@@ -265,7 +270,7 @@ namespace Viteloge\CoreBundle\SearchEntity {
                 if (!is_array($value)) {
                     $value = explode(',', $value);
                 }
-                $this->whereDepartment = array_map('strtolower', $value);
+                $this->whereDepartment = array_filter(array_map('strtolower', $value));
             }
             return $this;
         }
@@ -285,7 +290,7 @@ namespace Viteloge\CoreBundle\SearchEntity {
                 if (!is_array($value)) {
                     $value = explode(',', $value);
                 }
-                $this->whereState = array_map('strtolower', $value);
+                $this->whereState = array_filter(array_map('strtolower', $value));
             }
             return $this;
         }
@@ -305,12 +310,12 @@ namespace Viteloge\CoreBundle\SearchEntity {
                 if (!is_array($value)) {
                     $value = explode(',', $value);
                 }
-                $this->what = array_map(
+                $this->what = array_filter(array_map(
                     function($str){
-                        return /*strtolower(*/trim($str)/*)*/;
+                        return /*strtolower(*/trim(ucfirst($str))/*)*/;
                     },
                     $value
-                );
+                ));
             }
             return $this;
         }
@@ -330,7 +335,7 @@ namespace Viteloge\CoreBundle\SearchEntity {
                 if (!is_array($value)) {
                     $value = explode(',', $value);
                 }
-                $this->rooms = $value;
+                $this->rooms = array_filter($value);
             }
             return $this;
         }

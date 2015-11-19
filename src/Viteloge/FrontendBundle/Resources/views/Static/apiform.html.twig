@@ -9,7 +9,7 @@
 {%- endblock main_title-%}
 
 {%- block teaser -%}
-    three
+    three teaser-fixed
 {%- endblock teaser -%}
 
 {%- block main_content -%}
@@ -20,7 +20,7 @@
 {%- endblock main_content -%}
 
 {%- block javascripts -%}
-    <script src="{{ aws_s3_domain('built/assets/zeroclipboard.min.js') }}"></script>
+    <script src="{{ aws_s3_domain('built/assets/js/zeroclipboard.min.js') }}"></script>
     <script>
         var clientZC;
         jQuery(document).ready(function() {

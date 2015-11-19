@@ -258,7 +258,7 @@ module.exports = function(grunt) {
                     rename: function(destBase, destPath) {
                         return destBase+destPath.replace('.js', '.min.js');
                     },
-                    dest: '<%= cmp.extra["symfony-web-dir"] %>/built/assets/'
+                    dest: '<%= cmp.extra["symfony-web-dir"] %>/built/assets/js/'
                 }]
             },
             bundles: {

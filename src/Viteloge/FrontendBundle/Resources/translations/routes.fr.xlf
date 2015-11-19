@@ -110,6 +110,10 @@
         <source>viteloge_frontend_ad_searchfromusersearch</source>
         <target>/annonce/recherche/a-partir-de/recherche-utilisateur/{id}</target>
       </trans-unit>
+      <trans-unit id="viteloge_frontend_ad_searchfromquerystats" resname="viteloge_frontend_ad_searchfromquerystats">
+        <source>viteloge_frontend_ad_searchfromquerystats</source>
+        <target>/annonce/recherche/a-partir-de/recherche-motcles/{id}</target>
+      </trans-unit>
       <trans-unit id="606673ee5a7a71de23f3888e78a47bcc" resname="viteloge_frontend_ad_suggestnew">
         <source>viteloge_frontend_ad_suggestnew</source>
         <target>/annonce/suggestion/neuf/{limit}</target>
@@ -161,6 +165,14 @@
       <trans-unit id="529a1a748777e4d400f035df65e78526" resname="viteloge_frontend_homepage">
         <source>viteloge_frontend_homepage</source>
         <target>/</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_querystats_city" resname="viteloge_frontend_querystats_city">
+        <source>viteloge_frontend_querystats_city</source>
+        <target>/recherche/ville/{slug}/{id}/{page}/{limit}</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_querystats_legacy" resname="viteloge_frontend_querystats_legacy">
+        <source>viteloge_frontend_querystats_legacy</source>
+        <target>/recherche/historique/{urlrewrite}</target>
       </trans-unit>
       <trans-unit id="84062a504e63601c5898452e6afdd91e" resname="viteloge_frontend_querystats_latest">
         <source>viteloge_frontend_querystats_latest</source>

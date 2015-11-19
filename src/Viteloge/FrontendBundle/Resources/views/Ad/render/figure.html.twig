@@ -1,7 +1,7 @@
 <figure class="estate{% if additionnals_class is defined and additionnals_class %} {{ additionnals_class|trim }}{% endif %}" itemscope itemtype="http://schema.org/Product">
     <div class="estate-images center-block">
         {%- block estate_images -%}
-            {{ include('VitelogeFrontendBundle:Ad:fragment/image.html.twig', { 'ad': ad, 'imgClass': 'unlazy' }) }}
+            {{ include('VitelogeFrontendBundle:Ad:fragment/image.html.twig', { 'ad': ad, 'imgClass': 'owl-lazy' }) }}
         {%- endblock estate_images -%}
     </div>
     <figcaption class="estate-legend">

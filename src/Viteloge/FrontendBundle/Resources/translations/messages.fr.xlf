@@ -286,10 +286,6 @@
         <source>Next</source>
         <target>Suivant</target>
       </trans-unit>
-      <trans-unit id="aba31c167f54eca5402dc92cfef0a9ad" resname="No more suggestions">
-        <source>No more suggestions</source>
-        <target>No more suggestions</target>
-      </trans-unit>
       <trans-unit id="6adf97f83acf6453d4a6a4b1070f3754" resname="None">
         <source>None</source>
         <target>None</target>
@@ -881,6 +877,18 @@
       <trans-unit id="glossary.area.from.name" resname="glossary.area.from.name">
         <source>glossary.area.from.name</source>
         <target>Quartier de %name%</target>
+      </trans-unit>
+      <trans-unit id="querystats.search.done.city" resname="querystats.search.done.city">
+        <source>querystats.search.done.city</source>
+        <target>Recherches effectuées sur %city%</target>
+      </trans-unit>
+      <trans-unit id="querystats.noresult" resname="querystats.noresult">
+        <source>querystats.noresult</source>
+        <target>Pas de suggestions</target>
+      </trans-unit>
+      <trans-unit id="querystats.nomore" resname="querystats.nomore">
+        <source>querystats.nomore</source>
+        <target>Plus de suggestions</target>
       </trans-unit>
       <trans-unit id="message.send.message.to.group.for.ad" resname="message.send.message.to.group.for.ad">
         <source>message.send.message.to.group.for.ad</source>

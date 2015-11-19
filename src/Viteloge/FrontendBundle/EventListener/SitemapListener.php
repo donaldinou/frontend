@@ -82,6 +82,7 @@ namespace Viteloge\FrontendBundle\EventListener {
             $j = 0;
             $glossary_section = 'glossary_part_';
             $statistic_section = 'statistic_part_';
+            $keyword_section = 'keyword_part_';
             foreach ($cities as $key => $city) {
                 if (!empty($city->getSlug())) {
                     $i++;
@@ -95,6 +96,10 @@ namespace Viteloge\FrontendBundle\EventListener {
                     );
                     $event->getGenerator()->addUrl(
                         $this->getUrlConcrete('viteloge_estimation_statistic_city', $parameters, $options),
+                        $statistic_section.$j
+                    );
+                    $event->getGenerator()->addUrl(
+                        $this->getUrlConcrete('viteloge_frontend_querystats_city', $parameters, $options),
                         $statistic_section.$j
                     );
                     if ($i % 100 == 0) {

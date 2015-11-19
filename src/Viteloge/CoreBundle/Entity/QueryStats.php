@@ -18,70 +18,70 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @ORM\Column(name="md5", type="string", length=255, nullable=false)
          */
-        private $md5;
+        protected $md5;
 
         /**
          * @var string
          *
          * @ORM\Column(name="keywords", type="string", length=255, nullable=false)
          */
-        private $keywords;
+        protected $keywords;
 
         /**
          * @var string
          *
          * @ORM\Column(name="urlrewrite", type="string", length=255, nullable=false)
          */
-        private $urlrewrite;
+        protected $urlrewrite;
 
         /**
          * @var string
          *
          * @ORM\Column(name="transaction", type="string", length=1, nullable=true)
          */
-        private $transaction;
+        protected $transaction;
 
         /**
          * @var string
          *
          * @ORM\Column(name="type", type="string", length=50, nullable=true)
          */
-        private $type;
+        protected $type;
 
         /**
          * @var integer
          *
          * @ORM\Column(name="pieces", type="integer", nullable=true)
          */
-        private $rooms;
+        protected $rooms;
 
         /**
          * @var integer
          *
          * @ORM\Column(name="region", type="smallint", nullable=true)
          */
-        private $stateId;
+        protected $stateId;
 
         /**
          * @var integer
          *
          * @ORM\Column(name="count", type="integer", nullable=false)
          */
-        private $count;
+        protected $count;
 
         /**
          * @var integer
          *
          * @ORM\Column(name="timestamp", type="integer", nullable=false)
          */
-        private $timestamp;
+        protected $timestamp;
 
         /**
          * @var string
          *
          * @ORM\Column(name="real_search", type="string", length=255, nullable=true)
          */
-        private $realSearch;
+        protected $realSearch;
 
         /**
          * @var integer
@@ -90,7 +90,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Id
          * @ORM\GeneratedValue(strategy="IDENTITY")
          */
-        private $id;
+        protected $id;
 
         /**
          * @var \Acreat\InseeBundle\Entity\InseeCity
@@ -100,7 +100,7 @@ namespace Viteloge\CoreBundle\Entity {
          *   @ORM\JoinColumn(name="insee", referencedColumnName="codeInsee")
          * })
          */
-        private $inseeCity;
+        protected $inseeCity;
 
         /**
          * @var \Acreat\InseeBundle\Entity\InseeDepartment
@@ -110,7 +110,7 @@ namespace Viteloge\CoreBundle\Entity {
          *   @ORM\JoinColumn(name="dpt", referencedColumnName="DEP")
          * })
          */
-        private $inseeDepartment;
+        protected $inseeDepartment;
 
 
 

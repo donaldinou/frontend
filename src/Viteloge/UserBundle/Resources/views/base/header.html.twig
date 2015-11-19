@@ -68,7 +68,7 @@
                         {% endblock %}
                         <div class="clearfix"></div>
                         {%- block header_navigation -%}
-                            {%- set transaction = app.request.get('transaction')|lower -%}
+                            {%- set transaction = app.request.get('transaction')|vl_transaction_alias|lower -%}
                             <ul id="navigation" class="nav navbar-nav navbar-right">
                                 <li class="text-uppercase{% if transaction == 'v' %} active{% endif %}" role="presentation">
                                     <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'v' }) }}" data-theme-hover="theme-sale">{% trans %}ad.sale{% endtrans %}</a>

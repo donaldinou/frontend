@@ -54,6 +54,10 @@
                 <source>breadcrumb.estimate</source>
                 <target>Votre estimation personnalisée</target>
             </trans-unit>
+            <trans-unit id="breadcrumb.querystats.city" resname="breadcrumb.querystats.city">
+                <source>breadcrumb.querystats.city</source>
+                <target>Suggestions de recherche pour %city%</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

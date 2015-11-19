@@ -16,5 +16,10 @@
 }
 
 .btn-research {
-    border-color: #fff;
+    &,
+    &:hover,
+    &:focus,
+    &:active {
+        border-color: #fff;
+    }
 }

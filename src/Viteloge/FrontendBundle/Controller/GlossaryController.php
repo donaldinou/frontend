@@ -71,16 +71,34 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template()
          */
         public function legacyAction(Request $request, $slug) {
+            $queries = array_merge(
+                $request->query->all(),
+                $request->request->all()
+            );
+
+            if ($slug == 'france') {
+                return $this->redirectToRoute(
+                    'viteloge_frontend_ad_search',
+                    $queries,
+                    301
+                );
+            }
+
             $repository = $this->getDoctrine()
                 ->getRepository('AcreatInseeBundle:InseeState');
             $inseeEntity = $repository->findOneBySoundex($slug);
             if ($inseeEntity instanceof InseeState) {
-                return $this->redirectToRoute(
-                    'viteloge_frontend_glossary_showstate',
+                $options = array_merge(
                     array(
                         'name' => $inseeEntity->getSlug(),
                         'id' => $inseeEntity->getId()
-                    ), 301
+                    ),
+                    $queries
+                );
+                return $this->redirectToRoute(
+                    'viteloge_frontend_glossary_showstate',
+                    $options,
+                    301
                 );
             }
 
@@ -88,12 +106,17 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->getRepository('AcreatInseeBundle:InseeDepartment');
             $inseeEntity = $repository->findOneBySoundex($slug);
             if ($inseeEntity instanceof InseeDepartment) {
-                return $this->redirectToRoute(
-                    'viteloge_frontend_glossary_showdepartment',
+                $options = array_merge(
                     array(
                         'name' => $inseeEntity->getSlug(),
                         'id' => $inseeEntity->getId()
-                    ), 301
+                    ),
+                    $queries
+                );
+                return $this->redirectToRoute(
+                    'viteloge_frontend_glossary_showdepartment',
+                    $options,
+                    301
                 );
             }
 
@@ -166,9 +189,18 @@ namespace Viteloge\FrontendBundle\Controller {
             $ids = array_map(function($city) {
                 return $city->getId();
             }, $cities);*/
-            $options = array(
-                'whereState' => array( $inseeState->getId() )
+
+            $queries = array_merge(
+                $request->query->all(),
+                $request->request->all()
             );
+            $options = array_merge(
+                array(
+                    'whereState' => array( $inseeState->getId() )
+                ),
+                $queries
+            );
+
             return $this->redirectToRoute('viteloge_frontend_ad_search', $options, 301);
         }
 
@@ -201,9 +233,18 @@ namespace Viteloge\FrontendBundle\Controller {
             $ids = array_map(function($city) {
                 return $city->getId();
             }, $cities);*/
-            $options = array(
-                'whereDepartment' => array( $inseeDepartment->getId() )
+
+            $queries = array_merge(
+                $request->query->all(),
+                $request->request->all()
             );
+            $options = array_merge(
+                array(
+                    'whereDepartment' => array( $inseeDepartment->getId() )
+                ),
+                $queries
+            );
+
             return $this->redirectToRoute('viteloge_frontend_ad_search', $options, 301);
         }
 

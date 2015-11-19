@@ -22,6 +22,23 @@ namespace Viteloge\CoreBundle\Component\Enum {
             );
         }
 
+        /**
+         * Use for legacy support
+         */
+        public static function getAlias($alias) {
+            switch (strtolower($alias)) {
+                case 'vente':
+                    return self::SALE;
+                    break;
+                case 'location':
+                    return self::RENT;
+                    break;
+                default:
+                    return self::__default;
+                    break;
+            }
+        }
+
         public static function getValues() {
             $object = new static();
             return $object->getConstList(true);

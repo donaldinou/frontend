@@ -1,0 +1,23 @@
+{% extends 'VitelogeFrontendBundle::base.html.twig' %}
+
+{%- block schema -%}
+    itemscope itemtype="http://schema.org/WebPage"
+{%- endblock schema -%}
+
+{%- block main -%}
+    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
+        {% block left %}
+            <article class="clearfix">
+                <h3 class="h3">{%- trans with { '%city%': inseeCity.getNameAndPostalcode() } -%}querystats.search.done.city{%- endtrans -%}</h3>
+                {{- include('VitelogeFrontendBundle:QueryStats:fragment/paginated.html.twig', {}) -}}
+            </article>
+        {% endblock %}
+        {% block right %}
+            {%- embed "VitelogeFrontendBundle:Block:aside_right.html.twig" -%}
+                {%- block aside_before_adsense1 -%}
+                    {{- render_hinclude(path('viteloge_frontend_suggest_near', { 'name': inseeCity.name, 'id': inseeCity.id, 'radius': 10, 'limit': 10, '_format': 'html' })) -}}
+                {%- endblock aside_before_adsense1 -%}
+            {%- endembed -%}
+        {% endblock %}
+    {% endembed %}
+{%- endblock main -%}

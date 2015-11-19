@@ -33,7 +33,8 @@ namespace Viteloge\FrontendBundle\Twig {
         public function getFilters() {
             return array(
                 new \Twig_SimpleFilter('schematizedcurrency', array($this, 'schematizedcurrency')),
-                new \Twig_SimpleFilter('vl_intval', array($this, 'vlIntval'))
+                new \Twig_SimpleFilter('vl_intval', array($this, 'vlIntval')),
+                new \Twig_SimpleFilter('vl_transaction_alias', array($this, 'vlTransactionAlias'))
             );
         }
 
@@ -41,7 +42,7 @@ namespace Viteloge\FrontendBundle\Twig {
          *
          */
         public function vlTheme() {
-            $transaction = strtoupper($this->request->get('transaction'));
+            $transaction = $this->vlTransactionAlias(strtoupper($this->request->get('transaction')));
             switch ($transaction) {
                 case TransactionEnum::SALE:
                     $theme = 'sale';
@@ -75,6 +76,7 @@ namespace Viteloge\FrontendBundle\Twig {
          *
          */
         public function vlIntval($value) {
+            $value = $this->vlTransactionAlias($value);
             switch ($value) {
                 case TransactionEnum::RENT:
                     $result = 0;
@@ -90,6 +92,13 @@ namespace Viteloge\FrontendBundle\Twig {
                     break;
             }
             return $result;
+        }
+
+        /**
+         *
+         */
+        public function vlTransactionAlias($value) {
+            return (strlen($value)>1) ? TransactionEnum::getAlias($value) : $value;
         }
 
         /**
