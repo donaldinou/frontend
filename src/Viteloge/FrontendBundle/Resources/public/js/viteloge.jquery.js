@@ -5,7 +5,7 @@ if (typeof jQuery === 'undefined') {
 jQuery(document).ready(function() {
     initLazyLoad();
 
-    if (jQuery('').length) {
+    if (jQuery('#carousel-ad-news').length) {
         runResponsiveCarousel('#carousel-ad-news', 1);
     }
 
@@ -657,7 +657,7 @@ function runResponsiveCarousel(identifier, items) {
                 nav: false
             },
             970:{
-                items: 3,
+                items: items,
                 nav: true
             }
         }

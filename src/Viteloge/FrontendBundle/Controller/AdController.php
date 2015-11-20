@@ -461,6 +461,8 @@ namespace Viteloge\FrontendBundle\Controller {
             $queryBuilder = $em->createQueryBuilder()
                 ->select('ad')
                 ->from('VitelogeCoreBundle:Ad', 'ad')
+                ->where('ad.agencyId = :agencyId')
+                ->setParameter('agencyId', Ad::AGENCY_ID_NEW)
                 ->orderBy('ad.createdAt', 'DESC')
             ;
 
