@@ -93,7 +93,10 @@
             margin-top: 150px;
         }
         > h1, > h2 {
-            color: #fff;
+            color: $text-color;
+            @media (min-width: $screen-sm-min) {
+                color: #fff;
+            }
         }
         > hr {
             border: 2px solid #eee;

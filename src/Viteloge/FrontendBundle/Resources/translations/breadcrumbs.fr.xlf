@@ -58,6 +58,10 @@
                 <source>breadcrumb.querystats.city</source>
                 <target>Suggestions de recherche pour %city%</target>
             </trans-unit>
+            <trans-unit id="breadcrumb.usersearch.city" resname="breadcrumb.usersearch.city">
+                <source>breadcrumb.usersearch.city</source>
+                <target>Recherche utilisateur pour %city%</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

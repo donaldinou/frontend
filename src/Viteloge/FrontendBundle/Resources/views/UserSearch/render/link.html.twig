@@ -1,0 +1,30 @@
+<a href="{{- path('viteloge_frontend_ad_search', { 'transaction': userSearch.transaction, 'where': { 0: userSearch.inseeCity }, 'what': userSearch.type, 'rooms': userSearch.rooms, 'budgetMin': userSearch.budgetMin, 'budgetMax': userSearch.budgetMax }) -}}">
+    {%- block userSearch_transaction -%}
+        {%- if userSearch.transaction -%}
+            <span>{{ ('ad.transaction.'~userSearch.transaction)|trans }}</span>&nbsp;
+        {%- endif -%}
+    {%- endblock userSearch_transaction -%}
+    {%- block userSearch_type -%}
+        {%- if userSearch.type -%}
+            <span>{{ userSearch.type|join(', ') }}</span>&nbsp;{# already translated in database #}
+        {%- endif -%}
+    {%- endblock userSearch_type -%}
+    {%- block userSearch_rooms -%}
+        {%- if userSearch.rooms and userSearch.rooms|length -%}
+            {% set rooms = 2 %}
+            {%- if userSearch.rooms|length == 1  and userSearch.rooms[0] in [0, 1] -%}
+                {% set rooms = 1 %}
+            {%- endif -%}
+            <span>{%- transchoice rooms with {'%count%': userSearch.rooms|join(',')} -%}usersearch.rooms.count{%- endtranschoice -%}</span>&nbsp;
+        {%- endif -%}
+    {%- endblock userSearch_rooms -%}
+    {%- block userSearch_budget -%}
+        {%- if (userSearch.budgetMin and userSearch.budgetMax) -%}
+            <span>{%- trans with { '%from%': userSearch.budgetMin|localizedcurrency('EUR'), '%until%': userSearch.budgetMax|localizedcurrency('EUR') }-%}usersearch.from.until{%- endtrans -%}</span>
+        {%- elseif (userSearch.budgetMin) -%}
+            <span>{%- trans with { '%from%': userSearch.budgetMin|localizedcurrency('EUR') } -%}usersearch.from{%- endtrans -%}</span>
+        {%- elseif (userSearch.budgetMax) -%}
+            <span>{%- trans with { '%until%': userSearch.budgetMax|localizedcurrency('EUR') } -%}usersearch.until{%- endtrans -%}</span>
+        {%- endif -%}
+    {%- endblock userSearch_budget -%}
+</a>

@@ -116,6 +116,13 @@
         background-color: #27303d;
         color: #fff;
         > .nav {
+            &:hover, &:focus {
+                > .expand-hover {
+                    .expand-hover-text, .expand-hover-icon {
+                        display: none !important;
+                    }
+                }
+            }
             > li {
                 &.active,
                 &:hover,

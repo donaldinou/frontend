@@ -1,18 +1,11 @@
 <section class="theme-N static">
     <div class="highlighting text-center">
-        <h4 class="text-uppercase">{% trans %}Vitelogé neuf vous propose 1838 programmes immobiliers{% endtrans %}</h4>
-        {%- embed "VitelogeFrontendBundle:Block:carousel.html.twig" with { 'hasIndicators': false } -%}
-            {%- block carousel_id -%}
-                carousel-ad-news
-            {%- endblock -%}
-            {%- block carousel_slides -%}
-                {%- for ad in ads -%}
-                    <div class="item clearfix{% if loop.first %} active{% endif %}">
-                        {{ include('VitelogeFrontendBundle:Ad:render/program.html.twig', { 'ad': ad }) }}
-                    </div>
-                {%- endfor -%}
-            {%- endblock -%}
-        {%- endembed -%}
+        <h4 class="text-uppercase">{% transchoice count with { '%count%': count } %}ad.count.program.new{% endtranschoice %}</h4>
+        <div id="carousel-ad-news" class="owl-carousel owl-slide" data-role="carousel">
+            {%- for key, ad in ads -%}
+                {{ include('VitelogeFrontendBundle:Ad:render/program.html.twig', { 'ad': ad }) }}
+            {%- endfor -%}
+        </div>
         <a href="http://neuf.viteloge.com" class="btn btn-default" role="button">{% trans %}viteloge.all.programs{% endtrans %}</a>
     </div>
-</div>
+</section>

@@ -1,0 +1,42 @@
+<div id="viteloge-frontend-ad-paginated{%- if pagination is defined -%}-{{ pagination.currentPage }}{%- endif -%}" class="clearfix ajax-pager-container margin-t20">
+    {%- if pagination is defined -%}
+        {%- block pagination -%}
+            {%- if pagination is not null and pagination.haveToPaginate -%}
+                {{- pagerfanta(pagination, 'pager_viteloge', {}) -}}
+            {%- endif -%}
+        {%- endblock pagination -%}
+    {%- endif -%}
+    <div class="clearfix">
+        {%- if userSearches -%}
+            <div class="col-md-5">
+                <ul class="list-unstyled" data-role="listitem">
+                    {%- for key, userSearch in userSearches|slice(0, (userSearches|length)/2) %}
+                        <li class="clearfix" data-role="item">
+                            {{- include("VitelogeFrontendBundle:UserSearch:render/link.html.twig", { 'userSearch': userSearch }) -}}
+                        </li>
+                    {% else %}
+                        <li class="clearfix">{% trans %}querystats.nomore{% endtrans %}</li>
+                    {% endfor -%}
+                </ul>
+            </div>
+            <div class="col-md-5">
+                <ul class="list-unstyled" data-role="listitem">
+                    {%- for key, userSearch in userSearches|slice((userSearches|length)/2, userSearches|length) %}
+                        <li class="clearfix" data-role="item">
+                            {{- include("VitelogeFrontendBundle:UserSearch:render/link.html.twig", { 'userSearch': userSearch  }) -}}
+                        </li>
+                    {% else %}
+                        <li class="clearfix">{% trans %}querystats.nomore{% endtrans %}</li>
+                    {% endfor -%}
+                </ul>
+            </div>
+        {%- else -%}
+            <section class="margin-t10 clearfix">
+                {{- include('VitelogeCoreBundle:Global:alert.html.twig', { type: 'info', alerts: { 0: 'querystats.noresult'|trans }, dismissible: false }) -}}
+            </section>
+        {%- endif -%}
+    </div>
+    {%- if pagination is defined -%}
+        {{- block('pagination') -}}
+    {%- endif -%}
+</div>

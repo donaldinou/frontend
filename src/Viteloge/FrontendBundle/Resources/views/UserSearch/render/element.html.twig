@@ -1,9 +1,11 @@
 <span class="usersearch">
     {%- block userSearch_firstname -%}
-        <span>
-            <strong>{{ userSearch.firstname|default('usersearch.unknown'|trans) }}</strong>
-            <span>{%- trans -%}usersearch.search{%- endtrans -%}</span>
-        </span>
+        {%- if userSearch.firstname is defined -%}
+            <span>
+                <strong>{{ userSearch.firstname|default('usersearch.unknown'|trans) }}</strong>
+                <span>{%- trans -%}usersearch.search{%- endtrans -%}</span>
+            </span>
+        {%- endif -%}
     {%- endblock -%}
     <a href="{{ path('viteloge_frontend_ad_searchfromusersearch', { 'id': userSearch.id }) }}">
         {%- block userSearch_transaction -%}
@@ -35,7 +37,7 @@
             {%- endif -%}
         {%- endblock userSearch_budget -%}
     </a>
-    {%- if userSearch.inseeCity -%}
+    {%- if userSearch.inseeCity is defined and userSearch.inseeCity -%}
         {%- block userSearch_city -%}
             <span>
                 <span>{%- trans -%}usersearch.in{%- endtrans -%}</span>

@@ -25,14 +25,14 @@
                 {{ render_hinclude(path('viteloge_estimation_statistic_price', { 'name': city.slug, 'id': city.id })) }}
             </section>
             <section id="rent-around" class="theme-rent static">
-                {{ render(path('viteloge_frontend_ad_latest', { 'limit': 3, 'transaction': 'L', 'where': [city.id], 'radius': '5', 'location': city.location, 'cityName': city.fullname })) }}
+                {{ render(path('viteloge_frontend_ad_latest', { 'limit': 3, 'transaction': 'L', 'where': [city.id], 'radius': constant('Viteloge\\CoreBundle\\Component\\Enum\\DistanceEnum::FIVE'), 'location': city.location, 'cityName': city.fullname })) }}
                 {{ render_hinclude(path('viteloge_frontend_querystats_latest', { 'limit': 10, 'transaction': 'L', 'inseeCity': city.id })) }}
                 <div class="text-center margin-t10 margin-b10">
                     <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'L', 'where': [city.id] }) }}" class="btn btn-default text-uppercase" role="button">{% trans %}glossary.show.all.rent{% endtrans %}</a>
                 </div>
             </section>
             <section id="sale-around" class="theme-sale static">
-                {{ render(path('viteloge_frontend_ad_latest', { 'limit': 3, 'transaction': 'V', 'where': [city.id], 'radius': '5', 'location': city.location, 'cityName': city.fullname })) }}
+                {{ render(path('viteloge_frontend_ad_latest', { 'limit': 3, 'transaction': 'V', 'where': [city.id], 'radius': constant('Viteloge\\CoreBundle\\Component\\Enum\\DistanceEnum::FIVE'), 'location': city.location, 'cityName': city.fullname })) }}
                 {{ render_hinclude(path('viteloge_frontend_querystats_latest', { 'limit': 10, 'transaction': 'V', 'inseeCity': city.id })) }}
                 <div class="text-center margin-t10 margin-b10">
                     <a href="{{ path('viteloge_frontend_ad_search', { transaction: 'V', 'where': [city.id] }) }}" class="btn btn-default text-uppercase" role="button">{% trans %}glossary.show.all.sales{% endtrans %}</a>
@@ -43,8 +43,18 @@
         {%- block right -%}
             {%- embed "VitelogeFrontendBundle:Block:aside_right.html.twig" -%}
                 {%- block aside_before_adsense1 -%}
-                    {{- render_hinclude(path('viteloge_frontend_suggest_near', { 'name': city.slug, 'id': city.id, 'radius': 10, 'limit': 10, '_format': 'html' })) -}}
+                    {{- render_hinclude(path('viteloge_frontend_suggest_near', { 'name': city.slug, 'id': city.id, 'radius': constant('Viteloge\\CoreBundle\\Component\\Enum\\DistanceEnum::TEN'), 'limit': 10, '_format': 'html' })) -}}
                 {%- endblock aside_before_adsense1 -%}
+                {%- block aside_before_services -%}
+                    <section class="cloud text-center">
+                        <h4 class="h4 text-uppercase">{% trans %}glossary.last.research{% endtrans %}</h4>
+                        {{ render_hinclude(path('viteloge_frontend_querystats_latest', { 'limit': 5, 'inseeCity': city.id })) }}
+                        <a href="{{ path('viteloge_frontend_querystats_city', { 'name': city.slug, 'id': city.id }) }}" class="btn btn-primary margin-b10" role="button">
+                            <span class="fa fa-search"></span>
+                            <span class="">{% trans %}glossary.action.see.all{% endtrans %}</span>
+                        </a>
+                    </section>
+                {%- endblock aside_before_services -%}
             {%- endembed -%}
         {%- endblock -%}
     {%- endembed -%}

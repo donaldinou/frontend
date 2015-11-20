@@ -15,6 +15,9 @@ namespace Viteloge\FrontendBundle\Controller {
     use Symfony\Component\Serializer\Serializer;
     use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
     use Symfony\Component\Serializer\Encoder\JsonEncoder;
+    use Pagerfanta\Pagerfanta;
+    use Pagerfanta\Adapter\ArrayAdapter;
+    use Pagerfanta\Adapter\DoctrineORMAdapter;
     use Acreat\InseeBundle\Entity\InseeCity;
     use Acreat\InseeBundle\Entity\InseeDepartment;
     use Acreat\InseeBundle\Entity\InseeState;
@@ -22,6 +25,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use Viteloge\CoreBundle\Entity\QueryStats;
     use Viteloge\CoreBundle\Entity\UserSearch;
     use Viteloge\CoreBundle\Component\DBAL\EnumTransactionType;
+    use Viteloge\CoreBundle\Component\Enum\DistanceEnum;
     use Viteloge\CoreBundle\SearchEntity\Ad as AdSearch;
 
     /**
@@ -108,7 +112,16 @@ namespace Viteloge\FrontendBundle\Controller {
                 $cityId = current($where);
                 $cityRepository = $this->getDoctrine()->getRepository('AcreatInseeBundle:InseeCity');
                 $inseeCity = $cityRepository->find((int)$cityId);
+            }
+            // --
+
+            // Improve search for specifics city
+            if ($inseeCity instanceof InseeCity) {
+                $radius = $adSearch->getRadius();
                 $adSearch->setLocation($inseeCity->getLocation());
+                if ($inseeCity->getGeolevel() == 'ARM' && empty($radius)) {
+                    $adSearch->setRadius(DistanceEnum::FIVE);
+                }
             }
             // --
 
@@ -444,11 +457,21 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:Ad:suggestNew.html.twig")
          */
         public function suggestNewAction(Request $request, $limit) {
-            $repository = $this->getDoctrine()
-                ->getRepository('VitelogeCoreBundle:Ad');
-            $ads = $repository->findByAgencyIdNew(array('createdAt' => 'DESC'), $limit);
+            $em = $this->getDoctrine()->getEntityManager();
+            $queryBuilder = $em->createQueryBuilder()
+                ->select('ad')
+                ->from('VitelogeCoreBundle:Ad', 'ad')
+                ->orderBy('ad.createdAt', 'DESC')
+            ;
+
+            $adapter = new DoctrineORMAdapter($queryBuilder, true, false);
+            $pagination = new Pagerfanta($adapter);
+            $pagination->setCurrentPage(1);
+            $pagination->setMaxPerPage($limit);
+
             return array(
-                'ads' => $ads
+                'count' => $pagination->getNbResults(),
+                'ads' => $pagination->getCurrentPageResults()
             );
         }
 

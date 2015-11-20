@@ -226,22 +226,6 @@
         <source>viteloge_frontend_user_index</source>
         <target>/utilisateur/</target>
       </trans-unit>
-      <trans-unit id="f568c5294d4d752b29f0d7c8f33b2558" resname="viteloge_frontend_usersearch_create">
-        <source>viteloge_frontend_usersearch_create</source>
-        <target>/utilisateur/recherche/ajout/</target>
-      </trans-unit>
-      <trans-unit id="132083c3ca087ca7942604dce0649c70" resname="viteloge_frontend_usersearch_delete">
-        <source>viteloge_frontend_usersearch_delete</source>
-        <target>/utilisateur/recherche/supprimer/{id}</target>
-      </trans-unit>
-      <trans-unit id="7322bd9cc0a2c584b486148411f4342c" resname="viteloge_frontend_usersearch_edit">
-        <source>viteloge_frontend_usersearch_edit</source>
-        <target>/utilisateur/recherche/editer/{id}</target>
-      </trans-unit>
-      <trans-unit id="d45e6ca25decf1dffada09abcb5e99f9" resname="viteloge_frontend_usersearch_list">
-        <source>viteloge_frontend_usersearch_list</source>
-        <target>/utilisateur/recherche/liste/</target>
-      </trans-unit>
       <trans-unit id="viteloge_frontend_suggest_cities" resname="viteloge_frontend_suggest_cities">
         <source>viteloge_frontend_suggest_cities</source>
         <target>/suggestion/villes/{_format}</target>
@@ -269,6 +253,22 @@
       <trans-unit id="viteloge_frontend_websearch_list" resname="viteloge_frontend_websearch_list">
         <source>viteloge_frontend_websearch_list</source>
         <target>/utilisateur/alerte/liste/</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_websearch_latest" resname="viteloge_frontend_websearch_latest">
+        <source>viteloge_frontend_websearch_latest</source>
+        <target>/utilisateur/alerte/derniere</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_websearch_latest_limited" resname="viteloge_frontend_websearch_latest_limited">
+        <source>viteloge_frontend_websearch_latest_limited</source>
+        <target>/utilisateur/alerte/derniere/{limit}</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_usersearch_city" resname="viteloge_frontend_usersearch_city">
+        <source>viteloge_frontend_usersearch_city</source>
+        <target>/utilisateur/recherche/ville/{name}/{id}/{page}/{limit}</target>
+      </trans-unit>
+      <trans-unit id="132083c3ca087ca7942604dce0649c70" resname="viteloge_frontend_usersearch_delete">
+        <source>viteloge_frontend_usersearch_delete</source>
+        <target>/utilisateur/recherche/supprimer/{id}</target>
       </trans-unit>
       <trans-unit id="viteloge_frontend_sitemap_index" resname="viteloge_frontend_sitemap_index">
         <source>viteloge_frontend_sitemap_index</source>

@@ -5,6 +5,10 @@ if (typeof jQuery === 'undefined') {
 jQuery(document).ready(function() {
     initLazyLoad();
 
+    if (jQuery('').length) {
+        runResponsiveCarousel('#carousel-ad-news', 1);
+    }
+
     // forbit scroll for a small sized screen
     jQuery('#navbar-navigation').on('show.bs.collapse', function (event) {jQuery('body').css('overflow', 'hidden')});
     jQuery('#navbar-navigation').on('hidden.bs.collapse', function (event) {jQuery('body').css('overflow', '')});
@@ -619,12 +623,15 @@ var generateUUID = function generateUUID() {
     return uuid;
 };
 
-function runResponsiveCarousel(identifier) {
+function runResponsiveCarousel(identifier, items) {
+    if (!items) {
+        items = 3;
+    }
     jQuery(identifier).owlCarousel({
         loop: true,
         center: false,
         margin: 10,
-        items: 3,
+        items: items,
         dots: false,
         navText: [
             '<span class="fa fa-chevron-left"></span>',

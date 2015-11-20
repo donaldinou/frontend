@@ -1,3 +1,14 @@
+.owl-carousel {
+    .owl-stage-outer {
+        .owl-stage {
+            .owl-item {
+                .owl-lazy {
+                    opacity: initial;
+                }
+            }
+        }
+    }
+}
 .owl-stage-outer {
     z-index: 10;
     .owl-stage {

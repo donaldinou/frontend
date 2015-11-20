@@ -9,9 +9,9 @@
         {% block left %}
             <article class="clearfix">
                 <h1 class="h3">{%- trans with { '%city%': inseeCity.getNameAndPostalcode() } -%}querystats.search.done.city{%- endtrans -%}</h1>
-                {% set count = pagination.nbResults|default(queries|length) %}
+                {% set count = pagination.nbResults|default(userSearches|length) %}
                 <h2 class="h4">{%- transchoice count with {'%count%' : count} -%}querystats.search.count.available{%- endtranschoice -%}</h2>
-                {{- include('VitelogeFrontendBundle:QueryStats:fragment/paginated.html.twig', {}) -}}
+                {{- include('VitelogeFrontendBundle:UserSearch:fragment/paginated.html.twig', {}) -}}
             </article>
         {% endblock %}
         {% block right %}

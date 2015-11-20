@@ -14,6 +14,10 @@ namespace Viteloge\FrontendBundle\Controller {
     use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
     use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
     use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+    use Pagerfanta\Pagerfanta;
+    use Pagerfanta\Adapter\ArrayAdapter;
+    use Pagerfanta\Adapter\DoctrineORMAdapter;
+    use Acreat\InseeBundle\Entity\InseeCity;
     use Viteloge\CoreBundle\Entity\WebSearch;
     use Viteloge\CoreBundle\Entity\UserSearch;
     use Viteloge\CoreBundle\SearchEntity\Ad as AdSearch;
@@ -158,7 +162,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *     defaults={
          *         "limit" = "5"
          *     },
-         *     name="viteloge_frontend_websearch_latest"
+         *     name="viteloge_frontend_websearch_latest_limited"
          * )
          * @Route(
          *      "/latest/",

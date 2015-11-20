@@ -33,7 +33,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *          "limit"="\d+"
          *      },
          *      defaults={
-        *           "page" = "1",
+         *          "page" = "1",
          *          "limit" = "100"
          *      },
          *      name="viteloge_frontend_querystats_city",

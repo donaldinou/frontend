@@ -5,7 +5,7 @@
                 {%- for key, queryStats in queries|slice(0, (queries|length)/2) %}
                     {{ include('VitelogeFrontendBundle:QueryStats:render/li.html.twig', {}) }}
                 {% else %}
-                    <li>{% trans %}querystats.nomore{% endtrans %}</li>
+                    <li class="clearfix">{% trans %}querystats.nomore{% endtrans %}</li>
                 {% endfor -%}
             </ul>
         </div>
@@ -14,7 +14,7 @@
                 {%- for key, queryStats in queries|slice((queries|length)/2, queries|length) %}
                     {{ include('VitelogeFrontendBundle:QueryStats:render/li.html.twig', {}) }}
                 {% else %}
-                    <li>{% trans %}querystats.nomore{% endtrans %}</li>
+                    <li class="clearfix">{% trans %}querystats.nomore{% endtrans %}</li>
                 {% endfor -%}
             </ul>
         </div>
