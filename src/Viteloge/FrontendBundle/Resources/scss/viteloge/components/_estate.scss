@@ -119,7 +119,9 @@
             &:hover, &:focus {
                 > .expand-hover {
                     .expand-hover-text, .expand-hover-icon {
-                        display: none !important;
+                        @media (max-width: $screen-sm-max) {
+                            display: none !important;
+                        }
                     }
                 }
             }
@@ -198,14 +200,16 @@
 
 .program {
     .program-images {
-        .program-preview {
-            background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogecore/images/fr/logo-viteloge-moteur-recherche-immobilier.svg.gz');
-            background-position: center center;
+        .program-preview, .preview > img {
+            background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogecore/images/logo-small-viteloge.gz');
+            background-position: top center;
             background-repeat: no-repeat;
             background-color: #ddd;
-            background-size: 230px;
-            width: 100px;
-            min-height: 50px;
+            background-size: 60px;
+            min-width: 100px;
+            min-height: 60px;
+            max-height: 175px;
+            margin: 0px auto;
         }
     }
 }

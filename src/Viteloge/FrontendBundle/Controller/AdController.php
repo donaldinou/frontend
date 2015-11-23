@@ -23,6 +23,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use Acreat\InseeBundle\Entity\InseeState;
     use Viteloge\CoreBundle\Entity\Ad;
     use Viteloge\CoreBundle\Entity\QueryStats;
+    use Viteloge\CoreBundle\Entity\Statistics;
     use Viteloge\CoreBundle\Entity\UserSearch;
     use Viteloge\CoreBundle\Component\DBAL\EnumTransactionType;
     use Viteloge\CoreBundle\Component\Enum\DistanceEnum;
@@ -511,6 +512,29 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->setLinkCanonical($canonicalLink)
             ;
             // --
+
+            $forbiddenUA = array(
+                'yakaz_bot' => 'YakazBot/1.0',
+                'mitula_bot' => 'java/1.6.0_26'
+            );
+            $forbiddenIP = array(
+
+            );
+            $ua = $request->headers->get('User-Agent');
+            $ip = $request->getClientIp();
+
+            // log redirect
+            if (!in_array($ua, $forbiddenUA) && !in_array($ip, $forbiddenIP)) {
+                $now = new \DateTime('now');
+                $statistics = new Statistics();
+                $statistics->setIp($ip);
+                $statistics->setUa($ua);
+                $statistics->initFromAd($ad);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($statistics);
+                $em->flush();
+            }
 
             return array(
                 'ad' => $ad

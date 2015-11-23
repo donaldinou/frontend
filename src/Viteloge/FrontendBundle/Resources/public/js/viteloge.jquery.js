@@ -627,6 +627,18 @@ function runResponsiveCarousel(identifier, items) {
     if (!items) {
         items = 3;
     }
+    var responsiveNavigation = {
+        items: items,
+        nav: true
+    };
+    if (items==1) {
+        responsiveNavigation = {
+            items: 1,
+            margin: 5,
+            stagePadding: 10,
+            nav: false
+        }
+    }
     jQuery(identifier).owlCarousel({
         loop: true,
         center: false,
