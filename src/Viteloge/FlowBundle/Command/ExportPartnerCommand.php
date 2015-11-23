@@ -122,7 +122,7 @@ namespace Viteloge\FlowBundle\Command {
          */
         protected function generateMitulaExport($data, ProgressBar $progress=null) {
             $router = $this->getContainer()->get('router');
-            $domain = $container->getParameter('media_domain');
+            $domain = $this->getContainer()->getParameter('media_domain');
 
             $root = new \Acreat\MitulaBundle\Component\Mitula();
             foreach ($data as $key => $row) {
@@ -183,7 +183,7 @@ namespace Viteloge\FlowBundle\Command {
          */
         protected function generateTrovitExport($data, ProgressBar $progress=null) {
             $router = $this->getContainer()->get('router');
-            $domain = $container->getParameter('media_domain');
+            $domain = $this->getContainer()->getParameter('media_domain');
 
             $root = new \Acreat\TrovitBundle\Component\Root();
             foreach ($data as $key => $row) {
@@ -263,7 +263,7 @@ namespace Viteloge\FlowBundle\Command {
          */
         protected function generateYakazExport($data, ProgressBar $progress=null) {
             $router = $this->getContainer()->get('router');
-            $domain = $container->getParameter('media_domain');
+            $domain = $this->getContainer()->getParameter('media_domain');
 
             $root = new \Acreat\TrovitBundle\Component\Root();
             $root->version = '1.0';
