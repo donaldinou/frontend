@@ -94,7 +94,7 @@ namespace Viteloge\FlowBundle\Command {
                     $xml = '<error/>';
                 }
 
-                $file = $this->getContainer()->get('kernel')->getRootDir().'/'.$filename;
+                $file = $this->getContainer()->get('kernel')->getRootDir().'/../web/'.$filename;
                 $output->writeln('<info>Generate '.$file.'</info>');
                 $fs = new Filesystem();
                 $fs->dumpFile($file, $xml);
@@ -259,7 +259,7 @@ namespace Viteloge\FlowBundle\Command {
             $router = $this->getContainer()->get('router');
             $domain = $this->getContainer()->getParameter('media_domain');
 
-            $root = new \Acreat\TrovitBundle\Component\Root();
+            $root = new \Acreat\YakazBundle\Component\Yakaz();
             $root->version = '1.0';
             $root->housings = new \Acreat\YakazBundle\Component\Collection\Housings();
             foreach ($data as $key => $row) {
