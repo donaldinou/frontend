@@ -68,19 +68,13 @@ namespace Viteloge\FlowBundle\Command {
                     case 'trovit':
                         $filename = 'trovit_feeds.xml';
                         $object = $this->generateTrovitExport($data, $progress);
-                        $progress->finish();
-                        $output->writeln('');
                         break;
                     case 'yakaz':
                         $filename = 'yakaz_feed.xml';
-                        $progress->start();
                         $object = $this->generateYakazExport($data, $progress);
-                        $progress->finish();
-                        $output->writeln('');
                         break;
                     case 'mitula':
                         $filename = 'mitula.xml';
-                        $progress->start();
                         $object = $this->generateMitulaExport($data, $progress);
                         break;
                     default:
