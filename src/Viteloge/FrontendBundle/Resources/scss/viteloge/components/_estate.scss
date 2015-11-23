@@ -201,7 +201,7 @@
 .program {
     .program-images {
         .program-preview, .preview > img {
-            background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogecore/images/logo-small-viteloge.png.gz');
+            background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogecore/images/logo-small-viteloge.svg.gz');
             background-position: top center;
             background-repeat: no-repeat;
             background-color: #ddd;
