@@ -1,9 +1,5 @@
 {% extends 'VitelogeFrontendBundle::base.html.twig' %}
 
-{% block head_javascript_requirejs %}
-    {{- include('VitelogeFrontendBundle:misc:requirejs.html.twig', { 'module': 'app/homepage.js' }) -}}
-{% endblock %}
-
 {%- block theme -%}
     {{ parent() }} home
 {%- endblock -%}

@@ -668,10 +668,7 @@ function runResponsiveCarousel(identifier, items) {
                 stagePadding: 50,
                 nav: false
             },
-            970:{
-                items: items,
-                nav: true
-            }
+            970: responsiveNavigation
         }
     });
 }

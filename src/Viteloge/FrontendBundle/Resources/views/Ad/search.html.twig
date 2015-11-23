@@ -6,11 +6,7 @@
 
 {%- block head_javascripts -%}
     {{ parent() }}
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;libraries=geometry"></script>
-{%- endblock -%}
-
-{%- block head_javascript_requirejs -%}
-    {{ include('VitelogeFrontendBundle:misc:requirejs.html.twig', { 'module': 'app/homepage.js' }) }}
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;libraries=geometry"></script>
 {%- endblock -%}
 
 {%- block header -%}
