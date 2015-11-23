@@ -1,0 +1,4 @@
+services:
+#    acreat_trovit.example:
+#        class: Acreat\TrovitBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

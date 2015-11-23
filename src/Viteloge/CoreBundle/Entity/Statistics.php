@@ -4,6 +4,7 @@ namespace Viteloge\CoreBundle\Entity {
 
     use Doctrine\ORM\Mapping as ORM;
     use Symfony\Component\Validator\Constraints as Assert;
+    use Viteloge\CoreBundle\Entity\Ad;
 
     /**
      * Statistics
@@ -18,119 +19,119 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @ORM\Column(name="date", type="datetime", nullable=false)
          */
-        private $date;
+        protected $date;
 
         /**
          * @var integer
          *
          * @ORM\Column(name="annee", type="smallint", nullable=false)
          */
-        private $year;
+        protected $year;
 
         /**
          * @var integer
          *
          * @ORM\Column(name="mois", type="smallint", nullable=false)
          */
-        private $month;
+        protected $month;
 
         /**
          * @var integer
          *
          * @ORM\Column(name="jour", type="smallint", nullable=false)
          */
-        private $day;
+        protected $day;
 
         /**
          * @var string
          *
          * @ORM\Column(name="ip", type="string", length=15, nullable=false)
          */
-        private $ip;
+        protected $ip;
 
         /**
          * @var string
          *
          * @ORM\Column(name="UA", type="string", length=128, nullable=false)
          */
-        private $ua;
+        protected $ua;
 
         /**
          * @var integer
          *
          * @ORM\Column(name="idAgence", type="integer", nullable=false)
          */
-        private $agencyId;
+        protected $agencyId;
 
         /**
          * @var string
          *
          * @ORM\Column(name="agence", type="string", length=100, nullable=false)
          */
-        private $agencyName;
+        protected $agencyName;
 
         /**
          * @var string
          *
          * @ORM\Column(name="specifAgence", type="string", length=255, nullable=false)
          */
-        private $agencySpecial;
+        protected $agencySpecial;
 
         /**
          * @var string
          *
          * @ORM\Column(name="url", type="string", length=255, nullable=false)
          */
-        private $url;
+        protected $url;
 
         /**
          * @var string
          *
          * @ORM\Column(name="transaction", type="string", length=1, nullable=false)
          */
-        private $transaction;
+        protected $transaction;
 
         /**
          * @var string
          *
          * @ORM\Column(name="type", type="string", length=50, nullable=false)
          */
-        private $type;
+        protected $type;
 
         /**
          * @var boolean
          *
          * @ORM\Column(name="nbpiece", type="boolean", nullable=false)
          */
-        private $rooms;
+        protected $rooms;
 
         /**
          * @var float
          *
          * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
          */
-        private $price;
+        protected $price;
 
         /**
          * @var string
          *
          * @ORM\Column(name="commune", type="string", length=255, nullable=false)
          */
-        private $cityName;
+        protected $cityName;
 
         /**
          * @var integer
          *
          * @ORM\Column(name="arrondissement", type="smallint", nullable=false)
          */
-        private $distictId;
+        protected $districtId;
 
         /**
          * @var string
          *
          * @ORM\Column(name="codepostal", type="string", length=8, nullable=false)
          */
-        private $postalcode;
+        protected $postalcode;
 
         /**
          * @var integer
@@ -139,7 +140,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Id
          * @ORM\GeneratedValue(strategy="IDENTITY")
          */
-        private $id;
+        protected $id;
 
         /**
          * @var \Viteloge\CoreBundle\Entity\Ad
@@ -149,7 +150,7 @@ namespace Viteloge\CoreBundle\Entity {
          *   @ORM\JoinColumn(name="idAnnonce", referencedColumnName="idAnnonce")
          * })
          */
-        private $ad;
+        protected $ad;
 
         /**
          * @var \Acreat\InseeBundle\Entity\InseeCity
@@ -159,9 +160,43 @@ namespace Viteloge\CoreBundle\Entity {
          *   @ORM\JoinColumn(name="codeInsee", referencedColumnName="codeInsee")
          * })
          */
-        private $inseeCity;
+        protected $inseeCity;
 
+        /**
+         * @return Statistics
+         */
+        protected function updateCreatedAt() {
+            $this->date->setDate($this->getYear(), $this->getMonth(), $this->getDay());
+            return $this;
+        }
 
+        /**
+         *
+         */
+        public function __construct() {
+            $this->setDate(new \DateTime('now'));
+        }
+
+        /**
+         *
+         */
+        public function initFromAd(Ad $ad) {
+            $this->setAd($ad);
+            $this->setInseeCity($ad->getInseeCity());
+            $this->setAgencyId($ad->getAgencyId());
+            $this->setAgencyName($ad->getAgencyName());
+            $this->setAgencySpecial($ad->getAgencySpecial());
+            $this->setUrl($ad->getUrl());
+            $this->setTransaction($ad->getTransaction());
+            $this->setType($ad->getType());
+            $this->setRooms($ad->getRooms());
+            $this->setPrice($ad->getPrice());
+            $this->setCityName($ad->getCityName());
+            $this->setDistrictId($ad->getDistrictId());
+            $this->setPostalCode($ad->getPostalCode());
+
+            return $this;
+        }
 
         /**
          * Set date
@@ -169,10 +204,15 @@ namespace Viteloge\CoreBundle\Entity {
          * @param \DateTime $date
          * @return Statistics
          */
-        public function setDate($date)
-        {
-            $this->date = $date;
+        public function setDate($date) {
+            try {
+                $this->date = $date;
+                $this->setYear((int)$this->date->format('Y'));
+                $this->setMonth((int)$this->date->format('m'));
+                $this->setDay((int)$this->date->format('d'));
+            } catch (\Exception $e) {
 
+            }
             return $this;
         }
 
@@ -192,9 +232,11 @@ namespace Viteloge\CoreBundle\Entity {
          * @param integer $year
          * @return Statistics
          */
-        public function setYear($year)
-        {
-            $this->year = $year;
+        public function setYear($year) {
+            if (is_int($year)) {
+                $this->year = $year;
+                $this->updateCreatedAt();
+            }
 
             return $this;
         }
@@ -215,9 +257,11 @@ namespace Viteloge\CoreBundle\Entity {
          * @param integer $month
          * @return Statistics
          */
-        public function setMonth($month)
-        {
-            $this->month = $month;
+        public function setMonth($month) {
+            if (is_int($month)) {
+                $this->month = $month;
+                $this->updateCreatedAt();
+            }
 
             return $this;
         }
@@ -238,9 +282,11 @@ namespace Viteloge\CoreBundle\Entity {
          * @param integer $day
          * @return Statistics
          */
-        public function setDay($day)
-        {
-            $this->day = $day;
+        public function setDay($day) {
+            if (is_int($day)) {
+                $this->day = $day;
+                $this->updateCreatedAt();
+            }
 
             return $this;
         }
@@ -509,26 +555,26 @@ namespace Viteloge\CoreBundle\Entity {
         }
 
         /**
-         * Set distictId
+         * Set districtId
          *
-         * @param integer $distictId
+         * @param integer $districtId
          * @return Statistics
          */
-        public function setDistictId($distictId)
+        public function setDistrictId($districtId)
         {
-            $this->distictId = $distictId;
+            $this->districtId = $districtId;
 
             return $this;
         }
 
         /**
-         * Get distictId
+         * Get districtId
          *
          * @return integer
          */
-        public function getDistictId()
+        public function getDistrictId()
         {
-            return $this->distictId;
+            return $this->districtId;
         }
 
         /**
@@ -570,7 +616,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @param \Viteloge\CoreBundle\Entity\Ad $ad
          * @return Statistics
          */
-        public function setAd(\Viteloge\CoreBundle\Entity\Ad $ad = null)
+        public function setAd(Ad $ad = null)
         {
             $this->ad = $ad;
 

@@ -12,6 +12,9 @@ namespace Viteloge\CoreBundle\Repository {
      */
     class AdRepository extends EntityRepository {
 
+        /**
+         *
+         */
         public function countByFiltered(array $criteria=null, array $orderBy = null) {
             $first = true;
             $query = $this->createQueryBuilder('a')
@@ -51,6 +54,24 @@ namespace Viteloge\CoreBundle\Repository {
         public function findByAgencyIdNew(array $orderBy = null, $limit = null, $offset = null) {
             $criteria['agencyId'] = constant($this->_entityName.'::AGENCY_ID_NEW');
             return $this->findBy($criteria, $orderBy, $limit, $offset);
+        }
+
+        /**
+         *
+         */
+        public function findByExportable() {
+            $qb = $this->_em->createQueryBuilder();
+            $qb
+                ->select('ad')
+                ->distinct()
+                ->from('VitelogeCoreBundle:Ad', 'ad')
+                ->leftJoin('ad.inseeCity', 'aic')
+                ->leftJoin('aic.inseeDepartment', 'aid')
+                ->where('ad.privilegeCode <> \'\'')
+                ->andWhere('ad.transaction IN (:transaction)')
+                ->setParameter('transaction', array('L', 'V', 'N'))
+            ;
+            return $qb->getQuery()->getResult();
         }
 
     }
