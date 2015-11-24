@@ -43,7 +43,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      name="viteloge_frontend_glossary",
          *      options = {
          *          "i18n" = true,
-         *          "vl_sitemap" = {
+         *          "vl_nositemap" = {
          *              "title" = "viteloge.frontend.glossary.index.title",
          *              "description" = "viteloge.frontend.glossary.index.description",
          *              "changefreq" = "hourly",

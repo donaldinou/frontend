@@ -30,6 +30,10 @@
                 <source>user.register.login</source>
                 <target>Se connecter sur ViteLogé</target>
             </trans-unit>
+            <trans-unit id="user.register.informations" resname="user.register.informations">
+                <source>user.register.informations</source>
+                <target>Informations utilisateur</target>
+            </trans-unit>
             <trans-unit id="user.register.account.exist" resname="user.register.account.exist">
                 <source>user.register.account.exist</source>
                 <target>Vous avez déjà un compte</target>

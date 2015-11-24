@@ -10,31 +10,31 @@
         background-size: cover;
     }
     &.one {
-        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg');
+        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg.gz');
     }
     &.two {
-        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg');
+        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg.gz');
     }
     &.three {
-        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg');
+        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg.gz');
     }
     &.four {
-        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg');
+        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg.gz');
     }
     &.five {
-        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg');
+        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg.gz');
     }
     &.six {
-        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg');
+        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg.gz');
     }
     &.seven {
-        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg');
+        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg.gz');
     }
     &.eight {
-        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg');
+        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg.gz');
     }
     &.nine {
-        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg');
+        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/teaser/teaser-01.jpg.gz');
     }
     .over {
         padding-top: 18px;
@@ -42,6 +42,11 @@
         background-color: rgba(0, 0, 0, .5);
         .over-content {
             color: #fff;
+            a {
+                &:hover, &:focus, &:active {
+                    color: darken(#fff, 2);
+                }
+            }
         }
     }
     &.teaser-fixed {

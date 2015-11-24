@@ -278,6 +278,22 @@
         <source>viteloge_frontend_sitemap_index_format</source>
         <target>/plan-du-site.{_format}</target>
       </trans-unit>
+      <trans-unit id="viteloge_frontend_sitemap_state" resname="viteloge_frontend_sitemap_state">
+        <source>viteloge_frontend_sitemap_state</source>
+        <target>/plan-du-site/state/{id}</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_sitemap_state_format" resname="viteloge_frontend_sitemap_state_format">
+        <source>viteloge_frontend_sitemap_state_format</source>
+        <target>/plan-du-site/state/{id}.{_format}</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_sitemap_department" resname="viteloge_frontend_sitemap_department">
+        <source>viteloge_frontend_sitemap_department</source>
+        <target>/plan-du-site/department/{id}</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_sitemap_department_format" resname="viteloge_frontend_sitemap_department_format">
+        <source>viteloge_frontend_sitemap_department_format</source>
+        <target>/plan-du-site/department/{id}.{_format}</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

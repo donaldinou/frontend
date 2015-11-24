@@ -258,6 +258,10 @@
         <source>viteloge.sitemap</source>
         <target>Plan du site</target>
       </trans-unit>
+      <trans-unit id="viteloge.sitemap.description" resname="viteloge.sitemap.description">
+        <source>viteloge.sitemap.description</source>
+        <target>Plan du site de ViteLogé, le moteur de recherche de l'immobilier</target>
+      </trans-unit>
       <trans-unit id="1d5d03051130d02cfc76784d8f5d4914" resname="If you like fasthousing dot com click on">
         <source>If you like fasthousing dot com click on</source>
         <target>Si vous aimez viteloge.com cliquez sur</target>
@@ -1115,7 +1119,7 @@
         <target>Immobilier - Vitelogé, Le moteur de recherche de l'immobilier. Acheter une maison, louer un appartement? Vitelogé est le site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers.</target>
       </trans-unit>
       <trans-unit id="viteloge.frontend.websearch.city.title" resname="viteloge.frontend.websearch.city.title">
-        <source>viteloge.frontend.glossary.websearch.description</source>
+        <source>viteloge.frontend.websearch.city.title</source>
         <target>Immobilier %city% - Vitelogé - Recherche utilisateur sur le moteur de l'immobilier</target>
       </trans-unit>
       <trans-unit id="viteloge.frontend.websearch.city.description" resname="viteloge.frontend.websearch.city.description">
@@ -1124,7 +1128,7 @@
       </trans-unit>
       <trans-unit id="viteloge.frontend.static.about.title" resname="viteloge.frontend.static.about.title">
         <source>viteloge.frontend.static.index.title</source>
-        <target>Immobilier - Vitelogé - A propos du Le moteur de recherche de l'immobilier</target>
+        <target>Immobilier - Vitelogé - A propos du moteur de recherche de l'immobilier</target>
       </trans-unit>
       <trans-unit id="viteloge.frontend.static.about.maintitle" resname="viteloge.frontend.static.about.maintitle">
         <source>viteloge.frontend.static.index.maintitle</source>

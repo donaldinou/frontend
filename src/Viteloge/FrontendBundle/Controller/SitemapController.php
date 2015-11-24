@@ -109,7 +109,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      defaults={
          *          "_format"="html"
          *      },
-         *      name="viteloge_frontend_sitemap_state",
+         *      name="viteloge_frontend_sitemap_state_format",
          *      options = {
          *          "i18n" = true
          *      }
@@ -165,7 +165,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      defaults={
          *          "_format"="html"
          *      },
-         *      name="viteloge_frontend_sitemap_department",
+         *      name="viteloge_frontend_sitemap_department_format",
          *      options = {
          *          "i18n" = true
          *      }

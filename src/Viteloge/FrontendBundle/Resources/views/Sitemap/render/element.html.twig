@@ -1,13 +1,24 @@
-<a href="{{ url.loc }}" class="list-group-item"{% if url.hasChild() %} data-ajax-click="{{ url.childrenLoc }}" data-ajax-parent="#list-sitemap" data-ajax-animate="rightToLeft"{% endif %}>
+{%- set header1 = header1|default('h3') -%}
+{%- set header2 = header2|default('p')-%}
+{%- set class = class|default('list-group-item') -%}
+{%- set data = data|default({}) -%}
+{%- if url.hasChild and data is empty -%}
+    {%- set data = { 'ajax-click': url.childrenLoc, 'ajax-parent': '#list-sitemap', 'ajax-animate': 'rightToLeft' } -%}
+{%- endif -%}
+<a href="{{ url.loc }}" class="{{ class }}"{% if data is not empty %} {%- for key, value in data -%}data-{{ key }}="{{ value }}"{%- endfor -%}{% endif %}>
     <div class="row">
         <div class="col-xs-10">
-            <h4 class="list-group-item-heading">{{ url.name }}</h4>
-            <p>{{ url.description }}</p>
+            {%- block column_left -%}
+                {{ ('<' ~ header1 ~ ' class="h4 list-group-item-heading">')|raw }}{{ url.name }}{{ ('</' ~ header1 ~ '>')|raw }}
+                {{ ('<' ~ header2 ~ ' class="h5">')|raw }}{{ url.description }}{{ ('</' ~ header2 ~ '>')|raw }}
+            {%- endblock column_left -%}
         </div>
         <div class="col-xs-2 text-right">
-            {%- if url.hasChild() -%}
-                <span class="fa fa-chevron-right"></span>
-            {%- endif -%}
+            {%- block column_right -%}
+                {%- if url.hasChild -%}
+                    <span class="fa fa-chevron-right"></span>
+                {%- endif -%}
+            {%- endblock column_right -%}
         </div>
     </div>
 </a>

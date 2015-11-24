@@ -4,13 +4,20 @@
     {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
         {% block left %}
             <div id="list-sitemap" class="list-group">
+                {%- set root = {
+                    'name': 'viteloge.sitemap'|trans,
+                    'description': 'viteloge.sitemap.description'|trans,
+                    'loc': path('viteloge_frontend_sitemap_index'),
+                    'hasChild': false
+                } -%}
+                {{- include('VitelogeFrontendBundle:Sitemap:render/element.html.twig', { 'header1': 'h1', 'header2': 'h2', 'url': root, 'class': 'list-group-item active' }) -}}
                 {%- for url in urls -%}
-                    {{ include('VitelogeFrontendBundle:Sitemap:render/element.html.twig', { 'url': url }) }}
+                    {{- include('VitelogeFrontendBundle:Sitemap:render/element.html.twig', { 'url': url }) -}}
                 {%- endfor -%}
             </div>
         {% endblock %}
         {% block right %}
-            {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
+            {{- include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) -}}
         {% endblock %}
     {% endembed %}
 {% endblock main %}
