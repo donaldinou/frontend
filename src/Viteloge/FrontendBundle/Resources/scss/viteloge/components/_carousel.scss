@@ -1,9 +1,18 @@
+.carousel, .owl-carousel {
+    .owl-item {
+        .estate {
+            img {
+                max-width: 230px;
+            }
+        }
+    }
+}
 .owl-carousel {
     .owl-stage-outer {
         .owl-stage {
             .owl-item {
                 .owl-lazy {
-                    opacity: initial;
+                    opacity: initial !important;
                 }
             }
         }
