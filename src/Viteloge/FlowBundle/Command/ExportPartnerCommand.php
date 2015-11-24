@@ -50,6 +50,9 @@ namespace Viteloge\FlowBundle\Command {
             //$logger = $this->getContainer()->get('logger');
             //$translator = $this->getContainer()->get('translator');
 
+            ini_set('memory_limit', '8192M');
+            set_time_limit(360000);
+
             $entityManager = $this->getContainer()->get('doctrine')->getEntityManager();
             $adRepository = $entityManager->getRepository('VitelogeCoreBundle:Ad');
 
