@@ -850,7 +850,7 @@
         <source>websearch.flash.activated</source>
         <target>L'alerte %title% à correctement été activé</target>
       </trans-unit>
-      <trans-unit id="websearch.see.search.result" resname="websearch.see.search.resultd">
+      <trans-unit id="websearch.see.search.result" resname="websearch.see.search.result">
         <source>websearch.see.search.result</source>
         <target>Voir les résultats du moteur</target>
       </trans-unit>
