@@ -117,7 +117,7 @@
         color: #fff;
         > .nav {
             &:hover, &:focus {
-                > .expand-hover {
+                > .expand-hover:not(:hover) {
                     .expand-hover-text, .expand-hover-icon {
                         @media (max-width: $screen-sm-max) {
                             display: none !important;
