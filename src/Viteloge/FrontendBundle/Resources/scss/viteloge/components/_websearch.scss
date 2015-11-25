@@ -23,7 +23,7 @@
         a {
             display: block;
             > img {
-                background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogecore/images/fr/logo-viteloge-moteur-recherche-immobilier.svg.gz');
+                background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogecore/images/logo-small-viteloge.svg.gz');
                 background-repeat: no-repeat;
                 background-position: center center;
                 min-height: $websearch-img-min-size;

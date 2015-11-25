@@ -40,7 +40,9 @@
         </div>
         <div class="clearfix">
         {%- for ad in ads -%}
-            <div class="theme-{{ad.transaction}}">{{- include('VitelogeFrontendBundle:Ad:render/list.html.twig', { 'ad': ad }) -}}</div>
+            <div class="theme-{{ad.transaction}}">
+                {{- include('VitelogeFrontendBundle:Ad:render/list.html.twig', { 'ad': ad }) -}}
+            </div>
         {%- else -%}
             <section class="margin-t10 clearfix">
                 <div class="clearfix">
@@ -51,6 +53,11 @@
                 </div>
             </section>
         {%- endfor -%}
+        {%- if pagination is defined -%}
+            {%- if pagination is not null and not pagination.haveToPaginate -%}
+                <div class="clearfix hidden-xs hidden-sm visible-md-block visible-lg-block margin-b10"></div>
+            {%- endif -%}
+        {%- endif -%}
         </div>
         {%- if pagination is defined -%}
             {{- block('pagination') -}}
