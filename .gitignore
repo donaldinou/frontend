@@ -93,5 +93,3 @@ local.properties
 .vagrant/
 /test
 /tests
-git rm --cached
-git rm -r --cached .

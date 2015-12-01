@@ -1,9 +1,9 @@
-<h3 class="text-uppercase text-center">{% spaceless %}
+<h1 class="h3 text-uppercase text-center">{% spaceless %}
     {%- block ad_latest_title -%}
         {% set cityName = cityName|default('viteloge.from.you'|trans)%}
         {%- transchoice transaction|vl_intval with { '%city%': cityName } -%}ad.transaction.near.city{%- endtranschoice -%}
     {%- endblock ad_latest_title -%}
-{% endspaceless %}</h3>
+{% endspaceless %}</h1>
 {%- block ad_latest_content -%}
     {% for ad in ads %}
         {{ include('VitelogeFrontendBundle:Ad:render/list.html.twig', { 'ad': ad }) }}
