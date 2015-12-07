@@ -1,4 +1,4 @@
-@mixin block_ellipsis($lines, $line-height:1.4em) {
+@mixin block_ellipsis($lines, $line-height:1.4em, $bg-color:inherit) {
     position: relative;
     line-height: $line-height;
     max-height: $line-height*$lines;
@@ -13,11 +13,14 @@
     -webkit-box-orient: vertical;
     &:after {
         content: "...";
+        background-color: $bg-color;
         font-weight: bold;
+        font-style: inherit;
+        letter-spacing: 1px;
         position: absolute;
         bottom: 0;
         right: 0;
-        padding: 0 20px 1px 45px;
-        -webkit-margin-end: -45px;
+        padding: 0 8px 0px 0px;
+        -webkit-margin-end: 0px;
     }
 }
