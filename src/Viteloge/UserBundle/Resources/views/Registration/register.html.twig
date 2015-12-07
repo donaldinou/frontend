@@ -2,9 +2,9 @@
 
 {%- block main -%}
     <div class="teaser one teaser-fixed">
-        <article class="over container text-justify">
+        <article class="over container text-justify clearfix">
             <h1 class="h3 text-uppercase text-center over-content">{%- trans from 'messages' -%}user.profile.login{%- endtrans -%}</h1>
-            <div class="row">
+            <div class="row clearfix">
                 <div class="col-md-12">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <div class="services row" role="listbox">
+            <div class="services row clearfix" role="listbox">
                 {{- render_hinclude(path('viteloge_frontend_service_list', { })) -}}
             </div>
         </article>

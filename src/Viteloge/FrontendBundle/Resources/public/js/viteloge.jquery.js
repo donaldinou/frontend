@@ -29,6 +29,7 @@ jQuery(document).ready(function() {
     jQuery('body').on('click', '.accept-policy', acceptPolicy);
     jQuery('body').on('show.bs.popover', 'span[rel="quartier"]', showAreaInMapEvent);
     jQuery('body').on('show.bs.collapse', '.social-share', initSocialShareWidgetsEvent);
+    jQuery('body').on('show.bs.tab', '.social-share', initSocialShareWidgetsEvent);
     jQuery('body').on('click', 'span[rel="quartier"]', buildPopover);
     jQuery('body').on('show.bs.collapse', '.collapse', updateCollapsibleIconEvent);
     jQuery('body').on('hide.bs.collapse', '.collapse', updateCollapsibleIconEvent);
