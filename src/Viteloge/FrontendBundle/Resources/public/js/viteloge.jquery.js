@@ -581,6 +581,7 @@ var rightToLeft = function rightToLeft(parentObj, cloneObj, data) {
     });
     parentObj.animate({'width':'0px'}, "slow", function() {
         parentObj.hide().css({'width': '', 'position': '', 'top': '', 'left': ''});
+        parentObj.parent().css({'min-width': '', 'min-height': ''}); // reinit size
     });
 }
 
@@ -615,6 +616,7 @@ var leftToRight = function leftToRight(parentObj, cloneObj, data) {
     });
     parentObj.animate({'width':'0px'}, "slow", function() {
         parentObj.hide().css({'width': '', 'position': '', 'top': '', 'right': ''});
+        parentObj.parent().css({'min-width': '', 'min-height': ''}); // reinit size
     });
 }
 
