@@ -9,6 +9,11 @@ jQuery(document).ready(function() {
         runResponsiveCarousel('#carousel-ad-news', 1);
     }
 
+    // BUGFIX twig cookie
+    if (jQuery.cookie('acceptCookies') && jQuery('#cookie-policy').length) {
+        jQuery('#cookie-policy').find('.accept-policy').first().trigger('click');
+    }
+
     // forbit scroll for a small sized screen
     jQuery('#navbar-navigation').on('show.bs.collapse', function (event) {jQuery('body').css('overflow', 'hidden')});
     jQuery('#navbar-navigation').on('hidden.bs.collapse', function (event) {jQuery('body').css('overflow', '')});

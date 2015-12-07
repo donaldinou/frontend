@@ -80,7 +80,7 @@
         > p {
             padding-left: 5px;
             padding-right: 8px;
-            @include block_ellipsis(3);
+            @include block_ellipsis(3, 1.4em, #fff);
             a {
                 color: $brand-primary;
                 &:hover,

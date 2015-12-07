@@ -21,7 +21,6 @@
                 {%- if pagination is defined -%}
                 {%- block sortable -%}
                     {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") or not app.user %}
-                        {{ render_hinclude(path('viteloge_frontend_user_registermodal', {})) }}
                         <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#register-modal">{%- trans -%}ad.order{%- endtrans -%}</button>
                     {%- else -%}
                         <select name="sort" class="sortable">

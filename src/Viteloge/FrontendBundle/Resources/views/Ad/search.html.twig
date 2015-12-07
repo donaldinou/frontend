@@ -77,6 +77,9 @@
 {%- block main -%}
     {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
         {% block left %}
+            {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") or not app.user %}
+                {{ render_hinclude(path('viteloge_frontend_user_registermodal', {})) }}
+            {%- endif -%}
             {{ include('VitelogeFrontendBundle:Ad:fragment/paginated.html.twig', {}) }}
         {% endblock %}
         {% block right %}
