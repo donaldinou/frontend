@@ -28,8 +28,7 @@ jQuery(document).ready(function() {
     jQuery('body').on('submit', 'form[data-ajax="true"]', submitInAjax);
     jQuery('body').on('click', '.accept-policy', acceptPolicy);
     jQuery('body').on('show.bs.popover', 'span[rel="quartier"]', showAreaInMapEvent);
-    jQuery('body').on('show.bs.collapse', '.social-share', initSocialShareWidgetsEvent);
-    jQuery('body').on('show.bs.tab', '.social-share', initSocialShareWidgetsEvent);
+    jQuery('body').on('click', '.social-share-lnk', initSocialShareLnkWidgetsEvent);
     jQuery('body').on('click', 'span[rel="quartier"]', buildPopover);
     jQuery('body').on('show.bs.collapse', '.collapse', updateCollapsibleIconEvent);
     jQuery('body').on('hide.bs.collapse', '.collapse', updateCollapsibleIconEvent);
@@ -122,7 +121,12 @@ jQuery(document).ready(function() {
         var element = event.currentTarget;
         initSocialShareWidgets(element);
     }
-
+    function initSocialShareLnkWidgetsEvent(event) {
+        var element = event.currentTarget;
+        var href = jQuery(element).attr('href');
+        var target = document.getElementById(href);
+        initSocialShareWidgets(target);
+    }
     function initSocialShareWidgets(element) {
         if (twttr) {
             twttr.widgets.load(element);
