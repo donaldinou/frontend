@@ -1276,7 +1276,7 @@
       </trans-unit>
       <trans-unit id="viteloge.frontend.glossary.showcity.title.city" resname="viteloge.frontend.glossary.showcity.title.city">
         <source>viteloge.frontend.glossary.showcity.title.city</source>
-        <target>Immobilier %city% - Vitelogé - Moteur de recherche immobilier</target>
+        <target>Immobilier %city% | Annonces immobilières sur ViteLogé</target>
       </trans-unit>
       <trans-unit id="viteloge.frontend.glossary.showcity.description" resname="viteloge.frontend.glossary.showcity.description">
         <source>viteloge.frontend.glossary.showcity.description</source>
