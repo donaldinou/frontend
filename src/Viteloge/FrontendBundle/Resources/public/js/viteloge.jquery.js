@@ -557,6 +557,8 @@ var rightToLeft = function rightToLeft(parentObj, cloneObj, data) {
 
     if (container.attr('id') != 'ajax-click-animation-container') {
         parentObj.wrap('<div id="ajax-click-animation-container" style="position:relative;"></div>');
+    } else {
+        container.css({'min-width': '', 'min-height': ''}); // reinit size
     }
     parentObj.parent().css({ 'min-width': Math.max(width, cloneObj.width())+'px', 'min-height': Math.max(height, cloneObj.height())+'px'});
     parentObj.parent().children().hide(); // hide all children before animate.
@@ -590,6 +592,8 @@ var leftToRight = function leftToRight(parentObj, cloneObj, data) {
 
     if (container.attr('id') != 'ajax-click-animation-container') {
         parentObj.wrap('<div id="ajax-click-animation-container" style="position:relative;overflow:hidden"></div>');
+    } else {
+        container.css({'min-width': '', 'min-height': ''}); // reinit size
     }
     parentObj.parent().css({ 'min-width': Math.max(width, cloneObj.width())+'px', 'min-height': Math.max(height, cloneObj.height())+'px'});
     parentObj.parent().children().hide(); // hide all children before animate.
