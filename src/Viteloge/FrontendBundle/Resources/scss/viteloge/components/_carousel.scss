@@ -10,6 +10,13 @@
                         height: 200px;
                     }
                 }
+                &:focus,
+                &:hover {
+                    &:before {
+                        height: 205px;
+                        line-height: 200px;
+                    }
+                }
             }
         }
     }
