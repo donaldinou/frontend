@@ -174,7 +174,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      },
          *      name="viteloge_frontend_websearch_latest"
          * )
-         * @Cache(expires="tomorrow", public=true)
+         * Cache(expires="tomorrow", public=true) // means no cache
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:WebSearch:latest.html.twig")
          */
