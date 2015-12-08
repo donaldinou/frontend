@@ -1,6 +1,15 @@
 .carousel, .owl-carousel {
     .owl-item {
         .estate {
+            &:focus,
+            &:hover {
+                .preview {
+                    &:before {
+                        height: 205px;
+                        line-height: 200px;
+                    }
+                }
+            }
             .preview {
                 img {
                     width: auto;
