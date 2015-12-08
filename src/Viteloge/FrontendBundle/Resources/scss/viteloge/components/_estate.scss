@@ -25,16 +25,27 @@
         padding: 5px;
         display: block;
         overflow: hidden;
+        text-align: center;
         text-decoration: none;
+        height: 200px;
+        line-height: 200px;
         > img {
-            display: block;
-            margin: 0 auto;
+            display: inline-block !important;
+            margin: auto;
             background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogecore/images/fr/logo-viteloge-moteur-recherche-immobilier.svg.gz');
             background-position: center center;
             background-repeat: no-repeat;
             background-color: #ddd;
             background-size: 230px;
-            height: 190px;
+            min-width: 100px;
+            width: auto;
+            max-width: 300px;
+            min-height: 100px;
+            max-height: 190px;
+            &[src=""] {
+                display: block !important;
+                height: 190px;
+            }
         }
         &:focus,
         &:hover {

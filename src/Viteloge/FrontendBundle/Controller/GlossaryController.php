@@ -291,24 +291,28 @@ namespace Viteloge\FrontendBundle\Controller {
             $breadcrumbs->addItem(
                 'Home', $this->get('router')->generate('viteloge_frontend_homepage')
             );
-            $breadcrumbs->addItem(
-                $inseeCity->getInseeState()->getFullname(),
-                $this->get('router')->generate('viteloge_frontend_glossary_showstate',
-                    array(
-                        'name' => $inseeCity->getInseeState()->getSlug(),
-                        'id' => $inseeCity->getInseeState()->getId()
+            if ($inseeCity->getInseeState()) {
+                $breadcrumbs->addItem(
+                    $inseeCity->getInseeState()->getFullname(),
+                    $this->get('router')->generate('viteloge_frontend_glossary_showstate',
+                        array(
+                            'name' => $inseeCity->getInseeState()->getSlug(),
+                            'id' => $inseeCity->getInseeState()->getId()
+                        )
                     )
-                )
-            );
-            $breadcrumbs->addItem(
-                $inseeCity->getInseeDepartment()->getFullname(),
-                $this->get('router')->generate('viteloge_frontend_glossary_showdepartment',
-                    array(
-                        'name' => $inseeCity->getInseeDepartment()->getSlug(),
-                        'id' => $inseeCity->getInseeDepartment()->getId()
+                );
+            }
+            if ($inseeCity->getInseeDepartment()) {
+                $breadcrumbs->addItem(
+                    $inseeCity->getInseeDepartment()->getFullname(),
+                    $this->get('router')->generate('viteloge_frontend_glossary_showdepartment',
+                        array(
+                            'name' => $inseeCity->getInseeDepartment()->getSlug(),
+                            'id' => $inseeCity->getInseeDepartment()->getId()
+                        )
                     )
-                )
-            );
+                );
+            }
             $breadcrumbs->addItem('Immobilier '.$inseeCity->getFullname());
             // --
 

@@ -1,8 +1,15 @@
 .carousel, .owl-carousel {
     .owl-item {
         .estate {
-            img {
-                max-width: 300px;
+            .preview {
+                img {
+                    width: auto;
+                    max-height: 200px;
+                    &[src=""] {
+                        display: block !important;
+                        height: 200px;
+                    }
+                }
             }
         }
     }
