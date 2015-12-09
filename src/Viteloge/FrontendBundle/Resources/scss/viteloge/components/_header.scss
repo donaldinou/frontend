@@ -93,13 +93,12 @@
             margin-top: 150px;
         }
         > h1, .h1 {
-            color: $text-color;
-            @media (min-width: $screen-sm-min) {
-                color: #fff;
-            }
+            color: #fff;
+            text-shadow: 0 0 10px #000;
         }
         > h2, .h2 {
             color: #fff;
+            text-shadow: 0 0 10px #000;
         }
         > hr {
             border: 2px solid #eee;

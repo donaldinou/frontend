@@ -15,7 +15,7 @@
 
 {% block body %}
     <div class="row text-center" style="padding-top:30px;padding-bottom: 52px;">
-        <img src="http://www.viteloge.com/img/redirect/loading.gif" alt="{{ 'Merci de patienter' | trans }}" width="100" height="100">
+        {{- include('VitelogeFrontendBundle:misc:animated-logo.html.twig', {}) -}}
     </div>
     <div id="MSG-IMPORTANT" class="panel text-center" style="border:none;background: #f7f3e7;">
         <p style="color: #3f454f;font-size: 18px;font-weight: bold;margin-bottom: 0.8em;">

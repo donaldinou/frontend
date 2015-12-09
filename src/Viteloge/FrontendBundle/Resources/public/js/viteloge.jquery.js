@@ -330,6 +330,14 @@ jQuery(document).ready(function() {
             paginateEvent = jQuery.ajax({
                 url: url,
                 method: 'GET',
+                beforeSend: function() {
+                    jQuery('.loader').removeClass('hidden').addClass('in');
+                    jQuery('.loader-backdrop').removeClass('hidden').addClass('in');
+                },
+                complete: function() {
+                    jQuery('.loader').addClass('hidden').removeClass('in');
+                    jQuery('.loader-backdrop').addClass('hidden').removeClass('in');
+                },
                 success: function(content) {
                     //jQuery('#'+id).replaceWith(jQuery(content).find('#'+id));
                     var cloneObj = jQuery(content).find(clone);
@@ -386,7 +394,13 @@ jQuery(document).ready(function() {
                     initSelect2Components('.select-tag-input');
                 }
             },
+            beforeSend: function() {
+                jQuery('.loader').removeClass('hidden').addClass('in');
+                jQuery('.loader-backdrop').removeClass('hidden').addClass('in');
+            },
             complete: function(jqXHR, textStatus) {
+                jQuery('.loader').addClass('hidden').removeClass('in');
+                jQuery('.loader-backdrop').addClass('hidden').removeClass('in');
                 if (callback) {
                     var fn = callback;
                     if (typeof callback == "string") {
@@ -496,7 +510,13 @@ jQuery(document).ready(function() {
                             history.pushState(sObj, null, url);
                         }
                     },
+                    beforeSend: function() {
+                        jQuery('.loader').removeClass('hidden').addClass('in');
+                        jQuery('.loader-backdrop').removeClass('hidden').addClass('in');
+                    },
                     complete: function(jqXHR, textStatus) {
+                        jQuery('.loader').addClass('hidden').removeClass('in');
+                        jQuery('.loader-backdrop').addClass('hidden').removeClass('in');
                         if (callback) {
                             var fn = window[callback];
                             fn();
