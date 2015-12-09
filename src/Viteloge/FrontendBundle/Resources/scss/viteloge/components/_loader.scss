@@ -9,3 +9,18 @@
     margin: 30px auto;
     z-index: 9999;
 }
+path#search {
+    animation-name: rotatekf;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    transform-origin: 50% 50%;
+    display: inline-block;
+}
+@keyframes rotatekf {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
