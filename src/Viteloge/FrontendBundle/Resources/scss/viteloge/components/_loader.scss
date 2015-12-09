@@ -1,9 +1,7 @@
 .loader-backdrop {
     @extend .modal-backdrop;
-    display: none;
 }
 .loader {
-    display: none;
     width: 100%;
     height: 100%;
     text-align: center;
