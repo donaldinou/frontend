@@ -59,6 +59,7 @@ viteloge_frontend_static_about:
     defaults:
         _controller: FrameworkBundle:Template:template
         template: 'VitelogeFrontendBundle:Static:about.html.twig'
+        private: true
         maxAge: 86400
         sharedAge: 86400
     requirements:
@@ -75,6 +76,7 @@ viteloge_frontend_static_why:
     defaults:
         _controller: FrameworkBundle:Template:template
         template: 'VitelogeFrontendBundle:Static:why.html.twig'
+        private: true
         maxAge: 86400
         sharedAge: 86400
     requirements:
@@ -91,6 +93,7 @@ viteloge_frontend_static_ad:
     defaults:
         _controller: FrameworkBundle:Template:template
         template: 'VitelogeFrontendBundle:Static:ad.html.twig'
+        private: true
         maxAge: 86400
         sharedAge: 86400
     requirements:
@@ -107,6 +110,7 @@ viteloge_frontend_static_contactus:
     defaults:
         _controller: FrameworkBundle:Template:template
         template: 'VitelogeFrontendBundle:Static:contactus.html.twig'
+        private: true
         maxAge: 86400
         sharedAge: 86400
     requirements:
@@ -123,6 +127,7 @@ viteloge_frontend_static_recommand:
     defaults:
         _controller: FrameworkBundle:Template:template
         template: 'VitelogeFrontendBundle:Static:recommand.html.twig'
+        private: true
         maxAge: 86400
         sharedAge: 86400
     requirements:
@@ -139,6 +144,7 @@ viteloge_frontend_static_subscribe:
     defaults:
         _controller: FrameworkBundle:Template:template
         template: 'VitelogeFrontendBundle:Static:subscribe.html.twig'
+        private: true
         maxAge: 86400
         sharedAge: 86400
     requirements:
@@ -155,6 +161,7 @@ viteloge_frontend_static_register:
     defaults:
         _controller: FrameworkBundle:Template:template
         template: 'VitelogeFrontendBundle:Static:register.html.twig'
+        private: true
         maxAge: 86400
         sharedAge: 86400
     requirements:
@@ -171,6 +178,7 @@ viteloge_frontend_static_apiform:
     defaults:
         _controller: FrameworkBundle:Template:template
         template: 'VitelogeFrontendBundle:Static:apiform.html.twig'
+        private: true
         maxAge: 86400
         sharedAge: 86400
     requirements:
@@ -187,6 +195,7 @@ viteloge_frontend_static_gtc:
     defaults:
         _controller: FrameworkBundle:Template:template
         template: 'VitelogeFrontendBundle:Static:gtc.html.twig'
+        private: true
         maxAge: 86400
         sharedAge: 86400
     requirements:
@@ -203,6 +212,7 @@ viteloge_frontend_static_privacy:
     defaults:
         _controller: FrameworkBundle:Template:template
         template: 'VitelogeFrontendBundle:Static:privacy.html.twig'
+        private: true
         maxAge: 86400
         sharedAge: 86400
     requirements:

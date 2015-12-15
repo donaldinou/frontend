@@ -92,7 +92,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *         "limit" = "5"
          *     }
          * )
-         * @Cache(expires="tomorrow", public=true)
+         * @Cache(smaxage="604800", maxage="604800", public=true)
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:Service:list.html.twig")
          */
