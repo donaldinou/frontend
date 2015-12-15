@@ -335,7 +335,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *     },
          *     name="viteloge_frontend_ad_searchfromquerystats"
          * )
-         * @Cache(lastModified="queryStats.getgetTimestamp()", ETag="'QueryStats' ~ queryStats.getId() ~ queryStats.getTimestamp()")
+         * @Cache(lastModified="queryStats.getTimestamp()", ETag="'QueryStats' ~ queryStats.getId() ~ queryStats.getTimestamp()")
          * @ParamConverter("queryStats", class="VitelogeCoreBundle:QueryStats", options={"id" = "id"})
          * @Method({"GET"})
          */
