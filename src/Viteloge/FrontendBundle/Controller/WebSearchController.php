@@ -153,7 +153,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
-         * Used in homepage
+         * Display the last websearch (Used in homepage)
+         * Ajax call so we could have shared public cache
+         *
          * @Route(
          *     "/latest/{limit}",
          *     requirements={
@@ -174,7 +176,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      },
          *      name="viteloge_frontend_websearch_latest"
          * )
-         * Cache(expires="tomorrow", public=true) // means no cache
+         * @Cache(smaxage="300", maxage="300", public=true)
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:WebSearch:latest.html.twig")
          */
@@ -192,6 +194,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Search from websearch
+         * Cache is set with the last update date
+         *
          * @Route(
          *     "/show/{id}",
          *     requirements={
@@ -199,6 +204,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *     },
          *     name="viteloge_frontend_websearch_show"
          * )
+         * @Cache(lastModified="webSearch.getUpdatedAt()", ETag="'WebSearch' ~ webSearch.getId() ~ webSearch.getUpdatedAt()")
          * @Method({"GET"})
          * @Security("has_role('ROLE_USER')")
          * @ParamConverter("webSearch", class="VitelogeCoreBundle:WebSearch", options={"id" = "id"})

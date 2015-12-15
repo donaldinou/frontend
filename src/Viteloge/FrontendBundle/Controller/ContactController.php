@@ -40,11 +40,13 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * Displays a form to create a new Contact entity.
+         * Private cache for the user
          *
          * @Route(
          *      "/new",
          *      name="viteloge_frontend_contact_new"
          * )
+         * @Cache(expires="tomorrow", public=false)
          * @Method("GET")
          * @Template("VitelogeFrontendBundle:Contact:new.html.twig")
          */
@@ -61,6 +63,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * Creates a new Contact entity.
+         * No cache for a post
          *
          * @Route(
          *      "/",
@@ -117,11 +120,13 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * Success contact
+         * Private cache because of user informations
          *
          * @Route(
          *      "/success",
          *      name="viteloge_frontend_contact_success"
          * )
+         * @Cache(expires="tomorrow", public=false)
          * @Method("GET")
          * @Template("VitelogeFrontendBundle:Contact:success.html.twig")
          */
@@ -134,11 +139,13 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * Fail contact
+         * Private cache because of user information
          *
          * @Route(
          *      "/fail",
          *      name="viteloge_frontend_contact_fail"
          * )
+         * @Cache(expires="tomorrow", public=false)
          * @Method("GET")
          * @Template("VitelogeFrontendBundle:Contact:fail.html.twig")
          */

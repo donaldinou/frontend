@@ -36,6 +36,8 @@ namespace Viteloge\FrontendBundle\Controller {
     class AdController extends Controller {
 
         /**
+         * Display research result. No cache for this page
+         *
          * @Route(
          *     "/search/{page}/{limit}",
          *     requirements={
@@ -68,7 +70,6 @@ namespace Viteloge\FrontendBundle\Controller {
          *     },
          *     name="viteloge_frontend_ad_search_default"
          * )
-         * Cache(expires="tomorrow", public=true)
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:Ad:search.html.twig")
          */
@@ -234,11 +235,13 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Search form.
+         * No cache
+         *
          * @Route(
          *     "/search/from/form/",
          *     name="viteloge_frontend_ad_searchfromform"
          * )
-         * Cache(expires="tomorrow", public=true)
          * @Method({"POST"})
          * @Template("VitelogeFrontendBundle:Ad:search_from_form.html.twig")
          */
@@ -280,6 +283,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Search from a UserSearch
+         * Cache is set from the created date.
+         *
          * @Route(
          *     "/search/from/usersearch/{id}",
          *     requirements={
@@ -287,7 +293,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *     },
          *     name="viteloge_frontend_ad_searchfromusersearch"
          * )
-         * Cache(expires="tomorrow", public=true)
+         * @Cache(lastModified="userSearch.getCreatedAt()", ETag="'UserSearch' ~ userSearch.getId() ~ userSearch.getCreatedAt()")
          * @ParamConverter("userSearch", class="VitelogeCoreBundle:UserSearch", options={"id" = "id"})
          * @Method({"GET"})
          */
@@ -319,6 +325,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Search from a query stats.
+         * Cache is set from set last timestamp
+         *
          * @Route(
          *     "/search/from/querystats/{id}",
          *     requirements={
@@ -326,7 +335,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *     },
          *     name="viteloge_frontend_ad_searchfromquerystats"
          * )
-         * Cache(expires="tomorrow", public=true)
+         * @Cache(lastModified="queryStats.getgetTimestamp()", ETag="'QueryStats' ~ queryStats.getId() ~ queryStats.getTimestamp()")
          * @ParamConverter("queryStats", class="VitelogeCoreBundle:QueryStats", options={"id" = "id"})
          * @Method({"GET"})
          */
@@ -358,6 +367,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Show a carousel ads.
+         * Ajax call, so we can set a public cache
+         *
          * @Route(
          *     "/carousel/{limit}",
          *     requirements={
@@ -399,6 +411,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Show latest ads for a request
+         * Ajax call so we can have a public cache
+         *
          * @Route(
          *     "/latest/{limit}",
          *     requirements={
@@ -435,6 +450,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * News suggestion
+         * Ajax call so we can have public cache
          *
          * @Route(
          *     "/suggest/new/{limit}",
@@ -479,7 +495,8 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
-         * Redirect to the hosted page
+         * Redirect to the hosted page.
+         * There are no header information so we could set a good cache
          *
          * @Route(
          *      "/redirect/{id}",
@@ -487,6 +504,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *          "id"="\d+"
          *      }
          * )
+         * @Cache(lastModified="ad.getUpdatedAt()", ETag="'Ad' ~ ad.getId() ~ ad.getUpdatedAt()")
          * @Method({"GET"})
          * @ParamConverter("ad", class="VitelogeCoreBundle:Ad", options={"id" = "id"})
          * @Template("VitelogeFrontendBundle:Ad:redirect.html.twig")

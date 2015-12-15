@@ -21,6 +21,9 @@ namespace Viteloge\FrontendBundle\Controller {
     class DefaultController extends Controller {
 
         /**
+         * Homepage
+         * No cache
+         *
          * @Route(
          *     "/",
          *     defaults={},

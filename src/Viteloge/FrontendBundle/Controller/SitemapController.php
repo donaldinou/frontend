@@ -27,6 +27,9 @@ namespace Viteloge\FrontendBundle\Controller {
         protected $elements;
 
         /**
+         * List of root page for sitemap
+         * Private cache
+         *
          * @Route(
          *     "/sitemap",
          *      defaults={
@@ -51,7 +54,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *         "i18n" = true
          *     }
          * )
-         * @Cache(expires="tomorrow", public=true)
+         * @Cache(expires="tomorrow", public=false)
          * @Method({"GET"})
          * @Template()
          */
@@ -91,6 +94,8 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Ajax call so we could have public shared cache
+         *
          * @Route(
          *     "/sitemap/state/{id}",
          *      defaults={
@@ -115,7 +120,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      }
          * )
          * @ParamConverter("inseeState", class="AcreatInseeBundle:InseeState", options={"id" = "id"})
-         * @Cache(expires="tomorrow", public=true)
+         * @Cache(smaxage="604800", maxage="604800", public=true)
          * @Method({"GET"})
          * @Template()
          */
@@ -147,6 +152,8 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Ajax call so we could have public shared cache
+         *
          * @Route(
          *     "/sitemap/department/{id}",
          *      defaults={
@@ -171,7 +178,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      }
          * )
          * @ParamConverter("inseeDepartment", class="AcreatInseeBundle:InseeDepartment", options={"id" = "id"})
-         * @Cache(expires="tomorrow", public=true)
+         * @Cache(smaxage="604800", maxage="604800", public=true)
          * @Method({"GET"})
          * @Template()
          */

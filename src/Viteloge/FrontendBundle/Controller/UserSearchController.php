@@ -44,6 +44,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Display userSearches for a city
+         * Private cache because of user informations
+         *
          * @Route(
          *      "/city/{name}/{id}/{page}/{limit}",
          *      requirements={
@@ -72,7 +75,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *         }
          *     }
          * )
-         * @Cache(expires="tomorrow", public=true)
+         * @Cache(expires="tomorrow", public=false)
          * @Template()
          */
         public function cityAction(Request $request, InseeCity $inseeCity, $page, $limit) {
@@ -160,6 +163,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Remove userSearch. Set the deletedAt field to "now"
+         * No cache
+         *
          * @Route(
          *      "/delete/{id}",
          *      requirements={

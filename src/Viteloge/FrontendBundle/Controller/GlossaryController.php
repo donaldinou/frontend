@@ -62,6 +62,8 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * Legacy function used because there is no slug saved in table
+         * There is no cache
+         *
          * @Route(
          *      "/{slug}",
          *      defaults={},
@@ -124,6 +126,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Display the most searched cities
+         * Ajax call so we could have a shared public cache
+         *
          * @Route(
          *     "/mostSearched/{limit}",
          *     requirements={
@@ -144,7 +149,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *     },
          *     name="viteloge_frontend_glossary_mostsearched"
          * )
-         * @Cache(expires="tomorrow", public=true)
+         * @Cache(smaxage="604800", maxage="604800", public=true)
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:Glossary:mostSearched.html.twig")
          */
@@ -161,6 +166,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Research from state
+         * Expire tomorrow
+         *
          * @Route(
          *     "/state/{name}/{id}",
          *     requirements={
@@ -205,6 +213,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Search from department
+         * Expire tomorrow
+         *
          * @Route(
          *     "/department/{name}/{id}",
          *     requirements={
@@ -249,6 +260,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Display city page information
+         * Private cache
+         *
          * @Route(
          *     "/city/{name}/{id}",
          *     requirements={
@@ -268,7 +282,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *         }
          *     }
          * )
-         * @Cache(expires="tomorrow", public=true)
+         * @Cache(expires="tomorrow", public=false)
          * @Template("VitelogeFrontendBundle:Glossary:showCity.html.twig")
          */
         public function showCityAction(Request $request, InseeCity $inseeCity) {
@@ -361,6 +375,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Search from area
+         * Expire tomorrow
+         *
          * @Route(
          *     "/area/{name}/{id}",
          *     requirements={
@@ -390,6 +407,8 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Currently unused
+         *
          * @Route(
          *     "/departments/{id}/",
          *     requirements={
@@ -412,6 +431,8 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Currently unused
+         *
          * @Route(
          *     "/cities/{id}/",
          *     requirements={
@@ -422,7 +443,7 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Method({"GET"})
          * @ParamConverter("inseeDepartment", class="AcreatInseeBundle:InseeDepartment", options={"id" = "id"})
          * @Cache(expires="tomorrow", public=true)
-         * @Template("VitelogeFrontendBundle:Glossary:citites.html.twig")
+         * @Template("VitelogeFrontendBundle:Glossary:cities.html.twig")
          */
         public function citiesAction(Request $request, InseeDepartment $inseeDepartment) {
             $repository = $this->getDoctrine()
@@ -434,6 +455,8 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Currently unused
+         *
          * @Route(
          *      "/areas/{id}/",
          *      requirements={

@@ -41,6 +41,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * Displays a form to create a new Message entity.
+         * Private cache
          *
          * @Route(
          *      "/new/{ad}",
@@ -49,6 +50,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      },
          *      name="viteloge_frontend_message_new"
          * )
+         * @Cache(expires="tomorrow", public=false)
          * @Method("GET")
          * @ParamConverter("ad", class="VitelogeCoreBundle:Ad", options={"ad" = "ad"})
          * @Template("VitelogeFrontendBundle:Message:new.html.twig")
@@ -131,6 +133,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      "/success",
          *      name="viteloge_frontend_message_success"
          * )
+         * @Cache(expires="tomorrow", public=false)
          * @Method("GET")
          * @Template("VitelogeFrontendBundle:Message:success.html.twig")
          */
@@ -148,6 +151,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      "/fail",
          *      name="viteloge_frontend_message_fail"
          * )
+         * @Cache(expires="tomorrow", public=false)
          * @Method("GET")
          * @Template("VitelogeFrontendBundle:Message:fail.html.twig")
          */

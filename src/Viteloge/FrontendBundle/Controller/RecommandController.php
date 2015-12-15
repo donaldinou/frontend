@@ -40,11 +40,13 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * Displays a form to create a new Recommand entity.
+         * Private cache
          *
          * @Route(
          *      "/new",
          *      name="viteloge_frontend_recommand_new"
          * )
+         * @Cache(expires="tomorrow", public=false)
          * @Method("GET")
          * @Template("VitelogeFrontendBundle:Recommand:new.html.twig")
          */
@@ -67,6 +69,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * Creates a new Recommand entity.
+         * No cache
          *
          * @Route(
          *      "/",
@@ -128,6 +131,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      "/success",
          *      name="viteloge_frontend_recommand_success"
          * )
+         * @Cache(expires="tomorrow", public=false)
          * @Method("GET")
          * @Template("VitelogeFrontendBundle:Recommand:success.html.twig")
          */
@@ -145,6 +149,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      "/fail",
          *      name="viteloge_frontend_recommand_fail"
          * )
+         * @Cache(expires="tomorrow", public=false)
          * @Method("GET")
          * @Template("VitelogeFrontendBundle:Recommand:fail.html.twig")
          */

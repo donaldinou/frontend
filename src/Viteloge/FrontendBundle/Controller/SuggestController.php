@@ -23,6 +23,9 @@ namespace Viteloge\FrontendBundle\Controller {
     class SuggestController extends Controller {
 
         /**
+         * Display cities suggestion for a query
+         * Public cache
+         *
          * @Route(
          *     "/cities/{_format}",
          *      requirements={
@@ -73,6 +76,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Display a list of cities near to another
+         * Ajax so we could have public cache
+         *
          * @Route(
          *     "/near/{name}/{id}/{radius}/{limit}/{_format}",
          *      requirements={
@@ -124,6 +130,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Display states suggestion for a query
+         * Public cache
+         *
          * @Route(
          *     "/states/{_format}",
          *      requirements={
@@ -154,6 +163,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Display departments suggestion for a query
+         * Public cache
+         *
          * @Route(
          *     "/departments/{_format}",
          *      requirements={

@@ -20,6 +20,9 @@ use Viteloge\CoreBundle\Entity\Estimate;
 class CityStatsController extends Controller
 {
     /**
+     * Display price page for a city
+     * Private cache
+     *
      * @Route(
      *     "/{name}/{id}",
      *     requirements={
@@ -27,6 +30,8 @@ class CityStatsController extends Controller
      *     },
      *     name="viteloge_estimation_statistic_city"
      * )
+     * @Cache(expires="tomorrow", public=false)
+     * @Method({"GET"})
      * @ParamConverter("inseeCity", class="AcreatInseeBundle:InseeCity", options={"id" = "id"})
      * @Template()
      */
@@ -140,6 +145,9 @@ class CityStatsController extends Controller
     }
 
     /**
+     * Find price for a city
+     * Ajax call so cache could be public
+     *
      * @Route(
      *     "price/{name}/{id}",
      *     requirements={
@@ -147,7 +155,7 @@ class CityStatsController extends Controller
      *     },
      *     name="viteloge_estimation_statistic_price"
      * )
-     * Cache(expires="tomorrow", public=true)
+     * @Cache(expires="tomorrow", public=true)
      * @Method({"GET"})
      * @ParamConverter("inseeCity", class="AcreatInseeBundle:InseeCity", options={"id" = "id"})
      * @Template()
@@ -163,14 +171,17 @@ class CityStatsController extends Controller
     }
 
     /**
+     * Find price history for a city. Currently it is equal to priceAction method
+     * Ajax call so cache could be public
+     *
      * @Route(
      *     "history/{name}/{id}",
      *     requirements={
-     *         "id"="\d+"
+     *         "id"="(?:2[a|b|A|B])?0{0,2}\d+"
      *     },
      *     name="viteloge_estimation_statistic_history"
      * )
-     * Cache(expires="tomorrow", public=true)
+     * @Cache(expires="tomorrow", public=true)
      * @Method({"GET"})
      * @ParamConverter("inseeCity", class="AcreatInseeBundle:InseeCity", options={"id" = "id"})
      * @Template()
@@ -186,6 +197,9 @@ class CityStatsController extends Controller
     }
 
     /**
+     * Legacy. See nearAction from SuggestController
+     * Ajax call so cache could be public
+     *
      * @Route(
      *     "around/{name}/{id}",
      *     requirements={
@@ -193,7 +207,7 @@ class CityStatsController extends Controller
      *     },
      *     name="viteloge_estimation_statistic_around"
      * )
-     * Cache(expires="tomorrow", public=true)
+     * @Cache(expires="tomorrow", public=true)
      * @Method({"GET"})
      * @ParamConverter("inseeCity", class="AcreatInseeBundle:InseeCity", options={"id" = "id"})
      * @Template()

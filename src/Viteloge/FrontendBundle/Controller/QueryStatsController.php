@@ -25,6 +25,9 @@ namespace Viteloge\FrontendBundle\Controller {
     class QueryStatsController extends Controller {
 
         /**
+         * Display queries stats for a city
+         * Private cache
+         *
          * @Route(
          *      "/city/{name}/{id}/{page}/{limit}",
          *      requirements={
@@ -53,7 +56,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *         }
          *     }
          * )
-         * @Cache(expires="tomorrow", public=true)
+         * @Cache(expires="tomorrow", public=false)
          * @Template()
          */
         public function cityAction(Request $request, InseeCity $inseeCity, $page, $limit) {
@@ -166,6 +169,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Display latest query stats
+         * Ajax call so we can use public cache
+         *
          * @Route(
          *     "/latest/{limit}",
          *     requirements={

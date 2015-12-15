@@ -83,6 +83,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Display the list of ViteLoge services
+         * Ajax and static so we could have a shared public cache
+         *
          * @Route(
          *     "/list/",
          *     requirements={

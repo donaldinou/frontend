@@ -42,11 +42,13 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * Displays a form to create a new Api entity.
+         * Private cache
          *
          * @Route(
          *      "/new",
          *      name="viteloge_frontend_api_new"
          * )
+         * @Cache(expires="tomorrow", public=false)
          * @Method("GET")
          * @Template("VitelogeFrontendBundle:Api:new.html.twig")
          */
@@ -62,6 +64,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * Creates a new Api entity.
+         * No cache for a post
          *
          * @Route(
          *      "/",
@@ -88,6 +91,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * Show included form research
+         * Private cache
          *
          * @Route(
          *      "/show/{id}",
@@ -96,6 +100,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      },
          *      name="viteloge_frontend_api_show"
          * )
+         * @Cache(expires="tomorrow", public=false)
          * @Method("GET")
          * @ParamConverter("inseeCity", class="AcreatInseeBundle:InseeCity", options={"id" = "id"})
          * @Template("VitelogeFrontendBundle:Api:show.html.twig")
