@@ -204,7 +204,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *     },
          *     name="viteloge_frontend_websearch_show"
          * )
-         * @Cache(lastModified="webSearch.getUpdatedAt()", ETag="'WebSearch' ~ webSearch.getId() ~ webSearch.getUpdatedAt()")
+         * @Cache(lastModified="webSearch.getUpdatedAt()", ETag="'WebSearch' ~ webSearch.getId() ~ webSearch.getUpdatedAt().getTimestamp()")
          * @Method({"GET"})
          * @Security("has_role('ROLE_USER')")
          * @ParamConverter("webSearch", class="VitelogeCoreBundle:WebSearch", options={"id" = "id"})

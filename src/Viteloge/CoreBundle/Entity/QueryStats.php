@@ -322,6 +322,16 @@ namespace Viteloge\CoreBundle\Entity {
         }
 
         /**
+         * Return a \DateTime from internal timestamp. use for cache policies
+         *
+         * @return \DateTime
+         */
+        public function getUpdateAt() {
+            $ts = $this->getTimestamp();
+            return new \DateTime("@$ts");
+        }
+
+        /**
          * Set realSearch
          *
          * @param string $realSearch

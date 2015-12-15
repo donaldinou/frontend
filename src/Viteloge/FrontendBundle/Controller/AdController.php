@@ -293,7 +293,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *     },
          *     name="viteloge_frontend_ad_searchfromusersearch"
          * )
-         * @Cache(lastModified="userSearch.getCreatedAt()", ETag="'UserSearch' ~ userSearch.getId() ~ userSearch.getCreatedAt()")
+         * @Cache(lastModified="userSearch.getCreatedAt()", ETag="'UserSearch' ~ userSearch.getId() ~ userSearch.getCreatedAt().getTimestamp()")
          * @ParamConverter("userSearch", class="VitelogeCoreBundle:UserSearch", options={"id" = "id"})
          * @Method({"GET"})
          */
@@ -335,7 +335,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *     },
          *     name="viteloge_frontend_ad_searchfromquerystats"
          * )
-         * @Cache(lastModified="queryStats.getTimestamp()", ETag="'QueryStats' ~ queryStats.getId() ~ queryStats.getTimestamp()")
+         * @Cache(lastModified="queryStats.getUpdateAt()", ETag="'QueryStats' ~ queryStats.getId() ~ queryStats.getTimestamp()")
          * @ParamConverter("queryStats", class="VitelogeCoreBundle:QueryStats", options={"id" = "id"})
          * @Method({"GET"})
          */
@@ -504,7 +504,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *          "id"="\d+"
          *      }
          * )
-         * @Cache(lastModified="ad.getUpdatedAt()", ETag="'Ad' ~ ad.getId() ~ ad.getUpdatedAt()")
+         * @Cache(lastModified="ad.getUpdatedAt()", ETag="'Ad' ~ ad.getId() ~ ad.getUpdatedAt().getTimestamp()")
          * @Method({"GET"})
          * @ParamConverter("ad", class="VitelogeCoreBundle:Ad", options={"id" = "id"})
          * @Template("VitelogeFrontendBundle:Ad:redirect.html.twig")
