@@ -1,6 +1,6 @@
 {%- if cities -%}
 {"results":[{%- for key, city in cities -%}
-        {"id":{{ city.id }},"text":"{{ city.name ~ ' (' ~ city.postalcode ~ ')'}}"}{%- if not loop.last -%},{%- endif -%}
+        {"id":"{{ city.id }}","text":"{{ city.name ~ ' (' ~ city.postalcode ~ ')'}}"}{%- if not loop.last -%},{%- endif -%}
     {%- endfor -%}]}
 {%- else-%}
 {"results":[]}

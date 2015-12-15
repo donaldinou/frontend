@@ -1,6 +1,6 @@
 {%- if departments -%}
 {"results":[{%- for key, department in departments -%}
-        {"id":{{ department.id }},"text":"{{ department.name }}"}{%- if not loop.last -%},{%- endif -%}
+        {"id":"{{ department.id }}","text":"{{ department.name }}"}{%- if not loop.last -%},{%- endif -%}
     {%- endfor -%}]}
 {%- else-%}
 {"results":[]}

@@ -1,6 +1,6 @@
 {%- if states -%}
 {"results":[{%- for key, state in states -%}
-        {"id":{{ state.id }},"text":"{{ state.name }}"}{%- if not loop.last -%},{%- endif -%}
+        {"id":"{{ state.id }}","text":"{{ state.name }}"}{%- if not loop.last -%},{%- endif -%}
     {%- endfor -%}]}
 {%- else-%}
 {"results":[]}
