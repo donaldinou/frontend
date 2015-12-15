@@ -222,9 +222,17 @@
         <source>viteloge_frontend_static_why</source>
         <target>/pourquoi-viteloge</target>
       </trans-unit>
-      <trans-unit id="ce375e0c8860150cf4b0185a0d9ae349" resname="viteloge_frontend_user_index">
+      <trans-unit id="viteloge_frontend_user_index" resname="viteloge_frontend_user_index">
         <source>viteloge_frontend_user_index</source>
         <target>/utilisateur/</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_user_disablemail" resname="viteloge_frontend_user_disablemail">
+        <source>viteloge_frontend_user_disablemail</source>
+        <target>/utilisateur/desactivermail/{token}/{info}</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_user_disablepartnercontact" resname="viteloge_frontend_user_disablepartnercontact">
+        <source>viteloge_frontend_user_disablemail</source>
+        <target>/utilisateur/desactivercontactpartenaire/{token}/{info}</target>
       </trans-unit>
       <trans-unit id="viteloge_frontend_suggest_cities" resname="viteloge_frontend_suggest_cities">
         <source>viteloge_frontend_suggest_cities</source>

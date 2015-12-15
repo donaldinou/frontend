@@ -5,6 +5,22 @@
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;
+        .alert {
+            margin-top: 2px;
+            margin-bottom: 0;
+            + .forward {
+                margin-top: 10px;
+                @media (min-width: $screen-sm-min) {
+                    margin-top: 30px;
+                }
+                @media (min-width: $screen-md-min) {
+                    margin-top: 100px;
+                }
+                @media (min-width: $screen-lg-min) {
+                    margin-top: 100px;
+                }
+            }
+        }
     }
     .container {
         @include container-fixed;

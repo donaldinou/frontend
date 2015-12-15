@@ -671,7 +671,7 @@ namespace Viteloge\CoreBundle\Entity {
         }
 
         /**
-         * Set isInternalMailDisabled
+         * Set internalMailDisabled
          *
          * @param boolean $isInternalMailDisabled
          * @return Account

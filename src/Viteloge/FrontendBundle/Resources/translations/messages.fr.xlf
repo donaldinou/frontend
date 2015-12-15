@@ -450,6 +450,14 @@
         <source>user.civility.miss</source>
         <target>Mademoiselle</target>
       </trans-unit>
+      <trans-unit id="user.flash.internalmaildisabled" resname="user.flash.internalmaildisabled">
+        <source>user.flash.internalmaildisabled</source>
+        <target>Les notifications par emails ont été désactivées</target>
+      </trans-unit>
+      <trans-unit id="user.flash.partnercontactdisabled" resname="user.flash.partnercontactdisabled">
+        <source>user.flash.partnercontactdisabled</source>
+        <target>Les notifications de contact partenaires ont été désactivées</target>
+      </trans-unit>
       <trans-unit id="ad.noresult" resname="ad.noresult">
         <source>ad.noresult</source>
         <target>Pas de résultat</target>

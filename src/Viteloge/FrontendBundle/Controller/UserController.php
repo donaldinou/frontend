@@ -10,11 +10,13 @@ namespace Viteloge\FrontendBundle\Controller {
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\RedirectResponse;
+    use Symfony\Component\Security\Core\Exception\AccessDeniedException;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use FOS\UserBundle\FOSUserEvents;
     use FOS\UserBundle\Event\FormEvent;
     use FOS\UserBundle\Event\GetResponseUserEvent;
     use FOS\UserBundle\Event\FilterUserResponseEvent;
+    use Viteloge\CoreBundle\Entity\User;
 
     /**
      * @Route("/user")
@@ -87,6 +89,125 @@ namespace Viteloge\FrontendBundle\Controller {
             return array(
                 'form' => $form->createView(),
             );
+        }
+
+        /**
+         * Legacy function. Now we could create a service
+         *
+         * @param User $user
+         * @param string<"old"|"new"> $type If we need to check from old kernet secret
+         * @return string a token hash
+         */
+        protected function buildToken(User $user, $type='new') {
+            if ($type == 'old') {
+                $secret = 'PLEAtEmk6ee8QQI3Ma3IGNii33W1EkGfqaw3ZEGH';
+            } else {
+                $secret = $this->container->getParameter( 'kernel.secret' );
+            }
+            return hash('sha512', implode(':', array( $user->getId(), 'disable', $secret )));
+        }
+
+        /**
+         * Legacy function. Now we could create a service
+         *
+         * @param string $userToken
+         * @param string $testToken
+         * @return boolean
+         */
+        protected function checkTokenHash($userToken, $testToken) {
+            $result = false;
+            $userTokenLength = strlen( $userToken );
+            $testTokenLength = strlen( $testToken );
+            if ($userTokenLength < $testTokenLength && substr( $testToken, 0, $userTokenLength )) {
+                $result = true;
+            }
+            return $result;
+        }
+
+        /**
+         * This is a legacy disabling fork
+         * @Route(
+         *     "/disableMail/{token}/{info}",
+         *     name="viteloge_frontend_user_disablemail"
+         * )
+         * @Method({"GET", "POST"})
+         */
+        public function disableMailAction(Request $request, $token, $info) {
+            $translated = $this->get('translator');
+            $data = json_decode( base64_decode( strtr( $info, '-_', '+/' ) ), true );
+
+            if (empty($data) || empty($data['id'])) {
+                throw $this->createNotFoundException();
+            }
+
+            $userManager = $this->get('fos_user.user_manager');
+            $user = $userManager->findUserBy(
+                array( 'id' => $data['id'] )
+            );
+
+            if (!$user instanceof User) {
+                throw $this->createNotFoundException();
+            }
+
+            $newToken = $this->buildToken($user, 'new');
+            $oldToken = $this->buildToken($user, 'old');
+
+            if (!$this->checkTokenHash($token, $newToken) && !$this->checkTokenHash($token, $oldToken)) {
+                throw $this->createNotFoundException();
+            }
+
+            $user->setInternalMailDisabled(true);
+            $userManager->updateUser($user);
+
+            $this->addFlash(
+                'success',
+                $translated->trans('user.flash.internalmaildisabled')
+            );
+
+            return $this->redirectToRoute('viteloge_frontend_homepage');
+        }
+
+        /**
+         * This is a legacy disabling fork
+         * @Route(
+         *     "/disablePartnerContact/{token}/{info}",
+         *     name="viteloge_frontend_user_disablepartnercontact"
+         * )
+         * @Method({"GET", "POST"})
+         */
+        public function disablePartnerContactAction(Request $request, $token, $info) {
+            $translated = $this->get('translator');
+            $data = json_decode( base64_decode( strtr( $info, '-_', '+/' ) ), true );
+
+            if (empty($data) || empty($data['id'])) {
+                throw new AccessDeniedException();
+            }
+
+            $userManager = $this->get('fos_user.user_manager');
+            $user = $userManager->findUserBy(
+                array( 'id' => $data['id'] )
+            );
+
+            if (!$user instanceof User) {
+                throw new AccessDeniedException();
+            }
+
+            $newToken = $this->buildToken($user, 'new');
+            $oldToken = $this->buildToken($user, 'old');
+
+            if (!$this->checkTokenHash($token, $newToken) && !$this->checkTokenHash($token, $oldToken)) {
+                throw $this->createNotFoundException('Token currently not found');
+            }
+
+            $user->setPartnerContactEnabled(false);
+            $userManager->updateUser($user);
+
+            $this->addFlash(
+                'success',
+                $translated->trans('user.flash.partnercontactdisabled')
+            );
+
+            return $this->redirectToRoute('viteloge_frontend_homepage');
         }
 
     }

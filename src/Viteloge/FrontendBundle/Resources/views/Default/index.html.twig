@@ -14,7 +14,9 @@
         </div>
     </header>
     <main class="main" role="main">
+        {{- block('body_start') -}}
         {{- block('main') -}}
+        {{- block('body_end') -}}
     </main>
     <footer data-role="footer">
         {{- block('footer') -}}
@@ -22,13 +24,14 @@
 {%- endblock -%}
 
 {%- block header -%}
-    {%- embed "VitelogeUserBundle:base:header.html.twig" -%}
+    {%- embed "VitelogeUserBundle:base:header.html.twig" with { 'block_flash': block('flash') } -%}
         {%- block header_navbarmenu -%}
             <div class="collapse navbar-collapse" id="navbar-navigation">
                 {{- block('header_brand') -}}
                 {{- block('header_identification') -}}
             </div>
             {%- block header_navigation -%}
+                {{- block_flash | raw -}}
                 <div id="search-container" class="forward text-center">
                     <h1 class="text-uppercase">{% trans %}home.teaser{% endtrans %}</h1>
                     <h2 class="text-uppercase">{%- transchoice count with {'%count%': count|number_format(0, null, ' ')} -%}today.properties.update.count{%- endtranschoice -%} !</h2>
@@ -38,6 +41,10 @@
         {%- endblock -%}
     {%- endembed -%}
 {%- endblock -%}
+
+{%- block flash -%}
+    {{- include('VitelogeUserBundle:base:flash.html.twig', { hideContainer: true }) -}}
+{%- endblock flash -%}
 
 {%- block main -%}
     <div id="main-content" class="clearfix">
