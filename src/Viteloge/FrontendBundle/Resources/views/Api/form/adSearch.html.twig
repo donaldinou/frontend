@@ -95,9 +95,11 @@
 {%- endblock -%}
 
 {%- block form_end -%}
-    <script src="{{ aws_s3_domain('built/assets/js/jquery.min.js') }}"></script>
-    <script src="{{ aws_s3_domain('built/assets/js/select2.min.js') }}"></script>
-    <script src="{{ aws_s3_domain('built/assets/js/select2.fr.min.js') }}"></script>
-    <script>$('form[name="viteloge_core_adsearch"] .select-tag-input').select2({'width': '100%'})</script>
+    {%- if includeLibs is same as(true) -%}
+        <script src="{{ aws_s3_domain('built/assets/js/jquery.min.js') }}"></script>
+        <script src="{{ aws_s3_domain('built/assets/js/select2.min.js') }}"></script>
+        <script src="{{ aws_s3_domain('built/assets/js/select2.fr.min.js') }}"></script>
+    {%- endif -%}
+    <script>jQuery(document).ready(function(){jQuery('form[name="viteloge_core_adsearch"] .select-tag-input').select2({'width': '100%'})});</script>
     {{- parent() -}}
 {%- endblock form_end -%}

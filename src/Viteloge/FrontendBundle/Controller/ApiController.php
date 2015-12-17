@@ -106,12 +106,17 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:Api:show.html.twig")
          */
         public function showAction(Request $request, InseeCity $inseeCity) {
+            $includeLibs = true;
+            if ($request->query->has('includeLibs')) {
+                $includeLibs = (bool)$request->query->get('includeLibs');
+            }
             $adSearch = new AdSearch();
             $adSearch->setWhere(array($inseeCity));
             $form = $this->createForm('viteloge_core_adsearch', $adSearch);
             return array(
                 'inseeCity' => $inseeCity,
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'includeLibs' => $includeLibs
             );
         }
 

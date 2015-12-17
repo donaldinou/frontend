@@ -3,7 +3,7 @@
     {{ include('VitelogeFrontendBundle:Api:form/create.html.twig', { form: form, api: api }) }}
     {%- if api.inseeCity -%}
         <pre><code id="#api-code">&lt;!-- Début Formulaire de recherche ViteLogé --&gt;
-&lt;script src="{{url('viteloge_frontend_api_show', { id: api.inseeCity.id })}}"&gt;&lt;/script&gt;
+&lt;script src="{{url('viteloge_frontend_api_legacy', { id: api.inseeCity.id })}}"&gt;&lt;/script&gt;
 &lt;noscript&gt;&lt;a href="{{url('viteloge_frontend_homepage')}}"&gt;ViteLogé, le moteur de recherche le plus rapide de l'immobilier : retrouvez les annonces des vos agences immobilières !&lt;/a&gt;&lt;/noscript&gt;
 &lt;!-- Fin Formulaire de recherche ViteLogé --&gt;</code></pre>
         <div class="btn-group pull-right" role="group" aria-label="...">
@@ -15,7 +15,7 @@
         <section class="clearfix">
             <h3>{%- trans -%}api.result.search{%- endtrans -%}</h3>
             <div class="clearfix bg-lighten">
-                {{ render(path('viteloge_frontend_api_show', { id: api.inseeCity.id })) }}
+                {{ render(path('viteloge_frontend_api_show', { id: api.inseeCity.id, includeLibs: false })) }}
             </div>
         </section>
     {%- endif -%}

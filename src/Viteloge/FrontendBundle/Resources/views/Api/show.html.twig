@@ -1,6 +1,10 @@
-<link rel="stylesheet" href="{{ aws_s3_domain('built/viteloge.min.css') }}">
-
-{{ include('VitelogeFrontendBundle:Api:form/adSearch.html.twig', { form: form, theme_container: 'search-container' }) }}
+{%- if includeLibs is not defined -%}
+    {%- set includeLibs = true -%}{# |default(true) is not an option because it will set always true #}
+{%- endif -%}
+{%- if includeLibs is same as(true) -%}
+    <link rel="stylesheet" href="{{ aws_s3_domain('built/viteloge.min.css') }}">
+{%- endif -%}
+{{- include('VitelogeFrontendBundle:Api:form/adSearch.html.twig', { form: form, theme_container: 'search-container', includeLibs: includeLibs }) -}}
 
 {#
 
