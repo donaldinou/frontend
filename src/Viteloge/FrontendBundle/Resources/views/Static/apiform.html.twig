@@ -25,7 +25,7 @@
         var clientZC;
         jQuery(document).ready(function() {
             ZeroClipboard.config({
-                swfPath: "{{ aws_s3_domain('/built/zeroclipboard.swf', false) }}",
+                swfPath: "{{ aws_s3_domain('built/zeroclipboard.swf', false) }}",
             });
         });
         function addCopyEvent() {

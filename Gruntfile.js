@@ -39,19 +39,19 @@ module.exports = function(grunt) {
                 options: {
                     stdout: true
                 },
-                command: 'php app/console cache:clear'
+                command: 'php app/console cache:clear --no-debug'
             },
             assetsInstall: {
                 options: {
                     stdout: true
                 },
-                command: 'php app/console assets:install'
+                command: 'php app/console assets:install --no-debug'
             },
             composerUpdate: {
                 options: {
                     stdout: true
                 },
-                command: 'composer update'
+                command: 'composer update --optimize-autoloader  --no-dev'
             },
             composerInstall: {
                 options: {
@@ -63,13 +63,19 @@ module.exports = function(grunt) {
                 options: {
                     stdout: true
                 },
-                command: 'composer dump-autoload --optimize'
+                command: 'composer dump-autoload --optimize --no-dev'
             },
             sitemapDump: {
                 options: {
                     stdout: true
                 },
                 command: 'php app/console presta:sitemap:dump'
+            },
+            copyZeroclipboard: {
+                options: {
+                    stdout: true
+                },
+                command: 'cp bower_components/zeroclipboard/dist/ZeroClipboard.swf web/built/zeroclipboard.swf'
             }
         },
         copy: {
@@ -79,7 +85,10 @@ module.exports = function(grunt) {
             },
             zeroclipboard: {
                 src: '<%= cmp.extra["bwr.directory"] %>/zeroclipboard/dist/ZeroClipboard.swf',
-                dest: '<%= cmp.extra["symfony-web-dir"] %>/built/zeroclipboard.swf'
+                dest: '<%= cmp.extra["symfony-web-dir"] %>/built/zeroclipboard.swf',
+                options: {
+                    NoProcess: true
+                }
             },
             vitelogefonts: {
                 files: [{
@@ -454,6 +463,7 @@ module.exports = function(grunt) {
         'shell:assetsInstall',
         'bowercopy',
         'copy',
+        'shell:copyZeroclipboard',
         'compass',
         'cssmin',
         'concat',
