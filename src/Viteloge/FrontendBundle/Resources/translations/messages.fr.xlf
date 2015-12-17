@@ -66,6 +66,10 @@
         <source>viteloge.expand</source>
         <target>Déplier</target>
       </trans-unit>
+      <trans-unit id="viteloge.back.homepage" resname="viteloge.back.homepage">
+        <source>viteloge.back.homepage</source>
+        <target>Retour sur la page d'accueil</target>
+      </trans-unit>
       <trans-unit id="viteloge.my.personnal.space" resname="viteloge.my.personnal.space">
         <source>viteloge.my.personnal.space</source>
         <target>Mon espace personnel</target>
@@ -942,6 +946,14 @@
         <source>message.action.send</source>
         <target>Envoyer</target>
       </trans-unit>
+      <trans-unit id="message.send.success" resname="message.send.success">
+        <source>message.send.success</source>
+        <target>Votre message à bien été envoyé</target>
+      </trans-unit>
+      <trans-unit id="message.send.error" resname="message.send.error">
+        <source>message.send.error</source>
+        <target>Une erreur est survenue lors de l'envoi de votre message</target>
+      </trans-unit>
       <trans-unit id="contact.send.message.for.ad" resname="contact.send.message.for.ad">
         <source>contact.send.message.for.ad</source>
         <target>Prendre contact avec nous à propos d'une annonce</target>
@@ -1022,6 +1034,18 @@
         <source>contact.action.send</source>
         <target>Envoyer</target>
       </trans-unit>
+      <trans-unit id="contact.send.success" resname="contact.send.success">
+        <source>contact.send.success</source>
+        <target>Votre demande de contact à bien été envoyé</target>
+      </trans-unit>
+      <trans-unit id="contact.send.success.few.minutes" resname="contact.send.success.few.minutes">
+        <source>contact.send.success.few.minutes</source>
+        <target>Nous allons la traitée dans les meilleurs délai</target>
+      </trans-unit>
+      <trans-unit id="contact.send.error" resname="contact.send.error">
+        <source>contact.send.error</source>
+        <target>Une erreur est survenue lors de l'envoi de votre demande de contact</target>
+      </trans-unit>
       <trans-unit id="recommand.send.message.for.ad" resname="recommand.send.message.for.ad">
         <source>recommand.send.message.for.ad</source>
         <target>Partager votre expérience avec vos amis</target>
@@ -1049,6 +1073,22 @@
       <trans-unit id="recommand.action.send" resname="recommand.action.send">
         <source>recommand.action.send</source>
         <target>Recommander Vitelogé</target>
+      </trans-unit>
+      <trans-unit id="recommand.send.success" resname="recommand.send.success">
+        <source>recommand.send.success</source>
+        <target>Votre recommandation à bien été envoyé</target>
+      </trans-unit>
+      <trans-unit id="recommand.send.success.few.minutes" resname="recommand.send.success.few.minutes">
+        <source>recommand.send.few.minutes</source>
+        <target>Vos contacts vont recevoir dans quelques minutes votre recommandation.</target>
+      </trans-unit>
+      <trans-unit id="recommand.send.error" resname="recommand.send.error">
+        <source>recommand.send.error</source>
+        <target>Une erreur est survenue lors de l'envoi de votre recommandation</target>
+      </trans-unit>
+      <trans-unit id="recommand.thanks.for.your.interest" resname="recommand.thanks.for.your.interest">
+        <source>recommand.thanks.for.your.interest</source>
+        <target>Merci de l'intérêt que vous portez à ViteLogé</target>
       </trans-unit>
       <trans-unit id="api.inseecity" resname="api.inseecity">
         <source>api.inseecity</source>

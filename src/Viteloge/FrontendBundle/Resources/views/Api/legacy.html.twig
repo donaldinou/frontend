@@ -1,2 +1,2 @@
-document.write('<link rel="stylesheet" href="{{ aws_s3_domain('/built/viteloge.min.css') }}">');
+document.write('<link rel="stylesheet" href="{{ aws_s3_domain('built/viteloge.min.css') }}">');
 document.write("{{- include('VitelogeFrontendBundle:Api:form/adSearch.html.twig', { form: form, theme_container: 'search-container' })|replace({'\n':'', '\"': '\\"'})|raw -}}");

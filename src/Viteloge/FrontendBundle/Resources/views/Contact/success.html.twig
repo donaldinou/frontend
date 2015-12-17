@@ -1,1 +1,10 @@
-{% trans %}contact.send.few.minutes{% endtrans %}
+<p><strong>{% trans %}contact.send.success{% endtrans %}</strong></p>
+<p>
+    <span>{%- trans -%}contact.send.success.few.minutes{%- endtrans -%}</span>
+</p>
+<div class="clearfix text-center">
+    <a href="{{ path('viteloge_frontend_homepage', {}) }}" class="btn btn-default" role="button" aria-label="{%- trans -%}viteloge.back.homepage{%- endtrans -%}">
+        <span class="fa fa-home" aria-hidden="true"></span>
+        <span class="">{%- trans -%}viteloge.back.homepage{%- endtrans -%}</span>
+    </a>
+</div>

@@ -1,8 +1,11 @@
-{% trans %}recommand.send.few.minutes{% endtrans %}
-
-{#
-    <p><b>Votre recommandation a bien ??envoy? !</b></p>
-    <p>Vos contacts vont recevoir dans quelques minutes votre recommandation.<br/>
-      Merci de l'int?? que vous portez ?ViteLog?! </p>
-    <a href="index.php">Retour ?la page d'accueil</a>
-#}
+<p><strong>{%- trans -%}recommand.send.success{%- endtrans -%}</strong></p>
+<p>
+    <span>{%- trans -%}recommand.send.success.few.minutes{%- endtrans -%}</span>
+    <span>{%- trans -%}recommand.thanks.for.your.interest{%- endtrans -%}</span>
+</p>
+<div class="clearfix text-center">
+    <a href="{{ path('viteloge_frontend_homepage', {}) }}" class="btn btn-default" role="button" aria-label="{%- trans -%}viteloge.back.homepage{%- endtrans -%}">
+        <span class="fa fa-home" aria-hidden="true"></span>
+        <span class="">{%- trans -%}viteloge.back.homepage{%- endtrans -%}</span>
+    </a>
+</div>

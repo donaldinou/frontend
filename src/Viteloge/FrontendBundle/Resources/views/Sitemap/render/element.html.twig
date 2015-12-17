@@ -5,7 +5,7 @@
 {%- if url.hasChild and data is empty -%}
     {%- set data = { 'ajax-click': url.childrenLoc, 'ajax-parent': '#list-sitemap', 'ajax-animate': 'rightToLeft' } -%}
 {%- endif -%}
-<a href="{{ url.loc }}" class="{{ class }}"{% if data is not empty %} {%- for key, value in data -%}data-{{ key }}="{{ value }}"{%- endfor -%}{% endif %}>
+<a href="{{ url.loc }}" class="{{ class }} clearfix"{% if data is not empty %} {%- for key, value in data -%}data-{{ key }}="{{ value }}"{%- endfor -%}{% endif %}>
     <div class="row">
         <div class="col-xs-10">
             {%- block column_left -%}

@@ -4,16 +4,16 @@
 <h2>Détails du contact :</h2>
 <blockquote>
     <strong>Nom : </strong>{{ contact.fullname }}<br>
-    <strong>Société: {{ contact.company }}</strong><br>
+    <strong>Société: </strong>{{ contact.company }}<br>
     <strong>Email : </strong> <a href="mailto:{{ contact.email }}">{{ contact.email }}</a><br>
-    <strong>Adresse: {{ contact.address }}</strong>
-    <strong>Code postal: {{ contact.postalCode }}</strong>
-    <strong>Ville: {{ contact.city }}</strong>
+    <strong>Adresse: </strong><address>{{ contact.address }}</address>
+    <strong>Code postal: </strong>{{ contact.postalCode }}<br>
+    <strong>Ville: </strong>{{ contact.city }}<br>
     <strong>Téléphone : </strong> {{ contact.phone }}<br>
 </blockquote>
 
 <h2>Détails du message</h2>
 <blockquote>
-    <strong>Object: {{ contact.subject }}</strong>
+    <strong>Object: </strong>{{ contact.subject }}<br>
     <strong>Message : </strong> {{ contact.message | raw }}
 </blockquote>

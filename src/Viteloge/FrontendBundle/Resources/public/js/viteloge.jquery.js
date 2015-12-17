@@ -531,8 +531,9 @@ jQuery(document).ready(function() {
 
 function initLazyLoad() {
     jQuery('img.lazy').show().lazyload({
+        threshold : 200,
         effect : 'fadeIn',
-        skip_invisible : true,
+        skip_invisible : false,
         placeholder: '',
     });
 }

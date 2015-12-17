@@ -130,7 +130,7 @@
             &:hover, &:focus {
                 > .expand-hover:not(:hover) {
                     .expand-hover-text, .expand-hover-icon {
-                        @media (max-width: $screen-sm-max) {
+                        @media (max-width: $screen-xs-max) {
                             display: none !important;
                         }
                     }
