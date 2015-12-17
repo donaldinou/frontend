@@ -474,7 +474,7 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:Ad:suggestNew.html.twig")
          */
         public function suggestNewAction(Request $request, $limit) {
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $queryBuilder = $em->createQueryBuilder()
                 ->select('ad')
                 ->from('VitelogeCoreBundle:Ad', 'ad')

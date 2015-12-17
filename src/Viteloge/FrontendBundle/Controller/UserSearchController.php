@@ -138,7 +138,7 @@ namespace Viteloge\FrontendBundle\Controller {
             );
             // --
 
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $queryBuilder = $em->createQueryBuilder()
                 ->select('us.transaction, us.type, us.rooms, us.budgetMin, us.budgetMax, ic.id inseeCity')
                 ->distinct()

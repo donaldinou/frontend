@@ -34,7 +34,11 @@ namespace Viteloge\FrontendBundle\Twig {
             return array(
                 new \Twig_SimpleFilter('schematizedcurrency', array($this, 'schematizedcurrency')),
                 new \Twig_SimpleFilter('vl_intval', array($this, 'vlIntval')),
-                new \Twig_SimpleFilter('vl_transaction_alias', array($this, 'vlTransactionAlias'))
+                new \Twig_SimpleFilter('vl_transaction_alias', array($this, 'vlTransactionAlias')),
+                new \Twig_SimpleFilter('to_latin1', array($this, 'toLatin1')),
+                new \Twig_SimpleFilter('to_utf8', array($this, 'toUTF8')),
+                new \Twig_SimpleFilter('fix_utf8', array($this, 'fixUTF8')),
+                new \Twig_SimpleFilter('normalize_utf8', array($this, 'normalizeUTF8'))
             );
         }
 
@@ -121,6 +125,36 @@ namespace Viteloge\FrontendBundle\Twig {
                 }
             }
             return $result;
+        }
+
+        /**
+         *
+         */
+        public function toUTF8($value) {
+            return \ForceUTF8\Encoding::toUTF8($value);
+        }
+
+        /**
+         *
+         */
+        public function fixUTF8($value) {
+            return \ForceUTF8\Encoding::fixUTF8($value);
+        }
+
+        /**
+         *
+         */
+        public function toLatin1($value) {
+            return \ForceUTF8\Encoding::toLatin1($value);
+        }
+
+        /**
+         * Last chance to get a correct utf8 string
+         */
+        public function normalizeUTF8($value) {
+            $search = array('â??', 'Â?');
+            $replace = array('\'', '€');
+            return trim(str_replace($search, $replace, $this->fixUTF8($value)));
         }
 
         /**

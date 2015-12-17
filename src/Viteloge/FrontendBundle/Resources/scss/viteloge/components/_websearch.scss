@@ -27,7 +27,15 @@
                 background-repeat: no-repeat;
                 background-position: center center;
                 min-height: $websearch-img-min-size;
-                width: 100%;
+                height: auto;
+                max-height: 190px;
+                min-width: 100px;
+                width: auto;
+                max-width: 100%;
+                &[src=""] {
+                    display: block !important;
+                    width: 100%;
+                }
             }
         }
     }

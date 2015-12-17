@@ -2,6 +2,10 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
     <file source-language="fr-FR" target-language="fr" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="estimate.label.path" resname="estimate.label.path">
+                <source>estimate.label.path</source>
+                <target>Type de voie</target>
+            </trans-unit>
             <trans-unit id="estimate.path.driveway" resname="estimate.path.driveway">
                 <source>estimate.path.driveway</source>
                 <target>Allée</target>
@@ -178,6 +182,10 @@
                 <source>estimate.type.appartment</source>
                 <target>Appartement</target>
             </trans-unit>
+            <trans-unit id="estimate.label.exposition" resname="estimate.label.exposition">
+                <source>estimate.label.exposition</source>
+                <target>Exposition</target>
+            </trans-unit>
             <trans-unit id="estimate.exposition.north" resname="estimate.exposition.north">
                 <source>estimate.path.north</source>
                 <target>Nord</target>
@@ -193,6 +201,10 @@
             <trans-unit id="estimate.exposition.east" resname="estimate.exposition.east">
                 <source>estimate.path.east</source>
                 <target>Est</target>
+            </trans-unit>
+            <trans-unit id="estimate.label.condition" resname="estimate.label.condition">
+                <source>estimate.label.condition</source>
+                <target>État</target>
             </trans-unit>
             <trans-unit id="estimate.condition.newer" resname="estimate.condition.newer">
                 <source>estimate.condition.newer</source>
@@ -210,6 +222,10 @@
                 <source>estimate.condition.repair</source>
                 <target>A refaire</target>
             </trans-unit>
+            <trans-unit id="estimate.label.usage" resname="estimate.label.usage">
+                <source>estimate.label.usage</source>
+                <target>Situation du logement</target>
+            </trans-unit>
             <trans-unit id="estimate.usage.inhabited" resname="estimate.usage.inhabited">
                 <source>estimate.usage.inhabited</source>
                 <target>Habité</target>
@@ -221,6 +237,10 @@
             <trans-unit id="estimate.usage.empty" resname="estimate.usage.empty">
                 <source>estimate.usage.empty</source>
                 <target>Vide</target>
+            </trans-unit>
+            <trans-unit id="estimate.label.applicant" resname="estimate.label.applicant">
+                <source>estimate.label.applicant</source>
+                <target>Vous êtes</target>
             </trans-unit>
             <trans-unit id="estimate.applicant.owner" resname="estimate.applicant.owner">
                 <source>estimate.applicant.owner</source>
@@ -237,6 +257,10 @@
             <trans-unit id="estimate.applicant.agent" resname="estimate.applicant.agent">
                 <source>estimate.applicant.agent</source>
                 <target>Agent immobilier</target>
+            </trans-unit>
+            <trans-unit id="estimate.label.time" resname="estimate.label.time">
+                <source>estimate.label.time</source>
+                <target>Vous souhaitez</target>
             </trans-unit>
             <trans-unit id="estimate.time.immediate" resname="estimate.time.immediate">
                 <source>estimate.time.immediate</source>

@@ -119,7 +119,7 @@ namespace Viteloge\FrontendBundle\Controller {
             );
             // --
 
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $queryBuilder = $em->createQueryBuilder()
                 ->select('qs')
                 ->from('VitelogeCoreBundle:QueryStats', 'qs')

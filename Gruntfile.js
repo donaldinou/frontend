@@ -456,6 +456,48 @@ module.exports = function(grunt) {
     grunt.registerTask('css', ['shell:assetsInstall', 'bowercopy', 'copy', 'compass', 'cssmin']);
     grunt.registerTask('javascript', ['shell:assetsInstall', 'bowercopy', 'copy', 'concat', 'uglify']);
     grunt.registerTask('default', ['watch']);
+    grunt.registerTask('deployApp', [
+        'shell:composerInstall',
+        'shell:sitemapDump'
+    ]);
+    grunt.registerTask('deployCss', [
+        'clean',
+        'shell:composerInstall',
+        'shell:assetsInstall',
+        'bowercopy',
+        'copy',
+        'compass',
+        'cssmin',
+        'shell:copyZeroclipboard',
+        'compress',
+        'aws_s3'
+    ]);
+    grunt.registerTask('deployJs', [
+        'clean',
+        'shell:composerInstall',
+        'shell:assetsInstall',
+        'bowercopy',
+        'copy',
+        'concat',
+        'uglify',
+        'shell:copyZeroclipboard',
+        'compress',
+        'aws_s3'
+    ])
+    grunt.registerTask('deployAssets', [
+        'clean',
+        'shell:composerInstall',
+        'shell:assetsInstall',
+        'bowercopy',
+        'copy',
+        'compass',
+        'cssmin',
+        'concat',
+        'uglify',
+        'shell:copyZeroclipboard',
+        'compress',
+        'aws_s3'
+    ]);
     grunt.registerTask('deploy', [
         'clean',
         'shell:composerInstall',

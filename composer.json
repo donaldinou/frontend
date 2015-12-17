@@ -40,7 +40,8 @@
         "stof/doctrine-extensions-bundle": "~1.1",
         "hwi/oauth-bundle": "0.4.*@dev",
         "excelwebzone/recaptcha-bundle": "~2.6@dev",
-        "presta/sitemap-bundle": "dev-master"
+        "presta/sitemap-bundle": "dev-master",
+        "neitanod/forceutf8": "^2.0"
     },
     "require-dev": {
         "symfony/var-dumper": "^2.7",

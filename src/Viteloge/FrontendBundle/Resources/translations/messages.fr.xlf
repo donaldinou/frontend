@@ -206,10 +206,6 @@
         <source>All rights reserved</source>
         <target>Tous droits reservés</target>
       </trans-unit>
-      <trans-unit id="7d264b9525f2836c21408b446101332e" resname="Annonce immobilière sur %agency%">
-        <source>Annonce immobilière sur %agency%</source>
-        <target>Annonce immobilière sur %agency%</target>
-      </trans-unit>
       <trans-unit id="1a97a1e63d9bdc2e3c3763ea69dc831f" resname="Appartement">
         <source>Appartement</source>
         <target>Appartement</target>
@@ -645,6 +641,10 @@
       <trans-unit id="ad.debug" resname="ad.debug">
         <source>ad.debug</source>
         <target>Debug</target>
+      </trans-unit>
+      <trans-unit id="ad.list.on.agency" resname="ad.list.on.agency">
+        <source>ad.list.on.agency</source>
+        <target>Annonce immobilière sur %agency%</target>
       </trans-unit>
       <trans-unit id="65f070829ea54b8081d5adbe4a1f9c17" resname="usersearch.unknown">
         <source>usersearch.unknown</source>

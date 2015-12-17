@@ -10,11 +10,21 @@ namespace Viteloge\FrontendBundle\Form\Type {
 
         public function buildForm(FormBuilderInterface $builder, array $options) {
             $builder
-                ->add('firstname')
-                ->add('lastname')
-                ->add('message', 'textarea')
-                ->add('email')
-                ->add('phone')
+                ->add('firstname', null, array(
+                    'label' => 'message.firstname',
+                ))
+                ->add('lastname', null, array(
+                    'label' => 'message.lastname'
+                ))
+                ->add('message', 'textarea', array(
+                    'label' => 'message.message'
+                ))
+                ->add('email', null, array(
+                    'label' => 'message.email'
+                ))
+                ->add('phone', null, array(
+                    'label' => 'message.phone'
+                ))
                 ->add('send', 'submit');
         }
 
