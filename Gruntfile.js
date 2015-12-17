@@ -458,19 +458,17 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('deploy', [
         'clean',
-        'shell:composerUpdate',
         'shell:composerInstall',
         'shell:assetsInstall',
         'bowercopy',
         'copy',
-        'shell:copyZeroclipboard',
         'compass',
         'cssmin',
         'concat',
         'uglify',
+        'shell:copyZeroclipboard',
         'compress',
         'aws_s3',
-        'shell:composerDump',
         'shell:sitemapDump'
     ]);
 };
