@@ -25,21 +25,21 @@ monolog:
         streamed:
             type:               stream
             path:               "%kernel.logs_dir%/%kernel.environment%.log"
-            level:              debug
+            level:              error
         swift:
             type:               swift_mailer
             from_email:         error@viteloge.com
             to_email:           loyant@acreat.com
             subject:            "An error has occured in Viteloge"
-            level:              debug
+            level:              error
         login:
             type:               stream
             path:               "%kernel.logs_dir%/auth.log"
-            level:              info
+            level:              error
             channels:           security
         nested:
             type:               stream
             path:               "%kernel.logs_dir%/%kernel.environment%.log"
-            level:              debug
+            level:              error
         console:
             type:               console
