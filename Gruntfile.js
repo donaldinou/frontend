@@ -457,11 +457,13 @@ module.exports = function(grunt) {
     grunt.registerTask('javascript', ['shell:assetsInstall', 'bowercopy', 'copy', 'concat', 'uglify']);
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('deployApp', [
+        'shell:composerUpdate',
         'shell:composerInstall',
         'shell:sitemapDump'
     ]);
     grunt.registerTask('deployCss', [
         'clean',
+        'shell:composerUpdate',
         'shell:composerInstall',
         'shell:assetsInstall',
         'bowercopy',
@@ -474,6 +476,7 @@ module.exports = function(grunt) {
     ]);
     grunt.registerTask('deployJs', [
         'clean',
+        'shell:composerUpdate',
         'shell:composerInstall',
         'shell:assetsInstall',
         'bowercopy',
@@ -486,6 +489,7 @@ module.exports = function(grunt) {
     ])
     grunt.registerTask('deployAssets', [
         'clean',
+        'shell:composerUpdate',
         'shell:composerInstall',
         'shell:assetsInstall',
         'bowercopy',
@@ -500,6 +504,7 @@ module.exports = function(grunt) {
     ]);
     grunt.registerTask('deploy', [
         'clean',
+        'shell:composerUpdate',
         'shell:composerInstall',
         'shell:assetsInstall',
         'bowercopy',
