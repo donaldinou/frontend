@@ -54,7 +54,7 @@ viteloge_frontend_sitemap:
     resource: "@VitelogeFrontendBundle/Controller/SitemapController.php"
     type: annotation
 
-viteloge_frontend_sitemap:
+viteloge_frontend_sendgrid:
     resource: "@VitelogeFrontendBundle/Controller/SendgridController.php"
     type: annotation
 
