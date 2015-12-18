@@ -40,6 +40,16 @@ namespace Viteloge\FrontendBundle\Controller {
          * Usefull for pro and part website
          *
          * @Route(
+         *      "/count",
+         *      defaults={
+         *          "_format"="txt"
+         *      },
+         *      name="viteloge_frontend_ad_count_format",
+         *      options = {
+         *          "i18n" = true
+         *      }
+         * )
+         * @Route(
          *      "/count.{_format}",
          *      requirements={
          *          "_format"="txt"
@@ -47,7 +57,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      defaults={
          *          "_format"="txt"
          *      },
-         *      name="viteloge_frontend_ad_count",
+         *      name="viteloge_frontend_ad_count_format",
          *      options = {
          *          "i18n" = true
          *      }
@@ -56,7 +66,7 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Method({"GET"})
          * @Template()
          */
-        public function countAction(Request $request) {
+        public function countAction(Request $request, $_format) {
             // This count is pretty faster than an elastic search count
             $repository = $this->getDoctrine()
                 ->getRepository('VitelogeCoreBundle:Ad');
