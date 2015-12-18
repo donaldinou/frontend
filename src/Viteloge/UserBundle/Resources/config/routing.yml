@@ -1,4 +1,3 @@
-# app/config/routing.yml
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
     prefix: /user
@@ -18,3 +17,7 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /user/profile
+
+viteloge_frontend_sitemap:
+    resource: "@VitelogeUserBundle/Controller/SendgridController.php"
+    type: annotation
