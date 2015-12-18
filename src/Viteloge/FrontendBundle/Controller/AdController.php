@@ -40,7 +40,7 @@ namespace Viteloge\FrontendBundle\Controller {
          * Usefull for pro and part website
          *
          * @Route(
-         *      "/count{_format}",
+         *      "/count.{_format}",
          *      requirements={
          *          "_format"="txt"
          *      },
