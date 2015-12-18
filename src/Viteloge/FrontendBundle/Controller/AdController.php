@@ -266,6 +266,48 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Legacy, search others ads from a particular ad
+         * There are no header information so we could set a good cache
+         *
+         * @Route(
+         *      "/search/from/ad/{id}",
+         *      requirements={
+         *          "id"="\d+",
+         *      },
+         *      name="viteloge_frontend_ad_count",
+         *      options = {
+         *          "i18n" = true
+         *      }
+         * )
+         * @Cache(lastModified="ad.getUpdatedAt()", ETag="'Ad' ~ ad.getId() ~ ad.getUpdatedAt().getTimestamp()")
+         * @Method({"GET"})
+         * @ParamConverter("ad", class="VitelogeCoreBundle:Ad", options={"id" = "id"})
+         * @Template()
+         */
+        public function searchFromAd(Request $request, Ad $ad) {
+            $adSearch = new AdSearch();
+            $adSearch->setTransaction($ad->getTransaction());
+            $adSearch->setWhat($ad->getType());
+            $adSearch->setRooms($ad->getRooms());
+            if ($ad->getInseeCity() instanceof InseeCity) {
+                $adSearch->setWhere($ad->getInseeCity()->getId());
+                $adSearch->setLocation($ad->getInseeCity()->getLocation());
+            }
+
+            // transform object to array in order to through it to url
+            $encoders = array(new JsonEncoder());
+            $normalizers = array(new GetSetMethodNormalizer());
+            $serializer = new Serializer($normalizers, $encoders);
+            $options = json_decode($serializer->serialize($adSearch, 'json'), true);
+
+            return $this->redirectToRoute(
+                'viteloge_frontend_ad_search',
+                $options,
+                301
+            );
+        }
+
+        /**
          * Search form.
          * No cache
          *
