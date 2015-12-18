@@ -488,6 +488,7 @@ module.exports = function(grunt) {
     grunt.registerTask('deployApp', [
         'shell:composerUpdate',
         'shell:composerInstall',
+        'shell:jsRoutingDump',
         'shell:sitemapDump'
     ]);
     grunt.registerTask('deployCss', [
@@ -495,6 +496,7 @@ module.exports = function(grunt) {
         'shell:composerUpdate',
         'shell:composerInstall',
         'shell:assetsInstall',
+        'shell:jsRoutingDump',
         'bowercopy',
         'copy',
         'compass',
@@ -508,6 +510,7 @@ module.exports = function(grunt) {
         'shell:composerUpdate',
         'shell:composerInstall',
         'shell:assetsInstall',
+        'shell:jsRoutingDump',
         'bowercopy',
         'copy',
         'concat',
@@ -521,6 +524,7 @@ module.exports = function(grunt) {
         'shell:composerUpdate',
         'shell:composerInstall',
         'shell:assetsInstall',
+        'shell:jsRoutingDump',
         'bowercopy',
         'copy',
         'compass',
@@ -536,6 +540,7 @@ module.exports = function(grunt) {
         'shell:composerUpdate',
         'shell:composerInstall',
         'shell:assetsInstall',
+        'shell:jsRoutingDump',
         'bowercopy',
         'copy',
         'compass',
