@@ -12,6 +12,10 @@ parameters:
     domain : .viteloge.com
     media_domain : media.viteloge.com
 
+    router.request_context.host: www.viteloge.local
+    router.request_context.scheme: ~
+    router.request_context.base_url: ~
+
     elastic_host : localhost
     elastic_port : 9200
 

@@ -19,7 +19,7 @@ sonata_seo:
                 google: "notranslate"
                 include_mode: "async"
                 msapplication-TileColor: "#fff"
-                msapplication-TileImage: "/mstile-144x144.png"
+                msapplication-TileImage: "http://media.viteloge.com/bundles/vitelogecore/images/favicon/microsoft/mstile-144x144.png"
                 theme-color: "#fff"
             property:
                 # Facebook application settings

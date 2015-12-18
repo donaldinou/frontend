@@ -36,6 +36,37 @@ namespace Viteloge\FrontendBundle\Controller {
     class AdController extends Controller {
 
         /**
+         * Return the number of ads in database.
+         * Usefull for pro and part website
+         *
+         * @Route(
+         *      "/count{_format}",
+         *      requirements={
+         *          "_format"="txt"
+         *      },
+         *      defaults={
+         *          "_format"="txt"
+         *      },
+         *      name="viteloge_frontend_ad_count",
+         *      options = {
+         *          "i18n" = true
+         *      }
+         * )
+         * @Cache(expires="tomorrow", public=true)
+         * @Method({"GET"})
+         * @Template()
+         */
+        public function countAction(Request $request) {
+            // This count is pretty faster than an elastic search count
+            $repository = $this->getDoctrine()
+                ->getRepository('VitelogeCoreBundle:Ad');
+            $count = $repository->countByFiltered();
+            return array(
+                'count' => $count
+            );
+        }
+
+        /**
          * Display research result. No cache for this page
          *
          * @Route(

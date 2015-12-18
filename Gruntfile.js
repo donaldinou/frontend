@@ -65,11 +65,17 @@ module.exports = function(grunt) {
                 },
                 command: 'composer dump-autoload --optimize --no-dev'
             },
+            jsRoutingDump: {
+                options: {
+                    stdout: true
+                },
+                command: 'php app/console fos:js-routing:dump --env=prod --locale=fr'
+            },
             sitemapDump: {
                 options: {
                     stdout: true
                 },
-                command: 'php app/console presta:sitemap:dump'
+                command: 'php app/console presta:sitemap:dump --env=prod'
             },
             copyZeroclipboard: {
                 options: {
@@ -217,6 +223,7 @@ module.exports = function(grunt) {
             headjs: {
                 src: [
                     '<%= cmp.extra["symfony-bundles-dir"] %>/fosjsrouting/js/router.js',
+                    '<%= cmp.extra["symfony-web-dir"] %>/js/fos_js_routes.js',
                     '<%= cmp.extra["symfony-bundles-dir"] %>/vitelogefrontend/js/modernizr.js',
                     '<%= cmp.extra["symfony-assets-dir"] %>/js/hinclude.js',
                     '<%= cmp.extra["symfony-assets-dir"] %>/js/jquery.js',
@@ -279,6 +286,17 @@ module.exports = function(grunt) {
                         return destBase+destPath.replace('.js', '.min.js');
                     },
                     dest: '<%= cmp.extra["symfony-web-dir"] %>/built/bundles/'
+                }]
+            },
+            js: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= cmp.extra["symfony-web-dir"] %>/js/',
+                    src: ['**/*.js', '!*.min.js'],
+                    rename: function(destBase, destPath) {
+                        return destBase+destPath.replace('.js', '.min.js');
+                    },
+                    dest: '<%= cmp.extra["symfony-web-dir"] %>/built/js/'
                 }]
             }
         },
@@ -404,6 +422,17 @@ module.exports = function(grunt) {
                 {
                     expand: true,
                     cwd: '<%= cmp.extra["symfony-assets-dir"] %>/js/',
+                    src: ['**'],
+                    dest: 'assets/js/',
+                    action: 'upload',
+                    params: {
+                        CacheControl: 'max-age=604800, public',
+                        Expires: new Date(Date.now() + 2600000000)
+                    }
+                },
+                {
+                    expand: true,
+                    cwd: '<%= cmp.extra["symfony-web-dir"] %>/js/',
                     src: ['**'],
                     dest: 'assets/js/',
                     action: 'upload',

@@ -34,10 +34,10 @@ namespace Viteloge\FrontendBundle\Controller {
          *      defaults={
          *          "_format"="json"
          *      },
-         *     name="viteloge_frontend_suggest_cities",
-         *     options = {
-         *         "i18n" = true
-         *     }
+         *      name="viteloge_frontend_suggest_cities",
+         *      options = {
+         *          "i18n" = true
+         *      }
          * )
          * @Cache(expires="tomorrow", public=true)
          * @Method({"GET"})
@@ -80,7 +80,7 @@ namespace Viteloge\FrontendBundle\Controller {
          * Ajax so we could have public cache
          *
          * @Route(
-         *     "/near/{name}/{id}/{radius}/{limit}/{_format}",
+         *      "/near/{name}/{id}/{radius}/{limit}/{_format}",
          *      requirements={
          *          "id"="(?:2[a|b|A|B])?0{0,2}\d+",
          *          "radius"="\d+",

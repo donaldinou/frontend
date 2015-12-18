@@ -6,12 +6,12 @@ namespace Viteloge\CoreBundle\Entity {
     use Symfony\Component\Validator\Constraints as Assert;
 
     /**
-     * SendgridEvents
+     * SendgridEvent
      *
      * @ORM\Table(name="sendgrid_events")
      * @ORM\Entity(repositoryClass="Viteloge\CoreBundle\Repository\SendgridEventsRepository")
      */
-    class SendgridEvents
+    class SendgridEvent
     {
         /**
          * @var \DateTime
@@ -42,7 +42,7 @@ namespace Viteloge\CoreBundle\Entity {
          * Set createdAt
          *
          * @param \DateTime $createdAt
-         * @return SendgridEvents
+         * @return SendgridEvent
          */
         public function setCreatedAt($createdAt)
         {
@@ -65,7 +65,7 @@ namespace Viteloge\CoreBundle\Entity {
          * Set data
          *
          * @param string $data
-         * @return SendgridEvents
+         * @return SendgridEvent
          */
         public function setData($data)
         {

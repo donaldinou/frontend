@@ -24,6 +24,15 @@ namespace Viteloge\CoreBundle\Repository {
             return $query->getResult();
         }
 
+        /**
+         * legacy @see SendgridController
+         *
+         */
+        public function disableEmails( $email ) {
+            $dbh = $this->_em->getConnection();
+            return $dbh->executeUpdate( 'UPDATE utilisateur SET dateResiliation = NOW() WHERE dateResiliation is NULL and mail = ?', array($email) );
+        }
+
     }
 
 

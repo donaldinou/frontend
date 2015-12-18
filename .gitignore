@@ -43,6 +43,7 @@ _def_assets.scss
 /web/fonts
 /web/fonts/
 /web/uploads/
+/web/js/
 /web/*.xml
 
 # PHPUnit
