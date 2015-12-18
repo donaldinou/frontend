@@ -284,7 +284,7 @@ namespace Viteloge\FrontendBundle\Controller {
          * @ParamConverter("ad", class="VitelogeCoreBundle:Ad", options={"id" = "id"})
          * @Template()
          */
-        public function searchFromAd(Request $request, Ad $ad) {
+        public function searchFromAdAction(Request $request, Ad $ad) {
             $adSearch = new AdSearch();
             $adSearch->setTransaction($ad->getTransaction());
             $adSearch->setWhat($ad->getType());
