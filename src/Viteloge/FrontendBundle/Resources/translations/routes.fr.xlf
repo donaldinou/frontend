@@ -82,9 +82,13 @@
         <source>viteloge_estimation_default_resultatcontact</source>
         <target>/prix-immobilier/votre-estimation/resultat/{id}</target>
       </trans-unit>
-      <trans-unit id="51d891aad8653712c808e4f6fe4b1504" resname="viteloge_frontend_ad_carousel">
+      <trans-unit id="viteloge_frontend_ad_carousel" resname="viteloge_frontend_ad_carousel">
         <source>viteloge_frontend_ad_carousel</source>
         <target>/annonce/carousel/</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_ad_carousel_limited" resname="viteloge_frontend_ad_carousel_limited">
+        <source>viteloge_frontend_ad_carousel_limited</source>
+        <target>/annonce/carousel/{limited}</target>
       </trans-unit>
       <trans-unit id="74b85a3c66592173c1c3218aab00d7d2" resname="viteloge_frontend_ad_latest">
         <source>viteloge_frontend_ad_latest</source>

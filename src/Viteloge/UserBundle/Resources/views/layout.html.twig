@@ -34,7 +34,6 @@
         {%- endblock head_stylesheets -%}
         {%- block head_javascripts -%}
             <script src="{{ aws_s3_domain('built/head.min.js') }}"></script>
-            <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
             <script src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
             {% block head_javascripts_requirejs %}{% endblock head_javascripts_requirejs %}
         {%- endblock head_javascripts -%}

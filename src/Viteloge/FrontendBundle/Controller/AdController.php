@@ -454,16 +454,6 @@ namespace Viteloge\FrontendBundle\Controller {
          * Ajax call, so we can set a public cache
          *
          * @Route(
-         *     "/carousel/{limit}",
-         *     requirements={
-         *         "limit"="\d+"
-         *     },
-         *     defaults={
-         *         "limit" = "9"
-         *     },
-         *     name="viteloge_frontend_ad_carousel"
-         * )
-         * @Route(
          *     "/carousel/",
          *     requirements={
          *         "limit" = "\d+"
@@ -472,6 +462,16 @@ namespace Viteloge\FrontendBundle\Controller {
          *         "limit" = "9"
          *     },
          *     name="viteloge_frontend_ad_carousel"
+         * )
+         * @Route(
+         *     "/carousel/{limit}",
+         *     requirements={
+         *         "limit"="\d+"
+         *     },
+         *     defaults={
+         *         "limit" = "9"
+         *     },
+         *     name="viteloge_frontend_ad_carousel_limited"
          * )
          * @Cache(expires="tomorrow", public=true)
          * @Method({"GET"})

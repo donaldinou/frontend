@@ -69,7 +69,7 @@ module.exports = function(grunt) {
                 options: {
                     stdout: true
                 },
-                command: 'php app/console fos:js-routing:dump --env=prod'
+                command: 'php app/console fos:js-routing:dump --env=prod --locale=fr__RG__'
             },
             sitemapDump: {
                 options: {
