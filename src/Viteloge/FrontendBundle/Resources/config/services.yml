@@ -1,4 +1,5 @@
 parameters:
+    viteloge_frontend.component.factory.token_manager.class: Viteloge\FrontendBundle\Component\Token\ManagerFactory
     viteloge_frontend.eventlistener.websearch.class: Viteloge\FrontendBundle\EventListener\WebSearchListener
     viteloge_frontend.eventlistener.sitemap.class: Viteloge\FrontendBundle\EventListener\SitemapListener
     viteloge_frontend.form.type.ad.class: Viteloge\FrontendBundle\Form\Type\AdType
@@ -14,6 +15,14 @@ parameters:
     viteloge_frontend.pagerfanta.view.viteloge_translated.class: Viteloge\FrontendBundle\Pagerfanta\View\VitelogeViewTranslated
 
 services:
+    viteloge_frontend.mail_token_manager:
+        class: MailTokenManager
+        factory: [%viteloge_frontend.component.factory.token_manager.class%, getManager]
+        arguments: ["@security.token_storage", "%kernel.secret%"]
+    viteloge_frontend.old_token_manager:
+        class: OldTokenManager
+        factory: [%viteloge_frontend.component.factory.token_manager.class%, getManager]
+        arguments: ["@security.token_storage", "%old_secret%"]
     viteloge_frontend.websearchlistener:
         class: %viteloge_frontend.eventlistener.websearch.class%
         arguments: ["@fos_elastica.manager"]

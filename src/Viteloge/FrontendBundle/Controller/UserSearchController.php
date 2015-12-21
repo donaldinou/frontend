@@ -201,6 +201,57 @@ namespace Viteloge\FrontendBundle\Controller {
             return $this->redirectToRoute('viteloge_frontend_websearch_list');
         }
 
+        /**
+         * Legacy. Remove userSearch from mail. Set the deletedAt field to "now"
+         * No cache
+         *
+         * @Route(
+         *      "/delete/from/mail/{timestamp}/{token}/{id}",
+         *      requirements={
+         *          "timestamp"="\d+",
+         *          "token"=".+",
+         *          "id"="\d+"
+         *      },
+         *      name="viteloge_frontend_usersearch_deletefrommail",
+         *      options = {
+         *         "i18n" = true
+         *      }
+         * )
+         * @Method("GET")
+         * @ParamConverter("webSearch", class="VitelogeCoreBundle:WebSearch", options={"id" = "id"})
+         */
+        public function deleteFromMailAction(Request $request, $timestamp, $token, $webSearch) {
+            $translated = $this->get('translator');
+            $now = time();
+            if ($timestamp < $now && ($timestamp > ($now-604800))) {
+                $user = $webSearch->getUser();
+                $userSearch = $webSearch->getUserSearch();
+
+                $key = $timestamp.':'.$userSearch->getMail();
+                $newTokenManager = $this->get('viteloge_frontend.mail_token_manager');
+                $oldTokenManager = $this->get('viteloge_frontend.old_token_manager');
+                $newTokenManager->setUser($user)->hashBy($key);
+                $oldTokenManager->setUser($user)->hashBy($key);
+
+                if (!$newTokenManager->isTokenValid($token) && !$oldTokenManager->isTokenValid($token)) {
+                    throw $this->createNotFoundException();
+                }
+
+                $userSearch->setDeletedAt(new \DateTime());
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($userSearch);
+                $em->flush();
+                $this->addFlash(
+                    'notice',
+                    $translated->trans('usersearch.flash.deleted')
+                );
+
+                return $this->redirectToRoute('viteloge_frontend_homepage');
+            } else {
+                throw $this->createNotFoundException();
+            }
+        }
+
     }
 
 }

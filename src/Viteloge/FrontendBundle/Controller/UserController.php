@@ -92,39 +92,6 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
-         * Legacy function. Now we could create a service
-         *
-         * @param User $user
-         * @param string<"old"|"new"> $type If we need to check from old kernet secret
-         * @return string a token hash
-         */
-        protected function buildToken(User $user, $type='new') {
-            if ($type == 'old') {
-                $secret = 'PLEAtEmk6ee8QQI3Ma3IGNii33W1EkGfqaw3ZEGH';
-            } else {
-                $secret = $this->container->getParameter( 'kernel.secret' );
-            }
-            return hash('sha512', implode(':', array( $user->getId(), 'disable', $secret )));
-        }
-
-        /**
-         * Legacy function. Now we could create a service
-         *
-         * @param string $userToken
-         * @param string $testToken
-         * @return boolean
-         */
-        protected function checkTokenHash($userToken, $testToken) {
-            $result = false;
-            $userTokenLength = strlen( $userToken );
-            $testTokenLength = strlen( $testToken );
-            if ($userTokenLength < $testTokenLength && substr( $testToken, 0, $userTokenLength )) {
-                $result = true;
-            }
-            return $result;
-        }
-
-        /**
          * This is a legacy disabling fork
          * @Route(
          *     "/disableMail/{token}/{info}",
@@ -149,10 +116,12 @@ namespace Viteloge\FrontendBundle\Controller {
                 throw $this->createNotFoundException();
             }
 
-            $newToken = $this->buildToken($user, 'new');
-            $oldToken = $this->buildToken($user, 'old');
+            $newTokenManager = $this->get('viteloge_frontend.mail_token_manager');
+            $oldTokenManager = $this->get('viteloge_frontend.old_token_manager');
+            $newTokenManager->setUser($user)->hash();
+            $oldTokenManager->setUser($user)->hash();
 
-            if (!$this->checkTokenHash($token, $newToken) && !$this->checkTokenHash($token, $oldToken)) {
+            if (!$newTokenManager->isTokenValid($token) && !$oldTokenManager->isTokenValid($token)) {
                 throw $this->createNotFoundException();
             }
 
@@ -192,11 +161,13 @@ namespace Viteloge\FrontendBundle\Controller {
                 throw new AccessDeniedException();
             }
 
-            $newToken = $this->buildToken($user, 'new');
-            $oldToken = $this->buildToken($user, 'old');
+            $newTokenManager = $this->get('viteloge_frontend.mail_token_manager');
+            $oldTokenManager = $this->get('viteloge_frontend.old_token_manager');
+            $newTokenManager->setUser($user)->hash();
+            $oldTokenManager->setUser($user)->hash();
 
-            if (!$this->checkTokenHash($token, $newToken) && !$this->checkTokenHash($token, $oldToken)) {
-                throw $this->createNotFoundException('Token currently not found');
+            if (!$newTokenManager->isTokenValid($token) && !$oldTokenManager->isTokenValid($token)) {
+                throw $this->createNotFoundException();
             }
 
             $user->setPartnerContactEnabled(false);

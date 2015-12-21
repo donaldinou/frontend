@@ -30,6 +30,7 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+    old_secret:        PLEAtEmk6ee8QQI3Ma3IGNii33W1EkGfqaw3ZEGH
 
     # google analytics
     ga_tracking:        UA-xxxxx-x

@@ -219,9 +219,15 @@
             background-color: #ddd;
             background-size: 60px;
             min-width: 100px;
+            width: auto;
+            max-width: 270px;
             min-height: 60px;
             max-height: 175px;
             margin: 0px auto;
+            &[src=""] {
+                display: block !important;
+                height: 60px;
+            }
         }
     }
 }
