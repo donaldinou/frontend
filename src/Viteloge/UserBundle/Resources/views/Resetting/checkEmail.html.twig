@@ -1,21 +1,27 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
-{% block main %}
-    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } %}
-        {% block left %}
+{%- block main -%}
+    {%- embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } -%}
+        {%- block left -%}
             {% trans_default_domain 'FOSUserBundle' %}
-            {{ 'resetting.check_email'|trans({'%email%': email}) }}
+            <p>{%- trans with { '%email%' : email } -%}resetting.check_email{%- endtrans -%}</p>
             <div class="row">
-                <div class="col-xs-2">
-                    <a href="{{ path('fos_user_security_login') }}" class="btn btn-default form-control hidden-xs">{% trans %}Back{% endtrans %}</a>
+                <div class="col-xs-2 no-padding-right">
+                    <a href="{{ path('fos_user_security_login') }}" class="btn btn-default btn-block">
+                        <span class="fa fa-rotate-left">&nbsp;</span>
+                        <span class="hidden-xs">{% trans %}resetting.reset.back{% endtrans %}</span>
+                    </a>
                 </div>
                 <div class="col-xs-10">
-                    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-default form-control">{% trans %}Subscribe{% endtrans %}</a>
+                    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-default btn-block">
+                        <span class="fa fa-refresh">&nbsp;</span>
+                        <span class="">{% trans from 'messages' %}user.registration{% endtrans %}</span>
+                    </a>
                 </div>
             </div>
-        {% endblock %}
-        {% block right %}
-            {{ include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) }}
-        {% endblock %}
-    {% endembed %}
-{% endblock main %}
+        {%- endblock -%}
+        {%- block right -%}
+            {{- include('VitelogeFrontendBundle:Block:aside_right.html.twig', {}) -}}
+        {%- endblock -%}
+    {%- endembed -%}
+{%- endblock main -%}

@@ -1,0 +1,24 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% form_theme form with ['VitelogeUserBundle:Registration:Form/fields.html.twig'] %}
+
+{{ form_start(form, {'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'id': 'fos_user_resetting_reset', 'enctype': 'application/x-www-form-urlencoded','class': 'resetting fos_user_resetting_reset form-horizontal', 'role': 'form', 'novalidate': 'novalidate', 'method': 'post'}}) }}
+    {%- block form_errors -%}
+        {{ form_errors(form) }}
+    {%- endblock form_errors -%}
+    {%- block form_fields -%}
+        <div class="hidden">
+            {%- if form._token is defined -%}
+                {{ form_row(form._token) }}
+            {%- endif -%}
+        </div>
+        {{ form_widget(form) }}
+    {%- endblock form_fields -%}
+    {%- block form_submit -%}
+        {{ include('VitelogeCoreBundle:Form:submit.html.twig', {
+            back_label: 'resetting.reset.back',
+            back_uri: path('fos_user_security_login'),
+            submit_label: 'resetting.reset.submit',
+            translation_domain: 'FOSUserBundle'
+        }) }}
+    {%- endblock form_submit -%}
+{{ form_end(form, {'render_rest': false}) }}

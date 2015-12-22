@@ -43,7 +43,7 @@ namespace Viteloge\UserBundle\EventListener {
                 //FOSUserEvents::REGISTRATION_COMPLETED => 'onRegistrating',
                 FOSUserEvents::CHANGE_PASSWORD_INITIALIZE => 'onPasswordChanging',
                 //FOSUserEvents::CHANGE_PASSWORD_SUCCESS => 'onPasswordSuccess',
-                //FOSUserEvents::RESETTING_RESET_INITIALIZE => 'onResetting',
+                FOSUserEvents::RESETTING_RESET_INITIALIZE => 'onResetting',
                 //FOSUserEvents::RESETTING_RESET_SUCCESS => 'onResettingSucceed',
                 //FOSUserEvents::RESETTING_RESET_COMPLETED => 'onResettingCompleted'
             );
@@ -91,6 +91,27 @@ namespace Viteloge\UserBundle\EventListener {
          *
          */
         public function onPasswordChanging(GetResponseUserEvent $event) {
+            $this->breadcrumbs->addItem(
+                $this->translated->trans('breadcrumb.home', array(), 'breadcrumbs'),
+                $this->router->generate('viteloge_frontend_homepage')
+            );
+            $this->breadcrumbs->addItem(
+                $this->translated->trans('breadcrumb.user', array(), 'breadcrumbs'),
+                $this->router->generate('viteloge_frontend_user_index')
+            );
+            $this->breadcrumbs->addItem(
+                $this->translated->trans('breadcrumb.profile', array(), 'breadcrumbs'),
+                $this->router->generate('fos_user_profile_show')
+            );
+            $this->breadcrumbs->addItem(
+                $this->translated->trans('breadcrumb.profile.changepassword', array(), 'breadcrumbs')
+            );
+        }
+
+        /**
+         *
+         */
+        public function onPasswordSuccess(FormEvent $event) {
             $this->breadcrumbs->addItem(
                 $this->translated->trans('breadcrumb.home', array(), 'breadcrumbs'),
                 $this->router->generate('viteloge_frontend_homepage')

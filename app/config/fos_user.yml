@@ -13,7 +13,7 @@ fos_user:
             type: viteloge_user_profile
     resetting:
         email:
-            template: VitelogeFrontendBundle:Resetting:email.html.twig
+            template: VitelogeUserBundle:Resetting:email.html.twig
     from_email:
         address: no-reply@viteloge.com
         sender_name: ViteLogé

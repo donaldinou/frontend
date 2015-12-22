@@ -78,6 +78,27 @@ namespace Viteloge\UserBundle\Controller {
             return parent::sendEmailAction($request);
         }
 
+        public function checkEmailAction(Request $request) {
+            $translated = $this->get('translator');
+
+            // Breadcrumbs
+            $breadcrumbs = $this->get('white_october_breadcrumbs');
+            $breadcrumbs->addItem(
+                $translated->trans('breadcrumb.home', array(), 'breadcrumbs'),
+                $this->get('router')->generate('viteloge_frontend_homepage')
+            );
+            $breadcrumbs->addItem(
+                $translated->trans('breadcrumb.user', array(), 'breadcrumbs'),
+                $this->get('router')->generate('viteloge_frontend_user_index')
+            );
+            $breadcrumbs->addItem(
+                $translated->trans('breadcrumb.reset', array(), 'breadcrumbs')
+            );
+            // --
+
+            return parent::checkEmailAction($request);
+        }
+
     }
 
 }
