@@ -56,6 +56,7 @@ namespace Viteloge\FrontendBundle\Controller {
             );
 
             $search = $request->get('q', '');
+            $search = \Elastica\Util::escapeTerm($search);
             $index = $this->container->get('fos_elastica.finder.viteloge.inseeCity');
             $searchQuery = new \Elastica\Query\QueryString();
             $searchQuery->setParam('query', $search);
@@ -152,6 +153,7 @@ namespace Viteloge\FrontendBundle\Controller {
          */
         public function statesAction( Request $request, $_format ) {
             $search = $request->get('q', '');
+            $search = \Elastica\Util::escapeTerm($search);
 
             $repository = $this->getDoctrine()
                 ->getRepository('AcreatInseeBundle:InseeState');
@@ -185,6 +187,7 @@ namespace Viteloge\FrontendBundle\Controller {
          */
         public function departmentsAction( Request $request, $_format) {
             $search = $request->get('q', '');
+            $search = \Elastica\Util::escapeTerm($search);
 
             $repository = $this->getDoctrine()
                 ->getRepository('AcreatInseeBundle:InseeDepartment');
