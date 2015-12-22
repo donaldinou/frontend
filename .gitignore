@@ -45,6 +45,7 @@ _def_assets.scss
 /web/uploads/
 /web/js/
 /web/*.xml
+!/web/browserconfig.xml
 
 # PHPUnit
 /app/phpunit.xml
