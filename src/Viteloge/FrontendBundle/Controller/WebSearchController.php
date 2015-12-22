@@ -539,6 +539,7 @@ namespace Viteloge\FrontendBundle\Controller {
             $editForm->handleRequest($request);
 
             if( $editForm->isValid() ) {
+                $webSearch->setUpdatedAtValue();
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($webSearch);
                 $em->flush();
