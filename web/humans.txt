@@ -31,7 +31,7 @@ From: Rennes, Bretagne, France
 
 
 /* SITE */
-Last update:2012/02/04
+Last update:2015/12/25
 Language: French
 Doctype: HTML5
 Standards: HTML5, CSS3
