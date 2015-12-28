@@ -558,6 +558,35 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Legacy function in order to update cached properties
+         * There are no security for this...
+         *
+         * @Route(
+         *      "/update/properties/{id}",
+         *      requirements={
+         *          "id"="\d+"
+         *      },
+         *      name="viteloge_frontend_websearch_update_properties"
+         * )
+         * @ParamConverter("webSearch", class="VitelogeCoreBundle:WebSearch", options={"id" = "id"})
+         * @Method("PUT")
+         */
+        public function updatePropertiesAction( Request $request, WebSearch $webSearch ) {
+            $data = json_decode( $request->getContent(), true );
+
+            $webSearch->setTotalMatches( $data['totalMatches'] );
+            $webSearch->setNewMatches( $data['newMatches'] );
+            $webSearch->setCachedProperties( $data['cachedProperties'] );
+            $webSearch->setLastupdate( new \DateTime() );
+            $em = $this->getDoctrine()->getManager();
+            $em->persist( $webSearch );
+            $em->flush();
+
+            return new Response( "blah" );
+
+        }
+
+        /**
          * Creates a form to delete a WebSearch entity by id.
          *
          * @param WebSearch the object
