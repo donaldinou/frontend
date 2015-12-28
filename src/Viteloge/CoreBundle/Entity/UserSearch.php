@@ -37,7 +37,7 @@ namespace Viteloge\CoreBundle\Entity {
          *      multiple = false,
          * )
          */
-        private $civility;
+        protected $civility;
 
         /**
          * @var string
@@ -50,7 +50,7 @@ namespace Viteloge\CoreBundle\Entity {
          *     type="string"
          * )
          */
-        private $lastname;
+        protected $lastname;
 
         /**
          * @var string
@@ -63,7 +63,7 @@ namespace Viteloge\CoreBundle\Entity {
          *     type="string"
          * )
          */
-        private $firstname;
+        protected $firstname;
 
         /**
          * @var string
@@ -76,7 +76,7 @@ namespace Viteloge\CoreBundle\Entity {
          *     type="string"
          * )
          */
-        private $postalcode;
+        protected $postalcode;
 
         /**
          * @var string
@@ -90,12 +90,12 @@ namespace Viteloge\CoreBundle\Entity {
          *      max = 100
          * )
          */
-        private $mail;
+        protected $mail;
 
         /**
          * @var boolean
          */
-        private $mailEnabled;
+        protected $mailEnabled;
 
         /**
          * @var enumtransaction
@@ -106,7 +106,7 @@ namespace Viteloge\CoreBundle\Entity {
          *      multiple = false
          * )
          */
-        private $transaction;
+        protected $transaction;
 
         /**
          * @var string
@@ -117,7 +117,7 @@ namespace Viteloge\CoreBundle\Entity {
          *      multiple = true
          * )
          */
-        private $type;
+        protected $type;
 
         /**
          * @var string
@@ -128,14 +128,14 @@ namespace Viteloge\CoreBundle\Entity {
          *      multiple = true
          * )
          */
-        private $rooms;
+        protected $rooms;
 
         /**
          * @var smallint
          *
          * @ORM\Column(name="arrond", type="smallint", nullable=false)
          */
-        private $disctrictId;
+        protected $disctrictId;
 
         /**
          * @var integer
@@ -146,7 +146,7 @@ namespace Viteloge\CoreBundle\Entity {
          *      multiple = false,
          * )
          */
-        private $radius;
+        protected $radius;
 
         /**
          * @var float
@@ -163,7 +163,7 @@ namespace Viteloge\CoreBundle\Entity {
          *     type="float"
          * )
          */
-        private $budgetMin;
+        protected $budgetMin;
 
         /**
          * @var float
@@ -180,7 +180,7 @@ namespace Viteloge\CoreBundle\Entity {
          *     type="float"
          * )
          */
-        private $budgetMax;
+        protected $budgetMax;
 
         /**
          * @var string
@@ -190,21 +190,21 @@ namespace Viteloge\CoreBundle\Entity {
          *      max = 255
          * )
          */
-        private $keywords;
+        protected $keywords;
 
         /**
          * @var boolean
          *
          * @ORM\Column(name="help", type="boolean", nullable=false)
          */
-        private $helpEnabled;
+        protected $helpEnabled;
 
         /**
          * @var boolean
          *
          * @ORM\Column(name="partenaires", type="boolean", nullable=false)
          */
-        private $partnerContactEnabled;
+        protected $partnerContactEnabled;
 
         /**
          * @var \DateTime
@@ -212,7 +212,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Column(name="dateInscription", type="datetime", nullable=false)
          * @Assert\DateTime()
          */
-        private $createdAt;
+        protected $createdAt;
 
         /**
          * @var \DateTime
@@ -220,14 +220,14 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Column(name="dateResiliation", type="datetime", nullable=true)
          * @Assert\DateTime()
          */
-        private $deletedAt;
+        protected $deletedAt;
 
         /**
          * @var string
          *
          * @ORM\Column(name="source", type="string", length=12, nullable=true)
          */
-        private $source;
+        protected $source;
 
         /**
          * @var integer
@@ -236,7 +236,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Id
          * @ORM\GeneratedValue(strategy="IDENTITY")
          */
-        private $id;
+        protected $id;
 
         /**
          * @var \Acreat\InseeBundle\Entity\InseeCity
@@ -249,7 +249,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @Assert\Valid()
          * @Assert\NotBlank()
          */
-        private $inseeCity;
+        protected $inseeCity;
 
         /**
          * Constructor

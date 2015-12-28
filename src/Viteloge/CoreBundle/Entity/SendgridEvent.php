@@ -17,15 +17,16 @@ namespace Viteloge\CoreBundle\Entity {
          * @var \DateTime
          *
          * @ORM\Column(name="submittedAt", type="datetime", nullable=false)
+         * @Assert\DateTime()
          */
-        private $createdAt;
+        protected $createdAt;
 
         /**
          * @var string
          *
          * @ORM\Column(name="data", type="text", nullable=false)
          */
-        private $data;
+        protected $data;
 
         /**
          * @var integer
@@ -34,8 +35,15 @@ namespace Viteloge\CoreBundle\Entity {
          * @ORM\Id
          * @ORM\GeneratedValue(strategy="IDENTITY")
          */
-        private $id;
+        protected $id;
 
+
+        /**
+         * Constructor
+         */
+        public function __construct() {
+            $this->createdAt = new \DateTime('now');
+        }
 
 
         /**
