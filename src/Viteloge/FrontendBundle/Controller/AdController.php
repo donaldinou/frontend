@@ -24,6 +24,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use Viteloge\CoreBundle\Entity\Ad;
     use Viteloge\CoreBundle\Entity\QueryStats;
     use Viteloge\CoreBundle\Entity\Statistics;
+    use Viteloge\CoreBundle\Entity\WebSearch;
     use Viteloge\CoreBundle\Entity\UserSearch;
     use Viteloge\CoreBundle\Component\DBAL\EnumTransactionType;
     use Viteloge\CoreBundle\Component\Enum\DistanceEnum;
@@ -363,6 +364,26 @@ namespace Viteloge\FrontendBundle\Controller {
                 $options['isTransactionLabelHidden'] = true;
             }
             return $options;
+        }
+
+        /**
+         * Search from a WebSearch
+         * Cache is set from the created date.
+         *
+         * @Route(
+         *     "/search/from/websearch/{id}",
+         *     requirements={
+         *         "id"="\d+"
+         *     },
+         *     name="viteloge_frontend_ad_searchfromwebsearch"
+         * )
+         * @Cache(lastModified="webSearch.getUpdatedAt()", ETag="'WebSearch' ~ webSearch.getId() ~ webSearch.getUpdatedAt().getTimestamp()")
+         * @ParamConverter("webSearch", class="VitelogeCoreBundle:WebSearch", options={"id" = "id"})
+         * @Method({"GET"})
+         */
+        public function searchFromWebSearchAction(Request $request, WebSearch $webSearch) {
+            $userSearch = $webSearch->getUserSearch();
+            return $this->searchFromUserSearchAction($request, $userSearch);
         }
 
         /**

@@ -110,7 +110,11 @@
         <source>viteloge_frontend_ad_searchfromform</source>
         <target>/annonce/recherche/a-partir-de/formulaire/</target>
       </trans-unit>
-      <trans-unit id="d34c3f96e5f9d3b1589c79fb537c5a93" resname="viteloge_frontend_ad_searchfromusersearch">
+      <trans-unit id="viteloge_frontend_ad_searchfromwebsearch" resname="viteloge_frontend_ad_searchfromwebsearch">
+        <source>viteloge_frontend_ad_searchfromwebsearch</source>
+        <target>/annonce/recherche/a-partir-de/recherche-web/{id}</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_ad_searchfromusersearch" resname="viteloge_frontend_ad_searchfromusersearch">
         <source>viteloge_frontend_ad_searchfromusersearch</source>
         <target>/annonce/recherche/a-partir-de/recherche-utilisateur/{id}</target>
       </trans-unit>
