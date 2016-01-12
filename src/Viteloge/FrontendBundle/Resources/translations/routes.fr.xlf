@@ -282,7 +282,7 @@
         <source>viteloge_frontend_usersearch_city</source>
         <target>/utilisateur/recherche/ville/{name}/{id}/{page}/{limit}</target>
       </trans-unit>
-      <trans-unit id="132083c3ca087ca7942604dce0649c70" resname="viteloge_frontend_usersearch_delete">
+      <trans-unit id="viteloge_frontend_usersearch_delete" resname="viteloge_frontend_usersearch_delete">
         <source>viteloge_frontend_usersearch_delete</source>
         <target>/utilisateur/recherche/supprimer/{id}</target>
       </trans-unit>

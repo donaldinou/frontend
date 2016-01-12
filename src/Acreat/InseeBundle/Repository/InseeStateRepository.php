@@ -25,7 +25,7 @@ namespace Acreat\InseeBundle\Repository {
                 )
                 ->setParameter(':soundex', $soundex)
                 ->setMaxResults(1);
-             try {
+            try {
                 return $query->getSingleResult();
             } catch (NoResultException $e) {
                 return null;

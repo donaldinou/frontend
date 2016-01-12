@@ -33,6 +33,21 @@ namespace Viteloge\CoreBundle\Repository {
             return $dbh->executeUpdate( 'UPDATE utilisateur SET dateResiliation = NOW() WHERE dateResiliation is NULL and mail = ?', array($email) );
         }
 
+        /**
+         * legacy @see UserSearchController
+         */
+        public function findOneByHash($hash) {
+            $qb = $this->_em->createQueryBuilder();
+            $qb
+                ->select( 'usersearch' )
+                ->from( 'VitelogeCoreBundle:UserSearch', 'usersearch' )
+                ->where( 'MD5(usersearch.id) = :hash' )
+                ->setParameter(':hash', $hash)
+                ->setMaxResults( 1 )
+            ;
+            return $qb->getQuery()->getSingleResult();
+        }
+
     }
 
 

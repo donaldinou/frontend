@@ -181,7 +181,7 @@ namespace Viteloge\FrontendBundle\Controller {
          * @ParamConverter("userSearch", class="VitelogeCoreBundle:UserSearch", options={"id" = "id"})
          * Template("VitelogeFrontendBundle:UserSearch:delete.html.twig")
          */
-        public function deleteAction(Request $request, $userSearch) {
+        public function deleteAction(Request $request, UserSearch $userSearch) {
             $translated = $this->get('translator');
 
             $form = $this->createDeleteForm($userSearch);
@@ -220,7 +220,7 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Method("GET")
          * @ParamConverter("webSearch", class="VitelogeCoreBundle:WebSearch", options={"id" = "id"})
          */
-        public function deleteFromMailAction(Request $request, $timestamp, $token, $webSearch) {
+        public function deleteFromMailAction(Request $request, $timestamp, $token, WebSearch $webSearch) {
             $translated = $this->get('translator');
             $now = time();
             if ($timestamp < $now && ($timestamp > ($now-604800))) {
@@ -250,6 +250,42 @@ namespace Viteloge\FrontendBundle\Controller {
             } else {
                 throw $this->createNotFoundException();
             }
+        }
+
+        /**
+         * Legacy (since 2012). Remove userSearch from user hash. Set the deletedAt field to "now"
+         * No cache
+         *
+         * @Route(
+         *      "/delete/from/userhash/{hash}",
+         *      requirements={
+         *          "hash"=".+"
+         *      },
+         *      name="viteloge_frontend_usersearch_deletefrommail",
+         *      options = {
+         *         "i18n" = true
+         *      }
+         * )
+         * @Method("GET")
+         * @ParamConverter("userSearch", class="VitelogeCoreBundle:UserSearch", options={
+         *    "repository_method" = "findOneByHash",
+         *    "mapping": {"hash": "hash"},
+         *    "map_method_signature" = true
+         * })
+         */
+        public function deleteFromUserHashAction(Request $request, UserSearch $userSearch) {
+            $translated = $this->get('translator');
+
+            $userSearch->setDeletedAt(new \DateTime());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($userSearch);
+            $em->flush();
+            $this->addFlash(
+                'notice',
+                $translated->trans('usersearch.flash.deleted')
+            );
+
+            return $this->redirectToRoute('viteloge_frontend_homepage');
         }
 
     }

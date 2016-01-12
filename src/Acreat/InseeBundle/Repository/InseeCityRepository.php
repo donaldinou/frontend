@@ -26,7 +26,7 @@ namespace Acreat\InseeBundle\Repository {
                 ->setParameter('lng', $lng)
                 ->setParameter('precision', $precision)
                 ->setMaxResults(1);
-             try {
+            try {
                 return $query->getSingleResult();
             } catch (NoResultException $e) {
                 return null;

@@ -90,6 +90,7 @@ doctrine:
                 round: Acreat\CoreBundle\Component\ORM\Query\Functions\Round
             string_functions:
                 soundex: Acreat\CoreBundle\Component\ORM\Query\Functions\Soundex
+                md5: Acreat\CoreBundle\Component\ORM\Query\Functions\Md5
         filters:
             softdeleteable:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
