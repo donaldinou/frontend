@@ -19,6 +19,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use Acreat\InseeBundle\Entity\InseeCity;
     use Viteloge\CoreBundle\Entity\WebSearch;
     use Viteloge\CoreBundle\Entity\UserSearch;
+    use Viteloge\CoreBundle\SearchEntity\Ad as AdSearch;
 
     /**
      * @Route("/user/search")
@@ -158,6 +159,120 @@ namespace Viteloge\FrontendBundle\Controller {
             return array(
                 'inseeCity' => $inseeCity,
                 'userSearches' => $pagination->getCurrentPageResults(),
+                'pagination' => $pagination
+            );
+        }
+
+        /**
+         * Ads from a usersearch url
+         * Cache is set from set last timestamp
+         *
+         * @Route(
+         *      "/ad/{id}/{page}/{limit}",
+         *      defaults={},
+         *      requirements={
+         *         "page"="\d+",
+         *         "limit"="\d+"
+         *      },
+         *      defaults={
+         *         "page"=1,
+         *         "limit"="25"
+         *      },
+         *      name="viteloge_frontend_usersearch_ad"
+         * )
+         * @Method({"GET"})
+         * @ParamConverter("userSearch", class="VitelogeCoreBundle:UserSearch", options={"id" = "id"})
+         * @Template("VitelogeFrontendBundle:UserSearch:ad.html.twig")
+         * @Cache(expires="tomorrow", public=true)
+         *
+         * @deprecated Use the AdController searchAction instead
+         */
+        public function adAction(Request $request, UserSearch $userSearch, $page, $limit) {
+            $translated = $this->get('translator');
+
+            $adSearch = new AdSearch();
+            $adSearch->setTransaction($userSearch->getTransaction());
+            $adSearch->setWhat($userSearch->getType());
+            $adSearch->setRooms($userSearch->getRooms());
+            $adSearch->setMinPrice($userSearch->getBudgetMin());
+            $adSearch->setMaxPrice($userSearch->getBudgetMax());
+            $adSearch->setRadius($userSearch->getRadius());
+            $adSearch->setKeywords($userSearch->getKeywords());
+            if ($userSearch->getInseeCity() instanceof InseeCity) {
+                $adSearch->setWhere($userSearch->getInseeCity()->getId());
+                $adSearch->setLocation($userSearch->getInseeCity()->getLocation());
+            }
+            $adSearch->setSort('createdAt');
+
+            $form = $this->createForm('viteloge_core_adsearch', $adSearch);
+
+            // Save session
+            $session = $request->getSession();
+            $session->set('adSearch', $adSearch);
+            // --
+
+            $inseeCity = $userSearch->getInseeCity();
+
+            // Breadcrumbs
+            $transaction = $adSearch->getTransaction();
+            $breadcrumbs = $this->get('white_october_breadcrumbs');
+            $breadcrumbs->addItem(
+                $translated->trans('breadcrumb.home', array(), 'breadcrumbs'),
+                $this->get('router')->generate('viteloge_frontend_homepage')
+            );
+            if ($inseeCity instanceof InseeCity) {
+                $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction)).' ' : '';
+                $breadcrumbTitle .= $inseeCity->getFullname().' ('.$inseeCity->getInseeDepartment()->getId().')';
+                $breadcrumbs->addItem(
+                    $breadcrumbTitle,
+                    $this->get('router')->generate('viteloge_frontend_glossary_showcity',
+                        array(
+                            'name' => $inseeCity->getSlug(),
+                            'id' => $inseeCity->getId()
+                        )
+                    )
+                );
+            }
+            $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction)).' ' : '';
+            $breadcrumbTitle .= $inseeCity->getFullname().' ('.$inseeCity->getInseeDepartment()->getId().')';
+            $breadcrumbs->addItem($breadcrumbTitle);
+
+            // elastica
+            $elasticaManager = $this->container->get('fos_elastica.manager');
+            $repository = $elasticaManager->getRepository('VitelogeCoreBundle:Ad');
+            $repository->setEntityManager($this->getDoctrine()->getManager());
+            $pagination = $repository->searchPaginated($form->getData());
+            // --
+
+            // pager
+            $pagination->setMaxPerPage($limit);
+            $pagination->setCurrentPage($page);
+            // --
+
+            // SEO
+            $canonicalLink = $this->get('router')->generate(
+                $request->get('_route'),
+                $request->get('_route_params'),
+                true
+            );
+            $cityTitle = $inseeCity->getFullname().' ('.$inseeCity->getInseeDepartment()->getId().')';
+            $seoPage = $this->container->get('sonata.seo.page');
+            $seoPage
+                ->setTitle($breadcrumbTitle.' - '.$translated->trans('viteloge.frontend.usersearch.ad.title', array('%city%' => $cityTitle)))
+                ->addMeta('name', 'robots', 'noindex, follow')
+                ->addMeta('name', 'description', $breadcrumbTitle.' - '.$translated->trans('viteloge.frontend.usersearch.ad.description', array('%city%' => $cityTitle)))
+                ->addMeta('property', 'og:title', $seoPage->getTitle())
+                ->addMeta('property', 'og:type', 'website')
+                ->addMeta('property', 'og:url',  $canonicalLink)
+                ->addMeta('property', 'og:description', $breadcrumbTitle.' - '.$translated->trans('viteloge.frontend.usersearch.ad.description', array('%city%' => $cityTitle)))
+                ->setLinkCanonical($canonicalLink)
+            ;
+            // --
+
+            return array(
+                'form' => $form->createView(),
+                'userSearch' => $userSearch,
+                'ads' => $pagination->getCurrentPageResults(),
                 'pagination' => $pagination
             );
         }

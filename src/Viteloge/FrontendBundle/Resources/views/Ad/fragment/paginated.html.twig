@@ -4,10 +4,7 @@
         {%- block pagination -%}
             {%- if pagination is not null and pagination.haveToPaginate -%}
                 {{- pagerfanta(pagination, 'pager_viteloge', {
-                    'routeName' : 'viteloge_frontend_ad_search',
-                    'routeParams': app.request.query.all,
-                    'prev_message' : 'Previous',
-                    'next_message' : 'Next'
+                    'routeParams': app.request.query.all
                 }) -}}
             {%- endif -%}
         {%- endblock pagination -%}

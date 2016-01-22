@@ -46,6 +46,7 @@ namespace Viteloge\FrontendBundle\EventListener {
             if (is_null($section) || $section == 'default') {
                 $this->addUrlsFromRoutes($event);
                 $this->addUrlsFromCities($event);
+                $this->addUrlsFromQueries($event);
             }
         }
 
@@ -80,9 +81,9 @@ namespace Viteloge\FrontendBundle\EventListener {
             );
             $i = 0;
             $j = 0;
-            $glossary_section = 'glossary_part_';
-            $statistic_section = 'statistic_part_';
-            $keyword_section = 'keyword_part_';
+            $glossary_section = 'city_glossary_part_';
+            $statistic_section = 'city_statistic_part_';
+            $keyword_section = 'city_keyword_part_';
             foreach ($cities as $key => $city) {
                 if (!empty($city->getSlug())) {
                     $i++;
@@ -101,6 +102,37 @@ namespace Viteloge\FrontendBundle\EventListener {
                     $event->getGenerator()->addUrl(
                         $this->getUrlConcrete('viteloge_frontend_querystats_city', $parameters, $options),
                         $keyword_section.$j
+                    );
+                    if ($i % 100 == 0) {
+                        $j++;
+                    }
+                }
+            }
+        }
+
+        /**
+         *
+         */
+        private function addUrlsFromQueries(SitemapPopulateEvent $event) {
+            $repository = $this->entityManager->getRepository('VitelogeCoreBundle:QueryStats');
+            $queries = $repository->findAll();
+            $options = array(
+                'priority' => 1,
+                'changefreq' => UrlConcrete::CHANGEFREQ_DAILY,
+                'lastmod' => new \DateTime()
+            );
+            $i = 0;
+            $j = 0;
+            $ad_section = 'keyword_ad_part_';
+            foreach ($queries as $key => $query) {
+                if (!empty($query->getSlug())) {
+                    $i++;
+                    $parameters = array(
+                        'slug' => $query->getSlug()
+                    );
+                    $event->getGenerator()->addUrl(
+                        $this->getUrlConcrete('viteloge_frontend_querystats_ad', $parameters, $options),
+                        $ad_section.$j
                     );
                     if ($i % 100 == 0) {
                         $j++;

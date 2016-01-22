@@ -110,12 +110,12 @@
         <source>viteloge_frontend_ad_searchfromusersearch</source>
         <target>/ad/search/from/usersearch/{id}</target>
       </trans-unit>
-      <trans-unit id="606673ee5a7a71de23f3888e78a47bcc" resname="viteloge_frontend_ad_suggestnew">
-        <source>viteloge_frontend_ad_suggestnew</source>
+      <trans-unit id="606673ee5a7a71de23f3888e78a47bcc" resname="viteloge_frontend_ad_suggestnew_limited">
+        <source>viteloge_frontend_ad_suggestnew_limited</source>
         <target>/ad/suggest/new/{limit}</target>
       </trans-unit>
-      <trans-unit id="dc118c7a381798e7ff54fe9126c7b538" resname="viteloge_frontend_ad_suggestnew_1">
-        <source>viteloge_frontend_ad_suggestnew_1</source>
+      <trans-unit id="dc118c7a381798e7ff54fe9126c7b538" resname="viteloge_frontend_ad_suggestnew">
+        <source>viteloge_frontend_ad_suggestnew</source>
         <target>/ad/suggest/new/</target>
       </trans-unit>
       <trans-unit id="690d7e4c2438d4a965c685b5b62ace9d" resname="viteloge_frontend_glossary_areas">
@@ -154,12 +154,12 @@
         <source>viteloge_frontend_homepage</source>
         <target>/</target>
       </trans-unit>
-      <trans-unit id="84062a504e63601c5898452e6afdd91e" resname="viteloge_frontend_querystats_latest">
-        <source>viteloge_frontend_querystats_latest</source>
+      <trans-unit id="viteloge_frontend_querystats_latest_limited" resname="viteloge_frontend_querystats_latest_limitedd">
+        <source>viteloge_frontend_querystats_latest_limited</source>
         <target>/query/latest/{limit}</target>
       </trans-unit>
-      <trans-unit id="983849431bd7496b0dcaa922c9599185" resname="viteloge_frontend_querystats_latest_1">
-        <source>viteloge_frontend_querystats_latest_1</source>
+      <trans-unit id="983849431bd7496b0dcaa922c9599185" resname="viteloge_frontend_querystats_latest">
+        <source>viteloge_frontend_querystats_latest</source>
         <target>/query/latest/</target>
       </trans-unit>
       <trans-unit id="d8bcd97dc378c966c16f7f2dad85603f" resname="viteloge_frontend_static_about">

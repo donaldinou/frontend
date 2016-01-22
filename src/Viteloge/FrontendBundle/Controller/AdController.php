@@ -414,6 +414,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 $adSearch->setWhere($userSearch->getInseeCity()->getId());
                 $adSearch->setLocation($userSearch->getInseeCity()->getLocation());
             }
+            $adSearch->setSort('createdAt');
 
             // transform object to array in order to through it to url
             $encoders = array(new JsonEncoder());
@@ -564,7 +565,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *     defaults={
          *         "limit" = "3"
          *     },
-         *     name="viteloge_frontend_ad_suggestnew"
+         *     name="viteloge_frontend_ad_suggestnew_limited"
          * )
          * @Route(
          *     "/suggest/new/",

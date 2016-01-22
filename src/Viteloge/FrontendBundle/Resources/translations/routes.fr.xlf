@@ -122,12 +122,12 @@
         <source>viteloge_frontend_ad_searchfromquerystats</source>
         <target>/annonce/recherche/a-partir-de/recherche-motcles/{id}</target>
       </trans-unit>
-      <trans-unit id="606673ee5a7a71de23f3888e78a47bcc" resname="viteloge_frontend_ad_suggestnew">
-        <source>viteloge_frontend_ad_suggestnew</source>
+      <trans-unit id="viteloge_frontend_ad_suggestnew_limited" resname="viteloge_frontend_ad_suggestnew_limited">
+        <source>viteloge_frontend_ad_suggestnew_limited</source>
         <target>/annonce/suggestion/neuf/{limit}</target>
       </trans-unit>
-      <trans-unit id="dc118c7a381798e7ff54fe9126c7b538" resname="viteloge_frontend_ad_suggestnew_1">
-        <source>viteloge_frontend_ad_suggestnew_1</source>
+      <trans-unit id="viteloge_frontend_ad_suggestnew" resname="viteloge_frontend_ad_suggestnew">
+        <source>viteloge_frontend_ad_suggestnew</source>
         <target>/annonce/suggestion/neuf/</target>
       </trans-unit>
       <trans-unit id="viteloge_frontend_glossary" resname="viteloge_frontend_glossary">
@@ -138,7 +138,7 @@
         <source>viteloge_frontend_glossary_legacy</source>
         <target>/immobilier/{slug}</target>
       </trans-unit>
-      <trans-unit id="690d7e4c2438d4a965c685b5b62ace9d" resname="viteloge_frontend_glossary_areas">
+      <trans-unit id="viteloge_frontend_glossary_areas" resname="viteloge_frontend_glossary_areas">
         <source>viteloge_frontend_glossary_areas</source>
         <target>/immobilier/quartiers/{id}/</target>
       </trans-unit>
@@ -158,19 +158,23 @@
         <source>viteloge_frontend_glossary_mostsearched</source>
         <target>/immobilier/les-plus-recherches/</target>
       </trans-unit>
-      <trans-unit id="2b040961a023f28c7fefb837d3af0d19" resname="viteloge_frontend_glossary_showcity">
+      <trans-unit id="viteloge_frontend_glossary_showcity" resname="viteloge_frontend_glossary_showcity">
         <source>viteloge_frontend_glossary_showcity</source>
         <target>/immobilier/ville/{name}/{id}</target>
       </trans-unit>
-      <trans-unit id="4afc4b87902bfdf3c4a4770842a3f3ff" resname="viteloge_frontend_glossary_showdepartment">
+      <trans-unit id="viteloge_frontend_glossary_showarea" resname="viteloge_frontend_glossary_showarea">
+        <source>viteloge_frontend_glossary_showarea</source>
+        <target>/immobilier/quartier/{name}/{id}</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_glossary_showdepartment" resname="viteloge_frontend_glossary_showdepartment">
         <source>viteloge_frontend_glossary_showdepartment</source>
         <target>/immobilier/departement/{name}/{id}</target>
       </trans-unit>
-      <trans-unit id="95e8ea63a1a4a935757322d6c1d9647b" resname="viteloge_frontend_glossary_showstate">
+      <trans-unit id="viteloge_frontend_glossary_showstate" resname="viteloge_frontend_glossary_showstate">
         <source>viteloge_frontend_glossary_showstate</source>
         <target>/immobilier/region/{name}/{id}</target>
       </trans-unit>
-      <trans-unit id="529a1a748777e4d400f035df65e78526" resname="viteloge_frontend_homepage">
+      <trans-unit id="viteloge_frontend_homepage" resname="viteloge_frontend_homepage">
         <source>viteloge_frontend_homepage</source>
         <target>/</target>
       </trans-unit>
@@ -180,14 +184,18 @@
       </trans-unit>
       <trans-unit id="viteloge_frontend_querystats_legacy" resname="viteloge_frontend_querystats_legacy">
         <source>viteloge_frontend_querystats_legacy</source>
-        <target>/recherche/historique/{urlrewrite}</target>
+        <target>/recherche/historique/{slug}</target>
       </trans-unit>
-      <trans-unit id="84062a504e63601c5898452e6afdd91e" resname="viteloge_frontend_querystats_latest">
-        <source>viteloge_frontend_querystats_latest</source>
+      <trans-unit id="viteloge_frontend_querystats_ad" resname="viteloge_frontend_querystats_ad">
+        <source>viteloge_frontend_querystats_ad</source>
+        <target>/recherche/annonce/{slug}/{page}/{limit}</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_querystats_latest_limited" resname="viteloge_frontend_querystats_latest_limited">
+        <source>viteloge_frontend_querystats_latest_limited</source>
         <target>/recherche/derniere/{limit}</target>
       </trans-unit>
-      <trans-unit id="983849431bd7496b0dcaa922c9599185" resname="viteloge_frontend_querystats_latest_1">
-        <source>viteloge_frontend_querystats_latest_1</source>
+      <trans-unit id="983849431bd7496b0dcaa922c9599185" resname="viteloge_frontend_querystats_latest">
+        <source>viteloge_frontend_querystats_latest</source>
         <target>/recherche/derniere/</target>
       </trans-unit>
       <trans-unit id="d8bcd97dc378c966c16f7f2dad85603f" resname="viteloge_frontend_static_about">
@@ -281,6 +289,10 @@
       <trans-unit id="viteloge_frontend_usersearch_city" resname="viteloge_frontend_usersearch_city">
         <source>viteloge_frontend_usersearch_city</source>
         <target>/utilisateur/recherche/ville/{name}/{id}/{page}/{limit}</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_usersearch_ad" resname="viteloge_frontend_usersearch_ad">
+        <source>viteloge_frontend_usersearch_ad</source>
+        <target>/utilisateur/recherche/annonces/{id}/{page}/{limit}</target>
       </trans-unit>
       <trans-unit id="viteloge_frontend_usersearch_delete" resname="viteloge_frontend_usersearch_delete">
         <source>viteloge_frontend_usersearch_delete</source>

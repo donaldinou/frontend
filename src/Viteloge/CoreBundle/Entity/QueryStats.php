@@ -178,8 +178,16 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return string
          */
-        public function getUrlrewrite()
-        {
+        public function getUrlrewrite() {
+            return $this->urlrewrite;
+        }
+
+        /**
+         * getUrlrewrite alias
+         *
+         * @return string
+         */
+        public function getSlug() {
             return $this->urlrewrite;
         }
 

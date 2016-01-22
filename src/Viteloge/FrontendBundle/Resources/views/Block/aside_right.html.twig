@@ -22,7 +22,7 @@
     {%- block aside_before_adsense2 -%}{%- endblock aside_before_adsense2 -%}
     {%- block aside_suggestnew -%}
         <div class="clearfix">
-            {{ render(path('viteloge_frontend_ad_suggestnew', { 'limit': 3 })) }}
+            {{ render(path('viteloge_frontend_ad_suggestnew_limited', { 'limit': 3 })) }}
         </div>
     {%- endblock aside_suggestnew -%}
     {%- block aside_before_new -%}{%- endblock aside_before_new -%}

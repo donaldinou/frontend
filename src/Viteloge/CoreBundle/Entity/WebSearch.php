@@ -228,9 +228,9 @@ namespace Viteloge\CoreBundle\Entity {
          *
          * @return \DateTime
          */
-        public function getUpdatedAt()
-        {
-            return $this->updatedAt;
+        public function getUpdatedAt() {
+            // BUGFIX : always return a valid DateTime in order to use cache policy
+            return (!empty($this->updatedAt)) ? $this->updatedAt : new \DateTime();
         }
 
         /**

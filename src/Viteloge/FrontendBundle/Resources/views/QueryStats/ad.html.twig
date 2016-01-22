@@ -1,0 +1,27 @@
+{% extends 'VitelogeFrontendBundle:Ad:search.html.twig' %}
+
+{%- block header_end -%}
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-sm-10 col-md-9 col-lg-9">
+                <h1 class="h2 text-capitalize">{{ queryStats.keywords }}</h1>
+            </div>
+            <div class="col-sm-2 col-md-3 col-lg-3 text-right hidden-xs">
+                {%- if form is defined -%}
+                    <button type="button" class="h2 btn btn-default btn-research dropdown-toggle" data-toggle="collapse" aria-expanded="false" data-target="#search-container" aria-controls="search-container" aria-label="{%- trans -%}ad.change.research{%- endtrans -%}">
+                        <span class="fa fa-search hidden-md hidden-lg" aria-hidden="true"></span>
+                        <span class="hidden-xs hidden-sm">{%- trans -%}ad.change.research{%- endtrans -%}</span>
+                        <span class="caret hidden-xs hidden-sm"></span>
+                    </button>
+                {%- endif -%}
+            </div>
+        </div>
+        {%- if form is defined -%}
+            <div id="search-container" class="collapse row clearfix">
+                <div class="col-md-12">
+                    {{ include('VitelogeFrontendBundle:Ad:form/adSearch.html.twig', { form: form, isTransactionLabelHidden: true, theme_container: 'search-container' }) }}
+                </div>
+            </div>
+        {%- endif -%}
+    </div>
+{%- endblock -%}

@@ -18,6 +18,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use Pagerfanta\Adapter\DoctrineORMAdapter;
     use Acreat\InseeBundle\Entity\InseeCity;
     use Viteloge\CoreBundle\Entity\QueryStats;
+    use Viteloge\CoreBundle\SearchEntity\Ad as AdSearch;
 
     /**
      * @Route("/query")
@@ -140,9 +141,9 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
-         * Legacy function used because there is no slug saved in table
+         * Legacy function used in order to have some old compatibilities
          * @Route(
-         *      "/legacy/{urlrewrite}",
+         *      "/legacy/{slug}",
          *      defaults={},
          *      name="viteloge_frontend_querystats_legacy"
          * )
@@ -153,18 +154,155 @@ namespace Viteloge\FrontendBundle\Controller {
          *     options={
          *          "repository_method" = "findOneByUrlrewrite",
          *          "mapping" = {
-         *              "urlrewrite": "urlrewrite"
+         *              "slug": "urlrewrite"
          *          },
          *          "map_method_signature": true
          *     }
          * )
          * @Cache(expires="tomorrow", public=true)
+         *
+         * @deprecated
          */
         public function legacyAction(Request $request, QueryStats $queryStats) {
             return $this->redirectToRoute(
-                'viteloge_frontend_ad_searchfromquerystats',
-                array('id' => $queryStats->getId()),
+                'viteloge_frontend_querystats_ad',
+                array(
+                    'slug' => $queryStats->getSlug()
+                ),
                 301
+            );
+        }
+
+        /**
+         * Ads from a querystats url
+         * Cache is set from set last timestamp
+         *
+         * @Route(
+         *      "/ad/{slug}/{page}/{limit}",
+         *      defaults={},
+         *      requirements={
+         *         "page"="\d+",
+         *         "limit"="\d+"
+         *      },
+         *      defaults={
+         *         "page"=1,
+         *         "limit"="25"
+         *      },
+         *      name="viteloge_frontend_querystats_ad"
+         * )
+         * @Method({"GET"})
+         * @ParamConverter(
+         *     "queryStats",
+         *     class="VitelogeCoreBundle:QueryStats",
+         *     options={
+         *          "repository_method" = "findOneByUrlrewrite",
+         *          "mapping" = {
+         *              "slug": "urlrewrite"
+         *          },
+         *          "map_method_signature": true
+         *     }
+         * )
+         * @Template("VitelogeFrontendBundle:QueryStats:ad.html.twig")
+         * @Cache(lastModified="queryStats.getUpdateAt()", ETag="'QueryStats' ~ queryStats.getId() ~ queryStats.getTimestamp()")
+         */
+        public function adAction(Request $request, QueryStats $queryStats, $page, $limit) {
+            $translated = $this->get('translator');
+
+            $em = $this->getDoctrine()->getManager();
+            $queryStats->setCount($queryStats->getCount()+1);
+            $em->persist($queryStats);
+            $em->flush();
+
+            $adSearch = new AdSearch();
+            $adSearch->setTransaction($queryStats->getTransaction());
+            $adSearch->setWhere($queryStats->getInseeCity()->getId());
+            $adSearch->setWhat(ucfirst($queryStats->getType()));
+            $adSearch->setRooms($queryStats->getRooms());
+            $adSearch->setLocation($queryStats->getInseeCity()->getLocation());
+
+            $form = $this->createForm('viteloge_core_adsearch', $adSearch);
+
+            // Save session
+            $session = $request->getSession();
+            $session->set('adSearch', $adSearch);
+            // --
+
+            $inseeDepartment = $queryStats->getInseeDepartment();
+            $inseeCity = $queryStats->getInseeCity();
+
+            // Breadcrumbs
+            $transaction = $adSearch->getTransaction();
+            $breadcrumbs = $this->get('white_october_breadcrumbs');
+            $breadcrumbs->addItem(
+                $translated->trans('breadcrumb.home', array(), 'breadcrumbs'),
+                $this->get('router')->generate('viteloge_frontend_homepage')
+            );
+            if ($inseeDepartment instanceof InseeDepartment) {
+                $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction)).' ' : '';
+                $breadcrumbTitle .= $inseeDepartment->getFullname();
+                $breadcrumbs->addItem(
+                    $breadcrumbTitle,
+                    $this->get('router')->generate('viteloge_frontend_ad_search',
+                        array(
+                            'transaction' => $transaction,
+                            'whereDepartment' => array($inseeDepartment->getId())
+                        )
+                    )
+                );
+            }
+            if ($inseeCity instanceof InseeCity) {
+                $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction)).' ' : '';
+                $breadcrumbTitle .= $inseeCity->getFullname().' ('.$inseeCity->getInseeDepartment()->getId().')';
+                $breadcrumbs->addItem(
+                    $breadcrumbTitle,
+                    $this->get('router')->generate('viteloge_frontend_glossary_showcity',
+                        array(
+                            'name' => $inseeCity->getSlug(),
+                            'id' => $inseeCity->getId()
+                        )
+                    )
+                );
+            }
+            $breadcrumbTitle = $queryStats->getKeywords();
+            $breadcrumbs->addItem($breadcrumbTitle);
+
+            // elastica
+            $elasticaManager = $this->container->get('fos_elastica.manager');
+            $repository = $elasticaManager->getRepository('VitelogeCoreBundle:Ad');
+            $repository->setEntityManager($this->getDoctrine()->getManager());
+            $pagination = $repository->searchPaginated($form->getData());
+            // --
+
+            // pager
+            $pagination->setMaxPerPage($limit);
+            $pagination->setCurrentPage($page);
+            // --
+
+            // SEO
+            $canonicalLink = $this->get('router')->generate(
+                $request->get('_route'),
+                $request->get('_route_params'),
+                true
+            );
+            $cityTitle = $inseeCity->getFullname().' ('.$inseeCity->getInseeDepartment()->getId().')';
+            $seoPage = $this->container->get('sonata.seo.page');
+            $seoPage
+                ->setTitle($breadcrumbTitle.' - '.$translated->trans('viteloge.frontend.querystats.ad.title', array('%city%' => $cityTitle, '%keywords%' => $queryStats->getKeywords())))
+                ->addMeta('name', 'robots', 'index, follow')
+                ->addMeta('name', 'description', $breadcrumbTitle.' - '.$translated->trans('viteloge.frontend.querystats.ad.description', array('%city%' => $cityTitle, '%keywords%' => $queryStats->getKeywords())))
+                ->addMeta('property', 'og:title', $seoPage->getTitle())
+                ->addMeta('property', 'og:type', 'website')
+                ->addMeta('property', 'og:url',  $canonicalLink)
+                ->addMeta('property', 'og:description', $breadcrumbTitle.' - '.$translated->trans('viteloge.frontend.querystats.ad.description', array('%city%' => $cityTitle, '%keywords%' => $queryStats->getKeywords())))
+                ->setLinkCanonical($canonicalLink)
+            ;
+            // --
+
+            return array(
+                'form' => $form->createView(),
+                'queryStats' => $queryStats,
+                'ads' => $pagination->getCurrentPageResults(),
+                'pagination' => $pagination
             );
         }
 
@@ -179,7 +317,8 @@ namespace Viteloge\FrontendBundle\Controller {
          *     },
          *     defaults={
          *         "limit" = "9"
-         *     }
+         *     },
+         *     name="viteloge_frontend_querystats_latest_limited"
          * )
          * @Route(
          *     "/latest/",
@@ -188,7 +327,8 @@ namespace Viteloge\FrontendBundle\Controller {
          *     },
          *     defaults={
          *         "limit" = "9"
-         *     }
+         *     },
+         *     name="viteloge_frontend_querystats_latest"
          * )
          * @Cache(expires="tomorrow", public=true)
          * @Method({"GET"})
