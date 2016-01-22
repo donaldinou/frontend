@@ -69,11 +69,11 @@ namespace Viteloge\FrontendBundle\EventListener {
         }
 
         /**
-         *
+         * http://doctrine-orm.readthedocs.org/en/latest/reference/batch-processing.html
          */
         private function addUrlsFromCities(SitemapPopulateEvent $event) {
-            $repository = $this->entityManager->getRepository('AcreatInseeBundle:InseeCity');
-            $cities = $repository->findAll();
+            $q = $this->entityManager->createQuery('select ic from AcreatInseeBundle:InseeCity ic');
+            $iterableResult = $q->iterate();
             $options = array(
                 'priority' => 1,
                 'changefreq' => UrlConcrete::CHANGEFREQ_DAILY,
@@ -84,7 +84,8 @@ namespace Viteloge\FrontendBundle\EventListener {
             $glossary_section = 'city_glossary_part_';
             $statistic_section = 'city_statistic_part_';
             $keyword_section = 'city_keyword_part_';
-            foreach ($cities as $key => $city) {
+            foreach ($iterableResult as $key => $row) {
+                $city = $row[0];
                 if (!empty($city->getSlug())) {
                     $i++;
                     $parameters = array(
@@ -107,15 +108,16 @@ namespace Viteloge\FrontendBundle\EventListener {
                         $j++;
                     }
                 }
+                $this->entityManager->detach($row[0]);
             }
         }
 
         /**
-         *
+         * http://doctrine-orm.readthedocs.org/en/latest/reference/batch-processing.html
          */
         private function addUrlsFromQueries(SitemapPopulateEvent $event) {
-            $repository = $this->entityManager->getRepository('VitelogeCoreBundle:QueryStats');
-            $queries = $repository->findAll();
+            $q = $this->entityManager->createQuery('select qs from VitelogeCoreBundle:QueryStats qs');
+            $iterableResult = $q->iterate();
             $options = array(
                 'priority' => 1,
                 'changefreq' => UrlConcrete::CHANGEFREQ_DAILY,
@@ -124,7 +126,8 @@ namespace Viteloge\FrontendBundle\EventListener {
             $i = 0;
             $j = 0;
             $ad_section = 'keyword_ad_part_';
-            foreach ($queries as $key => $query) {
+            foreach ($iterableResult as $key => $row) {
+                $query = $row[0];
                 if (!empty($query->getSlug())) {
                     $i++;
                     $parameters = array(
@@ -138,6 +141,7 @@ namespace Viteloge\FrontendBundle\EventListener {
                         $j++;
                     }
                 }
+                $this->entityManager->detach($row[0]);
             }
         }
 
