@@ -324,7 +324,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      "/delete/from/mail/{timestamp}/{token}/{id}",
          *      requirements={
          *          "timestamp"="\d+",
-         *          "token"=".+",
+         *          "token"="[^\/]+",
          *          "id"="\d+"
          *      },
          *      name="viteloge_frontend_usersearch_deletefrommail",
