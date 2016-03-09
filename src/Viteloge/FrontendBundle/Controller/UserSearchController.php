@@ -324,7 +324,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      "/delete/from/mail/{timestamp}/{token}/{id}",
          *      requirements={
          *          "timestamp"="\d+",
-         *          "token"="[^\/]+",
+         *          "token"="[^/]+",
          *          "id"="\d+"
          *      },
          *      name="viteloge_frontend_usersearch_deletefrommail",
@@ -376,7 +376,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      requirements={
          *          "hash"=".+"
          *      },
-         *      name="viteloge_frontend_usersearch_deletefrommail",
+         *      name="viteloge_frontend_usersearch_deletefromhash",
          *      options = {
          *         "i18n" = true
          *      }
