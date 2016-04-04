@@ -206,10 +206,10 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function setDate($date) {
             try {
-                $this->date = $date;
-                $this->setYear((int)$this->date->format('Y'));
-                $this->setMonth((int)$this->date->format('m'));
-                $this->setDay((int)$this->date->format('d'));
+                $this->date = clone $date;
+                $this->setYear((int)$date->format('Y'));
+                $this->setMonth((int)$date->format('m'));
+                $this->setDay((int)$date->format('d'));
             } catch (\Exception $e) {
 
             }
