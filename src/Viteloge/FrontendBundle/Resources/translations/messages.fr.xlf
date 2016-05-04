@@ -476,7 +476,7 @@
       </trans-unit>
       <trans-unit id="ad.transaction.V" resname="ad.transaction.V">
         <source>ad.transaction.V</source>
-        <target>Vente</target>
+        <target>Achat</target>
       </trans-unit>
       <trans-unit id="ad.transaction.N" resname="ad.transaction.N">
         <source>ad.transaction.N</source>
@@ -516,7 +516,7 @@
       </trans-unit>
       <trans-unit id="ad.sale" resname="ad.sale">
         <source>ad.sale</source>
-        <target>Vente</target>
+        <target>Achat</target>
       </trans-unit>
       <trans-unit id="ad.new" resname="ad.new">
         <source>ad.new</source>
@@ -1292,7 +1292,23 @@
       </trans-unit>
       <trans-unit id="viteloge.frontend.static.gtc.description" resname="viteloge.frontend.static.gtc.description">
         <source>viteloge.frontend.static.gtc.description</source>
-        <target>Immobilier - Vitelogé, Le moteur de recherche de l'immobilier. Acheter une maison, louer un appartement? Vitelogé est le site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers.s</target>
+        <target>Immobilier - Vitelogé, Le moteur de recherche de l'immobilier. Acheter une maison, louer un appartement? Vitelogé est le site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers.</target>
+      </trans-unit>
+      <trans-unit id="viteloge.frontend.static.mention.title" resname="viteloge.frontend.static.mention.title">
+        <source>viteloge.frontend.static.mention.title</source>
+        <target>Immobilier - Vitelogé - Mentions légales du moteur de recherche de l'immobilier</target>
+      </trans-unit>
+      <trans-unit id="viteloge.frontend.static.mention.maintitle" resname="viteloge.frontend.static.mention.maintitle">
+        <source>viteloge.frontend.static.mention.maintitle</source>
+        <target>Mentions légales</target>
+      </trans-unit>
+      <trans-unit id="viteloge.frontend.static.mention.short" resname="viteloge.frontend.static.mention.short">
+        <source>viteloge.frontend.static.mention.short</source>
+        <target>Mentions légales</target> 
+      </trans-unit>
+      <trans-unit id="viteloge.frontend.static.mention.description" resname="viteloge.frontend.static.mention.description">
+        <source>viteloge.frontend.static.mention.description</source>
+        <target>Immobilier - Vitelogé, Le moteur de recherche de l'immobilier. Acheter une maison, louer un appartement? Vitelogé est le site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers.</target>
       </trans-unit>
       <trans-unit id="viteloge.frontend.static.privacy.title" resname="viteloge.frontend.static.privacy.title">
         <source>viteloge.frontend.static.privacy.title</source>
