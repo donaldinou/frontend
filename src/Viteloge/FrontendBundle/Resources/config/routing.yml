@@ -227,3 +227,21 @@ viteloge_frontend_static_privacy:
             changefreq: "weekly"
             title: viteloge.frontend.static.privacy.title
             description: viteloge.frontend.static.privacy.description
+
+
+viteloge_frontend_static_mention:
+    path: /mention
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'VitelogeFrontendBundle:Static:mention.html.twig'
+        private: true
+        maxAge: 86400
+        sharedAge: 86400
+    requirements:
+        _method: GET
+    options:
+        vl_sitemap:
+            priority: 0.7
+            changefreq: "weekly"
+            title: viteloge.frontend.static.mention.title
+            description: viteloge.frontend.static.mention.description

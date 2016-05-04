@@ -182,6 +182,10 @@
         <source>viteloge_frontend_static_gtc</source>
         <target>/gtc</target>
       </trans-unit>
+      <trans-unit id="mentionslegales" resname="viteloge_frontend_static_mention">
+	<source>viteloge_frontend_static_mention</source>
+        <target>/mention</target>
+      </trans-unit>
       <trans-unit id="271000011cce809c1b50361cbd379b00" resname="viteloge_frontend_static_privacy">
         <source>viteloge_frontend_static_privacy</source>
         <target>/privacy</target>
