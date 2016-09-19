@@ -23,7 +23,8 @@ namespace Viteloge\FrontendBundle\Twig {
         public function getFunctions() {
             return array(
                 new \Twig_SimpleFunction('vl_theme', array($this, 'vlTheme')),
-                new \Twig_SimpleFunction('aws_s3_domain', array($this, 'awsS3Domain'))
+                new \Twig_SimpleFunction('aws_s3_domain', array($this, 'awsS3MediaDomain'))
+                new \Twig_SimpleFunction('aws_s3_file', array($this, 'awsS3FileDomain'))
             );
         }
 
@@ -70,10 +71,23 @@ namespace Viteloge\FrontendBundle\Twig {
         /**
          *
          */
-        public function awsS3Domain($path, $compress=true) {
+        public function awsS3MediaDomain($path, $compress=true) {
+           /* $mediaDomain = $this->container->getParameter('media_domain');
+            if(empty($mediaDomain)){
+                return '/'.$path;
+            }*/
             $protocol = 'http';
             $suffix = $compress ? '.gz' : '';
             return $protocol.'://'.$this->container->getParameter('media_domain').'/'.$path.$suffix;
+        }
+
+        /**
+         *
+         */
+        public function awsS3FileDomain($path, $compress=true) {
+            $protocol = 'http';
+            $suffix = $compress ? '.gz' : '';
+            return $protocol.'://'.$this->container->getParameter('file_domain').'/'.$path.$suffix;
         }
 
         /**
