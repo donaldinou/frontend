@@ -23,7 +23,7 @@ namespace Viteloge\FrontendBundle\Twig {
         public function getFunctions() {
             return array(
                 new \Twig_SimpleFunction('vl_theme', array($this, 'vlTheme')),
-                new \Twig_SimpleFunction('aws_s3_domain', array($this, 'awsS3MediaDomain'))
+                new \Twig_SimpleFunction('aws_s3_domain', array($this, 'awsS3MediaDomain')),
                 new \Twig_SimpleFunction('aws_s3_file', array($this, 'awsS3FileDomain'))
             );
         }
