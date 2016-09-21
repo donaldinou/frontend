@@ -1,3 +1,24 @@
 .user-icon {
     margin-right: 10px;
 }
+
+#identification.bleu-button {
+  list-style: none;
+
+  li {
+    list-style: none;
+  }
+}
+
+#identification.bleu-button {
+  margin: 0px;
+  padding: 0 10px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  height: 40px;
+  line-height: 40px;
+  float: right !important;
+  margin-right: 37px !important;
+  border-radius: 6px
+}

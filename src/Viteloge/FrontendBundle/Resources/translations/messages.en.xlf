@@ -146,6 +146,14 @@
         <source>Informations on Fasthousing</source>
         <target>Informations on Fasthousing</target>
       </trans-unit>
+      <trans-unit id="websearches.viteloge" resname="websearches.viteloge">
+        <source>websearches.viteloge</source>
+        <target>in live...</target>
+      </trans-unit>
+      <trans-unit id="websearches.inlive" resname="websearches.inlive">
+        <source>websearches.inlive</source>
+        <target>Viteloge </target>
+      </trans-unit>
       <trans-unit id="0d3bc207b553eeb6e55799867ec9687c" resname="websearches.latest">
         <source>websearches.latest</source>
         <target>Latest properties searches</target>
@@ -335,6 +343,10 @@
       <trans-unit id="65f070829ea54b8081d5adbe4a1f9c17" resname="viteloge.usersearch.unknown">
         <source>viteloge.usersearch.unknown</source>
         <target>viteloge.usersearch.unknown</target>
+      </trans-unit>
+      <trans-unit id="ad.propose" resname="ad.propose">
+        <source>ad.propose</source>
+        <target>propose</target>
       </trans-unit>
     </body>
   </file>

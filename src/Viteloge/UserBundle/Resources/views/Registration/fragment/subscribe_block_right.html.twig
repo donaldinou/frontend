@@ -1,0 +1,14 @@
+{% extends "VitelogeUserBundle:base:box_right.html.twig" %}
+
+{%- block box_title -%}
+    {% trans %}user.register.account.no{% endtrans %}
+{%- endblock -%}
+
+{%- block box_content -%}
+    <ul class="nopaddingli">
+        <li>{% trans %}user.register.account.line1{% endtrans %}</li>
+        <li>{% trans %}user.register.account.line2{% endtrans %}</li>
+        <li>{% trans %}user.register.account.line3{% endtrans %}</li>
+    </ul>
+    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-primary btn-block" role="button">{% trans %}user.register{% endtrans %}</a>
+{%- endblock -%}

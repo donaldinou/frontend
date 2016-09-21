@@ -94,6 +94,10 @@
         <source>viteloge_frontend_ad_redirect</source>
         <target>/ad/redirect/{id}</target>
       </trans-unit>
+      <trans-unit id="viteloge_frontend_ad_view" resname="viteloge_frontend_ad_view">
+        <source>viteloge_frontend_ad_view</source>
+        <target>/annonce/view/{key}/{id}</target>
+      </trans-unit>
       <trans-unit id="a9d5ddab093d91f2edbba752a1dccdcb" resname="viteloge_frontend_ad_search">
         <source>viteloge_frontend_ad_search</source>
         <target>/ad/search/{page}/{limit}</target>
@@ -183,7 +187,7 @@
         <target>/gtc</target>
       </trans-unit>
       <trans-unit id="mentionslegales" resname="viteloge_frontend_static_mention">
-	<source>viteloge_frontend_static_mention</source>
+      <source>viteloge_frontend_static_mention</source>
         <target>/mention</target>
       </trans-unit>
       <trans-unit id="271000011cce809c1b50361cbd379b00" resname="viteloge_frontend_static_privacy">
@@ -245,6 +249,18 @@
       <trans-unit id="9740647eb8dbfd1e58c734d8dd9c624c" resname="viteloge_frontend_websearch_list">
         <source>viteloge_frontend_websearch_list</source>
         <target>/user/websearch/list/</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_ad_latest_limited" resname="viteloge_frontend_ad_latest_limited">
+        <source>viteloge_frontend_websearch_list</source>
+        <target>/ad/home/latest/{limit}</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_ad_latest_transaction_type_limited" resname="viteloge_frontend_ad_latest_transaction_type_limited">
+        <source>viteloge_frontend_ad_latest_transaction_type_limited</source>
+        <target>/ad/type/last/{transaction}/{type}/{limit}</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_suggest_position" resname="viteloge_frontend_suggest_position">
+        <source>viteloge_frontend_suggest_position</source>
+        <target>/suggest/position/{lat}/{lng}/{_format}</target>
       </trans-unit>
     </body>
   </file>

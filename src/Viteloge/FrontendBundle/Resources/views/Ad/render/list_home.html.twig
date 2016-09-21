@@ -1,0 +1,46 @@
+<span class="usersearch">
+    {%- block ad_agencyName -%}
+        {%- if ad.agencyName is defined -%}
+                <i class="fa fa-clock-o" aria-hidden="true"></i><small><b>&nbsp;{{ ad.updatedAt|time_diff|default('viteloge.now'|trans) }}</b>
+                {{ ad.agencyName|default('usersearch.unknown'|trans) }}&nbsp;
+                {%- trans -%}ad.propose{%- endtrans -%}</small>
+                </br>
+        {%- endif -%}
+    {%- endblock -%}
+    {%- block ad_transaction -%}
+         <a href="{{ path('viteloge_frontend_ad_redirect', { 'id': ad.id }) }}" class="linklive">
+       {%- if ad.transaction -%}
+                <span>{{ ('ad.transaction.article.'~ad.transaction)|trans }}</span>&nbsp;
+       {%- endif -%}
+    {%- endblock ad_transaction -%}
+    {%- block ad_type -%}
+         {%- if ad.type -%}
+           <span>{{ ad.type|join(', ') }}</span>&nbsp;{# already translated in database #}
+          {%- endif -%}
+     {%- endblock ad_type -%}
+     {%- block ad_rooms -%}
+          {%- if ad.rooms and ad.rooms|length -%}
+             {% set rooms = 2 %}
+              {%- if ad.rooms <= 1 -%}
+                  {% set rooms = 1 %}
+              {%- endif -%}
+              <span>{%- transchoice rooms with {'%count%': ad.rooms|join(',')} -%}usersearch.rooms.count{%- endtranschoice -%}</span>&nbsp;
+          {%- endif -%}
+       {%- endblock ad_rooms -%}
+       {%- if ad.inseeCity is defined and ad.inseeCity -%}
+        {%- block ad_city -%}
+            <span>
+                <a href="{{ path( 'viteloge_frontend_glossary_showcity', { name: ad.inseeCity.slug, id: ad.inseeCity.id }) }}" class="linklivetown">{{ ad.inseeCity }}</a>
+            </span>
+        {%- endblock ad_city -%}
+    {%- endif -%}
+    {%- block ad_price -%}
+           <a href="{{ path('viteloge_frontend_ad_redirect', { 'id': ad.id }) }}" class="linklive">
+
+            {%- if (ad.price) -%}
+                <span>{{- ad.price|localizedcurrency('EUR') -}}</span>
+            {%- endif -%}
+        </a>
+    {%- endblock ad_price -%}
+
+</span>

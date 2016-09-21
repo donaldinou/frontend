@@ -1,9 +1,14 @@
 <section class="last-search">
-    <div class="container">
+    <div class="container w90 mauto">
+        <div class="col-md-12">
+            <h3><b>{% trans %}websearches.inlive{% endtrans %}</b> {% trans %}websearches.viteloge{% endtrans %}</h3>
+        </div>
         <div class="row">
-            <div class="searches col-md-8">
-                <h3 class="list-title text-uppercase">{% trans %}websearches.latest{% endtrans %}</h3>
+            <div class="searches col-md-4">
                 {{ render(path('viteloge_frontend_websearch_latest_limited', { limit: 5 })) }}
+            </div>
+            <div class="searches col-md-4">
+                {{ render(path('viteloge_frontend_ad_latest_limited', { limit: 9 })) }}
             </div>
             <aside class="col-md-4" data-role="secondary">
                 {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', { }) }}
@@ -11,3 +16,4 @@
         </div>
     </div>
 </section>
+

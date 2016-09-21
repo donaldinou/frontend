@@ -1,5 +1,8 @@
-<div class="glossary" data-role="glossary">
-    <ul class="clearfix list-inline">
+<div class="col-md-3 col-sm-6 col-xs-12">
+    <ul>
+    	<li class="footlihead">
+         <b>Immobilier en France</b>
+        </li>
         {% for item in glossary %}
             {{ include('VitelogeFrontendBundle:Glossary:render/li.html.twig', { 'glossary': item }) }}
         {% endfor %}

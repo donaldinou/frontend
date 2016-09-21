@@ -274,6 +274,14 @@
         <source>Informations on Fasthousing</source>
         <target>Informations sur Vitelogé</target>
       </trans-unit>
+      <trans-unit id="websearches.viteloge" resname="websearches.viteloge">
+        <source>websearches.viteloge</source>
+        <target>sur vitelogé...</target>
+      </trans-unit>
+      <trans-unit id="websearches.inlive" resname="websearches.inlive">
+        <source>websearches.inlive</source>
+        <target>En direct </target>
+      </trans-unit>
       <trans-unit id="0d3bc207b553eeb6e55799867ec9687c" resname="websearches.latest">
         <source>websearches.latest</source>
         <target>Dernières recherches immobilière</target>
@@ -396,7 +404,7 @@
       </trans-unit>
       <trans-unit id="today.properties.update.count" resname="today.properties.update.count">
         <source>today.properties.update.count</source>
-        <target>{0} Aujourd'hui aucun bien à jour|{1} Aujourd'hui 1 seul bien à jour|]1,Inf] Aujourd'hui %count% biens à jour</target>
+        <target>{0} Aucun bien référencé sur vitelogé|{1} 1 seul bien référencé sur vitelogé|]1,Inf] %count% Biens référencés sur vitelogé</target>
       </trans-unit>
       <trans-unit id="user.registration" resname="user.registration">
         <source>user.registration</source>
@@ -404,7 +412,7 @@
       </trans-unit>
       <trans-unit id="user.connection" resname="user.connection">
         <source>user.connection</source>
-        <target>Se connecter</target>
+        <target>Connexion</target>
       </trans-unit>
       <trans-unit id="user.logout" resname="user.logout">
         <source>user.logout</source>
@@ -469,6 +477,10 @@
       <trans-unit id="ad.transaction.near.city" resname="ad.transaction.near.city">
         <source>ad.transaction.near.city</source>
         <target>{0} Biens à la location près de %city%|{1} Biens à la vente près de %city%|{2} Biens neufs près de %city%|{3} Biens pour vous près de %city%</target>
+      </trans-unit>
+      <trans-unit id="ad.transaction" resname="ad.transaction">
+        <source>ad.transaction</source>
+        <target>Transaction</target>
       </trans-unit>
       <trans-unit id="ad.transaction.L" resname="ad.transaction.L">
         <source>ad.transaction.L</source>
@@ -658,6 +670,10 @@
         <source>usersearch.search</source>
         <target>recherche</target>
       </trans-unit>
+      <trans-unit id="ad.propose" resname="ad.propose">
+        <source>ad.propose</source>
+        <target>propose</target>
+      </trans-unit>
       <trans-unit id="usersearch.action.save" resname="usersearch.action.save">
         <source>usersearch.action.save</source>
         <target>Enregistrer</target>
@@ -676,15 +692,31 @@
       </trans-unit>
       <trans-unit id="usersearch.transaction.article.L" resname="usersearch.transaction.article.L">
         <source>usersearch.transaction.article.L</source>
-        <target>une location</target>
+        <target>Location</target>
       </trans-unit>
       <trans-unit id="usersearch.transaction.article.V" resname="usersearch.transaction.article.V">
         <source>usersearch.transaction.article.V</source>
-        <target>un achat</target>
+        <target>Achat</target>
       </trans-unit>
       <trans-unit id="usersearch.transaction.article.N" resname="usersearch.transaction.article.N">
         <source>usersearch.transaction.article.N</source>
-        <target>un achat</target>
+        <target>Achat</target>
+      </trans-unit>
+      <trans-unit id="ad.transaction.article.L" resname="ad.transaction.article.L">
+        <source>ad.transaction.article.L</source>
+        <target>Location</target>
+      </trans-unit>
+      <trans-unit id="ad.transaction.article.V" resname="ad.transaction.article.V">
+        <source>ad.transaction.article.V</source>
+        <target>Vente</target>
+      </trans-unit>
+      <trans-unit id="footer.transaction.article.L" resname="footer.transaction.article.L">
+        <source>footer.transaction.article.L</source>
+        <target>louer</target>
+      </trans-unit>
+      <trans-unit id="footer.transaction.article.V" resname="footer.transaction.article.V">
+        <source>footer.transaction.article.V</source>
+        <target>Vendre</target>
       </trans-unit>
       <trans-unit id="usersearch.rooms.count" resname="usersearch.rooms.count">
         <source>usersearch.rooms.count</source>
@@ -1304,7 +1336,7 @@
       </trans-unit>
       <trans-unit id="viteloge.frontend.static.mention.short" resname="viteloge.frontend.static.mention.short">
         <source>viteloge.frontend.static.mention.short</source>
-        <target>Mentions légales</target> 
+        <target>Mentions légales</target>
       </trans-unit>
       <trans-unit id="viteloge.frontend.static.mention.description" resname="viteloge.frontend.static.mention.description">
         <source>viteloge.frontend.static.mention.description</source>

@@ -5,3 +5,17 @@ footer {
         }
     }
 }
+
+.footlihead {
+  display: block;
+  color: #000000 !important;
+  transition-duration: 0.5s;
+  transition-property: all;
+}
+
+.footli {
+    display: block;
+    color: #337ab7 !important;
+    transition-duration: 0.5s;
+    transition-property: all;
+}

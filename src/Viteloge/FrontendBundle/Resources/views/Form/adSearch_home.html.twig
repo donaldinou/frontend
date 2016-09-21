@@ -1,0 +1,134 @@
+{# form_theme form with ['VitelogeFrontendBundle:Form:fields.html.twig'] #}
+{# form_theme form.transaction with['VitelogeFrontendBundle:Form:form_radio_span.html.twig'] #}
+
+{%- block form_start -%}
+{{ form_start(form, {'action': path('viteloge_frontend_ad_searchfromform'), 'attr': {'enctype': 'application/x-www-form-urlencoded','class': 'search', 'role': 'search', 'novalidate': 'novalidate'}}) }}
+{%- endblock form_start -%}
+    {%- block form_errors -%}
+        {{ form_errors(form) }}
+    {%- endblock form_errors -%}
+    {%- block form_fields -%}
+        <div class="hidden">
+            {%- if form._token is defined -%}
+                {{ form_row(form._token) }}
+            {%- endif -%}
+        </div>
+        {# form_widget(form.transaction, { label_attr: { 'class': 'radio-inline' }, theme_container: theme_container|default('search-container') }) #}
+        <fieldset class="bg-darken text-left" role="tabpanel">
+            <div class="row">
+
+                <div class="col-md-2">
+                    {{ form_row(form.what, {
+                        'label_attr': {
+                            'class': 'sr-only'
+                        },
+                        'attr': {
+                            'class': 'select-tag-input',
+                            'data-placeholder' : 'ad.what'|trans(),
+                        }
+                    }) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.transaction, {
+                        'label_attr': {
+                            'class': 'sr-only'
+                        },
+                        'attr': {
+                            'class': 'select-tag-input44',
+                            'data-placeholder' : 'ad.transaction'|trans(),
+                        }
+                    }) }}
+                </div>
+            <div class="col-md-6">
+             <div class="whereblock">
+                    {{ form_row(form.where, {
+                        'label_attr': {
+                            'class': 'sr-only'
+                        },
+                        'attr': {
+                            'class': 'select-tag-input btn-group',
+                            'data-placeholder' : 'ad.where'|trans(),
+                            'data-minimum-input-length': '3',
+                            'data-allow-clear' : 'true',
+                            'data-ajax--url' : path('viteloge_frontend_suggest_cities', { _format: 'json' }),
+                            'data-ajax--cache' : 'false',
+                            'data-ajax--data-type' : 'json',
+                        }
+                    }) }}
+                <!--     <div class="btn btn-link btn-link-carte bg-info" alt="trouver sur la carte" title="trouver sur la carte">
+                        <i class="fa fa-map-marker fa-lg" aria-hidden="true"></i>
+                    </div>-->
+             </div>
+                </div>
+
+
+
+                <div class=" col-md-2" aria-label="">
+                     <div class="display-table btnsearchloc">
+                        <div class="display-cell">
+                            <div id="moreinfo" class="btn btn-link bg-info searchbtnplus" alt="plus de critères" title="plus de critères">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="display-cell nowrap w100">
+                            {{ form_widget(form.search, {
+                                'label': 'ad.search',
+                                'span_class': 'fa fa-search',
+                                'attr': {
+                                    'class': 'btn btn-primary w100 searchbtn text-uppercase',
+                                    'role': 'button'
+                                }
+                            }) }}
+                        </div>
+                     </div>
+                </div>
+            </div>
+                     <div class="clear"></div>
+            <div id="hiddeninput" class="row hidden">
+                <div class="col-md-4">
+                    {{ form_row(form.rooms, {
+                        'label_attr': {
+                            'class': 'sr-only'
+                        },
+                        'attr': {
+                            'class': 'select-tag-input',
+                            'data-placeholder' : 'ad.rooms.number'|trans(),
+                        }
+                    }) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(form.minPrice, {
+                        'label_attr': {
+                            'class': 'sr-only'
+                        },
+                        'attr': {
+                            'class': '',
+                            'placeholder': 'ad.price.min',
+                            'maxlength': 10
+                        }
+                    }) }}
+                </div>
+                <div class="col-md-4">
+                    {{ form_row(form.maxPrice, {
+                        'label_attr': {
+                            'class': 'sr-only'
+                        },
+                        'attr': {
+                            'class': '',
+                            'placeholder': 'ad.price.max',
+                            'maxlength': 10
+                        }
+                    }) }}
+                </div>
+
+            </div>
+            <div class="row hidden">
+                <div class="col-md-12">
+                    <a id="see-more" href="#search-more">{% trans %}Advanced search{% endtrans %}</a>
+                </div>
+            </div>
+        </fieldset>
+    {%- endblock form_fields -%}
+{%- block form_end -%}
+{{ form_end(form, {'render_rest': false}) }}
+{%- endblock form_end -%}

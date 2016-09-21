@@ -3,7 +3,7 @@
 }
 
 .bg-darken {
-    background-color: rgba(0, 0, 0, .5);
+    overflow: inherit;
 }
 
 .bg-lighten {
@@ -29,3 +29,4 @@
         border-color: $gray-light;
     }
 }
+

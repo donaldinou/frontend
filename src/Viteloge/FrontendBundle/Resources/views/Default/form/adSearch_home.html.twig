@@ -1,0 +1,7 @@
+{% extends 'VitelogeFrontendBundle:Form:adSearch_home.html.twig' %}
+
+{%- set theme_container = theme_container|default('search-container, body') -%}
+
+{%- block form_start -%}
+{{ form_start(form, {'action': path('viteloge_frontend_ad_searchfromform'), 'attr': {'enctype': 'application/x-www-form-urlencoded', 'class': 'search', 'data-ajax': 'true', 'role': 'search', 'novalidate': 'novalidate'}}) }}
+{%- endblock form_start -%}

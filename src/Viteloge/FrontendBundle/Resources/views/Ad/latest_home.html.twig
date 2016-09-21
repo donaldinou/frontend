@@ -1,0 +1,11 @@
+<ul class="list-unstyled" data-role="listitem">
+    {%- for ad in ads -%}
+      <li class="clearfix" data-role="item">
+       <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          {{ include('VitelogeFrontendBundle:Ad:render/list_home.html.twig', { 'ad': ad }) }}
+       </div>
+      </div>
+     </li>
+    {%- endfor -%}
+</ul>

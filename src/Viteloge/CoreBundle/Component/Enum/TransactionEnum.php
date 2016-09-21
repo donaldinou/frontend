@@ -16,8 +16,8 @@ namespace Viteloge\CoreBundle\Component\Enum {
 
         public function choices() {
             return array(
-                self::RENT => 'ad.rent',
                 self::SALE => 'ad.sale',
+                self::RENT => 'ad.rent',
                 self::NEWER => 'ad.new'
             );
         }

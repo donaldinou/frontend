@@ -1,0 +1,58 @@
+{%- embed "VitelogeUserBundle:base:box_right.html.twig" with { footer: true } -%}
+    {% trans_default_domain 'FOSUserBundle' %}
+    {%- block box_title -%}
+        {%- trans from 'messages' -%}user.register.account.exist{%- endtrans -%}
+    {%- endblock box_title -%}
+    {%- block box_content -%}
+        <div class="content">
+            <form action="{{ path("fos_user_security_check") }}" method="post" class="form-horizontal" role="form">
+                <div class="hidden">
+                    {%- if csrf_token is defined and csrf_token -%}
+                        <input type="hidden" class="form-control" name="_csrf_token" value="{{ csrf_token }}">
+                    {%- endif -%}
+                </div>
+                <div class="form-group">
+                    {#<label for="username" class="col-sm-2 control-label">{{ 'security.login.username'|trans }}</label>#}
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">@</span>
+                            <input type="text" class="form-control" id="username" name="_username" value="" required="required" placeholder="{{ 'security.login.email'|trans }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    {#<label for="password" class="col-sm-2 control-label">{{ 'security.login.password'|trans }}</label>#}
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">&nbsp;#</span>
+                            <input type="password" class="form-control" id="password" name="_password" required="required" placeholder="{{ 'security.login.password'|trans }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    {#<div class="col-sm-offset-2 col-sm-10 checkbox">#}
+                    <div class="col-xs-12">
+                        <label for="remember_me">
+                            <input type="checkbox" class="" id="remember_me" name="_remember_me" value="on">
+                            {{ 'security.login.remember_me'|trans }}
+                        </label>
+                    </div>
+                    <div class="col-xs-12 label-height">
+                        <a href="{{ path('fos_user_resetting_request') }}">{% trans %}security.login.retrievepassword{% endtrans %}</a>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-primary form-control" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+            </form>
+        </div>
+    {%- endblock box_content -%}
+    {%- block box_footer -%}
+        <div class="clearfix">
+            <a class="btn-block text-center" role="button" data-toggle="collapse" href="#social-oauth-connect" aria-expanded="false" aria-controls="social-oauth-connect">
+                <span class="fa fa-angle-double-down">&nbsp;</span>
+            </a>
+        </div>
+        <div id="social-oauth-connect" class="collapse in" aria-expanded="true">
+            {% render(controller('HWIOAuthBundle:Connect:connect')) %}
+        </div>
+    {%- endblock box_footer-%}
+{%- endembed -%}

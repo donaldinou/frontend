@@ -69,3 +69,15 @@ function adSearchTemplateResult(result) {
 function adSearchTemplateSelection(selection) {
     return selection.text;
 }
+
+var critPlusOuvert = false;
+function displayInput() {
+   jQuery('#moreinfo').click(function(){
+    if(!critPlusOuvert){
+        jQuery('#hiddeninput').removeClass('hidden');
+    }else {
+        jQuery('#hiddeninput').addClass('hidden');
+    }
+    critPlusOuvert = !critPlusOuvert;
+    });
+}

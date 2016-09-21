@@ -1,10 +1,11 @@
 .home {
     .banner {
-        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/home/background.jpg');
+        background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogefrontend/images/home/img_fd.jpg');
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
         background-size: cover;
+        background-position: center bottom;
         .alert {
             margin-top: 2px;
             margin-bottom: 0;
@@ -35,4 +36,9 @@
             width: (940px + $grid-gutter-width);
         }
     }
+}
+
+.NbBiensAccueil {
+  margin-bottom: 60px;
+  margin-top: 60px;
 }

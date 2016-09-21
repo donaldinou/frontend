@@ -1,0 +1,13 @@
+<div class="box_right">
+        <h3>{% block box_title %}{% endblock box_title %}</h3>
+
+        {% block box_content %}
+
+        {% endblock box_content %}
+
+    {% if footer is defined and footer %}
+            {% block box_footer %}
+
+            {% endblock %}
+    {% endif %}
+</div>

@@ -5,6 +5,34 @@ if (typeof jQuery === 'undefined') {
 jQuery(document).ready(function() {
     initLazyLoad();
 
+    //Navigation Menu Slider
+        jQuery('#nav-expander').on('click',function(e){
+            e.preventDefault();
+            jQuery('body').toggleClass('nav-expanded');
+        });
+        jQuery('#nav-close').on('click',function(e){
+            e.preventDefault();
+            jQuery('body').removeClass('nav-expanded');
+        });
+
+
+/* Initialize navgoco with default options
+        jQuery(".main-menu").navgoco({
+            caret: '<span class="caret"></span>',
+            accordion: false,
+            openClass: 'open',
+            save: true,
+            cookie: {
+                name: 'navgoco',
+                expires: false,
+                path: '/'
+            },
+            slide: {
+                duration: 300,
+                easing: 'swing'
+            }
+        });
+*/
     if (jQuery('#carousel-ad-news').length) {
         runResponsiveCarousel('#carousel-ad-news', 1);
     }

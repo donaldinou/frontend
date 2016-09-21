@@ -1,0 +1,10 @@
+       <div class="clear"></div>
+    	<li class="footlihead">
+         <b>{{ type }} à {{ ('footer.transaction.article.'~transaction)|trans }}</b>
+        </li>
+        {% for ad in ads %}
+
+            <li class="footli">
+			    <a href="">{{ ad.agencyName~'-' }} {{ ad.cityName }}</a>
+			</li>
+        {% endfor %}

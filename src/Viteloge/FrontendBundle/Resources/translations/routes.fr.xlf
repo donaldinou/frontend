@@ -98,6 +98,10 @@
         <source>viteloge_frontend_ad_redirect</source>
         <target>/annonce/redirection/{id}</target>
       </trans-unit>
+      <trans-unit id="viteloge_frontend_ad_view" resname="viteloge_frontend_ad_view">
+        <source>viteloge_frontend_ad_view</source>
+        <target>/annonce/voir/{key}/{id}</target>
+      </trans-unit>
       <trans-unit id="a9d5ddab093d91f2edbba752a1dccdcb" resname="viteloge_frontend_ad_search">
         <source>viteloge_frontend_ad_search</source>
         <target>/annonce/recherche/{page}/{limit}</target>
@@ -219,8 +223,8 @@
         <target>/condition-generale-d-utilisation</target>
       </trans-unit>
       <trans-unit id="mentionslegales" resname="viteloge_frontend_static_mention">
-	<source>viteloge_frontend_static_mention</source>
-	<target>/mention</target>
+      <source>viteloge_frontend_static_mention</source>
+      <target>/mention</target>
       </trans-unit>
       <trans-unit id="271000011cce809c1b50361cbd379b00" resname="viteloge_frontend_static_privacy">
         <source>viteloge_frontend_static_privacy</source>
@@ -325,6 +329,18 @@
       <trans-unit id="viteloge_frontend_sitemap_department_format" resname="viteloge_frontend_sitemap_department_format">
         <source>viteloge_frontend_sitemap_department_format</source>
         <target>/plan-du-site/department/{id}.{_format}</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_ad_latest_limited" resname="viteloge_frontend_ad_latest_limited">
+        <source>viteloge_frontend_websearch_list</source>
+        <target>/annonce/accueil/derniere/{limit}</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_ad_latest_transaction_type_limited" resname="viteloge_frontend_ad_latest_transaction_type_limited">
+        <source>viteloge_frontend_ad_latest_transaction_type_limited</source>
+        <target>/annonce/type/derniere/{transaction}/{type}/{limit}</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_suggest_position" resname="viteloge_frontend_suggest_position">
+        <source>viteloge_frontend_suggest_position</source>
+        <target>/suggestion/position/{lat}/{lng}/{_format}</target>
       </trans-unit>
     </body>
   </file>

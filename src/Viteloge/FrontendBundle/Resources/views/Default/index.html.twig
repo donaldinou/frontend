@@ -5,7 +5,7 @@
 {%- endblock -%}
 
 {%- block body -%}
-    <header class="header banner" role="banner" data-target="#search-container">
+    <header class="header banner bannerhome" role="banner" data-target="#search-container">
         {{- block('header') -}}
         <div class="hidden-xs hidden-sm next-link text-center">
             <a href="#main-content" rel="nofollow" class="round-icon medium transition-large" data-toggle="tooltip" data-placement="top" title="{%- trans -%}home.header.next.tooltip{%- endtrans -%}" data-original-title="{%- trans -%}home.header.next.tooltip{%- endtrans -%}" aria-label="{%- trans -%}home.header.next{%- endtrans -%}">
@@ -24,18 +24,23 @@
 {%- endblock -%}
 
 {%- block header -%}
-    {%- embed "VitelogeUserBundle:base:header.html.twig" with { 'block_flash': block('flash') } -%}
+    {%- embed "VitelogeUserBundle:base:headerHome.html.twig" with { 'block_flash': block('flash') } -%}
         {%- block header_navbarmenu -%}
             <div class="collapse navbar-collapse" id="navbar-navigation">
-                {{- block('header_brand') -}}
-                {{- block('header_identification') -}}
+                {#- block('header_brand') -#}
+                {#- block('header_identification') -#}
             </div>
             {%- block header_navigation -%}
                 {{- block_flash | raw -}}
                 <div id="search-container" class="forward text-center">
-                    <h1 class="text-uppercase">{% trans %}home.teaser{% endtrans %}</h1>
-                    <h2 class="text-uppercase">{%- transchoice count with {'%count%': count|number_format(0, null, ' ')} -%}today.properties.update.count{%- endtranschoice -%} !</h2>
-                    {{- include('VitelogeFrontendBundle:Default:form/adSearch.html.twig', { form: form }) -}}
+                    <a class="navbar-branded brand clearfix logo_home" href="{{ path('viteloge_frontend_homepage') }}" itemscope itemtype="http://schema.org/Brand">
+                        <img src="{{ aws_s3_domain('bundles/vitelogecore/images/fr/logo-viteloge-moteur-recherche-immobilier.svg') }}" class="img-responsive" alt="{% trans %}viteloge.brand{% endtrans %}" title="{% trans %}viteloge.brand{% endtrans %} - {% trans %}viteloge.slogan{% endtrans %}" itemprop="logo" data-role="logo">
+                        {#<h1 class="title text-uppercase">Vite<em class="em">logé</em></h1>
+                        <h2 class="subtitle clearfix text-uppercase">Moteur de recherche immobilier</h2>#}
+                    </a>
+                    {#<h1 class="text-uppercase">{% trans %}home.teaser{% endtrans %}</h1>#}
+                    <h2 class="text-uppercase NbBiensAccueil">{%- transchoice count with {'%count%': count|number_format(0, null, ' ')} -%}today.properties.update.count{%- endtranschoice -%}</h2>
+                    {{- include('VitelogeFrontendBundle:Default:form/adSearch_home.html.twig', { form: form }) -}}
                 </div>
             {%- endblock -%}
         {%- endblock -%}
@@ -48,35 +53,38 @@
 
 {%- block main -%}
     <div id="main-content" class="clearfix">
-        <div class="{% if transaction is defined %}hidden{% endif %}" data-theme-showon="theme-default">
-            {{- include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', {}) -}}
-        </div>
-        <div class="{% if transaction is not defined or transaction != 'L' %}hidden{% endif %}" data-theme-showon="theme-rent theme-L">
-            {{- include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', { 'transaction': 'L' }) -}}
-        </div>
-        <div class="{% if transaction is not defined or transaction != 'V' %}hidden{% endif %}" data-theme-showon="theme-sale theme-V">
-            {{- include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', { 'transaction': 'V' }) -}}
-        </div>
-        <div class="{% if transaction is not defined or transaction != 'N' %}hidden{% endif %}" data-theme-showon="theme-new theme-N">
-            {{- include('VitelogeFrontendBundle:Default:fragment/carousel.html.twig', { 'transaction': 'N' }) -}}
-        </div>
+
     </div>
-    {{- include('VitelogeFrontendBundle:Default:fragment/services.html.twig', { }) -}}
+    {#- include('VitelogeFrontendBundle:Default:fragment/services.html.twig', { }) -#}
     {{- include('VitelogeFrontendBundle:Default:fragment/websearch.html.twig', { }) -}}
 {%- endblock -%}
 
 {%- block footer -%}
-    {{- parent() -}}
     <div class="container text-center text-secondary">
+        {{- include('VitelogeFrontendBundle:menu:footer_home.html.twig', {}) -}}
         {{- include('VitelogeFrontendBundle:Default:fragment/glossary.html.twig', { }) -}}
+        {{- include('VitelogeFrontendBundle:Ad:fragment/ad.html.twig', { }) -}}
+        <div class="container text-center">
+            <div class="col-lg-12">
+              {{- include('VitelogeFrontendBundle:misc:social.html.twig', {}) -}}
+              {{- include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) -}}
+            </div>
+        </div>
+        {#- parent() -#}
+
     </div>
 {%- endblock -%}
 
 {%- block javascripts -%}
     {{- parent() -}}
-    <script>
+    {#-<script>
         jQuery(document).ready(function() {
             getCarouselLocation();
+        });
+    </script>-#}
+    <script>
+        jQuery(document).ready(function() {
+            displayInput();
         });
     </script>
 {%- endblock javascripts -%}

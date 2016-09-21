@@ -1,0 +1,109 @@
+{% spaceless %}
+{% block header_menu_user %}
+    <nav class="header-nav">
+        <ul class="list-unstyled main-menu">
+            <li class="text-right">
+                <a href="#" id="nav-close"><i class="fa fa-bars fa-lg white"></i>
+                    &nbsp;&nbsp;<i class="fa fa-caret-right white"></i></a>
+            </li>
+            {% if not app.user or not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <li>
+                {{- include('VitelogeUserBundle:Security:fragment/form_right.html.twig') -}}
+            </li>
+            <li>
+                {{- include('VitelogeUserBundle:Registration:fragment/subscribe_block_right.html.twig') -}}
+            </li>
+            {% else %}
+            </li>
+            <li>
+                <a href="{{ path('viteloge_frontend_user_index') }}"><i class="fa fa-heart" aria-hidden="true"></i> &nbsp;Mes biens favoris</a>
+            </li>
+            <li>
+                <a href="{{ path('viteloge_frontend_websearch_list') }}"><i class="fa fa-search" aria-hidden="true"></i> &nbsp;Mes alertes</a>
+            </li>
+            <li>
+                <a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-cogs" aria-hidden="true"></i> &nbsp;Mon profil</a>
+            </li>
+            <li>
+                <i class="fa fa-history" aria-hidden="true"></i> &nbsp;Derniers biens vus
+                <br>
+                {% set images = app.request.cookies.get('viteloge_photo')|split('#$#') %}
+                {% set urls = app.request.cookies.get('viteloge_url')|split('#$#') %}
+
+                {% for key,image in images %}
+                    {% if image is not empty %}
+                <a href="{{ urls[key] }}" alt="ouvrir la fiche" title="ouvrir la fiche" target="_blank">
+                    <img src="{{ 'http://media.viteloge.com/'~image }}" />
+                </a>
+                 {% endif %}
+                {% endfor %}
+
+            </li>
+            <li>
+                <a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp;Déconnexion</a>
+            </li>
+             {% endif %}
+        </ul>
+    </nav>
+    <a id="nav-expander" class="nav-expander fixed"><i class="fa fa-bars fa-lg white"></i></a>
+
+      <div class="clearfix">
+                            <ul id="identification" class="btn btn-primary pull-right btn-lg hidden-xs visible-sm visible-md visible-lg bleu-button">
+                                {% if not app.user or not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                   <!-- <li>
+                                        <a href="{{ path('fos_user_registration_register') }}" class="">
+                                            <span class="icon-icon-subscribe"></span>
+                                            <span>&nbsp;{% trans %}user.registration{% endtrans %}</span>
+                                        </a>
+                                    </li>
+                                    <li class="hidden-xs">
+                                        <span class="navbar-text vr">&nbsp;</span>
+                                    </li>-->
+                                    <li>
+                                        <a href="{{ path('fos_user_security_login') }}" class="">
+                                            <span class="icon-icon-connect"></span>
+                                            <span>&nbsp;{% trans %}user.connection{% endtrans %}</span>
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                            <span class="icon-icon-connect" aria-hidden="true"></span>
+
+                                            <span>&nbsp;{{ app.user.fullname }}&nbsp;</span>
+                                            <span class="caret"></span>
+                                        </a>
+                                        {{ include('VitelogeFrontendBundle:menu:user.html.twig', { }) }}
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+
+{% endblock header_menu_user %}
+<div class="container">
+    <nav class="navbar navbar-default" role="navigation" style="width: 100%">
+        {% block header_navbar %}
+            <div class="clearfix">
+                {% block header_navbarheader %}
+
+                {% endblock %}
+                {% block header_navbarmenu %}
+                    <div class="collapse navbar-collapse" id="navbar-navigation">
+                        {%- block header_brand -%}
+                        <div class="visible-xs-block">
+
+                            <img src="{{ aws_s3_domain('bundles/vitelogecore/images/fr/logo-viteloge-moteur-recherche-immobilier.svg') }}" class="logo img-responsive" alt="{% trans %}viteloge.brand{% endtrans %}" title="{% trans %}viteloge.brand{% endtrans %} - {% trans %}viteloge.slogan{% endtrans %}" itemprop="logo" data-role="logo">
+                        </div>
+                        <hr class="visible-xs">
+                        {%- endblock header_brand -%}
+
+
+
+                        <div class="clearfix"></div>
+                    </div>
+                {% endblock %}
+            </div>
+        {% endblock %}
+    </nav>
+</div>
+{% endspaceless %}

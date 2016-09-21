@@ -1,0 +1,25 @@
+{% block menu_footer %}
+<div class="col-md-3 col-sm-6 col-xs-12">
+    <ul class="clearfix list">
+        {{- include('VitelogeFrontendBundle:Block:sites_home.html.twig', {}) -}}
+
+            <li>&nbsp;</li>
+        <li class="footlihead"><b>A propos de Vitelogé</b></li>
+        <li class="footli">
+            <a href="{{ path('viteloge_frontend_homepage') }}">{% trans %}viteloge.home{% endtrans %}</a>
+        </li>
+        <li class="footli">
+            <a href="{{ path('viteloge_frontend_static_about') }}">{% trans %}viteloge.frontend.static.about.short{% endtrans %}</a>
+        </li>
+        <li class="footli">
+            <a href="{{ path('viteloge_frontend_static_gtc') }}">{% trans %}viteloge.frontend.static.gtc.short{% endtrans %}</a>
+        </li>
+        <li class="footli">
+            <a href="{{ path('viteloge_frontend_static_mention') }}">{% trans %}viteloge.frontend.static.mention.short{% endtrans %}</a>
+        </li>
+        <li class="footli">
+            <a href="{{ path('viteloge_frontend_sitemap_index') }}">{% trans %}viteloge.sitemap{% endtrans %}</a>
+        </li>
+    </ul>
+</div>
+{% endblock %}

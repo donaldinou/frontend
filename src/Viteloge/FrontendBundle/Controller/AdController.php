@@ -11,6 +11,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
+    use Symfony\Component\HttpFoundation\Cookie;
     use Symfony\Component\HttpFoundation\JsonResponse;
     use Symfony\Component\Serializer\Serializer;
     use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
@@ -113,7 +114,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *     name="viteloge_frontend_ad_search_default"
          * )
          * @Method({"GET"})
-         * @Template("VitelogeFrontendBundle:Ad:search.html.twig")
+         * @Template("VitelogeFrontendBundle:Ad:search_response.html.twig")
          */
         public function searchAction(Request $request, $page, $limit) {
             $translated = $this->get('translator');
@@ -127,6 +128,7 @@ namespace Viteloge\FrontendBundle\Controller {
             // Save session
             $session = $request->getSession();
             $session->set('adSearch', $adSearch);
+
             // --
 
             // First State
@@ -268,6 +270,8 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->setLinkCanonical($canonicalLink)
             ;
             // --
+            $session->set('resultAd',$pagination->getCurrentPageResults());
+
 
             return array(
                 'form' => $form->createView(),
@@ -554,6 +558,36 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Show latest ads (use in home)
+         * Ajax call so we can have a public cache
+         *
+         * @Route(
+         *     "/home/latest/{limit}",
+         *     requirements={
+         *         "limit"="\d+"
+         *     },
+         *     defaults={
+         *         "limit" = "5"
+         *     },
+         *     name="viteloge_frontend_ad_latest_limited"
+         * )
+         * @Cache(expires="tomorrow", public=true)
+         * @Method({"GET"})
+         * @Template("VitelogeFrontendBundle:Ad:latest_home.html.twig")
+         */
+        public function latesthomeAction(Request $request, $limit) {
+            $adSearch = new AdSearch();
+            $adSearch->handleRequest($request);
+            $elasticaManager = $this->container->get('fos_elastica.manager');
+            $repository = $elasticaManager->getRepository('VitelogeCoreBundle:Ad');
+            $ads = $repository->search($adSearch, $limit);
+
+            return array(
+                'ads' => $ads
+            );
+        }
+
+        /**
          * News suggestion
          * Ajax call so we can have public cache
          *
@@ -616,7 +650,6 @@ namespace Viteloge\FrontendBundle\Controller {
          */
         public function redirectAction(Request $request, Ad $ad) {
             $translated = $this->get('translator');
-
             // SEO
             $canonicalLink = $this->get('router')->generate(
                 $request->get('_route'),
@@ -658,12 +691,170 @@ namespace Viteloge\FrontendBundle\Controller {
                 $em->persist($statistics);
                 $em->flush();
             }
-
             return array(
                 'ad' => $ad
             );
         }
 
+        /**
+         * view the hosted page.
+         *
+         *
+         * @Route(
+         *     "/view/{key}/{id}",
+         *     requirements={
+         *         "id"="\d+"
+         *     },
+         *     name="viteloge_frontend_ad_view"
+         * )
+         * @Cache(expires="tomorrow", public=true)
+         * @Method({"GET"})
+         * @ParamConverter("ad", class="VitelogeCoreBundle:Ad", options={"id" = "id"})
+         * @Template("VitelogeFrontendBundle:Ad:redirect_new.html.twig")
+         */
+        public function viewAction(Request $request, Ad $ad, $key) {
+            $session = $request->getSession();
+            $ads =$session->get('resultAd');
+
+            $translated = $this->get('translator');
+            // SEO
+            $canonicalLink = $this->get('router')->generate(
+                $request->get('_route'),
+                $request->get('_route_params'),
+                true
+            );
+            $seoPage = $this->container->get('sonata.seo.page');
+            $seoPage
+                ->setTitle($translated->trans('viteloge.frontend.ad.redirect.title'))
+                ->addMeta('name', 'robots', 'noindex, nofollow')
+                ->addMeta('name', 'description', $translated->trans('viteloge.frontend.ad.redirect.description'))
+                ->addMeta('property', 'og:title', $seoPage->getTitle())
+                ->addMeta('property', 'og:type', 'website')
+                ->addMeta('property', 'og:url',  $canonicalLink)
+                ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.ad.redirect.description'))
+                ->setLinkCanonical($canonicalLink)
+            ;
+            // --
+
+            $forbiddenUA = array(
+                'yakaz_bot' => 'YakazBot/1.0',
+                'mitula_bot' => 'java/1.6.0_26'
+            );
+            $forbiddenIP = array(
+
+            );
+            $ua = $request->headers->get('User-Agent');
+            $ip = $request->getClientIp();
+
+            // log redirect
+            if (!in_array($ua, $forbiddenUA) && !in_array($ip, $forbiddenIP)) {
+                $now = new \DateTime('now');
+                $statistics = new Statistics();
+                $statistics->setIp($ip);
+                $statistics->setUa($ua);
+                $statistics->initFromAd($ad);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($statistics);
+                $em->flush();
+            }
+            $cookies = $request->cookies;
+            if ($cookies->has('viteloge_photo'))
+            {
+                $info_cookies_photo = explode('#$#', $cookies->get('viteloge_photo')) ;
+                    $j = count($info_cookies_photo);
+                    if($j <= 5){
+                        // si moins de 6 photo on ajoute
+                       $cookie_photo = $cookies->get('viteloge_photo').'#$#'.$ad->getPhoto();
+                    }else{
+                        //ici on supprime le premier element du tableau et reconstruit
+                        $cookie_photo = $ad->getPhoto();
+                        unset($info_cookies_photo[5]);
+                        foreach ($info_cookies_photo as  $value) {
+
+                                $cookie_photo .= '#$#'.$value;
+
+                        }
+
+                       // var_dump($cookie_photo);
+                       // die();
+                    }
+            }else{
+                $cookie_photo = $ad->getPhoto();
+            }
+
+
+            if ($cookies->has('viteloge_url'))
+            {
+                $info_cookies_url = explode('#$#', $cookies->get('viteloge_url')) ;
+                    $i = count($info_cookies_url);
+                    if($i <= 5){
+                        // si moins de 6 photo on ajoute
+                       $cookie_url = $cookies->get('viteloge_url').'#$#'.$ad->getUrl();
+                    }else{
+                        //ici on supprime le premier element du tableau et reconstruit
+                        $cookie_url=$ad->getUrl();
+                        unset($info_cookies_url[5]);
+                        foreach ($info_cookies_url as $k => $url) {
+                                $cookie_url .= '#$#'.$url;
+                        }
+                    }
+            }else{
+                $cookie_url = $ad->getUrl();
+            }
+
+            $response = new Response();
+
+
+          /* $response->headers->clearCookie('viteloge_photo');
+            $response->headers->clearCookie('viteloge_url');*/
+
+
+            // Envoie le cookie
+            $response->headers->setCookie(new Cookie('viteloge_photo', $cookie_photo));
+            $response->headers->setCookie(new Cookie('viteloge_url', $cookie_url));
+            $response->send();
+            return $this->render('VitelogeFrontendBundle:Ad:redirect_new.html.twig',array(
+                'ad' => $ad,
+                'ads'=> $ads,
+                'key' => $key
+            ), $response);
+        }
+
+
+
+         /**
+         * Show latest ads with type and transaction(use in home)
+         * Ajax call so we can have a public cache
+         *
+         * @Route(
+         *     "/type/latest/{transaction}/{type}/{limit}",
+         *     requirements={
+         *         "limit"="\d+"
+         *     },
+         *     defaults={
+         *         "limit" = "5"
+         *     },
+         *     name="viteloge_frontend_ad_latest_transaction_type_limited"
+         * )
+         * @Cache(expires="tomorrow", public=true)
+         * @Method({"GET"})
+         * @Template("VitelogeFrontendBundle:Ad:fragment/ad_list.html.twig")
+         */
+        public function mostSearchedAction(Request $request,$transaction,$type, $limit=5) {
+            $repository = $this->getDoctrine()
+                ->getRepository('VitelogeCoreBundle:Ad');
+            $ads = $repository->findByTransactionandType($transaction,$type, $limit);
+            return $this->render(
+                'VitelogeFrontendBundle:Ad:fragment/ad_list.html.twig',
+                array(
+                    'ads' => $ads,
+                    'transaction' => $transaction,
+                    'type' => $type,
+                )
+            );
+        }
     }
+
 
 }

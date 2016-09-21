@@ -74,6 +74,27 @@ namespace Viteloge\CoreBundle\Repository {
             return $qb->getQuery()->getResult();
         }
 
+        /**
+         *
+         */
+        public function findByTransactionandType($transaction,$type, $limit = null) {
+            $qb = $this->_em->createQueryBuilder();
+            $qb
+                ->select('ad')
+                ->distinct()
+                ->from('VitelogeCoreBundle:Ad', 'ad')
+                ->leftJoin('ad.inseeCity', 'aic')
+                ->leftJoin('aic.inseeDepartment', 'aid')
+                ->where('ad.privilegeCode <> \'\'')
+                ->andWhere('ad.type LIKE :type')
+                ->andWhere('ad.transaction LIKE :transaction')
+                ->setParameters(array('transaction'=>$transaction, 'type'=>$type));
+                if (false === is_null($limit))
+                $qb->setMaxResults($limit);
+
+            return $qb->getQuery()->getResult();
+        }
+
     }
 
 

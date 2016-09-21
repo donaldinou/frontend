@@ -37,7 +37,7 @@ namespace Viteloge\CoreBundle\Form\Type {
                 ->add('transaction', 'choice', array(
                     'label' => 'ad.transaction',
                     'choices' => $transactionEnum->choices(),
-                    'expanded' => true,
+                    'expanded' => false,
                     'multiple' => false,
                     'preferred_choices' => array()
                 ))
@@ -62,10 +62,10 @@ namespace Viteloge\CoreBundle\Form\Type {
                     'multiple' => true,
                     'preferred_choices' => array()
                 ))
-                ->add('keywords', 'text', array(
+             /*   ->add('keywords', 'text', array(
                     'label' => 'ad.keywords',
                     'required' => false
-                ))
+                ))*/
                 ->add('minPrice', 'money', array(
                     'label' => 'ad.price.min',
                     'required' => false,
@@ -76,12 +76,12 @@ namespace Viteloge\CoreBundle\Form\Type {
                     'required' => false,
                     'precision' => 0
                 ))
-                ->add('radius', 'choice', array(
+             /*   ->add('radius', 'choice', array(
                     'label' => 'ad.radius',
                     'choices' => $distanceEnum->choices(),
                     'required' => false,
                     'empty_value' => false
-                ))
+                ))*/
                 ->add('search', 'submit')
             ;
 
