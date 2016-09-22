@@ -103,10 +103,13 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.websearch.list.description'))
             ;
             // --
-
+            $adSearch = new AdSearch();
+            $adSearch->handleRequest($request);
+            $form = $this->createForm('viteloge_core_adsearch', $adSearch);
             $webSearches = $this->getUser()->getWebSearches();
             return array(
-                'webSearches' => $webSearches
+                'webSearches' => $webSearches,
+                'form' => $form->createView(),
             );
         }
 
@@ -303,7 +306,9 @@ namespace Viteloge\FrontendBundle\Controller {
                     }
                 }
             }
-
+            $adSearch = new AdSearch();
+            $adSearch->handleRequest($request);
+            $headform = $this->createForm('viteloge_core_adsearch', $adSearch);
             // by default check mail enabled
             $webSearch->getUserSearch()->setMailEnabled(true);
 
@@ -311,6 +316,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
             return array(
                 'websearch' => $webSearch,
+                'headform' => $headform->createView(),
                 'form' => $form->createView()
             );
         }

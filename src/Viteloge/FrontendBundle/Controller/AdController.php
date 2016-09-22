@@ -715,6 +715,10 @@ namespace Viteloge\FrontendBundle\Controller {
         public function viewAction(Request $request, Ad $ad, $key) {
             $session = $request->getSession();
             $ads =$session->get('resultAd');
+            // Form
+            $adSearch = new AdSearch();
+            $adSearch->handleRequest($request);
+            $form = $this->createForm('viteloge_core_adsearch', $adSearch);
 
             $translated = $this->get('translator');
             // SEO
@@ -815,6 +819,7 @@ namespace Viteloge\FrontendBundle\Controller {
             $response->headers->setCookie(new Cookie('viteloge_url', $cookie_url));
             $response->send();
             return $this->render('VitelogeFrontendBundle:Ad:redirect_new.html.twig',array(
+                'form' => $form->createView(),
                 'ad' => $ad,
                 'ads'=> $ads,
                 'key' => $key

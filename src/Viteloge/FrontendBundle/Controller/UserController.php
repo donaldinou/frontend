@@ -17,6 +17,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use FOS\UserBundle\Event\GetResponseUserEvent;
     use FOS\UserBundle\Event\FilterUserResponseEvent;
     use Viteloge\CoreBundle\Entity\User;
+    use Viteloge\CoreBundle\SearchEntity\Ad as AdSearch;
 
     /**
      * @Route("/user")
@@ -55,9 +56,12 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.user.index.description'))
             ;
             // --
+            $adSearch = new AdSearch();
+            $adSearch->handleRequest($request);
+            $form = $this->createForm('viteloge_core_adsearch', $adSearch);
 
             return array(
-
+                'form' => $form->createView(),
             );
         }
 

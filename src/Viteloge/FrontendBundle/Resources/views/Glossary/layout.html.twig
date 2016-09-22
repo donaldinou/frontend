@@ -35,9 +35,17 @@
     {%- if form is defined -%}
         {% set mapOptions = mapOptions|default(false) %}
         {%- embed "VitelogeFrontendBundle:misc:googlemap.html.twig" with { mapOptions: mapOptions } -%}
-            {%- block over -%}
-                {{ include('VitelogeFrontendBundle:Glossary:form/adSearch.html.twig', { form: form, theme_container: 'map-container' }) }}
-            {%- endblock -%}
+            {#- block over -#}
+                {# include('VitelogeFrontendBundle:Glossary:form/adSearch.html.twig', { form: form, theme_container: 'map-container' }) #}
+            {#- endblock -#}
         {%- endembed -%}
     {%- endif -%}
 {%- endblock -%}
+{%- block javascripts -%}
+    {{ parent() }}
+    <script>
+        jQuery(document).ready(function() {
+            displayInput();
+        });
+    </script>
+{%- endblock javascripts -%}

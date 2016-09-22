@@ -653,7 +653,8 @@ namespace Viteloge\CoreBundle\Entity {
             if(preg_match("/$test_utf8_regex/si", strtolower($this->description))) {
                 $this->description = utf8_decode($this->description);
             }*/
-            return trim(ucfirst(strtolower($this->description)));
+           // return trim(ucfirst(strtolower($this->description)));
+             return $this->description;
         }
 
         /**
@@ -663,7 +664,8 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function getAdvancedDescription() {
             $descriptionMku = $this->getDescriptionMku();
-            return (!empty($descriptionMku)) ? $descriptionMku : $this->getDescription();
+           // return (!empty($descriptionMku)) ? $descriptionMku : $this->getDescription();
+            return  $this->getDescription();
         }
 
         /**

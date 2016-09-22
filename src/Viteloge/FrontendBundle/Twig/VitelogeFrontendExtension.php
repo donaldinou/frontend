@@ -50,15 +50,18 @@ namespace Viteloge\FrontendBundle\Twig {
             $transaction = $this->vlTransactionAlias(strtoupper($this->request->get('transaction')));
             switch ($transaction) {
                 case TransactionEnum::SALE:
-                    $theme = 'sale';
+                   // $theme = 'sale';
+                      $theme = 'default';
                     break;
 
                 case TransactionEnum::NEWER;
-                    $theme = 'new';
+                  //  $theme = 'new';
+                      $theme = 'default';
                     break;
 
                 case TransactionEnum::RENT:
-                    $theme = 'rent';
+                   // $theme = 'rent';
+                      $theme = 'default';
                     break;
 
                 default:

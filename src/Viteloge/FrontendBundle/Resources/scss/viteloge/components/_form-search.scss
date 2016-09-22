@@ -34,11 +34,17 @@ form.search {
     input, select, .btn {
         height: 44px;
         border: none;
+        border-radius: 0 6px 6px 0;
+
+    }
+
+    #moreinfo{
+    border-radius: 6px 0 0 6px !important;
     }
     .select2-container {
         .select2-search--inline {
             .select2-search__field {
-                height: 36px;
+                height: 29px;
             }
         }
     }

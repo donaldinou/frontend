@@ -364,13 +364,18 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->setLinkCanonical($canonicalLink)
             ;
             // --
-
+             // Form
+            $adSearch = new AdSearch();
+            $adSearch->handleRequest($request);
+            $headerform = $this->createForm('viteloge_core_adsearch', $adSearch);
             return array(
                 'city' => $inseeCity,
                 'cityData' => $cityData,
                 'count' => $count,
                 'mapOptions' => $mapOptions,
-                'form' => $this->initForm()->form->createView()
+                'form' => $this->initForm()->form->createView(),
+                'headerform' => $headerform->createView(),
+
             );
         }
 

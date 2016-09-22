@@ -1,7 +1,7 @@
 {% trans_default_domain "breadcrumbs" %}
 
 {%- if breadcrumbs is defined and breadcrumbs|length -%}
-    <nav{% if listId is defined %} id="{{ listId }}"{% endif %} class="container">
+    <div{% if listId is defined %} id="{{ listId }}"{% endif %} class="container-fluid">
         <ol{% if listClass is defined %} class="{{ listClass }}"{% endif %} itemprop="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList">
             {%- if breadcrumbs is defined and breadcrumbs|length -%}
                 {%- for breadcrumb in breadcrumbs -%}
@@ -25,5 +25,5 @@
                 {%- endfor -%}
             {%- endif -%}
         </ol>
-    </nav>
+    </div>
 {%- endif -%}

@@ -10,7 +10,12 @@
     </div>
     {{- parent() -}}
 {%- endblock -%}
+{%- block header -%}
+    {%- embed "VitelogeUserBundle:base:headerSearch.html.twig" with {form:headerform} -%}
 
+
+    {%- endembed -%}
+{%- endblock -%}
 {%- block main -%}
     {%- embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } -%}
         {%- block left -%}

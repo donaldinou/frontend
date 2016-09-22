@@ -11,20 +11,11 @@
     ] -%}
     {{ include('VitelogeUserBundle:base:breadcrumb.html.twig', { listClass: 'breadcrumb', breadcrumbs: breadcrumbs }) }}
 {%- endblock breadcrumb -%}
-
 {%- block header -%}
-    {%- embed 'VitelogeUserBundle:base:header.html.twig' -%}
-        {%- block header_navigation_more -%}
-            <li class="text-uppercase dropdown active" role="presentation">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="{% trans %}viteloge.more{% endtrans %}" role="button">
-                    <span class="fa fa-plus hidden-xs" aria-hidden="true">&nbsp;</span>
-                    <span class="visible-xs-inline">{% trans %}viteloge.more{% endtrans %}</span>
-                </a>
-                {{ include('VitelogeFrontendBundle:menu:static.html.twig', {}) }}
-            </li>
-        {%- endblock header_navigation_more -%}
-    {%- endembed -%}
+  {{ render(controller('VitelogeFrontendBundle:Default:headerForm')) }}
+  {{ include('VitelogeFrontendBundle:menu:static.html.twig', {}) }}
 {%- endblock header -%}
+
 
 {%- block teaser -%}
     one
@@ -46,3 +37,11 @@
 {%- block main_content -%}
 
 {%- endblock main_content -%}
+{%- block javascripts -%}
+    {{- parent() -}}
+    <script>
+        jQuery(document).ready(function() {
+            displayInput();
+        });
+    </script>
+{%- endblock javascripts -%}

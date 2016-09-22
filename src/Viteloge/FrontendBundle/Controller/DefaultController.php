@@ -76,6 +76,16 @@ namespace Viteloge\FrontendBundle\Controller {
             );
         }
 
+         public function headerFormAction( Request $request ) {
+           $adSearch = new AdSearch();
+           $adSearch->handleRequest($request);
+           $form = $this->createForm('viteloge_core_adsearch', $adSearch);
+
+           return $this->render('VitelogeUserBundle:base:headerSearch.html.twig',array(
+                'form' => $form->createView(),
+            ));
+         }
+
     }
 
 }
