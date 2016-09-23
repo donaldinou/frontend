@@ -512,10 +512,10 @@
   }
 
   .btn-link {
-    color: $navbar-default-link-color;
+    color: #fff;
     &:hover,
     &:focus {
-      color: $navbar-default-link-hover-color;
+      color: #fff;
     }
     &[disabled],
     fieldset[disabled] & {
@@ -661,3 +661,4 @@
     }
   }
 }
+

@@ -1,5 +1,7 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
-
+{%- block header -%}
+  {{ render(controller('VitelogeFrontendBundle:Default:headerForm')) }}
+{%- endblock header -%}
 {%- block main -%}
     {%- embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 8, 'rsize': 4 } -%}
         {%- block left -%}
@@ -16,3 +18,11 @@
         {%- endblock -%}
     {%- endembed -%}
 {%- endblock main -%}
+{%- block javascripts -%}
+    {{- parent() -}}
+    <script>
+        jQuery(document).ready(function() {
+            displayInput();
+        });
+    </script>
+{%- endblock javascripts -%}

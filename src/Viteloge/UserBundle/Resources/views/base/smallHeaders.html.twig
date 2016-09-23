@@ -69,9 +69,11 @@
 
                         {%- endif -%}
                                <div class="col-md-2 header-top" style="text-align: center;">
+                                <a href="{{ app.session.get('currentUrl') }}" class="">
                                 <button type="button" alt="retour à la liste de résultats" title="retour à la liste de résultats" class="btn btn-primary btn-lg">
                                     <i class="fa fa-step-backward"></i>
                                 </button>
+                                </a>
                                 {% if ads[key-1] is defined %}
                                 <a href="{{ path('viteloge_frontend_ad_view', { 'key':key-1,'id': ads[key-1].id }) }}" class="">
                                 <button type="button" alt="bien précédent" title="bien précédent" class="btn btn-primary btn-lg">

@@ -14,6 +14,9 @@ form.search {
     .btn {
         font-size: 16px;
         font-weight: 700;
+        border-radius: 0 6px 6px 0;
+        height: 40px;
+        border: none;
     }
     .logo-container {
         display: block;
@@ -31,11 +34,15 @@ form.search {
             }
         }
     }
-    input, select, .btn {
-        height: 44px;
-        border: none;
-        border-radius: 0 6px 6px 0;
-
+    input{
+       height: 40px;
+       border: 1px solid #aaa;
+       border-radius: 6px;
+    }
+    select {
+       height: 40px;
+       border: 1px solid #aaa;
+       border-radius: 6px;
     }
 
     #moreinfo{
@@ -105,4 +112,5 @@ form.search {
         }
     }
 }
+
 

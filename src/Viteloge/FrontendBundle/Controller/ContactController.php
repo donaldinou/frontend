@@ -13,6 +13,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use Symfony\Component\Form\FormError;
     use Viteloge\FrontendBundle\Entity\Contact;
     use Viteloge\FrontendBundle\Form\Type\ContactType;
+    use Viteloge\CoreBundle\Entity\User;
 
     /**
      * Contact controller.
@@ -73,6 +74,7 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:Contact:new.html.twig")
          */
         public function createAction(Request $request) {
+            $em = $this->getDoctrine()->getManager();
             $trans = $this->get('translator');
             $contact = new Contact();
             $contact->setUser($this->getUser());
@@ -80,6 +82,17 @@ namespace Viteloge\FrontendBundle\Controller {
             $form->handleRequest($request);
 
             if ($form->isValid()) {
+                //verifier si personne est connecter
+                //si c'est vide on verifie quand même si le compte existe, sinon on le crée
+                if(empty($contact->getUser())){
+                    //si on crée le compte on envoi un mail avec le mdp
+                    $newuser = $this->get('viteloge_frontend_generate.user')->generate($contact);
+                    var_dump($newuser);
+                    die();
+                    $contact->setUser($newuser);
+                    $inscription = $this->inscriptionMessage($newuser);
+                }
+
                 $result = $this->sendMessage($contact);
                 if ($result) {
                     return $this->redirect($this->generateUrl('viteloge_frontend_contact_success', array()));
@@ -110,6 +123,29 @@ namespace Viteloge\FrontendBundle\Controller {
                         'VitelogeFrontendBundle:Contact:email/contact.html.twig',
                         array(
                             'contact' => $contact
+                        )
+                    ),
+                    'text/html'
+                )
+            ;
+            return $this->get('mailer')->send($mail);
+        }
+
+        /**
+         *
+         */
+        protected function inscriptionMessage(User $user) {
+            $trans = $this->get('translator');
+            $to = $user->getEmail();
+            $mail = \Swift_Message::newInstance()
+                ->setSubject($trans->trans('Votre compte sur viteloge.com'))
+                ->setFrom('contact@viteloge.com')
+                ->setTo($to)
+                ->setBody(
+                    $this->renderView(
+                        'VitelogeFrontendBundle:Contact:email/inscription.html.twig',
+                        array(
+                            'user' => $user
                         )
                     ),
                     'text/html'

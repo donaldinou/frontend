@@ -118,7 +118,7 @@ namespace Viteloge\FrontendBundle\Controller {
          */
         public function searchAction(Request $request, $page, $limit) {
             $translated = $this->get('translator');
-
+           $currentUrl = $request->getUri();
             // Form
             $adSearch = new AdSearch();
             $adSearch->handleRequest($request);
@@ -128,6 +128,7 @@ namespace Viteloge\FrontendBundle\Controller {
             // Save session
             $session = $request->getSession();
             $session->set('adSearch', $adSearch);
+            $session->set('currentUrl', $currentUrl);
 
             // --
 
@@ -822,7 +823,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 'form' => $form->createView(),
                 'ad' => $ad,
                 'ads'=> $ads,
-                'key' => $key
+                'key' => $key,
             ), $response);
         }
 

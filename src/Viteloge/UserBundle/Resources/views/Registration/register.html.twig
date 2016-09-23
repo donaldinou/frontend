@@ -1,5 +1,7 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
-
+{%- block header -%}
+  {{ render(controller('VitelogeFrontendBundle:Default:headerForm')) }}
+{%- endblock header -%}
 {%- block main -%}
     <div class="teaser one teaser-fixed">
         <article class="over container text-justify clearfix">
@@ -24,3 +26,11 @@
         </article>
     </div>
 {%- endblock main -%}
+{%- block javascripts -%}
+    {{- parent() -}}
+    <script>
+        jQuery(document).ready(function() {
+            displayInput();
+        });
+    </script>
+{%- endblock javascripts -%}

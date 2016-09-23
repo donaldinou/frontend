@@ -39,7 +39,7 @@
                         }
                     }) }}
                 </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
              <div class="whereblock">
                     {{ form_row(form.where, {
                         'label_attr': {
@@ -63,14 +63,14 @@
 
 
 
-                <div class=" col-md-2" aria-label="">
-                     <div class="display-table btnsearchloc">
-                        <div class="display-cell">
+                <div class=" col-md-3" aria-label="">
+                     <div style="display:flex;">
+                        <div>
                             <div id="moreinfo" class="btn btn-link bg-info searchbtnplus header-height" alt="plus de critères" title="plus de critères">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                             </div>
                         </div>
-                        <div class="display-cell nowrap w100">
+                        <div style="width:100%;">
                             {{ form_widget(form.search, {
                                 'label': 'ad.search',
                                 'span_class': 'fa fa-search',
