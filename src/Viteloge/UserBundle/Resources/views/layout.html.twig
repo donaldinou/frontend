@@ -38,7 +38,8 @@
         {%- block head_javascripts -%}
             <script src="{{ aws_s3_domain('built/head.min.js') }}"></script>
             <script src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            {% block head_javascripts_requirejs %}{% endblock head_javascripts_requirejs %}
+        {% block head_javascripts_requirejs %}
+        {% endblock head_javascripts_requirejs %}
         {%- endblock head_javascripts -%}
     </head>
     <body class="body{% block theme %} {{vl_theme()}}{% endblock theme %}" {% block schema %}itemscope itemtype="http://schema.org/WebPage"{% endblock schema %}>
@@ -108,8 +109,11 @@
 
                 {% endblock -%}
             </div>
+            {%- block header_more %}
+
+            {% endblock header_more -%}
         </header>
-        <main class="main clearfix" role="main">
+        <main class="main clearfix{% if app.request.attributes.get('_route') != 'viteloge_frontend_homepage' %}{% if app.request.attributes.get('_route') == 'viteloge_frontend_ad_search' %} main-top {% elseif app.request.attributes.get('_route') == 'viteloge_frontend_ad_view' %} main-site {% else %} main-small {% endif %}{% endif %}" role="main">
         {%- block flash -%}
             {{- include('VitelogeUserBundle:base:flash.html.twig') -}}
         {%- endblock flash -%}

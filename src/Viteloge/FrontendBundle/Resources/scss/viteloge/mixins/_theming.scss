@@ -78,6 +78,10 @@
             > a,
             > span {
                 color: #27303d;
+                font-size: 16px;
+                margin: 0 1px;
+                border-radius: 6px;
+                padding: 5px 10px;
                 &:hover,
                 &:focus {
                     color: $pagination-hover-color;

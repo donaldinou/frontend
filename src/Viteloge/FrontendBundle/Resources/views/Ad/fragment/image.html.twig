@@ -5,8 +5,8 @@
 {% if key is not defined %}
 	{% set key = 0 %}
 {% endif %}
-<a href="{{ path('viteloge_frontend_ad_view', { 'key':key,'id': ad.id }) }}" class="preview" rel="nofollow">
-    <img itemprop="image" data-original="{{ aws_s3_domain(ad.photo, false) }}" data-src="{{ aws_s3_domain(ad.photo, false) }}" class="{{ imgClass }}" alt="" onerror="this.src = ''">
+<a href="{{ path('viteloge_frontend_ad_view', { 'key':key,'id': ad.id }) }}" class="preview" rel="nofollow" target="_blank">
+    <img itemprop="image" data-original="{{ aws_s3_domain(ad.photo, false) }}" data-src="{{ aws_s3_domain(ad.photo, false) }}" class="{{ imgClass }}" alt="{{ ad.type~' à '~ad.cityName }}" onerror="this.src = ''">
     <noscript><img itemprop="image" src="{{ aws_s3_domain(ad.photo, false) }}" class="{{ imgClass }}" alt="" onerror="this.src = ''"></noscript>
 </a>
 {%- if ad.privilege.hasLogo -%}

@@ -20,7 +20,8 @@ namespace Viteloge\FrontendBundle\Pagerfanta\View\Template {
             'last_message'        => 'Last',
             'dots_message'        => '&hellip;',
             'active_suffix'       => '<span class="sr-only">(current)</span>',
-            'css_container_class' => 'pagination ajax',
+            'css_container_class' => 'pagination',
+            //'css_container_class' => 'pagination ajax',
             'css_first_class'     => 'hidden-xs first',
             'css_last_class'      => 'hidden-xs last',
             'css_prev_class'      => 'hidden-xs previous',
@@ -42,7 +43,7 @@ namespace Viteloge\FrontendBundle\Pagerfanta\View\Template {
          */
         public function container() {
             return sprintf(
-                '<nav>'.
+                '<nav class="custom_pagination">'.
                     '<ul class="%s">'.
                         '%%pages%%'.
                     '</ul>'.

@@ -1,6 +1,6 @@
 {% spaceless %}
 {% block header_menu_user %}
-    <nav class="header-nav">
+    <nav class="header-nav nav-perso">
         <ul class="list-unstyled main-menu">
             <li class="text-right">
                 <a href="#" id="nav-close"><i class="fa fa-bars fa-lg white"></i>
@@ -15,9 +15,11 @@
             </li>
             {% else %}
             </li>
+        {% if app.request.cookies.has('viteloge_favorie') %}
             <li>
-                <a href="{{ path('viteloge_frontend_user_index') }}"><i class="fa fa-heart" aria-hidden="true"></i> &nbsp;Mes biens favoris</a>
+                <a href="{{ path('viteloge_frontend_favourite_list') }}"><i class="fa fa-heart" aria-hidden="true"></i> &nbsp;Mes biens favoris</a>
             </li>
+        {% endif %}
             <li>
                 <a href="{{ path('viteloge_frontend_websearch_list') }}"><i class="fa fa-search" aria-hidden="true"></i> &nbsp;Mes alertes</a>
             </li>
@@ -68,6 +70,7 @@
                                 </div>
 
                         {%- endif -%}
+                              {# dump(app.request.cookies.get('viteloge_favorie')) #}
                                <div class="col-md-2 header-top" style="text-align: center;">
                                 <a href="{{ app.session.get('currentUrl') }}" class="">
                                 <button type="button" alt="retour à la liste de résultats" title="retour à la liste de résultats" class="btn btn-primary btn-lg">
@@ -88,12 +91,28 @@
                                 </button>
                             </a>
                                 {% endif %}
-                            <a href="{{ path('viteloge_frontend_static_contactus') }}" class="">
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") or app.user %}
+                                {% if favorie == false %}
+
+                            <a id="addfav" data-value="{{ ad.id }}" style="cursor: pointer;">
+                                <button id="btnfav" type="button" alt="favoris" title="favoris" class="btn btn-primary btn-lg">
+                                    <i class="fa fa-star"></i>
+                                </button>
+                            </a>
+                            {% else %}
+                                <button type="button" alt="favoris" title="dans vos favoris" class="btn btn-primary btn-lg" style="background-color:#196a7d !important;">
+                                    <i class="fa fa-star"></i>
+                                </button>
+                            {% endif %}
+                            {% endif %}
+                            {% if ad.privilege.isAgency %}
+                          <!--  <a id="showMessage"  class="" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-parent="#estate-{{ ad.id }}-tab" itemprop="url">-->
+                            <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="showMessage" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-value="{{ ad.id }}" data-parent="#estate-{{ ad.id }}-tab" itemprop="url">
                                 <button type="button" alt="contact" title="contact" class="btn btn-primary btn-lg">
                                     <i class="fa fa-envelope"></i>
                                 </button>
                             </a>
-
+                            {% endif %}
                                </div>
                         </div>
                         <hr class="visible-xs">
@@ -147,3 +166,12 @@
             </div>
         {% endblock %}
 {% endspaceless %}
+{%- block header_more -%}
+    {% if ad.privilege.isAgency %}
+                <div class="collapse col-md-12 tab-pane fade" id="estate-group" role="tabpanel" aria-labelledby="estate-{{ ad.id }}-group-lnk">
+                    <div class="well">
+                        {{ render(path('viteloge_frontend_message_new', { ad: ad.id })) }}
+                    </div>
+                </div>
+            {% endif %}
+{%- endblock header_more -%}

@@ -1,5 +1,12 @@
 {% extends 'VitelogeFrontendBundle::base.html.twig' %}
+{%- block header -%}
+    {%- embed "VitelogeUserBundle:base:headerSearch.html.twig" with {form:headform} -%}
+        {%- block header_navbarheader -%}
 
+        {%- endblock -%}
+
+    {%- endembed -%}
+{%- endblock -%}
 {% block main %}
     {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
         {% block left %}
@@ -49,3 +56,11 @@
         {% endblock %}
     {% endembed %}
 {% endblock main %}
+{%- block javascripts -%}
+    {{- parent() -}}
+    <script>
+        jQuery(document).ready(function() {
+            displayInput();
+        });
+    </script>
+{%- endblock javascripts -%}

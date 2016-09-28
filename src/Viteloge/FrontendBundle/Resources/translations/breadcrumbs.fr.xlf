@@ -62,6 +62,10 @@
                 <source>breadcrumb.usersearch.city</source>
                 <target>Recherche utilisateur pour %city%</target>
             </trans-unit>
+            <trans-unit id="breadcrumb.favourite" resname="breadcrumb.favourite">
+                <source>breadcrumb.favourite</source>
+                <target>Vos favoris</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

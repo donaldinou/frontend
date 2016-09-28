@@ -24,6 +24,24 @@ namespace Viteloge\CoreBundle\Repository {
             return $query->getResult();
         }
 
+        public function findAllInseeCityTransactionOrderedByCount( $transaction,$type,$limit=5 ) {
+            $query = $this->getEntityManager()
+                ->createQuery(
+                    "SELECT IDENTITY(s.inseeCity) AS inseeCity, c.name, COUNT(s.inseeCity) AS total ".
+                    "FROM VitelogeCoreBundle:UserSearch s ".
+                    "JOIN s.inseeCity c ".
+                    "WHERE s.transaction = '".$transaction."'".
+                    "AND s.type ='".$type."'".
+                    " GROUP BY s.inseeCity, c.name ".
+                    "ORDER BY total DESC"
+                );
+            if (!is_null($limit)) {
+                $query->setMaxResults($limit);
+            }
+            return $query->getResult();
+   }
+
+
         /**
          * legacy @see SendgridController
          *

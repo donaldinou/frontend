@@ -521,6 +521,38 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
+         * Ad favorie.
+         *
+         *
+         * @Route(
+         *     "/favourite/{id}",
+         *     requirements={
+         *         "id"="\d+"
+         *     },
+         *     name="viteloge_frontend_ad_favourite"
+         * )
+         * @Method({"GET"})
+         * @Template("VitelogeFrontendBundle:Ad:cookie.html.twig")
+         */
+        public function favorieAction(Request $request, Ad $ad) {
+            if($request->isXmlHttpRequest()){
+                $cookies = $request->cookies;
+            if ($cookies->has('viteloge_favorie')){
+                    $cookie_favorie = $cookies->get('viteloge_favorie').'#$#'.$ad->getId();
+            }else{
+                $cookie_favorie = $ad->getId();
+            }
+            $response = new Response();
+            $response->headers->setCookie(new Cookie('viteloge_favorie', $cookie_favorie));
+                return $this->render('VitelogeFrontendBundle:Ad:cookie.html.twig',array(), $response);
+
+            }else{
+             throw new \Exception("Erreur");
+            }
+
+        }
+
+        /**
          * Show latest ads for a request
          * Ajax call so we can have a public cache
          *
@@ -692,9 +724,12 @@ namespace Viteloge\FrontendBundle\Controller {
                 $em->persist($statistics);
                 $em->flush();
             }
+
             return array(
                 'ad' => $ad
-            );
+                );
+
+
         }
 
         /**
@@ -764,6 +799,13 @@ namespace Viteloge\FrontendBundle\Controller {
                 $em->flush();
             }
             $cookies = $request->cookies;
+            // on verifie si le bien est déja en favorie
+            $favorie = false;
+            if ($cookies->has('viteloge_favorie')){
+              $info_cookies_favorie = explode('#$#', $cookies->get('viteloge_favorie')) ;
+              $favorie = in_array($ad->getId(), $info_cookies_favorie);
+            }
+
             if ($cookies->has('viteloge_photo'))
             {
                 $info_cookies_photo = explode('#$#', $cookies->get('viteloge_photo')) ;
@@ -819,15 +861,48 @@ namespace Viteloge\FrontendBundle\Controller {
             $response->headers->setCookie(new Cookie('viteloge_photo', $cookie_photo));
             $response->headers->setCookie(new Cookie('viteloge_url', $cookie_url));
             $response->send();
+
+            $verifurl= $this->verifurl($ad->getUrl());
+            if($verifurl){
+            return $this->redirect($this->generateUrl('viteloge_frontend_ad_redirect', array('request'=> $request,'id'=>$ad->getId())));
+            }
             return $this->render('VitelogeFrontendBundle:Ad:redirect_new.html.twig',array(
                 'form' => $form->createView(),
                 'ad' => $ad,
                 'ads'=> $ads,
                 'key' => $key,
+                'favorie' => $favorie,
             ), $response);
         }
 
+        private function verifUrl($url){
+            $error=false;
+            $urlhere = $url;
+            $ch = curl_init();
 
+            $options = array(
+                CURLOPT_URL            => $urlhere,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_HEADER         => true,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_ENCODING       => "",
+                CURLOPT_AUTOREFERER    => true,
+                CURLOPT_CONNECTTIMEOUT => 120,
+                CURLOPT_TIMEOUT        => 120,
+                CURLOPT_MAXREDIRS      => 10,
+            );
+            curl_setopt_array($ch, $options);
+            $response = curl_exec($ch);
+            $httpCode = curl_getinfo($ch);
+            $headers=substr($response, 0, $httpCode['header_size']);
+            if(strpos($headers, 'X-Frame-Options: deny')>-1||strpos($headers, 'X-Frame-Options: SAMEORIGIN')>-1) {
+                $error=true;
+            }
+            $httpcode= curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            return $error;
+        }
 
          /**
          * Show latest ads with type and transaction(use in home)
@@ -860,6 +935,170 @@ namespace Viteloge\FrontendBundle\Controller {
                 )
             );
         }
+
+        /**
+         * view the favourite list.
+         *
+         *
+         * @Route(
+         *     "/remove/favourite/{id}",
+         *     name="viteloge_frontend_favourite_remove",
+         *     requirements={
+         *         "limit"="\d+"
+         *     },
+         * )
+         * @Method({"GET"})
+         * @Template("VitelogeFrontendBundle:Ad:favourite.html.twig")
+         */
+        public function removeFavouriteAction(Request $request,$id ) {
+           $translated = $this->get('translator');
+           $currentUrl = $request->getUri();
+            // Form
+            $adSearch = new AdSearch();
+            $adSearch->handleRequest($request);
+            $form = $this->createForm('viteloge_core_adsearch', $adSearch);
+
+            // Breadcrumbs
+            $transaction = $adSearch->getTransaction();
+            $breadcrumbs = $this->get('white_october_breadcrumbs');
+            $breadcrumbs->addItem(
+                $translated->trans('breadcrumb.home', array(), 'breadcrumbs'),
+                $this->get('router')->generate('viteloge_frontend_homepage')
+            );
+            $breadcrumbs->addItem(
+                $translated->trans('breadcrumb.user', array(), 'breadcrumbs'),
+                $this->get('router')->generate('viteloge_frontend_user_index')
+            );
+            $breadcrumbs->addItem(
+            $TitleName =$translated->trans('breadcrumb.favourite', array(), 'breadcrumbs')
+        );
+               $cookies = $request->cookies;
+            if ($cookies->has('viteloge_favorie')){
+                $info_cookies_favorie = explode('#$#', $cookies->get('viteloge_favorie')) ;
+                // on supprime l'id du cookies
+                unset($info_cookies_favorie[array_search($id, $info_cookies_favorie)]);
+
+                $repository = $this->getDoctrine()->getRepository('VitelogeCoreBundle:Ad');
+             $ads = $repository->findById($info_cookies_favorie);
+             // on reconstruit le cookie
+             $cookies = $request->cookies;
+                   $cookie_favorie = '';
+                foreach ($info_cookies_favorie as $key => $value) {
+                    if($key == 0){
+                        $cookie_favorie = $value;
+                    }else{
+                      $cookie_favorie .= '#$#'.$value;
+                    }
+
+                }
+
+
+            $response = new Response();
+            $response->headers->setCookie(new Cookie('viteloge_favorie', $cookie_favorie));
+             // SEO
+            $canonicalLink = $this->get('router')->generate(
+                $request->get('_route'),
+                $request->get('_route_params'),
+                true
+            );
+            $seoPage = $this->container->get('sonata.seo.page');
+            $seoPage
+                ->setTitle($TitleName)
+                ->addMeta('name', 'robots', 'noindex, follow')
+                ->addMeta('property', 'og:title', $seoPage->getTitle())
+                ->addMeta('property', 'og:type', 'website')
+                ->addMeta('property', 'og:url',  $canonicalLink)
+                ->setLinkCanonical($canonicalLink)
+            ;
+
+
+            return $this->render('VitelogeFrontendBundle:Ad:favourite.html.twig',array(
+                'form' => $form->createView(),
+                'ads' => $ads
+            ), $response);
+
+            }else{
+               return $this->redirectToRoute(
+                    'fos_user_profile_show');
+
+
+            }
+
+
+            }
+
+        /**
+         * view the favourite list.
+         *
+         *
+         * @Route(
+         *     "/list/favourite",
+         *     name="viteloge_frontend_favourite_list"
+         * )
+         * @Method({"GET"})
+         * @Template("VitelogeFrontendBundle:Ad:favourite.html.twig")
+         */
+        public function listFavouriteAction(Request $request) {
+           $translated = $this->get('translator');
+           $currentUrl = $request->getUri();
+            // Form
+            $adSearch = new AdSearch();
+            $adSearch->handleRequest($request);
+            $form = $this->createForm('viteloge_core_adsearch', $adSearch);
+
+            // Breadcrumbs
+            $transaction = $adSearch->getTransaction();
+            $breadcrumbs = $this->get('white_october_breadcrumbs');
+            $breadcrumbs->addItem(
+                $translated->trans('breadcrumb.home', array(), 'breadcrumbs'),
+                $this->get('router')->generate('viteloge_frontend_homepage')
+            );
+            $breadcrumbs->addItem(
+                $translated->trans('breadcrumb.user', array(), 'breadcrumbs'),
+                $this->get('router')->generate('viteloge_frontend_user_index')
+            );
+            $breadcrumbs->addItem(
+            $TitleName =$translated->trans('breadcrumb.favourite', array(), 'breadcrumbs')
+        );
+               $cookies = $request->cookies;
+            if ($cookies->has('viteloge_favorie')){
+                $info_cookies_favorie = explode('#$#', $cookies->get('viteloge_favorie')) ;
+                $repository = $this->getDoctrine()->getRepository('VitelogeCoreBundle:Ad');
+             $ads = $repository->findById($info_cookies_favorie);
+             // SEO
+            $canonicalLink = $this->get('router')->generate(
+                $request->get('_route'),
+                $request->get('_route_params'),
+                true
+            );
+            $seoPage = $this->container->get('sonata.seo.page');
+            $seoPage
+                ->setTitle($TitleName)
+                ->addMeta('name', 'robots', 'noindex, follow')
+                ->addMeta('property', 'og:title', $seoPage->getTitle())
+                ->addMeta('property', 'og:type', 'website')
+                ->addMeta('property', 'og:url',  $canonicalLink)
+                ->setLinkCanonical($canonicalLink)
+            ;
+            // --
+            //$session->set('resultAd',$pagination->getCurrentPageResults());
+
+
+            return array(
+                'form' => $form->createView(),
+                'ads' => $ads
+            );
+
+            }else{
+               return $this->redirectToRoute(
+                    'fos_user_profile_show');
+
+
+            }
+
+
+            }
+
     }
 
 

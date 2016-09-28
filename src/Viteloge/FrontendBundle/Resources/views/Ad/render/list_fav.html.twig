@@ -35,6 +35,12 @@
     </div>
     <footer id="estate-{{ ad.id }}-tab" class="col-md-12 footer clearfix">
         <ul class="nav nav-pills pull-right" role="tablist">
+            <li role="presentation" class="expand-hover">
+                <a href="{{ path('viteloge_frontend_favourite_remove', { 'id': ad.id }) }}" class="" title="{% trans %}viteloge.favorite.delete{% endtrans %}" role="tab" rel="nofollow">
+                    <span class="fa fa-remove"></span>
+                    <span class="hidden-xs expand-hover-text">{% trans %}viteloge.favorite.delete{% endtrans %}</span>
+                </a>
+            </li>
             {% if ad.privilege.isAgency %}
             <li role="presentation" class="expand-hover" itemscope itemtype="https://schema.org/RealEstateAgent">
                 <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="showMessage" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-parent="#estate-{{ ad.id }}-tab" itemprop="url">
@@ -64,14 +70,14 @@
                     <span class="hidden-xs expand-hover-text">{% trans %}ad.share{% endtrans %}</span>
                 </a>
             </li>
-            {% if app.environment == 'dev' %}
+            {#{% if app.environment == 'dev' %}
                 <li role="presentation" class="expand-hover">
                     <a id="estate-{{ ad.id }}-debug-lnk" href="#estate-{{ ad.id }}-debug" class="" role="tab" aria-controls="estate-{{ ad.id }}-debug" aria-expanded="false" data-toggle="collapse" data-parent="#estate-{{ ad.id }}-tab">
                         <span class="fa fa-wrench"></span>
                         <span class="hidden-xs expand-hover-text">{% trans %}ad.debug{% endtrans %}</span>
                     </a>
                 </li>
-            {% endif %}
+            {% endif %}#}
         </ul>
         <div class="clearfix"></div>
         <div id="#estate-{{ ad.id }}-tab-content" class="tab-content clearfix">
@@ -87,11 +93,11 @@
                     {{ include('VitelogeFrontendBundle:Block:social_share.html.twig', { url: path('viteloge_frontend_ad_redirect', { 'id': ad.id }), text: 'viteloge.share.ad.text'|trans() }) }}
                 </div>
             </div>
-            {% if app.environment == 'dev' %}
+            {#{% if app.environment == 'dev' %}
             <div class="collapse col-md-12 tab-paned" id="estate-{{ ad.id }}-debug" role="tabpanel" aria-labelledby="estate-{{ ad.id }}-debug">
                 <div class="well">{{ dump(ad) }}</div>
             </div>
-            {% endif %}
+            {% endif %}#}
         </div>
     </footer>
 </article>

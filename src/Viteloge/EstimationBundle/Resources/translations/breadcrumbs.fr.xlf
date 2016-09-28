@@ -6,6 +6,10 @@
                 <source>breadcrumb.estimate</source>
                 <target>Votre estimation personnalisée</target>
             </trans-unit>
+            <trans-unit id="breadcrumb.favourite" resname="breadcrumb.favourite">
+                <source>breadcrumb.favourite</source>
+                <target>Vos favoris</target>
+            </trans-unit>
             <trans-unit id="breadcrumb.estimate.result" resname="breadcrumb.estimate.result">
                 <source>breadcrumb.estimate.result</source>
                 <target>Résultat</target>

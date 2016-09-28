@@ -39,7 +39,7 @@
         <div class="clearfix">
         {%- for key,ad in ads -%}
             <div class="theme-{#ad.transaction#}">
-                {{- include('VitelogeFrontendBundle:Ad:render/list.html.twig', { 'ad': ad,'key':key }) -}}
+                {{- include('VitelogeFrontendBundle:Ad:render/list_fav.html.twig', { 'ad': ad,'key':key }) -}}
             </div>
         {%- else -%}
             <section class="margin-t10 clearfix">

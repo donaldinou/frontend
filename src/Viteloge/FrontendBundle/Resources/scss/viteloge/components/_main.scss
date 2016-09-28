@@ -1,5 +1,6 @@
 .main {
     background-color: #ddd;
+
     > section {
         padding-bottom: 25px;
         &:first-child {
@@ -72,4 +73,16 @@
             font-size: 20px;
         }
     }
+}
+
+.main-top{
+    margin-top: 11%;
+}
+
+.main-site{
+    margin-top: 7%;
+}
+
+.main-small{
+    margin-top: 5%;
 }

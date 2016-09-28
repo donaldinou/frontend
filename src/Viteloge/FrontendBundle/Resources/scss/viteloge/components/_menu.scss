@@ -620,7 +620,7 @@ footer {
 @media (min-width: 1200px) {}
 
 a.nav-expander {
-  background-color: #2d2f33;
+  background-color: #196a7d;
   color: #FFFFFF;
   display: block;
   font-size: 15px;
@@ -636,14 +636,15 @@ a.nav-expander {
   z-index: 12;
   margin-top: 15px;
   -webkit-border-radius: 3px 0 0 3px;
-  border-radius: 3px 0 0 3px;
+  border-radius: 6px 0 0 6px;
   transition: right 0.3s ease-in-out 0s;
   -webkit-transition: right 0.3s ease-in-out 0s;
   -moz-transition: right 0.3s ease-in-out 0s;
   -o-transition: right 0.3s ease-in-out 0s;
 
-  &:hover {
+  &:hover,&:focus {
     cursor: pointer;
+    background-color: #00a1c6;
   }
 
   &.fixed {
@@ -659,24 +660,36 @@ a.nav-expander {
 }
 
 nav {
-  background: #2d2f33;
+ /* background: #2d2f33;
   display: block;
   height: 100%;
   position: fixed;
   right: -100%;
-
-  /* -15em; */
   font-size: 15px;
   z-index: 2000;
   transition: right 0.3s ease-in-out 0s;
   -webkit-transition: right 0.3s ease-in-out 0s;
   -moz-transition: right 0.3s ease-in-out 0s;
   -o-transition: right 0.3s ease-in-out 0s;
-  width: 100%;
+  width: 100%;*/
 
   /* 15em; */
 }
 
+.nav-perso{
+  background: #2d2f33;
+  display: block;
+  height: 100%;
+  position: fixed;
+  right: -100%;
+  font-size: 15px;
+  z-index: 2000;
+  transition: right 0.3s ease-in-out 0s;
+  -webkit-transition: right 0.3s ease-in-out 0s;
+  -moz-transition: right 0.3s ease-in-out 0s;
+  -o-transition: right 0.3s ease-in-out 0s;
+  width: 20%;
+}
 .nav-expanded nav {
   right: 0;
   /*z-index: 2;*/

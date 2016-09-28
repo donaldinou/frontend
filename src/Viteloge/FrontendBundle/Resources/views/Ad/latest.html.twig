@@ -5,8 +5,8 @@
     {%- endblock ad_latest_title -%}
 {% endspaceless %}</h1>
 {%- block ad_latest_content -%}
-    {% for ad in ads %}
-        {{ include('VitelogeFrontendBundle:Ad:render/list.html.twig', { 'ad': ad }) }}
+    {% for key,ad in ads %}
+        {{ include('VitelogeFrontendBundle:Ad:render/list.html.twig', { 'ad': ad,'key':key }) }}
     {% else %}
         <div class="clearfix">
             {{- include('VitelogeCoreBundle:Global:alert.html.twig', { type: 'info', alerts: { 0: 'ad.noresult'|trans }, dismissible: false }) -}}

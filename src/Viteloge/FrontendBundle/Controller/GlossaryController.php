@@ -160,7 +160,50 @@ namespace Viteloge\FrontendBundle\Controller {
             return $this->render(
                 'VitelogeFrontendBundle:Glossary:mostSearched.html.twig',
                 array(
-                    'glossary' => $glossary
+                    'glossary' => $glossary,
+
+                )
+            );
+        }
+
+        /**
+         * Display the most searched cities
+         * Ajax call so we could have a shared public cache
+         *
+         * @Route(
+         *     "/mostSearchedTransaction/{transaction}/{type}/{limit}",
+         *     requirements={
+         *         "limit"="\d+"
+         *     },
+         *     defaults={
+         *         "limit"="5"
+         *     },
+         *     name="viteloge_frontend_glossary_mostsearched_tansaction_limited"
+         * )
+         * @Route(
+         *     "/mostSearchedTransaction/{transaction}/{type}",
+         *     requirements={
+         *         "limit"="\d+"
+         *     },
+         *     defaults={
+         *         "limit" = "5"
+         *     },
+         *     name="viteloge_frontend_glossary_tansaction_mostsearched"
+         * )
+         * @Cache(smaxage="604800", maxage="604800", public=true)
+         * @Method({"GET"})
+         * @Template("VitelogeFrontendBundle:Glossary:mostSearchedTransaction.html.twig")
+         */
+        public function mostSearchedTransactionAction(Request $request,$transaction,$type, $limit=5) {
+            $repository = $this->getDoctrine()
+                ->getRepository('VitelogeCoreBundle:UserSearch');
+            $glossary = $repository->findAllInseeCityTransactionOrderedByCount($transaction, $type, $limit);
+            return $this->render(
+                'VitelogeFrontendBundle:Glossary:mostSearchedTransaction.html.twig',
+                array(
+                    'glossary' => $glossary,
+                    'transaction' => $transaction,
+                    'type' => $type,
                 )
             );
         }

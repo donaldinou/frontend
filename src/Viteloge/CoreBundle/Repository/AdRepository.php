@@ -74,6 +74,7 @@ namespace Viteloge\CoreBundle\Repository {
             return $qb->getQuery()->getResult();
         }
 
+
         /**
          *
          */

@@ -38,6 +38,10 @@
         <source>acreat.brand</source>
         <target>Acreat Web Technologies</target>
       </trans-unit>
+      <trans-unit id="viteloge.favorite" resname="viteloge.favorite">
+        <source>viteloge.favorite</source>
+        <target>Vos favoris</target>
+      </trans-unit>
       <trans-unit id="viteloge.com" resname="viteloge.com">
         <source>viteloge.com</source>
         <target>Vitelogé.com</target>
@@ -362,9 +366,21 @@
         <source>Your ad on Fasthousing</source>
         <target>Votre publicité sur Vitelogé</target>
       </trans-unit>
+      <trans-unit id="ads.count.favourite" resname="ads.count.favourite">
+        <source>ads.count.favourite</source>
+        <target>{0} aucune bien immobilier dans vos favoris|{1} 1 bien immobilier dans vos favoris|]1,Inf] %count% biens immobilier dans vos favoris</target>
+      </trans-unit>
       <trans-unit id="ads.count.research" resname="ads.count.research">
         <source>ads.count.research</source>
-        <target>{0} aucune annonce ne correspond à votre recherche|{1} 1 annonce correspond à votre recherche|]1,Inf] %count% annonces disponibles correspondent à votre recherche</target>
+        <target>{0} aucune annonce ne correspond à votre recherche|{1} 1 annonce correspond à votre recherche|]1,Inf] %count% biens immobilier correspondent à votre recherche</target>
+      </trans-unit>
+      <trans-unit id="ads.count.research.city" resname="ads.count.research.city">
+        <source>ads.count.research</source>
+        <target>{0} aucune annonce ne correspond à votre recherche|{1} 1 bien immobilier à %city%|]1,Inf] %count% biens immobiliers à %city%</target>
+      </trans-unit>
+      <trans-unit id="ads.count.research.city.transac" resname="ads.count.research.city.transac">
+        <source>ads.count.research.city.transac</source>
+        <target>{0} aucune annonce ne correspond à votre recherche|{1} 1 bien immobilier %transac% à %city%|]1,Inf] %count% biens immobiliers  %transac% à %city%</target>
       </trans-unit>
       <trans-unit id="8fb3ca522f8baf76c97c804f75c8481a" resname="bedrooms">
         <source>bedrooms</source>
@@ -841,6 +857,10 @@
       <trans-unit id="websearch.action.delete" resname="websearch.action.delete">
         <source>websearch.action.delete</source>
         <target>Supprimer l'alerte</target>
+      </trans-unit>
+      <trans-unit id="viteloge.favorite.delete" resname="viteloge.favorite.delete">
+        <source>viteloge.favorite.delete</source>
+        <target>Supprimer</target>
       </trans-unit>
       <trans-unit id="websearch.action.activate" resname="websearch.action.activate">
         <source>websearch.action.activate</source>

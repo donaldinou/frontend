@@ -439,10 +439,13 @@ namespace Viteloge\FrontendBundle\Controller {
             $deleteForm = $this->createDeleteForm($webSearch);
             $editForm = $this->createEditForm($webSearch);
             $editForm->handleRequest($request);
-
+            $adSearch = new AdSearch();
+            $adSearch->handleRequest($request);
+            $headform = $this->createForm('viteloge_core_adsearch', $adSearch);
             return array(
                 'websearch' => $webSearch,
                 'form' => $editForm->createView(),
+                'headform' => $headform->createView(),
                 'form_delete' => $deleteForm->createView()
             );
         }

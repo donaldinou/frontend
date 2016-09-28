@@ -1,4 +1,8 @@
 {% extends 'VitelogeFrontendBundle::base.html.twig' %}
+{% block head_javascripts_requirejs %}
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+{% endblock head_javascripts_requirejs %}
 {%- block header -%}
     {%- embed "VitelogeUserBundle:base:smallHeaders.html.twig" with {key:key,form:form} -%}
         {%- block header_navbarmenu -%}
@@ -27,8 +31,8 @@
     <div class="container-fluid">
         <div class="row clearfix">
             <div class="col-sm-10 col-md-9 col-lg-9">
-                <p><small><b style="text-transform: uppercase;">{{ ad.type }} {{ ad.cityName }} {% trans %} ad.at {% endtrans %} {{ ('footer.transaction.article.'~ad.transaction)|trans }} ({{ ad.postalcode }}) - {{ ad.price | schematizedcurrency('EUR') | raw }}</b><br>
-                    {{ ad.advancedDescription|truncate(500, false, '...')|normalize_utf8|raw }} </small></p>
+                <h1 style="text-transform: uppercase;font-size:10px !important;">{{ ad.type }} {{ ad.cityName }} {% trans %} ad.at {% endtrans %} {{ ('footer.transaction.article.'~ad.transaction)|trans }} ({{ ad.postalcode }}) - {{ ad.price | schematizedcurrency('EUR') | raw }}</h1><br>
+                 <small> {{ ad.advancedDescription|truncate(200, false, '...')|normalize_utf8|raw }}</small>
             </div>
             <div class="col-sm-2 col-md-3 col-lg-3 text-right hidden-xs">
 
@@ -43,6 +47,9 @@
     <script>
         jQuery(document).ready(function() {
             displayInput();
+            displayMessage();
+            OnLoadAddFav();
         });
+
     </script>
 {%- endblock javascripts -%}

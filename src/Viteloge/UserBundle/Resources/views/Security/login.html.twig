@@ -1,4 +1,4 @@
-{% extends "VitelogeUserBundle::layout.html.twig" %}
+{% extends 'VitelogeFrontendBundle::base.html.twig' %}
 {% trans_default_domain 'FOSUserBundle' %}
 {%- block header -%}
   {{ render(controller('VitelogeFrontendBundle:Default:headerForm')) }}
