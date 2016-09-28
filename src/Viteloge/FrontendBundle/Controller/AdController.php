@@ -129,6 +129,8 @@ namespace Viteloge\FrontendBundle\Controller {
             $session = $request->getSession();
             $session->set('adSearch', $adSearch);
             $session->set('currentUrl', $currentUrl);
+            $session->remove('request');
+            $session->set('request', $request);
 
             // --
 
@@ -750,10 +752,12 @@ namespace Viteloge\FrontendBundle\Controller {
          */
         public function viewAction(Request $request, Ad $ad, $key) {
             $session = $request->getSession();
-            $ads =$session->get('resultAd');
+            $ads = $session->get('resultAd');
+            $search = $session->get('request');
             // Form
             $adSearch = new AdSearch();
-            $adSearch->handleRequest($request);
+            //$adSearch->handleRequest($request);
+            $adSearch->handleRequest($search);
             $form = $this->createForm('viteloge_core_adsearch', $adSearch);
 
             $translated = $this->get('translator');
@@ -953,9 +957,11 @@ namespace Viteloge\FrontendBundle\Controller {
         public function removeFavouriteAction(Request $request,$id ) {
            $translated = $this->get('translator');
            $currentUrl = $request->getUri();
+           $session = $request->getSession();
+           $requestSearch = $session->get('request');
             // Form
             $adSearch = new AdSearch();
-            $adSearch->handleRequest($request);
+            $adSearch->handleRequest($requestSearch);
             $form = $this->createForm('viteloge_core_adsearch', $adSearch);
 
             // Breadcrumbs
@@ -1041,9 +1047,11 @@ namespace Viteloge\FrontendBundle\Controller {
         public function listFavouriteAction(Request $request) {
            $translated = $this->get('translator');
            $currentUrl = $request->getUri();
+           $session = $request->getSession();
+           $requestSearch = $session->get('request');
             // Form
             $adSearch = new AdSearch();
-            $adSearch->handleRequest($request);
+            $adSearch->handleRequest($requestSearch);
             $form = $this->createForm('viteloge_core_adsearch', $adSearch);
 
             // Breadcrumbs

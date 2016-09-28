@@ -85,7 +85,8 @@ namespace Viteloge\FrontendBundle\Controller {
          */
         public function listAction(Request $request) {
             $translated = $this->get('translator');
-
+            $session = $request->getSession();
+            $requestSearch = $session->get('request');
             // Breadcrumbs
             $this->initBreadcrumbs(true, 'breadcrumb.alert.list');
             // --
@@ -104,7 +105,7 @@ namespace Viteloge\FrontendBundle\Controller {
             ;
             // --
             $adSearch = new AdSearch();
-            $adSearch->handleRequest($request);
+            $adSearch->handleRequest($requestSearch);
             $form = $this->createForm('viteloge_core_adsearch', $adSearch);
             $webSearches = $this->getUser()->getWebSearches();
             return array(
@@ -253,7 +254,8 @@ namespace Viteloge\FrontendBundle\Controller {
          */
         public function newAction(Request $request) {
             $translated = $this->get('translator');
-
+            $session = $request->getSession();
+            $requestSearch = $session->get('request');
             // Breadcrumbs
             $this->initBreadcrumbs();
             $this->breadcrumbs->addItem($translated->trans('breadcrumb.alert.action.add', array(), 'breadcrumbs'));
@@ -307,7 +309,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 }
             }
             $adSearch = new AdSearch();
-            $adSearch->handleRequest($request);
+            $adSearch->handleRequest($requestSearch);
             $headform = $this->createForm('viteloge_core_adsearch', $adSearch);
             // by default check mail enabled
             $webSearch->getUserSearch()->setMailEnabled(true);
@@ -410,7 +412,8 @@ namespace Viteloge\FrontendBundle\Controller {
          */
         public function editAction(Request $request, WebSearch $webSearch) {
             $translated = $this->get('translator');
-
+            $session = $request->getSession();
+            $requestSearch = $session->get('request');
             if ( $this->getUser() != $webSearch->getUser() ) {
                 throw $this->createAccessDeniedException();
             }
@@ -440,7 +443,7 @@ namespace Viteloge\FrontendBundle\Controller {
             $editForm = $this->createEditForm($webSearch);
             $editForm->handleRequest($request);
             $adSearch = new AdSearch();
-            $adSearch->handleRequest($request);
+            $adSearch->handleRequest($requestSearch);
             $headform = $this->createForm('viteloge_core_adsearch', $adSearch);
             return array(
                 'websearch' => $webSearch,

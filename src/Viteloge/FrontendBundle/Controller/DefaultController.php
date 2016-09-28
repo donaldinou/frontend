@@ -77,8 +77,12 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
          public function headerFormAction( Request $request ) {
+            $session = $request->getSession();
+            $requestSearch = $session->get('request');
+            // Form
+
            $adSearch = new AdSearch();
-           $adSearch->handleRequest($request);
+           $adSearch->handleRequest($requestSearch);
            $form = $this->createForm('viteloge_core_adsearch', $adSearch);
 
            return $this->render('VitelogeUserBundle:base:headerSearch.html.twig',array(
