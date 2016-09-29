@@ -16,8 +16,7 @@
         {# form_widget(form.transaction, { label_attr: { 'class': 'radio-inline' }, theme_container: theme_container|default('search-container') }) #}
         <div class="bg-darken text-left" role="tabpanel">
             <div class="row">
-
-                <div class="col-md-2">
+                <div class="col-md-2 no-padding first-input">
                     {{ form_row(form.what, {
                         'label_attr': {
                             'class': 'sr-only'
@@ -28,7 +27,7 @@
                         }
                     }) }}
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 no-padding second-input">
                     {{ form_row(form.transaction, {
                         'label_attr': {
                             'class': 'sr-only'
@@ -39,8 +38,8 @@
                         }
                     }) }}
                 </div>
-            <div class="col-md-5">
-             <div class="whereblock">
+            <div class="col-md-5 no-padding">
+             <div class="col-md-11 third-input" style="z-index:0">
                     {{ form_row(form.where, {
                         'label_attr': {
                             'class': 'sr-only'
@@ -55,22 +54,24 @@
                             'data-ajax--data-type' : 'json',
                         }
                     }) }}
-                <!--     <div class="btn btn-link btn-link-carte bg-info" alt="trouver sur la carte" title="trouver sur la carte">
-                        <i class="fa fa-map-marker fa-lg" aria-hidden="true"></i>
-                    </div>-->
-             </div>
+                </div>
+                   <div class="col-md-1 searchbtnplus">
+                    <div id="moreinfo" class="btn btn-link bg-info header-height" alt="plus de critères" title="plus de critères">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </div>
+                    </div>
+
                 </div>
 
 
 
                 <div class=" col-md-3" aria-label="">
-                     <div style="display:flex;">
-                        <div>
-                            <div id="moreinfo" class="btn btn-link bg-info searchbtnplus header-height" alt="plus de critères" title="plus de critères">
+
+                           <!-- <div id="moreinfo" class="btn btn-link bg-info searchbtnplus header-height" alt="plus de critères" title="plus de critères">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                        <div style="width:100%;">
+                            </div>-->
+
+                        <div style="width:100%">
                             {{ form_widget(form.search, {
                                 'label': 'ad.search',
                                 'span_class': 'fa fa-search',
@@ -79,13 +80,14 @@
                                     'role': 'button'
                                 }
                             }) }}
+                             </div>
                         </div>
                      </div>
                 </div>
-            </div>
-                     <div class="clear"></div>
-            <div id="hiddeninput" class="row hidden">
-                <div class="col-md-4">
+
+
+            <div id="hiddeninput" class="row hidden" role="tabpanel">
+                <div class="col-md-4 no-padding four-input">
                     {{ form_row(form.rooms, {
                         'label_attr': {
                             'class': 'sr-only'
@@ -96,7 +98,7 @@
                         }
                     }) }}
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 no-padding five-input">
                     {{ form_row(form.minPrice, {
                         'label_attr': {
                             'class': 'sr-only'
@@ -108,7 +110,7 @@
                         }
                     }) }}
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3 no-padding six-input">
                     {{ form_row(form.maxPrice, {
                         'label_attr': {
                             'class': 'sr-only'
@@ -126,9 +128,11 @@
                 <div class="col-md-12">
                     <a id="see-more" href="#search-more">{% trans %}Advanced search{% endtrans %}</a>
                 </div>
-            </div>
-        </div>
+
+
     {%- endblock form_fields -%}
+    </div>
+    </div>
 {%- block form_end -%}
 {{ form_end(form, {'render_rest': false}) }}
 {%- endblock form_end -%}

@@ -408,8 +408,10 @@ namespace Viteloge\FrontendBundle\Controller {
             ;
             // --
              // Form
+            $session = $request->getSession();
+            $requestSearch = $session->get('request');
             $adSearch = new AdSearch();
-            $adSearch->handleRequest($request);
+            $adSearch->handleRequest($requestSearch);
             $headerform = $this->createForm('viteloge_core_adsearch', $adSearch);
             return array(
                 'city' => $inseeCity,

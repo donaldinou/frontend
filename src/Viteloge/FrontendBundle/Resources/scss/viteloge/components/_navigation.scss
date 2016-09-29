@@ -19,7 +19,10 @@
 .custom_pagination{
     width: 100%;
 }
-
+.navigation{
+    margin-left: auto;
+    margin-right: auto;
+}
 #navigation {
     border-bottom: 1px solid $nav-tabs-border-color;
     @media (min-width: $grid-float-breakpoint) {

@@ -99,7 +99,6 @@ function displayMessage() {
 function OnLoadAddFav(){
     jQuery('#addfav').click(function() {
         var _id = jQuery(this).attr('data-value');
-        console.log(_id);
         jQuery.ajax({
         url: Routing.generate('viteloge_frontend_ad_favourite', {id: _id}, true),
         context: jQuery(this),
@@ -114,3 +113,12 @@ function OnLoadAddFav(){
       });
     });
 }
+
+function initCookieNav(){
+    jQuery('.setkey').click(function() {
+        var _key = jQuery(this).attr('data-value');
+        jQuery.removeCookie("navigationKey");
+        jQuery.cookie("navigationKey", _key);
+    });
+}
+

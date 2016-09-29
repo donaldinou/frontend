@@ -2,7 +2,7 @@
     position: fixed;
     width: 100%;
     background-color: #fff;
-    z-index: 2;
+    z-index: 9999;
     top:0;
     /*background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogecore/images/pixels/white.png');*//* use with background check */
     .vr {
@@ -75,7 +75,7 @@
 }
 
 .subheader {
-    background-color: $text-color;
+    background-color: #fff;
     color: #fff;
 }
 
@@ -137,6 +137,7 @@
 .small_header{
     margin:0.5em 0 ;
     font-size: 1.5em;
+    color:#00a1c6;
 }
 
 .subheader-paginate{

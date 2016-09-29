@@ -2,6 +2,10 @@ viteloge_frontend_ad:
     resource: "@VitelogeFrontendBundle/Controller/AdController.php"
     type: annotation
 
+viteloge_frontend_agency:
+    resource: "@VitelogeFrontendBundle/Controller/AgencyController.php"
+    type: annotation
+
 viteloge_frontend_default:
     resource: "@VitelogeFrontendBundle/Controller/DefaultController.php"
     type: annotation

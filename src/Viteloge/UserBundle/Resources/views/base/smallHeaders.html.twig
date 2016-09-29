@@ -32,10 +32,11 @@
                 <br>
                 {% set images = app.request.cookies.get('viteloge_photo')|split('#$#') %}
                 {% set urls = app.request.cookies.get('viteloge_url')|split('#$#') %}
+                {% set title = app.request.cookies.get('viteloge_title')|split('#$#') %}
 
-                {% for key,image in images %}
+                {% for k,image in images %}
                     {% if image is not empty %}
-                <a href="{{ urls[key] }}" alt="ouvrir la fiche" title="ouvrir la fiche" target="_blank">
+                <a href="{{ urls[k] }}" alt="ouvrir la fiche" title="{{ title[k] }}" target="_blank">
                     <img src="{{ 'http://media.viteloge.com/'~image }}" />
                 </a>
                  {% endif %}
@@ -70,59 +71,43 @@
                                 </div>
 
                         {%- endif -%}
-                              {# dump(app.request.cookies.get('viteloge_favorie')) #}
+                              {# dump(app.request.cookies.get('viteloge_favorie'))viteloge_frontend_agency_view #}
                                <div class="col-md-2 header-top" style="text-align: center;">
+                            {% if app.request.attributes.get('_route') != 'viteloge_frontend_agency_view' %}
                                 <a href="{{ app.session.get('currentUrl') }}" class="">
                                 <button type="button" alt="retour à la liste de résultats" title="retour à la liste de résultats" class="btn btn-primary btn-lg">
-                                    <i class="fa fa-step-backward"></i>
+                                    <i class="fa fa-sort-numeric-asc"></i>
                                 </button>
+                            {% else %}
+                                <a href="{{ path('viteloge_frontend_favourite_list') }}" class="">
+                                <button type="button" alt="retour à la liste des favoris" title="retour à la liste des favoris" class="btn btn-primary btn-lg">
+                                    <i class="fa fa-sort-numeric-asc"></i>
+                                </button>
+                            {% endif %}
                                 </a>
-                                {% if ads[key-1] is defined %}
-                                <a href="{{ path('viteloge_frontend_ad_view', { 'key':key-1,'id': ads[key-1].id }) }}" class="">
+                                {% if ads[clef-1] is defined %}
+                                    {% set moins =  left~'-'~ads[clef-1].id %}
+                                <a href="{{ path('viteloge_frontend_agency_view', { 'id': moins, 'agence':ad.agencyName|slugify }) }}" class="">
                                 <button type="button" alt="bien précédent" title="bien précédent" class="btn btn-primary btn-lg">
                                      <i class="fa fa-chevron-left"></i>
                                 </button>
                                 </a>
                                 {% endif %}
-                                {% if ads[key+1] is defined %}
-                            <a href="{{ path('viteloge_frontend_ad_view', { 'key':key+1,'id': ads[key+1].id }) }}" class="">
+                                {% if ads[clef+1] is defined %}
+                                    {% set plus=  right~'-'~ads[clef+1].id %}
+                            <a href="{{ path('viteloge_frontend_agency_view', { 'id': plus, 'agence':ad.agencyName|slugify }) }}" class="">
                                 <button type="button" alt="bien suivant" title="bien suivant" class="btn btn-primary btn-lg">
                                     <i class="fa fa-chevron-right"></i>
                                 </button>
                             </a>
                                 {% endif %}
-                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") or app.user %}
-                                {% if favorie == false %}
 
-                            <a id="addfav" data-value="{{ ad.id }}" style="cursor: pointer;">
-                                <button id="btnfav" type="button" alt="favoris" title="favoris" class="btn btn-primary btn-lg">
-                                    <i class="fa fa-star"></i>
-                                </button>
-                            </a>
-                            {% else %}
-                                <button type="button" alt="favoris" title="dans vos favoris" class="btn btn-primary btn-lg" style="background-color:#196a7d !important;">
-                                    <i class="fa fa-star"></i>
-                                </button>
-                            {% endif %}
-                            {% endif %}
-                            {% if ad.privilege.isAgency %}
-                          <!--  <a id="showMessage"  class="" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-parent="#estate-{{ ad.id }}-tab" itemprop="url">-->
-                            <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="showMessage" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-value="{{ ad.id }}" data-parent="#estate-{{ ad.id }}-tab" itemprop="url">
-                                <button type="button" alt="contact" title="contact" class="btn btn-primary btn-lg">
-                                    <i class="fa fa-envelope"></i>
-                                </button>
-                            </a>
-                            {% endif %}
                                </div>
                         </div>
                         <hr class="visible-xs">
                         {%- endblock header_brand -%}
                         {% block header_identification %}
                         <div class="clearfix">
-
-
-
-
 
                             <div class="navbluebtn">
 

@@ -106,9 +106,9 @@
         <source>viteloge_frontend_ad_redirect</source>
         <target>/ad/redirect/{id}</target>
       </trans-unit>
-      <trans-unit id="viteloge_frontend_ad_view" resname="viteloge_frontend_ad_view">
-        <source>viteloge_frontend_ad_view</source>
-        <target>/annonce/view/{key}/{id}</target>
+      <trans-unit id="viteloge_frontend_agency_view" resname="viteloge_frontend_agency_view">
+        <source>viteloge_frontend_agency_view</source>
+        <target>/agency/{id}/{agence}</target>
       </trans-unit>
       <trans-unit id="a9d5ddab093d91f2edbba752a1dccdcb" resname="viteloge_frontend_ad_search">
         <source>viteloge_frontend_ad_search</source>

@@ -4,7 +4,7 @@
 <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 {% endblock head_javascripts_requirejs %}
 {%- block header -%}
-    {%- embed "VitelogeUserBundle:base:smallHeaders.html.twig" with {key:key,form:form} -%}
+    {%- embed "VitelogeUserBundle:base:smallHeaders.html.twig" with {clef:clef,form:form} -%}
         {%- block header_navbarmenu -%}
             <div class="collapse navbar-collapse" id="navbar-navigation">
                 {{- block('header_brand') -}}
@@ -30,12 +30,42 @@
 {%- block header_end %}
     <div class="container-fluid">
         <div class="row clearfix">
-            <div class="col-sm-10 col-md-9 col-lg-9">
-                <h1 style="text-transform: uppercase;font-size:10px !important;">{{ ad.type }} {{ ad.cityName }} {% trans %} ad.at {% endtrans %} {{ ('footer.transaction.article.'~ad.transaction)|trans }} ({{ ad.postalcode }}) - {{ ad.price | schematizedcurrency('EUR') | raw }}</h1><br>
-                 <small> {{ ad.advancedDescription|truncate(200, false, '...')|normalize_utf8|raw }}</small>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <h1 style="text-transform: uppercase;font-size:12px !important;color:#00a1c6;">{{ ad.agencyName~' propose :' }}</h1>
+                <h2 style="text-transform: uppercase;font-size:10px !important;margin:0;padding:0;color:#00a1c6;">{{ ad.type }} {% trans %} ad.at {% endtrans %} {{ ('footer.transaction.article.'~ad.transaction)|trans }} {{ ad.cityName }} ({{ ad.postalcode }}) - {{ ad.price | schematizedcurrency('EUR') | raw }}</h2>
+                 <small style="color:#00a1c6;"> {{ ad.advancedDescription|truncate(200, false, '...')|normalize_utf8|raw }}</small>
             </div>
-            <div class="col-sm-2 col-md-3 col-lg-3 text-right hidden-xs">
+            <div class="col-sm-4 col-md-4 col-lg-4 text-right hidden-xs">
+                {% if ad.privilege.isAgency %}
+                          <!--  <a id="showMessage"  class="" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-parent="#estate-{{ ad.id }}-tab" itemprop="url">-->
+                            <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="showMessage" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-value="{{ ad.id }}" data-parent="#estate-{{ ad.id }}-tab" itemprop="url">
+                                <button type="button" alt="contact" title="contact" class="btn btn-primary btn-lg">
+                                    Telephone
+                                </button>
+                            </a>
+                            {% endif %}
+              {% if is_granted("IS_AUTHENTICATED_REMEMBERED") or app.user %}
+                                {% if favorie == false %}
 
+                            <a id="addfav" data-value="{{ ad.id }}" style="cursor: pointer;">
+                                <button id="btnfav" type="button" alt="favoris" title="favoris" class="btn btn-primary btn-lg">
+                                    Favoris
+                                </button>
+                            </a>
+                            {% else %}
+                                <button type="button" alt="favoris" title="dans vos favoris" class="btn btn-primary btn-lg" style="background-color:#196a7d !important;">
+                                    Favoris
+                                </button>
+                            {% endif %}
+                            {% endif %}
+                            {% if ad.privilege.isAgency %}
+                          <!--  <a id="showMessage"  class="" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-parent="#estate-{{ ad.id }}-tab" itemprop="url">-->
+                            <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="showMessage" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-value="{{ ad.id }}" data-parent="#estate-{{ ad.id }}-tab" itemprop="url">
+                                <button type="button" alt="contact" title="contact" class="btn btn-primary btn-lg">
+                                    Contacter l'agence
+                                </button>
+                            </a>
+                            {% endif %}
             </div>
         </div>
 

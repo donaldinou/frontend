@@ -285,7 +285,7 @@ a.bg-primary {
 }
 
 .dropdown-menu {
-  background-color: #333;
+  background-color: #00bdec;
   color: #fff;
   border: 1px solid #333;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -402,9 +402,10 @@ a.bg-primary {
 
 .form-control {
   border: 1px solid transparent;
-  border-radius: 3px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  border-radius: 0 !important;
+  border-color: #00a1c6 !important;
 }
 
 /* BOX REF. */

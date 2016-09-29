@@ -21,28 +21,13 @@
  {{ wo_render_breadcrumbs() }}
 {% endblock breadcrumb -%}
 {%- block header_more -%}
-        <div class="subheader-paginate">
-            <div class="col-sm-12 col-md-12 col-lg-12 header-pagination">
-        {%- if pagination is defined -%}
-                <span>
-             {%- block pagination -%}
-            {%- if pagination is not null and pagination.haveToPaginate -%}
-                {{- pagerfanta(pagination, 'pager_viteloge', {
-                    'routeParams': app.request.query.all
-                }) -}}
-            {%- endif -%}
-        {%- endblock pagination -%}
-        <span>
-           {%- endif -%}
-            </div>
 
-        </div>
 
 {%- endblock header_more -%}
 {%- block header_end -%}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-10 col-md-9 col-lg-9">
+    <div class="container-fluid subheader-paginate">
+        <div class="row ">
+            <div class="col-sm-3 col-md-3 col-lg-3">
 
                 {% set count = pagination.nbResults|default(ads|length) %}
                     {% if ads[0].cityName is defined and ads[0].cityName is not empty %}
@@ -62,8 +47,20 @@
             <h1 class="small_header">{% transchoice count with { '%count%' : count} %}ads.count.research{% endtranschoice %}</h1>
         {% endif %}
             </div>
-
+        <div class="col-sm-4 col-md-4 col-lg-4 header-pagination">
+           {%- if pagination is defined -%}
+                <span>
+             {%- block pagination -%}
+            {%- if pagination is not null and pagination.haveToPaginate -%}
+                {{- pagerfanta(pagination, 'pager_viteloge', {
+                    'routeParams': app.request.query.all
+                }) -}}
+            {%- endif -%}
+        {%- endblock pagination -%}
+        <span>
+           {%- endif -%}
         </div>
+       </div>
     </div>
 
 {%- endblock -%}
