@@ -23,6 +23,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use Acreat\InseeBundle\Entity\InseeDepartment;
     use Acreat\InseeBundle\Entity\InseeState;
     use Viteloge\CoreBundle\Entity\Ad;
+    use Viteloge\CoreBundle\Entity\Agence;
     use Viteloge\CoreBundle\Entity\QueryStats;
     use Viteloge\CoreBundle\Entity\Statistics;
     use Viteloge\CoreBundle\Entity\WebSearch;
@@ -56,6 +57,10 @@ namespace Viteloge\FrontendBundle\Controller {
             $em = $this->getDoctrine()->getManager();
             $id= explode('-', $id);
             $ad = $em->getRepository('VitelogeCoreBundle:Ad')->find($id[1]);
+           /* $agence = $em->getRepository('VitelogeCoreBundle:Agence')->find($ad->getAgencyId());
+            $tel = $agence->getTel();
+            var_dump($tel);
+            die();*/
             $session = $request->getSession();
             $ads = $session->get('resultAd');
             $search = $session->get('request');
