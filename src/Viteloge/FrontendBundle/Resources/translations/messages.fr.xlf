@@ -42,9 +42,21 @@
         <source>viteloge.favorite</source>
         <target>Vos favoris</target>
       </trans-unit>
+      <trans-unit id="viteloge.favourite" resname="viteloge.favourite">
+        <source>viteloge.favourite</source>
+        <target>Favoris</target>
+      </trans-unit>
+      <trans-unit id="viteloge.contact" resname="viteloge.contact">
+        <source>viteloge.contact</source>
+        <target>Contacter l'agence</target>
+      </trans-unit>
       <trans-unit id="viteloge.com" resname="viteloge.com">
         <source>viteloge.com</source>
         <target>Vitelogé.com</target>
+      </trans-unit>
+      <trans-unit id="viteloge.phone" resname="viteloge.phone">
+        <source>viteloge.phone</source>
+        <target>Téléphoner</target>
       </trans-unit>
       <trans-unit id="viteloge.brand" resname="viteloge.brand">
         <source>viteloge.brand</source>

@@ -5,6 +5,7 @@
     ul {
         > li {
             margin-top: 10px;
+            display: inline-block;
             .btn {
                 font-size: $font-size-xsmall;
                 padding: 2px;

@@ -2,7 +2,7 @@
 
 {%- block main -%}
     <section class="cloud text-center">
-        <h4 class="h4 text-uppercase">{%- trans with { '%city%' : city.fullname } -%}Immobilier à promimité de %city%{%- endtrans -%}</h4>
+        <h4 class="h4 text-uppercase">{%- trans with { '%city%' : city.fullname } -%}Immobilier à proximité de %city%{%- endtrans -%}</h4>
         <ul class="clearfix list-inline">
             {%- for key, near in cities -%}
                 {{- include('VitelogeFrontendBundle:Suggest:render/li.html.twig', { 'city': near }) -}}

@@ -1,0 +1,16 @@
+{%- if ad.rooms -%}
+    {% transchoice ad.rooms with { '%count%': ad.rooms } %}ad.rooms.count{% endtranschoice %}
+{%- endif -%}
+{%- if ad.bedrooms -%}
+    {%- if ad.rooms -%}
+    {%- endif -%}
+    {% transchoice ad.bedrooms with { '%count%': ad.bedrooms } %}ad.bedrooms.count{% endtranschoice %}
+{%- endif -%}
+{%- if ad.surface -%}
+    {%- if ad.rooms or ad.bedrooms -%}
+    {%- endif -%}
+    {{ ' '~ad.surface }}  metres carres
+{%- endif -%}
+{%- if ad.price -%}
+    {{ ' '~ad.price }}  euros
+{%- endif -%}

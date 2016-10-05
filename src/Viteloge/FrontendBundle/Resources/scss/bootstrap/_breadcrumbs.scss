@@ -23,4 +23,7 @@
     > .active {
         color: #00bdec;
     }
+    @media (max-width: $screen-md-min) {
+        display:none;
+       }
 }

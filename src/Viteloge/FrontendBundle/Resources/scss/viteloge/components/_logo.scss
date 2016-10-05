@@ -1,9 +1,14 @@
 .brand {
     display: block;
     padding-left: 44px;
-    @media (min-width: $screen-sm-min) {
+    @media (min-width: $screen-xs-min) {
         padding-left: 0px;
     }
+    @media (min-width: 220px) {
+        padding-left: 0px;
+    }
+
+
     > .logo {
         width: 240px;
         margin: 0 auto;
@@ -38,4 +43,8 @@
   margin-left: auto;
   margin-right: auto;
   width: 22em;
+  @media (max-width: $screen-xs-min) {
+       width: 14em;
+       margin-left: 0;
+       }
 }

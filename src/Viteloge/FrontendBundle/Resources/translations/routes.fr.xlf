@@ -112,7 +112,7 @@
       </trans-unit>
       <trans-unit id="viteloge_frontend_agency_view" resname="viteloge_frontend_agency_view">
         <source>viteloge_frontend_agency_view</source>
-        <target>/agence/{id}/{agence}</target>
+        <target>/fiche/{id}/{description}</target>
       </trans-unit>
       <trans-unit id="a9d5ddab093d91f2edbba752a1dccdcb" resname="viteloge_frontend_ad_search">
         <source>viteloge_frontend_ad_search</source>

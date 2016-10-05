@@ -1,20 +1,18 @@
 <section class="last-search">
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
             <h3><b>{% trans %}websearches.inlive{% endtrans %}</b> {% trans %}websearches.viteloge{% endtrans %}</h3>
-        </div>
       </div>
         <div class="row">
-            <div class="searches col-md-4">
+            <div class="searches col-md-4 col-sm-6 col-xs-12">
                 {{ render(path('viteloge_frontend_websearch_latest_limited', { limit: 5 })) }}
             </div>
-            <div class="searches col-md-4">
+            <div class="searches col-md-4 col-sm-6 col-xs-12">
                 {{ render(path('viteloge_frontend_ad_latest_limited', { limit: 5 })) }}
             </div>
-            <aside class="col-md-4" data-role="secondary">
+            <div class="hidden-xs col-md-4 col-sm-12" data-role="secondary">
                 {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', { }) }}
-            </aside>
+            </div>
         </div>
 
     </div>

@@ -1,4 +1,10 @@
+{% if app.request.attributes.get('_route') != 'viteloge_frontend_homepage' %}
 <div class="loader modal hidden fade">
+{% else %}
+<div class="loader loader_home modal hidden fade">
+{% endif %}
+
+
     {{- include('VitelogeFrontendBundle:misc:animated-logo.html.twig', {}) -}}
 </div>
 <div class="loader-backdrop hidden fade"></div>

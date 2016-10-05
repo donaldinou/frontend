@@ -17,6 +17,7 @@ form.search {
         border-radius: 6px;
         height: 40px;
         border: none;
+        width: 100%;
     }
     .logo-container {
         display: block;
@@ -44,7 +45,8 @@ form.search {
     }
 
     #moreinfo{
-    border-radius: 0 6px 6px 0 !important;
+    border-radius: 0 5px 5px 0 !important;
+    padding: 0 10px;
     }
     .select2-container {
         .select2-search--inline {

@@ -55,18 +55,19 @@
 
                 {% endblock %}
                 {% block header_navbarmenu %}
-                    <div class="navbar">
+                    <div class="navbar-wrapper">
                         {%- block header_brand -%}
-                        <div class="col-md-10 col-xs-10 col-sm-2">
+                        <div class="col-md-11 col-lg-10">
 
-                            <a class="col-md-2 navbar-brand header-top" href="{{ path('viteloge_frontend_homepage') }}">
+
+                             {%- if form is defined -%}
+
+                            <a class="col-md-1 col-sm-1 navbar-brand" href="{{ path('viteloge_frontend_homepage') }}">
                                 <img width="100%" src="{{ aws_s3_domain('bundles/vitelogecore/images/fr/logo-viteloge-moteur-recherche-immobilier.svg') }}" class="logo img-responsive" alt="{% trans %}viteloge.brand{% endtrans %}" title="{% trans %}viteloge.brand{% endtrans %} - {% trans %}viteloge.slogan{% endtrans %}" itemprop="logo" data-role="logo">
                             </a>
-                             {%- if form is defined -%}
-                                <div class="col-md-10 header-top">
 
                                     {{ include('VitelogeFrontendBundle:Ad:form/adSearch.html.twig', { form: form, isTransactionLabelHidden: false, theme_container: 'search-container' }) }}
-                                </div>
+
 
                         {%- endif -%}
                         </div>
@@ -81,7 +82,7 @@
 
                             <div class="navbluebtn">
 
-                                <ul id="identification" class="btn btn-primary pull-right btn-lg hidden-xs visible-sm visible-md visible-lg bleu-button">
+                                <ul id="identification" class="btn btn-primary pull-right btn-lg hidden-xs hidden-sm hidden-md visible-lg bleu-button">
 
                                 {% if not app.user or not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                    <!-- <li>

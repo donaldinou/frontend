@@ -33,7 +33,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
     /**
      * Note: this controller to have a short route name
-     * @Route("/agency")
+     * @Route("/announcement")
      */
     class AgencyController extends Controller {
 
@@ -42,7 +42,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *
          *
          * @Route(
-         *     "/{id}/{agence}",
+         *     "/{id}/{description}",
          *     requirements={
          *
          *     },

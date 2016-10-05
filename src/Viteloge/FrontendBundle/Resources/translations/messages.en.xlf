@@ -50,6 +50,11 @@
         <source>viteloge.favorite</source>
         <target>Yours favourites</target>
       </trans-unit>
+
+      <trans-unit id="viteloge.phone" resname="viteloge.phone">
+        <source>viteloge.phone</source>
+      <target>Phone</target>
+      </trans-unit>
       <trans-unit id="8051fe0c32445dc50d6207fd88abdc5f" resname="All Rents">
         <source>All Rents</source>
         <target>All Rents</target>
@@ -371,6 +376,10 @@
       <trans-unit id="viteloge.favorite.delete" resname="viteloge.favorite.delete">
         <source>viteloge.favorite.delete</source>
         <target>Remove</target>
+      </trans-unit>
+      <trans-unit id="viteloge.contact" resname="viteloge.contact">
+        <source>viteloge.contact</source>
+        <target>Contact the agency</target>
       </trans-unit>
     </body>
   </file>

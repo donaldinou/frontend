@@ -76,7 +76,19 @@
 }
 
 .main-top{
-    margin-top: 9%;
+    margin-top: 180px;
+     @media (max-width: $screen-lg-min) {
+            margin-top: 183px
+        }
+    @media (max-width: $screen-md-min) {
+            margin-top: 150px
+        }
+    @media (max-width: $screen-sm-min) {
+            margin-top: 235px
+        }
+    @media (max-width: $screen-xs-min) {
+            margin-top: 235px;
+        }
 }
 
 .main-site{
@@ -84,5 +96,11 @@
 }
 
 .main-small{
-    margin-top: 8%;
+    margin-top: 160px;
+    @media (max-width: $screen-md-min) {
+            margin-top: 179px
+        }
+    @media (max-width: $screen-sm-min) {
+            margin-top: 206px
+        }
 }

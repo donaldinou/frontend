@@ -22,7 +22,8 @@
             {{ "Vous allez être redirigé vers la fiche de l'agence." | trans }}<br/>
             {{ "Si cela ne fonctionne pas, veuillez cliquer sur le lien ci-dessous" | trans }}<br>
         </p>
-        <a href="{{ ad.url }}" style="color: #f46923;font-size: 16px;">{{ ad.url }}</a>
+        <a id="bar" href="{{ ad.url }}" style="color: #f46923;font-size: 16px;" target="_blank">{{ ad.url }}</a>
+        <span id="foo"></span>
     </div>
 {% endblock %}
 
@@ -46,5 +47,6 @@
                 window.location.href = '{{ ad.url }}';
             }
         );
+
     </script>
 {% endblock %}

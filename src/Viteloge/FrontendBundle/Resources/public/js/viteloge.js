@@ -75,8 +75,12 @@ function displayInput() {
    jQuery('#moreinfo').click(function(){
     if(!critPlusOuvert){
         jQuery('#hiddeninput').removeClass('hidden');
+        jQuery('.firsthidden').removeClass('hidden-xs');
+        jQuery('.subheader').addClass('hidden');
     }else {
         jQuery('#hiddeninput').addClass('hidden');
+        jQuery('.firsthidden').addClass('hidden-xs');
+        jQuery('.subheader').removeClass('hidden');
     }
     critPlusOuvert = !critPlusOuvert;
     });
@@ -121,4 +125,5 @@ function initCookieNav(){
         jQuery.cookie("navigationKey", _key);
     });
 }
+
 

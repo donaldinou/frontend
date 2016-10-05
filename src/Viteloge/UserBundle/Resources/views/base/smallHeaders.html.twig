@@ -57,52 +57,22 @@
 
                 {% endblock %}
                 {% block header_navbarmenu %}
-                    <div class="navbar-wrapper" style="border-bottom: 5px solid #00a1c6;">
+                    <div class="navbar-wrapper" style="margin-top:0;border-bottom: 5px solid #00a1c6;">
                         {%- block header_brand -%}
-                        <div class="col-md-11 col-xs-11 col-sm-2">
+                        <div class="col-md-10 header-top">
 
-                            <a class="col-md-2 navbar-brand header-top" href="{{ path('viteloge_frontend_homepage') }}">
+                            <a class="col-md-1 col-sm-1 navbar-brand" href="{{ path('viteloge_frontend_homepage') }}">
                                 <img width="100%" src="{{ aws_s3_domain('bundles/vitelogecore/images/fr/logo-viteloge-moteur-recherche-immobilier.svg') }}" class="logo img-responsive" alt="{% trans %}viteloge.brand{% endtrans %}" title="{% trans %}viteloge.brand{% endtrans %} - {% trans %}viteloge.slogan{% endtrans %}" itemprop="logo" data-role="logo">
                             </a>
                              {%- if form is defined -%}
-                                <div class="col-md-8 header-top">
 
-                                    {{ include('VitelogeFrontendBundle:Ad:form/adSearch.html.twig', { form: form, isTransactionLabelHidden: false, theme_container: 'search-container' }) }}
-                                </div>
+
+                                    {{ include('VitelogeFrontendBundle:Ad:form/adSearch_redirect.html.twig', { form: form, isTransactionLabelHidden: false, theme_container: 'search-container' }) }}
+
 
                         {%- endif -%}
                               {# dump(app.request.cookies.get('viteloge_favorie'))viteloge_frontend_agency_view #}
-                               <div class="col-md-2 header-top" style="text-align: center;">
-                            {% if app.request.attributes.get('_route') != 'viteloge_frontend_agency_view' %}
-                                <a href="{{ app.session.get('currentUrl') }}" class="">
-                                <button type="button" alt="retour à la liste de résultats" title="retour à la liste de résultats" class="btn btn-primary btn-lg">
-                                    <i class="fa fa-sort-numeric-asc"></i>
-                                </button>
-                            {% else %}
-                                <a href="{{ path('viteloge_frontend_favourite_list') }}" class="">
-                                <button type="button" alt="retour à la liste des favoris" title="retour à la liste des favoris" class="btn btn-primary btn-lg">
-                                    <i class="fa fa-sort-numeric-asc"></i>
-                                </button>
-                            {% endif %}
-                                </a>
-                                {% if ads[clef-1] is defined %}
-                                    {% set moins =  left~'-'~ads[clef-1].id %}
-                                <a href="{{ path('viteloge_frontend_agency_view', { 'id': moins, 'agence':ad.agencyName|slugify }) }}" class="">
-                                <button type="button" alt="bien précédent" title="bien précédent" class="btn btn-primary btn-lg">
-                                     <i class="fa fa-chevron-left"></i>
-                                </button>
-                                </a>
-                                {% endif %}
-                                {% if ads[clef+1] is defined %}
-                                    {% set plus=  right~'-'~ads[clef+1].id %}
-                            <a href="{{ path('viteloge_frontend_agency_view', { 'id': plus, 'agence':ad.agencyName|slugify }) }}" class="">
-                                <button type="button" alt="bien suivant" title="bien suivant" class="btn btn-primary btn-lg">
-                                    <i class="fa fa-chevron-right"></i>
-                                </button>
-                            </a>
-                                {% endif %}
 
-                               </div>
                         </div>
                         <hr class="visible-xs">
                         {%- endblock header_brand -%}
@@ -111,7 +81,7 @@
 
                             <div class="navbluebtn">
 
-                                <ul id="identification" class="btn btn-primary pull-right btn-lg hidden-xs visible-sm visible-md visible-lg bleu-button">
+                                <ul id="identification" class="btn btn-primary pull-right btn-lg hidden-xs hidden-sm hidden-md visible-lg bleu-button">
 
                                 {% if not app.user or not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                    <!-- <li>

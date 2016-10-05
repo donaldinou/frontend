@@ -130,7 +130,7 @@
 }
 
 .header-height{
-    height: 40px !important;
+    height: 40px;
     line-height: 40px !important;
 }
 
@@ -138,6 +138,9 @@
     margin:0.5em 0 ;
     font-size: 1.5em;
     color:#00a1c6;
+    @media (max-width: $screen-md-min) {
+        display:none;
+       }
 }
 
 .subheader-paginate{

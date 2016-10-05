@@ -1,11 +1,31 @@
 {%- set imgClass = imgClass|default('lazy') -%}
+
+
+{% set roomsurface =  include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface_url.html.twig', { 'ad': ad })  %}
+{% if ad.cityName is defined and ad.cityName is not empty %}
+            {% if ad.transaction is defined and ad.transaction is not empty %}
+                 {% if ad.transaction == 'V' %}
+                    {% set transac = ' à vendre'%}
+                {% elseif ad.transaction == 'L'%}
+                    {% set transac = ' à louer'%}
+                {% else %}
+                    {% set transac =' neufs'%}
+                {% endif %}
+
+                {% set description = ad.cityName~transac~' '~roomsurface %}
+             {% else %}
+                {% set description = ad.cityName~' '~roomsurface %}
+             {% endif %}
+{% else %}
+     {% set description = transac~' '~roomsurface %}
+{% endif %}
 {%- if ad.privilege.isExclu -%}
     {{ include('VitelogeCoreBundle:Global:sticker.html.twig', { title: 'ad.sticker.exlusivity'|trans }) }}
 {%- endif -%}
 {% if key is not defined %}
 	{% set key = 0 %}
 {% endif %}
-<a href="{{ path('viteloge_frontend_agency_view', { 'id': key~'-'~ad.id, 'agence':ad.agencyName|slugify }) }}" class="preview setkey" rel="nofollow" target="_blank" data-value="{{ key }}">
+<a href="{{ path('viteloge_frontend_agency_view', { 'id': key~'-'~ad.id, 'description':description|slugify }) }}" class="preview setkey" rel="nofollow" target="_blank" data-value="{{ key }}">
     <img itemprop="image" data-original="{{ aws_s3_domain(ad.photo, false) }}" data-src="{{ aws_s3_domain(ad.photo, false) }}" class="{{ imgClass }}" alt="{{ ad.type~' à '~ad.cityName }}" onerror="this.src = ''">
     <noscript><img itemprop="image" src="{{ aws_s3_domain(ad.photo, false) }}" class="{{ imgClass }}" alt="" onerror="this.src = ''"></noscript>
 </a>

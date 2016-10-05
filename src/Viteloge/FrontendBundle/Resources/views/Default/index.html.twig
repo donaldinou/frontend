@@ -5,7 +5,7 @@
 {%- endblock -%}
 
 {%- block body -%}
-    <header class="header banner bannerhome" role="banner" data-target="#search-container">
+    <header class="header banner" role="banner" data-target="#search-container">
         {{- block('header') -}}
         <div class="hidden-xs hidden-sm next-link text-center">
             <a href="#main-content" rel="nofollow" class="round-icon medium transition-large" data-toggle="tooltip" data-placement="top" title="{%- trans -%}home.header.next.tooltip{%- endtrans -%}" data-original-title="{%- trans -%}home.header.next.tooltip{%- endtrans -%}" aria-label="{%- trans -%}home.header.next{%- endtrans -%}">
@@ -14,9 +14,9 @@
         </div>
     </header>
     <main class="main" role="main">
-        {{- block('body_start') -}}
+        {#- block('body_start') -#}
         {{- block('main') -}}
-        {{- block('body_end') -}}
+        {#- block('body_end') -#}
     </main>
     <footer data-role="footer">
         {{- block('footer') -}}
@@ -26,10 +26,10 @@
 {%- block header -%}
     {%- embed "VitelogeUserBundle:base:headerHome.html.twig" with { 'block_flash': block('flash') } -%}
         {%- block header_navbarmenu -%}
-            <div class="collapse navbar-collapse" id="navbar-navigation">
+          <!--  <div class="collapse navbar-collapse" id="navbar-navigation">
                 {#- block('header_brand') -#}
                 {#- block('header_identification') -#}
-            </div>
+            </div>-->
             {%- block header_navigation -%}
                 {{- block_flash | raw -}}
                 <div id="search-container" class="forward text-center">
@@ -52,24 +52,25 @@
 {%- endblock flash -%}
 
 {%- block main -%}
-    <div id="main-content" class="clearfix">
+   <!-- <div id="main-content" class="clearfix">
 
-    </div>
+    </div>-->
     {#- include('VitelogeFrontendBundle:Default:fragment/services.html.twig', { }) -#}
     {{- include('VitelogeFrontendBundle:Default:fragment/websearch.html.twig', { }) -}}
 {%- endblock -%}
 
 {%- block footer -%}
-    <div class="container text-secondary">
+    <div class="text-secondary">
+         <div class="col-xs-12 hidden-lg hidden-md hidden-sm no-padding" data-role="secondary" style="background-color:#ddd;margin-top:0;">
+                {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', { }) }}
+        </div>
         {{- include('VitelogeFrontendBundle:menu:footer_home.html.twig', {}) -}}
         {{- include('VitelogeFrontendBundle:Default:fragment/glossary.html.twig', { }) -}}
         {{- include('VitelogeFrontendBundle:Ad:fragment/ad.html.twig', { }) -}}
-        <div class="container text-center">
-            <div class="col-lg-12">
+            <div class="col-md-12 text-center">
               {{- include('VitelogeFrontendBundle:misc:social.html.twig', {}) -}}
               {{- include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) -}}
             </div>
-        </div>
         {#- parent() -#}
 
     </div>

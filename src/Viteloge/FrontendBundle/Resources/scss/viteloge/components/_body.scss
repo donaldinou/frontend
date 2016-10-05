@@ -20,6 +20,12 @@ body figure {
 
 body > footer {
     padding-top: 25px;
+    @media (max-width: $screen-sm-min) {
+        padding-top: 0;
+       }
+    @media (max-width: $screen-xs-min) {
+        padding-top: 0;
+       }
 }
 
 .copyright {
@@ -30,6 +36,7 @@ body > footer {
     color: $text-color-secondary;
     font-weight: 400;
     font-size: $font-size-small;
+    display: inline;
 }
 
 .ellipsis {

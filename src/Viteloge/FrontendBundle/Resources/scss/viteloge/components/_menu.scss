@@ -132,6 +132,8 @@ a.bg-primary {
   color: #fff;
   transition-duration: 0.5s;
   transition-property: all;
+  height: 38px !important;
+  margin: 1px 1px 0 0;
 }
 
 .btn-link {
@@ -684,12 +686,21 @@ nav {
   position: fixed;
   right: -100%;
   font-size: 15px;
-  z-index: 2000;
+  z-index: 99999;
   transition: right 0.3s ease-in-out 0s;
   -webkit-transition: right 0.3s ease-in-out 0s;
   -moz-transition: right 0.3s ease-in-out 0s;
   -o-transition: right 0.3s ease-in-out 0s;
   width: 20%;
+  @media (max-width: $screen-md-min) {
+          width: 40%;
+        }
+  @media (max-width: $screen-sm-min) {
+          width: 60%;
+        }
+  @media (max-width: $screen-xs-min) {
+          width: 100%;
+        }
 }
 .nav-expanded nav {
   right: 0;
