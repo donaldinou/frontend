@@ -152,6 +152,12 @@
       <script src="http://frontend.vitelogelocalhost.com/built/global.min.js"></script>
        <!-- <script src="{{ aws_s3_domain('built/global.min.js') }}"></script>-->
         <script src="{{ url('bazinga_jstranslation_js') }}"></script>
+        <script>
+        jQuery(document).ready(function() {
+        changeBtnColor();
+        removeBtnColor();
+        });
+         </script>
     {% endblock javascripts -%}
     </body>
 </html>
