@@ -66,15 +66,15 @@ namespace Viteloge\CoreBundle\Form\Type {
                     'label' => 'ad.keywords',
                     'required' => false
                 ))*/
-                ->add('minPrice', 'text', array(
+                ->add('minPrice', 'money', array(
                     'label' => 'ad.price.min',
                     'required' => false,
-
+                    'precision' => 0
                 ))
-                ->add('maxPrice', 'text', array(
+                ->add('maxPrice', 'money', array(
                     'label' => 'ad.price.max',
                     'required' => false,
-
+                    'precision' => 0
                 ))
              /*   ->add('radius', 'choice', array(
                     'label' => 'ad.radius',

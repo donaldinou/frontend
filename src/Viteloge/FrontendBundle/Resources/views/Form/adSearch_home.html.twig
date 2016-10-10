@@ -55,7 +55,7 @@
                     }) }}
                 </div>
                    <div class="col-md-1 searchbtnplus">
-                    <div id="moreinfo" class="btn btn-link bg-info header-height" alt="plus de critères" title="plus de critères">
+                    <div id="moreinfo" class="btn btn-link bg-info header-height" alt="plus de critères" title="plus de critères" onclick="ga('send', 'event', 'homepage', 'clic-plus-de-criteres', 'bouton-plus-de-criteres')">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                     </div>
                     </div>
@@ -76,7 +76,8 @@
                                 'span_class': 'fa fa-search',
                                 'attr': {
                                     'class': 'btn btn-primary searchbtn text-uppercase header-height',
-                                    'role': 'button'
+                                    'role': 'button',
+                                    'onclick': "ga('send', 'event', 'homepage', 'clic-bouton-rechercher', 'rechercher')"
                                 }
                             }) }}
                              </div>

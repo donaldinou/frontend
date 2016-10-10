@@ -53,48 +53,48 @@
             </div>
             <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2 text-left header-top">
             {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_view' %}
-                                <a href="{{ app.session.get('currentUrl') }}" class="">
-                                <button type="button" alt="retour à la liste de résultats" title="retour à la liste de résultats" class="btn btn-primary btn-lg">
-                                    <i class="fa fa-sort-numeric-asc"></i>
+                                <a href="{{ app.session.get('currentUrl') }}" class="btnlist">
+                                <button type="button" alt="retour à la liste de résultats" title="retour à la liste de résultats" class="btn btn-primary btn-lg" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-menu', 'menu')">
+                                    <i class="fa fa-list"></i>
                                 </button>
                             {% else %}
-                                <a href="{{ path('viteloge_frontend_favourite_list') }}" class="">
+                                <a href="{{ path('viteloge_frontend_favourite_list') }}" class="btnlist" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-menu', 'menu')">
                                 <button type="button" alt="retour à la liste des favoris" title="retour à la liste des favoris" class="btn btn-primary btn-lg">
-                                    <i class="fa fa-sort-numeric-asc"></i>
+                                    <i class="fa fa-list"></i>
                                 </button>
                             {% endif %}
                                 </a>
                                 {% if ads[clef-1] is defined %}
                                     {% set moins =  left~'-'~ads[clef-1].id %}
-                                <a href="{{ path('viteloge_frontend_agency_view', { 'id': moins, 'description':description|slugify }) }}" class="">
+                                <a href="{{ path('viteloge_frontend_agency_view', { 'id': moins, 'description':description|slugify }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-precedent', 'bouton-precedent')">{% endif %}
                                 <button type="button" alt="bien précédent" title="bien précédent" class="btn btn-primary btn-lg">
                                      <i class="fa fa-chevron-left"></i>
                                 </button>
-                                </a>
+                               {% if ads[clef-1] is defined %} </a>
                                 {% endif %}
                                 {% if ads[clef+1] is defined %}
                                     {% set plus=  right~'-'~ads[clef+1].id %}
-                            <a href="{{ path('viteloge_frontend_agency_view', { 'id': plus, 'description':description|slugify }) }}" class="">
+                            <a href="{{ path('viteloge_frontend_agency_view', { 'id': plus, 'description':description|slugify }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">{% endif %}
                                 <button type="button" alt="bien suivant" title="bien suivant" class="btn btn-primary btn-lg">
                                     <i class="fa fa-chevron-right"></i>
                                 </button>
-                            </a>
+                           {% if ads[clef+1] is defined %} </a>
                                 {% endif %}
             </div>
             <div class="col-xs-6 col-sm-3 col-md-4 col-lg-5 text-right header-top">
-                {% if ad.privilege.isAgency %}
+
                           <!--  <a id="showMessage"  class="" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-parent="#estate-{{ ad.id }}-tab" itemprop="url">-->
-                            <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="showMessage" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-value="{{ ad.id }}" data-parent="#estate-{{ ad.id }}-tab" itemprop="url">
+                            <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="showMessage" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-value="{{ ad.id }}" data-parent="#estate-{{ ad.id }}-tab" itemprop="url" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-telephoner', 'telephoner')">
                                 <button type="button" alt="contact" title="contact" class="btn btn-primary btn-lg">
                                     <i class="fa fa-phone"></i><span class="hidden-xs hidden-sm hidden-md">{% trans %}viteloge.phone{% endtrans %}</span>
 
                                 </button>
                             </a>
-                            {% endif %}
+
                           {% if is_granted("IS_AUTHENTICATED_REMEMBERED") or app.user %}
                                 {% if favorie == false %}
 
-                            <a id="addfav" data-value="{{ ad.id }}" style="cursor: pointer;">
+                            <a id="addfav" data-value="{{ ad.id }}" style="cursor: pointer;" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-favoris', 'favoris')">
 
                                 <button id="btnfav" type="button" alt="favoris" title="favoris" class="btn btn-primary btn-lg">
                                   <i class="fa fa-star"></i> <span class="hidden-xs hidden-sm hidden-md">{% trans %}viteloge.favourite{% endtrans %}</span>
@@ -108,15 +108,15 @@
                                 </button>
                             {% endif %}
                             {% endif %}
-                            {% if ad.privilege.isAgency %}
+
                           <!--  <a id="showMessage"  class="" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-parent="#estate-{{ ad.id }}-tab" itemprop="url">-->
-                            <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="showMessage" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-value="{{ ad.id }}" data-parent="#estate-{{ ad.id }}-tab" itemprop="url">
+                            <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="showMessage" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-value="{{ ad.id }}" data-parent="#estate-{{ ad.id }}-tab" itemprop="url" onclick="ga('send', 'event', 'page-contacter-lagence', 'clic-contacter-lagence', 'contacter-lagence')">
                                 <button type="button" alt="contact" title="contact" class="btn btn-primary btn-lg">
                                     <i class="fa fa-envelope"></i><span class="hidden-xs hidden-sm hidden-md"> {% trans %}viteloge.contact{% endtrans %}</span>
 
                                 </button>
                             </a>
-                            {% endif %}
+
             </div>
         </div>
 

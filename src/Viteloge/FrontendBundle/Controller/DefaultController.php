@@ -69,10 +69,11 @@ namespace Viteloge\FrontendBundle\Controller {
             $entity = new AdSearch();
             $form = $this->createForm('viteloge_core_adsearch', $entity);
             // --
-
+            $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
             return array(
                 'count' => $count,
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'csrf_token' => $csrfToken,
             );
         }
 
@@ -80,13 +81,16 @@ namespace Viteloge\FrontendBundle\Controller {
             $session = $request->getSession();
             $requestSearch = $session->get('request');
             // Form
+            $adSearch = new AdSearch();
+          if(!is_null($requestSearch)){
 
-           $adSearch = new AdSearch();
            $adSearch->handleRequest($requestSearch);
+          }
            $form = $this->createForm('viteloge_core_adsearch', $adSearch);
-
+           $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
            return $this->render('VitelogeUserBundle:base:headerSearch.html.twig',array(
                 'form' => $form->createView(),
+                'csrf_token' => $csrfToken,
             ));
          }
 

@@ -2,7 +2,7 @@
     position: fixed;
     width: 100%;
     background-color: #fff;
-    z-index: 9999;
+    z-index: 1;
     top:0;
     /*background-image: url('http://'+$aws-s3-domain+'/bundles/vitelogecore/images/pixels/white.png');*//* use with background check */
     .vr {
@@ -35,10 +35,7 @@
     #identification {
         > li {
             > a {
-                padding-top: 5px;
-                padding-bottom: 5px;
-                padding-left: 10px;
-                padding-right: 5px;
+
             }
         }
         .vr {

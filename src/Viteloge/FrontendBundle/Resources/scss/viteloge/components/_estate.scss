@@ -124,7 +124,7 @@
         margin-right: 10px;
     }
     .footer {
-        background-color: #27303d;
+        background-color: #2d2f33;
         color: #fff;
         > .nav {
             &:hover, &:focus {
@@ -251,4 +251,12 @@
             margin-left: 50px;
         }
     }
+}
+
+.estate .preview:focus:before, .estate .preview:hover:before {
+    z-index: 0 !important;
+}
+
+.owl-carousel {
+    z-index: 0 !important;
 }

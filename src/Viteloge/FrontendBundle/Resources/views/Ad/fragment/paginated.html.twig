@@ -12,7 +12,7 @@
         {%- endblock pagination -%}
         {%- endif -%}#}
         <div class="clearfix">
-            <a href="{{ path('viteloge_frontend_websearch_new', { 'session': true }) }}" role="button" class="btn btn-primary pull-left">
+            <a href="{{ path('viteloge_frontend_websearch_new', { 'session': true }) }}" role="button" class="btn btn-primary pull-left" onclick="ga('send', 'event', 'page-listing-de-bien', 'clic-creation-alerte-mail', 'alerte-mail')">
                 <span class="fa fa-bell"></span>&nbsp;
                 {% trans %}usersearch.create.mail.alert{% endtrans %}
             </a>

@@ -516,7 +516,7 @@
       </trans-unit>
       <trans-unit id="ad.transaction.V" resname="ad.transaction.V">
         <source>ad.transaction.V</source>
-        <target>Achat</target>
+        <target>Vente</target>
       </trans-unit>
       <trans-unit id="ad.transaction.N" resname="ad.transaction.N">
         <source>ad.transaction.N</source>

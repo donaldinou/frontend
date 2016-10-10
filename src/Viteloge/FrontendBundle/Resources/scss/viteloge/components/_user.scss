@@ -4,9 +4,9 @@
 
 #identification.bleu-button {
   list-style: none;
-
   li {
     list-style: none;
+    text-align: left;
   }
 }
 
@@ -14,11 +14,37 @@
   margin: 0px;
   padding: 0 10px;
   position: fixed;
-  right: 15px;
+  right: 0;
   top: 15px;
   height: 40px;
   line-height: 40px;
   float: right !important;
-  margin-right: 37px !important;
-  border-radius: 6px
+  margin-right: 50px !important;
+  border-radius: 6px;
+  min-width: 200px;
+
+    &:hover, &:active, &:focus {
+    border-color: #2d2f33 #2d2f33 #666;
+    float: right !important;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 0;
+    margin-right: 50px !important;
+    margin-top: 0;
+    min-width: 200px;
+    padding: 0 10px;
+    position: fixed;
+    right: 0;
+    top: 15px;
+       }
+    &:hover {
+      border-radius: 6px;
+      background-color: #00bdec;
+    }
+    &:active,&:focus {
+      background-color: #2d2f33;
+      border-radius: 6px 6px 0 0;
+    }
+
 }
+

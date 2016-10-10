@@ -24,6 +24,7 @@ h1, .h1 {
   font-weight: 600;
   line-height: 1.33333;
   padding: 10px;
+  border-radius: 6px;
 }
 
 a {
@@ -171,10 +172,11 @@ a.bg-primary {
   padding-bottom: 10px;
   position: relative;
   width: 100%;
+  z-index: 2;
 }
 
 .navbar-brand {
-  padding: 0;
+  padding: 0 15px 0 0;
 
   > img {
     display: block;
@@ -287,20 +289,23 @@ a.bg-primary {
 }
 
 .dropdown-menu {
-  background-color: #00bdec;
-  color: #fff;
-  border: 1px solid #333;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  min-width: 160px;
-  padding: 5px 0;
-  margin: -5px 0 0;
+    background-color: #2d2f33;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    margin: -1px 0 0;
+    min-width: 202px;
+    padding: 0;
+    right: -12px;
+    z-index: 2;
 
   > li > a {
     color: #fff;
-    padding: 3px 20px;
     margin: 0 5px;
     transition-duration: 0.5s;
     transition-property: all;
+    padding: 10px;
+    margin: 1px;
   }
 }
 
@@ -629,14 +634,14 @@ a.nav-expander {
   font-size: 15px;
   font-weight: 400;
   margin-right: 0;
-  padding: 10px 15px;
+  padding: 0 15px;
   position: absolute;
   right: 0;
   text-decoration: none;
   text-transform: uppercase;
   transition: right 0.3s ease-in-out 0s;
   width: auto;
-  z-index: 12;
+  z-index: 3;
   margin-top: 15px;
   -webkit-border-radius: 3px 0 0 3px;
   border-radius: 6px 0 0 6px;
@@ -644,6 +649,8 @@ a.nav-expander {
   -webkit-transition: right 0.3s ease-in-out 0s;
   -moz-transition: right 0.3s ease-in-out 0s;
   -o-transition: right 0.3s ease-in-out 0s;
+  height: 40px;
+  line-height: 40px;
 
   &:hover,&:focus {
     cursor: pointer;
@@ -845,3 +852,4 @@ body.nav-expanded {
     width: 20%;
   }
 }
+

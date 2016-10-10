@@ -130,7 +130,7 @@
     border-right: none !important;
     border-left: none !important;
     @media (max-width: $screen-md-min) {
-        border-radius: 6px !important;
+        border-radius: 6px 0 0 6px !important;
         border :1px solid #00a1c6 !important;
        }
 
@@ -138,9 +138,8 @@
 
    .six-input .form-control{
     border-left: none !important;
-    border-radius: 0 6px 6px 0 !important;
     @media (max-width: $screen-md-min) {
-        border-radius: 6px !important;
+        border-radius: 6px 0 0 6px!important;
         border :1px solid #00a1c6 !important;
        }
 
@@ -161,7 +160,7 @@
     border-right: none !important;
     border-left: none !important;
     @media (max-width: $screen-sm-min) {
-        border-radius: 6px !important;
+        border-radius: 6px 0 0 6px!important;
         border :1px solid #00a1c6 !important;
        }
 
@@ -169,9 +168,9 @@
 
    .sixe-input .form-control{
     border-left: none !important;
-    border-radius: 0 6px 6px 0 !important;
+    border-radius: 0 !important;
     @media (max-width: $screen-sm-min) {
-        border-radius: 6px !important;
+        border-radius: 6px 0 0 6px !important;
         border :1px solid #00a1c6 !important;
        }
 
@@ -220,5 +219,12 @@
 .hide_info{
     @media (max-width: $screen-xs-min) {
         display: none;
+       }
+}
+
+.btnlist{
+    margin-right: 15px;
+    @media (max-width: $screen-xs-min) {
+        margin-right: 1px;
        }
 }

@@ -1,3 +1,10 @@
+
+{%- if ad.type -%}
+{{ ad.type }}
+{%- endif -%}
+{% if ad.cityName is defined and ad.cityName is not empty %}
+	{{ ad.cityName }}
+{% endif %}
 {%- if ad.rooms -%}
     {% transchoice ad.rooms with { '%count%': ad.rooms } %}ad.rooms.count{% endtranschoice %}
 {%- endif -%}
@@ -11,6 +18,16 @@
     {%- endif -%}
     {{ ' '~ad.surface }}  metres carres
 {%- endif -%}
-{%- if ad.price -%}
-    {{ ' '~ad.price }}  euros
+{% if ad.transaction is defined and ad.transaction is not empty %}
+                 {% if ad.transaction == 'V' %}
+                    {% set transac = ' à vendre'%}
+                {% elseif ad.transaction == 'L'%}
+                    {% set transac = ' à louer'%}
+                {% else %}
+                    {% set transac =' neufs'%}
+                {% endif %}
+{{ transac }}
+{% endif %}
+{%- if ad.agencyName -%}
+    {{ ' '~ad.agencyName }}
 {%- endif -%}

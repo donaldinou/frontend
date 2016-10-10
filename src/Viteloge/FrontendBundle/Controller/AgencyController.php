@@ -57,7 +57,8 @@ namespace Viteloge\FrontendBundle\Controller {
             $em = $this->getDoctrine()->getManager();
             $id= explode('-', $id);
             $ad = $em->getRepository('VitelogeCoreBundle:Ad')->find($id[1]);
-           /* $agence = $em->getRepository('VitelogeCoreBundle:Agence')->find($ad->getAgencyId());
+            /*$backEm = $this->getDoctrine()->getManager('back');
+            $agence = $backEm->getRepository('VitelogeCoreBundle:Agence')->find($ad->getAgencyId());
             $tel = $agence->getTel();
             var_dump($tel);
             die();*/
@@ -68,7 +69,11 @@ namespace Viteloge\FrontendBundle\Controller {
             // Form
             $adSearch = new AdSearch();
             //$adSearch->handleRequest($request);
-            $adSearch->handleRequest($search);
+            if(!is_null($search)){
+
+           $adSearch->handleRequest($search);
+          }
+
             $form = $this->createForm('viteloge_core_adsearch', $adSearch);
 
             $translated = $this->get('translator');
@@ -79,14 +84,47 @@ namespace Viteloge\FrontendBundle\Controller {
                 true
             );
             $seoPage = $this->container->get('sonata.seo.page');
+
+           $title = $ad->getcityName();
+            if($ad->getTransaction() == 'V'){
+               $title .= ' à vendre';
+           }elseif($ad->getTransaction() == 'L'){
+               $title .= ' à louer';
+           }elseif($ad->getTransaction() == 'N'){
+               $title .= ' neuf';
+           }
+
+           if(!empty($ad->getRooms())){
+            if($ad->getRooms() == 1){
+               $title .= ' '.$translated->transChoice('ad.rooms.count',array('%count%' => $ad->getRooms()));
+            }else{
+                $title .= ' '.$ad->getRooms().' '.$translated->trans('ad.rooms');
+            }
+
+           }
+           if(!empty($ad->getBedrooms())){
+            if($ad->getBedrooms() == 1){
+            $title .= ' '.$translated->transChoice('ad.bedrooms.count',array('%count%' => $ad->getBedrooms()));
+          }else{
+            $title .= ' '.$ad->getBedrooms().' '.$translated->trans('ad.bedrooms');
+          }
+
+           }
+           if(!empty($ad->getRooms()) || !empty($ad->getBedrooms())){
+             if(!empty($ad->getSurface())){
+             $title .= ' '.$ad->getSurface().' métres carrés';
+            }
+           }
+           $description = $this->tronquer($ad->getDescription(),157);
+
             $seoPage
-                ->setTitle($translated->trans('viteloge.frontend.ad.redirect.title'))
+                ->setTitle($title)
                 ->addMeta('name', 'robots', 'noindex, nofollow')
-                ->addMeta('name', 'description', $translated->trans('viteloge.frontend.ad.redirect.description'))
+                ->addMeta('name', 'description', $description)
                 ->addMeta('property', 'og:title', $seoPage->getTitle())
                 ->addMeta('property', 'og:type', 'website')
                 ->addMeta('property', 'og:url',  $canonicalLink)
-                ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.ad.redirect.description'))
+                ->addMeta('property', 'og:description', $description)
                 ->setLinkCanonical($canonicalLink)
             ;
             // --
@@ -210,6 +248,7 @@ namespace Viteloge\FrontendBundle\Controller {
             if($verifurl){
             return $this->redirect($this->generateUrl('viteloge_frontend_ad_redirect', array('request'=> $request,'id'=>$ad->getId())));
             }
+            $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
             return $this->render('VitelogeFrontendBundle:Ad:redirect_new.html.twig',array(
                 'form' => $form->createView(),
                 'ad' => $ad,
@@ -218,6 +257,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 'right' => $right,
                 'clef' => $id[0],
                 'favorie' => $favorie,
+                'csrf_token' => $csrfToken,
             ), $response);
         }
 
@@ -250,7 +290,21 @@ namespace Viteloge\FrontendBundle\Controller {
             return $error;
         }
 
-
+        function tronquer($texte, $nbs)
+        {
+        $max_caracteres= $nbs;
+        // Test si la longueur du texte dépasse la limite
+        if (strlen($texte)>$max_caracteres){
+        // Séléction du maximum de caractères
+        $texte = substr($texte, 0, $max_caracteres);
+        // Récupération de la position du dernier espace (afin déviter de tronquer un mot)
+        $position_espace = strrpos($texte, " ");
+        $texte = substr($texte, 0, $position_espace);
+        $texte = $texte."...";
+        }
+        //on retourne le texte
+        return $texte;
+        }
 
     }
 

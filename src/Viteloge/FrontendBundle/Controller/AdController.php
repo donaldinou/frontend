@@ -176,6 +176,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
             // Breadcrumbs
             $transaction = $adSearch->getTransaction();
+            $description = 'Toutes les annonces immobilières de ';
             $breadcrumbs = $this->get('white_october_breadcrumbs');
             $breadcrumbs->addItem(
                 $translated->trans('breadcrumb.home', array(), 'breadcrumbs'),
@@ -227,21 +228,63 @@ namespace Viteloge\FrontendBundle\Controller {
                 $what = $adSearch->getWhat();
                 $breadcrumbTitleSuffix = '';
                 $breadcrumbTitleSuffix .= (!empty($what)) ? implode(', ', $what).' ' : ' ';
+                $suffix = '';
+                $suffix .= (!empty($what)) ? implode(' et ', $what).' ' : ' ';
+                $title = '';
+                $titre ='';
+                if($transaction == 'V'){
+                   $title .= ' ventes ';
+                   $titre .= ' a vendre ';
+               }elseif($transaction == 'L'){
+                   $title .= ' locations ';
+                   $titre .= ' a louer ';
+               }elseif($transaction == 'N'){
+                   $title .= ' programmes neufs ';
+                   $titre .= ' neufs ';
+               }
+                $description .= $title.$suffix;
+                $description .= ($inseeCity instanceof InseeCity) ? $inseeCity->getFullname() : '';
+                $description .= '. Retrouvez';
+                if($suffix == 'Maison'){
+                    $description .= ' toutes nos '.$suffix;
+                }else{
+                     $description .= ' tous nos '.$suffix;
+                }
+                $description .= $titre.' a ';
+                $description .= ($inseeCity instanceof InseeCity) ? $inseeCity->getFullname() : '';
                 $breadcrumbTitleSuffix .= ($inseeCity instanceof InseeCity) ? $inseeCity->getFullname() : '';
                 $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction)).' ' : $translated->trans('ad.research').': ';
                 $breadcrumbTitle .= (!empty(trim($breadcrumbTitleSuffix))) ? $breadcrumbTitleSuffix : $translated->trans('viteloge.result');
+
                 $breadcrumbs->addItem($breadcrumbTitle);
             }
             // --
+
 
             // QueryStats SEO optimiation
             if (!empty($qsId)) {
                 $qsRepository = $this->getDoctrine()->getRepository('VitelogeCoreBundle:QueryStats');
                 $qs = $qsRepository->find((int)$qsId);
                 $breadcrumbTitle = $qs->getKeywords();
+                $description .= $breadcrumbTitle;
                 $breadcrumbs->addItem($breadcrumbTitle);
             }
             // --
+       /*     $description = 'Toutes les annonces immobilières de ';
+            $description .=(!empty($transaction)) ? strtolower($translated->trans('ad.transaction.'.strtoupper($transaction))).' ' : strtolower($translated->trans('ad.research')).': ';
+            if(isset($breadcrumbTitleSuffix)){
+               $description .= $breadcrumbTitleSuffix;
+            }
+            $description .= '.Retrouvez ';
+            var_dump($what);
+            die();
+
+
+            $description .= (!empty($transaction)) ? strtolower($translated->trans('ad.transaction.'.strtoupper($transaction))).' ' : strtolower($translated->trans('ad.research')).': ';
+            if(isset($breadcrumbTitleSuffix)){
+               $description .= $breadcrumbTitleSuffix;
+            }
+           var_dump($description);*/
 
             // elastica
             $elasticaManager = $this->container->get('fos_elastica.manager');
@@ -262,10 +305,11 @@ namespace Viteloge\FrontendBundle\Controller {
                 true
             );
             $seoPage = $this->container->get('sonata.seo.page');
+
             $seoPage
                 ->setTitle($breadcrumbTitle.' - '.$translated->trans('viteloge.frontend.ad.search.title'))
                 ->addMeta('name', 'robots', 'noindex, follow')
-                ->addMeta('name', 'description', $breadcrumbTitle.' - '.$translated->trans('viteloge.frontend.ad.search.description'))
+                ->addMeta('name', 'description', $description)
                 ->addMeta('property', 'og:title', $seoPage->getTitle())
                 ->addMeta('property', 'og:type', 'website')
                 ->addMeta('property', 'og:url',  $canonicalLink)
@@ -274,12 +318,12 @@ namespace Viteloge\FrontendBundle\Controller {
             ;
             // --
             $session->set('resultAd',$pagination->getCurrentPageResults());
-
+            $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
 
             return array(
                 'form' => $form->createView(),
                 'ads' => $pagination->getCurrentPageResults(),
-                'pagination' => $pagination
+                'pagination' => $pagination,'csrf_token' => $csrfToken,
             );
         }
 

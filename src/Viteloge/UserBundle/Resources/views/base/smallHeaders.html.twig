@@ -48,7 +48,7 @@
              {% endif %}
         </ul>
     </nav>
-    <a id="nav-expander" class="nav-expander fixed"><i class="fa fa-bars fa-lg white"></i></a>
+    <a id="nav-expander" class="nav-expander fixed" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-menu', 'menu')"><i class="fa fa-bars fa-lg white"></i></a>
 
 {% endblock header_menu_user %}
         {% block header_navbar %}
@@ -61,7 +61,7 @@
                         {%- block header_brand -%}
                         <div class="col-md-10 header-top">
 
-                            <a class="col-md-1 col-sm-1 navbar-brand" href="{{ path('viteloge_frontend_homepage') }}">
+                            <a class="col-md-2 col-sm-1 navbar-brand" href="{{ path('viteloge_frontend_homepage') }}">
                                 <img width="100%" src="{{ aws_s3_domain('bundles/vitelogecore/images/fr/logo-viteloge-moteur-recherche-immobilier.svg') }}" class="logo img-responsive" alt="{% trans %}viteloge.brand{% endtrans %}" title="{% trans %}viteloge.brand{% endtrans %} - {% trans %}viteloge.slogan{% endtrans %}" itemprop="logo" data-role="logo">
                             </a>
                              {%- if form is defined -%}
@@ -94,14 +94,14 @@
                                         <span class="navbar-text vr">&nbsp;</span>
                                     </li>-->
                                     <li>
-                                        <a href="{{ path('fos_user_security_login') }}" class="">
+                                        <a href="{{ path('fos_user_security_login') }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-compte', 'acces-compte')">
 
                                             <span>&nbsp;{% trans %}user.connection{% endtrans %}</span>
                                         </a>
                                     </li>
                                 {% else %}
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-info-compte', 'acces-info-compte')">
 
 
                                             <span>&nbsp;{{ app.user.fullname }}&nbsp;</span>
