@@ -5,6 +5,8 @@
 #identification.bleu-button {
   list-style: none;
   li {
+    font-size: 13px;
+    font-weight: normal;
     list-style: none;
     text-align: left;
   }
@@ -21,7 +23,7 @@
   float: right !important;
   margin-right: 50px !important;
   border-radius: 6px;
-  min-width: 200px;
+  width: 165px;
 
     &:hover, &:active, &:focus {
     border-color: #2d2f33 #2d2f33 #666;
@@ -31,7 +33,7 @@
     margin-left: 0;
     margin-right: 50px !important;
     margin-top: 0;
-    min-width: 200px;
+    width: 165px;
     padding: 0 10px;
     position: fixed;
     right: 0;

@@ -88,7 +88,7 @@
       </trans-unit>
       <trans-unit id="viteloge.my.personnal.space" resname="viteloge.my.personnal.space">
         <source>viteloge.my.personnal.space</source>
-        <target>Mon espace personnel</target>
+        <target>Mon espace</target>
       </trans-unit>
       <trans-unit id="viteloge.my.research" resname="viteloge.my.research">
         <source>viteloge.my.research</source>

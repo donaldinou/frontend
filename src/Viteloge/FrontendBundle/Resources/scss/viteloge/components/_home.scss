@@ -79,6 +79,7 @@
 .deux-input .select-tag-input44{
     border-right: none !important;
     border-left: none !important;
+    -moz-appearance:none;
      @media (max-width: $screen-sm-min) {
             border-radius: 6px !important;
             border :1px solid #00a1c6 !important;
@@ -227,4 +228,13 @@
     @media (max-width: $screen-xs-min) {
         margin-right: 1px;
        }
+}
+
+.subrow{
+    display: inline-flex;
+    width: 100%;
+}
+
+.fa-lg {
+    font-size: 1.4em !important;
 }

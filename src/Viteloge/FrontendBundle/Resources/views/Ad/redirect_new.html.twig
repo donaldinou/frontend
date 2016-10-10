@@ -66,8 +66,8 @@
                                 </a>
                                 {% if ads[clef-1] is defined %}
                                     {% set moins =  left~'-'~ads[clef-1].id %}
-                                <a href="{{ path('viteloge_frontend_agency_view', { 'id': moins, 'description':description|slugify }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-precedent', 'bouton-precedent')">{% endif %}
-                                <button type="button" alt="bien précédent" title="bien précédent" class="btn btn-primary btn-lg">
+                                <a href="{{ path('viteloge_frontend_agency_view', { 'id': moins, 'description':description|slugify }) }}" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-precedent', 'bouton-precedent')">{% endif %}
+                                <button type="button" alt="bien précédent" title="bien précédent" class="btn btn-primary btn-lg" {% if ads[clef-1] is not defined %}style ="cursor:none"{% endif %}>
                                      <i class="fa fa-chevron-left"></i>
                                 </button>
                                {% if ads[clef-1] is defined %} </a>
