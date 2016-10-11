@@ -19,7 +19,7 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "latest",
+    "jquery": "~2.2.4",
     "jquery.cookie": "latest",
     "jquery.lazyload": "latest",
     "jquery-smooth-scroll": "latest",

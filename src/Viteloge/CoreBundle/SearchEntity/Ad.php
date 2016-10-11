@@ -150,17 +150,19 @@ namespace Viteloge\CoreBundle\SearchEntity {
         /**
          *
          */
-        public function handleRequest(Request $request) {
-            $queries = array_merge(
-                $request->query->all(),
-                $request->request->all()
-            );
-            foreach ($queries as $key => $value) {
-                if (method_exists($this, 'set'.ucfirst($key))) {
-                    $this->{'set'.ucfirst($key)}($value);
+        public function handleRequest(Request $request=null) {
+            if ($request instanceof Request) {
+                $queries = array_merge(
+                    $request->query->all(),
+                    $request->request->all()
+                );
+                foreach ($queries as $key => $value) {
+                    if (method_exists($this, 'set'.ucfirst($key))) {
+                        $this->{'set'.ucfirst($key)}($value);
+                    }
                 }
+                $this->geoLocalize($request);
             }
-            $this->geoLocalize($request);
         }
 
         /**
