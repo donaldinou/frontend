@@ -150,7 +150,7 @@ namespace Viteloge\CoreBundle\SearchEntity {
         /**
          *
          */
-        public function handleRequest(Request $request) {
+        public function handleRequest(Request $request=null) {
             if ($request instanceof Request) {
                 $queries = array_merge(
                     $request->query->all(),
