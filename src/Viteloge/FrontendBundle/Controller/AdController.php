@@ -296,6 +296,7 @@ namespace Viteloge\FrontendBundle\Controller {
             // pager
             $pagination->setMaxPerPage($limit);
             $pagination->setCurrentPage($page);
+            //$pagination->setEndPage();
             // --
 
             // SEO
