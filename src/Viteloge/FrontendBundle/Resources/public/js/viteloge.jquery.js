@@ -5,6 +5,13 @@ if (typeof jQuery === 'undefined') {
 jQuery(document).ready(function() {
     initLazyLoad();
 
+    jQuery('#identification .dropdown').on('show.bs.dropdown', function (event) {
+        jQuery(event.currentTarget).parent().addClass("identification__focus");
+    });
+    jQuery('#identification .dropdown').on('hide.bs.dropdown', function (event) {
+        jQuery(event.currentTarget).parent().removeClass("identification__focus");
+    });
+
     //Navigation Menu Slider
         jQuery('#nav-expander').on('click',function(e){
             e.preventDefault();

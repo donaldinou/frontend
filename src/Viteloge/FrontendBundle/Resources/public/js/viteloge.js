@@ -98,18 +98,6 @@ function displayMessage() {
     });
 }
 
-var critBtnColor = false;
-function changeBtnColor() {
-   jQuery('#identification').click(function(){
-    if(!critBtnColor){
-        jQuery('#identification').css({'backgroundColor' : '#2d2f33','borderRadius' : '6px 6px 0 0' , 'borderColor' : '#2d2f33' });
-    }else {
-        jQuery('#identification').css({'backgroundColor' : '','borderRadius' : '', 'borderColor' : ''});
-    }
-    critBtnColor = !critBtnColor;
-    });
-}
-
 function removeBtnColor() {
    jQuery(window).click(function(){
     if(critBtnColor){

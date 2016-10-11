@@ -75,7 +75,7 @@ module.exports = function(grunt) {
                 options: {
                     stdout: true
                 },
-                command: 'php app/console presta:sitemap:dump --env=prod'
+                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --env=prod'
             },
             copyZeroclipboard: {
                 options: {
@@ -187,7 +187,18 @@ module.exports = function(grunt) {
                     cssDir: '.tmp/css',
                     importPath: '<%= bwr.directory %>',
                     outputStyle: 'expanded',
-                    noLineComments: true
+                    noLineComments: true,
+                    environment: 'production'
+                }
+            },
+            frontend: {
+                options: {
+                    sassDir: 'src/Viteloge/FrontendBundle/Resources/scss',
+                    cssDir: '<%= cmp.extra["symfony-web-dir"] %>/built/css',
+                    importPath: '<%= bwr.directory %>',
+                    outputStyle: 'expanded',
+                    noLineComments: true,
+                    environment: 'development'
                 }
             },
             estimation: {
@@ -196,7 +207,18 @@ module.exports = function(grunt) {
                     cssDir: '.tmp/css',
                     importPath: '<%= bwr.directory %>',
                     outputStyle: 'expanded',
-                    noLineComments: true
+                    noLineComments: true,
+                    environment: 'production'
+                }
+            },
+            estimation: {
+                options: {
+                    sassDir: 'src/Viteloge/EstimationBundle/Resources/scss',
+                    cssDir: '<%= cmp.extra["symfony-web-dir"] %>/built/css',
+                    importPath: '<%= bwr.directory %>',
+                    outputStyle: 'expanded',
+                    noLineComments: true,
+                    environment: 'development'
                 }
             }
         },
@@ -305,13 +327,13 @@ module.exports = function(grunt) {
                 files: [
                     'src/**/*.scss'
                 ],
-                tasks: ['css', 'compress', 'aws_s3']
+                tasks: ['css', 'compress']
             },
             javascript: {
                 files: [
                     'src/**/*.js'
                 ],
-                tasks: ['javascript', 'compress', 'aws_s3']
+                tasks: ['javascript', 'compress']
             },
             xliff: {
                 files: [
@@ -482,8 +504,8 @@ module.exports = function(grunt) {
     grunt.initConfig(config);
 
     // All tasks
-    grunt.registerTask('css', ['shell:assetsInstall', 'bowercopy', 'copy', 'compass', 'cssmin']);
-    grunt.registerTask('javascript', ['shell:assetsInstall', 'bowercopy', 'copy', 'concat', 'uglify']);
+    grunt.registerTask('css', ['shell:assetsInstall', 'bowercopy', 'copy', 'compass']);
+    grunt.registerTask('javascript', ['shell:assetsInstall', 'bowercopy', 'copy', 'concat']);
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('deployApp', [
         'shell:composerUpdate',

@@ -33,10 +33,24 @@
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
             {#<link rel="stylesheet" href="{{ aws_s3_domain('built/viteloge.min.css') }}">#}
-            <link rel="stylesheet" href="http://frontend.vitelogelocalhost.com/built/viteloge.css">
+            {% if app.environment == 'dev' %}
+                <link rel="stylesheet" href="{{ aws_s3_file('assets/css/font-awesome.css', false) }}">
+                <link rel="stylesheet" href="{{ aws_s3_file('assets/css/normalize.css', false) }}">
+                <link rel="stylesheet" href="{{ aws_s3_file('assets/css/owl.carousel.css', false) }}">
+                <link rel="stylesheet" href="{{ aws_s3_file('assets/css/select2.css', false) }}">
+                <link rel="stylesheet" href="{{ aws_s3_file('built/css/frontend.css', false) }}">
+                <link rel="stylesheet" href="{{ aws_s3_file('built/css/estimation.css', false) }}">
+                <link rel="stylesheet" href="{{ aws_s3_file('built/css/select2/theme/viteloge/layout.css', false) }}">
+            {% else %}
+                <link rel="stylesheet" href="{{ aws_s3_file('built/viteloge.min.css') }}">
+            {% endif %}
         {%- endblock head_stylesheets -%}
         {%- block head_javascripts -%}
-            <script src="{{ aws_s3_domain('built/head.min.js') }}"></script>
+            {% if app.environment == 'dev' %}
+                <script src="{{ aws_s3_file('built/head.js', false) }}"></script>
+            {% else %}
+                <script src="{{ aws_s3_file('built/head.min.js') }}"></script>
+            {% endif %}
             <script src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         {% block head_javascripts_requirejs %}
         {% endblock head_javascripts_requirejs %}
@@ -149,15 +163,12 @@
         {{- include('VitelogeFrontendBundle:misc:backtotop.html.twig', {}) -}}
     {%- endblock html_end -%}
     {%- block javascripts %}
-      <script src="http://frontend.vitelogelocalhost.com/built/global.min.js"></script>
-       <!-- <script src="{{ aws_s3_domain('built/global.min.js') }}"></script>-->
+        {% if app.environment == 'dev' %}
+            <script src="{{ aws_s3_file('built/global.js', false) }}"></script>
+        {% else %}
+            <script src="{{ aws_s3_file('built/global.min.js') }}"></script>
+        {% endif %}
         <script src="{{ url('bazinga_jstranslation_js') }}"></script>
-        <script>
-        jQuery(document).ready(function() {
-        changeBtnColor();
-        removeBtnColor();
-        });
-         </script>
     {% endblock javascripts -%}
     </body>
 </html>

@@ -773,7 +773,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
             return array(
                 'ad' => $ad
-                );
+            );
 
 
         }

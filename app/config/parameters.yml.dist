@@ -11,6 +11,7 @@ parameters:
 
     domain : .viteloge.com
     media_domain : media.viteloge.com
+    file_domain: media.viteloge.com
 
     router.request_context.host: www.viteloge.local
     router.request_context.scheme: ~
