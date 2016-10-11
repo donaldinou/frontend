@@ -38,6 +38,8 @@ namespace Viteloge\FrontendBundle\Controller {
      */
     class AgencyController extends Controller {
 
+        const DESCRIPTION_LENGHT = 60;
+
         /**
          * view the hosted page.
          *
@@ -94,28 +96,18 @@ namespace Viteloge\FrontendBundle\Controller {
                $title .= ' neuf';
            }
 
-           if(!empty($ad->getRooms())){
-            if($ad->getRooms() == 1){
-               $title .= ' '.$translated->transChoice('ad.rooms.count',array('%count%' => $ad->getRooms()));
-            }else{
-                $title .= ' '.$ad->getRooms().' '.$translated->trans('ad.rooms');
-            }
+           $title .= ' '.$translated->transChoice('ad.rooms.count',$ad->getRooms(), array('%count%' => $ad->getRooms()));
+           $title .= ' '.$translated->transChoice('ad.bedrooms.count', $ad->getBedrooms(), array('%count%' => $ad->getBedrooms()));
 
-           }
-           if(!empty($ad->getBedrooms())){
-            if($ad->getBedrooms() == 1){
-            $title .= ' '.$translated->transChoice('ad.bedrooms.count',array('%count%' => $ad->getBedrooms()));
-          }else{
-            $title .= ' '.$ad->getBedrooms().' '.$translated->trans('ad.bedrooms');
-          }
-
-           }
            if(!empty($ad->getRooms()) || !empty($ad->getBedrooms())){
-             if(!empty($ad->getSurface())){
+            if(!empty($ad->getSurface())){
              $title .= ' '.$ad->getSurface().' métres carrés';
             }
            }
-           $description = $this->tronquer($ad->getDescription(),157);
+
+            $filters = $this->get('twig')->getFilters();
+            $callable = $filters['truncate']->getCallable();
+            $description = strtolower($callable($this->get('twig'), $ad->getDescription(), self::DESCRIPTION_LENGHT));
 
             $seoPage
                 ->setTitle($title)
@@ -288,22 +280,6 @@ namespace Viteloge\FrontendBundle\Controller {
             curl_close($ch);
 
             return $error;
-        }
-
-        function tronquer($texte, $nbs)
-        {
-        $max_caracteres= $nbs;
-        // Test si la longueur du texte dépasse la limite
-        if (strlen($texte)>$max_caracteres){
-        // Séléction du maximum de caractères
-        $texte = substr($texte, 0, $max_caracteres);
-        // Récupération de la position du dernier espace (afin déviter de tronquer un mot)
-        $position_espace = strrpos($texte, " ");
-        $texte = substr($texte, 0, $position_espace);
-        $texte = $texte."...";
-        }
-        //on retourne le texte
-        return $texte;
         }
 
     }
