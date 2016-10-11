@@ -70,11 +70,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
             // Form
             $adSearch = new AdSearch();
-            //$adSearch->handleRequest($request);
-            if(!is_null($search)){
-
-           $adSearch->handleRequest($search);
-          }
+            $adSearch->handleRequest($search);
 
             $form = $this->createForm('viteloge_core_adsearch', $adSearch);
 
@@ -231,10 +227,10 @@ namespace Viteloge\FrontendBundle\Controller {
 */
 
             // Envoie le cookie
-           $response->headers->setCookie(new Cookie('viteloge_photo', $cookie_photo));
+            $response->headers->setCookie(new Cookie('viteloge_photo', $cookie_photo));
             $response->headers->setCookie(new Cookie('viteloge_url', $cookie_url));
             $response->headers->setCookie(new Cookie('viteloge_title', $cookie_title));
-            $response->send();
+            //$response->send();
 
             $verifurl= $this->verifurl($ad->getUrl());
             if($verifurl){
