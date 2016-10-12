@@ -92,8 +92,8 @@ namespace Viteloge\FrontendBundle\Controller {
                $title .= ' neuf';
            }
 
-           $title .= ' '.$translated->transChoice('ad.rooms.count',$ad->getRooms(), array('%count%' => $ad->getRooms()));
-           $title .= ' '.$translated->transChoice('ad.bedrooms.count', $ad->getBedrooms(), array('%count%' => $ad->getBedrooms()));
+           $title .= ' '.$translated->transChoice('ad.rooms.url',$ad->getRooms(), array('%count%' => $ad->getRooms()));
+           $title .= ' '.$translated->transChoice('ad.bedrooms.url', $ad->getBedrooms(), array('%count%' => $ad->getBedrooms()));
 
            if(!empty($ad->getRooms()) || !empty($ad->getBedrooms())){
             if(!empty($ad->getSurface())){

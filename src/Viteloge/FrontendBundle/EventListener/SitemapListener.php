@@ -47,6 +47,7 @@ namespace Viteloge\FrontendBundle\EventListener {
                 $this->addUrlsFromRoutes($event);
                 $this->addUrlsFromCities($event);
                 $this->addUrlsFromQueries($event);
+                $this->addUrlsFromAd($event);
             }
         }
 
@@ -144,7 +145,68 @@ namespace Viteloge\FrontendBundle\EventListener {
                 $this->entityManager->detach($row[0]);
             }
         }
+        /**
+         * http://doctrine-orm.readthedocs.org/en/latest/reference/batch-processing.html
+         */
+        private function addUrlsFromAd(SitemapPopulateEvent $event){
+            $q = $this->entityManager->createQuery('select ad from VitelogeCoreBundle:Ad ad');
+            $iterableResult = $q->iterate();
+            $options = array(
+                'priority' => 1,
+                'changefreq' => UrlConcrete::CHANGEFREQ_DAILY,
+                'lastmod' => new \DateTime()
+            );
+            $i = 0;
+            $j = 0;
+            $ad_section = 'ad_ad_part_';
+            foreach ($iterableResult as $key => $row) {
+                $ad = $row[0];
+                    $i++;
+                    $description = $this->getDescription();
+                    $filters = $this->get('twig')->getFilters();
+                    $callable = $filters['slugify']->getCallable();
+                    $description = $callable($description);
+                    $parameters = array(
+                        'id' => '0-'.$ad->getId(),
+                        'description' => $description,
+                    );
+                    $event->getGenerator()->addUrl(
+                        $this->getUrlConcrete('viteloge_frontend_agency_view', $parameters, $options),
+                        $ad_section.$j
+                    );
+                    if ($i % 100 == 0) {
+                        $j++;
+                    }
 
+                $this->entityManager->detach($row[0]);
+            }
+
+        }
+
+        public function getDescription($ad){
+                    $description = $ad->type();
+                    $description .= $ad->getcityName();
+                    $description .= ' '.$translated->transChoice('ad.rooms.url',$ad->getRooms(), array('%count%' => $ad->getRooms()));
+                    $description .= ' '.$translated->transChoice('ad.bedrooms.url', $ad->getBedrooms(), array('%count%' => $ad->getBedrooms()));
+                    if(!empty($ad->getRooms()) || !empty($ad->getBedrooms())){
+                    if(!empty($ad->getSurface())){
+                     $description .= ' '.$ad->getSurface().' métres carrés';
+                    }
+                   }
+                    if($ad->getTransaction() == 'V'){
+                       $description .= ' a vendre';
+                   }elseif($ad->getTransaction() == 'L'){
+                       $description .= ' a louer';
+                   }elseif($ad->getTransaction() == 'N'){
+                       $description .= ' neuf';
+                   }
+
+                   $description .= $ad->getAgencyName();
+                   $filters = $this->get('twig')->getFilters();
+                   $slugable = $filters['slugify']->getCallable();
+                   $description = $slugable($this->get('twig'), $description);
+                   return $description;
+        }
         /**
          * @param $name
          * @param  Route $route

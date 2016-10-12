@@ -598,6 +598,10 @@
         <source>ad.rooms.count</source>
         <target>{0} aucune|{1} 1 pièce|]1,Inf] %count% pièces</target>
       </trans-unit>
+      <trans-unit id="ad.rooms.url" resname="ad.rooms.url">
+        <source>ad.rooms.url</source>
+        <target>{0}|{1} 1 pièce|]1,Inf] %count% pièces</target>
+      </trans-unit>
       <trans-unit id="ad.bedrooms" resname="ad.bedrooms">
         <source>ad.bedrooms</source>
         <target>chambres</target>
@@ -605,6 +609,10 @@
       <trans-unit id="ad.bedrooms.count" resname="ad.bedrooms.count">
         <source>ad.bedrooms.count</source>
         <target>{0} aucune|{1} 1 chambre|]1,Inf] %count% chambres</target>
+      </trans-unit>
+      <trans-unit id="ad.bedrooms.url" resname="ad.bedrooms.url">
+        <source>ad.bedrooms.url</source>
+        <target>{0}|{1} 1 chambre|]1,Inf] %count% chambres</target>
       </trans-unit>
       <trans-unit id="ad.rooms.number" resname="ad.rooms.number">
         <source>ad.rooms.number</source>
