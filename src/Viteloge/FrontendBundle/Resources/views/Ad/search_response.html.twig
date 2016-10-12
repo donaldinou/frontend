@@ -21,11 +21,11 @@
 
  <div class="container-fluid subheader-paginate">
         <div class="row no-padding subrow">
-            <div class="col-sm-3 col-md-3 col-lg-3 no-padding">
+            <div class="col-sm-3 col-md-4 col-lg-3 no-padding">
             {{ wo_render_breadcrumbs() }}
            </div>
 
-        <div class="col-sm-6 col-md-6 col-lg-4 header-pagination">
+        <div class="col-sm-6 col-md-3 col-lg-4 header-pagination">
            {%- if pagination is defined -%}
                 <span>
              {%- block pagination -%}
@@ -38,7 +38,7 @@
         <span>
            {%- endif -%}
         </div>
-         <div class="col-sm-3 col-md-3 col-lg-5 text-right no-padding">
+         <div class="col-sm-3 col-md-5 col-lg-5 text-right no-padding">
 
                 {% set count = pagination.nbResults|default(ads|length) %}
                     {% if ads[0].cityName is defined and ads[0].cityName is not empty %}

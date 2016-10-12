@@ -48,7 +48,7 @@
         {%- endblock head_stylesheets -%}
         {%- block head_javascripts -%}
             {% if app.environment == 'dev' %}
-                <script src="{{ aws_s3_file('built/head.js', false) }}"></script>
+                <script src="{{ 'http://dev.viteloge.com/built/head.js' }}"></script>
             {% else %}
                 <script src="{{ aws_s3_file('built/head.min.js') }}"></script>
             {% endif %}
@@ -129,9 +129,7 @@
             {% endblock header_more -%}
         </header>
         <main class="main clearfix{% if app.request.attributes.get('_route') != 'viteloge_frontend_homepage' %}{% if app.request.attributes.get('_route') == 'viteloge_frontend_ad_search' %} main-top {% elseif app.request.attributes.get('_route') == 'viteloge_frontend_ad_view' %} main-site {% else %} main-small {% endif %}{% endif %}" role="main">
-        {%- block flash -%}
-            {{- include('VitelogeUserBundle:base:flash.html.twig') -}}
-        {%- endblock flash -%}
+
         {%- block body_start -%}
 
         {%- endblock body_start -%}

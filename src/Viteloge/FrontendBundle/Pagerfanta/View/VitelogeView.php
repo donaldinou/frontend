@@ -28,7 +28,7 @@ namespace Viteloge\FrontendBundle\Pagerfanta\View {
         }
 
         protected function getDefaultProximity() {
-            return 2;
+            return 1;
         }
 
         /**

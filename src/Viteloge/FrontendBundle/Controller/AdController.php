@@ -385,8 +385,15 @@ namespace Viteloge\FrontendBundle\Controller {
             $adSearch = new AdSearch();
             $form = $this->createForm('viteloge_core_adsearch', $adSearch);
             $form->handleRequest($request);
-
             if ($form->isValid()) {
+                if(is_null($form->getData()->getWhere())){
+                  $this->addFlash(
+                    'warning',
+                    $translated->trans('assert.expression.ad.validate.where')
+                );
+              }
+
+
                 // transform object to array in order to through it to url
                 $encoders = array(new JsonEncoder());
                 $normalizers = array(new GetSetMethodNormalizer());
@@ -747,9 +754,9 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->addMeta('property', 'og:description', $translated->trans('viteloge.frontend.ad.redirect.description'))
                 ->setLinkCanonical($canonicalLink)
             ;
-            // --
+            // -- les stats sont déja ajouté
 
-            $forbiddenUA = array(
+        /*    $forbiddenUA = array(
                 'yakaz_bot' => 'YakazBot/1.0',
                 'mitula_bot' => 'java/1.6.0_26'
             );
@@ -771,7 +778,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 $em->persist($statistics);
                 $em->flush();
             }
-
+*/
             return array(
                 'ad' => $ad
             );
