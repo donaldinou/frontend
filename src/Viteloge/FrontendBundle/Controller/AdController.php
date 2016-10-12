@@ -386,14 +386,6 @@ namespace Viteloge\FrontendBundle\Controller {
             $form = $this->createForm('viteloge_core_adsearch', $adSearch);
             $form->handleRequest($request);
             if ($form->isValid()) {
-                if(is_null($form->getData()->getWhere())){
-                  $this->addFlash(
-                    'warning',
-                    $translated->trans('assert.expression.ad.validate.where')
-                );
-              }
-
-
                 // transform object to array in order to through it to url
                 $encoders = array(new JsonEncoder());
                 $normalizers = array(new GetSetMethodNormalizer());
