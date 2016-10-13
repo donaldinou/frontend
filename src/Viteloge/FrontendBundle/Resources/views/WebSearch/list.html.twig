@@ -46,11 +46,4 @@
         {% endblock %}
     {% endembed %}
 {% endblock main %}
-{%- block javascripts -%}
-    {{- parent() -}}
-    <script>
-        jQuery(document).ready(function() {
-            displayInput();
-        });
-    </script>
-{%- endblock javascripts -%}
+

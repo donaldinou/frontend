@@ -70,22 +70,6 @@ function adSearchTemplateSelection(selection) {
     return selection.text;
 }
 
-var critPlusOuvert = false;
-function displayInput() {
-   jQuery('#moreinfo').click(function(){
-    if(!critPlusOuvert){
-        jQuery('#hiddeninput').removeClass('hidden');
-        jQuery('.firsthidden').removeClass('hidden-xs');
-        jQuery('.subheader').addClass('hidden');
-    }else {
-        jQuery('#hiddeninput').addClass('hidden');
-        jQuery('.firsthidden').addClass('hidden-xs');
-        jQuery('.subheader').removeClass('hidden');
-    }
-    critPlusOuvert = !critPlusOuvert;
-    });
-}
-
 var critMessageOuvert = false;
 function displayMessage() {
    jQuery('.showMessage').click(function(){

@@ -7,11 +7,4 @@
 {%- block main -%}
     <p>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>
 {%- endblock main -%}
-{%- block javascripts -%}
-    {{- parent() -}}
-    <script>
-        jQuery(document).ready(function() {
-            displayInput();
-        });
-    </script>
-{%- endblock javascripts -%}
+

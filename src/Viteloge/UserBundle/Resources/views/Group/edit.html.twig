@@ -5,11 +5,4 @@
 {% block main %}
     {% include "FOSUserBundle:Group:edit_content.html.twig" %}
 {% endblock main %}
-{%- block javascripts -%}
-    {{- parent() -}}
-    <script>
-        jQuery(document).ready(function() {
-            displayInput();
-        });
-    </script>
-{%- endblock javascripts -%}
+

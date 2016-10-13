@@ -22,7 +22,11 @@ jQuery(document).ready(function() {
             jQuery('body').removeClass('nav-expanded');
         });
 
-
+        jQuery('body').on('click', '#moreinfo', function(event) {
+            jQuery('#hiddeninput').toggleClass('hidden');
+            jQuery('.firsthidden').toggleClass('hidden-xs');
+            jQuery('.subheader').toggleClass('hidden');
+        });
 /* Initialize navgoco with default options
         jQuery(".main-menu").navgoco({
             caret: '<span class="caret"></span>',
