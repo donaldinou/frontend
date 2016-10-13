@@ -288,7 +288,7 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:Ad:fragment/btn_phone.html.twig")
          */
-        function getNumSurtaxeAction($id)
+        function getNumSurtaxeAction(Request $request,$id)
         {
             if($request->isXmlHttpRequest()){
             // Clef pour l’API :
