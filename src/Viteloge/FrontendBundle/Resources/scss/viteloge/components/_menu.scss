@@ -687,6 +687,7 @@ nav {
 }
 
 .nav-perso{
+  overflow: scroll;
   background: #2d2f33;
   display: block;
   height: 100%;
@@ -741,7 +742,7 @@ body.nav-expanded {
     margin: 0;
 
     a {
-      color: #00a1c6;
+      color: #fff;
 
       /* bleu turquoise */
       text-decoration: none;
@@ -749,7 +750,7 @@ body.nav-expanded {
       transition-property: all;
 
       &:hover {
-        color: #00BDEC;
+        color: #323949;
 
         /* bleu turquoise clair */
         text-decoration: none;
