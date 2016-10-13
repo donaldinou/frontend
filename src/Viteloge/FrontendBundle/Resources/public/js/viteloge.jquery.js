@@ -755,7 +755,6 @@ var critMessageOuvert = false;
     function GetPhoneNumber(){
         jQuery('#surtaxphone').click(function() {
             var _id = jQuery(this).attr('data-value');
-            console.log(_id);
             jQuery.ajax({
             url: Routing.generate('viteloge_frontend_agency_phone', {id: _id}, true),
             context: jQuery(this),

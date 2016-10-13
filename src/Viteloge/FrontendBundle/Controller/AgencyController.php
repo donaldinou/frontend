@@ -290,7 +290,7 @@ namespace Viteloge\FrontendBundle\Controller {
          */
         function getNumSurtaxeAction($id)
         {
-           // if($request->isXmlHttpRequest()){
+            if($request->isXmlHttpRequest()){
             // Clef pour l’API :
             $clef = "b28b9b89b6aea1dc6287a6d446e001a8";
             //on cherche le numero de l'agence avec son $id
@@ -325,9 +325,9 @@ namespace Viteloge\FrontendBundle\Controller {
             }
 
             return array('phone' => $num);
-           /* }else{
+            }else{
              throw new \Exception("Erreur");
-            }*/
+            }
         }
 
     }
