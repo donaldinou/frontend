@@ -354,6 +354,10 @@
         <source>viteloge_frontend_suggest_position</source>
         <target>/suggestion/position/{lat}/{lng}/{_format}</target>
       </trans-unit>
+      <trans-unit id="viteloge_frontend_agency_phone" resname="viteloge_frontend_agency_phone">
+        <source>viteloge_frontend_agency_phone</source>
+        <target>/annonce/telephone/surtaxe/{id}</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

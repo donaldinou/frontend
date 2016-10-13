@@ -5,6 +5,7 @@ if (typeof jQuery === 'undefined') {
 jQuery(document).ready(function() {
     initLazyLoad();
 
+
     jQuery('#identification .dropdown').on('show.bs.dropdown', function (event) {
         jQuery(event.currentTarget).parent().addClass("identification__focus");
     });
@@ -701,6 +702,89 @@ var generateUUID = function generateUUID() {
     });
     return uuid;
 };
+
+var critMessageOuvert = false;
+    function displayMessage() {
+       jQuery('.showMessage').click(function(){
+        if(!critMessageOuvert){
+            jQuery('#estate-group').addClass('active in');
+        }else {
+            jQuery('#estate-group').removeClass('active in');
+        }
+        critMessageOuvert = !critMessageOuvert;
+        });
+    }
+
+    function removeBtnColor() {
+       jQuery(window).click(function(){
+        if(critBtnColor){
+            jQuery('#identification').css({'backgroundColor' : '','borderRadius' : '', 'borderColor' : ''});
+        }
+        critBtnColor = !critBtnColor;
+        });
+    }
+    //ajoue des favories
+
+    function OnLoadAddFav(){
+        jQuery('#addfav').click(function() {
+            var _id = jQuery(this).attr('data-value');
+            jQuery.ajax({
+            url: Routing.generate('viteloge_frontend_ad_favourite', {id: _id}, true),
+            context: jQuery(this),
+            method: 'GET',
+            beforeSend: function() {
+                 jQuery(this).off('click');
+                 jQuery('.loader').removeClass('hidden').addClass('in');
+                 jQuery('.loader-backdrop').removeClass('hidden').addClass('in');
+                },
+            complete: function() {
+                jQuery('.loader').addClass('hidden').removeClass('in');
+                jQuery('.loader-backdrop').addClass('hidden').removeClass('in');
+                },
+            success: function() {
+                 jQuery('#btnfav').css('backgroundColor','#196a7d');
+                 jQuery('#btnfav').attr("title", "dans vos favoris");
+            }
+          });
+        });
+    }
+
+
+    //ajoue des favories
+
+    function GetPhoneNumber(){
+        jQuery('#surtaxphone').click(function() {
+            var _id = jQuery(this).attr('data-value');
+            console.log(_id);
+            jQuery.ajax({
+            url: Routing.generate('viteloge_frontend_agency_phone', {id: _id}, true),
+            context: jQuery(this),
+            method: 'GET',
+            beforeSend: function() {
+                 jQuery(this).off('click');
+                 jQuery('.loader').removeClass('hidden').addClass('in');
+                 jQuery('.loader-backdrop').removeClass('hidden').addClass('in');
+                },
+            complete: function() {
+                jQuery('.loader').addClass('hidden').removeClass('in');
+                jQuery('.loader-backdrop').addClass('hidden').removeClass('in');
+                },
+            success: function(html_data) {
+              jQuery(this).html(html_data);
+              jQuery(this).on('click');
+            }
+          });
+        });
+    }
+
+
+    function initCookieNav(){
+        jQuery('.setkey').click(function() {
+            var _key = jQuery(this).attr('data-value');
+            jQuery.removeCookie("navigationKey");
+            jQuery.cookie("navigationKey", _key);
+        });
+    }
 
 function runResponsiveCarousel(identifier, items) {
     if (!items) {

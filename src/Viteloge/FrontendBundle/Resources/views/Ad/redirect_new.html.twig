@@ -83,13 +83,6 @@
             </div>
             <div class="col-xs-6 col-sm-3 col-md-4 col-lg-5 text-right header-top">
 
-                          <!--  <a id="showMessage"  class="" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-parent="#estate-{{ ad.id }}-tab" itemprop="url">-->
-                            <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="showMessage" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-value="{{ ad.id }}" data-parent="#estate-{{ ad.id }}-tab" itemprop="url" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-telephoner', 'telephoner')">
-                                <button type="button" alt="contact" title="contact" class="btn btn-primary btn-lg">
-                                    <i class="fa fa-phone"></i><span class="hidden-xs hidden-sm hidden-md">{% trans %}viteloge.phone{% endtrans %}</span>
-
-                                </button>
-                            </a>
 
                           {% if is_granted("IS_AUTHENTICATED_REMEMBERED") or app.user %}
                                 {% if favorie == false %}
@@ -109,13 +102,17 @@
                             {% endif %}
                             {% endif %}
 
-                          <!--  <a id="showMessage"  class="" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-parent="#estate-{{ ad.id }}-tab" itemprop="url">-->
                             <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="showMessage" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-value="{{ ad.id }}" data-parent="#estate-{{ ad.id }}-tab" itemprop="url" onclick="ga('send', 'event', 'page-contacter-lagence', 'clic-contacter-lagence', 'contacter-lagence')">
                                 <button type="button" alt="contact" title="contact" class="btn btn-primary btn-lg">
                                     <i class="fa fa-envelope"></i><span class="hidden-xs hidden-sm hidden-md"> {% trans %}viteloge.contact{% endtrans %}</span>
 
                                 </button>
                             </a>
+                            <span id="surtaxphone" data-value="{{ ad.id }}">
+                                <button type="button" alt="contact" title="contact" class="btn btn-primary btn-lg" onclick="ga('send', 'event', 'page-fiche-de-bien', 'ask-clic-telephoner', 'telephoner')">
+                                    <i class="fa fa-phone"></i><span class="hidden-xs hidden-sm hidden-md">{% trans %}viteloge.phone{% endtrans %}</span>
+                                </button>
+                          </span>
 
             </div>
         </div>
@@ -129,6 +126,7 @@
         jQuery(document).ready(function() {
             displayMessage();
             OnLoadAddFav();
+            GetPhoneNumber();
         });
 
     </script>

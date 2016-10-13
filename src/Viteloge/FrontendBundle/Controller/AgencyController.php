@@ -59,11 +59,7 @@ namespace Viteloge\FrontendBundle\Controller {
             $em = $this->getDoctrine()->getManager();
             $id= explode('-', $id);
             $ad = $em->getRepository('VitelogeCoreBundle:Ad')->find($id[1]);
-            /*$backEm = $this->getDoctrine()->getManager('back');
-            $agence = $backEm->getRepository('VitelogeCoreBundle:Agence')->find($ad->getAgencyId());
-            $tel = $agence->getTel();
-            var_dump($tel);
-            die();*/
+
             $session = $request->getSession();
             $ads = $session->get('resultAd');
             $search = $session->get('request');
@@ -276,6 +272,62 @@ namespace Viteloge\FrontendBundle\Controller {
             curl_close($ch);
 
             return $error;
+        }
+
+        /**
+         * find surtax phone.
+         *
+         *
+         * @Route(
+         *     "/phone/surtax/{id}",
+         *     requirements={
+         *        "id"="\d+",
+         *     },
+         *     name="viteloge_frontend_agency_phone"
+         * )
+         * @Method({"GET"})
+         * @Template("VitelogeFrontendBundle:Ad:fragment/btn_phone.html.twig")
+         */
+        function getNumSurtaxeAction($id)
+        {
+           // if($request->isXmlHttpRequest()){
+            // Clef pour l’API :
+            $clef = "b28b9b89b6aea1dc6287a6d446e001a8";
+            //on cherche le numero de l'agence avec son $id
+            $em = $this->getDoctrine()->getManager();
+            $agence = $em->getRepository('VitelogeCoreBundle:Agence')->find($id);
+            if(!empty($agence)) $tel = $agence->getTel();
+            $num ='';
+
+            if(isset($tel) && !empty($tel)){
+                $tel = preg_replace("([^0-9]+)","",$tel);
+                $xml = '<?xml version="1.0" encoding="UTF-8"?>'."\n";
+                $xml.=
+                "<createLink><clef>".$clef."</clef><numero>".$tel."</numero><pays>FR</pays></createLink>";
+                // Lien vers l’API :
+                $url = "http://mer.viva-multimedia.com/xmlRequest.php?xml=".urlencode($xml);
+                $ch = curl_init ($url) ;
+                curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1) ;
+                $res = curl_exec ($ch) ;
+                curl_close ($ch);
+                $array = array();
+                //recupération du numéro et du code
+                if (ereg("<numero>(.*)</numero>.*<code>(.*)</code>", $res, $regs))
+                {
+
+                    $tel = ((strlen($regs[1]) == "10") ? wordwrap($regs[1], 2, '.', 1) : $regs[1]);
+                    $array[] = $tel ;
+                    $array[] = $regs[2] ;
+                }
+                $num = implode('¤',$array);
+                $num = rtrim($num,'¤');
+
+            }
+
+            return array('phone' => $num);
+           /* }else{
+             throw new \Exception("Erreur");
+            }*/
         }
 
     }

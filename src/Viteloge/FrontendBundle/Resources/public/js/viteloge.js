@@ -70,52 +70,5 @@ function adSearchTemplateSelection(selection) {
     return selection.text;
 }
 
-var critMessageOuvert = false;
-function displayMessage() {
-   jQuery('.showMessage').click(function(){
-    if(!critMessageOuvert){
-        jQuery('#estate-group').addClass('active in');
-    }else {
-        jQuery('#estate-group').removeClass('active in');
-    }
-    critMessageOuvert = !critMessageOuvert;
-    });
-}
-
-function removeBtnColor() {
-   jQuery(window).click(function(){
-    if(critBtnColor){
-        jQuery('#identification').css({'backgroundColor' : '','borderRadius' : '', 'borderColor' : ''});
-    }
-    critBtnColor = !critBtnColor;
-    });
-}
-//ajoue des favories
-
-function OnLoadAddFav(){
-    jQuery('#addfav').click(function() {
-        var _id = jQuery(this).attr('data-value');
-        jQuery.ajax({
-        url: Routing.generate('viteloge_frontend_ad_favourite', {id: _id}, true),
-        context: jQuery(this),
-        method: 'GET',
-        beforeSend: function() {
-             jQuery(this).off('click');
-        },
-        success: function() {
-             jQuery('#btnfav').css('backgroundColor','#196a7d');
-             jQuery('#btnfav').attr("title", "dans vos favoris");
-        }
-      });
-    });
-}
-
-function initCookieNav(){
-    jQuery('.setkey').click(function() {
-        var _key = jQuery(this).attr('data-value');
-        jQuery.removeCookie("navigationKey");
-        jQuery.cookie("navigationKey", _key);
-    });
-}
 
 
