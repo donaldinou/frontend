@@ -167,7 +167,7 @@ namespace Viteloge\FrontendBundle\EventListener {
             $j = 0;
             $ad_section = 'ad_ad_part_';
             foreach ($iterableResult as $key => $row) {
-                if($i < 101){
+                if($j < 2){
                    $ad = $row[0];
                     $i++;
                     $description = $this->getDescription($ad);
@@ -184,6 +184,8 @@ namespace Viteloge\FrontendBundle\EventListener {
                     }
 
                 $this->entityManager->detach($row[0]);
+                }else{
+                    exit;
                 }
 
             }
