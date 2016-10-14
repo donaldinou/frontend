@@ -61,12 +61,14 @@
 
 {%- block footer -%}
     <div class="text-secondary">
+        <div class="container">
          <div class="col-xs-12 hidden-lg hidden-md hidden-sm no-padding" data-role="secondary" style="background-color:#ddd;margin-top:0;">
                 {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', { }) }}
         </div>
         {{- include('VitelogeFrontendBundle:menu:footer_home.html.twig', {}) -}}
         {{- include('VitelogeFrontendBundle:Default:fragment/glossary.html.twig', { }) -}}
         {{- include('VitelogeFrontendBundle:Ad:fragment/ad.html.twig', { }) -}}
+        </div>
             <div class="col-md-12 text-center">
               {{- include('VitelogeFrontendBundle:misc:social.html.twig', {}) -}}
               {{- include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) -}}

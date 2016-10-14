@@ -34,7 +34,7 @@ services:
             - { name: doctrine.event_listener, event: prePersist }
     viteloge_frontend.sitemaplistener:
         class: %viteloge_frontend.eventlistener.sitemap.class%
-        arguments: ["@router", "@doctrine.orm.entity_manager"]
+        arguments: ["@service_container","@router", "@doctrine.orm.entity_manager"]
         tags:
             - { name: "presta.sitemap.listener"}
     viteloge_frontend.form.type.ad:

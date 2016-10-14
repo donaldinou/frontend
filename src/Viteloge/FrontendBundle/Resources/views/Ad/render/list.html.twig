@@ -46,7 +46,7 @@
         <ul class="nav nav-pills pull-right" role="tablist">
             {% if ad.privilege.isAgency %}
             <li role="presentation" class="expand-hover" itemscope itemtype="https://schema.org/RealEstateAgent">
-                <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="showMessage" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-parent="#estate-{{ ad.id }}-tab" itemprop="url" onclick="ga('send', 'event', 'page-listing-de-bien', 'clic-bouton-mail-agence', 'contact-agence-mail')">
+                <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="viewMessage" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-parent="#estate-{{ ad.id }}-tab" data-value="{{ ad.id }}" itemprop="url" onclick="ga('send', 'event', 'page-listing-de-bien', 'clic-bouton-mail-agence', 'contact-agence-mail')">
                     <span class="fa fa-envelope"></span>
                     <span class="hidden-xs expand-hover-text" itemprop="legalName">{{ ad.agencyName }}</span>
                 </a>

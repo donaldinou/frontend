@@ -28,6 +28,17 @@ jQuery(document).ready(function() {
             jQuery('.firsthidden').toggleClass('hidden-xs');
             jQuery('.subheader').toggleClass('hidden');
         });
+
+        jQuery('body').on('click','.showMessage',function(event){
+             jQuery('#estate-group').toggleClass('active in');
+        });
+
+        jQuery('body').on('click','.viewMessage',function(event){
+            var estadeId = jQuery(this).attr('data-value');
+            console.log(estadeId);
+             jQuery('#estate-'+estadeId+'-group').toggleClass('active in');
+        });
+
 /* Initialize navgoco with default options
         jQuery(".main-menu").navgoco({
             caret: '<span class="caret"></span>',
@@ -703,17 +714,6 @@ var generateUUID = function generateUUID() {
     return uuid;
 };
 
-var critMessageOuvert = false;
-    function displayMessage() {
-       jQuery('.showMessage').click(function(){
-        if(!critMessageOuvert){
-            jQuery('#estate-group').addClass('active in');
-        }else {
-            jQuery('#estate-group').removeClass('active in');
-        }
-        critMessageOuvert = !critMessageOuvert;
-        });
-    }
 
     function removeBtnColor() {
        jQuery(window).click(function(){

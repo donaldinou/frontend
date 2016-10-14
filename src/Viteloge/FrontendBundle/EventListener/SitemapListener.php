@@ -9,8 +9,14 @@ namespace Viteloge\FrontendBundle\EventListener {
     use Presta\SitemapBundle\Event\SitemapPopulateEvent;
     use Presta\SitemapBundle\EventListener\RouteAnnotationEventListener;
     use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
+    use Symfony\Component\DependencyInjection\ContainerInterface;
 
     class SitemapListener extends RouteAnnotationEventListener {
+
+        /**
+         *
+         */
+        protected $container;
 
         /**
          *
@@ -25,7 +31,8 @@ namespace Viteloge\FrontendBundle\EventListener {
         /**
          *
          */
-        public function __construct(RouterInterface $router, EntityManager $entityManager) {
+        public function __construct(ContainerInterface $container,RouterInterface $router, EntityManager $entityManager) {
+            $this->container = $container;
             $this->router = $router;
             $this->entityManager = $entityManager;
         }
@@ -45,8 +52,8 @@ namespace Viteloge\FrontendBundle\EventListener {
             $section = $event->getSection();
             if (is_null($section) || $section == 'default') {
                 $this->addUrlsFromRoutes($event);
-                $this->addUrlsFromCities($event);
-                $this->addUrlsFromQueries($event);
+               /* $this->addUrlsFromCities($event);
+                $this->addUrlsFromQueries($event);*/
                 $this->addUrlsFromAd($event);
             }
         }
@@ -160,12 +167,10 @@ namespace Viteloge\FrontendBundle\EventListener {
             $j = 0;
             $ad_section = 'ad_ad_part_';
             foreach ($iterableResult as $key => $row) {
-                $ad = $row[0];
+                if($i < 101){
+                   $ad = $row[0];
                     $i++;
-                    $description = $this->getDescription();
-                    $filters = $this->get('twig')->getFilters();
-                    $callable = $filters['slugify']->getCallable();
-                    $description = $callable($description);
+                    $description = $this->getDescription($ad);
                     $parameters = array(
                         'id' => '0-'.$ad->getId(),
                         'description' => $description,
@@ -179,18 +184,21 @@ namespace Viteloge\FrontendBundle\EventListener {
                     }
 
                 $this->entityManager->detach($row[0]);
+                }
+
             }
 
         }
 
         public function getDescription($ad){
-                    $description = $ad->type();
-                    $description .= $ad->getcityName();
+                    $translated = $this->container->get('translator');
+                    $description = $ad->getType();
+                    $description .= $ad->getCityName();
                     $description .= ' '.$translated->transChoice('ad.rooms.url',$ad->getRooms(), array('%count%' => $ad->getRooms()));
                     $description .= ' '.$translated->transChoice('ad.bedrooms.url', $ad->getBedrooms(), array('%count%' => $ad->getBedrooms()));
                     if(!empty($ad->getRooms()) || !empty($ad->getBedrooms())){
                     if(!empty($ad->getSurface())){
-                     $description .= ' '.$ad->getSurface().' métres carrés';
+                     $description .= ' '.$ad->getSurface().' metres carres';
                     }
                    }
                     if($ad->getTransaction() == 'V'){
@@ -202,9 +210,8 @@ namespace Viteloge\FrontendBundle\EventListener {
                    }
 
                    $description .= $ad->getAgencyName();
-                   $filters = $this->get('twig')->getFilters();
-                   $slugable = $filters['slugify']->getCallable();
-                   $description = $slugable($this->get('twig'), $description);
+
+                   $description = $this->generate_slug($description);
                    return $description;
         }
         /**
@@ -247,6 +254,15 @@ namespace Viteloge\FrontendBundle\EventListener {
             return $options;
         }
 
+        public function generate_slug($str) {
+            $slug = strtolower($str);
+
+            $slug = preg_replace("/[^a-z0-9s-]/", "", $slug);
+            $slug = trim(preg_replace("/[s-]+/", " ", $slug));
+            $slug = preg_replace("/s/", "-", $slug);
+
+            return $slug;
+        }
         /**
          * @param $name
          * @param $parameters

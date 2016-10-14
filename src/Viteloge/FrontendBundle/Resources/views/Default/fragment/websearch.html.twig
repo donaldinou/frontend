@@ -4,13 +4,13 @@
             <h3><b>{% trans %}websearches.inlive{% endtrans %}</b> {% trans %}websearches.viteloge{% endtrans %}</h3>
       </div>
         <div class="row">
-            <div class="searches col-md-4 col-sm-6 col-xs-12">
+            <div class="searches col-md-4 col-sm-6 col-xs-12 no-padding">
                 {{ render(path('viteloge_frontend_websearch_latest_limited', { limit: 5 })) }}
             </div>
-            <div class="searches col-md-4 col-sm-6 col-xs-12">
+            <div class="searches col-md-4 col-sm-6 col-xs-12 no-padding">
                 {{ render(path('viteloge_frontend_ad_latest_limited', { limit: 5 })) }}
             </div>
-            <div class="hidden-xs col-md-4 col-sm-12" data-role="secondary">
+            <div class="hidden-xs col-md-4 col-sm-12 no-padding" data-role="secondary">
                 {{ include('VitelogeFrontendBundle:misc:adsense.html.twig', { }) }}
             </div>
         </div>

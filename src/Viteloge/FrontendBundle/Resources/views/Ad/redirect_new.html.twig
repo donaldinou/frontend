@@ -51,7 +51,7 @@
                 <h2 style="text-transform: uppercase;font-size:10px !important;margin:0;padding:0;color:#00a1c6;">{{ ad.type }} {% trans %} ad.at {% endtrans %} {{ ('footer.transaction.article.'~ad.transaction)|trans }} {{ ad.cityName }} ({{ ad.postalcode }}) - {{ ad.price | schematizedcurrency('EUR') | raw }}</h2>
                  <small style="color:#00a1c6;"> {{ ad.advancedDescription|truncate(200, false, '...')|normalize_utf8|raw }}</small>
             </div>
-            <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2 text-left header-top">
+            <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 text-left header-top">
             {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_view' %}
                                 <a href="{{ app.session.get('currentUrl') }}" class="btnlist">
                                 <button type="button" alt="retour à la liste de résultats" title="retour à la liste de résultats" class="btn btn-primary btn-lg" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-menu', 'menu')">
@@ -81,7 +81,7 @@
                            {% if ads[clef+1] is defined %} </a>
                                 {% endif %}
             </div>
-            <div class="col-xs-6 col-sm-3 col-md-4 col-lg-5 text-right header-top">
+            <div class="col-xs-8 col-sm-3 col-md-4 col-lg-5 text-right header-top">
 
 
                           {% if is_granted("IS_AUTHENTICATED_REMEMBERED") or app.user %}
@@ -124,7 +124,6 @@
     {{- parent() -}}
     <script>
         jQuery(document).ready(function() {
-            displayMessage();
             OnLoadAddFav();
             GetPhoneNumber();
         });
