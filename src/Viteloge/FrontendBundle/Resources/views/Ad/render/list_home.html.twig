@@ -1,3 +1,4 @@
+{% set description =  include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface_url.html.twig', { 'ad': ad })  %}
 <span class="usersearch">
     {%- block ad_agencyName -%}
         {%- if ad.agencyName is defined -%}
@@ -8,7 +9,7 @@
         {%- endif -%}
     {%- endblock -%}
     {%- block ad_transaction -%}
-         <a href="{{ path('viteloge_frontend_ad_redirect', { 'id': ad.id }) }}" class="linklive">
+         <a href="{{ path('viteloge_frontend_agency_view', { 'id': '0-'~ad.id, 'description':description|slugify }) }}" class="linklive">
        {%- if ad.transaction -%}
                 <span>{{ ('ad.transaction.article.'~ad.transaction)|trans }}</span>&nbsp;
        {%- endif -%}
@@ -35,7 +36,7 @@
         {%- endblock ad_city -%}
     {%- endif -%}
     {%- block ad_price -%}
-           <a href="{{ path('viteloge_frontend_ad_redirect', { 'id': ad.id }) }}" class="linklive">
+           <a href="{{ path('viteloge_frontend_agency_view', { 'id': '0-'~ad.id, 'description':description|slugify }) }}" class="linklive">
 
             {%- if (ad.price) -%}
                 <span>{{- ad.price|localizedcurrency('EUR') -}}</span>
