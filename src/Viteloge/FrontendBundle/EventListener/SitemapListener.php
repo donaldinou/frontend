@@ -52,8 +52,8 @@ namespace Viteloge\FrontendBundle\EventListener {
             $section = $event->getSection();
             if (is_null($section) || $section == 'default') {
                 $this->addUrlsFromRoutes($event);
-               /* $this->addUrlsFromCities($event);
-                $this->addUrlsFromQueries($event);*/
+                $this->addUrlsFromCities($event);
+                $this->addUrlsFromQueries($event);
                 $this->addUrlsFromAd($event);
             }
         }
@@ -167,7 +167,6 @@ namespace Viteloge\FrontendBundle\EventListener {
             $j = 0;
             $ad_section = 'ad_ad_part_';
             foreach ($iterableResult as $key => $row) {
-                if($j < 2){
                    $ad = $row[0];
                     $i++;
                     $description = $this->getDescription($ad);
@@ -184,7 +183,7 @@ namespace Viteloge\FrontendBundle\EventListener {
                     }
 
                 $this->entityManager->detach($row[0]);
-                }
+
 
             }
 
