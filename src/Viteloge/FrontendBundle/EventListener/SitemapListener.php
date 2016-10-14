@@ -184,8 +184,6 @@ namespace Viteloge\FrontendBundle\EventListener {
                     }
 
                 $this->entityManager->detach($row[0]);
-                }else{
-                    exit;
                 }
 
             }
