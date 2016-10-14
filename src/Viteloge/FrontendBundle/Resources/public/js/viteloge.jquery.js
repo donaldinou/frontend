@@ -35,7 +35,6 @@ jQuery(document).ready(function() {
 
         jQuery('body').on('click','.viewMessage',function(event){
             var estadeId = jQuery(this).attr('data-value');
-            console.log(estadeId);
              jQuery('#estate-'+estadeId+'-group').toggleClass('active in');
         });
 

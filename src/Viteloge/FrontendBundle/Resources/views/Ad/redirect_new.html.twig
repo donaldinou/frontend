@@ -101,13 +101,14 @@
                                 </button>
                             {% endif %}
                             {% endif %}
-
+                            {% if ad.privilege.isAgency %}
                             <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="showMessage" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-value="{{ ad.id }}" data-parent="#estate-{{ ad.id }}-tab" itemprop="url" onclick="ga('send', 'event', 'page-contacter-lagence', 'clic-contacter-lagence', 'contacter-lagence')">
                                 <button type="button" alt="contact" title="contact" class="btn btn-primary btn-lg">
                                     <i class="fa fa-envelope"></i><span class="hidden-xs hidden-sm hidden-md"> {% trans %}viteloge.contact{% endtrans %}</span>
 
                                 </button>
                             </a>
+                            {% endif %}
                             <span id="surtaxphone" data-value="{{ ad.agencyId }}">
                                 <button type="button" alt="contact" title="contact" class="btn btn-primary btn-lg" onclick="ga('send', 'event', 'page-fiche-de-bien', 'ask-clic-telephoner', 'telephoner')">
                                     <i class="fa fa-phone"></i><span class="hidden-xs hidden-sm hidden-md">{% trans %}viteloge.phone{% endtrans %}</span>
