@@ -44,7 +44,8 @@ public function generate($contact){
 
         $password = uniqid();
         $user->setPassword($this->container->get('security.encoder_factory')->getEncoder($user)->encodePassword($password,$user->getSalt()));
-        $user->setConfirmationToken($this->container->get('security.encoder_factory')->getEncoder($user)->encodePassword($password,$user->getSalt()));
+        $tokenGenerator = $this->container->get('fos_user.util.token_generator');
+        $user->setConfirmationToken($tokenGenerator->generateToken());
         $user->addRole('ROLE_USER');
 
         $this->em->persist($user);
