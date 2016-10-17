@@ -12,6 +12,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\Form\FormError;
     use Viteloge\CoreBundle\Entity\Ad;
+    use Viteloge\CoreBundle\Entity\User;
     use Viteloge\FrontendBundle\Entity\Message;
     use Viteloge\FrontendBundle\Form\Type\MessageType;
 
@@ -119,7 +120,7 @@ namespace Viteloge\FrontendBundle\Controller {
             $from = array(
                 'contact@viteloge.com' => 'Viteloge'
             );
-            $mail = \Swift_Message::newInstance()
+            $email = \Swift_Message::newInstance()
                 ->setSubject($trans->trans('Votre compte sur viteloge.com'))
                 ->setFrom($from)
                 ->setTo($to)
@@ -133,7 +134,7 @@ namespace Viteloge\FrontendBundle\Controller {
                     'text/html'
                 )
             ;
-            return $this->get('mailer')->send($mail);
+            return $this->get('mailer')->send($email);
         }
         /**
          *
