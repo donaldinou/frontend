@@ -75,7 +75,7 @@ module.exports = function(grunt) {
                 options: {
                     stdout: true
                 },
-                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --env=prod --force'
+                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --env=prod'
             },
             copyZeroclipboard: {
                 options: {

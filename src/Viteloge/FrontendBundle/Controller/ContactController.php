@@ -87,7 +87,7 @@ namespace Viteloge\FrontendBundle\Controller {
                     //si on crée le compte on envoi un mail avec le mdp
                     $newuser = $this->get('viteloge_frontend_generate.user')->generate($contact);
                     $contact->setUser($newuser);
-                   // $inscription = $this->inscriptionMessage($newuser);
+                    $inscription = $this->inscriptionMessage($newuser);
                 }
 
                 $result = $this->sendMessage($contact);
