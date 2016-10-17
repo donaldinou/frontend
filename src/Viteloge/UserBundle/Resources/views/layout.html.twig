@@ -116,7 +116,7 @@
             {%- block header -%}
                 {{ include('VitelogeUserBundle:base:header.html.twig') }}
             {%- endblock header -%}
-            <div class="subheader subheader-paginate">
+            <div class="subheader {% if app.request.attributes.get('_route') != 'viteloge_frontend_agency_view' %}subheader-paginate{% endif %}">
                 {%- block breadcrumb %}
                     {{ wo_render_breadcrumbs() }}
                 {% endblock breadcrumb -%}
@@ -128,7 +128,7 @@
 
             {% endblock header_more -%}
         </header>
-        <main class="main clearfix{% if app.request.attributes.get('_route') != 'viteloge_frontend_homepage' %}{% if app.request.attributes.get('_route') == 'viteloge_frontend_ad_search' %} main-top {% elseif app.request.attributes.get('_route') == 'viteloge_frontend_ad_view' %} main-site {% else %} main-small {% endif %}{% endif %}" role="main">
+        <main class="main clearfix{% if app.request.attributes.get('_route') != 'viteloge_frontend_homepage' %}{% if app.request.attributes.get('_route') == 'viteloge_frontend_ad_search' %} main-top {% elseif app.request.attributes.get('_route') == 'viteloge_frontend_ad_view' %} main-site {% elseif app.request.attributes.get('_route') == 'viteloge_frontend_agency_view' %} main-search{% else %} main-small {% endif %}{% endif %}" role="main">
 
         {%- block body_start -%}
 
