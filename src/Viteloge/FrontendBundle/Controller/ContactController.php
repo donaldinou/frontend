@@ -82,13 +82,10 @@ namespace Viteloge\FrontendBundle\Controller {
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                //verifier si personne est connecter
                 //si c'est vide on verifie quand même si le compte existe, sinon on le crée
                 if(empty($contact->getUser())){
                     //si on crée le compte on envoi un mail avec le mdp
                     $newuser = $this->get('viteloge_frontend_generate.user')->generate($contact);
-                    var_dump($newuser);
-                    die();
                     $contact->setUser($newuser);
                     $inscription = $this->inscriptionMessage($newuser);
                 }
