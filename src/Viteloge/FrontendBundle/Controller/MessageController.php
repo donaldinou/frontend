@@ -89,10 +89,17 @@ namespace Viteloge\FrontendBundle\Controller {
 
             if ($form->isValid()) {
                 //if user is not connect, verif with service
+<<<<<<< HEAD
                  if(empty($this->getUser())){
                   $newuser = $this->get('viteloge_frontend_generate.user')->generate($message);
                   $message->setUser($newuser);
                   $inscription = $this->inscriptionMessage($newuser);
+=======
+                 if(is_null($this->getUser())){
+                  $newuser = $this->get('viteloge_frontend_generate.user')->generate($message);
+                  $message->setUser($newuser);
+
+>>>>>>> develop
                 }
 
                 $result = $this->sendMessage($message);
