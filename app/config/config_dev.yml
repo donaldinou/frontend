@@ -47,4 +47,4 @@ monolog:
 
 swiftmailer:
     spool: { type: memory }
-    delivery_address: donaldinou@gmail.com
+    delivery_address: ronan.guevel@immo-facile.com
