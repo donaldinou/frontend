@@ -89,17 +89,10 @@ namespace Viteloge\FrontendBundle\Controller {
 
             if ($form->isValid()) {
                 //if user is not connect, verif with service
-<<<<<<< HEAD
-                 if(empty($this->getUser())){
-                  $newuser = $this->get('viteloge_frontend_generate.user')->generate($message);
-                  $message->setUser($newuser);
-                  $inscription = $this->inscriptionMessage($newuser);
-=======
                  if(is_null($this->getUser())){
                   $newuser = $this->get('viteloge_frontend_generate.user')->generate($message);
                   $message->setUser($newuser);
 
->>>>>>> develop
                 }
 
                 $result = $this->sendMessage($message);
@@ -132,29 +125,6 @@ namespace Viteloge\FrontendBundle\Controller {
                         'VitelogeFrontendBundle:Message:email/message.html.twig',
                         array(
                             'message' => $message
-                        )
-                    ),
-                    'text/html'
-                )
-            ;
-            return $this->get('mailer')->send($mail);
-        }
-
-                /**
-         *
-         */
-        protected function inscriptionMessage(User $user) {
-            $trans = $this->get('translator');
-            $to = $user->getEmail();
-            $mail = \Swift_Message::newInstance()
-                ->setSubject($trans->trans('Votre compte sur viteloge.com'))
-                ->setFrom('contact@viteloge.com')
-                ->setTo($to)
-                ->setBody(
-                    $this->renderView(
-                        'VitelogeFrontendBundle:Contact:email/inscription.html.twig',
-                        array(
-                            'user' => $user
                         )
                     ),
                     'text/html'
