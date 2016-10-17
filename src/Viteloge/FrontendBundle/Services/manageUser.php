@@ -49,34 +49,13 @@ public function generate($contact){
 
         $this->em->persist($user);
         $this->em->flush();
-        $inscription = $this->inscriptionMessage($user);
+ }else{
+     $user = '';
  }
 
 return $user;
 
 }
 
-         /**
-         *
-         */
-        protected function inscriptionMessage(User $user) {
-            $trans = $this->container->get('translator');
-            $to = $user->getEmail();
-            $mail = \Swift_Message::newInstance()
-                ->setSubject($trans->trans('Votre compte sur viteloge.com'))
-                ->setFrom('contact@viteloge.com')
-                ->setTo($to)
-                ->setBody(
-                    $this->renderView(
-                        'VitelogeFrontendBundle:Contact:email/inscription.html.twig',
-                        array(
-                            'user' => $user
-                        )
-                    ),
-                    'text/html'
-                )
-            ;
-            return $this->container->get('mailer')->send($mail);
-        }
 
 }

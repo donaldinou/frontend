@@ -11,94 +11,106 @@ namespace Viteloge\FrontendBundle\Controller {
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\Form\FormError;
-    use Viteloge\FrontendBundle\Entity\Contact;
-    use Viteloge\FrontendBundle\Form\Type\ContactType;
-    use Viteloge\CoreBundle\Entity\User;
+    use Viteloge\CoreBundle\Entity\Ad;
+    use Viteloge\FrontendBundle\Entity\Message;
+    use Viteloge\FrontendBundle\Form\Type\MessageType;
 
     /**
-     * Contact controller.
+     * Message controller.
      *
-     * @Route("/contact")
+     * @Route("/message")
      */
-    class ContactController extends Controller {
+    class MessageController extends Controller {
 
         /**
          * Creates a form to create a Message entity.
          *
-         * @param Contact $contact The entity
+         * @param Message $message The entity
          * @return \Symfony\Component\Form\Form The form
          */
-        private function createCreateForm(Contact $contact) {
+        private function createCreateForm(Message $message) {
             return $this->createForm(
-                'viteloge_frontend_contact',
-                $contact,
+                'viteloge_frontend_message',
+                $message,
                 array(
-                    'action' => $this->generateUrl('viteloge_frontend_contact_create'),
+                    'action' => $this->generateUrl('viteloge_frontend_message_create', array('ad' => $message->getAd()->getId() )),
                     'method' => 'POST'
                 )
             );
         }
 
         /**
-         * Displays a form to create a new Contact entity.
-         * Private cache for the user
+         * Displays a form to create a new Message entity.
+         * Private cache
          *
          * @Route(
-         *      "/new",
-         *      name="viteloge_frontend_contact_new"
+         *      "/new/{ad}",
+         *      requirements={
+         *          "ad"="\d+"
+         *      },
+         *      name="viteloge_frontend_message_new"
          * )
          * @Cache(expires="tomorrow", public=false)
          * @Method("GET")
-         * @Template("VitelogeFrontendBundle:Contact:new.html.twig")
+         * @ParamConverter("ad", class="VitelogeCoreBundle:Ad", options={"ad" = "ad"})
+         * @Template("VitelogeFrontendBundle:Message:new.html.twig")
          */
-        public function newAction(Request $request) {
-            $contact = new Contact();
-            $contact->setUser($this->getUser());
-            $form = $this->createCreateForm($contact);
+        public function newAction(Request $request, Ad $ad) {
+            $message = new Message($ad);
+            $message->setUser($this->getUser());
+            $form   = $this->createCreateForm($message);
 
             return array(
-                'contact' => $contact,
+                'message' => $message,
                 'form' => $form->createView(),
             );
         }
 
         /**
-         * Creates a new Contact entity.
-         * No cache for a post
+         * Creates a new Message entity.
          *
          * @Route(
-         *      "/",
-         *      name="viteloge_frontend_contact_create"
+         *      "/{ad}",
+         *      requirements={
+         *          "ad"="\d+"
+         *      },
+         *      name="viteloge_frontend_message_create"
          * )
          * @Method("POST")
-         * @Template("VitelogeFrontendBundle:Contact:new.html.twig")
+         * @ParamConverter("ad", class="VitelogeCoreBundle:Ad", options={"ad" = "ad"})
+         * @Template("VitelogeFrontendBundle:Message:new.html.twig")
          */
-        public function createAction(Request $request) {
-            $em = $this->getDoctrine()->getManager();
+        public function createAction(Request $request, Ad $ad) {
             $trans = $this->get('translator');
-            $contact = new Contact();
-            $contact->setUser($this->getUser());
-            $form = $this->createCreateForm($contact);
+            $message = new Message($ad);
+            $message->setUser($this->getUser());
+            $form = $this->createCreateForm($message);
             $form->handleRequest($request);
 
             if ($form->isValid()) {
-                //si c'est vide on verifie quand même si le compte existe, sinon on le crée
-                if(empty($contact->getUser())){
-                    //si on crée le compte on envoi un mail avec le mdp
-                    $newuser = $this->get('viteloge_frontend_generate.user')->generate($contact);
-                    $contact->setUser($newuser);
-                    $inscription = $this->inscriptionMessage($newuser);
+                //if user is not connect, verif with service
+<<<<<<< HEAD
+                 if(empty($this->getUser())){
+                  $newuser = $this->get('viteloge_frontend_generate.user')->generate($message);
+                  $message->setUser($newuser);
+                  $inscription = $this->inscriptionMessage($newuser);
+=======
+                 if(is_null($this->getUser())){
+                  $newuser = $this->get('viteloge_frontend_generate.user')->generate($message);
+                  $message->setUser($newuser);
+
+>>>>>>> develop
                 }
 
-                $result = $this->sendMessage($contact);
+                $result = $this->sendMessage($message);
                 if ($result) {
-                    return $this->redirect($this->generateUrl('viteloge_frontend_contact_success', array()));
+                    return $this->redirect($this->generateUrl('viteloge_frontend_message_success', array()));
                 }
-                $form->addError(new FormError($trans->trans('contact.send.error')));
+                $form->addError(new FormError($trans->trans('message.send.error')));
             }
 
             return array(
-                'contact' => $contact,
+                'message' => $message,
                 'form' => $form->createView(),
             );
         }
@@ -106,10 +118,10 @@ namespace Viteloge\FrontendBundle\Controller {
         /**
          *
          */
-        protected function sendMessage(Contact $contact) {
+        protected function sendMessage(Message $message) {
             $trans = $this->get('translator');
             $from = array(
-                $contact->getEmail() => $contact->getFullname()
+                $message->getEmail() => $message->getFullname()
             );
             $mail = \Swift_Message::newInstance()
                 ->setSubject($trans->trans('Demande de contact via le site Viteloge.com'))
@@ -117,9 +129,9 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->setTo('contact@viteloge.com')
                 ->setBody(
                     $this->renderView(
-                        'VitelogeFrontendBundle:Contact:email/contact.html.twig',
+                        'VitelogeFrontendBundle:Message:email/message.html.twig',
                         array(
-                            'contact' => $contact
+                            'message' => $message
                         )
                     ),
                     'text/html'
@@ -128,7 +140,7 @@ namespace Viteloge\FrontendBundle\Controller {
             return $this->get('mailer')->send($mail);
         }
 
-        /**
+                /**
          *
          */
         protected function inscriptionMessage(User $user) {
@@ -152,40 +164,38 @@ namespace Viteloge\FrontendBundle\Controller {
         }
 
         /**
-         * Success contact
-         * Private cache because of user informations
+         * Success message
          *
          * @Route(
          *      "/success",
-         *      name="viteloge_frontend_contact_success"
+         *      name="viteloge_frontend_message_success"
          * )
          * @Cache(expires="tomorrow", public=false)
          * @Method("GET")
-         * @Template("VitelogeFrontendBundle:Contact:success.html.twig")
+         * @Template("VitelogeFrontendBundle:Message:success.html.twig")
          */
         public function successAction() {
-            $contact = null;
+            $message = null;
             return array(
-                'contact' => $contact
+                'message' => $message
             );
         }
 
         /**
-         * Fail contact
-         * Private cache because of user information
+         * Fail message
          *
          * @Route(
          *      "/fail",
-         *      name="viteloge_frontend_contact_fail"
+         *      name="viteloge_frontend_message_fail"
          * )
          * @Cache(expires="tomorrow", public=false)
          * @Method("GET")
-         * @Template("VitelogeFrontendBundle:Contact:fail.html.twig")
+         * @Template("VitelogeFrontendBundle:Message:fail.html.twig")
          */
         public function failAction() {
-            $contact = null;
+            $message = null;
             return array(
-                'contact' => $contact
+                'message' => $message
             );
         }
 
