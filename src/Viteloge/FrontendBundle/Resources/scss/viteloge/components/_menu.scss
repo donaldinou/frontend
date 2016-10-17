@@ -704,6 +704,9 @@ nav {
   -moz-transition: right 0.3s ease-in-out 0s;
   -o-transition: right 0.3s ease-in-out 0s;
   width: 20%;
+  @media (max-width: 1024px) {
+          width: 30%;
+        }
   @media (max-width: $screen-md-min) {
           width: 40%;
         }

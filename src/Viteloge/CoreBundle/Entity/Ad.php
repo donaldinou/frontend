@@ -654,7 +654,7 @@ namespace Viteloge\CoreBundle\Entity {
                 $this->description = utf8_decode($this->description);
             }*/
            // return trim(ucfirst(strtolower($this->description)));
-             return $this->description;
+             return trim($this->description);
         }
 
         /**
@@ -664,8 +664,8 @@ namespace Viteloge\CoreBundle\Entity {
          */
         public function getAdvancedDescription() {
             $descriptionMku = $this->getDescriptionMku();
-           // return (!empty($descriptionMku)) ? $descriptionMku : $this->getDescription();
-            return  $this->getDescription();
+            return (!empty($descriptionMku)) ? $descriptionMku : $this->getDescription();
+         //   return  $this->getDescription();
         }
 
         /**
@@ -686,7 +686,7 @@ namespace Viteloge\CoreBundle\Entity {
          * @return string
          */
         public function getDescriptionMku() {
-            return trim(ucfirst(strtolower($this->descriptionMku)));
+            return trim($this->descriptionMku);
         }
 
         /**

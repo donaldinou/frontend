@@ -104,3 +104,13 @@
             margin-top: 179px
         }
 }
+
+.main-search{
+    margin-top: 150px;
+    @media (max-width: $screen-md-min) {
+            margin-top: 162px
+        }
+    @media (max-width: $screen-sm-min) {
+            margin-top: 237px
+        }
+}
