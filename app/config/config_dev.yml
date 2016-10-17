@@ -47,4 +47,5 @@ monolog:
 
 swiftmailer:
     spool: { type: memory }
+    disable_delivery: true
     delivery_address: ronan.guevel@immo-facile.com
