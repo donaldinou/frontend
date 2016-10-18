@@ -324,7 +324,8 @@ namespace Viteloge\FrontendBundle\Controller {
             return array(
                 'form' => $form->createView(),
                 'ads' => $pagination->getCurrentPageResults(),
-                'pagination' => $pagination,'csrf_token' => $csrfToken,
+                'pagination' => $pagination,
+                'csrf_token' => $csrfToken,
             );
         }
 
@@ -655,14 +656,101 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:Ad:latest_home.html.twig")
          */
         public function latesthomeAction(Request $request, $limit) {
+
             $adSearch = new AdSearch();
-            $adSearch->handleRequest($request);
+
             $elasticaManager = $this->container->get('fos_elastica.manager');
             $repository = $elasticaManager->getRepository('VitelogeCoreBundle:Ad');
-            $ads = $repository->search($adSearch, $limit);
-
+            $ads = $repository->search($adSearch, 24);
+            // Save session
+            $session = $request->getSession();
+            $session->set('resultAd', $ads);
+            $session->remove('request');
             return array(
                 'ads' => $ads
+            );
+        }
+
+        /**
+         * Show latest ads in list page
+         *
+         * @Route(
+         *     "/last/{page}/{limit}",
+         *     requirements={
+                   "page"="\d+",
+         *         "limit"="\d+"
+         *     },
+         *     defaults={
+                   "page" = "1",
+         *         "limit" = "24"
+         *     },
+         *     name="viteloge_frontend_ad_latest_list"
+         * )
+         * @Cache(expires="tomorrow", public=true)
+         * @Method({"GET"})
+         * @Template("VitelogeFrontendBundle:Ad:search_response.html.twig")
+         */
+        public function latestListAction(Request $request,$page,$limit) {
+            $translated = $this->get('translator');
+            $adSearch = new AdSearch();
+            $adSearch->handleRequest($request);
+            $form = $this->createForm('viteloge_core_adsearch', $adSearch);
+            // Breadcrumbs
+            $transaction = $adSearch->getTransaction();
+            $description = 'Les dernières annonces immobilières de viteloge';
+            $breadcrumbs = $this->get('white_october_breadcrumbs');
+            $breadcrumbs->addItem(
+                $translated->trans('breadcrumb.home', array(), 'breadcrumbs'),
+                $this->get('router')->generate('viteloge_frontend_homepage')
+            );
+            $elasticaManager = $this->container->get('fos_elastica.manager');
+            $repository = $elasticaManager->getRepository('VitelogeCoreBundle:Ad');
+            $ads = $repository->search($adSearch,$limit);
+            $pagination = $repository->searchPaginated($form->getData());
+
+
+            // pager
+            $pagination->setMaxPerPage($limit);
+            $pagination->setCurrentPage($page);
+            $seoPage = $this->container->get('sonata.seo.page');
+            // SEO
+            $canonicalLink = $this->get('router')->generate(
+                $request->get('_route'),
+                $request->get('_route_params'),
+                true
+            );
+            $breadcrumbTitle  = 'Derniers biens';
+            $breadcrumbs = $this->get('white_october_breadcrumbs');
+
+            $breadcrumbs->addItem(
+                    $breadcrumbTitle,
+                    $this->get('router')->generate('viteloge_frontend_ad_latest_list'));
+
+            $seoPage
+                ->setTitle($breadcrumbTitle.' - '.$translated->trans('viteloge.frontend.ad.search.title'))
+                ->addMeta('name', 'robots', 'noindex, follow')
+                ->addMeta('name', 'description', $description)
+                ->addMeta('property', 'og:title', $seoPage->getTitle())
+                ->addMeta('property', 'og:type', 'website')
+                ->addMeta('property', 'og:url',  $canonicalLink)
+                ->addMeta('property', 'og:description', $breadcrumbTitle.' - '.$translated->trans('viteloge.frontend.ad.search.description'))
+                ->setLinkCanonical($canonicalLink)
+            ;
+            // --
+
+            $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
+            // Save session
+            $session = $request->getSession();
+            $session->set('resultAd',$pagination->getCurrentPageResults());
+            $session->set('resultAd', $ads);
+            $session->remove('request');
+
+            return array(
+                'form' => $form->createView(),
+                'ads' => $pagination->getCurrentPageResults(),
+                'pagination' => $pagination,
+                'csrf_token' => $csrfToken,
+
             );
         }
 

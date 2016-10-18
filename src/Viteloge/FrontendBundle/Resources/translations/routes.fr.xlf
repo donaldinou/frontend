@@ -86,6 +86,10 @@
         <source>viteloge_frontend_ad_carousel</source>
         <target>/annonce/carousel/</target>
       </trans-unit>
+      <trans-unit id="viteloge_frontend_ad_latest_list" resname="viteloge_frontend_ad_latest_list">
+        <source>viteloge_frontend_ad_latest_list</source>
+        <target>/annonce/derniers/{page}/{limit}</target>
+      </trans-unit>
       <trans-unit id="viteloge_frontend_ad_carousel_limited" resname="viteloge_frontend_ad_carousel_limited">
         <source>viteloge_frontend_ad_carousel_limited</source>
         <target>/annonce/carousel/{limited}</target>

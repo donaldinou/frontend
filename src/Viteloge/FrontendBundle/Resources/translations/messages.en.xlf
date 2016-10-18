@@ -357,6 +357,10 @@
         <source>ad.propose</source>
         <target>propose</target>
       </trans-unit>
+      <trans-unit id="ads.count.last" resname="ads.count.last">
+        <source>ads.count.last</source>
+        <target>{0} aucune bien immobilier dans vos favoris|{1} 1 bien immobilier dans vos favoris|]1,Inf] %count% biens immobiliers dernièrement ajoutés</target>
+      </trans-unit>
       <trans-unit id="ads.count.favourite" resname="ads.count.favourite">
         <source>ads.count.favourite</source>
         <target>{0} no favourite|{1} 1 favourite|]1,Inf] %count% favourites</target>

@@ -378,13 +378,17 @@
         <source>Your ad on Fasthousing</source>
         <target>Votre publicité sur Vitelogé</target>
       </trans-unit>
+      <trans-unit id="ads.count.last" resname="ads.count.last">
+        <source>ads.count.last</source>
+        <target>{0} aucune bien immobilier dans vos favoris|{1} 1 bien immobilier dans vos favoris|]1,Inf] %count% biens immobiliers dernièrement ajoutés</target>
+      </trans-unit>
       <trans-unit id="ads.count.favourite" resname="ads.count.favourite">
         <source>ads.count.favourite</source>
-        <target>{0} aucune bien immobilier dans vos favoris|{1} 1 bien immobilier dans vos favoris|]1,Inf] %count% biens immobilier dans vos favoris</target>
+        <target>{0} aucune bien immobilier dans vos favoris|{1} 1 bien immobilier dans vos favoris|]1,Inf] %count% biens immobiliers dans vos favoris</target>
       </trans-unit>
       <trans-unit id="ads.count.research" resname="ads.count.research">
         <source>ads.count.research</source>
-        <target>{0} aucune annonce ne correspond à votre recherche|{1} 1 annonce correspond à votre recherche|]1,Inf] %count% biens immobilier correspondent à votre recherche</target>
+        <target>{0} aucune annonce ne correspond à votre recherche|{1} 1 annonce correspond à votre recherche|]1,Inf] %count% biens immobiliers correspondent à votre recherche</target>
       </trans-unit>
       <trans-unit id="ads.count.research.city" resname="ads.count.research.city">
         <source>ads.count.research</source>

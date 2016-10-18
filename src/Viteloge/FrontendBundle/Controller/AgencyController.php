@@ -51,6 +51,13 @@ namespace Viteloge\FrontendBundle\Controller {
          *     },
          *     name="viteloge_frontend_agency_view"
          * )
+         * @Route(
+         *     "/home/{id}/{description}",
+         *     requirements={
+         *
+         *     },
+         *     name="viteloge_frontend_agency_home"
+         * )
          * @Cache(expires="tomorrow", public=true)
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:Ad:redirect_new.html.twig")

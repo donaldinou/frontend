@@ -52,21 +52,27 @@
                  <small style="color:#00a1c6;"> {{ ad.advancedDescription|truncate(200, false, '...')|normalize_utf8|raw }}</small>
             </div>
             <div class="col-xs-4 col-sm-3 col-md-2 col-lg-2 text-left header-top">
-            {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_view' %}
+                            {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_view' %}
                                 <a href="{{ app.session.get('currentUrl') }}" class="btnlist">
                                 <button type="button" alt="retour à la liste de résultats" title="retour à la liste de résultats" class="btn btn-primary btn-lg" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-menu', 'menu')">
                                     <i class="fa fa-list"></i>
                                 </button>
+                            {% elseif app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}
+                                <a href="{{ path('viteloge_frontend_ad_latest_list') }}" class="btnlist" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-menu', 'menu')">
+                                <button type="button" alt="derniers biens" title="Nos derniers biens" class="btn btn-primary btn-lg">
+                                    <i class="fa fa-list"></i>
+                                </button>
                             {% else %}
                                 <a href="{{ path('viteloge_frontend_favourite_list') }}" class="btnlist" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-menu', 'menu')">
-                                <button type="button" alt="retour à la liste des favoris" title="retour à la liste des favoris" class="btn btn-primary btn-lg">
+                                <button type="button" alt="Listes des favoris" title="retour à la liste des favoris" class="btn btn-primary btn-lg">
                                     <i class="fa fa-list"></i>
                                 </button>
                             {% endif %}
                                 </a>
                                 {% if ads[clef-1] is defined %}
                                     {% set moins =  left~'-'~ads[clef-1].id %}
-                                <a href="{{ path('viteloge_frontend_agency_view', { 'id': moins, 'description':description|slugify }) }}" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-precedent', 'bouton-precedent')">{% endif %}
+                                {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}
+                                <a href="{{ path('viteloge_frontend_agency_home', { 'id': moins, 'description':description|slugify }) }}" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-precedent', 'bouton-precedent')">{% else %}<a href="{{ path('viteloge_frontend_agency_view', { 'id': moins, 'description':description|slugify }) }}" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-precedent', 'bouton-precedent')">{% endif %}{% endif %}
                                 <button type="button" alt="bien précédent" title="bien précédent" class="btn btn-primary btn-lg" {% if ads[clef-1] is not defined %}style ="cursor:none"{% endif %}>
                                      <i class="fa fa-chevron-left"></i>
                                 </button>
@@ -74,7 +80,8 @@
                                 {% endif %}
                                 {% if ads[clef+1] is defined %}
                                     {% set plus=  right~'-'~ads[clef+1].id %}
-                            <a href="{{ path('viteloge_frontend_agency_view', { 'id': plus, 'description':description|slugify }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">{% endif %}
+                            {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}
+                            <a href="{{ path('viteloge_frontend_agency_home', { 'id': plus, 'description':description|slugify }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">{% else %}<a href="{{ path('viteloge_frontend_agency_view', { 'id': plus, 'description':description|slugify }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">{% endif %}{% endif %}
                                 <button type="button" alt="bien suivant" title="bien suivant" class="btn btn-primary btn-lg">
                                     <i class="fa fa-chevron-right"></i>
                                 </button>
