@@ -41,6 +41,9 @@
          <div class="col-sm-3 col-md-6 col-lg-5 text-right no-padding">
 
                 {% set count = pagination.nbResults|default(ads|length) %}
+                    {% if app.request.attributes.get('_route') == 'viteloge_frontend_ad_latest_list' %}
+                        <h1 class="small_header">{% transchoice count with { '%count%' : count} %}ads.count.last{% endtranschoice %}</h1>
+                    {% else %}
                     {% if ads[0].cityName is defined and ads[0].cityName is not empty %}
                     {% if ads[0].transaction is defined and ads[0].transaction is not empty %}
                  {% if ads[0].transaction == 'V' %}
@@ -56,6 +59,7 @@
             {% endif %}
         {% else %}
             <h1 class="small_header">{% transchoice count with { '%count%' : count} %}ads.count.research{% endtranschoice %}</h1>
+        {% endif %}
         {% endif %}
             </div>
        </div>

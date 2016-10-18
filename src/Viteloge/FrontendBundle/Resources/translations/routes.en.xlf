@@ -82,6 +82,10 @@
         <source>viteloge_estimation_default_resultatcontact</source>
         <target>/prix-immobilier/votre-estimation/resultat/{id}</target>
       </trans-unit>
+      <trans-unit id="viteloge_frontend_ad_latest_list" resname="viteloge_frontend_ad_latest_list">
+        <source>viteloge_frontend_ad_latest_list</source>
+        <target>/ad/last/{page}/{limit}</target>
+      </trans-unit>
       <trans-unit id="51d891aad8653712c808e4f6fe4b1504" resname="viteloge_frontend_ad_carousel">
         <source>viteloge_frontend_ad_carousel</source>
         <target>/ad/carousel/</target>
