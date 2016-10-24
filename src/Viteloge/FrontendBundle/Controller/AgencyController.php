@@ -236,9 +236,9 @@ namespace Viteloge\FrontendBundle\Controller {
             //$response->send();
 
             $verifurl= $this->verifurl($ad->getUrl());
-            if($verifurl){
+          /*  if($verifurl){
             return $this->redirect($this->generateUrl('viteloge_frontend_ad_redirect', array('request'=> $request,'id'=>$ad->getId())));
-            }
+            }*/
             $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
             return $this->render('VitelogeFrontendBundle:Ad:redirect_new.html.twig',array(
                 'form' => $form->createView(),
@@ -249,6 +249,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 'clef' => $id[0],
                 'favorie' => $favorie,
                 'csrf_token' => $csrfToken,
+                'redirect' => $verifurl,
             ), $response);
         }
 

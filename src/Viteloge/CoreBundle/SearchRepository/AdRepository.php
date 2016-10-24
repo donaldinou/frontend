@@ -30,8 +30,8 @@ namespace Viteloge\CoreBundle\SearchRepository {
         public function getQueryForSearch(Ad $ad) {
             $boolQuery = new \Elastica\Filter\Bool();
             $fieldQuery = new \Elastica\Query\MatchAll();
-
-            $adTransaction = strtolower($ad->getTransaction());
+            $transaction = $ad->getTransaction();
+            $adTransaction = strtolower($transaction[0]);
             if (!empty($adTransaction)) {
                 $transactionTermQuery = new \Elastica\Filter\Terms();
                 $transactionTermQuery->setTerms('transaction', array($adTransaction));

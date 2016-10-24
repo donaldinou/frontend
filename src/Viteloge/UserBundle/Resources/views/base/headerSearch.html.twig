@@ -8,10 +8,10 @@
             </li>
             {% if not app.user or not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             <li>
-                {{- include('VitelogeUserBundle:Security:fragment/form_right.html.twig') -}}
+                {{- include('VitelogeUserBundle:Registration:fragment/subscribe_block_right.html.twig') -}}
             </li>
             <li>
-                {{- include('VitelogeUserBundle:Registration:fragment/subscribe_block_right.html.twig') -}}
+                {{- include('VitelogeUserBundle:Security:fragment/form_right.html.twig') -}}
             </li>
             {% else %}
             </li>
@@ -81,26 +81,8 @@
 
 
                             <div class="navbluebtn">
-
+                           {% if app.user or is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                 <ul id="identification" class="btn btn-primary pull-right btn-lg hidden-xs hidden-sm hidden-md visible-lg bleu-button">
-
-                                {% if not app.user or not is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                   <!-- <li>
-                                        <a href="{{ path('fos_user_registration_register') }}" class="">
-                                            <span class="icon-icon-subscribe"></span>
-                                            <span>&nbsp;{% trans %}user.registration{% endtrans %}</span>
-                                        </a>
-                                    </li>
-                                    <li class="hidden-xs">
-                                        <span class="navbar-text vr">&nbsp;</span>
-                                    </li>-->
-                                    <li>
-                                        <a href="{{ path('fos_user_security_login') }}"  onclick="ga('send', 'event', 'page-listing-de-bien', 'clic-compte', 'acces-compte')">
-
-                                            <span>{% trans %}user.connection{% endtrans %}</span>
-                                        </a>
-                                    </li>
-                                {% else %}
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" onclick="ga('send', 'event', 'page-listing-de-bien', 'clic-info-compte', 'acces-info-compte')">
 

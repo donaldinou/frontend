@@ -33,7 +33,7 @@
                             'class': 'sr-only'
                         },
                         'attr': {
-                            'class': 'select-tag-input44  header-height',
+                            'class': 'select-tag-input',
                             'data-placeholder' : 'ad.transaction'|trans(),
                         }
                     }) }}
@@ -82,7 +82,7 @@
 
 
             <div id="hiddeninput" class="row hidden" role="tabpanel">
-                <div class="col-xs-12 col-sm-4 col-md-4 no-padding quatre-input">
+                <div class="col-xs-12 col-md-offset-2 col-sm-4 col-md-4 no-padding quatre-input">
                     {{ form_row(form.rooms, {
                         'label_attr': {
                             'class': 'sr-only'
@@ -93,7 +93,7 @@
                         }
                     }) }}
                 </div>
-                <div class="col-xs-12 col-sm-4 col-md-4 no-padding cinq-input">
+                <div class="col-xs-12 col-sm-3 col-md-2 no-padding cinq-input">
                     {{ form_row(form.minPrice, {
                         'label_attr': {
                             'class': 'sr-only'
@@ -105,7 +105,7 @@
                         }
                     }) }}
                 </div>
-                <div class="col-xs-12 col-sm-4 col-md-4 no-padding sixe-input">
+                <div class="col-xs-12 col-sm-3 col-md-2 no-padding sixe-input">
                     {{ form_row(form.maxPrice, {
                         'label_attr': {
                             'class': 'sr-only'
@@ -123,9 +123,10 @@
                 <div class="col-md-12">
                     <a id="see-more" href="#search-more">{% trans %}Advanced search{% endtrans %}</a>
                 </div>
-            </div>
-        </div>
+
     {%- endblock form_fields -%}
+    </div>
+        </div>
 {%- block form_end -%}
 {{ form_end(form, {'render_rest': false}) }}
 {%- endblock form_end -%}

@@ -10,5 +10,6 @@
         <li>{% trans %}user.register.account.line2{% endtrans %}</li>
         <li>{% trans %}user.register.account.line3{% endtrans %}</li>
     </ul>
-    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-primary btn-block" role="button">{% trans %}user.register{% endtrans %}</a>
+    <a href="{{ path('fos_user_registration_register') }}"><input type="button" class="btn btn-primary form-control" value="{{ 'user.register'|trans }}" /></a>
+
 {%- endblock -%}

@@ -13,6 +13,29 @@ jQuery(document).ready(function() {
         jQuery(event.currentTarget).parent().removeClass("identification__focus");
     });
 
+    jQuery('#viteloge_core_adsearch_minPrice').on('change', function (event) {
+        _val_cinq = jQuery(this).val();
+         if(_val_cinq == ''){
+            jQuery('.five-input span').text('€');
+           jQuery('.cinq-input span').text('€');
+         }else{
+          jQuery('.five-input span').text('(€ min.)');
+           jQuery('.cinq-input span').text('(€ min.)');
+         }
+
+    });
+
+    jQuery('#viteloge_core_adsearch_maxPrice').on('change', function (event) {
+        _val_six = jQuery(this).val();
+         if(_val_six == ''){
+            jQuery('.six-input span').text('€');
+           jQuery('.sixe-input span').text('€');
+            }else{
+        jQuery('.six-input span').text('(€ max.)');
+        jQuery('.sixe-input span').text('(€ max.)');
+         }
+    });
+
     //Navigation Menu Slider
         jQuery('#nav-expander').on('click',function(e){
             e.preventDefault();
@@ -24,6 +47,18 @@ jQuery(document).ready(function() {
         });
 
         jQuery('body').on('click', '#moreinfo', function(event) {
+             _val_cinq = jQuery('#viteloge_core_adsearch_minPrice').val();
+             _val_six = jQuery('#viteloge_core_adsearch_maxPrice').val();
+             if(_val_cinq != ''){
+               jQuery('.five-input span').text('(€ min.)');
+               jQuery('.cinq-input span').text('(€ min.)');
+             }
+             if(_val_six != ''){
+               jQuery('.six-input span').text('(€ min.)');
+               jQuery('.sixe-input span').text('(€ min.)');
+             }
+            jQuery('.four-input input').css('width','150px');
+            jQuery('.quatre-input input').css('width','150px');
             jQuery('#hiddeninput').toggleClass('hidden');
             jQuery('.firsthidden').toggleClass('hidden-xs');
             jQuery('.subheader').toggleClass('hidden');

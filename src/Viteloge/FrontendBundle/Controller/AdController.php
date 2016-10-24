@@ -196,7 +196,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 );
             }
             if ($inseeDepartment instanceof InseeDepartment) {
-                $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction)).' ' : '';
+                $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction[0])).' ' : '';
                 $breadcrumbTitle .= $inseeDepartment->getFullname();
                 $breadcrumbs->addItem(
                     $breadcrumbTitle,
@@ -209,7 +209,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 );
             }
             if ($inseeCity instanceof InseeCity) {
-                $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction)).' ' : '';
+                $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction[0])).' ' : '';
                 $breadcrumbTitle .= $inseeCity->getFullname().' ('.$inseeCity->getInseeDepartment()->getId().')';
                 $breadcrumbs->addItem(
                     $breadcrumbTitle,
@@ -253,7 +253,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 $description .= $titre.' a ';
                 $description .= ($inseeCity instanceof InseeCity) ? $inseeCity->getFullname() : '';
                 $breadcrumbTitleSuffix .= ($inseeCity instanceof InseeCity) ? $inseeCity->getFullname() : '';
-                $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction)).' ' : $translated->trans('ad.research').': ';
+                $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction[0])).' ' : $translated->trans('ad.research').': ';
                 $breadcrumbTitle .= (!empty(trim($breadcrumbTitleSuffix))) ? $breadcrumbTitleSuffix : $translated->trans('viteloge.result');
 
                 $breadcrumbs->addItem($breadcrumbTitle);

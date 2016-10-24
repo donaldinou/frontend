@@ -38,7 +38,7 @@ namespace Viteloge\CoreBundle\Form\Type {
                     'label' => 'ad.transaction',
                     'choices' => $transactionEnum->choices(),
                     'expanded' => false,
-                    'multiple' => false,
+                    'multiple' => true,
                     'preferred_choices' => array()
                 ))
                 ->add('where', 'choice', array(
