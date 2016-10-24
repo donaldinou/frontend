@@ -197,14 +197,22 @@ namespace Viteloge\CoreBundle\SearchEntity {
          *
          */
         public function setTransaction($value) {
-            $value = strtoupper($value);
+            if(isset($value[0])){
+              $value = $value[0];
+              $value = strtoupper($value);
+            }else{
+                $value = null;
+            }
+
+
             if ($value == TransactionEnum::__default || $value == 'default') {
                 $value = null;
             }
             if (strlen($value)>1) {
                 $value = TransactionEnum::getAlias($value);
             }
-            $this->transaction = $value;
+            $val = array($value);
+            $this->transaction = $val;
             return $this;
         }
 

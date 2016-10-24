@@ -5,7 +5,9 @@
     {%- if hwi_oauth_resource_owners() -%}
         <ul class="text-center list-inline">
         {%- for owner in hwi_oauth_resource_owners() -%}
+            {% if owner != 'github' %}
             {{- include('VitelogeOAuthBundle:Connect:render/list.html.twig', { 'owner': owner }) -}}
+            {% endif %}
         {%- endfor -%}
         </ul>
     {%- endif -%}

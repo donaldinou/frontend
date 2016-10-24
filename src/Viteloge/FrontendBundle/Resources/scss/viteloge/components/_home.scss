@@ -45,7 +45,7 @@
 
 }
 
-.second-input .select-tag-input44{
+.second-input .select2-selection--multiple{
     border-right: none !important;
     border-left: none !important;
      @media (max-width: $screen-md-min) {
@@ -76,7 +76,7 @@
 
 }
 
-.deux-input .select-tag-input44{
+.deux-input .select2-selection--multiple{
     border-right: none !important;
     border-left: none !important;
     -moz-appearance:none;
@@ -105,17 +105,40 @@
 .trois-input .col-sm-12{
     padding:0;
 }
+
 .input-group-addon {
     padding: 6px 12px;
     font-size: 13px;
     font-weight: 400;
     line-height: 1;
-    color: #fff;
+    color: #333;
     text-align: center;
-    background-color: #00a1c6;
-    border: 0px solid #ccc;
+    background-color: #eee;
     border-radius: 4px;
+
+
 }
+
+.cinq-input > .form-group > .col-sm-12 > .input-group > .input-group-addon{
+        border-color: #00a1c6 transparent !important;
+        border-radius: 0;
+    }
+
+.sixe-input > .form-group > .col-sm-12 > .input-group > .input-group-addon{
+        border-color: #00a1c6 #00a1c6 #00a1c6 transparent !important;
+        border-radius:  0 6px 6px 0;
+    }
+
+.five-input > .form-group > .col-sm-12 > .input-group > .input-group-addon{
+        border-color: #00a1c6 transparent !important;
+        border-radius: 0;
+    }
+
+.six-input > .form-group > .col-sm-12 > .input-group > .input-group-addon{
+        border-color: #00a1c6 #00a1c6 #00a1c6 transparent !important;
+        border-radius:  0 6px 6px 0;
+    }
+
  .four-input .select2-selection--multiple{
     border-right: none !important;
     border-radius: 6px 0 0 6px;
@@ -139,6 +162,7 @@
 
    .six-input .form-control{
     border-left: none !important;
+    border-right: none !important;
     @media (max-width: $screen-md-min) {
         border-radius: 6px 0 0 6px!important;
         border :1px solid #00a1c6 !important;
@@ -169,6 +193,7 @@
 
    .sixe-input .form-control{
     border-left: none !important;
+    border-right: none !important;
     border-radius: 0 !important;
     @media (max-width: $screen-sm-min) {
         border-radius: 6px 0 0 6px !important;

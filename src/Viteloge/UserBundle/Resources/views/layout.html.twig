@@ -57,7 +57,8 @@
         {% endblock head_javascripts_requirejs %}
         {%- endblock head_javascripts -%}
     </head>
-    <body class="body{% block theme %} {{vl_theme()}}{% endblock theme %}" {% block schema %}itemscope itemtype="http://schema.org/WebPage"{% endblock schema %}>
+
+    <body class="body theme-default {% if app.request.attributes.get('_route') == 'viteloge_frontend_homepage' %}home{% endif %}" {% block schema %}itemscope itemtype="http://schema.org/WebPage"{% endblock schema %}>
     {%- block init_javascripts -%}
         <script>
           window.fbAsyncInit = function() {
@@ -116,7 +117,7 @@
             {%- block header -%}
                 {{ include('VitelogeUserBundle:base:header.html.twig') }}
             {%- endblock header -%}
-            <div class="subheader {% if app.request.attributes.get('_route') != 'viteloge_frontend_agency_view' %}subheader-paginate{% endif %}">
+            <div class="subheader subheader-paginate">
                 {%- block breadcrumb %}
                     {{ wo_render_breadcrumbs() }}
                 {% endblock breadcrumb -%}
