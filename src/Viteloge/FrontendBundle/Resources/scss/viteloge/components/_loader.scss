@@ -17,6 +17,22 @@
     margin: 30px auto;
     z-index: 9999;
 }
+
+.phone-backdrop {
+    @extend .modal-backdrop;
+}
+.phone {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    margin: 200px auto;
+    z-index: 9999;
+}
+
+.modal-backdrop{
+ z-index: 1;
+}
 path#search {
     animation-name: rotatekf;
     animation-duration: 3s;

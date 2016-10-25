@@ -325,7 +325,7 @@ namespace Viteloge\FrontendBundle\Controller {
             $em = $this->getDoctrine()->getManager();
             $agence = $em->getRepository('VitelogeCoreBundle:Agence')->find($id);
             if(!empty($agence)) $tel = $agence->getTel();
-            $num ='';
+            $num ='Pas de Numéro';
 
             if(isset($tel) && !empty($tel)){
                 $tel = preg_replace("([^0-9]+)","",$tel);
@@ -351,8 +351,10 @@ namespace Viteloge\FrontendBundle\Controller {
                 $num = rtrim($num,'¤');
 
             }
-
-            return array('phone' => $num);
+            $cout = '1,34€/appel.0,34€/mn';
+            $response = new JsonResponse();
+            return $response->setData(array('phone' => $num, 'cout' => $cout));
+            //return array('phone' => $num);
             }else{
              throw new \Exception("Erreur");
             }

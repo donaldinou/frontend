@@ -13,6 +13,12 @@ jQuery(document).ready(function() {
         jQuery(event.currentTarget).parent().removeClass("identification__focus");
     });
 
+    jQuery('body').on('click','#phone-backdrop', function (event) {
+        jQuery('#phone').removeClass('in').addClass('hidden');
+        jQuery('#phone-backdrop').removeClass('in').addClass('hidden');
+    });
+
+
     jQuery('#viteloge_core_adsearch_minPrice').on('change', function (event) {
         _val_cinq = jQuery(this).val();
          if(_val_cinq == ''){
@@ -799,11 +805,21 @@ var generateUUID = function generateUUID() {
                  jQuery('.loader-backdrop').removeClass('hidden').addClass('in');
                 },
             complete: function() {
+
+                },
+            success: function(data) {
+                console.log(data.phone);
+                jQuery('.modal-title').html(data.phone);
+                if(data.phone !='Pas de Numéro'){
+                 jQuery('.modal-body').html(data.cout);
+                 jQuery('#linkPhone').attr("href", "tel:"+data.phone);
+                }else{
+                    jQuery('#btnPhone').html('');
+                }
+
                 jQuery('.loader').addClass('hidden').removeClass('in');
                 jQuery('.loader-backdrop').addClass('hidden').removeClass('in');
-                },
-            success: function(html_data) {
-              jQuery(this).html(html_data);
+
               jQuery(this).on('click');
             }
           });
