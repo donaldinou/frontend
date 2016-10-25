@@ -117,8 +117,11 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:Ad:search_response.html.twig")
          */
         public function searchAction(Request $request, $page, $limit) {
-            $translated = $this->get('translator');
+           $translated = $this->get('translator');
            $currentUrl = $request->getUri();
+
+
+
             // Form
             $adSearch = new AdSearch();
             $adSearch->handleRequest($request);
@@ -128,6 +131,7 @@ namespace Viteloge\FrontendBundle\Controller {
             // Save session
             $session = $request->getSession();
             $session->set('adSearch', $adSearch);
+
             $session->set('currentUrl', $currentUrl);
             $session->remove('request');
             $session->set('request', $request);
@@ -292,10 +296,10 @@ namespace Viteloge\FrontendBundle\Controller {
             $repository->setEntityManager($this->getDoctrine()->getManager());
             $pagination = $repository->searchPaginated($form->getData());
             // --
-
             // pager
             $pagination->setMaxPerPage($limit);
             $pagination->setCurrentPage($page);
+            $session->set('currentPage',$pagination->getCurrentPage());
             //$pagination->setEndPage();
             // --
 
@@ -317,7 +321,29 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->addMeta('property', 'og:description', $breadcrumbTitle.' - '.$translated->trans('viteloge.frontend.ad.search.description'))
                 ->setLinkCanonical($canonicalLink)
             ;
+            if($pagination->hasNextPage() || $pagination->hasPreviousPage()){
+              $url = $this->generateUrl('viteloge_frontend_ad_search', array(), true);
+            }
+            if($pagination->hasNextPage()){
+              $next = explode('?', $currentUrl);
+              $nextpage = $page+1;
+              $nextUrl = $url.'/'.$nextpage.'?'.$next[1];
+              $session->set('nextUrl', $nextUrl);
+            }else{
+               $session->remove('nextUrl');
+            }
+
+            if($pagination->hasPreviousPage()){
+              $preview = explode('?', $currentUrl);
+              $previewpage = $page-1;
+              $previewUrl = $url.'/'.$previewpage.'?'.$preview[1];
+              $session->set('previewUrl', $previewUrl);
+            }else{
+               $session->remove('previewUrl');
+            }
+
             // --
+            $session->set('totalResult',$pagination->getNbResults());
             $session->set('resultAd',$pagination->getCurrentPageResults());
             $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
 

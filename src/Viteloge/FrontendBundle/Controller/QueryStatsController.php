@@ -238,7 +238,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 $this->get('router')->generate('viteloge_frontend_homepage')
             );
             if ($inseeDepartment instanceof InseeDepartment) {
-                $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction)).' ' : '';
+                $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction[0])).' ' : '';
                 $breadcrumbTitle .= $inseeDepartment->getFullname();
                 $breadcrumbs->addItem(
                     $breadcrumbTitle,
@@ -251,7 +251,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 );
             }
             if ($inseeCity instanceof InseeCity) {
-                $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction)).' ' : '';
+                $breadcrumbTitle  = (!empty($transaction)) ? $translated->trans('ad.transaction.'.strtoupper($transaction[0])).' ' : '';
                 $breadcrumbTitle .= $inseeCity->getFullname().' ('.$inseeCity->getInseeDepartment()->getId().')';
                 $breadcrumbs->addItem(
                     $breadcrumbTitle,

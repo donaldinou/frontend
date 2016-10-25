@@ -58,7 +58,7 @@
         {%- endblock head_javascripts -%}
     </head>
 
-    <body class="body theme-default {% if app.request.attributes.get('_route') == 'viteloge_frontend_homepage' %}home{% endif %}" {% block schema %}itemscope itemtype="http://schema.org/WebPage"{% endblock schema %}>
+    <body class="body theme-default {% if app.request.attributes.get('_route') == 'viteloge_frontend_homepage' %}home{% endif %}" {% block schema %}itemscope itemtype="http://schema.org/WebPage"{% endblock schema %} {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_view' %}style="overflow-y: hidden;" {% endif %}>
     {%- block init_javascripts -%}
         <script>
           window.fbAsyncInit = function() {
@@ -110,14 +110,14 @@
 
     {%- endblock html_start -%}
     {%- block body -%}
-        <header class="header" data-role="header">
+        <header class="header" data-role="header" {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_view' %}style="border-bottom: 3px solid #00a1c6;"{% endif %}>
             {%- block header_start %}
 
             {% endblock -%}
             {%- block header -%}
                 {{ include('VitelogeUserBundle:base:header.html.twig') }}
             {%- endblock header -%}
-            <div class="subheader subheader-paginate">
+            <div class="subheader {% if app.request.attributes.get('_route') != 'viteloge_frontend_agency_view' %}subheader-paginate{% endif %}">
                 {%- block breadcrumb %}
                     {{ wo_render_breadcrumbs() }}
                 {% endblock breadcrumb -%}
@@ -129,7 +129,7 @@
 
             {% endblock header_more -%}
         </header>
-        <main class="main clearfix{% if app.request.attributes.get('_route') != 'viteloge_frontend_homepage' %}{% if app.request.attributes.get('_route') == 'viteloge_frontend_ad_search' or app.request.attributes.get('_route') == 'viteloge_frontend_ad_latest_list' %} main-top {% elseif app.request.attributes.get('_route') == 'viteloge_frontend_ad_view' %} main-site {% elseif app.request.attributes.get('_route') == 'viteloge_frontend_agency_view' %} main-search{% else %} main-small {% endif %}{% endif %}" role="main">
+        <main class="main clearfix{% if app.request.attributes.get('_route') != 'viteloge_frontend_homepage' %}{% if app.request.attributes.get('_route') == 'viteloge_frontend_ad_search' or app.request.attributes.get('_route') == 'viteloge_frontend_ad_latest_list' %} main-top {% elseif app.request.attributes.get('_route') == 'viteloge_frontend_ad_view' %} main-site {% elseif app.request.attributes.get('_route') == 'viteloge_frontend_agency_view' %} {% else %} main-small {% endif %}{% endif %}" role="main">
 
         {%- block body_start -%}
 
