@@ -69,7 +69,15 @@ namespace Viteloge\FrontendBundle\Controller {
 
             $session = $request->getSession();
             $ads = $session->get('resultAd');
+
+            $total = $session->get('totalResult');
+
             $search = $session->get('request');
+
+
+            //si on atteind le nbs max de resultat en session on relance la recherche
+
+
 
             // Form
             $adSearch = new AdSearch();
@@ -250,6 +258,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 'favorie' => $favorie,
                 'csrf_token' => $csrfToken,
                 'redirect' => $verifurl,
+                'total' => $total
             ), $response);
         }
 
@@ -274,6 +283,17 @@ namespace Viteloge\FrontendBundle\Controller {
             $httpCode = curl_getinfo($ch);
             $headers=substr($response, 0, $httpCode['header_size']);
             if(strpos($headers, 'X-Frame-Options: deny')>-1||strpos($headers, 'X-Frame-Options: SAMEORIGIN')>-1) {
+                $error=true;
+            }
+            $redirectUrl = array(
+                'century' => 'https://www.century21.fr',
+                'century21' => 'http://www.century21.fr'
+            );
+            $verifurl = explode('://', $url);
+            $baseurl = explode('/', $verifurl[1]);
+            $newurl = $verifurl[0].'://'.$baseurl[0];
+
+            if(in_array($newurl, $redirectUrl)){
                 $error=true;
             }
             $httpcode= curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -337,6 +357,7 @@ namespace Viteloge\FrontendBundle\Controller {
              throw new \Exception("Erreur");
             }
         }
+
 
     }
 

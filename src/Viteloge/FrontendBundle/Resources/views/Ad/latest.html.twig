@@ -1,7 +1,9 @@
 <h1 class="h3 text-uppercase text-center">{% spaceless %}
     {%- block ad_latest_title -%}
         {% set cityName = cityName|default('viteloge.from.you'|trans)%}
-        {%- transchoice transaction|vl_intval with { '%city%': cityName } -%}ad.transaction.near.city{%- endtranschoice -%}
+       {% if transaction is not empty %}
+        {%- transchoice transaction[0]|vl_intval with { '%city%': cityName } -%}ad.transaction.near.city{%- endtranschoice -%}
+       {% endif %}
     {%- endblock ad_latest_title -%}
 {% endspaceless %}</h1>
 {%- block ad_latest_content -%}
