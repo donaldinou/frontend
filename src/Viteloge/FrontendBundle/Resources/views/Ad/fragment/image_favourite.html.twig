@@ -1,0 +1,21 @@
+{%- set imgClass = imgClass|default('lazy') -%}
+
+
+{% set description =  include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface_url.html.twig', { 'ad': ad })  %}
+
+{%- if ad.privilege.isExclu -%}
+    {{ include('VitelogeCoreBundle:Global:sticker.html.twig', { title: 'ad.sticker.exlusivity'|trans }) }}
+{%- endif -%}
+{% if key is not defined %}
+	{% set key = 0 %}
+{% endif %}
+<a href="{{ path('viteloge_frontend_favourite_view', { 'id': key~'-'~ad.id, 'description':description|slugify }) }}" class="preview setkey" rel="nofollow" target="_blank" data-value="{{ key }}">
+    <img itemprop="image" data-original="{{ aws_s3_domain(ad.photo, false) }}" data-src="{{ aws_s3_domain(ad.photo, false) }}" class="{{ imgClass }}" alt="{{ ad.type~' à '~ad.cityName }}" onerror="this.src = ''">
+   <!-- <img itemprop="image" data-original="{{ aws_s3_domain(ad.photo, false) }}" data-src="{{ aws_s3_domain(ad.photo, false) }}" class="{{ imgClass }}" alt="{{ ad.type~' à '~ad.cityName }}" onerror="this.src = ''" style="height:100% !important">-->
+    <noscript><img itemprop="image" src="{{ aws_s3_domain(ad.photo, false) }}" class="{{ imgClass }}" alt="" onerror="this.src = ''"></noscript>
+</a>
+{%- if ad.privilege.hasLogo -%}
+<div class="pos-relative">
+    <img itemprop="logo" src="{{ aws_s3_domain('logos/agence.'~ad.agencyId~'.gif', false) }}" class="agency-logo img-responsive" alt="logo">
+</div>
+{%- endif -%}
