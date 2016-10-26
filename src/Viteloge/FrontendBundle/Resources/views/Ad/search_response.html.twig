@@ -27,7 +27,6 @@
 
         <div class="col-sm-6 col-md-2 col-lg-4 header-pagination no-padding">
            {%- if pagination is defined -%}
-                <span>
              {%- block pagination -%}
             {%- if pagination is not null and pagination.haveToPaginate -%}
                 {{- pagerfanta(pagination, 'pager_viteloge', {
@@ -35,7 +34,6 @@
                 }) -}}
             {%- endif -%}
         {%- endblock pagination -%}
-        <span>
            {%- endif -%}
         </div>
          <div class="col-sm-3 col-md-6 col-lg-5 text-right no-padding">

@@ -1,7 +1,7 @@
 {%- embed "VitelogeUserBundle:base:box_right.html.twig" with { footer: true } -%}
     {% trans_default_domain 'FOSUserBundle' %}
     {%- block box_title -%}
-        {%- trans from 'messages' -%}user.register.account.exist{%- endtrans -%}
+       <a href="{{ path('fos_user_security_login') }}">{%- trans from 'messages' -%}user.register.account.exist{%- endtrans -%}</a>
     {%- endblock box_title -%}
     {%- block box_content -%}
         <div class="content">

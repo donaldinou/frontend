@@ -53,7 +53,7 @@
 
       <trans-unit id="viteloge.phone" resname="viteloge.phone">
         <source>viteloge.phone</source>
-      <target>Phone</target>
+      <target> Phone</target>
       </trans-unit>
       <trans-unit id="8051fe0c32445dc50d6207fd88abdc5f" resname="All Rents">
         <source>All Rents</source>

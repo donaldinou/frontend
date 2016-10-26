@@ -144,10 +144,14 @@
 
                 <h1 style="text-transform: uppercase;font-size:12px !important;color:#00a1c6;display:inline-block;vertical-align:top;">{{ ad.agencyName~' propose :' }}</h1>
                 <h2 style="text-transform: uppercase;font-size:10px !important;margin:0;padding:0;color:#00a1c6;display:inline-block;vertical-align:top;">{{ ad.type }} {% trans %} ad.at {% endtrans %} {{ ('footer.transaction.article.'~ad.transaction)|trans }} {{ ad.cityName }} ({{ ad.postalcode }}) - {{ ad.price | schematizedcurrency('EUR') | raw }}</h2><br/>
-                 <small style="color:#00a1c6;display: inline-block; line-height: 1; margin-bottom: 5px;"> {{ ad.description|truncate(200, false, '...')|normalize_utf8|raw }}</small>
+                 <small style="color:#00a1c6;display: inline-block; line-height: 1; margin-bottom: 5px;"> {{ ad.description|truncate(200, false, '...')|normalize_utf8|raw }}
+                    {% if ad.description|length < 200 %}<br/>&nbsp;&nbsp;&nbsp;{% endif %}
+                 </small>
+                }
+                }
             </div>
             <div class="col-xs-5 col-sm-2 col-md-2 col-lg-2 text-left">
-
+                  {% if app.request.attributes.get('_route') != 'viteloge_frontend_favourite_view' %}
                                 {% if ads[clef-1] is defined %}
                                 {% set moins =  left~'-'~ads[clef-1].id %}
                                 {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}
@@ -166,7 +170,24 @@
                                     <i class="fa fa-chevron-right"></i>
                                 </button>
                             {% if ads[clef+1] is defined or app.session.get('nextUrl') %}  </a> {% endif %}
+                        {% else %}
+                            {% if ads[clef-1] is defined %}
+                                {% set moins =  left~'-'~ads[clef-1].id %}
+                                <a href="{{ path('viteloge_frontend_favourite_view', { 'id': moins, 'description':description01|slugify }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">{% endif %}
+                                <button type="button" alt="bien précédent" title="bien précédent" class="btn btn-primary btn-lg" {% if ads[clef-1] is not defined %}style ="cursor:none"{% endif %}>
+                                     <i class="fa fa-chevron-left"></i>
+                                </button>
+                               {% if ads[clef-1] is defined %}  </a> {% endif %}
 
+                               <span style="font-size:12px;color:#00a1c6;text-transform: uppercase;">{{ clef+1 }}/{{ total }}</span>
+                            {% if ads[clef+1] is defined %}
+                            {% set plus=  right~'-'~ads[clef+1].id %}
+                            <a href="{{ path('viteloge_frontend_favourite_view', { 'id': plus, 'description':description02|slugify }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">{% endif %}
+                                <button type="button" alt="bien suivant" title="bien suivant" class="btn btn-primary btn-lg"  {% if ads[clef+1] is not defined %}style ="cursor:none"{% endif %}>
+                                    <i class="fa fa-chevron-right"></i>
+                                </button>
+                            {% if ads[clef+1] is defined %}  </a> {% endif %}
+                        {% endif %}
             </div>
             <div class="col-xs-6 col-sm-6 col-md-3 col-lg-4 text-right">
 

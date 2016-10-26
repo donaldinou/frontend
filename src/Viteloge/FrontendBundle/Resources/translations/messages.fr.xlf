@@ -56,7 +56,7 @@
       </trans-unit>
       <trans-unit id="viteloge.phone" resname="viteloge.phone">
         <source>viteloge.phone</source>
-        <target>Téléphoner</target>
+        <target> Téléphoner</target>
       </trans-unit>
       <trans-unit id="viteloge.brand" resname="viteloge.brand">
         <source>viteloge.brand</source>
@@ -556,15 +556,15 @@
       </trans-unit>
       <trans-unit id="ad.rent" resname="ad.rent">
         <source>ad.rent</source>
-        <target>Location</target>
+        <target>à louer</target>
       </trans-unit>
       <trans-unit id="ad.sale" resname="ad.sale">
         <source>ad.sale</source>
-        <target>Achat</target>
+        <target>à acheter</target>
       </trans-unit>
       <trans-unit id="ad.new" resname="ad.new">
         <source>ad.new</source>
-        <target>Neuf</target>
+        <target>neuf</target>
       </trans-unit>
       <trans-unit id="ad.more" resname="ad.more">
         <source>ad.more</source>

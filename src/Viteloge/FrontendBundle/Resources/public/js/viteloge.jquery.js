@@ -505,7 +505,7 @@ jQuery(document).ready(function() {
     }
 
     function acceptPolicy(event) {
-        jQuery.cookie('acceptCookies', 'true', { expires: 7 });
+        jQuery.cookie('acceptCookies', 'true', { expires: 365 });
         var parent = jQuery(event.currentTarget).data('parent');
         if (jQuery(parent)) {
             jQuery(parent).hide('slow', function() { jQuery(parent).remove(); });

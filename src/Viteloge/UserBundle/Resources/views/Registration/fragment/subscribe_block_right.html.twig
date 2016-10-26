@@ -1,7 +1,7 @@
 {% extends "VitelogeUserBundle:base:box_right.html.twig" %}
 
 {%- block box_title -%}
-    {% trans %}user.register.account.no{% endtrans %}
+    <a href="{{ path('fos_user_registration_register') }}">{% trans %}user.register.account.no{% endtrans %}</a>
 {%- endblock -%}
 
 {%- block box_content -%}
