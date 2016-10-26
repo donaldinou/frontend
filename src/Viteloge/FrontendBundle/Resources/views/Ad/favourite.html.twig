@@ -17,40 +17,33 @@
 
     {%- endembed -%}
 {%- endblock -%}
+
 {%- block breadcrumb %}
+  <div class="container-fluid">
+<div class="row no-padding subrow">
+<div class="col-sm-3 col-md-4 col-lg-3 no-padding">
  {{ wo_render_breadcrumbs() }}
-{% endblock breadcrumb -%}
-{%- block header_more -%}
-        <div class="subheader-paginate">
-            <div class="col-sm-12 col-md-12 col-lg-12 header-pagination">
-        {%- if pagination is defined -%}
-                <span>
+</div>
+<div class="col-sm-6 col-md-2 col-lg-4 header-pagination no-padding">
+           {%- if pagination is defined -%}
              {%- block pagination -%}
             {%- if pagination is not null and pagination.haveToPaginate -%}
-                {{- pagerfanta(pagination, 'pager_viteloge', {
-                    'routeParams': app.request.query.all
-                }) -}}
+                {{- pagerfanta(pagination, 'pager_viteloge') -}}
             {%- endif -%}
         {%- endblock pagination -%}
-        <span>
            {%- endif -%}
-            </div>
-
         </div>
+         <div class="col-sm-3 col-md-6 col-lg-5 text-right no-padding">
+            {% set count = pagination.nbResults|default(ads|length) %}
+            <h1 class="small_header">{% transchoice count with { '%count%' : count} %}ads.count.favourite{% endtranschoice %}</h1>
+        </div>
+        {% endblock breadcrumb -%}
+{%- block header_more -%}
+
 
 {%- endblock header_more -%}
 {%- block header_end -%}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-10 col-md-9 col-lg-9">
 
-                {% set count = pagination.nbResults|default(ads|length) %}
-
-            <h1 class="small_header">{% transchoice count with { '%count%' : count} %}ads.count.favourite{% endtranschoice %}</h1>
-            </div>
-
-        </div>
-    </div>
 
 {%- endblock -%}
 

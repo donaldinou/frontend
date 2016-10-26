@@ -40,7 +40,7 @@
             </trans-unit>
             <trans-unit id="user.register.account.no" resname="user.register.account.no">
                 <source>user.register.account.no</source>
-                <target>Vous n'avez pas de compte</target>
+                <target>Vous devez être inscrit pour:</target>
             </trans-unit>
             <trans-unit id="user.register.account.line1" resname="user.register.account.line1">
                 <source>user.register.account.line1</source>

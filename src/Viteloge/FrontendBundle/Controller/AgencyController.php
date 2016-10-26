@@ -52,6 +52,13 @@ namespace Viteloge\FrontendBundle\Controller {
          *     name="viteloge_frontend_agency_view"
          * )
          * @Route(
+         *     "/favourite/{id}/{description}",
+         *     requirements={
+         *
+         *     },
+         *     name="viteloge_frontend_favourite_view"
+         * )
+         * @Route(
          *     "/home/{id}/{description}",
          *     requirements={
          *
@@ -154,6 +161,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
 
             // on verifie si le bien est déja en favorie
+            $time =time() + (3600 * 24 * 365);
             $favorie = false;
             if ($cookies->has('viteloge_favorie')){
               $info_cookies_favorie = explode('#$#', $cookies->get('viteloge_favorie')) ;
@@ -238,9 +246,9 @@ namespace Viteloge\FrontendBundle\Controller {
 */
 
             // Envoie le cookie
-            $response->headers->setCookie(new Cookie('viteloge_photo', $cookie_photo));
-            $response->headers->setCookie(new Cookie('viteloge_url', $cookie_url));
-            $response->headers->setCookie(new Cookie('viteloge_title', $cookie_title));
+            $response->headers->setCookie(new Cookie('viteloge_photo', $cookie_photo, $time));
+            $response->headers->setCookie(new Cookie('viteloge_url', $cookie_url, $time));
+            $response->headers->setCookie(new Cookie('viteloge_title', $cookie_title, $time));
             //$response->send();
 
             $verifurl= $this->verifurl($ad->getUrl());

@@ -609,6 +609,7 @@ namespace Viteloge\FrontendBundle\Controller {
          */
         public function favorieAction(Request $request, Ad $ad) {
             if($request->isXmlHttpRequest()){
+                $time =time() + (3600 * 24 * 365);
                 $cookies = $request->cookies;
             if ($cookies->has('viteloge_favorie')){
                     $cookie_favorie = $cookies->get('viteloge_favorie').'#$#'.$ad->getId();
@@ -616,7 +617,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 $cookie_favorie = $ad->getId();
             }
             $response = new Response();
-            $response->headers->setCookie(new Cookie('viteloge_favorie', $cookie_favorie));
+            $response->headers->setCookie(new Cookie('viteloge_favorie', $cookie_favorie,$time));
                 return $this->render('VitelogeFrontendBundle:Ad:cookie.html.twig',array(), $response);
 
             }else{
@@ -1023,13 +1024,21 @@ namespace Viteloge\FrontendBundle\Controller {
          *
          *
          * @Route(
-         *     "/list/favourite",
+         *     "/list/favourite/$page/$limit",
+         *    requirements={
+         *         "page"="\d+",
+         *         "limit"="\d+"
+         *     },
+         *     defaults={
+         *         "page"=1,
+         *         "limit"="25"
+         *     },
          *     name="viteloge_frontend_favourite_list"
          * )
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:Ad:favourite.html.twig")
          */
-        public function listFavouriteAction(Request $request) {
+        public function listFavouriteAction(Request $request, $page, $limit) {
            $translated = $this->get('translator');
            $currentUrl = $request->getUri();
            $session = $request->getSession();
@@ -1058,7 +1067,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 $info_cookies_favorie = explode('#$#', $cookies->get('viteloge_favorie')) ;
                 $repository = $this->getDoctrine()->getRepository('VitelogeCoreBundle:Ad');
              $ads = $repository->findById($info_cookies_favorie);
-             $session->set('resultAd', $ads);
+
              // SEO
             $canonicalLink = $this->get('router')->generate(
                 $request->get('_route'),
@@ -1074,13 +1083,22 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->addMeta('property', 'og:url',  $canonicalLink)
                 ->setLinkCanonical($canonicalLink)
             ;
+
+            $adapter = new ArrayAdapter($ads);
+            $pagination = new Pagerfanta($adapter);
+           // $pagination = $ads;
             // --
-            //$session->set('resultAd',$pagination->getCurrentPageResults());
-
-
+            // pager
+            $pagination->setMaxPerPage($limit);
+            $pagination->setCurrentPage($page);
+            $session->set('currentPage',$pagination->getCurrentPage());
+            $session->set('resultAd',$pagination->getCurrentPageResults());
+            $session->set('totalResult',$pagination->getNbResults());
             return array(
                 'form' => $form->createView(),
-                'ads' => $ads
+                'ads' => $pagination->getCurrentPageResults(),
+                'pagination' => $pagination,
+                //'csrf_token' => $csrfToken,
             );
 
             }else{

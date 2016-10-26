@@ -100,7 +100,7 @@
       </trans-unit>
       <trans-unit id="viteloge_frontend_favourite_list" resname="viteloge_frontend_favourite_list">
         <source>viteloge_frontend_favourite_list</source>
-        <target>/annonce/liste/favoris/</target>
+        <target>/annonce/liste/favoris/{page}/{limit}</target>
       </trans-unit>
       <trans-unit id="viteloge_frontend_favourite_remove" resname="viteloge_frontend_favourite_remove">
         <source>viteloge_frontend_favourite_remove</source>
@@ -113,6 +113,10 @@
       <trans-unit id="077162a103b9c7484f2d03dae2ce14ab" resname="viteloge_frontend_ad_redirect">
         <source>viteloge_frontend_ad_redirect</source>
         <target>/annonce/redirection/{id}</target>
+      </trans-unit>
+      <trans-unit id="viteloge_frontend_favourite_view" resname="viteloge_frontend_favourite_view">
+        <source>viteloge_frontend_favourite_view</source>
+        <target>/annonce/favorite/{id}/{description</target>
       </trans-unit>
       <trans-unit id="viteloge_frontend_agency_view" resname="viteloge_frontend_agency_view">
         <source>viteloge_frontend_agency_view</source>
