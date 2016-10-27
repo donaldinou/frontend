@@ -78,16 +78,16 @@
 .main-top{
     margin-top: 133px;
      @media (max-width: $screen-lg-min) {
-            margin-top: 160px
+            margin-top: 133px
         }
     @media (max-width: $screen-md-min) {
-            margin-top: 136px
+            margin-top: 129px
         }
     @media (max-width: $screen-sm-min) {
-            margin-top: 226px
+            margin-top: 219px
         }
     @media (max-width: $screen-xs-min) {
-            margin-top: 226px;
+            margin-top: 219px;
         }
 }
 
@@ -106,11 +106,15 @@
 }
 
 .main-search{
-    margin-top: 145px;
+    margin-top: -12px;
+    @media (max-width: $screen-lg-min) {
+            margin-top: 18px
+        }
     @media (max-width: $screen-md-min) {
-            margin-top: 162px
+            margin-top: -21px
         }
     @media (max-width: $screen-sm-min) {
-            margin-top: 237px
+            margin-top: 70px
         }
+
 }

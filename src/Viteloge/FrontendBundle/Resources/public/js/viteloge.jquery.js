@@ -5,7 +5,6 @@ if (typeof jQuery === 'undefined') {
 jQuery(document).ready(function() {
     initLazyLoad();
 
-
     jQuery('#identification .dropdown').on('show.bs.dropdown', function (event) {
         jQuery(event.currentTarget).parent().addClass("identification__focus");
     });
@@ -790,7 +789,7 @@ var generateUUID = function generateUUID() {
     }
 
 
-    //ajoue des favories
+    //recherche du num surtaxe
 
     function GetPhoneNumber(){
         jQuery('#surtaxphone').click(function() {
@@ -798,7 +797,7 @@ var generateUUID = function generateUUID() {
             jQuery.ajax({
             url: Routing.generate('viteloge_frontend_agency_phone', {id: _id}, true),
             context: jQuery(this),
-            method: 'GET',
+            method: 'POST',
             beforeSend: function() {
                  jQuery(this).off('click');
                  jQuery('.loader').removeClass('hidden').addClass('in');
@@ -813,6 +812,7 @@ var generateUUID = function generateUUID() {
                 if(data.phone !='Pas de Numéro'){
                  jQuery('.modal-body').html(data.cout);
                  jQuery('#linkPhone').attr("href", "tel:"+data.phone);
+                 jQuery('#linkPhone').attr("data-value", data.id);
                 }else{
                     jQuery('#btnPhone').html('');
                 }
@@ -820,6 +820,26 @@ var generateUUID = function generateUUID() {
                 jQuery('.loader').addClass('hidden').removeClass('in');
                 jQuery('.loader-backdrop').addClass('hidden').removeClass('in');
 
+              jQuery(this).on('click');
+              CallPhone();
+            }
+          });
+        });
+    }
+
+    //enregistrement action de tel
+
+    function CallPhone(){
+        jQuery('#linkPhone').click(function() {
+            var _id = jQuery(this).attr('data-value');
+            jQuery.ajax({
+            url: Routing.generate('viteloge_frontend_agency_call', {id: _id}, true),
+            context: jQuery(this),
+            method: 'POST',
+            beforeSend: function() {
+                 jQuery(this).off('click');
+                },
+            success: function() {
               jQuery(this).on('click');
             }
           });

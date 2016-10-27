@@ -8,26 +8,79 @@ namespace Viteloge\FrontendBundle\Entity {
     use Viteloge\CoreBundle\Entity\Ad;
 
     /**
-     * @ORM\Entity
+     * Message
+     *
+     * @ORM\Table(name="message")
+     * @ORM\Entity(repositoryClass="Viteloge\FrontendBundle\Repository\MessageRepository")
      */
     class Message {
 
         /**
          * @var integer
          *
-         * @ORM\Id
          * @ORM\Column(name="id", type="integer")
-         * @ORM\GeneratedValue(strategy="IDENTITY")
+         * @ORM\Id
+         * @ORM\GeneratedValue(strategy="AUTO")
          */
-        private $id;
+        protected $id;
+
+        /**
+         * @var \DateTime
+         *
+         * @ORM\Column(name="date", type="datetime", nullable=false)
+         */
+        protected $date;
+
+        /**
+         * @var integer
+         *
+         * @ORM\Column(name="annee", type="smallint", nullable=false)
+         */
+        protected $year;
+
+        /**
+         * @var integer
+         *
+         * @ORM\Column(name="mois", type="smallint", nullable=false)
+         */
+        protected $month;
+
+        /**
+         * @var integer
+         *
+         * @ORM\Column(name="jour", type="smallint", nullable=false)
+         */
+        protected $day;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="ip", type="string", length=15, nullable=false)
+         */
+        protected $ip;
+
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="UA", type="string", length=128, nullable=false)
+         */
+        protected $ua;
 
         /**
          *
+         * @ORM\ManyToOne(targetEntity="Viteloge\CoreBundle\Entity\User")
+         * @ORM\JoinColumns({
+         *   @ORM\JoinColumn(name="idUser", referencedColumnName="id")
+         * })
          */
         protected $user;
 
         /**
          *
+         * @ORM\ManyToOne(targetEntity="Viteloge\CoreBundle\Entity\Ad")
+         * @ORM\JoinColumns({
+         *   @ORM\JoinColumn(name="idAnnonce", referencedColumnName="idAnnonce")
+         * })
          */
         protected $ad;
 
@@ -36,6 +89,7 @@ namespace Viteloge\FrontendBundle\Entity {
          *      min = "2",
          *      max = "64"
          * )
+         * @ORM\Column(name="firstname",type="string",length=255)
          */
         protected $firstname;
 
@@ -45,6 +99,7 @@ namespace Viteloge\FrontendBundle\Entity {
          *      min = "2",
          *      max = "64"
          * )
+         * @ORM\Column(name="lastname",type="string",length=255)
          */
         protected $lastname;
 
@@ -54,6 +109,7 @@ namespace Viteloge\FrontendBundle\Entity {
          *      checkHost = true,
          *      checkMX = true
          * )
+         * @ORM\Column(name="email",type="string",length=255)
          */
         protected $email;
 
@@ -63,6 +119,7 @@ namespace Viteloge\FrontendBundle\Entity {
          *      min = "5",
          *      max = "250"
          * )
+         * @ORM\Column(name="message",type="string",length=255)
          */
         protected $message;
 
@@ -73,14 +130,183 @@ namespace Viteloge\FrontendBundle\Entity {
          *     match=true,
          *     message="viteloge.assert.phone"
          * )
+         * @ORM\Column(name="phone",type="string",length=15)
          */
         protected $phone;
+
+        /**
+         * @return Contacts
+         */
+        protected function updateCreatedAt() {
+            $this->date->setDate($this->getYear(), $this->getMonth(), $this->getDay());
+            return $this;
+        }
 
         /**
          *
          */
         public function __construct(Ad $ad) {
             $this->setAd($ad);
+            $this->setDate(new \DateTime('now'));
+        }
+
+        /**
+         * Get id
+         *
+         * @return integer
+         */
+        public function getId()
+        {
+            return $this->id;
+        }
+
+        /**
+         * Set date
+         *
+         * @param \DateTime $date
+         * @return Message
+         */
+        public function setDate($date) {
+            try {
+                $this->date = clone $date;
+                $this->setYear((int)$date->format('Y'));
+                $this->setMonth((int)$date->format('m'));
+                $this->setDay((int)$date->format('d'));
+            } catch (\Exception $e) {
+
+            }
+            return $this;
+        }
+
+        /**
+         * Get date
+         *
+         * @return \DateTime
+         */
+        public function getDate()
+        {
+            return $this->date;
+        }
+
+        /**
+         * Set year
+         *
+         * @param integer $year
+         * @return Message
+         */
+        public function setYear($year) {
+            if (is_int($year)) {
+                $this->year = $year;
+                $this->updateCreatedAt();
+            }
+
+            return $this;
+        }
+
+        /**
+         * Get year
+         *
+         * @return integer
+         */
+        public function getYear()
+        {
+            return $this->year;
+        }
+
+        /**
+         * Set month
+         *
+         * @param integer $month
+         * @return Message
+         */
+        public function setMonth($month) {
+            if (is_int($month)) {
+                $this->month = $month;
+                $this->updateCreatedAt();
+            }
+
+            return $this;
+        }
+
+        /**
+         * Get month
+         *
+         * @return integer
+         */
+        public function getMonth()
+        {
+            return $this->month;
+        }
+
+        /**
+         * Set day
+         *
+         * @param integer $day
+         * @return Message
+         */
+        public function setDay($day) {
+            if (is_int($day)) {
+                $this->day = $day;
+                $this->updateCreatedAt();
+            }
+
+            return $this;
+        }
+
+        /**
+         * Get day
+         *
+         * @return integer
+         */
+        public function getDay()
+        {
+            return $this->day;
+        }
+
+        /**
+         * Set ip
+         *
+         * @param string $ip
+         * @return Message
+         */
+        public function setIp($ip)
+        {
+            $this->ip = $ip;
+
+            return $this;
+        }
+
+        /**
+         * Get ip
+         *
+         * @return string
+         */
+        public function getIp()
+        {
+            return $this->ip;
+        }
+
+        /**
+         * Set ua
+         *
+         * @param string $ua
+         * @return Message
+         */
+        public function setUa($ua)
+        {
+            $this->ua = $ua;
+
+            return $this;
+        }
+
+        /**
+         * Get ua
+         *
+         * @return string
+         */
+        public function getUa()
+        {
+            return $this->ua;
         }
 
         /**

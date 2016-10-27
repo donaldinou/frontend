@@ -55,20 +55,17 @@
 
                 {% endblock %}
                 {% block header_navbarmenu %}
-                    <div class="navbar-wrapper">
+                    <div class="navbar-wrapper header-top">
                         {%- block header_brand -%}
-                        <div class="col-md-11 col-lg-10">
-
-
-                             {%- if form is defined -%}
+                        <div class="col-md-10">
 
                             <a class="col-md-2 col-sm-1 navbar-brand" href="{{ path('viteloge_frontend_homepage') }}">
                                 <img width="100%" src="{{ aws_s3_domain('bundles/vitelogecore/images/fr/logo-viteloge-moteur-recherche-immobilier.svg') }}" class="logo img-responsive" alt="{% trans %}viteloge.brand{% endtrans %}" title="{% trans %}viteloge.brand{% endtrans %} - {% trans %}viteloge.slogan{% endtrans %}" itemprop="logo" data-role="logo">
                             </a>
+                       {%- if form is defined -%}
+                                    {# include('VitelogeFrontendBundle:Ad:form/adSearch.html.twig', { form: form, isTransactionLabelHidden: false, theme_container: 'search-container' }) #}
 
-                                    {{ include('VitelogeFrontendBundle:Ad:form/adSearch.html.twig', { form: form, isTransactionLabelHidden: false, theme_container: 'search-container' }) }}
-
-
+                                   {{ include('VitelogeFrontendBundle:Ad:form/adSearch_redirect.html.twig', { form: form, isTransactionLabelHidden: false, theme_container: 'search-container' }) }}
                         {%- endif -%}
                         </div>
                         <hr class="visible-xs">

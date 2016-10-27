@@ -129,7 +129,7 @@
 
             {% endblock header_more -%}
         </header>
-        <main class="main clearfix{% if app.request.attributes.get('_route') != 'viteloge_frontend_homepage' %}{% if app.request.attributes.get('_route') == 'viteloge_frontend_ad_search' or app.request.attributes.get('_route') == 'viteloge_frontend_ad_latest_list' or app.request.attributes.get('_route') == 'viteloge_frontend_favourite_list' %} main-top {% elseif app.request.attributes.get('_route') == 'viteloge_frontend_ad_view' %} main-site {% elseif app.request.attributes.get('_route') == 'viteloge_frontend_agency_view' or app.request.attributes.get('_route') == 'viteloge_frontend_favourite_view' %} {% else %} main-small {% endif %}{% endif %}" role="main">
+        <main class="main clearfix{% if app.request.attributes.get('_route') != 'viteloge_frontend_homepage' %}{% if app.request.attributes.get('_route') == 'viteloge_frontend_ad_search' or app.request.attributes.get('_route') == 'viteloge_frontend_ad_latest_list' or app.request.attributes.get('_route') == 'viteloge_frontend_favourite_list' %} main-top {% elseif app.request.attributes.get('_route') == 'viteloge_frontend_ad_view' %} main-site {% elseif app.request.attributes.get('_route') == 'viteloge_frontend_agency_view' or app.request.attributes.get('_route') == 'viteloge_frontend_favourite_view' %} main-search {% else %} main-small {% endif %}{% endif %}" role="main">
 
         {%- block body_start -%}
 
