@@ -68,7 +68,7 @@
                 <div class=" col-md-2 col-sm-2 col-xs-12 last-input" aria-label="">
                     {{ form_widget(form.search, {
                                 'label': 'ad.search',
-                                'span_class': 'hidden-sm fa fa-search',
+                                'span_class': 'hidden-sm hidden-md fa fa-search',
                                 'attr': {
                                     'class': 'btn btn-primary searchbtn text-uppercase header-height',
                                     'role': 'button'
@@ -82,7 +82,7 @@
 
 
             <div id="hiddeninput" class="row hidden" role="tabpanel">
-                <div class="col-xs-12 col-md-offset-2 col-sm-4 col-md-4 no-padding quatre-input">
+                <div class="col-xs-12 col-md-offset-2 col-sm-offset-1 col-sm-3 col-md-4 no-padding quatre-input">
                     {{ form_row(form.rooms, {
                         'label_attr': {
                             'class': 'sr-only'
@@ -105,7 +105,7 @@
                         }
                     }) }}
                 </div>
-                <div class="col-xs-12 col-sm-3 col-md-2 no-padding sixe-input">
+                <div class="col-xs-12 col-sm-2 col-md-2 no-padding sixe-input">
                     {{ form_row(form.maxPrice, {
                         'label_attr': {
                             'class': 'sr-only'

@@ -15,6 +15,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use Viteloge\FrontendBundle\Form\Type\ContactType;
     use Viteloge\CoreBundle\Entity\User;
 
+
     /**
      * Contact controller.
      *
@@ -34,7 +35,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 $contact,
                 array(
                     'action' => $this->generateUrl('viteloge_frontend_contact_create'),
-                    'method' => 'POST'
+                    'method' => 'GET'
                 )
             );
         }
@@ -70,7 +71,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      "/",
          *      name="viteloge_frontend_contact_create"
          * )
-         * @Method("POST")
+         * @Method("GET")
          * @Template("VitelogeFrontendBundle:Contact:new.html.twig")
          */
         public function createAction(Request $request) {
@@ -92,6 +93,24 @@ namespace Viteloge\FrontendBundle\Controller {
 
                 $result = $this->sendMessage($contact);
                 if ($result) {
+                    $forbiddenUA = array(
+                        'yakaz_bot' => 'YakazBot/1.0',
+                        'mitula_bot' => 'java/1.6.0_26'
+                    );
+                    $forbiddenIP = array(
+
+                    );
+                    $ua = $request->headers->get('User-Agent');
+                    $ip = $request->getClientIp();
+
+                    // log redirect
+                    if (!in_array($ua, $forbiddenUA) && !in_array($ip, $forbiddenIP)) {
+                        $now = new \DateTime('now');
+                        $contact->setIp($ip);
+                        $contact->setUa($ua);
+                        $em->persist($contact);
+                        $em->flush();
+                    }
                     return $this->redirect($this->generateUrl('viteloge_frontend_contact_success', array()));
                 }
                 $form->addError(new FormError($trans->trans('contact.send.error')));

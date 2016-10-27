@@ -366,6 +366,10 @@
         <source>viteloge_frontend_agency_phone</source>
         <target>/annonce/telephone/surtaxe/{id}</target>
       </trans-unit>
+      <trans-unit id="viteloge_frontend_agency_call" resname="viteloge_frontend_agency_call">
+        <source>viteloge_frontend_agency_call</source>
+        <target>/annonce/telephone/appelle/{id}</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -18,7 +18,7 @@ namespace Viteloge\CoreBundle\Component\Enum {
             return array(
                 self::SALE => 'ad.sale',
                 self::RENT => 'ad.rent',
-                self::NEWER => 'ad.new'
+                self::NEWER => 'ad.new',
             );
         }
 

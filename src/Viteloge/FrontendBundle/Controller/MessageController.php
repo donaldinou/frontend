@@ -13,8 +13,10 @@ namespace Viteloge\FrontendBundle\Controller {
     use Symfony\Component\Form\FormError;
     use Viteloge\CoreBundle\Entity\Ad;
     use Viteloge\CoreBundle\Entity\User;
+    use Viteloge\CoreBundle\Entity\Infos;
     use Viteloge\FrontendBundle\Entity\Message;
     use Viteloge\FrontendBundle\Form\Type\MessageType;
+
 
     /**
      * Message controller.
@@ -82,6 +84,7 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:Message:new.html.twig")
          */
         public function createAction(Request $request, Ad $ad) {
+            $em = $this->getDoctrine()->getManager();
             $trans = $this->get('translator');
             $message = new Message($ad);
             $message->setUser($this->getUser());
@@ -100,6 +103,32 @@ namespace Viteloge\FrontendBundle\Controller {
 
                 $result = $this->sendMessage($message);
                 if ($result) {
+                    // --on enregistre l'action
+
+                    $forbiddenUA = array(
+                        'yakaz_bot' => 'YakazBot/1.0',
+                        'mitula_bot' => 'java/1.6.0_26'
+                    );
+                    $forbiddenIP = array(
+
+                    );
+                    $ua = $request->headers->get('User-Agent');
+                    $ip = $request->getClientIp();
+
+                    // log redirect
+                    if (!in_array($ua, $forbiddenUA) && !in_array($ip, $forbiddenIP)) {
+                        $now = new \DateTime('now');
+                        $info = new Infos();
+                        $info->setIp($ip);
+                        $info->setUa($ua);
+                        $message->setIp($ip);
+                        $message->setUa($ua);
+                        $info->setGenre('message');
+                        $info->initFromAd($ad);
+                        $em->persist($info);
+                        $em->persist($message);
+                        $em->flush();
+                    }
                     return $this->redirect($this->generateUrl('viteloge_frontend_message_success', array()));
                 }
                 $form->addError(new FormError($trans->trans('message.send.error')));
