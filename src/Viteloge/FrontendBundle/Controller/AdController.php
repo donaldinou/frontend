@@ -654,9 +654,13 @@ namespace Viteloge\FrontendBundle\Controller {
         public function latestAction(Request $request, $limit) {
             $adSearch = new AdSearch();
             $adSearch->handleRequest($request);
+            // Save session
+            $session = $request->getSession();
             $elasticaManager = $this->container->get('fos_elastica.manager');
             $repository = $elasticaManager->getRepository('VitelogeCoreBundle:Ad');
             $ads = $repository->search($adSearch, $limit);
+            $session->set('resultAd', $ads);
+            $session->set('totalResult',count($ads));
             return array(
                 'transaction' => $adSearch->getTransaction(),
                 'cityName' => $request->query->get('cityName'),
@@ -685,7 +689,7 @@ namespace Viteloge\FrontendBundle\Controller {
         public function latesthomeAction(Request $request, $limit) {
 
             $adSearch = new AdSearch();
-
+            $session = $request->getSession();
             $elasticaManager = $this->container->get('fos_elastica.manager');
             $repository = $elasticaManager->getRepository('VitelogeCoreBundle:Ad');
             $ads = $repository->search($adSearch, 24);
@@ -768,8 +772,8 @@ namespace Viteloge\FrontendBundle\Controller {
             $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
             // Save session
             $session = $request->getSession();
+            $session->set('totalResult',$pagination->getNbResults());
             $session->set('resultAd',$pagination->getCurrentPageResults());
-            $session->set('resultAd', $ads);
             $session->remove('request');
 
             return array(

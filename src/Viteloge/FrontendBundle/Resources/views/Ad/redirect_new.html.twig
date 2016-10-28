@@ -142,8 +142,8 @@
             </div>
             <div class="hidden-xs hidden-sm col-md-6 col-lg-5">
 
-                <h1 style="text-transform: uppercase;font-size:12px !important;color:#00a1c6;display:inline-block;vertical-align:top;">{{ ad.agencyName~' propose :' }}</h1>
-                <h2 style="text-transform: uppercase;font-size:10px !important;margin:0;padding:0;color:#00a1c6;display:inline-block;vertical-align:top;">{{ ad.type }} {% trans %} ad.at {% endtrans %} {{ ('footer.transaction.article.'~ad.transaction)|trans }} {{ ad.cityName }} ({{ ad.postalcode }}) - {{ ad.price | schematizedcurrency('EUR') | raw }}</h2><br/>
+                <h2 style="text-transform: uppercase;font-size:12px !important;margin:0;padding:0;color:#00a1c6;display:inline-block;vertical-align:top;">{{ ad.agencyName~' vous propose ' }}</h2>
+                <h1 style="text-transform: uppercase;font-size:12px !important;color:#00a1c6;display:inline-block;vertical-align:top;">{% if ad.type == 'maison' %} une {% else %} un {% endif %}{{ ad.type }}{% trans %} ad.at {% endtrans %} {{ ('footer.transaction.article.'~ad.transaction)|trans }}{% trans %} ad.at {% endtrans %} {{ ad.cityName }} ({{ ad.postalcode }}) - {{ ad.price | schematizedcurrency('EUR') | raw }}</h1><br/>
                  <small style="text-transform: lowercase;color:#00a1c6;display: inline-block; line-height: 1; margin-bottom: 5px;"> {{ ad.description|truncate(200, false, '...')|normalize_utf8|raw }}
                     {% if ad.description|length < 200 %}<br/>&nbsp;&nbsp;&nbsp;{% endif %}
                  </small>
@@ -159,7 +159,7 @@
                                 </button>
                                {% if ads[clef-1] is defined or app.session.get('previewUrl') %}  </a> {% endif %}
 
-                               <span style="font-size:12px;color:#00a1c6;text-transform: uppercase;">{{ clef+1 }}/{{ total }}</span>
+                               <span style="font-size:12px;color:#00a1c6;text-transform: uppercase;">{{ clef+1 }}/{% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}24{% else %}{{ total }}{% endif %}</span>
                                 {% if ads[clef+1] is defined %}
                                     {% set plus=  right~'-'~ads[clef+1].id %}
                             {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}

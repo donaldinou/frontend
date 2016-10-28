@@ -29,10 +29,21 @@ jQuery(document).ready(function() {
         }
 
     });
+   jQuery('.deux-input').on('select2:select', function(e) {
+        var nb_select = jQuery('.deux-input .select2-selection__rendered .select2-selection__choice').length;
+
+        if(nb_select > 1){
+          jQuery('.deux-input .select2-selection__rendered .select2-selection__choice').first().remove();
+          jQuery('#viteloge_core_adsearch_transaction option').first().remove();
+          reloadOptionTransaction();
+
+        }
+
+    });
     function reloadOptionTransaction(){
 
     jQuery('#viteloge_core_adsearch_transaction').find('option').remove().end().append('<option value="V">à acheter</option><option value="L">à louer</option><option value="N">neuf</option>');
-    jQuery('.second-input .select2-selection__choice').append('<li class="select2-selection__choice" title="à louer"><span class="select2-selection__choice__remove" role="presentation">×</span>à louer</li>');
+
    }
     function matchStart (term, text) {
   if (text.toUpperCase().indexOf(term.toUpperCase()) == 0) {

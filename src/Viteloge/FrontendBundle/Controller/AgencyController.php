@@ -78,7 +78,9 @@ namespace Viteloge\FrontendBundle\Controller {
             $session = $request->getSession();
             $ads = $session->get('resultAd');
 
-            $total = $session->get('totalResult');
+              $total = $session->get('totalResult');
+
+
 
             $search = $session->get('request');
 
@@ -168,17 +170,22 @@ namespace Viteloge\FrontendBundle\Controller {
               $info_cookies_favorie = explode('#$#', $cookies->get('viteloge_favorie')) ;
               $favorie = in_array($ad->getId(), $info_cookies_favorie);
             }
-
+                       if(!empty($ad->getPhoto())){
+                         $photo = $ad->getPhoto();
+                        }else{
+                          $photo = 'no-picture.jpg';
+                        }
             if ($cookies->has('viteloge_photo'))
             {
                 $info_cookies_photo = explode('#$#', $cookies->get('viteloge_photo')) ;
                     $j = count($info_cookies_photo);
                     if($j <= 5){
-                        // si moins de 6 photo on ajoute
-                       $cookie_photo = $cookies->get('viteloge_photo').'#$#'.$ad->getPhoto();
+                       // si moins de 6 photo on ajoute
+
+                         $cookie_photo = $cookies->get('viteloge_photo').'#$#'.$photo;
                     }else{
                         //ici on supprime le premier element du tableau et reconstruit
-                        $cookie_photo = $ad->getPhoto();
+                        $cookie_photo = $photo;
                         unset($info_cookies_photo[5]);
                         foreach ($info_cookies_photo as  $value) {
 
@@ -188,7 +195,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
                     }
             }else{
-                $cookie_photo = $ad->getPhoto();
+                $cookie_photo = $photo;
             }
 
 
