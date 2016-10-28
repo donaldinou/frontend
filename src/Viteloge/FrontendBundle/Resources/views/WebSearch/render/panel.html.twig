@@ -9,10 +9,12 @@
 {%- endblock panel_title -%}
 
 {%- block panel_buttons_before -%}
-    <div class="btn-group btn-group-xs pull-right" role="group" aria-label="{{ websearch.title }} {% trans %}websearch.actions{% endtrans %}">
+    <div class="col-md-1 btn-group btn-group-xs pull-right" role="group" aria-label="{{ websearch.title }} {% trans %}websearch.actions{% endtrans %}">
         <a href="{{ path('viteloge_frontend_ad_searchfromusersearch', { id: websearch.userSearch.id }) }}" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="{% trans %}websearch.action.show{% endtrans %}" aria-label="{% trans %}websearch.action.show{% endtrans %}">
             <span class="fa fa-search" aria-hidden="true"></span>
         </a>
+    </div>
+    <div class="col-md-1 btn-group btn-group-xs pull-right">
         {% if websearch.deletedAt %}
             <a href="{{ path('viteloge_frontend_websearch_history_edit', { id: websearch.id }) }}" class="btn btn-default" role="button" data-toggle="tooltip" data-placement="top" title="{% trans %}websearch.action.edit{% endtrans %}" aria-label="{% trans %}websearch.action.edit{% endtrans %}">
                 <span class="fa fa-edit" aria-hidden="true"></span>

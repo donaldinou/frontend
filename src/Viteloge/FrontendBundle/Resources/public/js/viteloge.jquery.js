@@ -18,6 +18,31 @@ jQuery(document).ready(function() {
     });
 
 
+    jQuery('.second-input').on('change', function(e) {
+        var nb_select = jQuery('.second-input .select2-selection__rendered .select2-selection__choice').length;
+
+        if(nb_select > 1){
+
+          jQuery('.second-input .select2-selection__rendered .select2-selection__choice').first().remove();
+          jQuery('#viteloge_core_adsearch_transaction option').first().remove();
+          reloadOptionTransaction();
+
+        }
+
+    });
+    function reloadOptionTransaction(){
+
+    jQuery('#viteloge_core_adsearch_transaction').find('option').remove().end().append('<option value="V">à acheter</option><option value="L">à louer</option><option value="N">neuf</option>');
+
+   }
+    function matchStart (term, text) {
+  if (text.toUpperCase().indexOf(term.toUpperCase()) == 0) {
+    return true;
+  }
+
+  return false;
+}
+
     jQuery('#viteloge_core_adsearch_minPrice').on('change', function (event) {
         _val_cinq = jQuery(this).val();
          if(_val_cinq == ''){

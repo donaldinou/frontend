@@ -125,7 +125,8 @@ namespace Viteloge\FrontendBundle\Controller {
          */
         public function historyAction(Request $request) {
             $translated = $this->get('translator');
-
+            $session = $request->getSession();
+            $requestSearch = $session->get('request');
             // Breadcrumbs
             $this->initBreadcrumbs(true, 'breadcrumb.alert.history');
             // --
@@ -149,10 +150,13 @@ namespace Viteloge\FrontendBundle\Controller {
             $filters = $em->getFilters();
             $filters->disable('softdeleteable');
             // --
-
+            $adSearch = new AdSearch();
+            $adSearch->handleRequest($requestSearch);
+            $headform = $this->createForm('viteloge_core_adsearch', $adSearch);
             $webSearches = $this->getUser()->getWebSearches();
             return array(
-                'webSearches' => $webSearches
+                'webSearches' => $webSearches,
+                'headform' => $headform->createView(),
             );
         }
 
@@ -334,7 +338,8 @@ namespace Viteloge\FrontendBundle\Controller {
          */
         public function createAction(Request $request) {
             $translated = $this->get('translator');
-
+            $session = $request->getSession();
+            $requestSearch = $session->get('request');
             // Breadcrumbs
             $this->initBreadcrumbs();
             $this->breadcrumbs->addItem($translated->trans('breadcrumb.alert.action.add', array(), 'breadcrumbs'));
@@ -373,10 +378,14 @@ namespace Viteloge\FrontendBundle\Controller {
                 );
                 return $this->redirectToRoute('viteloge_frontend_websearch_list');
             }
-
+            $adSearch = new AdSearch();
+            $adSearch->handleRequest($requestSearch);
+            $headform = $this->createForm('viteloge_core_adsearch', $adSearch);
             return array(
                 'websearch' => $webSearch,
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'headform' => $headform->createView(),
+
             );
         }
 
@@ -472,7 +481,8 @@ namespace Viteloge\FrontendBundle\Controller {
          */
         public function historyEditAction(Request $request, WebSearch $webSearch) {
             $translated = $this->get('translator');
-
+            $session = $request->getSession();
+            $requestSearch = $session->get('request');
             if ( $this->getUser() != $webSearch->getUser() ) {
                 throw $this->createAccessDeniedException();
             }
@@ -501,10 +511,13 @@ namespace Viteloge\FrontendBundle\Controller {
             $deleteForm = $this->createActivateForm($webSearch);
             $editForm = $this->createEditForm($webSearch);
             $editForm->handleRequest($request);
-
+            $adSearch = new AdSearch();
+            $adSearch->handleRequest($requestSearch);
+            $headform = $this->createForm('viteloge_core_adsearch', $adSearch);
             return array(
                 'websearch' => $webSearch,
                 'form' => $editForm->createView(),
+                'headform' => $headform->createView(),
                 'form_delete' => $deleteForm->createView()
             );
         }
