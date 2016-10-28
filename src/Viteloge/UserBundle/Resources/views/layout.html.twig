@@ -164,7 +164,7 @@
     {%- endblock html_end -%}
     {%- block javascripts %}
         {% if app.environment == 'dev' %}
-            <script src="{{ aws_s3_file('built/global.js', false) }}"></script>
+            <script src="{{ aws_s3_file('built/global.js?c='~random(), false) }}"></script>
         {% else %}
             <script src="{{ aws_s3_file('built/global.min.js') }}"></script>
         {% endif %}
