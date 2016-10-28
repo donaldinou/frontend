@@ -520,7 +520,7 @@
       </trans-unit>
       <trans-unit id="ad.transaction" resname="ad.transaction">
         <source>ad.transaction</source>
-        <target>Transaction</target>
+        <target>Type de transaction</target>
       </trans-unit>
       <trans-unit id="ad.transaction.L" resname="ad.transaction.L">
         <source>ad.transaction.L</source>

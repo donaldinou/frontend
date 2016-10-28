@@ -78,13 +78,13 @@
 .main-top{
     margin-top: 133px;
      @media (max-width: $screen-lg-min) {
-            margin-top: 133px
+            margin-top: 133px;
         }
     @media (max-width: $screen-md-min) {
-            margin-top: 129px
+            margin-top: 129px;
         }
     @media (max-width: $screen-sm-min) {
-            margin-top: 219px
+            margin-top: 219px;
         }
     @media (max-width: $screen-xs-min) {
             margin-top: 219px;
@@ -98,23 +98,39 @@
 .main-small{
     margin-top: 118px;
     @media (max-width: $screen-md-min) {
-            margin-top: 82px
+            margin-top: 82px;
         }
     @media (max-width: $screen-sm-min) {
-            margin-top: 179px
+            margin-top: 179px;
         }
 }
 
 .main-search{
     margin-top: -12px;
     @media (max-width: $screen-lg-min) {
-            margin-top: 18px
+            margin-top: 18px;
         }
     @media (max-width: $screen-md-min) {
-            margin-top: -21px
+            margin-top: -21px;
         }
     @media (max-width: $screen-sm-min) {
-            margin-top: 70px
+            margin-top: 70px;
         }
 
+}
+
+#myModal{
+    margin-top:13%;
+    @media (max-width: $screen-lg-min) {
+            margin-top: 15%;
+        }
+    @media (max-width: $screen-md-min) {
+            margin-top: 10%;
+        }
+    @media (max-width: $screen-sm-min) {
+            margin-top: 40%;
+        }
+    @media (max-width: $screen-xs-min) {
+            margin-top: 45%;
+        }
 }
