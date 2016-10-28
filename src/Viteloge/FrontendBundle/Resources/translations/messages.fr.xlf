@@ -668,7 +668,7 @@
       </trans-unit>
       <trans-unit id="ad.at" resname="ad.at">
         <source>ad.at</source>
-        <target>à</target>
+        <target> à </target>
       </trans-unit>
       <trans-unit id="ad.change.research" resname="ad.change.research">
         <source>ad.change.research</source>
