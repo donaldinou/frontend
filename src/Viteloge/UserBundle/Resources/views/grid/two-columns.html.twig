@@ -2,12 +2,12 @@
 {% set no_padding_right = no_padding_right|default(true) %}
 <div class="container">
     <div class="row">
-        <div class="col-lg-{{ lsize|default(9) }} col-md-12{% if no_padding_left is same as(true) %} no-padding{% endif %}">
+        <div class="col-lg-{{ lsize|default(9) }} col-md-12{% if no_padding_left is same as(true) %} no-padding{% endif %}" style="z-index:1;">
             {%- block left -%}
 
             {%- endblock left -%}
         </div>
-        <div class="col-lg-{{ rsize|default(3) }} col-md-{{ rsize|default(3) }}{% if no_padding_right is same as(true) %} no-padding{% endif %}">
+        <div class="col-lg-{{ rsize|default(3) }} col-md-{{ rsize|default(3) }}{% if no_padding_right is same as(true) %} no-padding{% endif %}" style="z-index:1;">
             {%- block right -%}
 
             {%- endblock right -%}

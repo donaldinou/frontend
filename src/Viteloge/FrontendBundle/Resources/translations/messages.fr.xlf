@@ -274,6 +274,14 @@
         <source>viteloge.sitemap</source>
         <target>Plan du site</target>
       </trans-unit>
+      <trans-unit id="viteloge.contact.us" resname="viteloge.contact.us">
+        <source>viteloge.contact.us</source>
+        <target>Nous contacter</target>
+      </trans-unit>
+      <trans-unit id="viteloge.publicite" resname="viteloge.publicite">
+        <source>viteloge.publicite</source>
+        <target>Publicités</target>
+      </trans-unit>
       <trans-unit id="viteloge.sitemap.description" resname="viteloge.sitemap.description">
         <source>viteloge.sitemap.description</source>
         <target>Plan du site de ViteLogé, le moteur de recherche de l'immobilier</target>

@@ -27,10 +27,12 @@
             <li>
                 <a href="{{ path('fos_user_profile_show') }}"><i class="fa fa-cogs" aria-hidden="true"></i> &nbsp;Mon profil</a>
             </li>
+            {% set images = app.request.cookies.get('viteloge_photo')|split('#$#') %}
+                {% if images[0] is not empty %}
             <li>
                 <i class="fa fa-history" aria-hidden="true"></i> &nbsp;Derniers biens vus
                 <br>
-                {% set images = app.request.cookies.get('viteloge_photo')|split('#$#') %}
+
                 {% set urls = app.request.cookies.get('viteloge_url')|split('#$#') %}
 
                 {% for key,image in images %}
@@ -42,6 +44,7 @@
                 {% endfor %}
 
             </li>
+            {% endif %}
             <li>
                 <a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp;Déconnexion</a>
             </li>

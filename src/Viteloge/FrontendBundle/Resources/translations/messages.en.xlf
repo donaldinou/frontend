@@ -50,7 +50,10 @@
         <source>viteloge.favorite</source>
         <target>Yours favourites</target>
       </trans-unit>
-
+     <trans-unit id="viteloge.contact.us" resname="viteloge.contact.us">
+        <source>viteloge.contact.us</source>
+        <target>Contact us</target>
+      </trans-unit>
       <trans-unit id="viteloge.phone" resname="viteloge.phone">
         <source>viteloge.phone</source>
       <target> Phone</target>
