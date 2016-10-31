@@ -9,7 +9,7 @@
 {% if key is not defined %}
 	{% set key = 0 %}
 {% endif %}
-<a href="{{ path('viteloge_frontend_agency_view', { 'id': key~'-'~ad.id, 'description':description|slugify }) }}" class="preview setkey" rel="nofollow" target="_blank" data-value="{{ key }}">
+<a href="{% if ad.transaction == 'V' %}{{ path('viteloge_frontend_agency_view', { 'id': key~'-'~ad.id, 'description':description|slugify, 'transaction': 'V'}) }}{% else %}{{ path('viteloge_frontend_agency_view', { 'id': key~'-'~ad.id, 'description':description|slugify }) }}{% endif %}" class="preview setkey" rel="nofollow" target="_blank" data-value="{{ key }}">
     <img itemprop="image" data-original="{{ aws_s3_domain(ad.photo, false) }}" data-src="{{ aws_s3_domain(ad.photo, false) }}" class="{{ imgClass }}" alt="{{ ad.type~' à '~ad.cityName }}" onerror="this.src = ''">
    <!-- <img itemprop="image" data-original="{{ aws_s3_domain(ad.photo, false) }}" data-src="{{ aws_s3_domain(ad.photo, false) }}" class="{{ imgClass }}" alt="{{ ad.type~' à '~ad.cityName }}" onerror="this.src = ''" style="height:100% !important">-->
     <noscript><img itemprop="image" src="{{ aws_s3_domain(ad.photo, false) }}" class="{{ imgClass }}" alt="" onerror="this.src = ''"></noscript>

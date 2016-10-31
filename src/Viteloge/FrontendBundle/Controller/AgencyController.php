@@ -77,8 +77,12 @@ namespace Viteloge\FrontendBundle\Controller {
 
             $session = $request->getSession();
             $ads = $session->get('resultAd');
-
+            if($request->query->get('transaction') == 'V'){
               $total = $session->get('totalResult');
+              }else{
+                  $total = $session->get('totalResultVente');
+              }
+
 
 
 

@@ -660,7 +660,15 @@ namespace Viteloge\FrontendBundle\Controller {
             $repository = $elasticaManager->getRepository('VitelogeCoreBundle:Ad');
             $ads = $repository->search($adSearch, $limit);
             $session->set('resultAd', $ads);
-            $session->set('totalResult',count($ads));
+
+              if($request->query->get('transaction') == 'V'){
+               $session->set('totalResultVente',count($ads));
+            }else{
+              $session->set('totalResult',count($ads));
+             }
+
+
+
             return array(
                 'transaction' => $adSearch->getTransaction(),
                 'cityName' => $request->query->get('cityName'),

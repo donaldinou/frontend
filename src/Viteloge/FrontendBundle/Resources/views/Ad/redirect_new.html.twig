@@ -121,6 +121,7 @@
 {%- block header_end %}
     <div class="container-fluid">
         <div class="row clearfix">
+            {% if total is not empty %}
             <div class="col-xs-1 col-sm-3 col-md-1 col-lg-1">
                 {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_view' %}
                                 <a href="{{ app.session.get('currentUrl') }}" class="btnlist">
@@ -140,8 +141,12 @@
                             {% endif %}
                             </a>
             </div>
+            {% endif %}
+            {% if total is not empty %}
             <div class="hidden-xs hidden-sm col-md-6 col-lg-5">
-
+            {% else %}
+            <div class="hidden-xs hidden-sm col-md-7 col-lg-6">
+            {% endif %}
                 <h2 style="text-transform: uppercase;font-size:12px !important;margin:0;padding:0;color:#00a1c6;display:inline-block;vertical-align:top;">{{ ad.agencyName~' vous propose ' }}</h2>
                 <h1 style="text-transform: uppercase;font-size:12px !important;color:#00a1c6;display:inline-block;vertical-align:top;">{% if ad.type == 'maison' %} une {% else %} un {% endif %}{{ ad.type }}{% trans %} ad.at {% endtrans %} {{ ('footer.transaction.article.'~ad.transaction)|trans }}{% trans %} ad.at {% endtrans %} {{ ad.cityName }} ({{ ad.postalcode }}) - {{ ad.price | schematizedcurrency('EUR') | raw }}</h1><br/>
                  <small style="text-transform: lowercase;color:#00a1c6;display: inline-block; line-height: 1; margin-bottom: 5px;"> {{ ad.description|truncate(200, false, '...')|normalize_utf8|raw }}
@@ -149,6 +154,7 @@
                  </small>
             </div>
             <div class="col-xs-5 col-sm-3 col-md-2 col-lg-2 text-left">
+                {% if total is not empty %}
                   {% if app.request.attributes.get('_route') != 'viteloge_frontend_favourite_view' %}
                                 {% if ads[clef-1] is defined %}
                                 {% set moins =  left~'-'~ads[clef-1].id %}
@@ -186,6 +192,7 @@
                                 </button>
                             {% if ads[clef+1] is defined %}  </a> {% endif %}
                         {% endif %}
+                {% endif %}
             </div>
             <div class="col-xs-5 col-sm-6 col-md-3 col-lg-4 text-right">
 
