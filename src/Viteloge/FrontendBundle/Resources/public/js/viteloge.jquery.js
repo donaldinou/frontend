@@ -25,7 +25,6 @@ jQuery(document).ready(function() {
           jQuery('.second-input .select2-selection__rendered .select2-selection__choice').first().remove();
           jQuery('#viteloge_core_adsearch_transaction option').first().remove();
           reloadOptionTransaction();
-
         }
 
     });
@@ -36,7 +35,6 @@ jQuery(document).ready(function() {
           jQuery('.deux-input .select2-selection__rendered .select2-selection__choice').first().remove();
           jQuery('#viteloge_core_adsearch_transaction option').first().remove();
           reloadOptionTransaction();
-
         }
 
     });

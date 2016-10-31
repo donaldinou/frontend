@@ -35,7 +35,7 @@
                 {% for key,image in images %}
                     {% if image is not empty %}
                 <a href="{{ urls[key] }}" alt="ouvrir la fiche" title="ouvrir la fiche" target="_blank">
-                    <img src="{{ 'http://media.viteloge.com/'~image }}" />
+                    <img src="{{ aws_s3_domain(image, false) }}" style="margin:auto;background-image: url(http://media.viteloge.com/bundles/vitelogecore/images/fr/logo-viteloge-moteur-recherche-immobilier.svg.gz);background-position: center center; background-repeat: no-repeat;background-color: #ddd;height:157px" />
                 </a>
                  {% endif %}
                 {% endfor %}
