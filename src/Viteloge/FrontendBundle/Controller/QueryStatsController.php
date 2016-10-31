@@ -297,12 +297,15 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->setLinkCanonical($canonicalLink)
             ;
             // --
-
+              $session->set('totalResult',$pagination->getNbResults());
+              $session->set('resultAd',$pagination->getCurrentPageResults());
+              $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
             return array(
                 'form' => $form->createView(),
                 'queryStats' => $queryStats,
                 'ads' => $pagination->getCurrentPageResults(),
-                'pagination' => $pagination
+                'pagination' => $pagination,
+                'csrf_token' => $csrfToken,
             );
         }
 

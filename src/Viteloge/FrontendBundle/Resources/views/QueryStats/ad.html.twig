@@ -1,20 +1,78 @@
-{% extends 'VitelogeFrontendBundle:Ad:search.html.twig' %}
+{% extends 'VitelogeFrontendBundle::base.html.twig' %}
 
-{%- block header_end -%}
-    <div class="container">
-        <div class="row clearfix">
-            <div class="col-sm-10 col-md-9 col-lg-9">
-                <h1 class="h2 text-capitalize">{{ queryStats.keywords }}</h1>
-            </div>
-        </div>
+{%- block schema -%}
+    itemscope itemtype="http://schema.org/WebPage"
+{%- endblock schema -%}
 
-    </div>
+{%- block head_javascripts -%}
+    {{ parent() }}
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;libraries=geometry"></script>
 {%- endblock -%}
-{%- block header -%}
-    {%- if form is defined -%}
-    {%- embed "VitelogeUserBundle:base:headerSearch.html.twig" with {form:form} -%}
 
+{%- block header -%}
+    {%- embed "VitelogeUserBundle:base:headerSearch.html.twig" with {form:form} -%}
+        {%- block header_navbarheader -%}
+
+        {%- endblock -%}
 
     {%- endembed -%}
-    {%- endif -%}
 {%- endblock -%}
+{%- block breadcrumb %}
+
+ <div class="container-fluid">
+        <div class="row no-padding subrow">
+            <div class="col-sm-3 col-md-4 col-lg-3 no-padding">
+            {{ wo_render_breadcrumbs() }}
+           </div>
+
+        <div class="col-sm-6 col-md-2 col-lg-4 header-pagination no-padding">
+           {%- if pagination is defined -%}
+             {%- block pagination -%}
+            {%- if pagination is not null and pagination.haveToPaginate -%}
+                {{- pagerfanta(pagination, 'pager_viteloge', {
+                    'routeParams': app.request.query.all
+                }) -}}
+            {%- endif -%}
+        {%- endblock pagination -%}
+           {%- endif -%}
+        </div>
+         <div class="col-sm-3 col-md-6 col-lg-5 text-right no-padding">
+
+            <h1 class="small_header">{{ queryStats.keywords }}</h1>
+
+            </div>
+       </div>
+    </div>
+{% endblock breadcrumb -%}
+{%- block header_more -%}
+
+
+{%- endblock header_more -%}
+{%- block header_end -%}
+
+
+{%- endblock -%}
+
+{%- block main -%}
+    {% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 9, 'rsize': 3 } %}
+        {% block left %}
+            {% if not is_granted("IS_AUTHENTICATED_REMEMBERED") or not app.user %}
+                {{ render_hinclude(path('viteloge_frontend_user_registermodal', {})) }}
+            {%- endif -%}
+            {{ include('VitelogeFrontendBundle:Ad:fragment/paginated.html.twig', {}) }}
+        {% endblock %}
+        {% block right %}
+            {%- embed "VitelogeFrontendBundle:Block:aside_right.html.twig" -%}
+                {%- block aside_before_adsense1 -%}
+                    {%- if form is defined and form.vars.value.where and form.vars.value.where.0 -%}
+                        {{- render_hinclude(path('viteloge_frontend_suggest_near', { 'name': 'test', 'id': form.vars.value.where.0, 'radius': constant('Viteloge\\CoreBundle\\Component\\Enum\\DistanceEnum::TEN'), 'limit': 10, '_format': 'html' })) -}}
+                    {%- endif -%}
+                {%- endblock aside_before_adsense1 -%}
+            {%- endembed -%}
+        {% endblock %}
+    {% endembed %}
+{%- endblock main -%}
+
+{%- block javascripts -%}
+    {{ parent() }}
+{%- endblock javascripts -%}
