@@ -16,7 +16,7 @@
 .row:before,
 .row:after {
     content: " ";
-    display: table;
+    display: table !important;
 }
 .clearfix:after,
 .container:after,
