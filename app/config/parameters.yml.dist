@@ -36,6 +36,9 @@ parameters:
     # google analytics
     ga_tracking:        UA-xxxxx-x
 
+    # google maps
+    google_maps_api_key: AIzaSyCOHYCl4_I5iOrgjMA55yLWiKgU0FW0X7I
+
     # google adsense
     adsense_publisher_id: null
     adsense_slots:
