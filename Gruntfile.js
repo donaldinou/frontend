@@ -636,9 +636,12 @@ module.exports = function(grunt) {
     });
     grunt.registerTask('connectDeploymentUser', 'Connect as a deployment user', function() {
         var cfg = grunt.config.get('cfg');
-        //var environment = cfg.environment || 'dev';
-        if (grunt.task.exists('shell:connectDeploymentUser')) {
-            grunt.task.run(['shell:connectDeploymentUser']);
+        var environment = cfg.environment || 'dev';
+        if (grunt.task.exists('shell')) {
+            var shell = grunt.config.get('shell');
+            if (shell['connectDeploymentUser']) {
+                grunt.task.run(['shell:connectDeploymentUser']);
+            }
         }
     });
     grunt.registerTask('disconnectDeploymentUser', 'Disconnect the deployment user', function() {
@@ -663,8 +666,11 @@ module.exports = function(grunt) {
     grunt.registerTask('aws', 'Deploy to AWS S3', function() {
         var cfg = grunt.config.get('cfg');
         var environment = cfg.environment || 'dev';
-        if (grunt.task.exists('aws_s3:'+environment)) {
-            grunt.task.run(['aws_s3:'+environment]);
+        if (grunt.task.exists('aws_s3')) {
+            var aws_s3 = grunt.config.get('aws_s3');
+            if (aws_s3[environment]) {
+                grunt.task.run(['aws_s3:'+environment]);
+            }
         }
     });
     grunt.registerTask('css', ['shell:assetsInstall', 'bowercopy', 'copy', 'compass', 'cssmin', 'applicationOwner', 'rightsCache']);
