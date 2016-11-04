@@ -1,5 +1,5 @@
 @import "_bootstrap.scss";
-//@import "_font-awesome.scss";
+@import "_font-awesome.scss";
 @import "_select2.scss";
 @import "_viteloge.scss";
 @import "_hover.scss";
@@ -8,7 +8,7 @@
 *
 */
 .clear:before,
-.clear:after
+.clear:after,
 .clearfix:before,
 .clearfix:after,
 .container:before,

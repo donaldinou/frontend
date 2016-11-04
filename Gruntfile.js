@@ -7,6 +7,7 @@ module.exports = function(grunt) {
         cmp: grunt.file.readJSON('composer.json'),
         bwr: grunt.file.readJSON('.bowerrc'),
         pkg: grunt.file.readJSON('package.json'),
+        cfg: grunt.file.readJSON('grunt-config.json'),
         aws: grunt.file.readJSON('aws-credentials.json'),
         clean: {
             tmp: {
@@ -35,47 +36,101 @@ module.exports = function(grunt) {
             },
         },
         shell: {
+            suDeploymentUser: {
+                options: {
+                    stdout: true
+                },
+                command: 'sudo su <%= cfg["deploy-user"] %>'
+            },
+            exit: {
+                options: {
+                    stdout: true
+                },
+                command: 'exit'
+            },
+            gitPull: {
+                options: {
+                    stdout: true
+                },
+                command: 'git pull'
+            },
+            stopService: {
+                options: {
+                    stdout: true
+                },
+                command: 'service httpd stop && service php-fpm stop'
+            },
+            startService: {
+                options: {
+                    stdout: true
+                },
+                command: 'service httpd start && service php-fpm start'
+            },
+            bowerUpdate: {
+                options: {
+                    stdout: true
+                },
+                command: 'bower update'
+            },
+            applicationOwner: {
+                options: {
+                    stdout: true
+                },
+                command: 'chown -Rf <%= cfg["deploy-user"] %>:<%= cfg["deploy-user"] %> ./'
+            },
+            removeCache: {
+                options: {
+                    stdout: true
+                },
+                command: 'rm -Rf app/cache/<%= cfg.environment %>_old && rm -Rf app/cache/<%= cfg.environment %>/*'
+            },
             clearCache: {
                 options: {
                     stdout: true
                 },
-                command: 'php app/console cache:clear --no-debug'
+                command: 'php app/console cache:clear --env=<%= cfg.environment %> --no-debug'
+            },
+            rightsCache: {
+                options: {
+                    stdout: true
+                },
+                command: 'chown -Rf <%= cfg["deploy-user"] %>:<%= cfg["deploy-group"] %> app/cache/<%= cfg.environment %>/ && find app/cache/<%= cfg.environment %>/ -type d -exec chmod 775 {} \\; && find app/cache/<%= cfg.environment %>/ -type f -exec chmod 664 {} \\;'
             },
             assetsInstall: {
                 options: {
                     stdout: true
                 },
-                command: 'php app/console assets:install --no-debug'
+                command: 'php app/console assets:install --env=<%= cfg.environment %> --no-debug'
             },
             composerUpdate: {
                 options: {
                     stdout: true
                 },
-                command: 'composer update --optimize-autoloader  --no-dev'
+                command: 'export SYMFONY_ENV=<%= cfg.environment %> && composer update --optimize-autoloader --no-dev'
             },
             composerInstall: {
                 options: {
                     stdout: true
                 },
-                command: 'composer install --optimize-autoloader --no-dev'
+                command: 'export SYMFONY_ENV=<%= cfg.environment %> && composer install --optimize-autoloader --no-dev'
             },
             composerDump: {
                 options: {
                     stdout: true
                 },
-                command: 'composer dump-autoload --optimize --no-dev'
+                command: 'export SYMFONY_ENV=<%= cfg.environment %> && composer dump-autoload --optimize --no-dev'
             },
             jsRoutingDump: {
                 options: {
                     stdout: true
                 },
-                command: 'php app/console fos:js-routing:dump --env=prod --locale=fr__RG__'
+                command: 'php app/console fos:js-routing:dump --env=<%= cfg.environment %> --locale=fr__RG__'
             },
             sitemapDump: {
                 options: {
                     stdout: true
                 },
-                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --env=prod'
+                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --env=<%= cfg.environment %>'
             },
             copyZeroclipboard: {
                 options: {
@@ -141,7 +196,7 @@ module.exports = function(grunt) {
             stylesheets: {
                 files: {
                     'css/normalize.css': 'normalize.css/normalize.css',
-                    'css/font-awesome.css': 'fontawesome/css/font-awesome.min.css',
+                    //'css/font-awesome.css': 'fontawesome/css/font-awesome.min.css', // deprecated because it was used in frontendbundle
                     'css/select2.css': 'select2/dist/css/select2.min.css',
                     'css/owl.carousel.css' : 'OwlCarousel2/dist/assets/owl.carousel.css',
                 }
@@ -184,27 +239,7 @@ module.exports = function(grunt) {
             frontend: {
                 options: {
                     sassDir: 'src/Viteloge/FrontendBundle/Resources/scss',
-                    cssDir: '.tmp/css',
-                    importPath: '<%= bwr.directory %>',
-                    outputStyle: 'expanded',
-                    noLineComments: true,
-                    environment: 'production'
-                }
-            },
-            frontend: {
-                options: {
-                    sassDir: 'src/Viteloge/FrontendBundle/Resources/scss',
-                    cssDir: '<%= cmp.extra["symfony-web-dir"] %>/built/css',
-                    importPath: '<%= bwr.directory %>',
-                    outputStyle: 'expanded',
-                    noLineComments: true,
-                    environment: 'development'
-                }
-            },
-            estimation: {
-                options: {
-                    sassDir: 'src/Viteloge/EstimationBundle/Resources/scss',
-                    cssDir: '.tmp/css',
+                    cssDir: '<%= cfg["compass-tmp-dir"] %>/css',
                     importPath: '<%= bwr.directory %>',
                     outputStyle: 'expanded',
                     noLineComments: true,
@@ -214,11 +249,11 @@ module.exports = function(grunt) {
             estimation: {
                 options: {
                     sassDir: 'src/Viteloge/EstimationBundle/Resources/scss',
-                    cssDir: '<%= cmp.extra["symfony-web-dir"] %>/built/css',
+                    cssDir: '<%= cfg["compass-tmp-dir"] %>/css',
                     importPath: '<%= bwr.directory %>',
                     outputStyle: 'expanded',
                     noLineComments: true,
-                    environment: 'development'
+                    environment: 'production'
                 }
             }
         },
@@ -227,13 +262,14 @@ module.exports = function(grunt) {
                 options:{
                     report: 'min',
                     sourceMap: false,
-                    keepSpecialComments: 0
+                    keepBreaks: false,
+                    keepSpecialComments: "*"
                 },
                 files: {
                     '<%= cmp.extra["symfony-web-dir"] %>/built/viteloge.min.css': [
-                        '.tmp/css/**/*.css',
                         '<%= cmp.extra["symfony-assets-dir"] %>/css/**/*.css',
-                        '<%= cmp.extra["symfony-bundles-dir"] %>/vitelogecore/css/*.css'
+                        '<%= cmp.extra["symfony-bundles-dir"] %>/vitelogecore/css/*.css',
+                        '<%= cfg["compass-tmp-dir"] %>/css/**/*.css'
                     ]
                 }
             }
@@ -401,7 +437,7 @@ module.exports = function(grunt) {
                 uploadConcurrency: 10, // 10 simultaneous uploads
                 downloadConcurrency: 10 // 10 simultaneous downloads
             },
-            production: {
+            prod: {
                 options: {
                     bucket: '<%= aws.bucket %>',
                     //params: {
@@ -503,18 +539,84 @@ module.exports = function(grunt) {
     // init grunt config
     grunt.initConfig(config);
 
+    // monkey patch
+    if (!grunt.task.exists) {
+        grunt.task.exists = function exists (name) {
+            return _.include(_.pluck(grunt.task._tasks, 'name'), name);
+        };
+    }
+
     // All tasks
-    grunt.registerTask('css', ['shell:assetsInstall', 'bowercopy', 'copy', 'compass']);
-    grunt.registerTask('javascript', ['shell:assetsInstall', 'bowercopy', 'copy', 'concat']);
+    grunt.registerTask('applicationOwner', 'Command line to set owner application', function() {
+        if (process.platform != 'win32') {
+            grunt.task.run('shell:applicationOwner');
+        } else {
+            grunt.log.writeln('Unable to correctly set application owner on Windows system');
+        }
+    });
+    grunt.registerTask('removeCache', 'Command line to remove cache', function() {
+        if (process.platform != 'win32') {
+            grunt.task.run('shell:removeCache');
+        } else {
+            grunt.log.writeln('Unable to correctly remove cache on Windows system');
+        }
+    });
+    grunt.registerTask('rightsCache', 'Command line to set rights on cache directory', function() {
+        if (process.platform != 'win32') {
+            grunt.task.run('shell:rightsCache');
+        } else {
+            grunt.log.writeln('Unable to correctly set rights cache on Windows system');
+        }
+    });
+    grunt.registerTask('connectDeploymentUser', 'Connect as a deployment user', function() {
+        var cfg = grunt.config.get('cfg');
+        //var environment = cfg.environment || 'dev';
+        if (grunt.task.exists('shell:connectDeploymentUser')) {
+            grunt.task.run(['shell:connectDeploymentUser']);
+        }
+    });
+    grunt.registerTask('disconnectDeploymentUser', 'Disconnect the deployment user', function() {
+        var username = process.env.USER || process.env.USERNAME;
+        var cfg = grunt.config.get('cfg');
+        var deployUser = cfg["deploy-user"];
+        if (username == deployUser) {
+            grunt.task.run(['shell:exit']);
+        }
+    });
+    grunt.registerTask('gruntForceTaskOn', 'Enable the force option', function() {
+        if ( !grunt.option( 'force' ) ) {
+            grunt.config.set('force_on', true);
+            grunt.option( 'force', true );
+        }
+    });
+    grunt.registerTask('gruntForceTaskRestore', 'Restore the force option', function() {
+        if ( grunt.config.get('force_on') ) {
+            grunt.option( 'force', false );
+        }
+    });
+    grunt.registerTask('aws', 'Deploy to AWS S3', function() {
+        var cfg = grunt.config.get('cfg');
+        var environment = cfg.environment || 'dev';
+        if (grunt.task.exists('aws_s3:'+environment)) {
+            grunt.task.run(['aws_s3:'+environment]);
+        }
+    });
+    grunt.registerTask('css', ['shell:assetsInstall', 'bowercopy', 'copy', 'compass', 'cssmin', 'applicationOwner', 'rightsCache']);
+    grunt.registerTask('javascript', ['shell:assetsInstall', 'bowercopy', 'copy', 'concat', 'applicationOwner', 'rightsCache']);
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('deployApp', [
         'shell:composerUpdate',
         'shell:composerInstall',
         'shell:jsRoutingDump',
-        'shell:sitemapDump'
+        'gruntForceTaskOn',
+        'shell:sitemapDump',
+        'gruntForceTaskRestore',
+        'applicationOwner',
+        'rightsCache'
     ]);
     grunt.registerTask('deployCss', [
         'clean',
+        'removeCache',
         'shell:composerUpdate',
         'shell:composerInstall',
         'shell:assetsInstall',
@@ -525,10 +627,14 @@ module.exports = function(grunt) {
         'cssmin',
         'shell:copyZeroclipboard',
         'compress',
-        'aws_s3'
+        'aws',
+        'applicationOwner',
+        'rightsCache'
     ]);
     grunt.registerTask('deployJs', [
         'clean',
+        'removeCache',
+        'connectDeploymentUser',
         'shell:composerUpdate',
         'shell:composerInstall',
         'shell:assetsInstall',
@@ -539,10 +645,13 @@ module.exports = function(grunt) {
         'uglify',
         'shell:copyZeroclipboard',
         'compress',
-        'aws_s3'
+        'aws',
+        'applicationOwner',
+        'rightsCache'
     ])
     grunt.registerTask('deployAssets', [
         'clean',
+        'removeCache',
         'shell:composerUpdate',
         'shell:composerInstall',
         'shell:assetsInstall',
@@ -555,10 +664,17 @@ module.exports = function(grunt) {
         'uglify',
         'shell:copyZeroclipboard',
         'compress',
-        'aws_s3'
+        'aws',
+        'applicationOwner',
+        'rightsCache'
     ]);
     grunt.registerTask('deploy', [
+        'shell:stopService',
+        'gruntForceTaskOn',
+        'shell:gitPull',
+        'gruntForceTaskRestore',
         'clean',
+        'removeCache',
         'shell:composerUpdate',
         'shell:composerInstall',
         'shell:assetsInstall',
@@ -571,7 +687,15 @@ module.exports = function(grunt) {
         'uglify',
         'shell:copyZeroclipboard',
         'compress',
-        'aws_s3',
-        'shell:sitemapDump'
+        'aws',
+        'applicationOwner',
+        'rightsCache',
+        'disconnectDeploymentUser',
+        'shell:startService',
+        'gruntForceTaskOn',
+        'shell:sitemapDump',
+        'gruntForceTaskRestore',
+        'applicationOwner',
+        'rightsCache'
     ]);
 };

@@ -1,0 +1,6 @@
+{
+    "environment": "prod",
+    "compass-tmp-dir": ".tmp",
+    "deploy-user": "viteloge",
+    "deploy-group": "apache"
+}
