@@ -34,6 +34,8 @@
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
             {#<link rel="stylesheet" href="{{ aws_s3_domain('built/viteloge.min.css') }}">#}
             {% if app.environment == 'dev' %}
+                <link rel="stylesheet" href="{{ aws_s3_file('built/viteloge.min.css?c='~random(), false) }}">
+                {#<link rel="stylesheet" href="{{ aws_s3_file('assets/css/font-awesome.css', false) }}">
                 <link rel="stylesheet" href="{{ aws_s3_file('assets/css/font-awesome.css', false) }}">
                 <link rel="stylesheet" href="{{ aws_s3_file('assets/css/normalize.css', false) }}">
                 <link rel="stylesheet" href="{{ aws_s3_file('assets/css/owl.carousel.css', false) }}">
@@ -41,14 +43,14 @@
                 <link rel="stylesheet" href="{{ aws_s3_file('bundles/vitelogecore/css/viteloge-core.css', false) }}">
                 <link rel="stylesheet" href="{{ aws_s3_file('built/css/frontend.css?c='~random(), false) }}">
                 <link rel="stylesheet" href="{{ aws_s3_file('built/css/estimation.css', false) }}">
-                <link rel="stylesheet" href="{{ aws_s3_file('built/css/select2/theme/viteloge/layout.css', false) }}">
+                <link rel="stylesheet" href="{{ aws_s3_file('built/css/select2/theme/viteloge/layout.css', false) }}">#}
             {% else %}
                 <link rel="stylesheet" href="{{ aws_s3_file('built/viteloge.min.css') }}">
             {% endif %}
         {%- endblock head_stylesheets -%}
         {%- block head_javascripts -%}
             {% if app.environment == 'dev' %}
-                <script src="{{ 'http://dev.viteloge.com/built/head.js' }}"></script>
+                <script src="{{ aws_s3_file('built/head.js?c='~random(), false) }}"></script>
             {% else %}
                 <script src="{{ aws_s3_file('built/head.min.js') }}"></script>
             {% endif %}
