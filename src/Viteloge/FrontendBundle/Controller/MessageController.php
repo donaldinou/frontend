@@ -91,8 +91,10 @@ namespace Viteloge\FrontendBundle\Controller {
             $form = $this->createCreateForm($message);
             $form->handleRequest($request);
             if ($form->isValid()) {
+
+                // TODO : use a doctrine listener instead!
                 //if user is not connect, verif with service
-                 if(is_null($this->getUser())){
+                if(is_null($this->getUser())){
                   $user = $this->get('viteloge_frontend_generate.user')->generate($message);
                   $message->setUser($user);
                   if(!empty($user)){

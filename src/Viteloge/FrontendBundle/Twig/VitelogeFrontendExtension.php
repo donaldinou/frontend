@@ -2,7 +2,9 @@
 
 namespace Viteloge\FrontendBundle\Twig {
 
+    use Behat\Transliterator\Transliterator;
     use Viteloge\CoreBundle\Component\Enum\TransactionEnum;
+    use Viteloge\CoreBundle\Entity\Ad;
 
     class VitelogeFrontendExtension extends \Twig_Extension {
 
@@ -24,7 +26,7 @@ namespace Viteloge\FrontendBundle\Twig {
             return array(
                 new \Twig_SimpleFunction('vl_theme', array($this, 'vlTheme')),
                 new \Twig_SimpleFunction('aws_s3_domain', array($this, 'awsS3MediaDomain')),
-                new \Twig_SimpleFunction('aws_s3_file', array($this, 'awsS3FileDomain'))
+                new \Twig_SimpleFunction('aws_s3_file', array($this, 'awsS3FileDomain')),
             );
         }
 
@@ -36,6 +38,7 @@ namespace Viteloge\FrontendBundle\Twig {
                 new \Twig_SimpleFilter('schematizedcurrency', array($this, 'schematizedcurrency')),
                 new \Twig_SimpleFilter('vl_intval', array($this, 'vlIntval')),
                 new \Twig_SimpleFilter('vl_transaction_alias', array($this, 'vlTransactionAlias')),
+                new \Twig_SimpleFilter('vl_slugify_ad', array($this, 'vlSlugifyAd')),
                 new \Twig_SimpleFilter('to_latin1', array($this, 'toLatin1')),
                 new \Twig_SimpleFilter('to_utf8', array($this, 'toUTF8')),
                 new \Twig_SimpleFilter('fix_utf8', array($this, 'fixUTF8')),
@@ -44,27 +47,13 @@ namespace Viteloge\FrontendBundle\Twig {
             );
         }
 
-        public function slugify($slug)
-       {
-        // Remove HTML tags
-        $slug = preg_replace('/<(.*?)>/u', '', $slug);
+        /**
+         *
+         */
+        public function slugify($slug) {
+            return Transliterator::urlize($slug);
+        }
 
-        // Remove inner-word punctuation.
-        $slug = preg_replace('/[\'"‘’“”]/u', '', $slug);
-
-        $pattern = array("/é/", "/è/", "/ê/", "/ë/", "/ç/", "/à/", "/â/", "/î/", "/ï/", "/ù/", "/ô/", "/ /", "/'/", "/,/", "/\?/", "/\!/", "/:/");
-        $rep_pat = array("e", "e", "e", "e", "c", "a", "a", "i", "i", "u", "o", "-", "-", "-", "-", "-", "-");
-        $slug = preg_replace($pattern, $rep_pat, $slug);
-        // Make it lowercase
-        $slug = mb_strtolower($slug, 'UTF-8');
-
-        // Get the "words".  Split on anything that is not a unicode letter or number.
-        // Periods are OK too.
-        preg_match_all('/[\p{L}\p{N}\.]+/u', $slug, $words);
-        $slug = implode('-', $words[0]);
-
-        return $slug;
-    }
         /**
          *
          */
@@ -91,6 +80,14 @@ namespace Viteloge\FrontendBundle\Twig {
                     break;
             }
             return strtolower('theme-'.$theme);
+        }
+
+        /**
+         *
+         */
+        public function vlSlugifyAd(Ad $ad) {
+            $helper = $this->container->get('viteloge_frontend.ad_helper');
+            return $helper->slugigy($ad);
         }
 
         /**

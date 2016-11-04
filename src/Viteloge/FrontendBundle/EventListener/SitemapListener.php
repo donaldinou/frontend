@@ -9,14 +9,9 @@ namespace Viteloge\FrontendBundle\EventListener {
     use Presta\SitemapBundle\Event\SitemapPopulateEvent;
     use Presta\SitemapBundle\EventListener\RouteAnnotationEventListener;
     use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
-    use Symfony\Component\DependencyInjection\ContainerInterface;
+    use Viteloge\FrontendBundle\Component\Helper\AdHelper;
 
     class SitemapListener extends RouteAnnotationEventListener {
-
-        /**
-         *
-         */
-        protected $container;
 
         /**
          *
@@ -31,10 +26,15 @@ namespace Viteloge\FrontendBundle\EventListener {
         /**
          *
          */
-        public function __construct(ContainerInterface $container,RouterInterface $router, EntityManager $entityManager) {
-            $this->container = $container;
+        protected $helper;
+
+        /**
+         *
+         */
+        public function __construct(RouterInterface $router, EntityManager $entityManager, AdHelper $helper) {
             $this->router = $router;
             $this->entityManager = $entityManager;
+            $this->helper = $helper;
         }
 
         /**
@@ -59,7 +59,7 @@ namespace Viteloge\FrontendBundle\EventListener {
         }
 
         /**
-         * @param  SitemapPopulateEvent      $event
+         * @param SitemapPopulateEvent $event
          * @throws \InvalidArgumentException
          */
         private function addUrlsFromRoutes(SitemapPopulateEvent $event)
@@ -152,6 +152,7 @@ namespace Viteloge\FrontendBundle\EventListener {
                 $this->entityManager->detach($row[0]);
             }
         }
+
         /**
          * http://doctrine-orm.readthedocs.org/en/latest/reference/batch-processing.html
          */
@@ -169,7 +170,7 @@ namespace Viteloge\FrontendBundle\EventListener {
             foreach ($iterableResult as $key => $row) {
                    $ad = $row[0];
                     $i++;
-                    $description = $this->getDescription($ad);
+                    $description = $this->helper->slugigy($ad);
                     $parameters = array(
                         'id' => '0-'.$ad->getId(),
                         'description' => $description,
@@ -183,36 +184,10 @@ namespace Viteloge\FrontendBundle\EventListener {
                     }
 
                 $this->entityManager->detach($row[0]);
-
-
             }
 
         }
 
-        public function getDescription($ad){
-                    $translated = $this->container->get('translator');
-                    $description = $ad->getType();
-                    $description .= $ad->getCityName();
-                    $description .= ' '.$translated->transChoice('ad.rooms.url',$ad->getRooms(), array('%count%' => $ad->getRooms()));
-                    $description .= ' '.$translated->transChoice('ad.bedrooms.url', $ad->getBedrooms(), array('%count%' => $ad->getBedrooms()));
-                    if(!empty($ad->getRooms()) || !empty($ad->getBedrooms())){
-                    if(!empty($ad->getSurface())){
-                     $description .= ' '.$ad->getSurface().' metres carres';
-                    }
-                   }
-                    if($ad->getTransaction() == 'V'){
-                       $description .= ' a vendre';
-                   }elseif($ad->getTransaction() == 'L'){
-                       $description .= ' a louer';
-                   }elseif($ad->getTransaction() == 'N'){
-                       $description .= ' neuf';
-                   }
-
-                   $description .= $ad->getAgencyName();
-
-                   $description = $this->generate_slug($description);
-                   return $description;
-        }
         /**
          * @param $name
          * @param  Route $route
@@ -253,15 +228,6 @@ namespace Viteloge\FrontendBundle\EventListener {
             return $options;
         }
 
-        public function generate_slug($str) {
-            $slug = strtolower($str);
-
-            $slug = preg_replace("/[^a-z0-9s-]/", "", $slug);
-            $slug = trim(preg_replace("/[s-]+/", " ", $slug));
-            $slug = preg_replace("/s/", "-", $slug);
-
-            return $slug;
-        }
         /**
          * @param $name
          * @param $parameters
@@ -269,8 +235,7 @@ namespace Viteloge\FrontendBundle\EventListener {
          * @return UrlConcrete
          * @throws \InvalidArgumentException
          */
-        private function getUrlConcrete($name, $parameters, $options)
-        {
+        private function getUrlConcrete($name, $parameters, $options) {
             try {
                 $url = new UrlConcrete(
                     $this->getRouteUri($name, $parameters),

@@ -83,6 +83,8 @@ namespace Viteloge\FrontendBundle\Controller {
             $form->handleRequest($request);
 
             if ($form->isValid()) {
+
+                // TODO : use a doctrine listener instead
                 //si c'est vide on verifie quand même si le compte existe, sinon on le crée
                 if(empty($contact->getUser())){
                     //si on crée le compte on envoi un mail avec le mdp

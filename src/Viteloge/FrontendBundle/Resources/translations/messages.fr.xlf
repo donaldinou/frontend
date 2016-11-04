@@ -534,6 +534,18 @@
         <source>ad.transaction.N</source>
         <target>Neuf</target>
       </trans-unit>
+      <trans-unit id="ad.slug.transaction.L" resname="ad.slug.transaction.L">
+        <source>ad.slug.transaction.L</source>
+        <target>à louer</target>
+      </trans-unit>
+      <trans-unit id="ad.slug.transaction.V" resname="ad.slug.transaction.V">
+        <source>ad.slug.transaction.V</source>
+        <target>à vendre</target>
+      </trans-unit>
+      <trans-unit id="ad.slug.transaction.N" resname="ad.slug.transaction.N">
+        <source>ad.slug.transaction.N</source>
+        <target>neuf</target>
+      </trans-unit>
       <trans-unit id="ad.distance.none" resname="ad.distance.none">
         <source>ad.distance.none</source>
         <target>-</target>
@@ -625,6 +637,10 @@
       <trans-unit id="ad.bedrooms.url" resname="ad.bedrooms.url">
         <source>ad.bedrooms.url</source>
         <target>{0}|{1} 1 chambre|]1,Inf] %count% chambres</target>
+      </trans-unit>
+      <trans-unit id="ad.surface.url" resname="ad.surface.url">
+        <source>ad.surface.url</source>
+        <target>{0}|{1} 1 mètre carré|]1,Inf] %count% mètres carré</target>
       </trans-unit>
       <trans-unit id="ad.rooms.number" resname="ad.rooms.number">
         <source>ad.rooms.number</source>

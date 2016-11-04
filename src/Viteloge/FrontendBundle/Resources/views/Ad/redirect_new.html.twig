@@ -1,67 +1,5 @@
 {% extends 'VitelogeFrontendBundle::base.html.twig' %}
 
-{# TODO: this should be externalize (DRY) #}
-{% set roomsurface =  include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface_url.html.twig', { 'ad': ad })  %}
-{% if ad.cityName is defined and ad.cityName is not empty %}
-    {% if ad.transaction is defined and ad.transaction is not empty %}
-        {% if ad.transaction == 'V' %}
-            {% set transac = ' à vendre'%}
-        {% elseif ad.transaction == 'L'%}
-            {% set transac = ' à louer'%}
-        {% else %}
-            {% set transac =' neufs'%}
-        {% endif %}
-
-        {% set description = ad.cityName~transac~' '~roomsurface %}
-     {% else %}
-        {% set description = ad.cityName~' '~roomsurface %}
-     {% endif %}
-{% else %}
-     {% set description = transac~' '~roomsurface %}
-{% endif %}
-
-{% if ads[clef-1] is defined %}
-    {% set roomsurface01 =  include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface_url.html.twig', { 'ad': ads[clef-1] })  %}
-    {% if ads[clef-1].cityName is defined and ads[clef-1].cityName is not empty %}
-        {% if ads[clef-1].transaction is defined and ads[clef-1].transaction is not empty %}
-            {% if ads[clef-1].transaction == 'V' %}
-                {% set transac01 = ' à vendre'%}
-            {% elseif ads[clef-1].transaction == 'L'%}
-                {% set transac01 = ' à louer'%}
-            {% else %}
-                {% set transac01 =' neufs'%}
-            {% endif %}
-
-            {% set description01 = ads[clef-1].cityName~transac01~' '~roomsurface01 %}
-         {% else %}
-            {% set description01 = ads[clef-1].cityName~' '~roomsurface01 %}
-         {% endif %}
-    {% else %}
-         {% set description01 = transac01~' '~roomsurface01 %}
-    {% endif %}
-{% endif %}
-
-{% if ads[clef+1] is defined %}
-    {% set roomsurface02 =  include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface_url.html.twig', { 'ad': ads[clef+1] })  %}
-    {% if ads[clef+1].cityName is defined and ads[clef+1].cityName is not empty %}
-        {% if ads[clef+1].transaction is defined and ads[clef+1].transaction is not empty %}
-            {% if ads[clef+1].transaction == 'V' %}
-                {% set transac02 = ' à vendre'%}
-            {% elseif ads[clef+1].transaction == 'L'%}
-                {% set transac02 = ' à louer'%}
-            {% else %}
-                {% set transac02 =' neufs'%}
-            {% endif %}
-
-            {% set description02 = ads[clef+1].cityName~transac02~' '~roomsurface02 %}
-         {% else %}
-            {% set description02 = ads[clef+1].cityName~' '~roomsurface02 %}
-         {% endif %}
-    {% else %}
-         {% set description02 = transac02~' '~roomsurface02 %}
-    {% endif %}
-{% endif %}
-
 {%- block head_javascripts_requirejs -%}
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
@@ -154,10 +92,11 @@
                     {% if app.request.attributes.get('_route') != 'viteloge_frontend_favourite_view' %}
                         {% if ads[clef-1] is defined %}
                             {% set moins =  left~'-'~ads[clef-1].id %}
+                            {% set ad_slug = ads[clef-1]|vl_slugify_ad %}
                             {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}
-                                <a href="{{ path('viteloge_frontend_agency_home', { 'id': moins, 'description':description01|slugify }) }}" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-precedent', 'bouton-precedent')">
+                                <a href="{{ path('viteloge_frontend_agency_home', { 'id': moins, 'description': ad_slug }) }}" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-precedent', 'bouton-precedent')">
                             {% else %}
-                                <a href="{% if ads[clef-1].transaction == 'V' %}{{ path('viteloge_frontend_agency_view', { 'id': moins, 'description':description01|slugify, 'transaction': 'V' }) }}{% else %}{{ path('viteloge_frontend_agency_view', { 'id': moins, 'description':description01|slugify }) }}{% endif %}" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-precedent', 'bouton-precedent')">
+                                <a href="{% if ads[clef-1].transaction == 'V' %}{{ path('viteloge_frontend_agency_view', { 'id': moins, 'description': ad_slug, 'transaction': 'V' }) }}{% else %}{{ path('viteloge_frontend_agency_view', { 'id': moins, 'description': ad_slug }) }}{% endif %}" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-precedent', 'bouton-precedent')">
                             {% endif %}
                         {% elseif app.session.get('previewUrl') %}
                             <a href="{{ app.session.get('previewUrl') }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">
@@ -168,9 +107,10 @@
                         {% if ads[clef-1] is defined or app.session.get('previewUrl') %}</a>{% endif %}
                         <span style="font-size:12px;color:#00a1c6;text-transform: uppercase;">{{ clef+1 }}/{% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}24{% else %}{{ total }}{% endif %}</span>
                         {% if ads[clef+1] is defined %}
-                            {% set plus=  right~'-'~ads[clef+1].id %}
+                            {% set plus = right~'-'~ads[clef+1].id %}
+                            {% set ad_slug_plus = ads[clef+1]|vl_slugify_ad %}
                             {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}
-                                <a href="{{ path('viteloge_frontend_agency_home', { 'id': plus, 'description':description02|slugify }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">{% else %}<a href="{% if ads[clef+1].transaction == 'V' %}{{ path('viteloge_frontend_agency_view', { 'id': plus, 'description':description02|slugify, 'transaction' :'V' }) }}{% else %}{{ path('viteloge_frontend_agency_view', { 'id': plus, 'description':description02|slugify}) }}{% endif %}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">
+                                <a href="{{ path('viteloge_frontend_agency_home', { 'id': plus, 'description': ad_slug_plus }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">{% else %}<a href="{% if ads[clef+1].transaction == 'V' %}{{ path('viteloge_frontend_agency_view', { 'id': plus, 'description': ad_slug_plus, 'transaction' :'V' }) }}{% else %}{{ path('viteloge_frontend_agency_view', { 'id': plus, 'description': ad_slug_plus}) }}{% endif %}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">
                             {% endif %}
                         {% elseif app.session.get('nextUrl') %}
                             <a href="{{ app.session.get('nextUrl') }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">
@@ -182,7 +122,8 @@
                     {% else %}
                         {% if ads[clef-1] is defined %}
                             {% set moins =  left~'-'~ads[clef-1].id %}
-                            <a href="{{ path('viteloge_frontend_favourite_view', { 'id': moins, 'description':description01|slugify }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">
+                            {% set ad_slug = ads[clef-1]|vl_slugify_ad %}
+                            <a href="{{ path('viteloge_frontend_favourite_view', { 'id': moins, 'description': ad_slug }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">
                         {% endif %}
                             <button type="button" alt="bien précédent" title="bien précédent" class="btn btn-primary btn-lg" {% if ads[clef-1] is not defined %}style ="cursor:none"{% endif %}><i class="fa fa-chevron-left"></i>
                             </button>
@@ -190,7 +131,8 @@
                         <span style="font-size:12px;color:#00a1c6;text-transform: uppercase;">{{ clef+1 }}/{{ total }}</span>
                         {% if ads[clef+1] is defined %}
                             {% set plus = right~'-'~ads[clef+1].id %}
-                            <a href="{{ path('viteloge_frontend_favourite_view', { 'id': plus, 'description':description02|slugify }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">
+                            {% set ad_slug_plus = ads[clef+1]|vl_slugify_ad %}
+                            <a href="{{ path('viteloge_frontend_favourite_view', { 'id': plus, 'description': ad_slug_plus }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">
                         {% endif %}
                             <button type="button" alt="bien suivant" title="bien suivant" class="btn btn-primary btn-lg"  {% if ads[clef+1] is not defined %}style ="cursor:none"{% endif %}>
                                 <i class="fa fa-chevron-right"></i>

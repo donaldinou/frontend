@@ -79,18 +79,12 @@ namespace Viteloge\FrontendBundle\Controller {
             $ads = $session->get('resultAd');
             if($request->query->get('transaction') == 'V'){
               $total = $session->get('totalResult');
-              }else{
-                  $total = $session->get('totalResultVente');
-              }
-
-
-
+            }else{
+                $total = $session->get('totalResultVente');
+            }
 
             $search = $session->get('request');
-
-
             //si on atteind le nbs max de resultat en session on relance la recherche
-
 
 
             // Form
@@ -106,27 +100,11 @@ namespace Viteloge\FrontendBundle\Controller {
                 $request->get('_route_params'),
                 true
             );
+
             $seoPage = $this->container->get('sonata.seo.page');
+            $helper = $this->container->get('viteloge_frontend.ad_helper');
 
-
-            if($ad->getTransaction() == 'V'){
-               $title = ' Vente';
-           }elseif($ad->getTransaction() == 'L'){
-               $title = ' Location';
-           }elseif($ad->getTransaction() == 'N'){
-               $title = ' Neuf';
-           }
-
-
-           $title .= ' '.$ad->getType();
-           $title .= ' '.$translated->transChoice('ad.rooms.url',$ad->getRooms(), array('%count%' => $ad->getRooms()));
-           $title .= ' '.$translated->transChoice('ad.bedrooms.url', $ad->getBedrooms(), array('%count%' => $ad->getBedrooms()));
-           $title .=' '.$ad->getcityName();
-           if(!empty($ad->getRooms()) || !empty($ad->getBedrooms())){
-            if(!empty($ad->getSurface())){
-             $title .= ' '.$ad->getSurface().' métres carrés';
-            }
-           }
+            $title = $helper->titlify($ad);
 
             $filters = $this->get('twig')->getFilters();
             $callable = $filters['truncate']->getCallable();
@@ -168,7 +146,7 @@ namespace Viteloge\FrontendBundle\Controller {
             }
             $cookies = $request->cookies;
 
-
+            // TODO create a service
             // on verifie si le bien est déja en favorie
             $time =time() + (3600 * 24 * 365);
             $favorie = false;
@@ -232,6 +210,7 @@ namespace Viteloge\FrontendBundle\Controller {
             }elseif($ad->getTransaction() == 'N'){
                 $title .= ' neuf';
             }
+
             if ($cookies->has('viteloge_title'))
             {
                 $info_cookies_title = explode('#$#', $cookies->get('viteloge_title')) ;

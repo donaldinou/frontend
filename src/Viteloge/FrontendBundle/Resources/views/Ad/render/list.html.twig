@@ -1,4 +1,10 @@
-{% set description =  include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface_url.html.twig', { 'ad': ad })  %}
+{%- set key = key|default(0) -%}
+{%- set description =  ad|vl_slugify_ad -%}
+{%- if ad.transaction == 'V' -%}
+    {%- set redirect_path = path('viteloge_frontend_agency_view', { 'id': key~'-'~ad.id, 'description': description, 'transaction': 'V' }) -%}
+{%- else -%}
+    {%- set redirect_path = path('viteloge_frontend_agency_view', { 'id': key~'-'~ad.id, 'description': description }) -%}
+{%- endif -%}
 
 <article class="estate clearfix row-no-padding" itemscope itemtype="http://schema.org/Product">
     <figure class="col-md-4">
@@ -7,13 +13,10 @@
         {%- endblock -%}
     </figure>
 
-
-
-    {# dump(ad.agencyName|replace({' ': '-'})|lower )#}
     <header class="col-md-8">
         <div class="h4 title" itemprop="name">
             {%- block estate_title -%}
-                <a href="{% if ad.transaction == 'V' %}{{ path('viteloge_frontend_agency_view', { 'id': key~'-'~ad.id, 'description':description|slugify, 'transaction': 'V'}) }}{% else %}{{ path('viteloge_frontend_agency_view', { 'id': key~'-'~ad.id, 'description':description|slugify }) }}{% endif %}" class="link text-left" rel="nofollow" target="_blank">
+                    <a href="{{ redirect_path }}" class="link text-left" rel="nofollow" target="_blank">
                     <h2 class="small-title">{{ ad.type~' ' }}{{ include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface.html.twig', { 'ad': ad }) }} <br/>{% trans %}ad.at{% endtrans %} {{ ad.cityName }} ({{ ad.postalcode }})<span class="price pull-right" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
             {%- block estate_price -%}
                 {{ ad.price | schematizedcurrency('EUR') | raw }}
@@ -29,7 +32,7 @@
     <div class="col-md-8 clearfix description text-justify" role="presentation" itemprop="description">
         {%- block estate_content -%}
             <p>{{ ad.advancedDescription|capitalize|normalize_utf8|raw }}</p>
-                <a href="{% if ad.transaction == 'V' %}{{ path('viteloge_frontend_agency_view', { 'id': key~'-'~ad.id, 'description':description|slugify, 'transaction': 'V'}) }}{% else %}{{ path('viteloge_frontend_agency_view', { 'id': key~'-'~ad.id, 'description':description|slugify }) }}{% endif %}" class="link text-left" rel="nofollow" target="_blank">
+            <a href="{{ redirect_path }}" class="link text-left" rel="nofollow" target="_blank">
                 <span>{%- trans with {'%agency%': ad.agencyDomainName} -%}ad.list.on.agency{%- endtrans -%}</span>
             </a>
         {%- endblock estate_content -%}
@@ -45,7 +48,7 @@
             </li>
             {% endif %}
             <li role="presentation" class="expand-hover">
-                <a href="{% if ad.transaction == 'V' %}{{ path('viteloge_frontend_agency_view', { 'id': key~'-'~ad.id, 'description':description|slugify, 'transaction': 'V'}) }}{% else %}{{ path('viteloge_frontend_agency_view', { 'id': key~'-'~ad.id, 'description':description|slugify }) }}{% endif %}" class="" role="tab" rel="nofollow" target="_blank" onclick="ga('send', 'event', 'page-listing-de-bien', 'clic-visiter-le-site', 'visiter-le-site')">
+                <a href="{{ redirect_path }}" class="" role="tab" rel="nofollow" target="_blank" onclick="ga('send', 'event', 'page-listing-de-bien', 'clic-visiter-le-site', 'visiter-le-site')">
                     <span class="fa fa-desktop"></span>
                     <span class="hidden-xs expand-hover-text">{% trans %}ad.visit{% endtrans %}</span>
                 </a>

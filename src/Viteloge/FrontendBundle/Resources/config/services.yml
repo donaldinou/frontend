@@ -1,4 +1,5 @@
 parameters:
+    viteloge_frontend.component.helper.ad.class: Viteloge\FrontendBundle\Component\Helper\AdHelper
     viteloge_frontend.component.factory.token_manager.class: Viteloge\FrontendBundle\Component\Token\ManagerFactory
     viteloge_frontend.eventlistener.websearch.class: Viteloge\FrontendBundle\EventListener\WebSearchListener
     viteloge_frontend.eventlistener.sitemap.class: Viteloge\FrontendBundle\EventListener\SitemapListener
@@ -10,15 +11,15 @@ parameters:
     viteloge_frontend.form.type.recommand.class: Viteloge\FrontendBundle\Form\Type\RecommandType
     viteloge_frontend.form.type.api.class: Viteloge\FrontendBundle\Form\Type\ApiType
     viteloge_frontend.form.type.insee_city_selector.class: Viteloge\FrontendBundle\Form\Type\InseeCitySelectorType
+    viteloge_frontend.services.class: Viteloge\FrontendBundle\Services\manageUser
     viteloge_frontend.twig.extension.class: Viteloge\FrontendBundle\Twig\VitelogeFrontendExtension
     viteloge_frontend.pagerfanta.view.viteloge.class: Viteloge\FrontendBundle\Pagerfanta\View\VitelogeView
     viteloge_frontend.pagerfanta.view.viteloge_translated.class: Viteloge\FrontendBundle\Pagerfanta\View\VitelogeViewTranslated
-    viteloge_frontend.services.class:      Viteloge\FrontendBundle\Services\manageUser
 
 services:
-    viteloge_frontend_generate.user:
-        class: "%viteloge_frontend.services.class%"
-        arguments: ["@service_container","@security.token_storage", "@doctrine.orm.entity_manager"]
+    viteloge_frontend.ad_helper:
+        class: %viteloge_frontend.component.helper.ad.class%
+        arguments: ["@translator"]
     viteloge_frontend.mail_token_manager:
         class: MailTokenManager
         factory: [%viteloge_frontend.component.factory.token_manager.class%, getManager]
@@ -34,7 +35,7 @@ services:
             - { name: doctrine.event_listener, event: prePersist }
     viteloge_frontend.sitemaplistener:
         class: %viteloge_frontend.eventlistener.sitemap.class%
-        arguments: ["@service_container","@router", "@doctrine.orm.entity_manager"]
+        arguments: ["@router", "@doctrine.orm.entity_manager", "@viteloge_frontend.ad_helper"]
         tags:
             - { name: "presta.sitemap.listener"}
     viteloge_frontend.form.type.ad:
@@ -73,6 +74,9 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type, alias: insee_city_selector }
+    viteloge_frontend_generate.user:
+        class: "%viteloge_frontend.services.class%"
+        arguments: ["@service_container","@security.token_storage", "@doctrine.orm.entity_manager"]
     viteloge_frontend.twig.extension:
         class: %viteloge_frontend.twig.extension.class%
         arguments: ["@service_container"]
