@@ -76,18 +76,18 @@
 }
 
 .main-top{
-    margin-top: 133px;
+    padding-top: 133px;
      @media (max-width: $screen-lg-min) {
-            margin-top: 133px;
+            padding-top: 133px;
         }
     @media (max-width: $screen-md-min) {
-            margin-top: 129px;
+            padding-top: 129px;
         }
     @media (max-width: $screen-sm-min) {
-            margin-top: 219px;
+            padding-top: 219px;
         }
     @media (max-width: $screen-xs-min) {
-            margin-top: 219px;
+            padding-top: 219px;
         }
 }
 
