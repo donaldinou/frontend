@@ -94,7 +94,7 @@ module.exports = function(grunt) {
                 options: {
                     stdout: true
                 },
-                command: 'bower update'
+                command: 'bower update --allow-root'
             },
             applicationOwner: {
                 options: {
