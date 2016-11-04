@@ -1,6 +1,10 @@
 {
     "environment": "prod",
+    "composer-command-suffix": "--optimize-autoloader --no-dev",
+    "symfony-command-suffix": "--no-debug",
     "compass-tmp-dir": ".tmp",
     "deploy-user": "viteloge",
-    "deploy-group": "apache"
+    "deploy-group": "apache",
+    "apache-service": "httpd",
+    "php-service": "php-fpm"
 }

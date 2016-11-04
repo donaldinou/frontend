@@ -58,13 +58,37 @@ module.exports = function(grunt) {
                 options: {
                     stdout: true
                 },
-                command: 'service httpd stop && service php-fpm stop'
+                command: 'service <%= cfg["apache-service"] %> stop && service <%= cfg["php-service"] %> stop'
             },
             startService: {
                 options: {
                     stdout: true
                 },
-                command: 'service httpd start && service php-fpm start'
+                command: 'service <%= cfg["apache-service"] %> start && service <%= cfg["php-service"] %> start'
+            },
+            composerSelfUpdate: {
+                options: {
+                    stdout: true
+                },
+                command: 'composer self-update'
+            },
+            npmNpmUpdate: {
+                options: {
+                    stdout: true
+                },
+                command: 'npm install npm@latest -g'
+            },
+            npmBowerUpdate: {
+                options: {
+                    stdout: true
+                },
+                command: 'npm update -g bower'
+            },
+            npmGruntUpdate: {
+                options: {
+                    stdout: true
+                },
+                command: 'npm update -g grunt-cli'
             },
             bowerUpdate: {
                 options: {
@@ -78,6 +102,24 @@ module.exports = function(grunt) {
                 },
                 command: 'chown -Rf <%= cfg["deploy-user"] %>:<%= cfg["deploy-user"] %> ./'
             },
+            removeLogs: {
+                options: {
+                    stdout: true
+                },
+                command: 'rm -Rf app/logs/<%= cfg.environment %>.log'
+            },
+            rightsLogs: {
+                options: {
+                    stdout: true
+                },
+                command: 'chown -Rf <%= cfg["deploy-user"] %>:<%= cfg["deploy-group"] %> app/logs/ && chmod 775 app/logs/ && find app/logs/ -type f -exec chmod 664 {} \\;'
+            },
+            rightsSpool: {
+                options: {
+                    stdout: true
+                },
+                command: 'chown -Rf <%= cfg["deploy-user"] %>:<%= cfg["deploy-group"] %> app/spool/default/ && chmod 775 app/spool/default/ && find app/spool/default/ -type f -exec chmod 664 {} \\;'
+            },
             removeCache: {
                 options: {
                     stdout: true
@@ -88,7 +130,7 @@ module.exports = function(grunt) {
                 options: {
                     stdout: true
                 },
-                command: 'php app/console cache:clear --env=<%= cfg.environment %> --no-debug'
+                command: 'php app/console cache:clear --env=<%= cfg.environment %> <%= cfg["symfony-command-suffix"] %>'
             },
             rightsCache: {
                 options: {
@@ -100,25 +142,25 @@ module.exports = function(grunt) {
                 options: {
                     stdout: true
                 },
-                command: 'php app/console assets:install --env=<%= cfg.environment %> --no-debug'
+                command: 'php app/console assets:install --env=<%= cfg.environment %> <%= cfg["symfony-command-suffix"] %>'
             },
             composerUpdate: {
                 options: {
                     stdout: true
                 },
-                command: 'export SYMFONY_ENV=<%= cfg.environment %> && composer update --optimize-autoloader --no-dev'
+                command: 'export SYMFONY_ENV=<%= cfg.environment %> && composer update <%= cfg["composer-command-suffix"] %>'
             },
             composerInstall: {
                 options: {
                     stdout: true
                 },
-                command: 'export SYMFONY_ENV=<%= cfg.environment %> && composer install --optimize-autoloader --no-dev'
+                command: 'export SYMFONY_ENV=<%= cfg.environment %> && composer install <%= cfg["composer-command-suffix"] %>'
             },
             composerDump: {
                 options: {
                     stdout: true
                 },
-                command: 'export SYMFONY_ENV=<%= cfg.environment %> && composer dump-autoload --optimize --no-dev'
+                command: 'export SYMFONY_ENV=<%= cfg.environment %> && composer dump-autoload <%= cfg["composer-command-suffix"] %>'
             },
             jsRoutingDump: {
                 options: {
@@ -554,6 +596,27 @@ module.exports = function(grunt) {
             grunt.log.writeln('Unable to correctly set application owner on Windows system');
         }
     });
+    grunt.registerTask('removeLogs', 'Command line to remove logs', function() {
+        if (process.platform != 'win32') {
+            grunt.task.run('shell:removeLogs');
+        } else {
+            grunt.log.writeln('Unable to correctly remove logs on Windows system');
+        }
+    });
+    grunt.registerTask('rightsLogs', 'Command line to set rights on logs directory', function() {
+        if (process.platform != 'win32') {
+            grunt.task.run('shell:rightsLogs');
+        } else {
+            grunt.log.writeln('Unable to correctly set rights logs on Windows system');
+        }
+    });
+    grunt.registerTask('rightsSpool', 'Command line to set rights on spool directory', function() {
+        if (process.platform != 'win32') {
+            grunt.task.run('shell:rightsSpool');
+        } else {
+            grunt.log.writeln('Unable to correctly set rights spool on Windows system');
+        }
+    });
     grunt.registerTask('removeCache', 'Command line to remove cache', function() {
         if (process.platform != 'win32') {
             grunt.task.run('shell:removeCache');
@@ -567,6 +630,9 @@ module.exports = function(grunt) {
         } else {
             grunt.log.writeln('Unable to correctly set rights cache on Windows system');
         }
+    });
+    grunt.registerTask('rightsApplication', 'Command line to set rights on application', function() {
+        grunt.task.run(['applicationOwner', 'rightsCache', 'rightsLogs', 'rightsSpool']);
     });
     grunt.registerTask('connectDeploymentUser', 'Connect as a deployment user', function() {
         var cfg = grunt.config.get('cfg');
@@ -604,6 +670,7 @@ module.exports = function(grunt) {
     grunt.registerTask('css', ['shell:assetsInstall', 'bowercopy', 'copy', 'compass', 'cssmin', 'applicationOwner', 'rightsCache']);
     grunt.registerTask('javascript', ['shell:assetsInstall', 'bowercopy', 'copy', 'concat', 'applicationOwner', 'rightsCache']);
     grunt.registerTask('default', ['watch']);
+    grunt.registerTask('tools-update', 'shell:composerSelfUpdate', 'shell:npmNpmUpdate', 'shell:npmBowerUpdate', 'shell:npmGruntUpdate')
     grunt.registerTask('deployApp', [
         'shell:composerUpdate',
         'shell:composerInstall',
@@ -611,8 +678,7 @@ module.exports = function(grunt) {
         'gruntForceTaskOn',
         'shell:sitemapDump',
         'gruntForceTaskRestore',
-        'applicationOwner',
-        'rightsCache'
+        'rightsApplication'
     ]);
     grunt.registerTask('deployCss', [
         'clean',
@@ -628,8 +694,7 @@ module.exports = function(grunt) {
         'shell:copyZeroclipboard',
         'compress',
         'aws',
-        'applicationOwner',
-        'rightsCache'
+        'rightsApplication'
     ]);
     grunt.registerTask('deployJs', [
         'clean',
@@ -646,8 +711,7 @@ module.exports = function(grunt) {
         'shell:copyZeroclipboard',
         'compress',
         'aws',
-        'applicationOwner',
-        'rightsCache'
+        'rightsApplication'
     ])
     grunt.registerTask('deployAssets', [
         'clean',
@@ -665,8 +729,7 @@ module.exports = function(grunt) {
         'shell:copyZeroclipboard',
         'compress',
         'aws',
-        'applicationOwner',
-        'rightsCache'
+        'rightsApplication'
     ]);
     grunt.registerTask('deploy', [
         'shell:stopService',
@@ -688,14 +751,12 @@ module.exports = function(grunt) {
         'shell:copyZeroclipboard',
         'compress',
         'aws',
-        'applicationOwner',
-        'rightsCache',
+        'rightsApplication',
         'disconnectDeploymentUser',
         'shell:startService',
         'gruntForceTaskOn',
         'shell:sitemapDump',
         'gruntForceTaskRestore',
-        'applicationOwner',
-        'rightsCache'
+        'rightsApplication'
     ]);
 };
