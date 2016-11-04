@@ -1,15 +1,3 @@
-viteloge_frontend_static_google:
-    path: /googlea19a01de7ca41823.{_format}
-    defaults:
-        _format: "html"
-        _controller: FrameworkBundle:Template:template
-        template: 'VitelogeFrontendBundle:Static:google.html.twig'
-        private: true
-        maxAge: 86400
-        sharedAge: 86400
-    requirements:
-        _method: GET
-
 viteloge_frontend_ad:
     resource: "@VitelogeFrontendBundle/Controller/AdController.php"
     type: annotation
@@ -73,6 +61,18 @@ viteloge_frontend_sitemap:
 viteloge_frontend_sendgrid:
     resource: "@VitelogeFrontendBundle/Controller/SendgridController.php"
     type: annotation
+
+viteloge_frontend_static_google:
+    path: /googlea19a01de7ca41823.{_format}
+    defaults:
+        _format: "html"
+        _controller: FrameworkBundle:Template:template
+        template: 'VitelogeFrontendBundle:Static:google.html.twig'
+        private: true
+        maxAge: 86400
+        sharedAge: 86400
+    requirements:
+        _method: GET
 
 viteloge_frontend_static_about:
     path: /about
@@ -244,7 +244,6 @@ viteloge_frontend_static_privacy:
             title: viteloge.frontend.static.privacy.title
             description: viteloge.frontend.static.privacy.description
 
-
 viteloge_frontend_static_mention:
     path: /mention
     defaults:
@@ -261,5 +260,3 @@ viteloge_frontend_static_mention:
             changefreq: "weekly"
             title: viteloge.frontend.static.mention.title
             description: viteloge.frontend.static.mention.description
-
-

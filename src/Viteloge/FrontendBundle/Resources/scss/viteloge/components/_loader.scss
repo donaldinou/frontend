@@ -1,5 +1,6 @@
 .loader-backdrop {
     @extend .modal-backdrop;
+    z-index: 2;
 }
 .loader {
     display: block;
@@ -30,8 +31,8 @@
     z-index: 9999;
 }
 
-.modal-backdrop{
- z-index: 1;
+.modal-backdrop {
+    z-index: 1;
 }
 path#search {
     animation-name: rotatekf;

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="facebook" resname="facebook">
+                <source>facebook</source>
+                <target>facebook</target>
+            </trans-unit>
+            <trans-unit id="twitter" resname="twitter">
+                <source>twitter</source>
+                <target>twitter</target>
+            </trans-unit>
+            <trans-unit id="google" resname="google">
+                <source>google</source>
+                <target>google</target>
+            </trans-unit>
+            <trans-unit id="github" resname="github">
+                <source>github</source>
+                <target>github</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
