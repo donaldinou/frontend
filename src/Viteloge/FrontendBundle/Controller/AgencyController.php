@@ -108,18 +108,20 @@ namespace Viteloge\FrontendBundle\Controller {
             );
             $seoPage = $this->container->get('sonata.seo.page');
 
-           $title = $ad->getcityName();
+
             if($ad->getTransaction() == 'V'){
-               $title .= ' à vendre';
+               $title = ' Vente';
            }elseif($ad->getTransaction() == 'L'){
-               $title .= ' à louer';
+               $title = ' Location';
            }elseif($ad->getTransaction() == 'N'){
-               $title .= ' neuf';
+               $title = ' Neuf';
            }
 
+
+           $title .= ' '.$ad->getType();
            $title .= ' '.$translated->transChoice('ad.rooms.url',$ad->getRooms(), array('%count%' => $ad->getRooms()));
            $title .= ' '.$translated->transChoice('ad.bedrooms.url', $ad->getBedrooms(), array('%count%' => $ad->getBedrooms()));
-
+           $title .=' '.$ad->getcityName();
            if(!empty($ad->getRooms()) || !empty($ad->getBedrooms())){
             if(!empty($ad->getSurface())){
              $title .= ' '.$ad->getSurface().' métres carrés';
