@@ -58,13 +58,13 @@ module.exports = function(grunt) {
                 options: {
                     stdout: true
                 },
-                command: 'service apache2 stop && service php5.6-fpm stop'
+                command: 'service httpd stop && service php-fpm stop'
             },
             startService: {
                 options: {
                     stdout: true
                 },
-                command: 'service apache2 start && service php5.6-fpm start'
+                command: 'service httpd start && service php-fpm start'
             },
             bowerUpdate: {
                 options: {
