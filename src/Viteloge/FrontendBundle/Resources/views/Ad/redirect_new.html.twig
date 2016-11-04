@@ -1,238 +1,233 @@
 {% extends 'VitelogeFrontendBundle::base.html.twig' %}
+
+{# TODO: this should be externalize (DRY) #}
 {% set roomsurface =  include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface_url.html.twig', { 'ad': ad })  %}
 {% if ad.cityName is defined and ad.cityName is not empty %}
-            {% if ad.transaction is defined and ad.transaction is not empty %}
-                 {% if ad.transaction == 'V' %}
-                    {% set transac = ' à vendre'%}
-                {% elseif ad.transaction == 'L'%}
-                    {% set transac = ' à louer'%}
-                {% else %}
-                    {% set transac =' neufs'%}
-                {% endif %}
+    {% if ad.transaction is defined and ad.transaction is not empty %}
+        {% if ad.transaction == 'V' %}
+            {% set transac = ' à vendre'%}
+        {% elseif ad.transaction == 'L'%}
+            {% set transac = ' à louer'%}
+        {% else %}
+            {% set transac =' neufs'%}
+        {% endif %}
 
-                {% set description = ad.cityName~transac~' '~roomsurface %}
-             {% else %}
-                {% set description = ad.cityName~' '~roomsurface %}
-             {% endif %}
+        {% set description = ad.cityName~transac~' '~roomsurface %}
+     {% else %}
+        {% set description = ad.cityName~' '~roomsurface %}
+     {% endif %}
 {% else %}
      {% set description = transac~' '~roomsurface %}
 {% endif %}
 
 {% if ads[clef-1] is defined %}
-{% set roomsurface01 =  include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface_url.html.twig', { 'ad': ads[clef-1] })  %}
-{% if ads[clef-1].cityName is defined and ads[clef-1].cityName is not empty %}
-            {% if ads[clef-1].transaction is defined and ads[clef-1].transaction is not empty %}
-                 {% if ads[clef-1].transaction == 'V' %}
-                    {% set transac01 = ' à vendre'%}
-                {% elseif ads[clef-1].transaction == 'L'%}
-                    {% set transac01 = ' à louer'%}
-                {% else %}
-                    {% set transac01 =' neufs'%}
-                {% endif %}
+    {% set roomsurface01 =  include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface_url.html.twig', { 'ad': ads[clef-1] })  %}
+    {% if ads[clef-1].cityName is defined and ads[clef-1].cityName is not empty %}
+        {% if ads[clef-1].transaction is defined and ads[clef-1].transaction is not empty %}
+            {% if ads[clef-1].transaction == 'V' %}
+                {% set transac01 = ' à vendre'%}
+            {% elseif ads[clef-1].transaction == 'L'%}
+                {% set transac01 = ' à louer'%}
+            {% else %}
+                {% set transac01 =' neufs'%}
+            {% endif %}
 
-                {% set description01 = ads[clef-1].cityName~transac01~' '~roomsurface01 %}
-             {% else %}
-                {% set description01 = ads[clef-1].cityName~' '~roomsurface01 %}
-             {% endif %}
-{% else %}
-     {% set description01 = transac01~' '~roomsurface01 %}
-{% endif %}
+            {% set description01 = ads[clef-1].cityName~transac01~' '~roomsurface01 %}
+         {% else %}
+            {% set description01 = ads[clef-1].cityName~' '~roomsurface01 %}
+         {% endif %}
+    {% else %}
+         {% set description01 = transac01~' '~roomsurface01 %}
+    {% endif %}
 {% endif %}
 
 {% if ads[clef+1] is defined %}
-{% set roomsurface02 =  include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface_url.html.twig', { 'ad': ads[clef+1] })  %}
-{% if ads[clef+1].cityName is defined and ads[clef+1].cityName is not empty %}
-            {% if ads[clef+1].transaction is defined and ads[clef+1].transaction is not empty %}
-                 {% if ads[clef+1].transaction == 'V' %}
-                    {% set transac02 = ' à vendre'%}
-                {% elseif ads[clef+1].transaction == 'L'%}
-                    {% set transac02 = ' à louer'%}
-                {% else %}
-                    {% set transac02 =' neufs'%}
-                {% endif %}
+    {% set roomsurface02 =  include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface_url.html.twig', { 'ad': ads[clef+1] })  %}
+    {% if ads[clef+1].cityName is defined and ads[clef+1].cityName is not empty %}
+        {% if ads[clef+1].transaction is defined and ads[clef+1].transaction is not empty %}
+            {% if ads[clef+1].transaction == 'V' %}
+                {% set transac02 = ' à vendre'%}
+            {% elseif ads[clef+1].transaction == 'L'%}
+                {% set transac02 = ' à louer'%}
+            {% else %}
+                {% set transac02 =' neufs'%}
+            {% endif %}
 
-                {% set description02 = ads[clef+1].cityName~transac02~' '~roomsurface02 %}
-             {% else %}
-                {% set description02 = ads[clef+1].cityName~' '~roomsurface02 %}
-             {% endif %}
-{% else %}
-     {% set description02 = transac02~' '~roomsurface02 %}
-{% endif %}
+            {% set description02 = ads[clef+1].cityName~transac02~' '~roomsurface02 %}
+         {% else %}
+            {% set description02 = ads[clef+1].cityName~' '~roomsurface02 %}
+         {% endif %}
+    {% else %}
+         {% set description02 = transac02~' '~roomsurface02 %}
+    {% endif %}
 {% endif %}
 
-{% block head_javascripts_requirejs %}
-<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-{% endblock head_javascripts_requirejs %}
+{%- block head_javascripts_requirejs -%}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+{%- endblock head_javascripts_requirejs -%}
+
 {%- block header -%}
     {%- embed "VitelogeUserBundle:base:smallHeaders.html.twig" with {form:form} -%}
         {%- block header_navbarheader -%}
 
         {%- endblock -%}
-
     {%- endembed -%}
 {%- endblock -%}
+
 {%- block flash -%}
     {{- include('VitelogeUserBundle:base:flash.html.twig', { hideContainer: true }) -}}
 {%- endblock flash -%}
 
 {%- block main -%}
-{% if redirect %}
-
-{% embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 12, 'rsize': 12 } %}
-        {% block left %}
-
-    <div class="row text-center" style="padding-top:30px;padding-bottom: 152px;">
-
-    </div>
-    <div id="MSG-IMPORTANT" class="panel text-center" style="border:none;background: #f7f3e7;">
-        <p style="color: #3f454f;font-size: 18px;font-weight: bold;margin-bottom: 0.8em;">
-            {{ "Cliquez sur ce lien pour " | trans }}<br/>
-            {{ "consultez cette annonce immobilière" | trans }}<br>
-        </p>
-        <a id="bar" href="{{ ad.url }}" style="color: #f46923;font-size: 16px;" target="_blank">{{ ad.url }}</a>
-        <span id="foo"></span>
-    </div>
-        {% endblock %}
-        {% block right %}
-            {%- embed "VitelogeFrontendBundle:Block:aside_footer.html.twig" -%}
-                {%- block aside_before_adsense1 -%}
-                    {%- if form is defined and form.vars.value.where and form.vars.value.where.0 -%}
-                        {{- render_hinclude(path('viteloge_frontend_suggest_near', { 'name': 'test', 'id': form.vars.value.where.0, 'radius': constant('Viteloge\\CoreBundle\\Component\\Enum\\DistanceEnum::TEN'), 'limit': 10, '_format': 'html' })) -}}
-                    {%- endif -%}
-                {%- endblock aside_before_adsense1 -%}
-            {%- endembed -%}
-
-        {% endblock %}
-    {% endembed %}
-{% else %}
-     <iframe src="{{ ad.url }}" width="100%" height="100%" style="background-color: #eee;
-    border: medium none;
-    position: absolute;margin-top:135px; "></iframe>
-{% endif %}
+    {%- if redirect -%}
+        {%- embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 12, 'rsize': 12 } -%}
+            {% block left %}
+                <div class="row text-center" style="padding-top:30px;padding-bottom: 152px;"></div>
+                <div id="MSG-IMPORTANT" class="panel text-center" style="border:none;background: #f7f3e7;">
+                    <p style="color: #3f454f;font-size: 18px;font-weight: bold;margin-bottom: 0.8em;">
+                        {{ "Cliquez sur ce lien pour " | trans }}<br/>
+                        {{ "consultez cette annonce immobilière" | trans }}<br>
+                    </p>
+                    <a id="bar" href="{{ ad.url }}" style="color: #f46923;font-size: 16px;" target="_blank">{{ ad.url }}</a>
+                    <span id="foo"></span>
+                </div>
+            {% endblock %}
+            {% block right %}
+                {%- embed "VitelogeFrontendBundle:Block:aside_footer.html.twig" -%}
+                    {%- block aside_before_adsense1 -%}
+                        {%- if form is defined and form.vars.value.where and form.vars.value.where.0 -%}
+                            {{- render_hinclude(path('viteloge_frontend_suggest_near', { 'name': 'test', 'id': form.vars.value.where.0, 'radius': constant('Viteloge\\CoreBundle\\Component\\Enum\\DistanceEnum::TEN'), 'limit': 10, '_format': 'html' })) -}}
+                        {%- endif -%}
+                    {%- endblock aside_before_adsense1 -%}
+                {%- endembed -%}
+            {% endblock %}
+        {%- endembed -%}
+    {%- else -%}
+         <iframe src="{{ ad.url }}" width="100%" height="100%" style="background-color: #eee;border: medium none;position: absolute;margin-top:135px;"></iframe>
+    {%- endif -%}
 {%- endblock -%}
 
 {%- block footer -%}
-{% if redirect %}
-{{ parent() }}
-{% endif %}
+    {%- if redirect -%}
+        {{ parent() }}
+    {%- endif -%}
 {%- endblock -%}
 
 {%- block header_end %}
     <div class="container-fluid">
         <div class="row clearfix">
             {% if total is not empty %}
-            <div class="col-xs-1 col-sm-3 col-md-1 col-lg-1">
-                {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_view' %}
-                                <a href="{{ app.session.get('currentUrl') }}" class="btnlist">
-                                <button type="button" alt="retour à la liste de résultats" title="retour à la liste de résultats" class="btn btn-primary btn-lg" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-menu', 'menu')" style="padding: 8px 10px;">
-                                    <i class="fa fa-angle-double-left"></i>
-                                </button>
-                            {% elseif app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}
-                                <a href="{{ path('viteloge_frontend_ad_latest_list') }}" class="btnlist" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-menu', 'menu')">
-                                <button type="button" alt="derniers biens" title="Nos derniers biens" class="btn btn-primary btn-lg" style="padding: 8px 10px;">
-                                    <i class="fa fa-angle-double-left"></i>
-                                </button>
-                            {% else %}
-                                <a href="{{ path('viteloge_frontend_favourite_list') }}" class="btnlist" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-menu', 'menu')">
-                                <button type="button" alt="Listes des favoris" title="retour à la liste des favoris" class="btn btn-primary btn-lg" style="padding: 8px 10px;">
-                                    <i class="fa fa-angle-double-left"></i>
-                                </button>
-                            {% endif %}
-                            </a>
-            </div>
+                <div class="col-xs-1 col-sm-3 col-md-1 col-lg-1">
+                    {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_view' %}
+                        <a href="{{ app.session.get('currentUrl') }}" class="btnlist">
+                            <button type="button" alt="retour à la liste de résultats" title="retour à la liste de résultats" class="btn btn-primary btn-lg" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-menu', 'menu')" style="padding: 8px 10px;">
+                                <i class="fa fa-angle-double-left"></i>
+                            </button>
+                        </a>
+                    {% elseif app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}
+                        <a href="{{ path('viteloge_frontend_ad_latest_list') }}" class="btnlist" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-menu', 'menu')">
+                            <button type="button" alt="derniers biens" title="Nos derniers biens" class="btn btn-primary btn-lg" style="padding: 8px 10px;">
+                                <i class="fa fa-angle-double-left"></i>
+                            </button>
+                        </a>
+                    {% else %}
+                        <a href="{{ path('viteloge_frontend_favourite_list') }}" class="btnlist" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-menu', 'menu')">
+                            <button type="button" alt="Listes des favoris" title="retour à la liste des favoris" class="btn btn-primary btn-lg" style="padding: 8px 10px;">
+                                <i class="fa fa-angle-double-left"></i>
+                            </button>
+                        </a>
+                    {% endif %}
+                </div>
             {% endif %}
-            {% if total is not empty %}
-            <div class="hidden-xs hidden-sm col-md-6 col-lg-5">
-            {% else %}
-            <div class="hidden-xs hidden-sm col-md-7 col-lg-6">
-            {% endif %}
+            <div class="hidden-xs hidden-sm {% if total is not empty %}col-md-6 col-lg-5{% else %}col-md-7 col-lg-6{% endif %}">
+                {# THIS IS NOT SEMANTICALLY CORRECT (h2 before h1)!! SEO will be decrease #}
                 <h2 style="text-transform: uppercase;font-size:12px !important;margin:0;padding:0;color:#00a1c6;display:inline-block;vertical-align:top;">{{ ad.agencyName~' vous propose ' }}</h2>
-                <h1 style="text-transform: uppercase;font-size:12px !important;color:#00a1c6;display:inline-block;vertical-align:top;margin:0;">{% if ad.type == 'maison' %} une {% else %} un {% endif %}{{ ad.type }}{% trans %} ad.at {% endtrans %} {{ ('footer.transaction.article.'~ad.transaction)|trans }}{% trans %} ad.at {% endtrans %} {{ ad.cityName }} ({{ ad.postalcode }}) - {{ ad.price | schematizedcurrency('EUR') | raw }}</h1><br/>
+                <h1 style="text-transform: uppercase;font-size:12px !important;color:#00a1c6;display:inline-block;vertical-align:top;margin:0;">{% if ad.type == 'maison' %} une {% else %} un {% endif %}{{ ad.type }}{% trans %} ad.at {% endtrans %} {{ ('footer.transaction.article.'~ad.transaction)|trans }}{% trans %} ad.at {% endtrans %} {{ ad.cityName }} ({{ ad.postalcode }}) - {{ ad.price | schematizedcurrency('EUR') | raw }}</h1><br>
                  <small style="text-transform: lowercase;color:#00a1c6;display: inline-block; line-height: 1; margin-bottom: 5px;"> {{ ad.description|truncate(200, false, '...')|normalize_utf8|raw }}
-                    {% if ad.description|length < 200 %}<br/>&nbsp;&nbsp;&nbsp;{% endif %}
+                    {% if ad.description|length < 200 %}<br>&nbsp;&nbsp;&nbsp;{% endif %}
                  </small>
             </div>
             <div class="col-xs-5 col-sm-3 col-md-2 col-lg-2 text-left">
+                {# TODO : Use the pagination template... #}
                 {% if total is not empty %}
-                  {% if app.request.attributes.get('_route') != 'viteloge_frontend_favourite_view' %}
-                                {% if ads[clef-1] is defined %}
-                                {% set moins =  left~'-'~ads[clef-1].id %}
-                                {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}
-                                <a href="{{ path('viteloge_frontend_agency_home', { 'id': moins, 'description':description01|slugify }) }}" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-precedent', 'bouton-precedent')">{% else %}<a href="{% if ads[clef-1].transaction == 'V' %}{{ path('viteloge_frontend_agency_view', { 'id': moins, 'description':description01|slugify, 'transaction': 'V' }) }}{% else %}{{ path('viteloge_frontend_agency_view', { 'id': moins, 'description':description01|slugify }) }}{% endif %}" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-precedent', 'bouton-precedent')">{% endif %}{% elseif app.session.get('previewUrl') %}<a href="{{ app.session.get('previewUrl') }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">{% endif %}
-                                <button type="button" alt="bien précédent" title="bien précédent" class="btn btn-primary btn-lg" {% if ads[clef-1] is not defined and not app.session.get('previewUrl') %}style ="cursor:none"{% endif %}>
-                                     <i class="fa fa-chevron-left"></i>
-                                </button>
-                               {% if ads[clef-1] is defined or app.session.get('previewUrl') %}  </a> {% endif %}
-
-                               <span style="font-size:12px;color:#00a1c6;text-transform: uppercase;">{{ clef+1 }}/{% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}24{% else %}{{ total }}{% endif %}</span>
-                                {% if ads[clef+1] is defined %}
-                                    {% set plus=  right~'-'~ads[clef+1].id %}
+                    {% if app.request.attributes.get('_route') != 'viteloge_frontend_favourite_view' %}
+                        {% if ads[clef-1] is defined %}
+                            {% set moins =  left~'-'~ads[clef-1].id %}
                             {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}
-                            <a href="{{ path('viteloge_frontend_agency_home', { 'id': plus, 'description':description02|slugify }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">{% else %}<a href="{% if ads[clef+1].transaction == 'V' %}{{ path('viteloge_frontend_agency_view', { 'id': plus, 'description':description02|slugify, 'transaction' :'V' }) }}{% else %}{{ path('viteloge_frontend_agency_view', { 'id': plus, 'description':description02|slugify}) }}{% endif %}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">{% endif %}{% elseif app.session.get('nextUrl') %}<a href="{{ app.session.get('nextUrl') }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">{% endif %}
-                                <button type="button" alt="bien suivant" title="bien suivant" class="btn btn-primary btn-lg"  {% if ads[clef+1] is not defined and not app.session.get('nextUrl') %}style ="cursor:none"{% endif %}>
-                                    <i class="fa fa-chevron-right"></i>
-                                </button>
-                            {% if ads[clef+1] is defined or app.session.get('nextUrl') %}  </a> {% endif %}
-                        {% else %}
-                            {% if ads[clef-1] is defined %}
-                                {% set moins =  left~'-'~ads[clef-1].id %}
-                                <a href="{{ path('viteloge_frontend_favourite_view', { 'id': moins, 'description':description01|slugify }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">{% endif %}
-                                <button type="button" alt="bien précédent" title="bien précédent" class="btn btn-primary btn-lg" {% if ads[clef-1] is not defined %}style ="cursor:none"{% endif %}>
-                                     <i class="fa fa-chevron-left"></i>
-                                </button>
-                               {% if ads[clef-1] is defined %}  </a> {% endif %}
-
-                               <span style="font-size:12px;color:#00a1c6;text-transform: uppercase;">{{ clef+1 }}/{{ total }}</span>
-                            {% if ads[clef+1] is defined %}
-                            {% set plus=  right~'-'~ads[clef+1].id %}
-                            <a href="{{ path('viteloge_frontend_favourite_view', { 'id': plus, 'description':description02|slugify }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">{% endif %}
-                                <button type="button" alt="bien suivant" title="bien suivant" class="btn btn-primary btn-lg"  {% if ads[clef+1] is not defined %}style ="cursor:none"{% endif %}>
-                                    <i class="fa fa-chevron-right"></i>
-                                </button>
-                            {% if ads[clef+1] is defined %}  </a> {% endif %}
+                                <a href="{{ path('viteloge_frontend_agency_home', { 'id': moins, 'description':description01|slugify }) }}" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-precedent', 'bouton-precedent')">
+                            {% else %}
+                                <a href="{% if ads[clef-1].transaction == 'V' %}{{ path('viteloge_frontend_agency_view', { 'id': moins, 'description':description01|slugify, 'transaction': 'V' }) }}{% else %}{{ path('viteloge_frontend_agency_view', { 'id': moins, 'description':description01|slugify }) }}{% endif %}" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-precedent', 'bouton-precedent')">
+                            {% endif %}
+                        {% elseif app.session.get('previewUrl') %}
+                            <a href="{{ app.session.get('previewUrl') }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">
                         {% endif %}
+                            <button type="button" alt="bien précédent" title="bien précédent" class="btn btn-primary btn-lg" {% if ads[clef-1] is not defined and not app.session.get('previewUrl') %}style ="cursor:none"{% endif %}>
+                                <i class="fa fa-chevron-left"></i>
+                            </button>
+                        {% if ads[clef-1] is defined or app.session.get('previewUrl') %}</a>{% endif %}
+                        <span style="font-size:12px;color:#00a1c6;text-transform: uppercase;">{{ clef+1 }}/{% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}24{% else %}{{ total }}{% endif %}</span>
+                        {% if ads[clef+1] is defined %}
+                            {% set plus=  right~'-'~ads[clef+1].id %}
+                            {% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}
+                                <a href="{{ path('viteloge_frontend_agency_home', { 'id': plus, 'description':description02|slugify }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">{% else %}<a href="{% if ads[clef+1].transaction == 'V' %}{{ path('viteloge_frontend_agency_view', { 'id': plus, 'description':description02|slugify, 'transaction' :'V' }) }}{% else %}{{ path('viteloge_frontend_agency_view', { 'id': plus, 'description':description02|slugify}) }}{% endif %}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">
+                            {% endif %}
+                        {% elseif app.session.get('nextUrl') %}
+                            <a href="{{ app.session.get('nextUrl') }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">
+                        {% endif %}
+                            <button type="button" alt="bien suivant" title="bien suivant" class="btn btn-primary btn-lg" {% if ads[clef+1] is not defined and not app.session.get('nextUrl') %}style ="cursor:none"{% endif %}>
+                                <i class="fa fa-chevron-right"></i>
+                            </button>
+                        {% if ads[clef+1] is defined or app.session.get('nextUrl') %}</a>{% endif %}
+                    {% else %}
+                        {% if ads[clef-1] is defined %}
+                            {% set moins =  left~'-'~ads[clef-1].id %}
+                            <a href="{{ path('viteloge_frontend_favourite_view', { 'id': moins, 'description':description01|slugify }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">
+                        {% endif %}
+                            <button type="button" alt="bien précédent" title="bien précédent" class="btn btn-primary btn-lg" {% if ads[clef-1] is not defined %}style ="cursor:none"{% endif %}><i class="fa fa-chevron-left"></i>
+                            </button>
+                        {% if ads[clef-1] is defined %}</a>{% endif %}
+                        <span style="font-size:12px;color:#00a1c6;text-transform: uppercase;">{{ clef+1 }}/{{ total }}</span>
+                        {% if ads[clef+1] is defined %}
+                            {% set plus = right~'-'~ads[clef+1].id %}
+                            <a href="{{ path('viteloge_frontend_favourite_view', { 'id': plus, 'description':description02|slugify }) }}" class="" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-bouton-suivant', 'bouton-suivant')">
+                        {% endif %}
+                            <button type="button" alt="bien suivant" title="bien suivant" class="btn btn-primary btn-lg"  {% if ads[clef+1] is not defined %}style ="cursor:none"{% endif %}>
+                                <i class="fa fa-chevron-right"></i>
+                            </button>
+                        {% if ads[clef+1] is defined %}</a>{% endif %}
+                    {% endif %}
                 {% endif %}
             </div>
             <div class="col-xs-5 col-sm-6 col-md-3 col-lg-4 text-right">
-
-
-                          {% if is_granted("IS_AUTHENTICATED_REMEMBERED") or app.user %}
-                                {% if favorie == false %}
-
-                            <a id="addfav" data-value="{{ ad.id }}" style="cursor: pointer;" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-favoris', 'favoris')">
-
-                                <button id="btnfav" type="button" alt="favoris" title="favoris" class="btn btn-primary btn-lg">
-                                  <i class="fa fa-star"></i> <span class="hidden-xs hidden-sm hidden-md">{% trans %}viteloge.favourite{% endtrans %}</span>
-
-                                </button>
-                            </a>
-                            {% else %}
-                                <button type="button" alt="favoris" title="dans vos favoris" class="btn btn-primary btn-lg" style="background-color:#196a7d !important;">
-                                   <i class="fa fa-star"></i><span class="hidden-xs hidden-sm hidden-md btn-lg"> {% trans %}viteloge.favourite{% endtrans %}</span>
-
-                                </button>
-                            {% endif %}
-                            {% endif %}
-                            {% if ad.privilege.isAgency %}
-                            <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="showMessage" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-value="{{ ad.id }}" data-parent="#estate-{{ ad.id }}-tab" itemprop="url" onclick="ga('send', 'event', 'page-contacter-lagence', 'clic-contacter-lagence', 'contacter-lagence')">
-                                <button type="button" alt="contact" title="contact" class="btn btn-primary btn-lg">
-                                    <i class="fa fa-envelope"></i><span class="hidden-xs hidden-sm hidden-md"> {% trans %}viteloge.contact{% endtrans %}</span>
-
-                                </button>
-                            </a>
-                            {% endif %}
-                            <span id="surtaxphone" data-value="{{ ad.id }}">
-                                <button type="button" alt="contact" title="contact" class="btn btn-primary btn-lg" onclick="ga('send', 'event', 'page-fiche-de-bien', 'ask-clic-telephoner', 'telephoner')" data-toggle="modal" data-target="#myModal">
-                                    <i class="fa fa-phone"></i><span class="hidden-xs hidden-sm hidden-md">{% trans %}viteloge.phone{% endtrans %}</span>
-                                </button>
-                          </span>
-
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") or app.user %}
+                    {% if favorie == false %}
+                        <a id="addfav" data-value="{{ ad.id }}" style="cursor: pointer;" onclick="ga('send', 'event', 'page-fiche-de-bien', 'clic-favoris', 'favoris')">
+                            <button id="btnfav" type="button" alt="favoris" title="favoris" class="btn btn-primary btn-lg">
+                                <i class="fa fa-star"></i> <span class="hidden-xs hidden-sm hidden-md">{% trans %}viteloge.favourite{% endtrans %}</span>
+                            </button>
+                        </a>
+                    {% else %}
+                        <button type="button" alt="favoris" title="dans vos favoris" class="btn btn-primary btn-lg" style="background-color:#196a7d !important;">
+                           <i class="fa fa-star"></i><span class="hidden-xs hidden-sm hidden-md btn-lg"> {% trans %}viteloge.favourite{% endtrans %}</span>
+                        </button>
+                    {% endif %}
+                {% endif %}
+                {% if ad.privilege.isAgency %}
+                    <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="showMessage" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-value="{{ ad.id }}" data-parent="#estate-{{ ad.id }}-tab" itemprop="url" onclick="ga('send', 'event', 'page-contacter-lagence', 'clic-contacter-lagence', 'contacter-lagence')">
+                        <button type="button" alt="contact" title="contact" class="btn btn-primary btn-lg">
+                            <i class="fa fa-envelope"></i><span class="hidden-xs hidden-sm hidden-md"> {% trans %}viteloge.contact{% endtrans %}</span>
+                        </button>
+                    </a>
+                {% endif %}
+                <span id="surtaxphone" data-value="{{ ad.id }}">
+                    <button type="button" alt="contact" title="contact" class="btn btn-primary btn-lg" onclick="ga('send', 'event', 'page-fiche-de-bien', 'ask-clic-telephoner', 'telephoner')" data-toggle="modal" data-target="#myModal">
+                        <i class="fa fa-phone"></i><span class="hidden-xs hidden-sm hidden-md">{% trans %}viteloge.phone{% endtrans %}</span>
+                    </button>
+                </span>
             </div>
         </div>
-
     </div>
-
 {% endblock -%}
 
 {%- block javascripts -%}
@@ -242,6 +237,5 @@
             OnLoadAddFav();
             GetPhoneNumber();
         });
-
     </script>
 {%- endblock javascripts -%}
