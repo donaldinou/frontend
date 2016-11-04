@@ -196,7 +196,7 @@ module.exports = function(grunt) {
             stylesheets: {
                 files: {
                     'css/normalize.css': 'normalize.css/normalize.css',
-                    'css/font-awesome.css': 'fontawesome/css/font-awesome.min.css',
+                    //'css/font-awesome.css': 'fontawesome/css/font-awesome.min.css', // deprecated because it was used in frontendbundle
                     'css/select2.css': 'select2/dist/css/select2.min.css',
                     'css/owl.carousel.css' : 'OwlCarousel2/dist/assets/owl.carousel.css',
                 }
