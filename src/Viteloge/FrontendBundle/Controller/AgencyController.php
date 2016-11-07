@@ -98,11 +98,14 @@ namespace Viteloge\FrontendBundle\Controller {
 
             $translated = $this->get('translator');
             // SEO
+            $rewriteParam = $request->get('_route_params');
+            $rewriteParam['id'] = '0-'.$ad->getId();
             $canonicalLink = $this->get('router')->generate(
                 $request->get('_route'),
-                $request->get('_route_params'),
+                $rewriteParam,
                 true
             );
+
 
             $seoPage = $this->container->get('sonata.seo.page');
             $helper = $this->container->get('viteloge_frontend.ad_helper');
