@@ -77,10 +77,13 @@ namespace Viteloge\FrontendBundle\Controller {
 
             $session = $request->getSession();
             $ads = $session->get('resultAd');
-            if($request->query->get('transaction') == 'V'){
-              $total = $session->get('totalResult');
+            $veriftotal = $session->get('totalResultVente');
+
+            if($request->query->get('transaction') == 'V' && !is_null($veriftotal)){
+              $total = $session->get('totalResultVente');
             }else{
-                $total = $session->get('totalResultVente');
+              $total = $session->get('totalResult');
+
             }
 
             $search = $session->get('request');

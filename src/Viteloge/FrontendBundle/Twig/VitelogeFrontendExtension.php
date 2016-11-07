@@ -188,8 +188,8 @@ namespace Viteloge\FrontendBundle\Twig {
          * Last chance to get a correct utf8 string
          */
         public function normalizeUTF8($value) {
-            $search = array('â??', 'Â?');
-            $replace = array('\'', '€');
+            $search = array('â??', 'Â?','ã©', 'ã¨', 'â²');
+            $replace = array('\'', '€', 'é', 'è', '²');
             return trim(str_replace($search, $replace, $this->fixUTF8($value)));
         }
 

@@ -1,7 +1,7 @@
 {%- set imgClass = imgClass|default('lazy') -%}
+{%- set description = description|default(ad|vl_slugify_ad) -%}
 
-
-{% set description =  include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface_url.html.twig', { 'ad': ad })  %}
+{# set description =  include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface_url.html.twig', { 'ad': ad })  #}
 
 {%- if ad.privilege.isExclu -%}
     {{ include('VitelogeCoreBundle:Global:sticker.html.twig', { title: 'ad.sticker.exlusivity'|trans }) }}
