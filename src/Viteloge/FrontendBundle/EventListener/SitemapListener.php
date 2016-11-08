@@ -47,14 +47,27 @@ namespace Viteloge\FrontendBundle\EventListener {
          * @throws \InvalidArgumentException
          * @return void
          */
-        public function populateSitemap(SitemapPopulateEvent $event)
-        {
+        public function populateSitemap(SitemapPopulateEvent $event) {
             $section = $event->getSection();
-            if (is_null($section) || $section == 'default') {
-                $this->addUrlsFromRoutes($event);
-                $this->addUrlsFromCities($event);
-                $this->addUrlsFromQueries($event);
-                $this->addUrlsFromAd($event);
+            switch ($section) {
+                case 'cities':
+                    $this->addUrlsFromCities($event);
+                    break;
+                case 'queries':
+                    $this->addUrlsFromQueries($event);
+                    break;
+                case 'ads':
+                    $this->addUrlsFromAds($event);
+                    break;
+                case 'default':
+                    $this->addUrlsFromRoutes($event);
+                    break;
+                default:
+                    $this->addUrlsFromRoutes($event);
+                    $this->addUrlsFromCities($event);
+                    $this->addUrlsFromQueries($event);
+                    $this->addUrlsFromAd($event);
+                    break;
             }
         }
 
@@ -62,8 +75,7 @@ namespace Viteloge\FrontendBundle\EventListener {
          * @param SitemapPopulateEvent $event
          * @throws \InvalidArgumentException
          */
-        private function addUrlsFromRoutes(SitemapPopulateEvent $event)
-        {
+        private function addUrlsFromRoutes(SitemapPopulateEvent $event) {
             $collection = $this->router->getOriginalRouteCollection();
             foreach ($collection->all() as $name => $route) {
                 $options = $this->getOptions($name, $route);
@@ -156,7 +168,7 @@ namespace Viteloge\FrontendBundle\EventListener {
         /**
          * http://doctrine-orm.readthedocs.org/en/latest/reference/batch-processing.html
          */
-        private function addUrlsFromAd(SitemapPopulateEvent $event){
+        private function addUrlsFromAds(SitemapPopulateEvent $event){
             $q = $this->entityManager->createQuery('select ad from VitelogeCoreBundle:Ad ad');
             $iterableResult = $q->iterate();
             $options = array(
@@ -166,23 +178,22 @@ namespace Viteloge\FrontendBundle\EventListener {
             );
             $i = 0;
             $j = 0;
-            $ad_section = 'ad_ad_part_';
+            $ad_section = 'agency_ad_part_';
             foreach ($iterableResult as $key => $row) {
-                   $ad = $row[0];
-                    $i++;
-                    $description = $this->helper->slugigy($ad);
-                    $parameters = array(
-                        'id' => '0-'.$ad->getId(),
-                        'description' => $description,
-                    );
-                    $event->getGenerator()->addUrl(
-                        $this->getUrlConcrete('viteloge_frontend_agency_view', $parameters, $options),
-                        $ad_section.$j
-                    );
-                    if ($i % 100 == 0) {
-                        $j++;
-                    }
-
+                $ad = $row[0];
+                $i++;
+                $description = $this->helper->slugigy($ad);
+                $parameters = array(
+                    'id' => '0-'.$ad->getId(),
+                    'description' => $description,
+                );
+                $event->getGenerator()->addUrl(
+                    $this->getUrlConcrete('viteloge_frontend_agency_view', $parameters, $options),
+                    $ad_section.$j
+                );
+                if ($i % 100 == 0) {
+                    $j++;
+                }
                 $this->entityManager->detach($row[0]);
             }
 
@@ -194,8 +205,7 @@ namespace Viteloge\FrontendBundle\EventListener {
          * @throws \InvalidArgumentException
          * @return array
          */
-        public function getOptions($name, Route $route)
-        {
+        public function getOptions($name, Route $route) {
             $option = $route->getOption('vl_sitemap');
             if ($option === null) {
                 return null;
