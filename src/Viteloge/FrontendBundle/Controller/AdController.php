@@ -344,6 +344,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
             // --
             $session->set('totalResult',$pagination->getNbResults());
+            $session->remove('totalResultVente');
             $session->set('resultAd',$pagination->getCurrentPageResults());
             $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
 

@@ -77,10 +77,13 @@ namespace Viteloge\FrontendBundle\Controller {
 
             $session = $request->getSession();
             $ads = $session->get('resultAd');
-            if($request->query->get('transaction') == 'V'){
-              $total = $session->get('totalResult');
+            $veriftotal = $session->get('totalResultVente');
+
+            if($request->query->get('transaction') == 'V' && !is_null($veriftotal)){
+              $total = $session->get('totalResultVente');
             }else{
-                $total = $session->get('totalResultVente');
+              $total = $session->get('totalResult');
+
             }
 
             $search = $session->get('request');
@@ -95,11 +98,14 @@ namespace Viteloge\FrontendBundle\Controller {
 
             $translated = $this->get('translator');
             // SEO
+            $rewriteParam = $request->get('_route_params');
+            $rewriteParam['id'] = '0-'.$ad->getId();
             $canonicalLink = $this->get('router')->generate(
                 $request->get('_route'),
-                $request->get('_route_params'),
+                $rewriteParam,
                 true
             );
+
 
             $seoPage = $this->container->get('sonata.seo.page');
             $helper = $this->container->get('viteloge_frontend.ad_helper');

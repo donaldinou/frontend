@@ -112,7 +112,7 @@
       </trans-unit>
       <trans-unit id="viteloge_frontend_favourite_view" resname="viteloge_frontend_favourite_view">
         <source>viteloge_frontend_favourite_view</source>
-        <target>/announcement/favourite/{id}/{description</target>
+        <target>/announcement/favourite/{id}/{description}</target>
       </trans-unit>
       <trans-unit id="viteloge_frontend_agency_view" resname="viteloge_frontend_agency_view">
         <source>viteloge_frontend_agency_view</source>

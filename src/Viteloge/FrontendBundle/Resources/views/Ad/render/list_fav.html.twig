@@ -1,21 +1,5 @@
 {% set roomsurface =  include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface_url.html.twig', { 'ad': ad })  %}
-{% if ad.cityName is defined and ad.cityName is not empty %}
-            {% if ad.transaction is defined and ad.transaction is not empty %}
-                 {% if ad.transaction == 'V' %}
-                    {% set transac = ' à vendre'%}
-                {% elseif ad.transaction == 'L'%}
-                    {% set transac = ' à louer'%}
-                {% else %}
-                    {% set transac =' neufs'%}
-                {% endif %}
-
-                {% set description = ad.cityName~transac~' '~roomsurface %}
-             {% else %}
-                {% set description = ad.cityName~' '~roomsurface %}
-             {% endif %}
-{% else %}
-     {% set description = transac~' '~roomsurface %}
-{% endif %}
+{%- set description =  ad|vl_slugify_ad -%}
 <article class="estate clearfix row-no-padding" itemscope itemtype="http://schema.org/Product">
     <figure class="col-md-4">
         {%- block estate_figure -%}
