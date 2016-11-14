@@ -15,6 +15,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Presta\SitemapBundle\Sitemap\DumpingUrlset;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Application\Sonata\FormatterBundle\DependencyInjection\Compiler\OverrideServiceCompilerPass;
+use Presta\SitemapBundle\Service\AbstractGenerator;
 
 /**
  * Service for dumping sitemaps into static files
@@ -22,7 +25,7 @@ use Presta\SitemapBundle\Sitemap\DumpingUrlset;
  * @author Konstantin Tjuterev <kostik.lv@gmail.com>
  * @author Konstantin Myakshin <koc-dp@yandex.ru>
  */
-class FrontendDumper extends AbstractGenerator
+class Dumper extends AbstractGenerator
 {
     /**
      * Path to folder where temporary files will be created
@@ -47,6 +50,13 @@ class FrontendDumper extends AbstractGenerator
      * @var string
      */
     protected $sitemapFilePrefix;
+
+    public function build(ContainerBuilder $container)
+    {
+        parent::build($container);
+
+        $container->addCompilerPass(new OverrideServiceCompilerPass());
+    }
 
     /**
      * @param EventDispatcherInterface $dispatcher Symfony's EventDispatcher

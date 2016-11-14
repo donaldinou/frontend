@@ -9,8 +9,8 @@ class OverrideServiceCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        $definition = $container->getDefinition('presta_sitemap.dumper.class');
-        $definition->setClass('Viteloge\FrontendBundle\Services\FrontendDumper');
+        $definition = $container->getDefinition('presta_sitemap.dumper');
+        $definition->setClass('Viteloge\FrontendBundle\Services\Dumper');
     }
 }
 
