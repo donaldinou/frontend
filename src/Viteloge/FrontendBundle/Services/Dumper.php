@@ -90,10 +90,10 @@ class Dumper extends AbstractGenerator
         $options = array_merge(array('gzip' => false), $options);
 
         $this->baseUrl = $host;
+
         // we should prepare temp folder each time, because dump may be called several times (with different sections)
         // and activate command below removes temp folder
         $this->prepareTempFolder();
-
         $this->populate($section);
 
         // if no urlset wasn't created during populating
@@ -104,7 +104,12 @@ class Dumper extends AbstractGenerator
             return false;
         }
 
-        foreach ($this->urlsets as $urlset) {
+        foreach ($this->urlsets as $key => $urlset) {
+         /*  $first_urlset = explode('_', basename($urlset->getLoc()));
+           if($first_urlset[3] == '0.xml'){
+            $subSitemap[$first_urlset[1]] = $first_urlset[0].'_'.$first_urlset[1].'.xml';
+            $filenames[] = $subSitemap[$first_urlset[1]];
+            }*/
             $urlset->save($this->tmpFolder, $options['gzip']);
             $filenames[] = basename($urlset->getLoc());
         }
@@ -123,9 +128,10 @@ class Dumper extends AbstractGenerator
             }
         }
 
+      //  file_put_contents($this->tmpFolder . '/' . 'sitemap_'.$section . '.xml', $this->getRoot()->toXml());
         file_put_contents($this->tmpFolder . '/' . $this->sitemapFilePrefix . '.xml', $this->getRoot()->toXml());
         $filenames[] = $this->sitemapFilePrefix . '.xml';
-
+    //   $filenames[] = 'sitemap_'.$section . '.xml';
         // if we came to this point - we can activate new files
         // if we fail on exception eariler - old files will stay making Google happy
         $this->activate($targetDir);
@@ -194,6 +200,7 @@ class Dumper extends AbstractGenerator
         return $urlsets;
     }
 
+
     /**
      * Moves sitemaps created in a temporary folder to their real location
      *
@@ -252,4 +259,5 @@ class Dumper extends AbstractGenerator
     {
         return new DumpingUrlset($this->baseUrl . $this->sitemapFilePrefix . '.' . $name . '.xml', $lastmod);
     }
+
 }

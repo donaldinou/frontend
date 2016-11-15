@@ -27,8 +27,8 @@ namespace Viteloge\FrontendBundle\Services {
             $user = $this->em->getRepository('VitelogeCoreBundle:User')->FindOneBy(array('email'=>$contact->getEmail()));
 
             if(empty($user)) {
-                $user = new User();
-
+                $userManager = $this->container->get('fos_user.user_manager');
+                $user = $userManager->createUser();
                 $user->setUserName($contact->getEmail());
                 $user->setPhone($contact->getPhone());
                 $user->setEmail($contact->getEmail());
@@ -48,9 +48,9 @@ namespace Viteloge\FrontendBundle\Services {
                 $tokenGenerator = $this->container->get('fos_user.util.token_generator');
                 $user->setConfirmationToken($tokenGenerator->generateToken());
                 $user->addRole('ROLE_USER');
-
-                $this->em->persist($user);
-                $this->em->flush();
+                $userManager->updateUser($user);
+               // $this->em->persist($user);
+              //  $this->em->flush();
             } else {
                 $user = '';
             }
