@@ -213,12 +213,35 @@ namespace Viteloge\FrontendBundle\Controller {
             $em->persist($queryStats);
             $em->flush();
 
+            $inseeDepartment = $queryStats->getInseeDepartment();
+            $inseeCity = $queryStats->getInseeCity();
+
+            // BUGFIX: querystats id is not null but inseeCity does not exist
+            if ($inseeDepartment instanceof InseeDepartment) {
+                try {
+                    $inseeDepartment->__load();
+                } catch (\Doctrine\ORM\EntityNotFoundException $e) {
+                    $inseeDepartment = null;
+                }
+            }
+            if ($inseeCity instanceof InseeCity) {
+                try {
+                    $inseeCity->__load();
+                } catch (\Doctrine\ORM\EntityNotFoundException $e) {
+                    $inseeCity = null;
+                }
+            }
+            // --
+
             $adSearch = new AdSearch();
             $adSearch->setTransaction($queryStats->getTransaction());
-            $adSearch->setWhere($queryStats->getInseeCity()->getId());
             $adSearch->setWhat(ucfirst($queryStats->getType()));
             $adSearch->setRooms($queryStats->getRooms());
-            $adSearch->setLocation($queryStats->getInseeCity()->getLocation());
+
+            if ($inseeCity instanceof InseeCity) {
+                $adSearch->setWhere($inseeCity->getId());
+                $adSearch->setLocation($inseeCity->getLocation());
+            }
 
             $form = $this->createForm('viteloge_core_adsearch', $adSearch);
 
@@ -226,9 +249,6 @@ namespace Viteloge\FrontendBundle\Controller {
             $session = $request->getSession();
             $session->set('adSearch', $adSearch);
             // --
-
-            $inseeDepartment = $queryStats->getInseeDepartment();
-            $inseeCity = $queryStats->getInseeCity();
 
             // Breadcrumbs
             $transaction = $adSearch->getTransaction();
@@ -284,7 +304,10 @@ namespace Viteloge\FrontendBundle\Controller {
                 $request->get('_route_params'),
                 true
             );
-            $cityTitle = $inseeCity->getFullname().' ('.$inseeCity->getInseeDepartment()->getId().')';
+            $cityTitle = '';
+            if ($inseeCity instanceof InseeCity) {
+                $cityTitle = $inseeCity->getFullname().' ('.$inseeCity->getInseeDepartment()->getId().')';
+            }
             $seoPage = $this->container->get('sonata.seo.page');
             $seoPage
                 ->setTitle($breadcrumbTitle.' - '.$translated->trans('viteloge.frontend.querystats.ad.title', array('%city%' => $cityTitle, '%keywords%' => $queryStats->getKeywords())))
