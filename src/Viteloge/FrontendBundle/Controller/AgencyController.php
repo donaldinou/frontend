@@ -93,6 +93,11 @@ namespace Viteloge\FrontendBundle\Controller {
             $adSearch->handleRequest($search);
 
             if(!isset($ad)){
+              $translated = $this->get('translator');
+              $this->addFlash(
+                'warning',
+                $translated->trans('viteloge.frontend.no.ad')
+            );
                         return $this->redirectToRoute(
                             'viteloge_frontend_homepage');
             }

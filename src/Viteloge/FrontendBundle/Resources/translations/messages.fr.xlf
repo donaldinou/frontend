@@ -1486,6 +1486,10 @@
         <source>viteloge.frontend.sitemap.index.description</source>
         <target>Immobilier - Vitelogé, Le moteur de recherche de l'immobilier. Acheter une maison, louer un appartement? Vitelogé est le site immobilier d'annonces immobilières de ventes et locations de logement en France. Plus de 900 000 annonces de professionnels pour les particuliers.</target>
       </trans-unit>
+      <trans-unit id="viteloge.frontend.no.ad" resname="viteloge.frontend.no.ad">
+        <source>viteloge.frontend.no.ad</source>
+        <target>Ce bien n'est plus référencé</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

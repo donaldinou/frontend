@@ -388,6 +388,10 @@
         <source>viteloge.contact</source>
         <target>Contact the agency</target>
       </trans-unit>
+      <trans-unit id="viteloge.frontend.no.ad" resname="viteloge.frontend.no.ad">
+        <source>viteloge.frontend.no.ad</source>
+        <target>This property is no longer listed</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
