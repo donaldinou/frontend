@@ -93,15 +93,8 @@ namespace Viteloge\FrontendBundle\Controller {
             $adSearch->handleRequest($search);
 
             if(!isset($ad)){
-             $encoders = array(new JsonEncoder());
-             $normalizers = array(new GetSetMethodNormalizer());
-             $serializer = new Serializer($normalizers, $encoders);
-             $options = json_decode($serializer->serialize($adSearch, 'json'), true);
                         return $this->redirectToRoute(
-                            'viteloge_frontend_ad_search',
-                            $options,
-                            301
-                        );
+                            'viteloge_frontend_homepage');
             }
             $form = $this->createForm('viteloge_core_adsearch', $adSearch);
 
