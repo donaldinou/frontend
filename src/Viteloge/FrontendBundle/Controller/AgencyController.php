@@ -70,8 +70,8 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:Ad:redirect_new.html.twig")
          */
-        public function viewAction(Request $request,$id) {
-
+        public function viewAction(Request $request,$id, $description) {
+            $infos = explode('-', $description);
             $em = $this->getDoctrine()->getManager();
             $id= explode('-', $id);
             $ad = $em->getRepository('VitelogeCoreBundle:Ad')->find($id[1]);
@@ -93,13 +93,31 @@ namespace Viteloge\FrontendBundle\Controller {
             $adSearch->handleRequest($search);
 
             if(!isset($ad)){
-              $translated = $this->get('translator');
+               $options = array(
+                'sort' => array(
+                    'isCapital' => array( 'order' => 'desc' ),
+                    'population' => array( 'order' => 'desc' )
+                )
+            );
+
+            $search = $infos[1];
+            $search = \Elastica\Util::escapeTerm($search);
+            $index = $this->container->get('fos_elastica.finder.viteloge.inseeCity');
+            $searchQuery = new \Elastica\Query\QueryString();
+            $searchQuery->setParam('query', $search);
+            $cities = $index->find($searchQuery, $options);
+            //à voir si on ajoute un message flash?
+          /*    $translated = $this->get('translator');
               $this->addFlash(
                 'warning',
                 $translated->trans('viteloge.frontend.no.ad')
-            );
+            );*/
                         return $this->redirectToRoute(
-                            'viteloge_frontend_homepage');
+                            'viteloge_frontend_glossary_showcity',
+                            array('name' => $cities[0]->getName(),
+                                  'id' => $cities[0]->getId()
+                              ));
+
             }
             $form = $this->createForm('viteloge_core_adsearch', $adSearch);
 
