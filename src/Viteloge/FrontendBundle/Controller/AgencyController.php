@@ -71,6 +71,7 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:Ad:redirect_new.html.twig")
          */
         public function viewAction(Request $request,$id) {
+
             $em = $this->getDoctrine()->getManager();
             $id= explode('-', $id);
             $ad = $em->getRepository('VitelogeCoreBundle:Ad')->find($id[1]);
@@ -83,23 +84,33 @@ namespace Viteloge\FrontendBundle\Controller {
               $total = $session->get('totalResultVente');
             }else{
               $total = $session->get('totalResult');
-
             }
 
             $search = $session->get('request');
             //si on atteind le nbs max de resultat en session on relance la recherche
-
-
             // Form
             $adSearch = new AdSearch();
             $adSearch->handleRequest($search);
 
+            if(!isset($ad)){
+             $encoders = array(new JsonEncoder());
+             $normalizers = array(new GetSetMethodNormalizer());
+             $serializer = new Serializer($normalizers, $encoders);
+             $options = json_decode($serializer->serialize($adSearch, 'json'), true);
+                        return $this->redirectToRoute(
+                            'viteloge_frontend_ad_search',
+                            $options,
+                            301
+                        );
+            }
             $form = $this->createForm('viteloge_core_adsearch', $adSearch);
 
             $translated = $this->get('translator');
             // SEO
             $rewriteParam = $request->get('_route_params');
-            $rewriteParam['id'] = '0-'.$ad->getId();
+
+              $rewriteParam['id'] = '0-'.$ad->getId();
+
             $canonicalLink = $this->get('router')->generate(
                 $request->get('_route'),
                 $rewriteParam,
