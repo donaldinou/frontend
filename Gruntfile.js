@@ -174,6 +174,12 @@ module.exports = function(grunt) {
                 },
                 command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --env=<%= cfg.environment %>'
             },
+            sitemapDumpDefault: {
+                options: {
+                    stdout: true
+                },
+                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --section=default --env=<%= cfg.environment %>'
+            },
             sitemapDumpCities: {
                 options: {
                     stdout: true
@@ -700,7 +706,7 @@ module.exports = function(grunt) {
         'shell:composerInstall',
         'shell:jsRoutingDump',
         'gruntForceTaskOn',
-        'shell:sitemapDump',
+        'shell:sitemapDumpDefault',
         'shell:sitemapDumpCities',
         'shell:sitemapDumpAds',
         'shell:sitemapDumpQueries',
@@ -782,7 +788,7 @@ module.exports = function(grunt) {
         'disconnectDeploymentUser',
         'shell:startService',
         'gruntForceTaskOn',
-        'shell:sitemapDump',
+        'shell:sitemapDumpDefault',
         'shell:sitemapDumpCities',
         'shell:sitemapDumpAds',
         'shell:sitemapDumpQueries',
