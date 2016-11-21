@@ -10,28 +10,71 @@
 
 namespace Viteloge\FrontendBundle\Services;
 
-use Presta\SitemapBundle\DependencyInjection\Configuration;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Finder\Finder;
-use Presta\SitemapBundle\Sitemap\DumpingUrlset;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Application\Sonata\FormatterBundle\DependencyInjection\Compiler\OverrideServiceCompilerPass;
-use Presta\SitemapBundle\Service\AbstractGenerator;
+use Presta\SitemapBundle\Sitemap\Sitemapindex;
 use Presta\SitemapBundle\Service\Dumper as BaseDumper;
+use Viteloge\FrontendBundle\Component\Sitemap\DumpingUrlset;
 
 /**
  * Service for dumping sitemaps into static files
- *
- * @author Konstantin Tjuterev <kostik.lv@gmail.com>
- * @author Konstantin Myakshin <koc-dp@yandex.ru>
  */
-class Dumper extends BaseDumper
-{
+class Dumper extends BaseDumper {
 
+    const SUB_SECTION_KEYWORK = '_part';
 
-    public function dump($targetDir, $host, $section = null, array $options = array())
-    {
+    /**
+     * @var Array<Sitemap\Sitemapindex>
+     */
+    protected $indexes = array();
+
+    /**
+     *
+     */
+    protected function getIndex($name) {
+        if (empty($this->indexes[$name])) {
+            $this->indexes[$name] = new Sitemapindex();
+            $urlset = $this->newUrlset($name);
+            $this->getRoot()->addSitemap($urlset);
+        }
+        return $this->indexes[$name];
+    }
+
+    /**
+     *
+     */
+    protected function getHeadSection($section, $default='') {
+        if (empty($default)) {
+            switch ($section) {
+                case 'city_keyword_part_':
+                case 'city_statistic_part_':
+                case 'city_glossary_part_':
+                    $default = 'cities';
+                    break;
+                case 'keyword_ad_part_':
+                    $default = 'queries';
+                    break;
+                case 'agency_ad_part_':
+                    $default = 'ads';
+                    break;
+                default:
+                    $default = $section;
+                    break;
+            }
+            if ($section === $default) {
+                if (strpos($default, $this->sitemapFilePrefix.'.') !== false) {
+                    $default = substr($default, strlen($this->sitemapFilePrefix.'.'));
+                }
+                if (strpos($default, static::SUB_SECTION_KEYWORK) !== false) {
+                    $default = substr($default, 0, strpos($default, static::SUB_SECTION_KEYWORK));
+                }
+            }
+        }
+        return $default;
+    }
+
+    /**
+     *
+     */
+    public function dump($targetDir, $host, $section = null, array $options = array()) {
         $options = array_merge(array('gzip' => false), $options);
 
         $this->baseUrl = $host;
@@ -45,18 +88,39 @@ class Dumper extends BaseDumper
         // it means no URLs were added to the sitemap
         if (!count($this->urlsets)) {
             $this->cleanup();
-
             return false;
         }
 
+        // reset root Sitemap
+        $this->root = new Sitemapindex();
+
         foreach ($this->urlsets as $key => $urlset) {
-       /*    $first_urlset = explode('_', basename($urlset->getLoc()));
-           if($first_urlset[3] == '0.xml'){
-            $subSitemap[$first_urlset[1]] = $first_urlset[0].'_'.$first_urlset[1].'.xml';
-            $filenames[] = $subSitemap[$first_urlset[1]];
-            }*/
-            $urlset->save($this->tmpFolder, $options['gzip']);
-            $filenames[] = basename($urlset->getLoc());
+            $filename = basename($urlset->getLoc());
+            $tmpFolder = $this->tmpFolder;
+            $sectionHead = $this->getHeadSection($filename, $section);
+            if ($sectionHead !== $filename) {
+                $tmpFolder .= DIRECTORY_SEPARATOR.$sectionHead;
+
+                $index = $this->getIndex($sectionHead);
+                $index->addSitemap($urlset);
+
+                if (!is_dir($tmpFolder)) {
+                    $this->filesystem->mkdir($tmpFolder);
+                }
+
+                $filenames[] = $this->sitemapFilePrefix.'.'.$sectionHead.'.xml';
+                $urlset->save($tmpFolder, $options['gzip']);
+                unset($this->urlsets[$key]);
+            }
+            else {
+                $urlset->save($tmpFolder, $options['gzip']);
+            }
+            $filenames[] = $filename;
+        }
+
+        // save index
+        foreach ($this->indexes as $name => $index) {
+            file_put_contents($this->tmpFolder . DIRECTORY_SEPARATOR . $this->sitemapFilePrefix . '.'.$name.'.xml', $index->toXml());
         }
 
         if (null !== $section) {
@@ -65,7 +129,8 @@ class Dumper extends BaseDumper
             foreach ($this->loadCurrentSitemapIndex($targetDir . '/' . $this->sitemapFilePrefix . '.xml') as $key => $urlset) {
                 // cut possible _X, to compare base section name
                 $baseKey = preg_replace('/(.*?)(_\d+)?/', '\1', $key);
-                if ($baseKey !== $section) {
+                $headSection = $this->getHeadSection($baseKey, $section);
+                if ($baseKey !== $section && $headSection === $baseKey) {
                     // we add them to root only, if we add them to $this->urlset
                     // deleteExistingSitemaps() will delete matching files, which we don't want
                     $this->getRoot()->addSitemap($urlset);
@@ -73,20 +138,9 @@ class Dumper extends BaseDumper
             }
         }
 
-    /*  if($section == 'cities'){
-           file_put_contents($this->tmpFolder . '/' . 'sitemap_'.$section . '.xml', $this->getRoot()->toXml());
-           $filenames[] = 'sitemap_'.$section . '.xml';
-           $filenames[] = $this->sitemapFilePrefix . '.xml';
-         //  $this->getRoot()->addSitemap($urlset);
-        }else{
-          file_put_contents($this->tmpFolder . '/' . $this->sitemapFilePrefix . '.xml', $this->getRoot()->toXml());
-          $filenames[] = $this->sitemapFilePrefix . '.xml';
-        }*/
-      //
-       file_put_contents($this->tmpFolder . '/' . $this->sitemapFilePrefix . '.xml', $this->getRoot()->toXml());
+        file_put_contents($this->tmpFolder . '/' . $this->sitemapFilePrefix . '.xml', $this->getRoot()->toXml());
         $filenames[] = $this->sitemapFilePrefix . '.xml';
 
-    //   $filenames[] = 'sitemap_'.$section . '.xml';
         // if we came to this point - we can activate new files
         // if we fail on exception eariler - old files will stay making Google happy
         $this->activate($targetDir);
@@ -94,6 +148,17 @@ class Dumper extends BaseDumper
         return $filenames;
     }
 
-
+    /**
+     * Factory method for creating Urlset objects
+     *
+     * @param string $name
+     *
+     * @param \DateTime $lastmod
+     *
+     * @return DumpingUrlset
+     */
+    protected function newUrlset($name, \DateTime $lastmod = null) {
+        return new DumpingUrlset($this->baseUrl . $this->sitemapFilePrefix . '.' . $name . '.xml', $lastmod);
+    }
 
 }

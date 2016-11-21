@@ -13,6 +13,8 @@ namespace Viteloge\FrontendBundle\EventListener {
 
     class SitemapListener extends RouteAnnotationEventListener {
 
+        const URL_LIMIT = 1000;
+
         /**
          *
          */
@@ -124,7 +126,7 @@ namespace Viteloge\FrontendBundle\EventListener {
                         $this->getUrlConcrete('viteloge_frontend_querystats_city', $parameters, $options),
                         $keyword_section.$j
                     );
-                    if ($i % 100 == 0) {
+                    if ($i % static::URL_LIMIT == 0) {
                         $j++;
                     }
                 }
@@ -157,7 +159,7 @@ namespace Viteloge\FrontendBundle\EventListener {
                         $this->getUrlConcrete('viteloge_frontend_querystats_ad', $parameters, $options),
                         $ad_section.$j
                     );
-                    if ($i % 100 == 0) {
+                    if ($i % static::URL_LIMIT == 0) {
                         $j++;
                     }
                 }
@@ -191,7 +193,7 @@ namespace Viteloge\FrontendBundle\EventListener {
                     $this->getUrlConcrete('viteloge_frontend_agency_view', $parameters, $options),
                     $ad_section.$j
                 );
-                if ($i % 100 == 0) {
+                if ($i % static::URL_LIMIT == 0) {
                     $j++;
                 }
                 $this->entityManager->detach($row[0]);
