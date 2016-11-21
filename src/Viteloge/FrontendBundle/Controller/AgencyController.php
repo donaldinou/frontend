@@ -106,12 +106,6 @@ namespace Viteloge\FrontendBundle\Controller {
             $searchQuery = new \Elastica\Query\QueryString();
             $searchQuery->setParam('query', $search);
             $cities = $index->find($searchQuery, $options);
-            //à voir si on ajoute un message flash?
-          /*    $translated = $this->get('translator');
-              $this->addFlash(
-                'warning',
-                $translated->trans('viteloge.frontend.no.ad')
-            );*/
                         return $this->redirectToRoute(
                             'viteloge_frontend_glossary_showcity',
                             array('name' => $cities[0]->getName(),
