@@ -392,6 +392,22 @@
         <source>viteloge.frontend.no.ad</source>
         <target>This property is no longer listed</target>
       </trans-unit>
+      <trans-unit id="ad.slug.transaction.L" resname="ad.slug.transaction.L">
+        <source>ad.slug.transaction.L</source>
+        <target>rent</target>
+      </trans-unit>
+      <trans-unit id="ad.slug.transaction.I" resname="ad.slug.transaction.I">
+        <source>ad.slug.transaction.I</source>
+        <target>rent</target>
+      </trans-unit>
+      <trans-unit id="ad.slug.transaction.V" resname="ad.slug.transaction.V">
+        <source>ad.slug.transaction.V</source>
+        <target>sail</target>
+      </trans-unit>
+      <trans-unit id="ad.slug.transaction.N" resname="ad.slug.transaction.N">
+        <source>ad.slug.transaction.N</source>
+        <target>new</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

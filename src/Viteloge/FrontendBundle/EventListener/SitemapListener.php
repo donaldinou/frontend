@@ -66,9 +66,9 @@ namespace Viteloge\FrontendBundle\EventListener {
                     break;
                 default:
                     $this->addUrlsFromRoutes($event);
-                    $this->addUrlsFromCities($event);
-                    $this->addUrlsFromQueries($event);
-                    $this->addUrlsFromAds($event);
+                   // $this->addUrlsFromCities($event);
+                   // $this->addUrlsFromQueries($event);
+                   // $this->addUrlsFromAds($event);
                     break;
             }
         }

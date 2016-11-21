@@ -538,6 +538,10 @@
         <source>ad.slug.transaction.L</source>
         <target>à louer</target>
       </trans-unit>
+      <trans-unit id="ad.slug.transaction.I" resname="ad.slug.transaction.I">
+        <source>ad.slug.transaction.I</source>
+        <target>à louer</target>
+      </trans-unit>
       <trans-unit id="ad.slug.transaction.V" resname="ad.slug.transaction.V">
         <source>ad.slug.transaction.V</source>
         <target>à vendre</target>

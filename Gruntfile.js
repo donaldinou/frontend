@@ -174,6 +174,24 @@ module.exports = function(grunt) {
                 },
                 command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --env=<%= cfg.environment %>'
             },
+            sitemapDumpCities: {
+                options: {
+                    stdout: true
+                },
+                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --section=cities --env=<%= cfg.environment %>'
+            },
+            sitemapDumpAds: {
+                options: {
+                    stdout: true
+                },
+                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --section=ads --env=<%= cfg.environment %>'
+            },
+            sitemapDumpQueries: {
+                options: {
+                    stdout: true
+                },
+                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --section=queries --env=<%= cfg.environment %>'
+            },
             copyZeroclipboard: {
                 options: {
                     stdout: true
@@ -683,6 +701,9 @@ module.exports = function(grunt) {
         'shell:jsRoutingDump',
         'gruntForceTaskOn',
         'shell:sitemapDump',
+        'shell:sitemapDumpCities',
+        'shell:sitemapDumpAds',
+        'shell:sitemapDumpQueries',
         'gruntForceTaskRestore',
         'rightsApplication'
     ]);
@@ -762,6 +783,9 @@ module.exports = function(grunt) {
         'shell:startService',
         'gruntForceTaskOn',
         'shell:sitemapDump',
+        'shell:sitemapDumpCities',
+        'shell:sitemapDumpAds',
+        'shell:sitemapDumpQueries',
         'gruntForceTaskRestore',
         'rightsApplication'
     ]);
