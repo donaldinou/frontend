@@ -66,7 +66,7 @@ namespace Viteloge\FrontendBundle\EventListener {
                     $this->addUrlsFromRoutes($event);
                     $this->addUrlsFromCities($event);
                     $this->addUrlsFromQueries($event);
-                    $this->addUrlsFromAd($event);
+                    $this->addUrlsFromAds($event);
                     break;
             }
         }
