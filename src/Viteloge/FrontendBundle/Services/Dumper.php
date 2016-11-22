@@ -12,8 +12,7 @@ namespace Viteloge\FrontendBundle\Services;
 
 use Presta\SitemapBundle\Sitemap\Sitemapindex;
 use Presta\SitemapBundle\Service\Dumper as BaseDumper;
-use Viteloge\FrontendBundle\Component\Sitemap\DumpingUrlset;
-
+use Presta\SitemapBundle\Sitemap\DumpingUrlset;
 /**
  * Service for dumping sitemaps into static files
  */
@@ -98,16 +97,13 @@ class Dumper extends BaseDumper {
             $filename = basename($urlset->getLoc());
             $tmpFolder = $this->tmpFolder;
             $sectionHead = $this->getHeadSection($filename, $section);
-            if ($sectionHead !== $filename) {
-                $tmpFolder .= DIRECTORY_SEPARATOR.$sectionHead;
 
+            if($sectionHead == "default.xml" || $sectionHead == "default"){
+             $sectionHead = 'default_index';
+            }
+            if ($sectionHead !== $filename ) {
                 $index = $this->getIndex($sectionHead);
                 $index->addSitemap($urlset);
-
-                if (!is_dir($tmpFolder)) {
-                    $this->filesystem->mkdir($tmpFolder);
-                }
-
                 $filenames[] = $this->sitemapFilePrefix.'.'.$sectionHead.'.xml';
                 $urlset->save($tmpFolder, $options['gzip']);
                 unset($this->urlsets[$key]);
@@ -123,14 +119,13 @@ class Dumper extends BaseDumper {
             file_put_contents($this->tmpFolder . DIRECTORY_SEPARATOR . $this->sitemapFilePrefix . '.'.$name.'.xml', $index->toXml());
         }
 
-        if (null !== $section) {
+         if (null !== $section) {
             // Load current SitemapIndex file and add all sitemaps except those,
             // matching section currently being regenerated to root
-            foreach ($this->loadCurrentSitemapIndex($targetDir . '/' . $this->sitemapFilePrefix . '.xml') as $key => $urlset) {
+            foreach ($this->loadCurrentSitemapIndex($targetDir . DIRECTORY_SEPARATOR . $this->sitemapFilePrefix . '.xml') as $key => $urlset) {
                 // cut possible _X, to compare base section name
                 $baseKey = preg_replace('/(.*?)(_\d+)?/', '\1', $key);
-                $headSection = $this->getHeadSection($baseKey, $section);
-                if ($baseKey !== $section && $headSection === $baseKey) {
+                if ($baseKey !== $section) {
                     // we add them to root only, if we add them to $this->urlset
                     // deleteExistingSitemaps() will delete matching files, which we don't want
                     $this->getRoot()->addSitemap($urlset);
@@ -160,5 +155,61 @@ class Dumper extends BaseDumper {
     protected function newUrlset($name, \DateTime $lastmod = null) {
         return new DumpingUrlset($this->baseUrl . $this->sitemapFilePrefix . '.' . $name . '.xml', $lastmod);
     }
+
+    /**
+         * Saves prepared (in a temporary file) sitemap to target dir
+         * Basename of sitemap location is used (as they should always match)
+         *
+         * @param string $targetDir Directory where file should be saved
+         * @param Boolean $gzip
+         */
+        public function save($targetDir, $gzip = false) {
+             if (null !== $this->tmpFile) {
+                return;
+            }
+
+            $this->tmpFile = tempnam(sys_get_temp_dir(), 'sitemap');
+            if (false === $this->bodyFile = @fopen($this->tmpFile, 'w+')) {
+                throw new \RuntimeException("Cannot create temporary file $tmpFile");
+            }
+            $filename = realpath($targetDir) . '/' . basename($this->getLoc());
+            $sitemapFile = fopen($filename, 'w+');
+            $structureXml = $this->getStructureXml();
+
+            // since header may contain namespaces which may get added when adding URLs
+            // we can't prepare the header beforehand, so here we just take it and add to the beginning of the file
+            $header = substr($structureXml, 0, strpos($structureXml, 'URLS</urlset>'));
+            fwrite($sitemapFile, $header);
+
+            // append body file to sitemap file (after the header)
+            fflush($this->bodyFile);
+            fseek($this->bodyFile, 0);
+
+            while (!feof($this->bodyFile)) {
+                fwrite($sitemapFile, fread($this->bodyFile, 65536));
+            }
+            fwrite($sitemapFile, '</urlset>');
+
+            $streamInfo = stream_get_meta_data($this->bodyFile);
+            fclose($this->bodyFile);
+            // removing temporary file
+            unlink($streamInfo['uri']);
+
+            if ($gzip) {
+                $this->loc .= '.gz';
+                $filenameGz = $filename . '.gz';
+                fseek($sitemapFile, 0);
+                $sitemapFileGz = gzopen($filenameGz, 'wb9');
+                while (!feof($sitemapFile)) {
+                    gzwrite($sitemapFileGz, fread($sitemapFile, 65536));
+                }
+                gzclose($sitemapFileGz);
+            }
+
+            fclose($sitemapFile);
+            if ($gzip) {
+                unlink($filename);
+            }
+        }
 
 }

@@ -172,31 +172,31 @@ module.exports = function(grunt) {
                 options: {
                     stdout: true
                 },
-                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --env=<%= cfg.environment %>'
+                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --gzip --env=<%= cfg.environment %>'
             },
             sitemapDumpDefault: {
                 options: {
                     stdout: true
                 },
-                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --section=default --env=<%= cfg.environment %>'
+                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --gzip --section=default --env=<%= cfg.environment %>'
             },
             sitemapDumpCities: {
                 options: {
                     stdout: true
                 },
-                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --section=cities --env=<%= cfg.environment %>'
+                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --gzip --section=cities --env=<%= cfg.environment %>'
             },
             sitemapDumpAds: {
                 options: {
                     stdout: true
                 },
-                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --section=ads --env=<%= cfg.environment %>'
+                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --gzip --section=ads --env=<%= cfg.environment %>'
             },
             sitemapDumpQueries: {
                 options: {
                     stdout: true
                 },
-                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --section=queries --env=<%= cfg.environment %>'
+                command: 'php -d memory_limit=4000M app/console presta:sitemap:dump --gzip --section=queries --env=<%= cfg.environment %>'
             },
             copyZeroclipboard: {
                 options: {
@@ -697,8 +697,8 @@ module.exports = function(grunt) {
             }
         }
     });
-    grunt.registerTask('css', ['shell:assetsInstall', 'bowercopy', 'copy', 'compass', 'cssmin', 'applicationOwner', 'rightsCache']);
-    grunt.registerTask('javascript', ['shell:assetsInstall', 'bowercopy', 'copy', 'concat', 'applicationOwner', 'rightsCache']);
+    grunt.registerTask('css', ['bowercopy', 'copy', 'compass', 'cssmin', 'applicationOwner', 'rightsCache']);
+    grunt.registerTask('javascript', ['bowercopy', 'copy', 'concat', 'applicationOwner', 'rightsCache']);
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('tools-update', 'shell:composerSelfUpdate', 'shell:npmNpmUpdate', 'shell:npmBowerUpdate', 'shell:npmGruntUpdate')
     grunt.registerTask('deployApp', [
