@@ -104,12 +104,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *         "limit"="25"
          *     },
          *     options = {
-         *          "i18n" = true,
-         *          "vl_sitemap" = {
-         *              "title" = "viteloge.frontend.ad.search.title",
-         *              "description" = "viteloge.frontend.ad.search.description",
-         *              "priority" = "0.7"
-         *          }
+         *          "i18n" = true
          *     },
          *     name="viteloge_frontend_ad_search_default"
          * )
@@ -327,8 +322,14 @@ namespace Viteloge\FrontendBundle\Controller {
             if($pagination->hasNextPage()){
               $next = explode('?', $currentUrl);
               $nextpage = $page+1;
-              $nextUrl = $url.'/'.$nextpage.'?'.$next[1];
-              $session->set('nextUrl', $nextUrl);
+              if(isset($next[1])){
+                $nextUrl = $url.'/'.$nextpage.'?'.$next[1];
+                $session->set('nextUrl', $nextUrl);
+              }else{
+                $session->remove('nextUrl');
+              }
+
+
             }else{
                $session->remove('nextUrl');
             }
@@ -336,8 +337,14 @@ namespace Viteloge\FrontendBundle\Controller {
             if($pagination->hasPreviousPage()){
               $preview = explode('?', $currentUrl);
               $previewpage = $page-1;
-              $previewUrl = $url.'/'.$previewpage.'?'.$preview[1];
-              $session->set('previewUrl', $previewUrl);
+              if(isset($preview[1])){
+                $previewUrl = $url.'/'.$previewpage.'?'.$preview[1];
+                $session->set('previewUrl', $previewUrl);
+            }else{
+                $session->remove('previewUrl');
+            }
+
+
             }else{
                $session->remove('previewUrl');
             }

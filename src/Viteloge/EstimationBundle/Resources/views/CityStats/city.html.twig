@@ -5,7 +5,9 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
     <script src="{{ aws_s3_domain('built/assets/js/d3.min.js') }}"></script>
 {%- endblock -%}
-
+{%- block header -%}
+  {{ render(controller('VitelogeFrontendBundle:Default:headerForm')) }}
+{%- endblock header -%}
 {%- block body_start -%}
     {% set mapOptions = mapOptions|default(false) %}
     {%- embed "VitelogeFrontendBundle:misc:googlemap.html.twig" with { mapOptions: mapOptions } -%}
