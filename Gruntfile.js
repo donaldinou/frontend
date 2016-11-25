@@ -710,8 +710,8 @@ module.exports = function(grunt) {
             }
         }
     });
-    grunt.registerTask('css', ['bowercopy', 'copy', 'compass', 'cssmin', 'applicationOwner', 'rightsCache']);
-    grunt.registerTask('javascript', ['bowercopy', 'copy', 'concat', 'applicationOwner', 'rightsCache']);
+    grunt.registerTask('css', ['shell:assetsInstall','bowercopy', 'copy', 'compass', 'cssmin', 'applicationOwner', 'rightsCache']);
+    grunt.registerTask('javascript', ['shell:assetsInstall','bowercopy', 'copy', 'concat', 'applicationOwner', 'rightsCache']);
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('tools-update', 'shell:composerSelfUpdate', 'shell:npmNpmUpdate', 'shell:npmBowerUpdate', 'shell:npmGruntUpdate')
     grunt.registerTask('deployApp', [
