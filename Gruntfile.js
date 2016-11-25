@@ -120,6 +120,12 @@ module.exports = function(grunt) {
                 },
                 command: 'chown -Rf <%= cfg["deploy-user"] %>:<%= cfg["deploy-group"] %> app/spool/default/ && chmod 775 app/spool/default/ && find app/spool/default/ -type f -exec chmod 664 {} \\;'
             },
+            rightsSitemap: {
+                options: {
+                    stdout: true
+                },
+                command: 'find web/ -type f \\( -name "*.xml" -o -name "*.xml.gz" \\) -exec chmod 664 {} \\; -exec chown <%= cfg["deploy-group"] %>:<%= cfg["deploy-user"] %> {} \\;'
+            },
             removeCache: {
                 options: {
                     stdout: true
@@ -641,6 +647,13 @@ module.exports = function(grunt) {
             grunt.log.writeln('Unable to correctly set rights spool on Windows system');
         }
     });
+    grunt.registerTask('rightsSitemap', 'Command line to set rights on sitemap files', function() {
+        if (process.platform != 'win32') {
+            grunt.task.run('shell:rightsSitemap');
+        } else {
+            grunt.log.writeln('Unable to correctly set rights sitemap on Windows system');
+        }
+    });
     grunt.registerTask('removeCache', 'Command line to remove cache', function() {
         if (process.platform != 'win32') {
             grunt.task.run('shell:removeCache');
@@ -656,7 +669,7 @@ module.exports = function(grunt) {
         }
     });
     grunt.registerTask('rightsApplication', 'Command line to set rights on application', function() {
-        grunt.task.run(['applicationOwner', 'rightsCache', 'rightsLogs', 'rightsSpool']);
+        grunt.task.run(['applicationOwner', 'rightsCache', 'rightsLogs', 'rightsSpool', 'rightsSitemap']);
     });
     grunt.registerTask('connectDeploymentUser', 'Connect as a deployment user', function() {
         var cfg = grunt.config.get('cfg');
