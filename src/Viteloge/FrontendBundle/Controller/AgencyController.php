@@ -131,7 +131,7 @@ namespace Viteloge\FrontendBundle\Controller {
             $seoPage = $this->container->get('sonata.seo.page');
             $helper = $this->container->get('viteloge_frontend.ad_helper');
 
-            $title = $helper->titlify($ad);
+            $title = $helper->titlify($ad,true);
 
             $filters = $this->get('twig')->getFilters();
             $callable = $filters['truncate']->getCallable();
@@ -139,7 +139,6 @@ namespace Viteloge\FrontendBundle\Controller {
 
             $seoPage
                 ->setTitle($title)
-                ->addMeta('name', 'robots', 'noindex, nofollow')
                 ->addMeta('name', 'description', $description)
                 ->addMeta('property', 'og:title', $seoPage->getTitle())
                 ->addMeta('property', 'og:type', 'website')

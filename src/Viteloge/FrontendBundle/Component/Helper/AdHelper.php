@@ -23,13 +23,18 @@ namespace Viteloge\FrontendBundle\Component\Helper {
             $this->translator = $translator;
         }
 
-        public function titlify(Ad $ad) {
+        public function titlify(Ad $ad,$reverse = null) {
             $title = $ad->getType();
+            if($reverse){
+             $title = trim($title) . ' ' . $this->translator->trans('ad.slug.transaction.'.$ad->getTransaction());
+            }
             $title = trim($title) . ' ' .$ad->getCityName();
             $title = trim($title) . ' ' . $this->translator->transChoice('ad.rooms.url',$ad->getRooms(), array('%count%' => $ad->getRooms())).' ';
             $title = trim($title) . ' ' . $this->translator->transChoice('ad.bedrooms.url', $ad->getBedrooms(), array('%count%' => $ad->getBedrooms())).' ';
             $title = trim($title) . ' ' . $this->translator->transChoice('ad.surface.url', $ad->getSurface(), array('%count%' => $ad->getSurface())).' ';
-            $title = trim($title) . ' ' . $this->translator->trans('ad.slug.transaction.'.$ad->getTransaction());
+            if($reverse == false || is_null($reverse)){
+             $title = trim($title) . ' ' . $this->translator->trans('ad.slug.transaction.'.$ad->getTransaction());
+            }
             $title = trim($title) . ' ' . $ad->getAgencyName();
             return $title;
         }
