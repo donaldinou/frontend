@@ -9,7 +9,7 @@
     <header class="col-md-8">
         <h2 class="h4 title" itemprop="name">
             {%- block estate_title -%}
-                <a href="{{ path('viteloge_frontend_favourite_view', { 'id': key~'-'~ad.id, 'description':description|slugify }) }}" class="link text-left" rel="nofollow" target="_blank"><h2 class="small-title">{{ ad.type~' ' }}{{ include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface.html.twig', { 'ad': ad }) }} <br/>{% trans %}ad.at{% endtrans %} {{ ad.cityName }} ({{ ad.postalcode }})</h2></a>
+                <a href="{{ path('viteloge_frontend_favourite_view', { 'id': key~'-'~ad.id, 'description':description|slugify }) }}" class="link text-left" target="_blank"><h2 class="small-title">{{ ad.type~' ' }}{{ include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface.html.twig', { 'ad': ad }) }} <br/>{% trans %}ad.at{% endtrans %} {{ ad.cityName }} ({{ ad.postalcode }})</h2></a>
             {%- endblock estate_title -%}
         </h2>
 
@@ -24,11 +24,11 @@
         {%- block estate_content -%}
             <p>{{ ad.advancedDescription|capitalize|normalize_utf8|raw }}</p>
             {% if ad.privilege.isAgency %}
-            <a href="{{ path('viteloge_frontend_ad_redirect', { 'id': ad.id }) }}" class="link text-left" rel="nofollow" target="_blank">
+            <a href="{{ path('viteloge_frontend_ad_redirect', { 'id': ad.id }) }}" class="link text-left" target="_blank">
                 <span>{%- trans with {'%agency%': ad.agencyDomainName} -%}ad.list.on.agency{%- endtrans -%}</span>
             </a>
             {% else %}
-                <a href="{{ path('viteloge_frontend_favourite_view', { 'id': key~'-'~ad.id, 'description':description|slugify }) }}" class="link text-left" rel="nofollow" target="_blank">
+                <a href="{{ path('viteloge_frontend_favourite_view', { 'id': key~'-'~ad.id, 'description':description|slugify }) }}" class="link text-left" target="_blank">
                 <span>{%- trans with {'%agency%': ad.agencyDomainName} -%}ad.list.on.agency{%- endtrans -%}</span>
             </a>
             {% endif %}
@@ -37,7 +37,7 @@
     <footer id="estate-{{ ad.id }}-tab" class="col-md-12 footer clearfix">
         <ul class="nav nav-pills pull-right" role="tablist">
             <li role="presentation" class="expand-hover">
-                <a href="{{ path('viteloge_frontend_favourite_remove', { 'id': ad.id }) }}" class="" title="{% trans %}viteloge.favorite.delete{% endtrans %}" role="tab" rel="nofollow">
+                <a href="{{ path('viteloge_frontend_favourite_remove', { 'id': ad.id }) }}" class="" title="{% trans %}viteloge.favorite.delete{% endtrans %}" role="tab">
                     <span class="fa fa-remove"></span>
                     <span class="hidden-xs expand-hover-text">{% trans %}viteloge.favorite.delete{% endtrans %}</span>
                 </a>
@@ -52,14 +52,14 @@
             {% endif %}
         {% if ad.privilege.isAgency %}
             <li role="presentation" class="expand-hover">
-                <a href="{{ path('viteloge_frontend_ad_redirect', { 'id': ad.id }) }}" class="" role="tab" rel="nofollow" target="_blank">
+                <a href="{{ path('viteloge_frontend_ad_redirect', { 'id': ad.id }) }}" class="" role="tab" target="_blank">
                     <span class="fa fa-desktop"></span>
                     <span class="hidden-xs expand-hover-text">{% trans %}ad.visit{% endtrans %}</span>
                 </a>
             </li>
         {% else %}
             <li role="presentation" class="expand-hover">
-                <a href="{# path('viteloge_frontend_ad_redirect', { 'id': ad.id }) #}{{ path('viteloge_frontend_favourite_view', { 'id': key~'-'~ad.id, 'description':description|slugify }) }}" class="" role="tab" rel="nofollow" target="_blank">
+                <a href="{# path('viteloge_frontend_ad_redirect', { 'id': ad.id }) #}{{ path('viteloge_frontend_favourite_view', { 'id': key~'-'~ad.id, 'description':description|slugify }) }}" class="" role="tab" target="_blank">
                     <span class="fa fa-desktop"></span>
                     <span class="hidden-xs expand-hover-text">{% trans %}ad.visit{% endtrans %}</span>
                 </a>

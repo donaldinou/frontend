@@ -12,7 +12,7 @@
     {%- set redirect_path = path('viteloge_frontend_agency_view', { 'id': key~'-'~ad.id, 'description': description }) -%}
 {%- endif -%}
 
-<a href="{{ redirect_path }}" class="preview setkey" rel="nofollow" target="_blank" data-value="{{ key }}">
+<a href="{{ redirect_path }}" class="preview setkey" target="_blank" data-value="{{ key }}">
     <img itemprop="image" data-original="{{ aws_s3_domain(ad.photo, false) }}" data-src="{{ aws_s3_domain(ad.photo, false) }}" class="{{ imgClass }}" alt="{{ ad.type~' à '~ad.cityName }}" onerror="this.src = ''">
     <noscript><img itemprop="image" src="{{ aws_s3_domain(ad.photo, false) }}" class="{{ imgClass }}" alt="" onerror="this.src = ''"></noscript>
 </a>

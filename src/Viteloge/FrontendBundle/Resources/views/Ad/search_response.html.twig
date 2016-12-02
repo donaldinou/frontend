@@ -21,7 +21,7 @@
 
  <div class="container-fluid">
         <div class="row no-padding subrow">
-            <div class="col-sm-3 col-md-4 col-lg-3 no-padding">
+            <div class="col-sm-3 col-md-5 col-lg-4 no-padding">
             {{ wo_render_breadcrumbs() }}
            </div>
 
@@ -95,3 +95,46 @@
 {%- block javascripts -%}
     {{ parent() }}
 {%- endblock javascripts -%}
+{%- block footer -%}
+            <div class="col-sm-offset-3 col-md-offset-5 col-lg-offset-4 col-sm-6 col-md-2 col-lg-4 header-pagination no-padding">
+           {%- if pagination is defined -%}
+            {%- if pagination is not null and pagination.haveToPaginate -%}
+                {{- pagerfanta(pagination, 'pager_viteloge', {
+                    'routeParams': app.request.query.all
+                }) -}}
+            {%- endif -%}
+           {%- endif -%}
+        </div>
+        <div class="col-sm-3 col-md-5 col-lg-4 text-right no-padding">
+
+                {% set count = pagination.nbResults|default(ads|length) %}
+                    {% if app.request.attributes.get('_route') == 'viteloge_frontend_ad_latest_list' %}
+                        <h1 class="small_header">{% transchoice count with { '%count%' : count} %}ads.count.last{% endtranschoice %}</h1>
+                    {% else %}
+                    {% if ads[0].cityName is defined and ads[0].cityName is not empty %}
+                    {% if ads[0].transaction is defined and ads[0].transaction is not empty %}
+                 {% if ads[0].transaction == 'V' %}
+                    {% set transac = 'à vendre'%}
+                {% elseif ads[0].transaction == 'L'%}
+                    {% set transac = 'à louer'%}
+                {% else %}
+                    {% set transac ='neufs'%}
+                {% endif %}
+                    <h1 class="small_header">{% transchoice count with { '%count%' : count, '%city%': ads[0].cityName,'%transac%':transac} %}ads.count.research.city.transac{% endtranschoice %}</h1>
+                 {% else %}
+                <h1 class="small_header">{% transchoice count with { '%count%' : count, '%city%': ads[0].cityName} %}ads.count.research.city{% endtranschoice %}</h1>
+            {% endif %}
+        {% else %}
+            <h1 class="small_header">{% transchoice count with { '%count%' : count} %}ads.count.research{% endtranschoice %}</h1>
+        {% endif %}
+        {% endif %}
+            </div>
+            <div class="container text-center">
+                {{- include('VitelogeFrontendBundle:menu:footer.html.twig', {}) -}}
+                {{- include('VitelogeFrontendBundle:misc:social.html.twig', {}) -}}
+            </div>
+            <div class="container text-center text-secondary">
+                {{- include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) -}}
+                {{- include('VitelogeFrontendBundle:Block:sites.html.twig', {}) -}}
+            </div>
+        {%- endblock footer -%}
