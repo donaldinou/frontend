@@ -208,6 +208,61 @@ namespace Viteloge\FrontendBundle\Controller {
             );
         }
 
+
+        /**
+         * Display the most searched cities
+         * Ajax call so we could have a shared public cache
+         *
+         * @Route(
+         *     "/mostSearchedTownTransaction/{id}/{radius}/{transaction}/{type}/{limit}",
+         *     requirements={
+         *         "limit"="\d+"
+         *     },
+         *     defaults={
+         *         "limit"="5"
+         *     },
+         *     name="viteloge_frontend_glossary_town_transaction_limited"
+         * )
+         * @Route(
+         *     "/mostSearchedTownTransaction/{id}/{radius}/{transaction}/{type}",
+         *     requirements={
+         *         "limit"="\d+"
+         *     },
+         *     defaults={
+         *         "limit" = "5"
+         *     },
+         *     name="viteloge_frontend_glossary_town_transaction"
+         * )
+         *
+         * @Method({"GET"})
+         * @Template("VitelogeFrontendBundle:Glossary:mostSearchedTownTransaction.html.twig")
+         */
+        public function mostSearchedTownTransactionAction(Request $request,InseeCity $inseeCity, $radius,$transaction,$type, $limit=5) {
+            $repository = $this->getDoctrine()
+                ->getRepository('VitelogeCoreBundle:UserSearch');
+         //   $glossary = $repository->findAllInseeCityTransactionOrderedByCount($transaction, $type, $limit);
+            $options = array(
+                'size' => $limit,
+                'sort' => array(
+                    'isCapital' => array( 'order' => 'desc' ),
+                    'population' => array( 'order' => 'desc' )
+                )
+            );
+            $finder = $this->container->get('fos_elastica.finder.viteloge.inseeCity');
+            $radiusDistanceQuery = new \Elastica\Filter\GeoDistance('location', $inseeCity->getLocation(), $radius.'km');
+            $cities = $finder->find($radiusDistanceQuery, $limit);
+            return $this->render(
+                'VitelogeFrontendBundle:Glossary:mostSearchedTownTransaction.html.twig',
+                array(
+                    'city' => $inseeCity,
+                    'cities' => $cities,
+                    'transaction' => $transaction,
+                    'type' => $type,
+                )
+            );
+        }
+
+
         /**
          * Research from state
          * Expire tomorrow

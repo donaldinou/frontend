@@ -96,7 +96,17 @@
     {{ parent() }}
 {%- endblock javascripts -%}
 {%- block footer -%}
-            <div class="col-sm-offset-3 col-md-offset-5 col-lg-offset-4 col-sm-6 col-md-2 col-lg-4 header-pagination no-padding">
+             <div class="hide_info col-md-2 hidden-sm hidden-xs">
+                <ul>
+                    {{ render_hinclude(path('viteloge_frontend_glossary_town_transaction_limited', {'id': form.vars.value.where.0,'radius': constant('Viteloge\\CoreBundle\\Component\\Enum\\DistanceEnum::TEN'), transaction:'V',type: 'Appartement',limit: 10 })) }}
+                </ul>
+            </div>
+             <div class="hide_info col-md-2 hidden-sm hidden-xs">
+                <ul>
+                    {{ render_hinclude(path('viteloge_frontend_glossary_town_transaction_limited', {'id': form.vars.value.where.0,'radius': constant('Viteloge\\CoreBundle\\Component\\Enum\\DistanceEnum::TEN'), transaction:'V',type: 'Maison',limit: 10 })) }}
+                </ul>
+            </div>
+            <div class="col-sm-12 col-xs-12 col-md-3 col-lg-4 header-pagination no-padding container text-center">
            {%- if pagination is defined -%}
             {%- if pagination is not null and pagination.haveToPaginate -%}
                 {{- pagerfanta(pagination, 'pager_viteloge', {
@@ -104,13 +114,19 @@
                 }) -}}
             {%- endif -%}
            {%- endif -%}
+           {{- include('VitelogeFrontendBundle:misc:social.html.twig', {}) -}}
+           {{- include('VitelogeFrontendBundle:Block:sites.html.twig', {}) -}}
+           {{- include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) -}}
         </div>
-            <div class="container text-center">
-                {{- include('VitelogeFrontendBundle:menu:footer.html.twig', {}) -}}
-                {{- include('VitelogeFrontendBundle:misc:social.html.twig', {}) -}}
+        <div class="hide_info col-md-2 hidden-sm hidden-xs">
+                <ul>
+                    {{ render_hinclude(path('viteloge_frontend_glossary_town_transaction_limited', {'id': form.vars.value.where.0,'radius': constant('Viteloge\\CoreBundle\\Component\\Enum\\DistanceEnum::TEN'), transaction:'L',type: 'Maison',limit: 10 })) }}
+                </ul>
             </div>
-            <div class="container text-center text-secondary">
-                {{- include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) -}}
-                {{- include('VitelogeFrontendBundle:Block:sites.html.twig', {}) -}}
+             <div class="hide_info col-md-2 hidden-sm hidden-xs">
+                <ul>
+                    {{ render_hinclude(path('viteloge_frontend_glossary_town_transaction_limited', {'id': form.vars.value.where.0,'radius': constant('Viteloge\\CoreBundle\\Component\\Enum\\DistanceEnum::TEN'), transaction:'L',type: 'Appartement',limit: 10 })) }}
+                </ul>
             </div>
+
         {%- endblock footer -%}

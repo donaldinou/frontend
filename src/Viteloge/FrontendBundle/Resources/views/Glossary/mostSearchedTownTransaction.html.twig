@@ -1,0 +1,17 @@
+       <div class="clear"></div>
+    	<li class="footlihead">
+         <b>{{ type }} à {{ ('footer.transaction.article.'~transaction)|trans }}</b>
+
+        </li>
+        {% for key, near in cities %}
+        	{% if type == 'Maison' and key < 5 %}
+
+             <li class="footli">
+			   <a href="{{ path('viteloge_frontend_ad_search', { 'transaction': transaction, 'where': near.id,'what': type }) }}">{{ type }} à {{ ('footer.transaction.article.'~transaction)|trans }} {{ near.name }}</a>
+			  </li>
+            	{% elseif type == 'Appartement' and key >= 5 %}
+             <li class="footli">
+            	<a href="{{ path('viteloge_frontend_ad_search', { 'transaction': transaction, 'where': near.id,'what': type }) }}">{{ type }} à {{ ('footer.transaction.article.'~transaction)|trans }} {{ near.name }}</a>
+            	{% endif %}
+			</li>
+        {% endfor %}
