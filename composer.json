@@ -38,7 +38,7 @@
         "ruflin/Elastica": "~1.4",
         "genemu/form-bundle": "~2.2",
         "stof/doctrine-extensions-bundle": "~1.1",
-        "hwi/oauth-bundle": "0.4.*@dev",
+        "hwi/oauth-bundle": "^0.4",
         "excelwebzone/recaptcha-bundle": "~2.6@dev",
         "presta/sitemap-bundle": "1.4.2",
         "neitanod/forceutf8": "^2.0"
