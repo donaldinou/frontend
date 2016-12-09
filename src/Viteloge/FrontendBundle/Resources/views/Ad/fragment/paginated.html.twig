@@ -38,7 +38,7 @@
         </div>
         <div class="clearfix">
         {%- for key,ad in ads -%}
-            <div class="theme-{#ad.transaction#}">
+            <div class="theme-{%- if ad.privilege.hasBgColor -%}rent{% endif %}{#ad.transaction#}">
                 {{- include('VitelogeFrontendBundle:Ad:render/list.html.twig', { 'ad': ad,'key':key }) -}}
             </div>
         {%- else -%}

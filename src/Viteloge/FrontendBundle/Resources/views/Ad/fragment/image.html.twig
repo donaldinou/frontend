@@ -5,7 +5,9 @@
 {%- if ad.privilege.isExclu -%}
     {{ include('VitelogeCoreBundle:Global:sticker.html.twig', { title: 'ad.sticker.exlusivity'|trans }) }}
 {%- endif -%}
-
+{%- if ad.privilege.hasBgColor and not ad.privilege.isExclu -%}
+    {{ include('VitelogeCoreBundle:Global:sticker.html.twig', { title: 'ad.sticker.heart'|trans }) }}
+{%- endif -%}
 {%- if ad.transaction == 'V' -%}
     {%- set redirect_path = path('viteloge_frontend_agency_view', { 'id': key~'-'~ad.id, 'description': description, 'transaction': 'V' }) -%}
 {%- else -%}

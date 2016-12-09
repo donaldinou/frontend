@@ -574,6 +574,10 @@
         <source>ad.sticker.exlusivity</source>
         <target>Exclusivité</target>
       </trans-unit>
+      <trans-unit id="ad.sticker.heart" resname="ad.sticker.heart">
+        <source>ad.sticker.heart</source>
+        <target>Coup de coeur</target>
+      </trans-unit>
       <trans-unit id="ad.program.count" resname="ad.program.count">
         <source>ad.program.count</source>
         <target>{0} programme disponible|{1} programme disponible|]1,Inf] %count% programmes disponibles</target>
