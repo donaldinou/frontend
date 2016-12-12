@@ -19,16 +19,24 @@
 
 {%- block main -%}
     {%- if redirect -%}
+        {%- set imgClass = imgClass|default('lazy') -%}
         {%- embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 12, 'rsize': 12 } -%}
             {% block left %}
                 <div class="row text-center" style="padding-top:30px;padding-bottom: 152px;"></div>
-                <div id="MSG-IMPORTANT" class="panel text-center" style="border:none;background: #f7f3e7;">
-                    <p style="color: #3f454f;font-size: 18px;font-weight: bold;margin-bottom: 0.8em;">
+                <div id="MSG-IMPORTANT" class="panel text-center" style="border: medium none; background: rgb(255, 255, 255) none repeat scroll 0px 0px; box-shadow: 0px 0px 20px rgb(204, 204, 204); border-radius: 3px;">
+                    <p style="margin-bottom: 0.8em; color: rgb(25, 106, 125); text-transform: uppercase; font-weight: 500; font-size: 16px;margin-bottom: 20px !important;padding:25px 0 !important;">
+                        <i class="fa fa-exclamation-triangle fa-3" aria-hidden="true" style="font-size: 50px; color: #ccc; margin-bottom: 10px"></i><br/>
                         {{ "Cliquez sur ce lien pour " | trans }}<br/>
                         {{ "consultez cette annonce immobilière" | trans }}<br>
                     </p>
-                    <a id="bar" href="{{ ad.url }}" style="color: #f46923;font-size: 16px;" target="_blank">{{ ad.url }}</a>
-                    <span id="foo"></span>
+                    <a id="bar" href="{{ ad.url }}" style="font-size: 16px; color: rgb(0, 161, 198);" target="_blank">{{ ad.url }}</a>
+                    <br/>
+                {% if ad.photo is defined and ad.photo is not empty %}
+                    <a href="{{ ad.url }}" target="_blank">
+                        <img src="{{ aws_s3_domain(ad.photo, false) }}"  style="margin:15px;padding:15px;">
+                    </a>
+                {% endif %}
+                 </div>
                 </div>
             {% endblock %}
             {% block right %}
@@ -47,9 +55,7 @@
 {%- endblock -%}
 
 {%- block footer -%}
-    {%- if redirect -%}
-        {{ parent() }}
-    {%- endif -%}
+
 {%- endblock -%}
 
 {%- block header_end %}
@@ -79,7 +85,8 @@
                 </div>
             {% endif %}
             <div class="hidden-xs hidden-sm {% if total is not empty %}col-md-6 col-lg-5{% else %}col-md-7 col-lg-6{% endif %}">
-                {# THIS IS NOT SEMANTICALLY CORRECT (h2 before h1)!! SEO will be decrease #}
+                {# THIS IS NOT SEMANTICALLY CORRECT (h2 before h1)!! SEO will be decrease,  #}
+                {# Boss choice  #}
                 <h2 style="text-transform: uppercase;font-size:12px !important;margin:0;padding:0;color:#00a1c6;display:inline-block;vertical-align:top;">{{ ad.agencyName~' vous propose ' }}</h2>
                 <h1 style="text-transform: uppercase;font-size:12px !important;color:#00a1c6;display:inline-block;vertical-align:top;margin:0;">{% if ad.type == 'maison' %} une {% else %} un {% endif %}{{ ad.type }}{% trans %} ad.at {% endtrans %} {{ ('footer.transaction.article.'~ad.transaction)|trans }}{% trans %} ad.at {% endtrans %} {{ ad.cityName }} ({{ ad.postalcode }}) - {{ ad.price | schematizedcurrency('EUR') | raw }}</h1><br>
                  <small style="text-transform: lowercase;color:#00a1c6;display: inline-block; line-height: 1; margin-bottom: 5px;"> {{ ad.description|truncate(200, false, '...')|normalize_utf8|raw }}

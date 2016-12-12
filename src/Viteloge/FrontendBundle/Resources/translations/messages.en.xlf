@@ -116,7 +116,7 @@
       </trans-unit>
       <trans-unit id="ad.sticker.heart" resname="ad.sticker.heart">
         <source>ad.sticker.heart</source>
-        <target>Featured</target>
+        <target>Sponsor</target>
       </trans-unit>
       <trans-unit id="3bc026b815790a05493fa56fc4b8d8bd" resname="Extend">
         <source>Extend</source>

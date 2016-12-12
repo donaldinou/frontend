@@ -6,6 +6,7 @@
         </div>
     {%- endblock aside_adsense1 -%}
     {%- block aside_before_adsense1 -%}{%- endblock aside_before_adsense1 -%}
+{% if app.request.attributes.get('_route') != 'viteloge_frontend_agency_view' %}
     {%- block aside_services -%}
         <div class="clearfix">
             <div class="services row-no-padding" role="listbox">
@@ -13,6 +14,7 @@
             </div>
         </div>
     {%- endblock aside_services -%}
+{% endif %}
     {%- block aside_before_services -%}{%- endblock aside_before_services -%}
     {%- block aside_adsense2 -%}
         <div class="clearfix">

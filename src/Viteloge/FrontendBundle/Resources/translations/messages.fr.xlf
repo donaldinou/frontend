@@ -576,7 +576,7 @@
       </trans-unit>
       <trans-unit id="ad.sticker.heart" resname="ad.sticker.heart">
         <source>ad.sticker.heart</source>
-        <target>Coup de coeur</target>
+        <target>Sponsorisé</target>
       </trans-unit>
       <trans-unit id="ad.program.count" resname="ad.program.count">
         <source>ad.program.count</source>
