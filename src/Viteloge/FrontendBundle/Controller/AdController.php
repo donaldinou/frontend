@@ -863,6 +863,9 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Template("VitelogeFrontendBundle:Ad:redirect.html.twig")
          */
         public function redirectAction(Request $request, Ad $ad) {
+            $helper = $this->container->get('viteloge_frontend.ad_helper');
+            $description = $helper->slugigy($ad,true);
+            return $this->redirect($this->generateUrl('viteloge_frontend_agency_view', array('id'=>'0-'.$ad->getId(),'description' => $description)));
             $translated = $this->get('translator');
             // SEO
             $canonicalLink = $this->get('router')->generate(
