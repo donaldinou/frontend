@@ -52,5 +52,9 @@
                 <a href="{{ url('viteloge_frontend_homepage') }}" class="h4"><span class="fa fa-caret-right">&nbsp;</span>{%- trans -%}viteloge.back.home{%- endtrans -%}</a>
             </div>
         </div>
+        {{- include('VitelogeFrontendBundle:Default:fragment/websearch.html.twig', { }) -}}
+        <div class="row">
+
+        </div>
     </div>
 {%- endblock main -%}
