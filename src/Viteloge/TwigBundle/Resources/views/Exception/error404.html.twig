@@ -52,20 +52,6 @@
                 <a href="{{ url('viteloge_frontend_homepage') }}" class="h4"><span class="fa fa-caret-right">&nbsp;</span>{%- trans -%}viteloge.back.home{%- endtrans -%}</a>
             </div>
         </div>
-        <div class="row">
-            <section class="col-md-6">
-                <h3 class="h3 text-uppercase">{% trans %}viteloge.main.cities{% endtrans %}</h3>
-                <div class="text-secondary jumbotron">
-                    {{ render(path('viteloge_frontend_glossary_mostsearched', { limit: 15 })) }}
-                </div>
-            </section>
-            <section class="col-md-6">
-                <h3 class="h3 text-uppercase">{% trans %}viteloge.main.pages{% endtrans %}</h3>
-                <div class="text-secondary jumbotron">
-                    {{- include('VitelogeTwigBundle:Exception:fragment/pages.html.twig', { }) -}}
-                </div>
-            </section>
-        </div>
         {{- include('VitelogeFrontendBundle:Default:fragment/websearch.html.twig', { }) -}}
         <div class="row">
 
