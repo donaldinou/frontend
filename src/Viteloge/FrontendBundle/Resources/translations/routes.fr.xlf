@@ -122,6 +122,10 @@
         <source>viteloge_frontend_agency_view</source>
         <target>/annonce/{id}/{description}</target>
       </trans-unit>
+      <trans-unit id="viteloge_frontend_agency_home" resname="viteloge_frontend_agency_home">
+        <source>viteloge_frontend_agency_home</source>
+        <target>/annonce/acceuil/{id}/{description}</target>
+      </trans-unit>
       <trans-unit id="a9d5ddab093d91f2edbba752a1dccdcb" resname="viteloge_frontend_ad_search">
         <source>viteloge_frontend_ad_search</source>
         <target>/annonce/recherche/{page}/{limit}</target>
