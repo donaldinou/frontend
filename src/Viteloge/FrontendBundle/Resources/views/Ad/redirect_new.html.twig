@@ -54,10 +54,6 @@
     {%- endif -%}
 {%- endblock -%}
 
-{%- block footer -%}
-
-{%- endblock -%}
-
 {%- block header_end %}
     <div class="container-fluid">
         <div class="row clearfix">
@@ -178,7 +174,17 @@
         </div>
     </div>
 {% endblock -%}
-
+{%- block footer -%}
+    {%- if redirect -%}
+            <div class="col-lg-12 text-center">
+                {{- include('VitelogeFrontendBundle:misc:social.html.twig', {}) -}}
+            </div>
+            <div class="col-lg-12 text-center text-secondary">
+                {{- include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) -}}
+                {{- include('VitelogeFrontendBundle:Block:sites.html.twig', {}) -}}
+            </div>
+    {% endif %}
+{%- endblock footer -%}
 {%- block javascripts -%}
     {{- parent() -}}
     <script>
