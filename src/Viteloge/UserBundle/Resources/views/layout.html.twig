@@ -35,7 +35,7 @@
             {#<link rel="stylesheet" href="{{ aws_s3_domain('built/viteloge.min.css') }}">#}
             {% if app.environment == 'dev' %}
                 <link rel="stylesheet" href="{{ aws_s3_file('built/viteloge.min.css?c='~random(), false) }}">
-               {# <link rel="stylesheet" href="{{ aws_s3_file('assets/css/font-awesome.css', false) }}">
+                {#<link rel="stylesheet" href="{{ aws_s3_file('assets/css/font-awesome.css', false) }}">
                 <link rel="stylesheet" href="{{ aws_s3_file('assets/css/font-awesome.css', false) }}">
                 <link rel="stylesheet" href="{{ aws_s3_file('assets/css/normalize.css', false) }}">
                 <link rel="stylesheet" href="{{ aws_s3_file('assets/css/owl.carousel.css', false) }}">

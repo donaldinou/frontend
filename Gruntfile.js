@@ -796,7 +796,6 @@ module.exports = function(grunt) {
         'uglify',
         'shell:copyZeroclipboard',
         'compress',
-        'aws',
         'rightsApplication',
         'disconnectDeploymentUser',
         'shell:startService',
