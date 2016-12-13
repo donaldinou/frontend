@@ -178,13 +178,42 @@
 {% endblock -%}
 {%- block footer -%}
     {%- if redirect -%}
-            <div class="col-lg-12 text-center">
+    {%- if form is defined and form.vars.value.where and form.vars.value.where.0 -%}
+        <div class="col-lg-2 hidden-md hidden-sm hidden-xs">
+                 <ul>
+                    {{ render_hinclude(path('viteloge_frontend_glossary_town_transaction_limited', {'id': form.vars.value.where.0,'radius': constant('Viteloge\\CoreBundle\\Component\\Enum\\DistanceEnum::TEN'), transaction:'V',type: 'Appartement',limit: 10 })) }}
+                </ul>
+        </div>
+        <div class="col-lg-2 hidden-md hidden-sm hidden-xs">
+                 <ul>
+                    {{ render_hinclude(path('viteloge_frontend_glossary_town_transaction_limited', {'id': form.vars.value.where.0,'radius': constant('Viteloge\\CoreBundle\\Component\\Enum\\DistanceEnum::TEN'), transaction:'V',type: 'Maison',limit: 10 })) }}
+                </ul>
+        </div>
+
+            <div class="col-lg-4 col-md-12 col-xs-12 col-sm-12 text-center">
+                {{- include('VitelogeFrontendBundle:misc:social.html.twig', {}) -}}
+                {{- include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) -}}
+                {{- include('VitelogeFrontendBundle:Block:sites.html.twig', {}) -}}
+            </div>
+        <div class="col-lg-2 hidden-md hidden-sm hidden-xs">
+                 <ul>
+                    {{ render_hinclude(path('viteloge_frontend_glossary_town_transaction_limited', {'id': form.vars.value.where.0,'radius': constant('Viteloge\\CoreBundle\\Component\\Enum\\DistanceEnum::TEN'), transaction:'L',type: 'Appartement',limit: 10 })) }}
+                </ul>
+        </div>
+        <div class="col-lg-2 hidden-md hidden-sm hidden-xs">
+                 <ul>
+                    {{ render_hinclude(path('viteloge_frontend_glossary_town_transaction_limited', {'id': form.vars.value.where.0,'radius': constant('Viteloge\\CoreBundle\\Component\\Enum\\DistanceEnum::TEN'), transaction:'L',type: 'Maison',limit: 10 })) }}
+                </ul>
+        </div>
+     {% else %}
+           <div class="col-lg-12 text-center">
                 {{- include('VitelogeFrontendBundle:misc:social.html.twig', {}) -}}
             </div>
             <div class="col-lg-12 text-center text-secondary">
                 {{- include('VitelogeFrontendBundle:misc:copyright.html.twig', {}) -}}
                 {{- include('VitelogeFrontendBundle:Block:sites.html.twig', {}) -}}
             </div>
+    {% endif %}
     {% endif %}
 {%- endblock footer -%}
 {%- block javascripts -%}
