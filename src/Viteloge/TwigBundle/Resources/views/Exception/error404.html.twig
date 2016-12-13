@@ -29,7 +29,9 @@
 {%- block title -%}
     <title>{% trans %}viteloge.title.prefix{% endtrans %} {% trans %}viteloge.page.does.not.exist{% endtrans %}</title>
 {%- endblock title -%}
-
+{%- block header -%}
+  {{ render(controller('VitelogeFrontendBundle:Default:headerForm')) }}
+{%- endblock header -%}
 {%- block breadcrumb -%}
     {%- set breadcrumbs = [
         { url : '', text: 'viteloge.error.occurred'|trans},
