@@ -143,7 +143,7 @@
 
         {%- endblock body_end -%}
         </main>
-        <footer data-role="clearfix footer"{% if app.request.attributes.get('_route') != 'viteloge_frontend_agency_view' %}style="position:absolute;bottom:0;width: 100%;"{% endif %} >
+        <footer data-role="clearfix footer"{% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_view' %}style="position:absolute;bottom:0;width: 100%;"{% endif %} >
 
         {%- block footer_start -%}
 
