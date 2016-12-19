@@ -116,7 +116,6 @@ namespace Viteloge\FrontendBundle\Controller {
            $currentUrl = $request->getUri();
 
 
-
             // Form
             $adSearch = new AdSearch();
             $adSearch->handleRequest($request);

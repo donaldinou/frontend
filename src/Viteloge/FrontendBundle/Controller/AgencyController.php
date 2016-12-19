@@ -40,9 +40,10 @@ namespace Viteloge\FrontendBundle\Controller {
     class AgencyController extends Controller {
 
         const DESCRIPTION_LENGHT = 60;
+        const METADESCRIPTION_LENGHT = 150;
 
         /**
-         * view the hosted page.
+         * view the hosted page.No cache for this page
          *
          *
          * @Route(
@@ -66,7 +67,6 @@ namespace Viteloge\FrontendBundle\Controller {
          *     },
          *     name="viteloge_frontend_agency_home"
          * )
-         * @Cache(expires="tomorrow", public=true)
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:Ad:redirect_new.html.twig")
          */
@@ -82,8 +82,17 @@ namespace Viteloge\FrontendBundle\Controller {
 
             if($request->query->get('transaction') == 'V' && !is_null($veriftotal)){
               $total = $session->get('totalResultVente');
+
             }else{
               $total = $session->get('totalResult');
+              $a = ($session->get('currentPage')-1) * 25;
+              $b = $total - ($a);
+              if($b > 25){
+                $total = 25;
+              }else{
+                $total = $b;
+              }
+
             }
 
             $search = $session->get('request');
@@ -136,6 +145,7 @@ namespace Viteloge\FrontendBundle\Controller {
             $filters = $this->get('twig')->getFilters();
             $callable = $filters['truncate']->getCallable();
             $description = strtolower($callable($this->get('twig'), $ad->getDescription(), self::DESCRIPTION_LENGHT));
+            $metadescription = strtolower($callable($this->get('twig'), $ad->getDescription(), self::METADESCRIPTION_LENGHT));
 
             $seoPage
                 ->setTitle($title)
@@ -143,7 +153,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->addMeta('property', 'og:title', $seoPage->getTitle())
                 ->addMeta('property', 'og:type', 'website')
                 ->addMeta('property', 'og:url',  $canonicalLink)
-                ->addMeta('property', 'og:description', $description)
+                ->addMeta('property', 'og:description', $metadescription)
                 ->setLinkCanonical($canonicalLink)
             ;
             // --
