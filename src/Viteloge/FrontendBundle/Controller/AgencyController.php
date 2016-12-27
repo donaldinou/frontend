@@ -39,8 +39,7 @@ namespace Viteloge\FrontendBundle\Controller {
      */
     class AgencyController extends Controller {
 
-        const DESCRIPTION_LENGHT = 60;
-        const METADESCRIPTION_LENGHT = 150;
+        const DESCRIPTION_LENGHT = 150;
 
         /**
          * view the hosted page.No cache for this page
@@ -145,7 +144,6 @@ namespace Viteloge\FrontendBundle\Controller {
             $filters = $this->get('twig')->getFilters();
             $callable = $filters['truncate']->getCallable();
             $description = strtolower($callable($this->get('twig'), $ad->getDescription(), self::DESCRIPTION_LENGHT));
-            $metadescription = strtolower($callable($this->get('twig'), $ad->getDescription(), self::METADESCRIPTION_LENGHT));
 
             $seoPage
                 ->setTitle($title)
@@ -153,7 +151,7 @@ namespace Viteloge\FrontendBundle\Controller {
                 ->addMeta('property', 'og:title', $seoPage->getTitle())
                 ->addMeta('property', 'og:type', 'website')
                 ->addMeta('property', 'og:url',  $canonicalLink)
-                ->addMeta('property', 'og:description', $metadescription)
+                ->addMeta('property', 'og:description', $description)
                 ->setLinkCanonical($canonicalLink)
             ;
             // --
