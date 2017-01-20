@@ -39,17 +39,7 @@
                  </div>
                 </div>
             {% endblock %}
-            {% block right %}
-                {%- embed "VitelogeFrontendBundle:Block:aside_footer.html.twig" -%}
-                    {%- block aside_bottom -%}
-                        {%- if form is defined and form.vars.value.where and form.vars.value.where.0 -%}
-                            {{- render_hinclude(path('viteloge_frontend_suggest_near', { 'name': 'test', 'id': form.vars.value.where.0, 'radius': constant('Viteloge\\CoreBundle\\Component\\Enum\\DistanceEnum::TEN'), 'limit': 10, '_format': 'html' })) -}}
-                        {%- endif -%}
-                    {%- endblock aside_bottom -%}
-                    {%- block aside_services -%}
-                    {%- endblock aside_services -%}
-                {%- endembed -%}
-            {% endblock %}
+
         {%- endembed -%}
     {%- else -%}
          <iframe src="{{ ad.url }}" width="100%" height="100%" style="background-color: #eee;border: medium none;position: absolute;margin-top:135px;"></iframe>

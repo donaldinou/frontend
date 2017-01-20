@@ -16,7 +16,7 @@
     <header class="col-md-8">
         <div class="h4 title" itemprop="name">
             {%- block estate_title -%}
-                    <a href="{{ redirect_path }}" class="link text-left" target="_blank">
+                    <a href="{{ redirect_path }}" class="link text-left">
                     <h2 class="small-title">{{ ad.type~' ' }}{{ include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface.html.twig', { 'ad': ad }) }} <br/>{% trans %}ad.at{% endtrans %} {{ ad.cityName }} ({{ ad.postalcode }})<span class="price pull-right" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
             {%- block estate_price -%}
                 {{ ad.price | schematizedcurrency('EUR') | raw }}
@@ -32,7 +32,7 @@
     <div class="col-md-8 clearfix description text-justify" role="presentation" itemprop="description">
         {%- block estate_content -%}
         <p {%- if ad.privilege.isBold -%}{{ ' style="font-weight: 600;"' }} {% endif %}>{{ ad.advancedDescription|capitalize|normalize_utf8|raw }}</p>
-            <a href="{{ redirect_path }}" class="link text-left" target="_blank">
+            <a href="{{ redirect_path }}" class="link text-left">
                 <span>{%- trans with {'%agency%': ad.agencyDomainName} -%}ad.list.on.agency{%- endtrans -%}</span>
             </a>
         {%- endblock estate_content -%}
@@ -48,7 +48,7 @@
             </li>
             {% endif %}
             <li role="presentation" class="expand-hover">
-                <a href="{{ redirect_path }}" class="" role="tab" target="_blank" onclick="ga('send', 'event', 'page-listing-de-bien', 'clic-visiter-le-site', 'visiter-le-site')">
+                <a href="{{ redirect_path }}" class="" role="tab" onclick="ga('send', 'event', 'page-listing-de-bien', 'clic-visiter-le-site', 'visiter-le-site')">
                     <span class="fa fa-desktop"></span>
                     <span class="hidden-xs expand-hover-text">{% trans %}ad.visit{% endtrans %}</span>
                 </a>
