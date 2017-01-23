@@ -412,6 +412,10 @@
         <source>ad.slug.transaction.N</source>
         <target>new</target>
       </trans-unit>
+      <trans-unit id="usersearch.new.search" resname="usersearch.new.search">
+        <source>usersearch.new.search</source>
+        <target>New search</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

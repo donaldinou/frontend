@@ -742,6 +742,10 @@
         <source>usersearch.search</source>
         <target>recherche</target>
       </trans-unit>
+      <trans-unit id="usersearch.new.search" resname="usersearch.new.search">
+        <source>usersearch.new.search</source>
+        <target>Nouvelle recherche</target>
+      </trans-unit>
       <trans-unit id="ad.propose" resname="ad.propose">
         <source>ad.propose</source>
         <target>propose</target>

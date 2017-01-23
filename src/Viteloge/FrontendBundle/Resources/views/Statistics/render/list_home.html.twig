@@ -1,0 +1,31 @@
+<span class="usersearch">
+    {%- block ad_agencyName -%}
+        {%- if ad.agencyName is defined -%}
+                <i class="fa fa-clock-o" aria-hidden="true"></i><small><b>&nbsp;{{ ad.date|time_diff|default('viteloge.now'|trans) }}</b>
+                &nbsp;{%- trans -%}usersearch.new.search{%- endtrans -%}</small>
+                </br>
+        {%- endif -%}
+    {%- endblock -%}
+    {%- block ad_transaction -%}
+         <a href="{{ ad.url }}" class="linklive">
+        {%- if ad.transaction -%}
+                <span>{{ ('ad.transaction.article.'~ad.transaction)|trans }}</span>&nbsp;
+       {%- endif -%}
+    {%- endblock ad_transaction -%}
+    {%- block ad_type -%}
+         {%- if ad.type -%}
+           <span>{{ ad.type|join(', ') }}</span>&nbsp;{# already translated in database #}
+          {%- endif -%}
+     {%- endblock ad_type -%}
+     {%- block ad_rooms -%}
+
+       {%- endblock ad_rooms -%}
+       {%- if ad.inseeCity is defined and ad.inseeCity -%}
+        {%- block ad_city -%}
+            <span>
+                <a href="{{ path( 'viteloge_frontend_glossary_showcity', { name: ad.inseeCity.slug, id: ad.inseeCity.id }) }}" class="linklivetown">{{ ad.inseeCity }}</a>
+            </span>
+        {%- endblock ad_city -%}
+    {%- endif -%}
+</span>
+</br></br>

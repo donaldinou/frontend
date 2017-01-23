@@ -27,6 +27,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use Viteloge\CoreBundle\Entity\Statistics;
     use Viteloge\CoreBundle\Entity\WebSearch;
     use Viteloge\CoreBundle\Entity\UserSearch;
+    use Viteloge\CoreBundle\Entity\Infos;
     use Viteloge\CoreBundle\Component\DBAL\EnumTransactionType;
     use Viteloge\CoreBundle\Component\Enum\DistanceEnum;
     use Viteloge\CoreBundle\SearchEntity\Ad as AdSearch;
@@ -354,6 +355,34 @@ namespace Viteloge\FrontendBundle\Controller {
             $session->set('resultAd',$pagination->getCurrentPageResults());
             $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
 
+            if(!empty($pagination->getCurrentPageResults())){
+            $em = $this->getDoctrine()->getManager();
+            $ad =  $pagination->getCurrentPageResults()[0];
+
+
+            //on ava stocker toutes les recherches
+            $forbiddenUA = array(
+                        'yakaz_bot' => 'YakazBot/1.0',
+                        'mitula_bot' => 'java/1.6.0_26'
+                    );
+                    $forbiddenIP = array(
+
+                    );
+                    $ua = $request->headers->get('User-Agent');
+                    $ip = $request->getClientIp();
+                    $currentUrl = $request->getUri();
+                    // log redirect
+                    if (!in_array($ua, $forbiddenUA) && !in_array($ip, $forbiddenIP)) {
+                        $now = new \DateTime('now');
+                        $info = new Infos();
+                        $info->setIp($ip);
+                        $info->setUa($ua);
+                        $info->setGenre('search');
+                        $info->initFromSearchAd($ad,$currentUrl);
+                        $em->persist($info);
+                        $em->flush();
+                    }
+              }
             return array(
                 'form' => $form->createView(),
                 'ads' => $pagination->getCurrentPageResults(),

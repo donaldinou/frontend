@@ -1,0 +1,5 @@
+<ul id="lastview" class="list-unstyled" data-role="listitem">
+    {%- for ad in ads -%}
+        {{ include('VitelogeFrontendBundle:Statistics:render/list_home.html.twig', { 'ad': ad }) }}
+    {%- endfor -%}
+</ul>

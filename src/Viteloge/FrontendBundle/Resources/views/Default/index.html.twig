@@ -1,5 +1,8 @@
 {% extends 'VitelogeFrontendBundle::base.html.twig' %}
-
+{%- block head_javascripts_requirejs -%}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+{%- endblock head_javascripts_requirejs -%}
 {%- block theme -%}
     {{ parent() }} home
 {%- endblock -%}
@@ -80,6 +83,14 @@
 
 {%- block javascripts -%}
     {{- parent() -}}
+    <script>
+        jQuery(document).ready(function() {
+            setInterval(function(){
+                ReloadLastSearch()
+            }, 15000);
+
+        });
+    </script>
     {#-<script>
         jQuery(document).ready(function() {
             getCarouselLocation();

@@ -66,17 +66,30 @@ namespace Viteloge\FrontendBundle\Controller {
          *     },
          *     name="viteloge_frontend_agency_home"
          * )
+         * @Route(
+         *     "/lastview/{id}/{description}",
+         *     requirements={
+         *
+         *     },
+         *     name="viteloge_frontend_agency_lastview"
+         * )
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:Ad:redirect_new.html.twig")
          */
         public function viewAction(Request $request,$id, $description) {
+            $routeName = $request->get('_route');
             $infos = explode('-', $description);
             $em = $this->getDoctrine()->getManager();
             $id= explode('-', $id);
             $ad = $em->getRepository('VitelogeCoreBundle:Ad')->find($id[1]);
 
             $session = $request->getSession();
-            $ads = $session->get('resultAd');
+            if($routeName == 'viteloge_frontend_agency_lastview'){
+               $ads = $session->get('resultView');
+            }else{
+               $ads = $session->get('resultAd');
+            }
+
             $veriftotal = $session->get('totalResultVente');
 
             if($request->query->get('transaction') == 'V' && !is_null($veriftotal)){
@@ -267,21 +280,15 @@ namespace Viteloge\FrontendBundle\Controller {
             $response = new Response();
             $left = $id[0]-1;
             $right = $id[0]+1;
-/*
-           $response->headers->clearCookie('viteloge_photo');
-            $response->headers->clearCookie('viteloge_url');
-*/
 
             // Envoie le cookie
             $response->headers->setCookie(new Cookie('viteloge_photo', $cookie_photo, $time));
             $response->headers->setCookie(new Cookie('viteloge_url', $cookie_url, $time));
             $response->headers->setCookie(new Cookie('viteloge_title', $cookie_title, $time));
-            //$response->send();
+
 
             $verifurl= $this->verifurl($ad->getUrl());
-          /*  if($verifurl){
-            return $this->redirect($this->generateUrl('viteloge_frontend_ad_redirect', array('request'=> $request,'id'=>$ad->getId())));
-            }*/
+
             $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
             return $this->render('VitelogeFrontendBundle:Ad:redirect_new.html.twig',array(
                 'form' => $form->createView(),
@@ -472,6 +479,65 @@ namespace Viteloge\FrontendBundle\Controller {
             }else{
              throw new \Exception("Erreur");
             }
+        }
+
+         /**
+         * Display the last ad (Used in homepage)
+         * Ajax call so we could have shared public cache
+         *
+         * @Route(
+         *     "/latest/{limit}",
+         *     requirements={
+         *         "limit"="\d+"
+         *     },
+         *     defaults={
+         *         "limit" = "5"
+         *     },
+         *     name="viteloge_frontend_agency_latest_limited"
+         * )
+         * @Route(
+         *      "/latest/",
+         *      requirements={
+         *         "limit"="\d+"
+         *      },
+         *      defaults={
+         *         "limit" = "5"
+         *      },
+         *      name="viteloge_frontend_agency_latest"
+         * )
+         * @Method({"GET"})
+         * @Template("VitelogeFrontendBundle:Statistics:latest.html.twig")
+         */
+        public function latestViewAction(Request $request, $limit) {
+            $em = $this->getDoctrine()->getManager();
+            $ads = $em->getRepository('VitelogeCoreBundle:Infos')->findBy(array('genre'=> 'search'), array('date' => 'DESC'),$limit);
+            return array(
+                'ads' => $ads
+            );
+        }
+
+        /**
+         * ajax last search (Home).
+         *
+         *
+         * @Route(
+         *     "/last/view",
+         *     name="viteloge_frontend_agency_last_view"
+         * )
+         * @Method({"POST"})
+         * @Template("VitelogeFrontendBundle:Statistics:render/ajax_latest.html.twig")
+         */
+        function lastSearchAction(Request $request)
+        {
+        //  if($request->isXmlHttpRequest()){
+            $em = $this->getDoctrine()->getManager();
+            $ads = $em->getRepository('VitelogeCoreBundle:Infos')->findBy(array('genre'=> 'search'), array('date' => 'DESC'),5);
+            return array(
+                'ads' => $ads
+            );
+           /* }else{
+             throw new \Exception("Erreur");
+            }*/
         }
 
 

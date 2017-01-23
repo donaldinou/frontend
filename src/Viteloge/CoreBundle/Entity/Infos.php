@@ -6,6 +6,7 @@ namespace Viteloge\CoreBundle\Entity {
     use Symfony\Component\Validator\Constraints as Assert;
     use Viteloge\CoreBundle\Entity\Ad;
 
+
     /**
      * Contacts
      *
@@ -108,7 +109,7 @@ namespace Viteloge\CoreBundle\Entity {
         /**
          * @var boolean
          *
-         * @ORM\Column(name="nbpiece", type="boolean", nullable=false)
+         * @ORM\Column(name="nbpiece", type="integer", nullable=false)
          */
         protected $rooms;
 
@@ -169,6 +170,7 @@ namespace Viteloge\CoreBundle\Entity {
          */
         protected $inseeCity;
 
+
         /**
          * @return Contacts
          */
@@ -201,6 +203,28 @@ namespace Viteloge\CoreBundle\Entity {
             $this->setCityName($ad->getCityName());
             $this->setDistrictId($ad->getDistrictId());
             $this->setPostalCode($ad->getPostalCode());
+
+            return $this;
+        }
+
+        /**
+         *
+         */
+        public function initFromSearchAd(Ad $ad,$url) {
+
+            $this->setAd($ad);
+            $this->setInseeCity($ad->getInseeCity());
+            $this->setAgencyId($ad->getAgencyId());
+            $this->setAgencyName($ad->getAgencyName());
+            $this->setAgencySpecial($ad->getAgencySpecial());
+            $this->setTransaction($ad->getTransaction());
+            $this->setType($ad->getType());
+            $this->setRooms($ad->getRooms());
+            $this->setPrice($ad->getPrice());
+            $this->setCityName($ad->getCityName());
+            $this->setDistrictId($ad->getDistrictId());
+            $this->setPostalCode($ad->getPostalCode());
+            $this->setUrl($url);
 
             return $this;
         }
