@@ -879,6 +879,21 @@ var generateUUID = function generateUUID() {
         });
     }
 
+        function ReloadLastSearch(){
+            jQuery.ajax({
+            url: Routing.generate('viteloge_frontend_agency_last_view'),
+            context: jQuery(this),
+            method: 'POST',
+            beforeSend: function() {
+
+                },
+            success: function(html_data) {
+              console.log(html_data);
+             jQuery('#lastview').html(html_data);
+            }
+          });
+
+    }
 
     function initCookieNav(){
         jQuery('.setkey').click(function() {
