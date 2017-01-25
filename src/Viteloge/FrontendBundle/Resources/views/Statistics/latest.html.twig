@@ -1,5 +1,13 @@
 <ul id="lastview" class="list-unstyled" data-role="listitem">
-    {%- for ad in ads -%}
-        {{ include('VitelogeFrontendBundle:Statistics:render/list_home.html.twig', { 'ad': ad }) }}
+    {%- for key,ad in ads -%}
+    {% if key < 5 %}
+      <li class="clearfix" data-role="item">
+       <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          {{ include('VitelogeFrontendBundle:Statistics:render/list_home.html.twig', { 'key': key,'ad': ad }) }}
+       </div>
+      </div>
+     </li>
+     {% endif %}
     {%- endfor -%}
 </ul>

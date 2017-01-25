@@ -360,8 +360,8 @@ namespace Viteloge\FrontendBundle\Controller {
             $ad =  $pagination->getCurrentPageResults()[0];
 
 
-            //on ava stocker toutes les recherches
-            $forbiddenUA = array(
+            //on va stocker toutes les recherches
+        /*    $forbiddenUA = array(
                         'yakaz_bot' => 'YakazBot/1.0',
                         'mitula_bot' => 'java/1.6.0_26'
                     );
@@ -381,7 +381,7 @@ namespace Viteloge\FrontendBundle\Controller {
                         $info->initFromSearchAd($ad,$currentUrl);
                         $em->persist($info);
                         $em->flush();
-                    }
+                    }*/
               }
             return array(
                 'form' => $form->createView(),

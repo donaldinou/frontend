@@ -181,7 +181,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
             // log redirect
             if (!in_array($ua, $forbiddenUA) && !in_array($ip, $forbiddenIP)) {
-                $now = new \DateTime('now');
+                $now = new \DateTime('now',new \DateTimeZone('Europe/Paris'));
                 $statistics = new Statistics();
                 $statistics->setIp($ip);
                 $statistics->setUa($ua);
@@ -508,13 +508,20 @@ namespace Viteloge\FrontendBundle\Controller {
          * @Method({"GET"})
          * @Template("VitelogeFrontendBundle:Statistics:latest.html.twig")
          */
-        public function latestViewAction(Request $request, $limit) {
+         public function latestViewAction(Request $request, $limit) {
+            $em = $this->getDoctrine()->getManager();
+            $ads = $em->getRepository('VitelogeCoreBundle:Statistics')->findBy(array(), array('date' => 'DESC'),$limit);
+            return array(
+                'ads' => $ads
+            );
+        }
+       /* public function latestViewAction(Request $request, $limit) {
             $em = $this->getDoctrine()->getManager();
             $ads = $em->getRepository('VitelogeCoreBundle:Infos')->findBy(array('genre'=> 'search'), array('date' => 'DESC'),$limit);
             return array(
                 'ads' => $ads
             );
-        }
+        }*/
 
         /**
          * ajax last search (Home).
@@ -529,16 +536,28 @@ namespace Viteloge\FrontendBundle\Controller {
          */
         function lastSearchAction(Request $request)
         {
-        //  if($request->isXmlHttpRequest()){
+          if($request->isXmlHttpRequest()){
+            $em = $this->getDoctrine()->getManager();
+            $ads = $em->getRepository('VitelogeCoreBundle:Statistics')->findBy(array(), array('date' => 'DESC'),5);
+            return array(
+                'ads' => $ads
+            );
+            }else{
+             throw new \Exception("Erreur");
+            }
+        }
+       /* function lastSearchAction(Request $request)
+        {
+          if($request->isXmlHttpRequest()){
             $em = $this->getDoctrine()->getManager();
             $ads = $em->getRepository('VitelogeCoreBundle:Infos')->findBy(array('genre'=> 'search'), array('date' => 'DESC'),5);
             return array(
                 'ads' => $ads
             );
-           /* }else{
+            }else{
              throw new \Exception("Erreur");
-            }*/
-        }
+            }
+        }*/
 
 
     }

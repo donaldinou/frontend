@@ -1,33 +1,48 @@
-{%- for ad in ads -%}
+{%- for key, ad in ads -%}
 <span class="usersearch">
     {%- block ad_agencyName -%}
         {%- if ad.agencyName is defined -%}
-                <i class="fa fa-clock-o" aria-hidden="true"></i><small><b>&nbsp;{{ ad.date|time_diff|default('viteloge.now'|trans) }}</b>
-                &nbsp;{%- trans -%}usersearch.new.search{%- endtrans -%}</small>
+                <i class="fa fa-clock-o" aria-hidden="true"></i><small><b>&nbsp;{{ 'Vu '~ad.date|time_diff|default('viteloge.now'|trans) }}</b>
+                {{ ad.agencyName|default('usersearch.unknown'|trans) }}&nbsp;
+                </small>
                 </br>
         {%- endif -%}
     {%- endblock -%}
     {%- block ad_transaction -%}
-         <a href="{{ ad.url }}" class="linklive">
-        {%- if ad.transaction -%}
-                <span>{{ ('ad.transaction.article.'~ad.transaction)|trans }}</span>&nbsp;
+         <a href="{{ path('viteloge_frontend_agency_home', { 'id': key~'-'~ad.ad.id, 'description': ad.ad|vl_slugify_ad }) }}" class="linklive">
+       {%- if ad.transaction -%}
+                <span>{{ ('ad.transaction.article.'~ad.ad.transaction)|trans }}</span>&nbsp;
        {%- endif -%}
     {%- endblock ad_transaction -%}
     {%- block ad_type -%}
-         {%- if ad.type -%}
-           <span>{{ ad.type|join(', ') }}</span>&nbsp;{# already translated in database #}
+         {%- if ad.ad.type -%}
+           <span>{{ ad.ad.type|join(', ') }}</span>&nbsp;{# already translated in database #}
           {%- endif -%}
      {%- endblock ad_type -%}
      {%- block ad_rooms -%}
-
+          {%- if ad.ad.rooms and ad.ad.rooms|length -%}
+             {% set rooms = 2 %}
+              {%- if ad.ad.rooms <= 1 -%}
+                  {% set rooms = 1 %}
+              {%- endif -%}
+              <span>{%- transchoice rooms with {'%count%': ad.ad.rooms|join(',')} -%}usersearch.rooms.count{%- endtranschoice -%}</span>&nbsp;
+          {%- endif -%}
        {%- endblock ad_rooms -%}
-       {%- if ad.inseeCity is defined and ad.inseeCity -%}
+       {%- if ad.ad.inseeCity is defined and ad.ad.inseeCity -%}
         {%- block ad_city -%}
             <span>
-                <a href="{{ path( 'viteloge_frontend_glossary_showcity', { name: ad.inseeCity.slug, id: ad.inseeCity.id }) }}" class="linklivetown">{{ ad.inseeCity }}</a>
+                <a href="{{ path( 'viteloge_frontend_glossary_showcity', { name: ad.ad.inseeCity.slug, id: ad.ad.inseeCity.id }) }}" class="linklivetown">{{ ad.ad.inseeCity }}</a>
             </span>
         {%- endblock ad_city -%}
     {%- endif -%}
+    {%- block ad_price -%}
+           <a href="{{ path('viteloge_frontend_agency_home', { 'id': key~'-'~ad.ad.id, 'description': ad.ad|vl_slugify_ad }) }}" class="linklive">
+
+            {%- if (ad.ad.price) -%}
+                <span>{{- ad.ad.price|localizedcurrency('EUR') -}}</span>
+            {%- endif -%}
+        </a>
+    {%- endblock ad_price -%}
 </span>
 </br></br>
 {% endfor %}

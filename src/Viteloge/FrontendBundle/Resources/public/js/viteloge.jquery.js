@@ -840,7 +840,6 @@ var generateUUID = function generateUUID() {
 
                 },
             success: function(data) {
-                console.log(data.phone);
                 jQuery('.modal-title').html(data.phone);
                 if(data.phone !='Pas de Numéro'){
                  jQuery('.modal-body').html(data.cout);
@@ -888,7 +887,6 @@ var generateUUID = function generateUUID() {
 
                 },
             success: function(html_data) {
-              console.log(html_data);
              jQuery('#lastview').html(html_data);
             }
           });
