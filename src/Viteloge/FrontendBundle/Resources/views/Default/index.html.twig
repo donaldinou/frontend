@@ -42,7 +42,8 @@
                         <h2 class="subtitle clearfix text-uppercase">Moteur de recherche immobilier</h2>#}
                     </a>
                     {#<h1 class="text-uppercase">{% trans %}home.teaser{% endtrans %}</h1>#}
-                    <h2 class="text-uppercase NbBiensAccueil">{%- transchoice count with {'%count%': count|number_format(0, null, ' ')} -%}today.properties.update.count{%- endtranschoice -%}</h2>
+                    <h2 class="text-uppercase NbBiensAccueil" style="margin-bottom: 0;">{%- transchoice count with {'%count%': count|number_format(0, null, ' ')} -%}today.properties.update.count{%- endtranschoice -%}</h2>
+                    <h3 style="color: #333;font-size: 20px;">{%- transchoice newad with {'%count%': newad|number_format(0, null, ' ')} -%}today.properties.new.count{%- endtranschoice -%}</h3>
                     {{- include('VitelogeFrontendBundle:Default:form/adSearch_home.html.twig', { form: form }) -}}
                 </div>
             {%- endblock -%}
@@ -59,7 +60,7 @@
 
     </div>-->
     {#- include('VitelogeFrontendBundle:Default:fragment/services.html.twig', { }) -#}
-    {{- include('VitelogeFrontendBundle:Default:fragment/websearch.html.twig', { }) -}}
+    {{- include('VitelogeFrontendBundle:Default:fragment/websearch.html.twig', { newad:newad }) -}}
 {%- endblock -%}
 
 {%- block footer -%}

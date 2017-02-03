@@ -4,7 +4,11 @@
     <body>
       <trans-unit id="63ced2ec9311e2e4c6817b83a08f806d" resname="today.properties.update.count">
         <source>today.properties.update.count</source>
-        <target>today.properties.update.count</target>
+        <target>{0} No property registered on vitelogé|{1} 1 property referenced on vitelogé|]1,Inf] %count% properties referenced on vitelogé</target>
+      </trans-unit>
+      <trans-unit id="today.properties.new.count" resname="today.properties.new.count">
+        <source>today.properties.new.count</source>
+        <target>{0} No property added today|{1} 1 property added today|]1,Inf] %count% properties added today</target>
       </trans-unit>
       <trans-unit id="336d5ebc5436534e61d16e63ddfca327" resname="-">
         <source>-</source>

@@ -59,6 +59,16 @@ namespace Viteloge\CoreBundle\Repository {
         /**
          *
          */
+        public function findNewAd() {
+            $query = $this->createQueryBuilder('a')
+                     ->select('count(a.id)')
+                     ->where('a.createdAt = a.updatedAt');
+           return $query->getQuery()->getSingleScalarResult();
+        }
+
+        /**
+         *
+         */
         public function findByExportable() {
             $qb = $this->_em->createQueryBuilder();
             $qb

@@ -446,6 +446,10 @@
         <source>today.properties.update.count</source>
         <target>{0} Aucun bien référencé sur vitelogé|{1} 1 seul bien référencé sur vitelogé|]1,Inf] %count% Biens immobiliers trouvés par vitelogé</target>
       </trans-unit>
+      <trans-unit id="today.properties.new.count" resname="today.properties.new.count">
+        <source>today.properties.new.count</source>
+        <target>{0} Aucun bien ajouté aujourd'hui|{1} 1 bien ajouté aujourd'hui|]1,Inf] %count% biens ajoutés aujourd'hui</target>
+      </trans-unit>
       <trans-unit id="user.registration" resname="user.registration">
         <source>user.registration</source>
         <target>S'enregistrer</target>

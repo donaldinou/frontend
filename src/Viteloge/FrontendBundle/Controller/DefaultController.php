@@ -64,6 +64,9 @@ namespace Viteloge\FrontendBundle\Controller {
             $repository = $this->getDoctrine()
                 ->getRepository('VitelogeCoreBundle:Ad');
             $count = $repository->countByFiltered();
+            $repository = $this->getDoctrine()
+                ->getRepository('VitelogeCoreBundle:Ad');
+            $newad = $repository->findNewAd();
 
             // Form
             $entity = new AdSearch();
@@ -72,6 +75,7 @@ namespace Viteloge\FrontendBundle\Controller {
             $csrfToken = $this->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
             return array(
                 'count' => $count,
+                'newad'=> $newad,
                 'form' => $form->createView(),
                 'csrf_token' => $csrfToken,
             );

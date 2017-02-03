@@ -1,4 +1,6 @@
-<ul id="lastview" class="list-unstyled" data-role="listitem">
+<div id="lastview">
+<div class="searches col-md-4 col-sm-6 col-xs-12 no-padding">
+<ul  class="list-unstyled" data-role="listitem">
     {%- for key,ad in ads -%}
     {% if key < 5 %}
       <li class="clearfix" data-role="item">
@@ -11,3 +13,20 @@
      {% endif %}
     {%- endfor -%}
 </ul>
+</div>
+<div class="searches col-md-4 col-sm-6 col-xs-12 no-padding">
+<ul id="lastview" class="list-unstyled" data-role="listitem">
+    {%- for key,ad in ads -%}
+    {% if key < 10 and key > 4 %}
+      <li class="clearfix" data-role="item">
+       <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          {{ include('VitelogeFrontendBundle:Statistics:render/list_home.html.twig', { 'key': key,'ad': ad }) }}
+       </div>
+      </div>
+     </li>
+     {% endif %}
+    {%- endfor -%}
+</ul>
+</div>
+</div>

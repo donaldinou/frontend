@@ -511,6 +511,19 @@ namespace Viteloge\FrontendBundle\Controller {
          public function latestViewAction(Request $request, $limit) {
             $em = $this->getDoctrine()->getManager();
             $ads = $em->getRepository('VitelogeCoreBundle:Statistics')->findBy(array(), array('date' => 'DESC'),$limit);
+
+            $adSearch = new AdSearch();
+            $adSearch->handleRequest($request);
+            $form = $this->createForm('viteloge_core_adsearch', $adSearch);
+            $elasticaManager = $this->container->get('fos_elastica.manager');
+            $repository = $elasticaManager->getRepository('VitelogeCoreBundle:Ad');
+            $pagination = $repository->searchPaginated($form->getData());
+
+            // Save session
+            $session = $request->getSession();
+            $session->set('totalResult',$pagination->getNbResults());
+            $session->set('resultAd',$pagination->getCurrentPageResults());
+            $session->remove('request');
             return array(
                 'ads' => $ads
             );
@@ -538,7 +551,7 @@ namespace Viteloge\FrontendBundle\Controller {
         {
           if($request->isXmlHttpRequest()){
             $em = $this->getDoctrine()->getManager();
-            $ads = $em->getRepository('VitelogeCoreBundle:Statistics')->findBy(array(), array('date' => 'DESC'),5);
+            $ads = $em->getRepository('VitelogeCoreBundle:Statistics')->findBy(array(), array('date' => 'DESC'),10);
             return array(
                 'ads' => $ads
             );
