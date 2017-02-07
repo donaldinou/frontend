@@ -49,8 +49,8 @@ namespace Viteloge\FrontendBundle\Services {
                 $user->setConfirmationToken($tokenGenerator->generateToken());
                 $user->addRole('ROLE_USER');
                 $userManager->updateUser($user);
-               // $this->em->persist($user);
-              //  $this->em->flush();
+                $this->em->persist($user);
+                $this->em->flush();
             } else {
                 $user = '';
             }

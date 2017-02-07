@@ -191,101 +191,12 @@ namespace Viteloge\FrontendBundle\Controller {
                 $em->persist($statistics);
                 $em->flush();
             }
-            $cookies = $request->cookies;
 
-            // TODO create a service
-            // on verifie si le bien est déja en favorie
-            $time =time() + (3600 * 24 * 365);
-            $favorie = false;
-            if ($cookies->has('viteloge_favorie')){
-              $info_cookies_favorie = explode('#$#', $cookies->get('viteloge_favorie')) ;
-              $favorie = in_array($ad->getId(), $info_cookies_favorie);
-            }
-                       if(!empty($ad->getPhoto())){
-                         $photo = $ad->getPhoto();
-                        }else{
-                          $photo = 'no-picture.jpg';
-                        }
-            if ($cookies->has('viteloge_photo'))
-            {
-                $info_cookies_photo = explode('#$#', $cookies->get('viteloge_photo')) ;
-                    $j = count($info_cookies_photo);
-                    if($j <= 5){
-                       // si moins de 6 photo on ajoute
+            $favorie = $this->get('viteloge_frontend_generate.cookies')->searchFav($ad);
+            $response = $this->get('viteloge_frontend_generate.cookies')->generateView($ad);
 
-                         $cookie_photo = $cookies->get('viteloge_photo').'#$#'.$photo;
-                    }else{
-                        //ici on supprime le premier element du tableau et reconstruit
-                        $cookie_photo = $photo;
-                        unset($info_cookies_photo[5]);
-                        foreach ($info_cookies_photo as  $value) {
-
-                                $cookie_photo .= '#$#'.$value;
-
-                        }
-
-                    }
-            }else{
-                $cookie_photo = $photo;
-            }
-
-
-            if ($cookies->has('viteloge_url'))
-            {
-                $info_cookies_url = explode('#$#', $cookies->get('viteloge_url')) ;
-                    $i = count($info_cookies_url);
-                    if($i <= 5){
-                        // si moins de 6 photo on ajoute
-                       $cookie_url = $cookies->get('viteloge_url').'#$#'.$ad->getUrl();
-                    }else{
-                        //ici on supprime le premier element du tableau et reconstruit
-                        $cookie_url=$ad->getUrl();
-                        unset($info_cookies_url[5]);
-                        foreach ($info_cookies_url as $k => $url) {
-                                $cookie_url .= '#$#'.$url;
-                        }
-                    }
-            }else{
-                $cookie_url = $ad->getUrl();
-            }
-
-            $title = $ad->getAgencyName().': '.$ad->getType();
-            if($ad->getTransaction() == 'V'){
-                $title .= ' à vendre';
-            }elseif($ad->getTransaction() == 'L'){
-               $title .= ' à louer';
-            }elseif($ad->getTransaction() == 'N'){
-                $title .= ' neuf';
-            }
-
-            if ($cookies->has('viteloge_title'))
-            {
-                $info_cookies_title = explode('#$#', $cookies->get('viteloge_title')) ;
-                    $i = count($info_cookies_title);
-                    if($i <= 5){
-                        // si moins de 6 photo on ajoute
-                       $cookie_title = $cookies->get('viteloge_title').'#$#'.$title;
-                    }else{
-                        //ici on supprime le premier element du tableau et reconstruit
-                        $cookie_title=$title;
-                        unset($info_cookies_title[5]);
-                        foreach ($info_cookies_title as $k => $value) {
-                                $cookie_title .= '#$#'.$value;
-                        }
-                    }
-            }else{
-                $cookie_title = $title;
-            }
-
-            $response = new Response();
             $left = $id[0]-1;
             $right = $id[0]+1;
-
-            // Envoie le cookie
-            $response->headers->setCookie(new Cookie('viteloge_photo', $cookie_photo, $time));
-            $response->headers->setCookie(new Cookie('viteloge_url', $cookie_url, $time));
-            $response->headers->setCookie(new Cookie('viteloge_title', $cookie_title, $time));
-
 
             $verifurl= $this->verifurl($ad->getUrl());
 
@@ -324,12 +235,14 @@ namespace Viteloge\FrontendBundle\Controller {
             $response = curl_exec($ch);
             $httpCode = curl_getinfo($ch);
             $headers=substr($response, 0, $httpCode['header_size']);
-            if(strpos($headers, 'X-Frame-Options: deny')>-1||strpos($headers, 'X-Frame-Options: SAMEORIGIN')>-1) {
+            if(strpos($headers, 'X-Frame-Options: deny')>-1 || strpos($headers, 'X-Frame-Options: SAMEORIGIN')>-1) {
                 $error=true;
             }
             $redirectUrl = array(
                 'century' => 'https://www.century21.fr',
-                'century21' => 'http://www.century21.fr'
+                'century21' => 'http://www.century21.fr',
+                'paruvendu' => 'http://www.paruvendu.fr/',
+                'paruvendus' => 'https://www.paruvendu.fr/',
             );
             $verifurl = explode('://', $url);
             $baseurl = explode('/', $verifurl[1]);
@@ -510,7 +423,7 @@ namespace Viteloge\FrontendBundle\Controller {
          */
          public function latestViewAction(Request $request, $limit) {
             $em = $this->getDoctrine()->getManager();
-            $ads = $em->getRepository('VitelogeCoreBundle:Statistics')->findBy(array(), array('date' => 'DESC'),$limit);
+            $ads = $em->getRepository('VitelogeCoreBundle:Statistics')->findBy(array(), array('date' => 'DESC'),10);
 
             $adSearch = new AdSearch();
             $adSearch->handleRequest($request);
@@ -518,7 +431,6 @@ namespace Viteloge\FrontendBundle\Controller {
             $elasticaManager = $this->container->get('fos_elastica.manager');
             $repository = $elasticaManager->getRepository('VitelogeCoreBundle:Ad');
             $pagination = $repository->searchPaginated($form->getData());
-
             // Save session
             $session = $request->getSession();
             $session->set('totalResult',$pagination->getNbResults());

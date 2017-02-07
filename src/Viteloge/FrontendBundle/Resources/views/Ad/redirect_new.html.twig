@@ -100,7 +100,7 @@
                                 <i class="fa fa-chevron-left"></i>
                             </button>
                         {% if ads[clef-1] is defined or app.session.get('previewUrl') %}</a>{% endif %}
-                        <span style="font-size:12px;color:#00a1c6;text-transform: uppercase;">{{ clef+1 }}/{% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}24{% else %}{{ total }}{% endif %}</span>
+                        <span style="font-size:12px;color:#00a1c6;text-transform: uppercase;">{{ clef+1 }}/{% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}10{% else %}{{ total }}{% endif %}</span>
                         {% if ads[clef+1] is defined %}
                             {% set plus = right~'-'~ads[clef+1].id %}
                             {% set ad_slug_plus = ads[clef+1]|vl_slugify_ad %}
