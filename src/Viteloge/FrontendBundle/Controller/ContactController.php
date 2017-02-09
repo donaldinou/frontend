@@ -129,19 +129,22 @@ namespace Viteloge\FrontendBundle\Controller {
             );
         }
 
-         /**
+        /**
          *
          */
         protected function inscriptionMessage(User $user) {
             $trans = $this->get('translator');
             $to = $user->getEmail();
-            $mail = \Swift_Message::newInstance()
+            $from = array(
+                'contact@viteloge.com' => 'Viteloge'
+            );
+            $email = \Swift_Message::newInstance()
                 ->setSubject($trans->trans('Votre compte sur viteloge.com'))
-                ->setFrom('contact@viteloge.com')
+                ->setFrom($from)
                 ->setTo($to)
                 ->setBody(
                     $this->renderView(
-                        'VitelogeFrontendBundle:Contact:Email/inscription.html.twig',
+                        'VitelogeFrontendBundle:Contact:email/inscription.html.twig',
                         array(
                             'user' => $user
                         )
@@ -149,9 +152,8 @@ namespace Viteloge\FrontendBundle\Controller {
                     'text/html'
                 )
             ;
-            return $this->get('mailer')->send($mail);
+            return $this->get('mailer')->send($email);
         }
-
         /**
          *
          */
