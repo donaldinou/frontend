@@ -32,29 +32,6 @@ namespace Viteloge\FrontendBundle\EventListener {
             $this->date = new \DateTime();
         }
 
-         /**
-         *
-         */
-        protected function inscriptionMessage(User $user) {
-            $trans = $this->get('translator');
-            $to = $user->getEmail();
-            $mail = \Swift_Message::newInstance()
-                ->setSubject($trans->trans('Votre compte sur viteloge.com'))
-                ->setFrom('contact@viteloge.com')
-                ->setTo($to)
-                ->setBody(
-                    $this->renderView(
-                        'VitelogeFrontendBundle:Contact:Email/inscription.html.twig',
-                        array(
-                            'user' => $user
-                        )
-                    ),
-                    'text/html'
-                )
-            ;
-            return $this->get('mailer')->send($mail);
-        }
-
         /**
          *
          */
@@ -91,7 +68,7 @@ namespace Viteloge\FrontendBundle\EventListener {
                 $user->setConfirmationToken($tokenGenerator->generateToken());
                 $user->addRole('ROLE_USER');
                 $userManager->updateUser($user);
-                $inscription = $this->inscriptionMessage($user);
+
               }
 
             }
