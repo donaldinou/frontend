@@ -22,6 +22,7 @@ namespace Viteloge\FrontendBundle\Entity {
          * @ORM\GeneratedValue(strategy="AUTO")
          */
         protected $id;
+
         /**
          * @var \DateTime
          *
@@ -355,12 +356,12 @@ namespace Viteloge\FrontendBundle\Entity {
          *
          */
         public function setUser(CoreUser $user = null) {
-            $this->user = $user;
+           // $this->user = $user;
             if ($user instanceof CoreUser) {
-                $this->email = $this->user->getEmail();
-                $this->lastname = $this->user->getLastname();
-                $this->firstname = $this->user->getFirstname();
-                $this->phone = $this->user->getPhone();
+                $this->email = $user->getEmail();
+                $this->lastname = $user->getLastname();
+                $this->firstname = $user->getFirstname();
+                $this->phone = $user->getPhone();
             }
             return $this;
         }

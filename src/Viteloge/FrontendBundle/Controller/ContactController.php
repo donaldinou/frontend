@@ -86,15 +86,15 @@ namespace Viteloge\FrontendBundle\Controller {
 
                 // TODO : use a doctrine listener instead
                 //si c'est vide on verifie quand même si le compte existe, sinon on le crée
-                if(empty($contact->getUser())){
+          /*      if(empty($contact->getUser())){
                     //si on crée le compte on envoi un mail avec le mdp
                     $newuser = $this->get('viteloge_frontend_generate.user')->generate($contact);
                     $contact->setUser($newuser);
                     $inscription = $this->inscriptionMessage($newuser);
                 }
+*/
 
-                $result = $this->sendMessage($contact);
-                if ($result) {
+
                     $forbiddenUA = array(
                         'yakaz_bot' => 'YakazBot/1.0',
                         'mitula_bot' => 'java/1.6.0_26'
@@ -110,9 +110,14 @@ namespace Viteloge\FrontendBundle\Controller {
                         $now = new \DateTime('now');
                         $contact->setIp($ip);
                         $contact->setUa($ua);
+                        $newuser = $em->getRepository('VitelogeCoreBundle:User')->FindOneBy(array('email'=>$contact->getEmail()));
+                        $contact->setUser($newuser);
+                        //TODO trouver pourquoi
+                        //il y a un bug avec le id celui du user et ajouter à la place d'un id auto si on stoche le user surement une mauvaise relation dans l'entité
+                        //desactivé dans l'entity
                         $em->persist($contact);
                         $em->flush();
-                    }
+                    $result = $this->sendMessage($contact);
                     return $this->redirect($this->generateUrl('viteloge_frontend_contact_success', array()));
                 }
                 $form->addError(new FormError($trans->trans('contact.send.error')));
@@ -141,29 +146,6 @@ namespace Viteloge\FrontendBundle\Controller {
                         'VitelogeFrontendBundle:Contact:email/contact.html.twig',
                         array(
                             'contact' => $contact
-                        )
-                    ),
-                    'text/html'
-                )
-            ;
-            return $this->get('mailer')->send($mail);
-        }
-
-        /**
-         *
-         */
-        protected function inscriptionMessage(User $user) {
-            $trans = $this->get('translator');
-            $to = $user->getEmail();
-            $mail = \Swift_Message::newInstance()
-                ->setSubject($trans->trans('Votre compte sur viteloge.com'))
-                ->setFrom('contact@viteloge.com')
-                ->setTo($to)
-                ->setBody(
-                    $this->renderView(
-                        'VitelogeFrontendBundle:Contact:email/inscription.html.twig',
-                        array(
-                            'user' => $user
                         )
                     ),
                     'text/html'

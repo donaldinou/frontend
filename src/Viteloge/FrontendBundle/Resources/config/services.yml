@@ -16,6 +16,7 @@ parameters:
     viteloge_frontend.pagerfanta.view.viteloge.class: Viteloge\FrontendBundle\Pagerfanta\View\VitelogeView
     viteloge_frontend.pagerfanta.view.viteloge_translated.class: Viteloge\FrontendBundle\Pagerfanta\View\VitelogeViewTranslated
     viteloge_frontend.services.cookies: Viteloge\FrontendBundle\Services\cookiesFactory
+    viteloge_frontend.eventlistener.message.class: Viteloge\FrontendBundle\EventListener\MessageListener
 
 services:
     viteloge_frontend.ad_helper:
@@ -97,3 +98,8 @@ services:
     viteloge_frontend_generate.cookies:
         class: "%viteloge_frontend.services.cookies%"
         arguments: ["@request_stack","@doctrine.orm.entity_manager"]
+    viteloge_frontend.messagelistener:
+        class: %viteloge_frontend.eventlistener.message.class%
+        arguments: ["@service_container","@security.token_storage","@doctrine"]
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }

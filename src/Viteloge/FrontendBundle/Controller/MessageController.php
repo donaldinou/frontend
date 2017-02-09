@@ -94,7 +94,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
                 // TODO : use a doctrine listener instead!
                 //if user is not connect, verif with service
-                if(is_null($this->getUser())){
+   /*             if(is_null($this->getUser())){
                   $user = $this->get('viteloge_frontend_generate.user')->generate($message);
                   $message->setUser($user);
                   if(!empty($user)){
@@ -102,9 +102,8 @@ namespace Viteloge\FrontendBundle\Controller {
                   }
 
                 }
+*/
 
-                $result = $this->sendMessage($message);
-                if ($result) {
                     // --on enregistre l'action
 
                     $forbiddenUA = array(
@@ -125,12 +124,15 @@ namespace Viteloge\FrontendBundle\Controller {
                         $info->setUa($ua);
                         $message->setIp($ip);
                         $message->setUa($ua);
+                        $newuser = $em->getRepository('VitelogeCoreBundle:User')->FindOneBy(array('email'=>$contact->getEmail()));
+                        $message->setUser($newuser);
                         $info->setGenre('message');
                         $info->initFromAd($ad);
                         $em->persist($info);
                         $em->persist($message);
                         $em->flush();
-                    }
+
+                    $result = $this->sendMessage($message);
                     return $this->redirect($this->generateUrl('viteloge_frontend_message_success', array()));
                 }
                 $form->addError(new FormError($trans->trans('message.send.error')));
