@@ -86,13 +86,14 @@ namespace Viteloge\FrontendBundle\Controller {
 
                 // TODO : use a doctrine listener instead
                 //si c'est vide on verifie quand même si le compte existe, sinon on le crée
-                if(empty($contact->getUser())){
+            /*    if(empty($contact->getUser())){
                     //si on crée le compte on envoi un mail avec le mdp
                     $newuser = $this->get('viteloge_frontend_generate.user')->generate($contact);
                     $contact->setUser($newuser);
                     $inscription = $this->inscriptionMessage($newuser);
-                }
-
+                }*/
+                     // afin de savoir si il faut envoyer un message pour inscription
+                  $verifuser = $em->getRepository('VitelogeCoreBundle:User')->FindOneBy(array('email'=>$contact->getEmail()));
                     $forbiddenUA = array(
                         'yakaz_bot' => 'YakazBot/1.0',
                         'mitula_bot' => 'java/1.6.0_26'
@@ -110,8 +111,13 @@ namespace Viteloge\FrontendBundle\Controller {
                         $contact->setUa($ua);
                         $em->persist($contact);
                         $em->flush();
-                    $result = $this->sendMessage($contact);
 
+
+                    $user = $em->getRepository('VitelogeCoreBundle:User')->FindOneBy(array('email'=>$contact->getEmail()));
+                    if(empty($verifuser)){
+                        $inscription = $this->inscriptionMessage($user);
+                    }
+                    $result = $this->sendMessage($contact);
                     return $this->redirect($this->generateUrl('viteloge_frontend_contact_success', array()));
                 }
                 $form->addError(new FormError($trans->trans('contact.send.error')));

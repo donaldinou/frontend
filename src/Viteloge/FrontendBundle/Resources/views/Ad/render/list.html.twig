@@ -72,7 +72,7 @@
         <div id="#estate-{{ ad.id }}-tab-content" class="tab-content clearfix">
             {% if ad.privilege.isAgency %}
                 <div class="collapse col-md-12 tab-pane fade" id="estate-{{ ad.id }}-group" role="tabpanel" aria-labelledby="estate-{{ ad.id }}-group-lnk">
-                    <div class="well">
+                    <div class="well" style="color:black">
                         {{ render(path('viteloge_frontend_message_new', { ad: ad.id })) }}
                     </div>
                 </div>

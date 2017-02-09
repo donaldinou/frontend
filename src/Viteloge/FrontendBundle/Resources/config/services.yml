@@ -11,11 +11,11 @@ parameters:
     viteloge_frontend.form.type.recommand.class: Viteloge\FrontendBundle\Form\Type\RecommandType
     viteloge_frontend.form.type.api.class: Viteloge\FrontendBundle\Form\Type\ApiType
     viteloge_frontend.form.type.insee_city_selector.class: Viteloge\FrontendBundle\Form\Type\InseeCitySelectorType
-    viteloge_frontend.services.class: Viteloge\FrontendBundle\Services\manageUser
     viteloge_frontend.twig.extension.class: Viteloge\FrontendBundle\Twig\VitelogeFrontendExtension
     viteloge_frontend.pagerfanta.view.viteloge.class: Viteloge\FrontendBundle\Pagerfanta\View\VitelogeView
     viteloge_frontend.pagerfanta.view.viteloge_translated.class: Viteloge\FrontendBundle\Pagerfanta\View\VitelogeViewTranslated
     viteloge_frontend.services.cookies: Viteloge\FrontendBundle\Services\cookiesFactory
+    viteloge_frontend.eventlistener.message.class: Viteloge\FrontendBundle\EventListener\MessageListener
 
 services:
     viteloge_frontend.ad_helper:
@@ -75,9 +75,6 @@ services:
         arguments: ["@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type, alias: insee_city_selector }
-    viteloge_frontend_generate.user:
-        class: "%viteloge_frontend.services.class%"
-        arguments: ["@service_container","@security.token_storage", "@doctrine.orm.entity_manager"]
     viteloge_frontend.twig.extension:
         class: %viteloge_frontend.twig.extension.class%
         arguments: ["@service_container"]
@@ -97,4 +94,8 @@ services:
     viteloge_frontend_generate.cookies:
         class: "%viteloge_frontend.services.cookies%"
         arguments: ["@request_stack","@doctrine.orm.entity_manager"]
-
+    viteloge_frontend.messagelistener:
+        class: %viteloge_frontend.eventlistener.message.class%
+        arguments: ["@service_container","@security.token_storage","@doctrine"]
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
