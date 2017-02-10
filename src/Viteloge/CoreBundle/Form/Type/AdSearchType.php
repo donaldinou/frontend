@@ -11,7 +11,6 @@ namespace Viteloge\CoreBundle\Form\Type {
     use Doctrine\ORM\EntityRepository;
     use Doctrine\ORM\EntityManager;
     use Acreat\InseeBundle\Entity\InseeCity;
-    use Viteloge\CoreBundle\SearchEntity\AdSearch;
     use Viteloge\CoreBundle\Component\Enum\TransactionEnum;
     use Viteloge\CoreBundle\Component\Enum\TypeEnum;
     use Viteloge\CoreBundle\Component\Enum\RoomEnum;

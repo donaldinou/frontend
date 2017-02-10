@@ -1,5 +1,7 @@
 {% extends 'VitelogeFrontendBundle::base.html.twig' %}
-
+{% if app.request.attributes.get('_route') == 'viteloge_frontend_agency_home' %}
+    {% set better = true %}
+{% endif %}
 {%- block head_javascripts_requirejs -%}
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
