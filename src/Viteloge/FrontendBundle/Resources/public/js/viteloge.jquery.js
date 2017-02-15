@@ -109,7 +109,7 @@ jQuery(document).ready(function() {
         jQuery('body').on('click','.viewMessage',function(event){
             var estadeId = jQuery(this).attr('data-value');
             jQuery.ajax({
-            url: Routing.generate('viteloge_frontend_message_new', {ad: estadeId}, true),
+            url: Routing.generate('viteloge_frontend_message_ajax', {ad: estadeId}, true),
             context: jQuery(this),
             method: 'POST',
             beforeSend: function() {

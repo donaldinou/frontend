@@ -44,6 +44,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * Displays a form to create a new Message entity.
+         * Private cache
          *
          * @Route(
          *      "/new/{ad}",
@@ -52,7 +53,8 @@ namespace Viteloge\FrontendBundle\Controller {
          *      },
          *      name="viteloge_frontend_message_new"
          * )
-         * @Method("POST")
+         * @Cache(expires="tomorrow", public=false)
+         * @Method("GET")
          * @ParamConverter("ad", class="VitelogeCoreBundle:Ad", options={"ad" = "ad"})
          * @Template("VitelogeFrontendBundle:Message:new.html.twig")
          */
@@ -65,6 +67,38 @@ namespace Viteloge\FrontendBundle\Controller {
                 'message' => $message,
                 'form' => $form->createView(),
             );
+        }
+
+        /**
+         * Displays a form to create a new Message entity.
+         *
+         *
+         * @Route(
+         *      "/ajax/new/{ad}",
+         *      requirements={
+         *          "ad"="\d+"
+         *      },
+         *      name="viteloge_frontend_message_ajax"
+         * )
+
+         * @Method("POST")
+         * @ParamConverter("ad", class="VitelogeCoreBundle:Ad", options={"ad" = "ad"})
+         * @Template("VitelogeFrontendBundle:Message:new.html.twig")
+         * @Route(options={"expose"=true})
+         */
+        public function newAjaxAction(Request $request, Ad $ad) {
+            if($request->isXmlHttpRequest()){
+            $message = new Message($ad);
+            $message->setUser($this->getUser());
+            $form   = $this->createCreateForm($message);
+
+            return array(
+                'message' => $message,
+                'form' => $form->createView(),
+            );
+            }else{
+             throw new \Exception("Erreur");
+            }
         }
 
         /**

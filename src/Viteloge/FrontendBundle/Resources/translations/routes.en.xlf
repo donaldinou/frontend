@@ -294,6 +294,10 @@
         <source>viteloge_frontend_agency_call</source>
         <target>/announcement/phone/call/{id}</target>
       </trans-unit>
+      <trans-unit id="viteloge_frontend_message_ajax" resname="viteloge_frontend_message_ajax">
+        <source>viteloge_frontend_message_ajax</source>
+        <target>/ajax/new/{ad}</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

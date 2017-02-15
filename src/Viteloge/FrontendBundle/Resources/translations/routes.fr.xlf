@@ -374,6 +374,10 @@
         <source>viteloge_frontend_agency_call</source>
         <target>/annonce/telephone/appelle/{id}</target>
       </trans-unit>
+      <trans-unit id="viteloge_frontend_message_ajax" resname="viteloge_frontend_message_ajax">
+        <source>viteloge_frontend_message_ajax</source>
+        <target>/ajax/nouvelle/{ad}</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
