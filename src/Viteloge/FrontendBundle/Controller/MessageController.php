@@ -44,7 +44,6 @@ namespace Viteloge\FrontendBundle\Controller {
 
         /**
          * Displays a form to create a new Message entity.
-         * Private cache
          *
          * @Route(
          *      "/new/{ad}",
@@ -53,8 +52,7 @@ namespace Viteloge\FrontendBundle\Controller {
          *      },
          *      name="viteloge_frontend_message_new"
          * )
-         * @Cache(expires="tomorrow", public=false)
-         * @Method("GET")
+         * @Method("POST")
          * @ParamConverter("ad", class="VitelogeCoreBundle:Ad", options={"ad" = "ad"})
          * @Template("VitelogeFrontendBundle:Message:new.html.twig")
          */

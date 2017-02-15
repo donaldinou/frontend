@@ -108,7 +108,20 @@ jQuery(document).ready(function() {
 
         jQuery('body').on('click','.viewMessage',function(event){
             var estadeId = jQuery(this).attr('data-value');
-             jQuery('#estate-'+estadeId+'-group').toggleClass('active in');
+            jQuery.ajax({
+            url: Routing.generate('viteloge_frontend_message_new', {ad: estadeId}, true),
+            context: jQuery(this),
+            method: 'POST',
+            beforeSend: function() {
+
+
+                },
+            success: function(html_data) {
+             jQuery('#agencyform-'+estadeId).html(html_data);
+
+            }
+          });
+          jQuery('#estate-'+estadeId+'-group').toggleClass('active in');
         });
 
 /* Initialize navgoco with default options
