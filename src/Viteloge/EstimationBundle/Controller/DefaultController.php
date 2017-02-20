@@ -273,7 +273,7 @@ class DefaultController extends Controller {
      * @Route("votre-estimation/contact")
      * @Template()
      */
-    public function contactAction() {
+    public function contactAction(Request $request) {
         $translated = $this->get('translator');
 
         // Breadcrumbs
