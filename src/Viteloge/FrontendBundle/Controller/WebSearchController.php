@@ -296,7 +296,9 @@ namespace Viteloge\FrontendBundle\Controller {
                         }
                         $now = new \DateTime('now');
                         $webSearch->setTitle($translated->trans('websearch.title.date', array('%date%' => $now->format('d/m/Y')), null));
-                        $webSearch->getUserSearch()->setTransaction($adSearch->getTransaction());
+                        // pour eviter soucis array to string conversion
+                        $transaction = $adSearch->getTransaction();
+                        $webSearch->getUserSearch()->setTransaction($transaction[0]);
                         $webSearch->getUserSearch()->setType($adSearch->getWhat());
                         $webSearch->getUserSearch()->setInseeCity($inseeCity);
                         $webSearch->getUserSearch()->setRadius($adSearch->getRadius());
