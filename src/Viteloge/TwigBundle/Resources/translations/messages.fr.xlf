@@ -13,7 +13,7 @@
             <trans-unit id="viteloge.error.occurred" resname="viteloge.error.occurred">
                 <source>viteloge.error.occurred</source>
                 <target>Une erreur est survenue</target>
-            </trans-unit>viteloge.server.return.statuscode.statustext
+            </trans-unit>
             <trans-unit id="viteloge.server.return.statuscode.statustext" resname="viteloge.server.return.statuscode.statustext">
                 <source>viteloge.server.return.statuscode.statustext</source>
                 <target>Le serveur a retourné une erreur "%status_code% %status_text%"</target>
@@ -25,10 +25,6 @@
             <trans-unit id="viteloge.page.does.not.exist" resname="viteloge.page.does.not.exist">
                 <source>viteloge.page.does.not.exist</source>
                 <target>La page demandée n'existe pas</target>
-            </trans-unit>
-            <trans-unit id="viteloge.request.not.lead.known.page" resname="viteloge.request.not.lead.known.page">
-                <source>viteloge.request.not.lead.known.page</source>
-                <target>Votre requête n'a pu aboutir à une page connue.</target>
             </trans-unit>
             <trans-unit id="viteloge.page.does.not.access" resname="viteloge.page.does.not.access">
                 <source>viteloge.page.does.not.access</source>

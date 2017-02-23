@@ -17,6 +17,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use Pagerfanta\Adapter\ArrayAdapter;
     use Pagerfanta\Adapter\DoctrineORMAdapter;
     use Acreat\InseeBundle\Entity\InseeCity;
+    use Viteloge\InseeBundle\Entity\InseeDepartment;
     use Viteloge\CoreBundle\Entity\QueryStats;
     use Viteloge\CoreBundle\SearchEntity\Ad as AdSearch;
 

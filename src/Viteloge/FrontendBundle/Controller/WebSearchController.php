@@ -8,6 +8,7 @@ namespace Viteloge\FrontendBundle\Controller {
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+    use Symfony\Component\HttpFoundation\Response;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use Symfony\Component\EventDispatcher\EventDispatcher;
     use Symfony\Component\HttpFoundation\Request;

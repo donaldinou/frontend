@@ -10,6 +10,7 @@ namespace Viteloge\FrontendBundle\EventListener {
     use Presta\SitemapBundle\EventListener\RouteAnnotationEventListener;
     use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
     use Viteloge\FrontendBundle\Component\Helper\AdHelper;
+    use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 
     class SitemapListener extends RouteAnnotationEventListener {
 
