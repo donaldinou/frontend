@@ -34,7 +34,7 @@
 {%- endblock header -%}
 {%- block breadcrumb -%}
     {%- set breadcrumbs = [
-        { url : '', text: text: 'viteloge.error.occurred'|trans},
+        { url : '', text: 'viteloge.error.occurred'|trans},
     ] -%}
     {{ include('VitelogeUserBundle:base:breadcrumb.html.twig', { listClass: 'breadcrumb', breadcrumbs: breadcrumbs }) }}
 {%- endblock breadcrumb -%}
