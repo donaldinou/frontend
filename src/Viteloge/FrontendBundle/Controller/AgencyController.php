@@ -160,6 +160,7 @@ namespace Viteloge\FrontendBundle\Controller {
 
             $seoPage
                 ->setTitle($title)
+                ->addMeta('name', 'robots', 'index, follow')
                 ->addMeta('name', 'description', $description)
                 ->addMeta('property', 'og:title', $seoPage->getTitle())
                 ->addMeta('property', 'og:type', 'website')
