@@ -175,13 +175,20 @@ namespace Viteloge\FrontendBundle\Controller {
                 'mitula_bot' => 'java/1.6.0_26'
             );
             $forbiddenIP = array(
-
+                'ac3' => '185.133.82.126',
             );
+
             $ua = $request->headers->get('User-Agent');
             $ip = $request->getClientIp();
 
+            $bots=true;
+            if (preg_match('/bot|spam|slurp|facebook|archiver|crawl|curl|dataprovider|search|get|spider|find|java|majesticsEO|google|yahoo|teoma|contaxe|yandex|libwww-perl/i', $ua)) {
+             $bots = false;
+            }
+
             // log redirect
-            if (!in_array($ua, $forbiddenUA) && !in_array($ip, $forbiddenIP)) {
+            if (!in_array($ua, $forbiddenUA) && !in_array($ip, $forbiddenIP) && $bots) {
+
                 $now = new \DateTime('now',new \DateTimeZone('Europe/Paris'));
                 $statistics = new Statistics();
                 $statistics->setIp($ip);
