@@ -153,7 +153,7 @@ namespace Viteloge\FrontendBundle\Pagerfanta\View\Template {
          */
         private function pageWithTextAndClass($page, $text, $class, $animate='rightToLeft') {
             $href = $this->generateRoute($page);
-            return $this->linkLi($class, $href, $text, $animate);
+            return $this->_linkLi($class, $href, $text, $animate);
         }
 
         /**
@@ -178,15 +178,22 @@ namespace Viteloge\FrontendBundle\Pagerfanta\View\Template {
         /**
          *
          */
-        private function linkLi($class, $href, $text, $animate) {
+        private function _linkLi($class, $href, $text, $animate) {
             return $this->elementLi('a', $href, $class, '', $text, null, $animate);
         }
 
         /**
          *
          */
-        private function spanLi($class, $text) {
-            return $this->elementLi('span', '', $class, '', $text, null, $animate);
+        protected function linkLi($class, $href, $text, $rel=null) {
+            return $this->elementLi('a', $href, $class, '', $text, null, 'rightToLeft');
+        }
+
+        /**
+         *
+         */
+        protected function spanLi($class, $text) {
+            return $this->elementLi('span', '', $class, '', $text, null, 'rightToLeft');
         }
     }
 
