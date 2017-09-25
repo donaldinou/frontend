@@ -20,7 +20,7 @@
 {%- endblock flash -%}
 
 {%- block main -%}
-    {%- if not redirect -%}
+    {%- if redirect -%}
         {%- set imgClass = imgClass|default('lazy') -%}
         {%- embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 12, 'rsize': 12 } -%}
             {% block left %}
@@ -248,7 +248,7 @@
     </div>
 {% endblock -%}
 {%- block footer -%}
-    {%- if not redirect -%}
+    {%- if redirect -%}
     {%- if form is defined and form.vars.value.where and form.vars.value.where.0 -%}
         <div class="col-lg-2 hidden-md hidden-sm hidden-xs">
                  <ul>
