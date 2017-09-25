@@ -20,26 +20,105 @@
 {%- endblock flash -%}
 
 {%- block main -%}
-    {%- if redirect -%}
+    {%- if not redirect -%}
         {%- set imgClass = imgClass|default('lazy') -%}
         {%- embed "VitelogeUserBundle:grid:two-columns.html.twig" with { 'lsize': 12, 'rsize': 12 } -%}
             {% block left %}
-                <div class="row text-center" style="padding-top:30px;padding-bottom: 152px;"></div>
+            <div class="row text-center" style="padding-top:30px;padding-bottom: 152px;"></div>
                 <div id="MSG-IMPORTANT" class="panel text-center" style="border: medium none; background: rgb(255, 255, 255) none repeat scroll 0px 0px; box-shadow: 0px 0px 20px rgb(204, 204, 204); border-radius: 3px;">
+                    <a id="bar" href="{{ ad.url }}" style="font-size: 16px; color: rgb(0, 161, 198);" target="_blank">
                     <p style="margin-bottom: 0.8em; color: rgb(25, 106, 125); text-transform: uppercase; font-weight: 500; font-size: 16px;margin-bottom: 20px !important;padding:25px 0 !important;">
                         <i class="fa fa-exclamation-triangle fa-3" aria-hidden="true" style="font-size: 50px; color: #ccc; margin-bottom: 10px"></i><br/>
                         {{ "Le site "~ad.agencyName~" ne permet pas l'affichage de cette annonce sur cette page"  }}<br/>
                         {{ "Cliquez sur le lien pour voir le détail" | trans }}<br>
                     </p>
-                    <a id="bar" href="{{ ad.url }}" style="font-size: 16px; color: rgb(0, 161, 198);" target="_blank">{{ ad.url }}</a>
-                    <br/>
-                {% if ad.photo is defined and ad.photo is not empty %}
-                    <a href="{{ ad.url }}" target="_blank">
-                        <img src="{{ aws_s3_domain(ad.photo, false) }}"  style="margin:15px;padding:15px;">
                     </a>
-                {% endif %}
-                 </div>
                 </div>
+                <article class="estate clearfix row-no-padding" itemscope itemtype="http://schema.org/Product" {%- if ad.privilege.hasBgColor -%}{{ 'style="background-color:beige;margin-top:5%;margin-bottom:10%;"' }}{% else %}{{ 'style="margin-top:5%;margin-bottom:10%;"' }}{% endif %}>
+    <figure class="col-md-4">
+        {%- block estate_figure -%}
+            {{ include('VitelogeFrontendBundle:Ad:fragment/image.html.twig',{ 'ad': ad,'description': ad.description }) }}
+        {%- endblock -%}
+
+    </figure>
+
+    <header class="col-md-8">
+        <div class="h4 title" itemprop="name">
+            {%- block estate_title -%}
+                    <a href="{{ ad.url }}" class="link text-left" target="_blank">
+                    <h2 class="small-title">{{ ad.type~' ' }}{{ include('VitelogeFrontendBundle:Ad:fragment/rooms_and_surface.html.twig', { 'ad': ad }) }} <br/>{% trans %}ad.at{% endtrans %} {{ ad.cityName }} ({{ ad.postalcode }})<span class="price pull-right" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+            {%- block estate_price -%}
+                {{ ad.price | schematizedcurrency('EUR') | raw }}
+            {%- endblock estate_price -%}
+        </span></h2>
+                </a>
+            {%- endblock estate_title -%}
+
+        </div>
+
+
+    </header>
+    <div class="col-md-8 clearfix description text-justify" role="presentation" itemprop="description">
+        {%- block estate_content -%}
+        <p {%- if ad.privilege.isBold -%}{{ ' style="font-weight: 600;"' }} {% endif %}>{{ ad.advancedDescription|capitalize|normalize_utf8|raw }}</p>
+            <a href="{{ ad.url }}" class="link text-left" target="_blank">
+                <span>{%- trans with {'%agency%': ad.agencyDomainName} -%}ad.list.on.agency{%- endtrans -%}</span>
+            </a>
+        {%- endblock estate_content -%}
+    </div>
+    <footer id="estate-{{ ad.id }}-tab" class="col-md-12 footer clearfix">
+        <ul class="nav nav-pills pull-right" role="tablist">
+            {% if ad.privilege.isAgency %}
+            <li role="presentation" class="expand-hover" itemscope itemtype="https://schema.org/RealEstateAgent">
+                <a id="estate-{{ ad.id }}-group-lnk" href="#estate-{{ ad.id }}-group" class="viewMessage" role="tab" aria-controls="estate-{{ ad.id }}-group" aria-expanded="false" data-toggle="tab" data-parent="#estate-{{ ad.id }}-tab" data-value="{{ ad.id }}" itemprop="url" onclick="ga('send', 'event', 'page-listing-de-bien', 'clic-bouton-mail-agence', 'contact-agence-mail')">
+                    <span class="fa fa-envelope"></span>
+                    <span class="hidden-xs expand-hover-text" itemprop="legalName">{{ ad.agencyName }}</span>
+                </a>
+            </li>
+            {% endif %}
+            <li role="presentation" class="expand-hover">
+                <a href="{{ ad.url }}" class="" role="tab" target="_blank">
+                    <span class="fa fa-desktop"></span>
+                    <span class="hidden-xs expand-hover-text">{% trans %}ad.visit{% endtrans %}</span>
+                </a>
+            </li>
+            <li role="presentation" class="expand-hover">
+                <a id="estate-{{ ad.id }}-share-lnk" href="#estate-{{ ad.id }}-share" class="social-share-lnk" role="tab" aria-controls="estate-{{ ad.id }}-share" aria-expanded="false" data-toggle="tab" data-parent="#estate-{{ ad.id }}-tab" onclick="ga('send', 'event', 'page-listing-de-bien', 'clic-partager', 'partager')">
+                    <span class="fa fa-share"></span>
+                    <span class="hidden-xs expand-hover-text">{% trans %}ad.share{% endtrans %}</span>
+                </a>
+            </li>
+            {#{% if app.environment == 'dev' %}
+                <li role="presentation" class="expand-hover">
+                    <a id="estate-{{ ad.id }}-debug-lnk" href="#estate-{{ ad.id }}-debug" class="" role="tab" aria-controls="estate-{{ ad.id }}-debug" aria-expanded="false" data-toggle="collapse" data-parent="#estate-{{ ad.id }}-tab">
+                        <span class="fa fa-wrench"></span>
+                        <span class="hidden-xs expand-hover-text">{% trans %}ad.debug{% endtrans %}</span>
+                    </a>
+                </li>
+            {% endif %}#}
+        </ul>
+        <div class="clearfix"></div>
+        <div id="#estate-{{ ad.id }}-tab-content" class="tab-content clearfix">
+            {% if ad.privilege.isAgency %}
+                <div class="collapse col-md-12 tab-pane fade" id="estate-{{ ad.id }}-group" role="tabpanel" aria-labelledby="estate-{{ ad.id }}-group-lnk">
+                    <div class="well" id="agencyform-{{ ad.id }}" style="color:black">
+                        {# render(path('viteloge_frontend_message_new', { ad: ad.id })) #}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="collapse col-md-12 tab-pane social-share fade" id="estate-{{ ad.id }}-share" role="tabpanel" aria-labelledby="estate-{{ ad.id }}-share-lnk">
+                <div class="well">
+                    {{ include('VitelogeFrontendBundle:Block:social_share.html.twig', { url: path('viteloge_frontend_ad_redirect', { 'id': ad.id }), text: 'viteloge.share.ad.text'|trans() }) }}
+                </div>
+            </div>
+            {#{% if app.environment == 'dev' %}
+            <div class="collapse col-md-12 tab-paned" id="estate-{{ ad.id }}-debug" role="tabpanel" aria-labelledby="estate-{{ ad.id }}-debug">
+                <div class="well">{{ dump(ad) }}</div>
+            </div>
+            {% endif %}#}
+        </div>
+    </footer>
+</article>
             {% endblock %}
 
         {%- endembed -%}
@@ -169,7 +248,7 @@
     </div>
 {% endblock -%}
 {%- block footer -%}
-    {%- if redirect -%}
+    {%- if not redirect -%}
     {%- if form is defined and form.vars.value.where and form.vars.value.where.0 -%}
         <div class="col-lg-2 hidden-md hidden-sm hidden-xs">
                  <ul>
