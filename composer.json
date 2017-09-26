@@ -34,7 +34,7 @@
         "friendsofsymfony/elastica-bundle": "~3.1",
         "friendsofsymfony/jsrouting-bundle": "^1.5",
         "whiteoctober/breadcrumbs-bundle": "dev-master",
-        "white-october/pagerfanta-bundle": "dev-master",
+        "white-october/pagerfanta-bundle": "dev-master#040d2372db1535c37e9cf92ee979f5cae590ef2d",
         "pagerfanta/pagerfanta": "1.0.4",
         "ruflin/Elastica": "~1.4",
         "genemu/form-bundle": "~2.2",
