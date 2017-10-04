@@ -30,7 +30,10 @@
                     <p style="margin-bottom: 0.8em; color: rgb(25, 106, 125); text-transform: uppercase; font-weight: 500; font-size: 16px;margin-bottom: 20px !important;padding:25px 0 !important;">
                         <i class="fa fa-exclamation-triangle fa-3" aria-hidden="true" style="font-size: 50px; color: #ccc; margin-bottom: 10px"></i><br/>
                         {{ "Le site "~ad.agencyName~" ne permet pas l'affichage de cette annonce sur cette page"  }}<br/>
-                        {{ "Cliquez sur le lien pour voir le détail" | trans }}<br>
+                        <button type="button" alt="{{ "Plus de détails" | trans }}" title="{{ "Cliquez pour plus de détails" | trans }}" class="btn btn-primary btn-lg">
+                           {{ "Plus de détails" | trans }}
+                            </button>
+
                     </p>
                     </a>
                 </div>
