@@ -21,10 +21,13 @@
             <a href="{{ path('viteloge_frontend_sitemap_index') }}">{% trans %}viteloge.sitemap{% endtrans %}</a>
         </li>
         <li class="footli">
-            <a href="{{ path('viteloge_frontend_static_contactus') }}">{% trans %}viteloge.contact.us{% endtrans %}</a>
+            <a href="{{ path('viteloge_frontend_static_ad') }}">{% trans %}viteloge.publicite{% endtrans %}</a>
         </li>
         <li class="footli">
-            <a href="{{ path('viteloge_frontend_static_ad') }}">{% trans %}viteloge.publicite{% endtrans %}</a>
+            <a href="{{ path('viteloge_frontend_static_contactus') }}">
+            <button type="button" alt="{% trans %}viteloge.contact.us{% endtrans %}" title="{% trans %}viteloge.contact.us{% endtrans %}" class="btn btn-primary btn-lg">
+                {% trans %}viteloge.contact.us{% endtrans %}
+            </button></a>
         </li>
     </ul>
 </div>
